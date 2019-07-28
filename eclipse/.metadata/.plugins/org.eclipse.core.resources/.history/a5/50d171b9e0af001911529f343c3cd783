@@ -1,0 +1,18 @@
+ package de.cas_ual_ty.linguaaspecta;
+
+import javax.annotation.Nullable;
+
+public abstract class NodeExec extends Node
+{
+	public NodeExec(int posX, int posY, int outputAmt, int inputAmt)
+	{
+		super(posX, posY, outputAmt, inputAmt);
+	}
+	
+	/**
+	 * Get the next output of the execution data type which basically just decides the next node to calculate. The next node's non calculated parents are calculated before.
+	 * @return The next node in execution order.
+	 */
+	@Nullable
+	public abstract Output getNextExec();
+}

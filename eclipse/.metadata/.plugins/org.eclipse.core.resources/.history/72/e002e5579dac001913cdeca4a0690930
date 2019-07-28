@@ -1,0 +1,6 @@
+package de.cas_ual_ty.mundusmagicus.magic;
+
+public enum EnumMagicDataType
+{
+	public static final NUMBER;
+}

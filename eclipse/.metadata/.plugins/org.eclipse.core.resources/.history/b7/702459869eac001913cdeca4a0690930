@@ -1,0 +1,50 @@
+package de.cas_ual_ty.mundusmagicus.magic;
+
+public class Connection
+{
+	/**
+	 * The node the output is from (the source of this connection)
+	 */
+	protected Node nodeOut;
+	
+	/**
+	 * The node the input is from (the destination of this connection)
+	 */
+	protected Node nodeIn;
+	
+	/**
+	 * The index of the output parameter
+	 */
+	protected int indexOut;
+	
+	/**
+	 * The index of the input parameter
+	 */
+	protected int indexIn;
+	
+	/**
+	 * The node the output is from
+	 */
+	public Node getNodeOut()
+	{
+		return nodeOut;
+	}
+	
+	/**
+	 * @return The node the input is from (the destination of this connection)
+	 */
+	public Node getNodeIn()
+	{
+		return nodeIn;
+	}
+	
+	public int getIndexOut()
+	{
+		return indexOut;
+	}
+	
+	public int getIndexIn()
+	{
+		return indexIn;
+	}
+}

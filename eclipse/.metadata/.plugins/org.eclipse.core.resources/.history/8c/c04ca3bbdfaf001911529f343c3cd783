@@ -1,0 +1,20 @@
+package de.cas_ual_ty.mundusmagicus.magic.constant;
+
+import de.cas_ual_ty.mundusmagicus.magic.EnumMagicDataType;
+import de.cas_ual_ty.mundusmagicus.magic.Input;
+import de.cas_ual_ty.mundusmagicus.magic.Node;
+import de.cas_ual_ty.mundusmagicus.magic.Output;
+
+public class Pi extends Node0to1
+{
+	public Pi(int posX, int posY)
+	{
+		super(posX, posY);
+	}
+	
+	@Override
+	protected float getValue()
+	{
+		return (float) Math.PI;
+	}
+}

@@ -1,0 +1,21 @@
+package de.cas_ual_ty.mundusmagicus.magic.function;
+
+import de.cas_ual_ty.linguaaspecta.EnumMagicDataType;
+import de.cas_ual_ty.linguaaspecta.Input;
+import de.cas_ual_ty.linguaaspecta.Node;
+import de.cas_ual_ty.linguaaspecta.Output;
+import de.cas_ual_ty.mundusmagicus.magic.general.Node1to1;
+
+public class Logarithm1p extends Node1to1
+{
+	public Logarithm1p(int posX, int posY)
+	{
+		super(posX, posY);
+	}
+	
+	@Override
+	protected float calculate(float in1)
+	{
+		return (float) Math.log1p(in1);
+	}
+}

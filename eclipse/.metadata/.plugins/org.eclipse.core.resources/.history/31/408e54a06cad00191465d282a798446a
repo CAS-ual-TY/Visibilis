@@ -1,0 +1,33 @@
+package de.cas_ual_ty.mundusmagicus.magic.event;
+
+import de.cas_ual_ty.mundusmagicus.magic.EnumMagicDataType;
+import de.cas_ual_ty.mundusmagicus.magic.Node;
+import de.cas_ual_ty.mundusmagicus.magic.NodeField;
+
+public class Event extends Node
+{
+
+	@Override
+	public NodeField[] getOutput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NodeField[] getInput() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NodeField getOutput(int index) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public NodeField getInput(int index) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}

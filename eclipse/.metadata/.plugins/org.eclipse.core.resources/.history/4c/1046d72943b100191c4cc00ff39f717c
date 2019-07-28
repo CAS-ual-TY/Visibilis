@@ -1,0 +1,38 @@
+package de.cas_ual_ty.visibilis.event;
+
+import de.cas_ual_ty.visibilis.EnumVDataType;
+import de.cas_ual_ty.visibilis.Node;
+import de.cas_ual_ty.visibilis.Output;
+
+public class Event extends Node
+{
+	public final Output outExec;
+	
+	public Event(int posX, int posY, int outputAmt, int inputAmt, String modId, String eventType)
+	{
+		super(posX, posY, outputAmt, inputAmt);
+		this.outExec = new Output(0, this, EnumVDataType.EXEC.dataTypeString, "exec");
+	}
+	
+	public Event(int posX, int posY, int inputAmt, String modId, String eventType)
+	{
+		this(posX, posY, 1, inputAmt, modId, eventType);
+	}
+	
+	public Event(int posX, int posY)
+	{
+		this(posX, posY, 0);
+	}
+	
+	@Override
+	public boolean doCalculate()
+	{
+		return true;
+	}
+	
+	@Override
+	public <B> B getOutputValue(int index)
+	{
+		return null;
+	}
+}

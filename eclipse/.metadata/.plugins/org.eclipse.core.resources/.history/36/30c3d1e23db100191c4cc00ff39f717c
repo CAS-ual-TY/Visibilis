@@ -1,0 +1,17 @@
+package de.cas_ual_ty.visibilis.icalculate;
+
+import de.cas_ual_ty.visibilis.general.FFtoF;
+
+public class Minus extends FFtoF
+{
+	public Minus(int posX, int posY)
+	{
+		super(posX, posY);
+	}
+	
+	@Override
+	protected float calculate(float in1, float in2)
+	{
+		return in1 - in2;
+	}
+}

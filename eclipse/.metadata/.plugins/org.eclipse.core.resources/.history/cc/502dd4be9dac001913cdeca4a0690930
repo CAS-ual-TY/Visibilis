@@ -1,0 +1,20 @@
+package de.cas_ual_ty.mundusmagicus.magic;
+
+public class Connection
+{
+	/**
+	 * The node the output is from
+	 */
+	public Node nodeOut;
+	
+	/**
+	 * The node the output is from
+	 */
+	public Node nodeIn;
+	
+	/**
+	 * The index of the output
+	 */
+	public int indexOut;
+	public int indexIn;
+}

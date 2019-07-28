@@ -1,0 +1,12 @@
+package de.cas_ual_ty.mundusmagicus.visibilis.target;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
+public class TargetsList extends AbstractList<Target> implements List<Target>, RandomAccess, Cloneable, Serializable
+{
+
+}

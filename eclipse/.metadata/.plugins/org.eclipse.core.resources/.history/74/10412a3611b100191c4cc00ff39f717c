@@ -1,0 +1,21 @@
+package de.cas_ual_ty.visibilis.function;
+
+import de.cas_ual_ty.visibilis.EnumVDataType;
+import de.cas_ual_ty.visibilis.Input;
+import de.cas_ual_ty.visibilis.Node;
+import de.cas_ual_ty.visibilis.Output;
+import de.cas_ual_ty.visibilis.general.Node1to1;
+
+public class LogarithmE extends Node1to1
+{
+	public LogarithmE(int posX, int posY)
+	{
+		super(posX, posY);
+	}
+	
+	@Override
+	protected float calculate(float in1)
+	{
+		return (float) Math.log(in1);
+	}
+}

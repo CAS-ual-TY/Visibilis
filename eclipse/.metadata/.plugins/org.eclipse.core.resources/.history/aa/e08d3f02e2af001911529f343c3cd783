@@ -1,0 +1,11 @@
+package de.cas_ual_ty.visibilis;
+
+import java.util.ArrayList;
+
+public enum EnumMagicDataType
+{
+	/*
+	 * Might remove this all together some day and just replace with strings in node fields.
+	 */
+	EXEC, FLOAT, BOOLEAN, TARGETS_LIST;
+}

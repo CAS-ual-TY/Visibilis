@@ -1,0 +1,11 @@
+package de.cas_ual_ty.mundusmagicus;
+
+import net.minecraftforge.fml.common.Mod;
+
+@Mod(modid=)
+public class MundusMagicus
+{
+	public static final String MOD_ID = "mundusmagicus";
+	public static final String MOD_NAME = "Mundus Magicus";
+	public static final String MOD_VERSION = "1.0";
+}

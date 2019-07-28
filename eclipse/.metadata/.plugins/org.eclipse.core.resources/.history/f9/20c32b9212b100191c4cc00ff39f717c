@@ -1,0 +1,21 @@
+package de.cas_ual_ty.visibilis.icalculate;
+
+import de.cas_ual_ty.visibilis.EnumVDataType;
+import de.cas_ual_ty.visibilis.Input;
+import de.cas_ual_ty.visibilis.Node;
+import de.cas_ual_ty.visibilis.Output;
+import de.cas_ual_ty.visibilis.general.NodeFFtoF;
+
+public class Plus extends NodeFFtoF
+{
+	public Plus(int posX, int posY)
+	{
+		super(posX, posY);
+	}
+	
+	@Override
+	protected float calculate(float in1, float in2)
+	{
+		return in1 + in2;
+	}
+}

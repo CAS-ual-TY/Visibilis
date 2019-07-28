@@ -1,0 +1,23 @@
+package de.cas_ual_ty.visibilis.event;
+
+import de.cas_ual_ty.visibilis.Node;
+
+public class Event extends Node
+{
+	public Event(int posX, int posY, int outputAmt, int inputAmt)
+	{
+		super(posX, posY, outputAmt, inputAmt);
+	}
+	
+	@Override
+	public boolean doCalculate()
+	{
+		return true;
+	}
+
+	@Override
+	public <B> B getOutputValue(int index)
+	{
+		return null;
+	}
+}

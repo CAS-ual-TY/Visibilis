@@ -1,0 +1,20 @@
+package de.cas_ual_ty.mundusmagicus.magic.calculate;
+
+import de.cas_ual_ty.mundusmagicus.magic.EnumMagicDataType;
+import de.cas_ual_ty.mundusmagicus.magic.Input;
+import de.cas_ual_ty.mundusmagicus.magic.Node;
+import de.cas_ual_ty.mundusmagicus.magic.Output;
+
+public class Logarithm10 extends Node1to1
+{
+	public Logarithm10(int posX, int posY)
+	{
+		super(posX, posY);
+	}
+	
+	@Override
+	protected float calculate(float in1)
+	{
+		return (float) Math.log10(in1);
+	}
+}

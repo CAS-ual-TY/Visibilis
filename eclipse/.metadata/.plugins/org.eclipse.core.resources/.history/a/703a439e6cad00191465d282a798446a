@@ -1,0 +1,19 @@
+package de.cas_ual_ty.mundusmagicus.magic.event;
+
+import de.cas_ual_ty.mundusmagicus.magic.EnumMagicDataType;
+import de.cas_ual_ty.mundusmagicus.magic.Node;
+
+public class Event extends Node
+{
+	@Override
+	public EnumMagicDataType getOutput(int index)
+	{
+		return null;
+	}
+	
+	@Override
+	public EnumMagicDataType getInput(int index)
+	{
+		return null;
+	}
+}

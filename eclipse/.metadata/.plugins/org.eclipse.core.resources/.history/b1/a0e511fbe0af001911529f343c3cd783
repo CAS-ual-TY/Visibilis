@@ -1,0 +1,21 @@
+package de.cas_ual_ty.visibilis.calculate;
+
+import de.cas_ual_ty.mundusmagicus.magic.general.Node2to1;
+import de.cas_ual_ty.visibilis.EnumMagicDataType;
+import de.cas_ual_ty.visibilis.Input;
+import de.cas_ual_ty.visibilis.Node;
+import de.cas_ual_ty.visibilis.Output;
+
+public class Pow extends Node2to1
+{
+	public Pow(int posX, int posY)
+	{
+		super(posX, posY);
+	}
+	
+	@Override
+	protected float calculate(float in1, float in2)
+	{
+		return (float) Math.pow(in1, in2);
+	}
+}

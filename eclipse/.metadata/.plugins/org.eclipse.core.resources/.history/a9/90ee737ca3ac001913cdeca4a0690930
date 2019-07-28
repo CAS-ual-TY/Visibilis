@@ -1,0 +1,81 @@
+package de.cas_ual_ty.mundusmagicus.magic;
+
+import java.util.ArrayList;
+
+import de.cas_ual_ty.mundusmagicus.MundusMagicus;
+
+public class NodeField
+{
+	/**
+	 * The parent node of this node field
+	 * @see de.cas_ual_ty.mundusmagicus.magic.Node
+	 */
+	public final Node node;
+	
+	/**
+	 * The data type of this node field
+	 * @see de.cas_ual_ty.mundusmagicus.magic.EnumDataType
+	 */
+	public final EnumMagicDataType dataType;
+	
+	/**
+	 * true: This is an output field | false: This is an input field
+	 */
+	public final boolean isOutput;
+	
+	/**
+	 * All node fields this is connected to
+	 */
+	private final ArrayList<NodeField> connections;
+	
+	public NodeField(Node node, EnumMagicDataType dataType, boolean isOutput)
+	{
+		this.node = node;
+		this.dataType = dataType;
+		this.connections = new ArrayList<NodeField>();
+		this.isOutput = isOutput;
+	}
+	
+	/**
+	 * Check if this node field can connect to another node field. {@link #isOutput} must not be equal
+	 * @param field
+	 * @return
+	 */
+	public boolean canConnectTo(NodeField field)
+	{
+		return field != this && field.isOutput != this.isOutput && field.dataType == this.dataType;
+	}
+	
+	public boolean tryConnectTo(NodeField field)
+	{
+		return this.canConnectTo(field) && this.setConnectionTo(field);
+	}
+	
+	private boolean setConnectionTo(NodeField field)
+	{
+		if(!this.connections.contains(field))
+		{
+			this.connections.add(field);
+			
+			if(!field.connections.contains(this))
+			{
+				field.connections.add(this);
+			}
+			else
+			{
+				MundusMagicus.warn("[001] NodeField connection was already existent, but onesided!");
+			}
+			
+			return true;
+		}
+		else if(!field.connections.contains(this))
+		{
+			field.connections.add(this);
+			
+			MundusMagicus.warn("[002] NodeField connection was already existent, but onesided!");
+			return true;
+		}
+		
+		return false;
+	}
+}

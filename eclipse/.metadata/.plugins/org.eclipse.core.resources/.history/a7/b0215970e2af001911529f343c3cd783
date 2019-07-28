@@ -1,0 +1,23 @@
+package de.cas_ual_ty.mundusmagicus.visibilis.target;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class TargetsList implements List
+{
+	//TODO
+	public ArrayList<Target> targets;
+	
+	/**
+	 * Empty this list entirely
+	 */
+	public void clear()
+	{
+		//TODO
+	}
+	
+	public TargetsList clone()
+	{
+		return null; //TODO
+	}
+}

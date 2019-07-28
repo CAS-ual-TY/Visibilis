@@ -1,0 +1,11 @@
+package de.cas_ual_ty.mundusmagicus.magic;
+
+public abstract class NodeExec extends Node
+{
+	public NodeExec(int posX, int posY, int outputAmt, int inputAmt)
+	{
+		super(posX, posY, outputAmt, inputAmt);
+	}
+	
+	public abstract NodeField<> getNextExec();
+}

@@ -1,0 +1,70 @@
+package de.cas_ual_ty.mundusmagicus.magic;
+
+public class Connection
+{
+	/**
+	 * The node the output is from
+	 */
+	protected Node nodeOut;
+	
+	/**
+	 * The node the input is from
+	 */
+	protected Node nodeIn;
+	
+	/**
+	 * The index of the output parameter
+	 */
+	protected int indexOut;
+	
+	/**
+	 * The index of the input parameter
+	 */
+	protected int indexIn;
+	
+	/**
+	 * The node the output is from
+	 */
+	public Node getNodeOut()
+	{
+		return nodeOut;
+	}
+	
+	/**
+	 * The node the input is from
+	 */
+	public void setNodeOut(Node nodeOut)
+	{
+		this.nodeOut = nodeOut;
+	}
+
+	public Node getNodeIn()
+	{
+		return nodeIn;
+	}
+
+	public void setNodeIn(Node nodeIn)
+	{
+		this.nodeIn = nodeIn;
+	}
+
+	public int getIndexOut()
+	{
+		return indexOut;
+	}
+
+	public void setIndexOut(int indexOut)
+	{
+		this.indexOut = indexOut;
+	}
+
+	public int getIndexIn()
+	{
+		return indexIn;
+	}
+
+	public void setIndexIn(int indexIn)
+	{
+		this.indexIn = indexIn;
+	}
+}

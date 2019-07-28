@@ -1,0 +1,5 @@
+package de.cas_ual_ty.mundusmagicus.magic.event;
+
+public class Event {
+
+}

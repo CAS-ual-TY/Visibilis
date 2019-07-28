@@ -1,0 +1,59 @@
+package de.cas_ual_ty.mundusmagicus.visibilis.target;
+
+import de.cas_ual_ty.visibilis.EnumMagicDataType;
+import de.cas_ual_ty.visibilis.Input;
+import de.cas_ual_ty.visibilis.Node;
+
+public abstract class Sorter extends Node
+{
+	public final Input<TargetsList> inTargetsList;
+	public final Input<TargetsList> outTargetsList1;
+	public final Input<TargetsList> outTargetsList2;
+	
+	public TargetsList targetsList1;
+	public TargetsList targetsList2;
+	
+	public Sorter(int posX, int posY, int inputAmt)
+	{
+		super(posX, posY, 2, inputAmt);
+		this.inTargetsList = new Input<TargetsList>(0, this, EnumMagicDataType.TARGETS_LIST, "targets_list");
+		this.outTargetsList1 = new Input<TargetsList>(0, this, EnumMagicDataType.TARGETS_LIST, "targets_list");
+		this.outTargetsList2 = new Input<TargetsList>(1, this, EnumMagicDataType.TARGETS_LIST, "targets_list");
+		this.targetsList1 = new TargetsList();
+		this.targetsList2 = new TargetsList();
+	}
+	
+	public Sorter(int posX, int posY)
+	{
+		this(posX, posY, 1);
+	}
+	
+	@Override
+	public boolean doCalculate()
+	{
+		this.targetsList1.clear();
+		this.targetsList2.clear();
+		this.targetsList1 = this.inTargetsList.<TargetsList>getValue().clone();
+		return this.sortOut(this.targetsList1, this.targetsList2);
+	}
+	
+	/**
+	 * Sort out the targets from one list and add them to the other.
+	 * @param list1 The TargetsList instance containing all Target instances to remove false targets from.
+	 * @param list2 The TargetsList instance to add all removed targets to.
+	 * @return <b>false</b> if there was an error and the process could not be done (example: input variable was undefined or it's value not allowed or out of range).
+	 */
+	public abstract boolean sortOut(TargetsList list1, TargetsList list2);
+	
+	@Override
+	public <B> B getOutputValue(int index)
+	{
+		switch(index)
+		{
+		case 0: return (B) this.targetsList1;
+		case 1: return (B) this.targetsList2;
+		}
+		
+		return null;
+	}
+}

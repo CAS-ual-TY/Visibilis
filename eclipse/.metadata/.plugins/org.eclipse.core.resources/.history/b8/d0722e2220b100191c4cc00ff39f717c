@@ -1,0 +1,9 @@
+package de.cas_ual_ty.visibilis;
+
+import net.minecraftforge.fml.common.Mod;
+
+@Mod(modid = "")
+public class Visibilis
+{
+	
+}

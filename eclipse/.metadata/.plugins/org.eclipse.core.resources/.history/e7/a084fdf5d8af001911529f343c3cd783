@@ -1,0 +1,6 @@
+package de.cas_ual_ty.mundusmagicus.magic;
+
+public class NodeFieldExec extends NodeField
+{
+
+}

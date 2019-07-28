@@ -1,0 +1,13 @@
+package de.cas_ual_ty.visibilis.condition;
+
+import de.cas_ual_ty.visibilis.NodeExec;
+
+public class NodeB1 extends NodeExec
+{
+	
+	
+	public NodeB1(int posX, int posY, int outputAmt, int inputAmt)
+	{
+		super(posX, posY, outputAmt, inputAmt);
+	}
+}
