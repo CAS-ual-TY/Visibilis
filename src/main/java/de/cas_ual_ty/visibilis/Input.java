@@ -70,4 +70,19 @@ public class Input<A> extends NodeField<A>
 		
 		return list;
 	}
+	
+	@Override
+	public void clearConnections()
+	{
+		this.connection = null;
+	}
+	
+	@Override
+	public void removeConnection(NodeField field)
+	{
+		if(this.connection == field)
+		{
+			this.connection = null;
+		}
+	}
 }

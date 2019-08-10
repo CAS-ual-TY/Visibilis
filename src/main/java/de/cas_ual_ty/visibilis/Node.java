@@ -240,4 +240,20 @@ public abstract class Node
 	{
 		this.calculated = false;
 	}
+	
+	/**
+	 * Cut all connections of inputs and outputs (both directions).
+	 */
+	public void disconnect()
+	{
+		for(Output out : this.outputFields)
+		{
+			out.cutConnections();
+		}
+		
+		for(Input in : this.inputFields)
+		{
+			in.cutConnections();
+		}
+	}
 }

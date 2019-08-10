@@ -36,7 +36,20 @@ public class Output<A> extends NodeField<A>
 		{
 			if(!this.connections.contains(field))
 			{
-				this.connections.add((Input) field);
+				//Make sure exec node fields can only have 1 connection (not output to multiple inputs)
+				if(this.dataType.equals(EnumVDataType.EXEC.dataTypeString))
+				{
+					//Just to be sure. This is only false if someone accidentally added an exec node field to a non exec node
+					if(field.node instanceof NodeExec)
+					{
+						this.connections.clear();
+						this.connections.add((Input) field);
+					}
+				}
+				else
+				{
+					this.connections.add((Input) field);
+				}
 			}
 			
 			return true;
@@ -77,5 +90,17 @@ public class Output<A> extends NodeField<A>
 		}
 		
 		return list;
+	}
+
+	@Override
+	public void clearConnections()
+	{
+		this.connections.clear();
+	}
+
+	@Override
+	public void removeConnection(NodeField field)
+	{
+		this.connections.remove(field);
 	}
 }

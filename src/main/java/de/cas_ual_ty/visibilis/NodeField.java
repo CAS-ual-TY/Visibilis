@@ -105,4 +105,28 @@ public abstract class NodeField<A>
 	 * @return A list of all node fields this is node field is connected to.
 	 */
 	public abstract ArrayList<NodeField> getConnectionsList();
+	
+	/**
+	 * Cut all connections to other fields (but not their connections to this field).
+	 */
+	public abstract void clearConnections();
+	
+	/**
+	 * Cut the connection from a field to this field (but not from this field to the given field).
+	 * @param field The node field to cut the connection from.
+	 */
+	public abstract void removeConnection(NodeField field);
+	
+	/**
+	 * Cut all connections to other fields, and their connections to this field.
+	 */
+	public void cutConnections()
+	{
+		for(NodeField field : this.getConnectionsList())
+		{
+			field.removeConnection(this);
+		}
+		
+		this.clearConnections();
+	}
 }
