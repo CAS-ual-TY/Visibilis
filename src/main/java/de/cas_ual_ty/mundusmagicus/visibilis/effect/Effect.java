@@ -1,5 +1,6 @@
 package de.cas_ual_ty.mundusmagicus.visibilis.effect;
 
+import de.cas_ual_ty.mundusmagicus.visibilis.EnumMMDataType;
 import de.cas_ual_ty.mundusmagicus.visibilis.target.TargetsList;
 import de.cas_ual_ty.visibilis.EnumVDataType;
 import de.cas_ual_ty.visibilis.Input;
@@ -17,7 +18,7 @@ public abstract class Effect extends NodeExec
 		super(posX, posY, outputAmt, inputAmt);
 		this.outExec = new Output(0, this, EnumVDataType.EXEC.dataTypeString, "exec");
 		this.inExec = new Input(0, this, EnumVDataType.EXEC.dataTypeString, "exec");
-		this.inTargetsList = new Input<TargetsList>(1, this, EnumVDataType.TARGETS_LIST.dataTypeString, "targets_list");
+		this.inTargetsList = new Input<TargetsList>(1, this, EnumMMDataType.TARGETS_LIST.dataTypeString, "targets_list");
 	}
 	
 	public Effect(int posX, int posY, int inputAmt)

@@ -1,5 +1,6 @@
 package de.cas_ual_ty.mundusmagicus.visibilis.selektor;
 
+import de.cas_ual_ty.mundusmagicus.visibilis.EnumMMDataType;
 import de.cas_ual_ty.mundusmagicus.visibilis.target.TargetsList;
 import de.cas_ual_ty.visibilis.EnumVDataType;
 import de.cas_ual_ty.visibilis.Node;
@@ -16,7 +17,7 @@ public abstract class Selektor extends Node
 	{
 		super(posX, posY, outputAmt, inputAmt);
 		this.outExec = new Output(0, this, EnumVDataType.EXEC.dataTypeString, "exec");
-		this.outTargetsList = new Output<TargetsList>(1, this, EnumVDataType.TARGETS_LIST.dataTypeString, "targets_list");
+		this.outTargetsList = new Output<TargetsList>(1, this, EnumMMDataType.TARGETS_LIST.dataTypeString, "targets_list");
 		this.targetsList = new TargetsList();
 	}
 	

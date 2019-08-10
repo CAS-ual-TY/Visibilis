@@ -6,7 +6,7 @@ public enum EnumVDataType
 	 * Might remove this all together some day and just replace with strings in node fields.
 	 * Might also change all floats to the Number class.
 	 */
-	EXEC("exec"), FLOAT("float"), INTEGER("integer"), BOOLEAN("boolean"), TARGETS_LIST("targets_list");
+	EXEC("exec"), FLOAT("float"), INTEGER("integer"), BOOLEAN("boolean");
 	
 	public final String dataTypeString;
 	

@@ -1,5 +1,6 @@
 package de.cas_ual_ty.mundusmagicus.visibilis.target;
 
+import de.cas_ual_ty.mundusmagicus.visibilis.EnumMMDataType;
 import de.cas_ual_ty.visibilis.EnumVDataType;
 import de.cas_ual_ty.visibilis.Input;
 import de.cas_ual_ty.visibilis.NodeExec;
@@ -20,10 +21,10 @@ public abstract class Sorter extends NodeExec
 	{
 		super(posX, posY, 3, inputAmt);
 		this.outExec = new Output(0, this, EnumVDataType.EXEC.dataTypeString, "exec");
-		this.outTargetsList1 = new Output<TargetsList>(1, this, EnumVDataType.TARGETS_LIST.dataTypeString, "targets_list");
-		this.outTargetsList2 = new Output<TargetsList>(2, this, EnumVDataType.TARGETS_LIST.dataTypeString, "targets_list");
+		this.outTargetsList1 = new Output<TargetsList>(1, this, EnumMMDataType.TARGETS_LIST.dataTypeString, "targets_list");
+		this.outTargetsList2 = new Output<TargetsList>(2, this, EnumMMDataType.TARGETS_LIST.dataTypeString, "targets_list");
 		this.inExec = new Input(0, this, EnumVDataType.EXEC.dataTypeString, "exec");
-		this.inTargetsList = new Input<TargetsList>(1, this, EnumVDataType.TARGETS_LIST.dataTypeString, "targets_list");
+		this.inTargetsList = new Input<TargetsList>(1, this, EnumMMDataType.TARGETS_LIST.dataTypeString, "targets_list");
 		this.targetsList2 = new TargetsList();
 	}
 	

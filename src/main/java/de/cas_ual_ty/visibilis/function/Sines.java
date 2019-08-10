@@ -1,9 +1,5 @@
 package de.cas_ual_ty.visibilis.function;
 
-import de.cas_ual_ty.visibilis.EnumVDataType;
-import de.cas_ual_ty.visibilis.Input;
-import de.cas_ual_ty.visibilis.Node;
-import de.cas_ual_ty.visibilis.Output;
 import de.cas_ual_ty.visibilis.general.FtoF;
 
 public class Sines extends FtoF
@@ -12,7 +8,7 @@ public class Sines extends FtoF
 	{
 		super(posX, posY);
 	}
-
+	
 	@Override
 	protected float calculate(float in1)
 	{

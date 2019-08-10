@@ -9,6 +9,38 @@
       <title>eclipse.org</title>
       <link>http://www.eclipse.org</link>
     </image>
+   <item>
+      <title><![CDATA[Community Day and Community Evening at EclipseCon Europe 2019]]></title>
+      <link><![CDATA[https://blogs.eclipse.org/post/stephanie-swart/community-day-and-community-evening-eclipsecon-europe-2019]]></link>
+      <description><![CDATA[Learn how you can help us plan Community Day and the new Community Evening this year at EclipseCon Europe!]]></description>
+      <pubDate>Wed, 07 Aug 2019 15:00:00 EST</pubDate>
+      <category>news</category>
+      <pressrelease>0</pressrelease>
+    </item>
+    <item>
+      <title><![CDATA[Update for Jakarta EE community: August 2019]]></title>
+      <link><![CDATA[https://blogs.eclipse.org/post/tanja-obradovic/update-jakarta-ee-community-august-2019]]></link>
+      <description><![CDATA[There's a lot happening in the Jakarta EE ecosystem so if you want to get a richer insight into Jakarta EE, read on.]]></description>
+      <pubDate>Wed, 07 Aug 2019 15:00:00 EST</pubDate>
+      <category>news</category>
+      <pressrelease>0</pressrelease>
+    </item>
+    <item>
+      <title><![CDATA[Eclipse Newsletter - July 2019: Research@Eclipse]]></title>
+      <link><![CDATA[https://blogs.eclipse.org/post/gabriela-motroc/eclipse-newsletter-july-2019-researcheclipse]]></link>
+      <description><![CDATA[Read Gabriela Motroc's latest blog on the Eclipse Newsletter: Research@Eclipse]]></description>
+      <pubDate>Thu, 26 Jul 2019 08:45:00 EST</pubDate>
+      <category>news</category>
+      <pressrelease>0</pressrelease>
+    </item>
+     <item>
+      <title><![CDATA[The latest Eclipse Newsletter had been released: Research@Eclipse]]></title>
+      <link><![CDATA[https://www.eclipse.org/community/eclipse_newsletter/2019/july/]]></link>
+      <description><![CDATA[We are very proud to offer you an introduction to most of the research projects we're involved in and the Eclipse Foundation!]]></description>
+      <pubDate>Thu, 25 Jul 2019 09:45:00 EST</pubDate>
+      <category>news</category>
+      <pressrelease>0</pressrelease>
+    </item>
      <item>
       <title><![CDATA[Industrial-Scale Collaboration for the Business Win]]></title>
       <link><![CDATA[https://blogs.eclipse.org/post/mike-milinkovich/industrial-scale-collaboration-business-win]]></link>
@@ -19,7 +51,7 @@
     </item>
      <item>
       <title><![CDATA[Commercial-Grade Collaboration at the Eclipse Foundation]]></title>
-      <link><![CDATA[https://blogs.eclipse.org/post/mike-milinkovich/industrial-scale-collaboration-business-win]]></link>
+      <link><![CDATA[https://blogs.eclipse.org/post/thabang-mashologu/commercial-grade-collaboration-eclipse-foundation]]></link>
       <description><![CDATA[We've just released a Business of Open Source eBook that is essential reading for leaders in the age of digital disruption who are considering how to maximize their returns from open source participation.]]></description>
       <pubDate>Tue, 16 Jul 2019 10:10:00 EST</pubDate>
       <category>news</category>
