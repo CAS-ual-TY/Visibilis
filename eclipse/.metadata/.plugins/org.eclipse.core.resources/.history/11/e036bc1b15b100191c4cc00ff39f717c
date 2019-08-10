@@ -1,6 +1,0 @@
-package de.cas_ual_ty.visibilis.event;
-
-public enum EnumVEventType
-{
-
-}
