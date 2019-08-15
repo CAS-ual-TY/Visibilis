@@ -14,7 +14,7 @@ public class Print
 	}
 	
 	/**
-	 * Add a node to this print. It will be added on top.
+	 * Add a node to this print. It will be added on top. If the node is already present it will be moved to the top.
 	 * @param node The node to be added.
 	 * @return The print instance itself.
 	 */
@@ -22,6 +22,7 @@ public class Print
 	{
 		if(this.containsNode(node))
 		{
+			//Remove node from the list to add it on top again
 			this.removeNodeKeepConnections(node);
 		}
 		
@@ -60,7 +61,9 @@ public class Print
 	}
 	
 	/**
-	 * Runs {@link #exec(NodeExec)}. Then resets all nodes
+	 * Executes all connected exec nodes in succession to the given parameter ({@link #exec(NodeExec)}). Then resets all nodes.
+	 * @param node The node to start the exec chain from.
+	 * @return <b>true</b> if the given parameter exec node and all child exec nodes could be calculated successfully.
 	 */
 	public boolean execute(NodeExec node)
 	{
@@ -81,28 +84,49 @@ public class Print
 	 */
 	protected boolean exec(NodeExec node)
 	{
+		//If the node can not be calculated, abort
 		if(!node.calculate())
 		{
 			return false;
 		}
 		
 		Output out;
+		Input in;
 		NodeExec next;
 		int i = 0;
 		
+		/*
+		 * Now to explain the following segment and loop...
+		 * You might be asking: "Why a loop? Why not just a single connection?"
+		 * And the answer is in the question: Loops!
+		 * This way, you can make nodes which can actually loop.
+		 * Because for every exec node it will keep looping through, until no further sub node can be found.
+		 */
+		
+		//Loop through all outputs of the exec type
 		while((out = node.getOutExec(i)) != null)
 		{
-			next = (NodeExec) out.getConnections().get(0);
+			//Get the connected input of the next node
+			in = (Input) out.getConnections().get(0);
 			
-			if(next != null)
+			if(in != null)
 			{
-				if(!this.exec(next))
+				//Get the node of the input
+				next = (NodeExec) in.node;
+				
+				if(next != null)
 				{
-					return false;
+					//Check the the sub node has been successfully calculated
+					if(!this.exec(next))
+					{
+						//Abort if false
+						return false;
+					}
 				}
+				
+				//Increment to get the next sub node once the current one is finished calculating
+				++i;
 			}
-			
-			++i;
 		}
 		
 		return true;
