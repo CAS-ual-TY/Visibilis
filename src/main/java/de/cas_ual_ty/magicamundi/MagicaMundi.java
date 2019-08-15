@@ -1,4 +1,4 @@
-package de.cas_ual_ty.mundusmagicus;
+package de.cas_ual_ty.magicamundi;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -6,11 +6,11 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid=MundusMagicus.MOD_ID, name=MundusMagicus.MOD_NAME, version=MundusMagicus.MOD_VERSION)
-public class MundusMagicus
+@Mod(modid=MagicaMundi.MOD_ID, name=MagicaMundi.MOD_NAME, version=MagicaMundi.MOD_VERSION)
+public class MagicaMundi
 {
-	public static final String MOD_ID = "mundusmagicus";
-	public static final String MOD_NAME = "Mundus Magicus";
+	public static final String MOD_ID = "magicamundi";
+	public static final String MOD_NAME = "Magica Mundi";
 	public static final String MOD_VERSION = "1.0.0.0";
 	
 	@EventHandler

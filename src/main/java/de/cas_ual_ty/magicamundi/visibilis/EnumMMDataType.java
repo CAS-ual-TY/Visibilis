@@ -1,4 +1,4 @@
-package de.cas_ual_ty.mundusmagicus.visibilis;
+package de.cas_ual_ty.magicamundi.visibilis;
 
 public enum EnumMMDataType
 {

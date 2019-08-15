@@ -1,7 +1,7 @@
-package de.cas_ual_ty.mundusmagicus.visibilis.effect;
+package de.cas_ual_ty.magicamundi.visibilis.effect;
 
-import de.cas_ual_ty.mundusmagicus.visibilis.EnumMMDataType;
-import de.cas_ual_ty.mundusmagicus.visibilis.target.TargetsList;
+import de.cas_ual_ty.magicamundi.visibilis.EnumMMDataType;
+import de.cas_ual_ty.magicamundi.visibilis.target.TargetsList;
 import de.cas_ual_ty.visibilis.EnumVDataType;
 import de.cas_ual_ty.visibilis.Input;
 import de.cas_ual_ty.visibilis.NodeExec;

@@ -1,4 +1,4 @@
-package de.cas_ual_ty.mundusmagicus.visibilis.target;
+package de.cas_ual_ty.magicamundi.visibilis.target;
 
 import java.util.ArrayList;
 
