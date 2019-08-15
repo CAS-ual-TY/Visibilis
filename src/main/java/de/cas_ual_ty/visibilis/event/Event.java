@@ -1,10 +1,10 @@
 package de.cas_ual_ty.visibilis.event;
 
 import de.cas_ual_ty.visibilis.EnumVDataType;
-import de.cas_ual_ty.visibilis.Node;
+import de.cas_ual_ty.visibilis.NodeExec;
 import de.cas_ual_ty.visibilis.Output;
 
-public class Event extends Node
+public class Event extends NodeExec
 {
 	public final Output outExec;
 	
@@ -55,5 +55,11 @@ public class Event extends Node
 	public String getEventType()
 	{
 		return this.modId + ":" + this.eventType;
+	}
+
+	@Override
+	public Output getOutExec(int index)
+	{
+		return null;
 	}
 }
