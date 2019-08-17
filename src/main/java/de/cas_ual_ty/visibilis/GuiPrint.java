@@ -1,5 +1,7 @@
 package de.cas_ual_ty.visibilis;
 
+import java.util.ArrayList;
+
 import org.lwjgl.opengl.GL11;
 
 import de.cas_ual_ty.visibilis.node.Node;
@@ -19,6 +21,8 @@ public class GuiPrint extends GuiScreen
 	
 	//The entire node width
 	public static int nodeWidth = nodeHeight * 10;
+	
+	public static int nodeFieldDotSize = 4;
 	
 	protected Print print;
 	
@@ -171,9 +175,7 @@ public class GuiPrint extends GuiScreen
 	 */
 	public void drawNodeField(NodeField field, int x, int y, final int width, final int height)
 	{
-		final int dotSize = 4; //Size of the dot. 4x4 drawn inside height x height
-		
-		int xDot; //Where to draw the dot
+		int dotX, dotY; //Where to draw the dot
 		int xName; //Where to draw the name
 		
 		//width - dot - extra pixels: to make sure there is a gap between inputs and outputs
@@ -182,29 +184,67 @@ public class GuiPrint extends GuiScreen
 		if(field.isInput())
 		{
 			//Input, so draw the dot on the left, the name on the right
-			xDot = x;
-			xName = xDot + height;
+			dotX = x;
+			xName = dotX + height;
 		}
 		else
 		{
 			//Output, so draw the dot on the right, the name on the left
 			xName = x;
-			xDot = x + width - height;
+			dotX = x + width - height;
 		}
 		
 		//See de.cas_ual_ty.visibilis.datatype.DataType for explantion of deprecation. TODO Remove as this only works for Visibilis only data types. THIS IS TEMPORARY CALM DOWN
 		EnumVDataType type = EnumVDataType.valueOf(field.name.toUpperCase());
 		
-		//Draw dot
-		drawRect(xDot + (height - dotSize) / 2, y + (height - dotSize) / 2, dotSize, dotSize, type.r, type.g, type.b);
-		
 		//Draw inner colored rectangle
 		drawRect(xName + 1, y + 1, wName - 2, height - 2, type.r, type.g, type.b);
+		
+		//Draw dot and connections
+		dotX += (height - nodeFieldDotSize) / 2;
+		dotY = y + (height - nodeFieldDotSize) / 2;
+		this.drawNodeFieldConnections(field, xName, y, width, height, type, dotX, dotY);
+		drawRect(dotX, dotY, nodeFieldDotSize, nodeFieldDotSize, type.r, type.g, type.b);
 		
 		//Draw name
 		String name = field.getUnlocalizedName(); //TODO translate
 		name = this.fontRenderer.trimStringToWidth(name, width - 4); //Trim the name in case it is too big
 		this.fontRenderer.drawString(name, xName + 2, y + 2, 0xFFFFFFFF); //Draw the trimmed name, maybe add shadow?
+	}
+	
+	/**
+	 * Draw a node field's connections of the given coordinates (not the node's coordinates!).
+	 */
+	public void drawNodeFieldConnections(NodeField field, int x, int y, final int width, final int height, EnumVDataType type, int dotX, int dotY)
+	{
+		//Draw output -> input connections, not the other way around, for proper overlay order.
+		if(field.isInput())
+		{
+			return;
+		}
+		
+		//Retrieve all connections
+		ArrayList<NodeField> connections = field.getConnectionsList();
+		
+		//Prepare variables so we dont create new ones in each loop
+		int offX, offY;
+		
+		//Loop through "destinations"
+		for(NodeField dest : connections)
+		{
+			//We are already at the dot position of the 1st field, so we can just take the difference of the nodes themselves to get the 2nd dot's position
+			offX = dest.node.posX - field.node.posX;
+			offY = dest.node.posY - field.node.posY;
+			
+			//Our position is an output dot, so we need to shift to an input dot
+			offX -= nodeWidth - nodeHeight;
+			
+			//Adjust Y, eg. 1st field might be the 2nd in order, the 2nd field might be the 4th in order
+			offY += (dest.id - field.id) * nodeHeight;
+			
+			//Now draw the line, half transparent
+			drawLine(dotX, dotY, dotX + offX, dotY + offY, 2, type.r, type.g, type.b, (byte)127);
+		}
 	}
 	
 	public Object getObjectHovering(int mouseX, int mouseY, int x, int y, int w, int h)
