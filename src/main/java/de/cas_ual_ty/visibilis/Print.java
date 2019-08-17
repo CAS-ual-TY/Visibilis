@@ -66,6 +66,14 @@ public class Print
 	}
 	
 	/**
+	 * @return The list of nodes (no clone or copy).
+	 */
+	public ArrayList<Node> getNodes()
+	{
+		return this.nodes;
+	}
+	
+	/**
 	 * Executes all connected exec nodes in succession to the given parameter ({@link #exec(NodeExec)}). Then resets all nodes.
 	 * @param node The node to start the exec chain from.
 	 * @return <b>true</b> if the given parameter exec node and all child exec nodes could be calculated successfully.
