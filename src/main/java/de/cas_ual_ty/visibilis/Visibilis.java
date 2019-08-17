@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-@Mod(modid = "")
+@Mod(modid = Visibilis.MOD_ID, name = Visibilis.MOD_NAME, version = Visibilis.MOD_VERSION)
 public class Visibilis
 {
 	public static final String MOD_ID = "visibilis";
