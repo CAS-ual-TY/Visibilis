@@ -79,6 +79,23 @@ public class GuiPrint extends GuiScreen
 	public void drawInner(int mouseX, int mouseY, float partialTicks)
 	{
 		this.drawPrint(this.print);
+		
+		Object obj = this.getObjectHoveringInner(mouseX, mouseY);
+		
+		if(obj instanceof Node)
+		{
+			Node node = (Node) obj;
+			
+			//Draw white rect over node, half transparent
+			this.drawRect(node.posX, node.posY, nodeWidth, nodeHeight * this.getVerticalNodeFieldsAndHeader(node), (byte)255, (byte)255, (byte)255, (byte)127);
+		}
+		else if(obj instanceof NodeField)
+		{
+			NodeField field = (NodeField) obj;
+			
+			//Draw white rect over node field, half transparent
+			this.drawRect(field.node.posX + (field.isInput() ? 0 : nodeWidth / 2), field.node.posY + nodeHeight * (field.id + 1), nodeWidth / 2, nodeHeight, (byte)255, (byte)255, (byte)255, (byte)127);
+		}
 	}
 	
 	public void drawPrint(Print print)
@@ -104,7 +121,7 @@ public class GuiPrint extends GuiScreen
 		// --- Start drawing node itself ---
 		
 		//Draw entire node background (the +1 to include the header)
-		this.drawRect(x, y, nodeWidth, nodeHeight * (this.getVerticalNodeFields(node) + 1), (byte)0, (byte)0, (byte)0);
+		this.drawRect(x, y, nodeWidth, nodeHeight * this.getVerticalNodeFieldsAndHeader(node), (byte)0, (byte)0, (byte)0);
 		
 		//#SelfExplainingCodeIsAMeme
 		this.drawNodeHeader(node, x, y, nodeWidth, nodeHeight);
@@ -219,7 +236,7 @@ public class GuiPrint extends GuiScreen
 			x = this.guiToPrint(node.posX);
 			y = this.guiToPrint(node.posY);
 			w = this.guiToPrint(nodeWidth);
-			h = this.guiToPrint(nodeHeight * this.getVerticalNodeFields(node));
+			h = this.guiToPrint(nodeHeight * this.getVerticalNodeFieldsAndHeader(node));
 			
 			//Check if the mouse is on top of the entire node
 			if(this.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
@@ -281,9 +298,9 @@ public class GuiPrint extends GuiScreen
 	
 	/**
 	 * Since inputs and outputs share a line, only the higher amount of inputs or outputs is often needed.
-	 * @return The amount of inputs or outputs (whatever is higher).
+	 * @return The amount of inputs or outputs (whatever is higher) + 1.
 	 */
-	public int getVerticalNodeFields(Node node)
+	public int getVerticalNodeFieldsAndHeader(Node node)
 	{
 		if(node.getInputAmt() > node.getOutputAmt())
 		{
