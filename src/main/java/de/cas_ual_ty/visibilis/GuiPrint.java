@@ -86,7 +86,7 @@ public class GuiPrint extends GuiScreen
 	
 	public void drawInner(int mouseX, int mouseY, float partialTicks)
 	{
-		this.drawPrint(this.print, 0, 0); //TODO print position
+		this.drawPrint(this.print);
 		
 		// --- Draw hovering start ---
 		
@@ -115,7 +115,7 @@ public class GuiPrint extends GuiScreen
 	/**
 	 * Draw a print and all its nodes and connections at the given coordinates
 	 */
-	public void drawPrint(Print print, int x0, int y0)
+	public void drawPrint(Print print)
 	{
 		int x;
 		int y;
@@ -124,8 +124,8 @@ public class GuiPrint extends GuiScreen
 		for(Node node : print.getNodes())
 		{
 			//TODO adjust these coordinates later for scrolling
-			x = node.posX + x0;
-			y = node.posY + y0;
+			x = node.posX + print.posX;
+			y = node.posY + print.posX;
 			this.drawNode(node, x, y);
 		}
 	}

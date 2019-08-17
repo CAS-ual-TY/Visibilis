@@ -10,12 +10,19 @@ import de.cas_ual_ty.visibilis.node.Output;
 public class Print
 {
 	/**
+	 * Where the user currently shifted the print in the GUI. Saved so that they start off again where they last left
+	 */
+	public int posX, posY;
+	
+	/**
 	 * All nodes in this print.
 	 */
 	protected final ArrayList<Node> nodes = new ArrayList<Node>();
 	
 	public Print()
 	{
+		this.posX = 0;
+		this.posY = 0;
 	}
 	
 	/**
