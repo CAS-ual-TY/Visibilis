@@ -3,8 +3,8 @@ package de.cas_ual_ty.magicamundi.visibilis.selektor;
 import de.cas_ual_ty.magicamundi.visibilis.EnumMMDataType;
 import de.cas_ual_ty.magicamundi.visibilis.target.TargetsList;
 import de.cas_ual_ty.visibilis.EnumVDataType;
-import de.cas_ual_ty.visibilis.Node;
-import de.cas_ual_ty.visibilis.Output;
+import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.node.Output;
 
 public abstract class Selektor extends Node
 {

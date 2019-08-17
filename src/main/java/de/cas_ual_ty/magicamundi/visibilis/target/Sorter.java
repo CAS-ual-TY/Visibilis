@@ -2,9 +2,9 @@ package de.cas_ual_ty.magicamundi.visibilis.target;
 
 import de.cas_ual_ty.magicamundi.visibilis.EnumMMDataType;
 import de.cas_ual_ty.visibilis.EnumVDataType;
-import de.cas_ual_ty.visibilis.Input;
-import de.cas_ual_ty.visibilis.NodeExec;
-import de.cas_ual_ty.visibilis.Output;
+import de.cas_ual_ty.visibilis.node.Input;
+import de.cas_ual_ty.visibilis.node.NodeExec;
+import de.cas_ual_ty.visibilis.node.Output;
 
 public abstract class Sorter extends NodeExec
 {
