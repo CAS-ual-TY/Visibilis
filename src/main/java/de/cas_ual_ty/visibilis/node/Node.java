@@ -272,7 +272,7 @@ public abstract class Node
 	public abstract String getID();
 	
 	/**
-	 * Used for translating the name of the node.
+	 * Used for translating the name of this node.
 	 */
 	public String getUnlocalizedName()
 	{
@@ -280,10 +280,26 @@ public abstract class Node
 	}
 	
 	/**
-	 * Used for translating the description of the node.
+	 * Used for translating the description of this node.
 	 */
 	public String getUnlocalizedDesc()
 	{
 		return "node." + this.getID() + ".desc";
+	}
+	
+	/**
+	 * Used for translating the name of a field of this node.
+	 */
+	public String getFieldUnlocalizedName(NodeField field)
+	{
+		return "field." + this.getID() + "." + field.name + ".name";
+	}
+	
+	/**
+	 * Used for translating the description of a field of this node.
+	 */
+	public String getFieldUnlocalizedDesc(NodeField field)
+	{
+		return "field." + this.getID() + "." + field.name + ".desc";
 	}
 }

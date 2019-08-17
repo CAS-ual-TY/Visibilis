@@ -129,4 +129,20 @@ public abstract class NodeField<A>
 		
 		this.clearConnections();
 	}
+	
+	/**
+	 * @see de.cas_ual_ty.visibilis.node.Node#getFieldUnlocalizedName(NodeField)
+	 */
+	public String getUnlocalizedName()
+	{
+		return this.node.getFieldUnlocalizedName(this);
+	}
+	
+	/**
+	 * @see de.cas_ual_ty.visibilis.node.Node#getFieldUnlocalizedDesc(NodeField)
+	 */
+	public String getUnlocalizedDesc()
+	{
+		return this.node.getFieldUnlocalizedDesc(this);
+	}
 }
