@@ -205,12 +205,8 @@ public class GuiPrint extends GuiScreen
 		return null;
 	}
 	
-	protected Object getObjectHoveringInner(int mouseX0, int mouseY0)
+	protected Object getObjectHoveringInner(int mouseX, int mouseY)
 	{
-		//Account for zoom!
-		float mouseX = this.guiToPrint(mouseX0);
-		float mouseY = this.guiToPrint(mouseY0);
-		
 		Node node;
 		float x, y, w, h;
 		
