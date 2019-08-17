@@ -56,21 +56,21 @@ public class GuiPrint extends GuiScreen
 	@Override
 	public void drawScreen(int mouseX, int mouseY, float partialTicks)
 	{
-		GL11.glPushMatrix();
+		GlStateManager.disableLighting();
 		
-		//Apply zoom
-		GL11.glScalef(this.zoom, this.zoom, 0);
-		
-		//TODO window size? Maybe plan layout before starting?
-//		this.scissorStart(x, y, w, h);
-		
-		this.drawPrint(this.print);
+//		this.innerStart(x, y, w, h); //TODO window size? Maybe plan layout before starting?
+		this.drawInner(mouseX, mouseY, partialTicks);
+//		this.innerEnd();
 		
 		//Draw buttons and labels
 		super.drawScreen(mouseX, mouseY, partialTicks);
 		
-//		this.scissorEnd();
-		GL11.glPopMatrix();
+		GlStateManager.enableLighting();
+	}
+	
+	public void drawInner(int mouseX, int mouseY, float partialTicks)
+	{
+		this.drawPrint(this.print);
 	}
 	
 	public void drawPrint(Print print)
@@ -218,28 +218,30 @@ public class GuiPrint extends GuiScreen
 	}
 	
 	/**
-	 * Cut everything off outside the given rectangle. Call this, then the all the draw code, then {@link #scissorEnd()} for cleanup.
+	 * Cut everything off outside the given rectangle. Call this, then the all the draw code, then {@link #innerEnd()} for cleanup.
 	 * @param x Pos X of the rectangle.
 	 * @param y Pos Y of the rectangle.
 	 * @param w Width of the rectangle.
 	 * @param h Height of the rectangle.
 	 */
-	protected void scissorStart(int x, int y, int w, int h)
+	protected void innerStart(int x, int y, int w, int h)
 	{
 		GL11.glEnable(GL11.GL_SCISSOR_TEST);
-	//	GlStateManager.disableLighting();
 		
 		//* scaleFactor due to the automatic resizing depending on window size (or the GUI size settings)
 		//All the fuckaroundery with the Y position because Minecraft 0,0 is at the top left, but lwjgl 0,0 is at the bottom left
 		GL11.glScissor(x * this.scaleFactor, (this.sr.getScaledHeight() - y - h) * this.scaleFactor, w * this.scaleFactor, h * this.scaleFactor);
+		
+		GL11.glPushMatrix();
+		GL11.glScalef(this.zoom, this.zoom, 0); //Apply zoom, 2x zoom means 2x size of prints, so this is fine
 	}
 	
 	/**
-	 * Scissor cleanup. Call {@link #scissorStart(int, int, int, int)}, then all the draw code, then this.
+	 * Scissor cleanup. Call {@link #innerStart(int, int, int, int)}, then all the draw code, then this.
 	 */
-	protected void scissorEnd()
+	protected void innerEnd()
 	{
-	//	GlStateManager.enableLighting();
+		GL11.glPopMatrix();
 		GL11.glDisable(GL11.GL_SCISSOR_TEST);
 	}
 	
