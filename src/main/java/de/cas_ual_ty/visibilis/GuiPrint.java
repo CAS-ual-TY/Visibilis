@@ -357,6 +357,48 @@ public class GuiPrint extends GuiScreen
 	}
 	
 	/**
+	 * {@link #drawLine(int, int, int, int, byte, byte, byte, byte)} but with quick setting of lineWidth
+	 */
+	public static void drawLine(int x1, int y1, int x2, int y2, float lineWidth, byte r, byte g, byte b, byte a)
+	{
+		GlStateManager.glLineWidth(lineWidth);
+		drawLine(x1, y1, x2, y2, r, g, b, a);
+	}
+	
+	/**
+	 * Draws a solid color line with the specified coordinates and color.
+	 */
+	public static void drawLine(int x1, int y1, int x2, int y2, byte r, byte g, byte b, byte a)
+	{
+		Tessellator tessellator = Tessellator.getInstance();
+		BufferBuilder bufferbuilder = tessellator.getBuffer();
+		
+		//Prep time
+		GlStateManager.enableBlend(); //We do need blending
+		GlStateManager.disableTexture2D(); //We dont need textures
+		
+		//Make sure alpha is working
+		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+		
+		//Set the color!
+		GL11.glColor4b(r, g, b, a);
+		
+		//Start drawing
+		bufferbuilder.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
+		
+		//Add vertices
+		bufferbuilder.pos(x1, y1, 0.0D).endVertex();	//P1
+		bufferbuilder.pos(x2, y2, 0.0D).endVertex();	//P2
+		
+		//End drawing
+		tessellator.draw();
+		
+		//Cleanup time
+		GlStateManager.enableTexture2D(); //Turn textures back on
+		GlStateManager.disableBlend(); //Turn blending uhh... back off?
+	}
+	
+	/**
 	 * {@link #drawRect(int, int, int, int, byte, byte, byte, byte)} but without alpha.
 	 */
 	public static void drawRect(int x, int y, int w, int h, byte r, byte g, byte b)
@@ -386,7 +428,7 @@ public class GuiPrint extends GuiScreen
 		GL11.glColor4b(r, g, b, a);
 		
 		//Start drawing
-		bufferbuilder.begin(7, DefaultVertexFormats.POSITION);
+		bufferbuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
 		
 		//Add vertices
 		bufferbuilder.pos(x, y + h, 0.0D).endVertex();		//BL
