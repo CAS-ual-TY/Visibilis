@@ -6,7 +6,6 @@ import org.lwjgl.opengl.GL11;
 
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -22,7 +21,14 @@ public class GuiPrint extends GuiScreen
 	//The entire node width
 	public static int nodeWidth = nodeHeight * 10;
 	
+	//The dot x/y size of node fields
 	public static int nodeFieldDotSize = 4;
+	
+	//Transparency of connection lines
+	public static byte nodeFieldConnectionsAlpha = 127;
+	
+	//Transparency of white box when hovering
+	public static byte hoverAlpha = 127;
 	
 	protected Print print;
 	
@@ -82,27 +88,36 @@ public class GuiPrint extends GuiScreen
 	
 	public void drawInner(int mouseX, int mouseY, float partialTicks)
 	{
-		this.drawPrint(this.print);
+		this.drawPrint(this.print, 0, 0); //TODO print position
+		
+		// --- Draw hovering start ---
 		
 		Object obj = this.getObjectHoveringInner(mouseX, mouseY);
 		
 		if(obj instanceof Node)
 		{
+			//Hovering over a node
 			Node node = (Node) obj;
 			
 			//Draw white rect over node, half transparent
-			this.drawRect(node.posX, node.posY, nodeWidth, nodeHeight * this.getVerticalNodeFieldsAndHeader(node), (byte)255, (byte)255, (byte)255, (byte)127);
+			GuiPrint.drawRect(node.posX, node.posY, nodeWidth, nodeHeight * this.getVerticalNodeFieldsAndHeader(node), (byte)255, (byte)255, (byte)255, hoverAlpha);
 		}
 		else if(obj instanceof NodeField)
 		{
+			//Hovering over a node field
 			NodeField field = (NodeField) obj;
 			
 			//Draw white rect over node field, half transparent
-			this.drawRect(field.node.posX + (field.isInput() ? 0 : nodeWidth / 2), field.node.posY + nodeHeight * (field.id + 1), nodeWidth / 2, nodeHeight, (byte)255, (byte)255, (byte)255, (byte)127);
+			GuiPrint.drawRect(field.node.posX + (field.isInput() ? 0 : nodeWidth / 2), field.node.posY + nodeHeight * (field.id + 1), nodeWidth / 2, nodeHeight, (byte)255, (byte)255, (byte)255, hoverAlpha);
 		}
+		
+		// --- Hovering end ---
 	}
 	
-	public void drawPrint(Print print)
+	/**
+	 * Draw a print and all its nodes and connections at the given coordinates
+	 */
+	public void drawPrint(Print print, int x0, int y0)
 	{
 		int x;
 		int y;
@@ -111,8 +126,8 @@ public class GuiPrint extends GuiScreen
 		for(Node node : print.getNodes())
 		{
 			//TODO adjust these coordinates later for scrolling
-			x = node.posX;
-			y = node.posY;
+			x = node.posX + x0;
+			y = node.posY + y0;
 			this.drawNode(node, x, y);
 		}
 	}
@@ -120,37 +135,33 @@ public class GuiPrint extends GuiScreen
 	/**
 	 * Draw a node at the given coordinates (not the node's coordinates!) and all its node fields.
 	 */
-	public void drawNode(Node node, int x, int y)
+	public void drawNode(Node node, final int x, final int y)
 	{
 		// --- Start drawing node itself ---
 		
 		//Draw entire node background (the +1 to include the header)
-		this.drawRect(x, y, nodeWidth, nodeHeight * this.getVerticalNodeFieldsAndHeader(node), (byte)0, (byte)0, (byte)0);
+		GuiPrint.drawRect(x, y, nodeWidth, nodeHeight * this.getVerticalNodeFieldsAndHeader(node), (byte)0, (byte)0, (byte)0);
 		
 		//#SelfExplainingCodeIsAMeme
-		this.drawNodeHeader(node, x, y, nodeWidth, nodeHeight);
+		this.drawNodeHeader(node, x, y);
 		
 		// --- Done drawing node, now drawing fields (inputs and outputs) ---
-		
-		//Draw below the header
-		y += nodeHeight;
 		
 		int i;
 		NodeField field;
 		
+		//Draw inputs, i + 1 to draw below header
 		for(i = 0; i < node.getInputAmt(); ++i)
 		{
 			field = node.getInput(i);
-			this.drawNodeField(field, x, y + nodeHeight * i, nodeWidth / 2, nodeHeight);
+			this.drawNodeField(field, x, y + nodeHeight * (i + 1));
 		}
 		
-		//Outputs are on the right
-		x += nodeWidth / 2;
-		
+		//Draw outputs, i + 1 to draw below header
 		for(i = 0; i < node.getOutputAmt(); ++i)
 		{
 			field = node.getOutput(i);
-			this.drawNodeField(field, x + nodeWidth / 2, y + nodeHeight * i, nodeWidth / 2, nodeHeight); //Outputs are on the right, so add half width of the node
+			this.drawNodeField(field, x + nodeWidth / 2, y + nodeHeight * (i + 1)); //Outputs are on the right, so add half width of the node
 		}
 		
 		// --- End drawing fields ---
@@ -159,63 +170,72 @@ public class GuiPrint extends GuiScreen
 	/**
 	 * Draw a node header at the given coordinates (not the node's coordinates!).
 	 */
-	public void drawNodeHeader(Node node, int x, int y, final int width, final int height)
+	public void drawNodeHeader(Node node, final int x, final int y)
 	{
 		//Draw the inner colored rectangle
-		drawRect(x + 1, y + 1, width - 2, height - 2, node.getColor()[0], node.getColor()[1], node.getColor()[2]);
+		drawRect(x + 1, y + 1, nodeWidth - 2, nodeHeight - 2, node.getColor()[0], node.getColor()[1], node.getColor()[2]);
 		
 		//Draw the name
 		String name = node.getUnlocalizedName(); //TODO translate
-		name = this.fontRenderer.trimStringToWidth(name, width - 4); //Trim the name in case it is too big
+		name = this.fontRenderer.trimStringToWidth(name, nodeWidth - 4); //Trim the name in case it is too big
 		this.fontRenderer.drawString(name, x + 2, y + 2, 0xFFFFFFFF); //Draw the trimmed name, maybe add shadow?
 	}
 	
 	/**
 	 * Draw a node field at the given coordinates (not the node's coordinates!).
 	 */
-	public void drawNodeField(NodeField field, int x, int y, final int width, final int height)
+	public void drawNodeField(NodeField field, final int x, final int y)
 	{
-		int dotX, dotY; //Where to draw the dot
-		int xName; //Where to draw the name
+		int width = nodeWidth / 2;
 		
-		//width - dot - extra pixels: to make sure there is a gap between inputs and outputs
-		int wName = width - height - height / 2;
+		int dotX, dotY; //Where to draw the dot
+		int nameX, nameY; //Where to draw the name
+		
+		//width - dot - extra pixels - border
+		//... to make sure there is a gap between inputs and outputs. Used to trim the String
+		int nameW = width - nodeHeight - nodeHeight / 2 - 2;
 		
 		if(field.isInput())
 		{
 			//Input, so draw the dot on the left, the name on the right
 			dotX = x;
-			xName = dotX + height;
+			nameX = dotX + nodeHeight;
 		}
 		else
 		{
 			//Output, so draw the dot on the right, the name on the left
-			xName = x;
-			dotX = x + width - height;
+			nameX = x;
+			dotX = x + width - nodeHeight;
 		}
 		
-		//See de.cas_ual_ty.visibilis.datatype.DataType for explantion of deprecation. TODO Remove as this only works for Visibilis only data types. THIS IS TEMPORARY CALM DOWN
+		//See de.cas_ual_ty.visibilis.datatype.DataType for explanation of deprecation. TODO Remove as this only works for Visibilis only data types. THIS IS TEMPORARY CALM DOWN
 		EnumVDataType type = EnumVDataType.valueOf(field.name.toUpperCase());
 		
 		//Draw inner colored rectangle
-		drawRect(xName + 1, y + 1, wName - 2, height - 2, type.r, type.g, type.b);
+		nameX += 1;
+		nameY = y + 1;
+		drawRect(nameX, y, nameW - 2, nodeHeight - 2, type.r, type.g, type.b);
 		
-		//Draw dot and connections
-		dotX += (height - nodeFieldDotSize) / 2;
-		dotY = y + (height - nodeFieldDotSize) / 2;
-		this.drawNodeFieldConnections(field, xName, y, width, height, type, dotX, dotY);
+		//Finally adjust dot position for its size
+		dotX += (nodeHeight - nodeFieldDotSize) / 2;
+		dotY = y + (nodeHeight - nodeFieldDotSize) / 2;
+		
+		//Draw connections
+		this.drawNodeFieldConnections(field, dotX, dotY, type);
+		
+		//Draw dot on top
 		drawRect(dotX, dotY, nodeFieldDotSize, nodeFieldDotSize, type.r, type.g, type.b);
 		
 		//Draw name
 		String name = field.getUnlocalizedName(); //TODO translate
 		name = this.fontRenderer.trimStringToWidth(name, width - 4); //Trim the name in case it is too big
-		this.fontRenderer.drawString(name, xName + 2, y + 2, 0xFFFFFFFF); //Draw the trimmed name, maybe add shadow?
+		this.fontRenderer.drawString(name, nameX + 2, y + 2, 0xFFFFFFFF); //Draw the trimmed name, maybe add shadow?
 	}
 	
 	/**
 	 * Draw a node field's connections of the given coordinates (not the node's coordinates!).
 	 */
-	public void drawNodeFieldConnections(NodeField field, int x, int y, final int width, final int height, EnumVDataType type, int dotX, int dotY)
+	public void drawNodeFieldConnections(NodeField field, int dotX, int dotY, EnumVDataType type)
 	{
 		//Draw output -> input connections, not the other way around, for proper overlay order.
 		if(field.isInput())
@@ -243,7 +263,7 @@ public class GuiPrint extends GuiScreen
 			offY += (dest.id - field.id) * nodeHeight;
 			
 			//Now draw the line, half transparent
-			drawLine(dotX, dotY, dotX + offX, dotY + offY, 2, type.r, type.g, type.b, (byte)127);
+			drawLine(dotX, dotY, dotX + offX, dotY + offY, 2, type.r, type.g, type.b, nodeFieldConnectionsAlpha);
 		}
 	}
 	
@@ -331,6 +351,9 @@ public class GuiPrint extends GuiScreen
 		return null;
 	}
 	
+	/**
+	 * Check if the given mouse coordinates are inside given rectangle
+	 */
 	public boolean isCoordInsideRect(float mouseX, float mouseY, float x, float y, float w, float h)
 	{
 		return mouseX >= x && mouseX <= x + w && mouseY >= y && mouseY <= y + h;
@@ -382,9 +405,8 @@ public class GuiPrint extends GuiScreen
 		//* scaleFactor due to the automatic resizing depending on window size (or the GUI size settings)
 		//All the derparoundery with the Y position because Minecraft 0,0 is at the top left, but lwjgl 0,0 is at the bottom left
 		GL11.glScissor(x * this.scaleFactor, (this.sr.getScaledHeight() - y - h) * this.scaleFactor, w * this.scaleFactor, h * this.scaleFactor);
-		
+		this.applyZoomAndShift();
 		GL11.glPushMatrix();
-		GL11.glScalef(this.zoom, this.zoom, 1); //Apply zoom, 2x zoom means 2x size of prints, so this is fine
 	}
 	
 	/**
@@ -394,6 +416,14 @@ public class GuiPrint extends GuiScreen
 	{
 		GL11.glPopMatrix();
 		GL11.glDisable(GL11.GL_SCISSOR_TEST);
+	}
+	
+	/**
+	 * Move according to the scolling of the user and apply zoom
+	 */
+	protected void applyZoomAndShift() //TODO shift/move (scrolling)
+	{
+		GL11.glScalef(this.zoom, this.zoom, 1); //Apply zoom, 2x zoom means 2x size of prints, so this is fine
 	}
 	
 	/**
