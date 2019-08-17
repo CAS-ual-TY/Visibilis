@@ -256,4 +256,12 @@ public abstract class Node
 			in.cutConnections();
 		}
 	}
+	
+	/**
+	 * Get the header color of this node
+	 */
+	public byte[] getColor()
+	{
+		return new byte[] {(byte) 255, (byte) 255, (byte) 255};
+	}
 }
