@@ -264,4 +264,26 @@ public abstract class Node
 	{
 		return new byte[] {(byte) 255, (byte) 255, (byte) 255};
 	}
+	
+	/**
+	 * Used for storing this node in NBT and for translation. All lower case, '_' can be used.
+	 * @return A unique identifier (similar to unlocalizedName)
+	 */
+	public abstract String getID();
+	
+	/**
+	 * Used for translating the name of the node.
+	 */
+	public String getUnlocalizedName()
+	{
+		return "node." + this.getID() + ".name";
+	}
+	
+	/**
+	 * Used for translating the description of the node.
+	 */
+	public String getUnlocalizedDesc()
+	{
+		return "node." + this.getID() + ".desc";
+	}
 }

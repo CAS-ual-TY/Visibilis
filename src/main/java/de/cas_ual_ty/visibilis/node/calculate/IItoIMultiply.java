@@ -14,4 +14,10 @@ public class IItoIMultiply extends IItoI
 	{
 		return in1 * in2;
 	}
+	
+	@Override
+	public String getID()
+	{
+		return "calc_i_multiply";
+	}
 }

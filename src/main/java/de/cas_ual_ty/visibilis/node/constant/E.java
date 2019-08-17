@@ -12,4 +12,10 @@ public class E extends Node0toF
 	{
 		return (float) Math.E;
 	}
+
+	@Override
+	public String getID()
+	{
+		return "constant_e";
+	}
 }

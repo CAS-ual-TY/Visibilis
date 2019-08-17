@@ -14,4 +14,10 @@ public class FFtoFMultiply extends FFtoF
 	{
 		return in1 * in2;
 	}
+	
+	@Override
+	public String getID()
+	{
+		return "calc_f_multiply";
+	}
 }

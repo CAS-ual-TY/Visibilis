@@ -14,4 +14,10 @@ public class Tangent extends FtoF
 	{
 		return (float) Math.tan(this.in1.getValue());
 	}
+	
+	@Override
+	public String getID()
+	{
+		return "func_tan";
+	}
 }

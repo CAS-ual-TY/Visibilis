@@ -20,4 +20,10 @@ public class FFtoFRoot extends FFtoF
 	{
 		return (float) Math.pow(Math.E, Math.log(in1) / in2);
 	}
+	
+	@Override
+	public String getID()
+	{
+		return "calc_f_root";
+	}
 }

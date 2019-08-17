@@ -21,4 +21,10 @@ public class FFtoFPow extends FFtoF
 	{
 		return (float) Math.pow(in1, in2);
 	}
+	
+	@Override
+	public String getID()
+	{
+		return "calc_f_pow";
+	}
 }

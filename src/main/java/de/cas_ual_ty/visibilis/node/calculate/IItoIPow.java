@@ -14,4 +14,10 @@ public class IItoIPow extends IItoI
 	{
 		return (int) Math.pow(in1, in2);
 	}
+	
+	@Override
+	public String getID()
+	{
+		return "calc_i_pow";
+	}
 }

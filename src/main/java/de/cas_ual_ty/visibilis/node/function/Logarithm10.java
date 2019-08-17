@@ -14,4 +14,10 @@ public class Logarithm10 extends FtoF
 	{
 		return (float) Math.log10(in1);
 	}
+	
+	@Override
+	public String getID()
+	{
+		return "func_log_10";
+	}
 }

@@ -41,4 +41,10 @@ public class NodeCondition extends NodeExec
 	{
 		return null;
 	}
+
+	@Override
+	public String getID()
+	{
+		return "condition";
+	}
 }

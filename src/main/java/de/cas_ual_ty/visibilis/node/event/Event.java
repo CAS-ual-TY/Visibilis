@@ -62,4 +62,10 @@ public class Event extends NodeExec
 	{
 		return null;
 	}
+
+	@Override
+	public String getID()
+	{
+		return "event_" + this.eventType;
+	}
 }

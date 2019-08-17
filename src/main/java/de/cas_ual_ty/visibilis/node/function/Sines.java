@@ -14,4 +14,10 @@ public class Sines extends FtoF
 	{
 		return (float) Math.sin(this.in1.getValue());
 	}
+	
+	@Override
+	public String getID()
+	{
+		return "func_sin";
+	}
 }

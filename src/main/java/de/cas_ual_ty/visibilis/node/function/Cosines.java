@@ -14,4 +14,10 @@ public class Cosines extends FtoF
 	{
 		return (float) Math.cos(this.in1.getValue());
 	}
+
+	@Override
+	public String getID()
+	{
+		return "func_cos";
+	}
 }

@@ -12,4 +12,10 @@ public class Pi extends Node0toF
 	{
 		return (float) Math.PI;
 	}
+
+	@Override
+	public String getID()
+	{
+		return "constant_pi";
+	}
 }
