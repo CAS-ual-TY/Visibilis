@@ -35,7 +35,6 @@ public class GuiPrint extends GuiScreen
 	public float zoom = 1F;
 	
 	protected ScaledResolution sr;
-	protected int scaleFactor;
 	
 	// --- Mouse clicks on node or field -> temporarily (and additionally) stored here ---
 	//
@@ -58,7 +57,6 @@ public class GuiPrint extends GuiScreen
 	public void initGui()
 	{
 		this.sr = new ScaledResolution(this.mc);
-		this.scaleFactor = this.sr.getScaleFactor();
 	}
 	
 	/**
@@ -401,12 +399,11 @@ public class GuiPrint extends GuiScreen
 	protected void innerStart(int x, int y, int w, int h)
 	{
 		GL11.glEnable(GL11.GL_SCISSOR_TEST);
-		
 		//* scaleFactor due to the automatic resizing depending on window size (or the GUI size settings)
 		//All the derparoundery with the Y position because Minecraft 0,0 is at the top left, but lwjgl 0,0 is at the bottom left
-		GL11.glScissor(x * this.scaleFactor, (this.sr.getScaledHeight() - y - h) * this.scaleFactor, w * this.scaleFactor, h * this.scaleFactor);
-		this.applyZoomAndShift();
+		GL11.glScissor(x * this.sr.getScaleFactor(), (this.sr.getScaledHeight() - y - h) * this.sr.getScaleFactor(), w * this.sr.getScaleFactor(), h * this.sr.getScaleFactor());
 		GL11.glPushMatrix();
+		this.applyZoomAndShift(); //Inside of the matrix since you would otherwise "touch" everything outside of the matrix
 	}
 	
 	/**
