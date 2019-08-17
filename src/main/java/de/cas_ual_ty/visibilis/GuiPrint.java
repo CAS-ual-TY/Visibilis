@@ -14,6 +14,12 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 
 public class GuiPrint extends GuiScreen
 {
+	//The height of the header or an output/input NOT THE ENTIRE NODE WIDTH AS THEY HAVE DIFFERENT SIZES
+	public static int nodeHeight = 12;
+	
+	//The entire node width
+	public static int nodeWidth = nodeHeight * 10;
+	
 	protected Print print;
 	
 	public float zoom = 1F;
@@ -31,7 +37,7 @@ public class GuiPrint extends GuiScreen
 	protected int attachedPrevX;
 	protected int attachedPrevY;
 	//
-	// --- End temporarily stored things someone clicked on ---
+	// --- End temporarily stored things the user clicked on ---
 	
 	public GuiPrint(Print print)
 	{
@@ -58,9 +64,11 @@ public class GuiPrint extends GuiScreen
 	{
 		GlStateManager.disableLighting();
 		
-//		this.innerStart(x, y, w, h); //TODO window size? Maybe plan layout before starting?
+		int x = 0, y = 0, w = 0, h = 0; //TODO TODO TODO window size? Maybe plan layout before starting? Make static?
+		
+		this.innerStart(x, y, w, h);
 		this.drawInner(mouseX, mouseY, partialTicks);
-//		this.innerEnd();
+		this.innerEnd();
 		
 		//Draw buttons and labels
 		super.drawScreen(mouseX, mouseY, partialTicks);
@@ -93,37 +101,18 @@ public class GuiPrint extends GuiScreen
 	 */
 	public void drawNode(Node node, int x, int y)
 	{
-		//Sizes in px for each field as well as the header (keep 1px border in mind, or maybe not?)
-		final int height = 12;
-		final int width = 120;
-		
-		//The amount of needed space for node fields below. Since inputs and outputs share a line, only the higher amount needs to be taken care of
-		int fieldMax;
-		
-		if(node.getInputAmt() > node.getOutputAmt())
-		{
-			fieldMax = node.getInputAmt();
-		}
-		else
-		{
-			fieldMax = node.getOutputAmt();
-		}
-		
-		//Include the header
-		++fieldMax;
-		
 		// --- Start drawing node itself ---
 		
-		//Draw entire node background, maybe add border later?
-		this.drawRect(x, y, width, height * fieldMax, (byte)0, (byte)0, (byte)0);
+		//Draw entire node background (the +1 to include the header)
+		this.drawRect(x, y, nodeWidth, nodeHeight * (this.getVerticalNodeFields(node) + 1), (byte)0, (byte)0, (byte)0);
 		
-		//#SelfExplainingCodeIsNotAlwaysAMeme
-		this.drawNodeHeader(node, x, y, width, height);
+		//#SelfExplainingCodeIsAMeme
+		this.drawNodeHeader(node, x, y, nodeWidth, nodeHeight);
 		
 		// --- Done drawing node, now drawing fields (inputs and outputs) ---
 		
 		//Draw below the header
-		y += height;
+		y += nodeHeight;
 		
 		int i;
 		NodeField field;
@@ -131,16 +120,16 @@ public class GuiPrint extends GuiScreen
 		for(i = 0; i < node.getInputAmt(); ++i)
 		{
 			field = node.getInput(i);
-			this.drawNodeField(field, x, y + height * i, width / 2, height);
+			this.drawNodeField(field, x, y + nodeHeight * i, nodeWidth / 2, nodeHeight);
 		}
 		
 		//Outputs are on the right
-		x += width / 2;
+		x += nodeWidth / 2;
 		
 		for(i = 0; i < node.getOutputAmt(); ++i)
 		{
 			field = node.getOutput(i);
-			this.drawNodeField(field, x + width / 2, y + height * i, width / 2, height); //Outputs are on the right, so add half width of the node
+			this.drawNodeField(field, x + nodeWidth / 2, y + nodeHeight * i, nodeWidth / 2, nodeHeight); //Outputs are on the right, so add half width of the node
 		}
 		
 		// --- End drawing fields ---
@@ -201,12 +190,121 @@ public class GuiPrint extends GuiScreen
 		this.fontRenderer.drawString(name, xName + 2, y + 2, 0xFFFFFFFF); //Draw the trimmed name, maybe add shadow?
 	}
 	
+	public Object getObjectHovering(int mouseX, int mouseY, int x, int y, int w, int h)
+	{
+		if(this.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
+		{
+			//Inner
+			return this.getObjectHoveringInner(mouseX, mouseY);
+		}
+		else
+		{
+			//Outer
+		}
+		
+		return null;
+	}
+	
+	protected Object getObjectHoveringInner(int mouseX0, int mouseY0)
+	{
+		//Account for zoom!
+		float mouseX = this.guiToPrint(mouseX0);
+		float mouseY = this.guiToPrint(mouseY0);
+		
+		Node node;
+		float x, y, w, h;
+		
+		//Loop from back to front, as those are on top
+		for(int i = this.print.nodes.size() - 1; i >= 0; --i)
+		{
+			node = this.print.nodes.get(i);
+			
+			//Entire node position and size, zoom accounted for
+			x = this.guiToPrint(node.posX);
+			y = this.guiToPrint(node.posY);
+			w = this.guiToPrint(nodeWidth);
+			h = this.guiToPrint(nodeHeight * this.getVerticalNodeFields(node));
+			
+			//Check if the mouse is on top of the entire node
+			if(this.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
+			{
+				if(this.isCoordInsideRect(mouseX, mouseY, x, y, w, this.guiToPrint(nodeHeight)))
+				{
+					//Inside header -> return node itself
+					return node;
+				}
+				else
+				{
+					//Not inside header -> node fields
+					
+					int j;
+					
+					if(this.isCoordInsideRect(mouseX, mouseY, x, y, this.guiToPrint(nodeWidth / 2), h))
+					{
+						//Left side -> inputs
+						
+						for(j = 1; j <= node.getInputAmt(); ++j)
+						{
+							if(this.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(node.posY + nodeHeight * j), w, this.guiToPrint(nodeHeight)))
+							{
+								//inside this node field -> return it
+								return node.getInput(j);
+							}
+						}
+						
+						//No node field found, which means there are more outputs than inputs -> mouse is below inputs, so return the node itself
+						return node;
+					}
+					else
+					{
+						//Right side -> outputs
+						
+						for(j = 1; j <= node.getOutputAmt(); ++j)
+						{
+							if(this.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(node.posY + nodeHeight * j), w, this.guiToPrint(nodeHeight)))
+							{
+								//inside this node field -> return it
+								return node.getOutput(j);
+							}
+						}
+						
+						//No node field found, which means there are more inputs than outputs -> mouse is below outputs, so return the node itself
+						return node;
+					}
+				}
+			}
+		}
+		
+		return null;
+	}
+	
+	public boolean isCoordInsideRect(float mouseX, float mouseY, float x, float y, float w, float h)
+	{
+		return mouseX >= x && mouseX <= x + w && mouseY >= y && mouseY <= y + h;
+	}
+	
+	/**
+	 * Since inputs and outputs share a line, only the higher amount of inputs or outputs is often needed.
+	 * @return The amount of inputs or outputs (whatever is higher).
+	 */
+	public int getVerticalNodeFields(Node node)
+	{
+		if(node.getInputAmt() > node.getOutputAmt())
+		{
+			return node.getInputAmt();
+		}
+		else
+		{
+			return node.getOutputAmt();
+		}
+	}
+	
 	/**
 	 * Apply the zoom factor.
 	 */
 	public float guiToPrint(int i)
 	{
-		return i * this.zoom;
+		return i * this.zoom; //TODO separate method to adjust for the position of the print
 	}
 	
 	/**
