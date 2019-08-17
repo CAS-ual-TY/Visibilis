@@ -229,11 +229,11 @@ public class GuiPrint extends GuiScreen
 		GL11.glEnable(GL11.GL_SCISSOR_TEST);
 		
 		//* scaleFactor due to the automatic resizing depending on window size (or the GUI size settings)
-		//All the fuckaroundery with the Y position because Minecraft 0,0 is at the top left, but lwjgl 0,0 is at the bottom left
+		//All the derparoundery with the Y position because Minecraft 0,0 is at the top left, but lwjgl 0,0 is at the bottom left
 		GL11.glScissor(x * this.scaleFactor, (this.sr.getScaledHeight() - y - h) * this.scaleFactor, w * this.scaleFactor, h * this.scaleFactor);
 		
 		GL11.glPushMatrix();
-		GL11.glScalef(this.zoom, this.zoom, 0); //Apply zoom, 2x zoom means 2x size of prints, so this is fine
+		GL11.glScalef(this.zoom, this.zoom, 1); //Apply zoom, 2x zoom means 2x size of prints, so this is fine
 	}
 	
 	/**
@@ -250,6 +250,7 @@ public class GuiPrint extends GuiScreen
 	 */
 	public static void drawRect(int x, int y, int w, int h, byte r, byte g, byte b)
 	{
+		//TODO write separate code for rects without alpha, maybe...
 		drawRect(x, y, w, h, r, g, b, (byte)255);
 	}
 	
@@ -263,22 +264,30 @@ public class GuiPrint extends GuiScreen
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
 		
-		GlStateManager.enableBlend();
-		GlStateManager.disableTexture2D();
+		//Prep time
+		GlStateManager.enableBlend(); //We do need blending
+		GlStateManager.disableTexture2D(); //We dont need textures
 		
+		//Make sure alpha is working
 		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		
+		//Set the color!
 		GL11.glColor4b(r, g, b, a);
 		
+		//Start drawing
 		bufferbuilder.begin(7, DefaultVertexFormats.POSITION);
 		
+		//Add vertices
 		bufferbuilder.pos(x, y + h, 0.0D).endVertex();		//BL
 		bufferbuilder.pos(x + w, y + h, 0.0D).endVertex();	//BR
 		bufferbuilder.pos(x + w, y, 0.0D).endVertex();		//TR
 		bufferbuilder.pos(x, y, 0.0D).endVertex();			//TL
+		
+		//End drawing
 		tessellator.draw();
 		
-		GlStateManager.enableTexture2D();
-		GlStateManager.disableBlend();
+		//Cleanup time
+		GlStateManager.enableTexture2D(); //Turn textures back on
+		GlStateManager.disableBlend(); //Turn blending uhh... back off?
 	}
 }
