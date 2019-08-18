@@ -72,7 +72,7 @@ public class GuiPrint extends GuiScreen
 	{
 		GlStateManager.disableLighting();
 		
-		int x = 0, y = 0, w = 0, h = 0; //TODO TODO TODO window size? Maybe plan layout before starting? Make static?
+		int x = 0, y = 0, w = 0, h = 0; //TODO high, window size? Maybe plan layout before starting? Make static?
 		
 		this.innerStart(x, y, w, h);
 		this.drawInner(mouseX, mouseY, partialTicks);
@@ -123,7 +123,7 @@ public class GuiPrint extends GuiScreen
 		//Loop through all nodes. Nodes at the end of the list will be drawn on top.
 		for(Node node : print.getNodes())
 		{
-			//TODO adjust these coordinates later for scrolling
+			//TODO high, adjust these coordinates later for scrolling
 			x = node.posX + print.posX;
 			y = node.posY + print.posX;
 			this.drawNode(node, x, y);
@@ -174,7 +174,7 @@ public class GuiPrint extends GuiScreen
 		drawRect(x + 1, y + 1, nodeWidth - 2, nodeHeight - 2, node.getColor()[0], node.getColor()[1], node.getColor()[2]);
 		
 		//Draw the name
-		String name = node.getUnlocalizedName(); //TODO translate
+		String name = node.getUnlocalizedName(); //TODO lowest, translate
 		name = this.fontRenderer.trimStringToWidth(name, nodeWidth - 4); //Trim the name in case it is too big
 		this.fontRenderer.drawString(name, x + 2, y + 2, 0xFFFFFFFF); //Draw the trimmed name, maybe add shadow?
 	}
@@ -206,7 +206,7 @@ public class GuiPrint extends GuiScreen
 			dotX = x + width - nodeHeight;
 		}
 		
-		//See de.cas_ual_ty.visibilis.datatype.DataType for explanation of deprecation. TODO Remove as this only works for Visibilis only data types. THIS IS TEMPORARY CALM DOWN
+		//See de.cas_ual_ty.visibilis.datatype.DataType for explanation of deprecation. TODO high, Remove as this only works for Visibilis only data types. THIS IS TEMPORARY CALM DOWN
 		EnumVDataType type = EnumVDataType.valueOf(field.name.toUpperCase());
 		
 		//Draw inner colored rectangle
@@ -225,7 +225,7 @@ public class GuiPrint extends GuiScreen
 		drawRect(dotX, dotY, nodeFieldDotSize, nodeFieldDotSize, type.r, type.g, type.b);
 		
 		//Draw name
-		String name = field.getUnlocalizedName(); //TODO translate
+		String name = field.getUnlocalizedName(); //TODO lowest: translate
 		name = this.fontRenderer.trimStringToWidth(name, width - 4); //Trim the name in case it is too big
 		this.fontRenderer.drawString(name, nameX + 2, y + 2, 0xFFFFFFFF); //Draw the trimmed name, maybe add shadow?
 	}
@@ -378,7 +378,7 @@ public class GuiPrint extends GuiScreen
 	 */
 	public float guiToPrint(int i)
 	{
-		return i * this.zoom; //TODO separate method to adjust for the position of the print
+		return i * this.zoom; //TODO high: see below as well, separate method to adjust for the position of the print
 	}
 	
 	/**
@@ -418,7 +418,7 @@ public class GuiPrint extends GuiScreen
 	/**
 	 * Move according to the scolling of the user and apply zoom
 	 */
-	protected void applyZoomAndShift() //TODO shift/move (scrolling)
+	protected void applyZoomAndShift() //TODO high: shift/move (scrolling)
 	{
 		GL11.glScalef(this.zoom, this.zoom, 1); //Apply zoom, 2x zoom means 2x size of prints, so this is fine
 	}
@@ -470,7 +470,7 @@ public class GuiPrint extends GuiScreen
 	 */
 	public static void drawRect(int x, int y, int w, int h, byte r, byte g, byte b)
 	{
-		//TODO write separate code for rects without alpha, maybe...
+		//TODO low: write separate code for rects without alpha, maybe...
 		drawRect(x, y, w, h, r, g, b, (byte)255);
 	}
 	
