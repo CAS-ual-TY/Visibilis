@@ -73,10 +73,14 @@ public class GuiPrint extends GuiScreen
 		
 		int x = 0, y = 0, w = 0, h = 0; //TODO high, window size? Maybe plan layout before starting? Make static?
 		
+		GlStateManager.enableAlpha();
+		
 //		GuiPrint.innerStart(this.sr, x, y, w, h);
 //		GuiPrint.applyZoomAndShift(this.zoom, 0, 0, 0); //Inside of the matrix since you would otherwise "touch" everything outside of the matrix
 		this.drawInner(mouseX, mouseY, partialTicks);
 //		GuiPrint.innerEnd();
+		
+		GlStateManager.disableAlpha();
 		
 		//Draw buttons and labels
 		super.drawScreen(mouseX, mouseY, partialTicks);
@@ -98,7 +102,7 @@ public class GuiPrint extends GuiScreen
 			Node node = (Node) obj;
 			
 			//Draw white rect over node, half transparent
-			GuiPrint.drawRect(node.posX, node.posY, nodeWidth, nodeHeight * GuiPrint.getVerticalAmt(node), (byte)255, (byte)255, (byte)255, hoverAlpha);
+			GuiPrint.drawRect(this.print.posX + node.posX, this.print.posY + node.posY, nodeWidth, nodeHeight * GuiPrint.getVerticalAmt(node), (byte)255, (byte)255, (byte)255, hoverAlpha);
 		}
 		else if(obj instanceof NodeField)
 		{
@@ -106,7 +110,7 @@ public class GuiPrint extends GuiScreen
 			NodeField field = (NodeField) obj;
 			
 			//Draw white rect over node field, half transparent
-			GuiPrint.drawRect(field.node.posX + (field.isInput() ? 0 : nodeWidth / 2), field.node.posY + nodeHeight * (field.id + 1), nodeWidth / 2, nodeHeight, (byte)255, (byte)255, (byte)255, hoverAlpha);
+			GuiPrint.drawRect(this.print.posX + field.node.posX + (field.isInput() ? 0 : nodeWidth / 2), this.print.posY + field.node.posY + nodeHeight * (field.id + 1), nodeWidth / 2, nodeHeight, (byte)255, (byte)255, (byte)255, hoverAlpha);
 		}
 		
 		// --- Hovering end ---
@@ -479,7 +483,7 @@ public class GuiPrint extends GuiScreen
 	public static void drawRect(int x, int y, int w, int h, byte r, byte g, byte b)
 	{
 		//TODO low: write separate code for rects without alpha, maybe...
-		drawRect(x, y, w, h, r, g, b, (byte)255);
+		drawRect(x, y, w, h, r, g, b, (byte)127);
 	}
 	
 	/**
