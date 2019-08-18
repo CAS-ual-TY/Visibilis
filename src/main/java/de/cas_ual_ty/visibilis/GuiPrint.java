@@ -98,7 +98,7 @@ public class GuiPrint extends GuiScreen
 			Node node = (Node) obj;
 			
 			//Draw white rect over node, half transparent
-			GuiPrint.drawRect(node.posX, node.posY, nodeWidth, nodeHeight * this.getVerticalNodeFieldsAndHeader(node), (byte)255, (byte)255, (byte)255, hoverAlpha);
+			GuiPrint.drawRect(node.posX, node.posY, nodeWidth, nodeHeight * this.getVerticalAmt(node), (byte)255, (byte)255, (byte)255, hoverAlpha);
 		}
 		else if(obj instanceof NodeField)
 		{
@@ -137,7 +137,7 @@ public class GuiPrint extends GuiScreen
 		// --- Start drawing node itself ---
 		
 		//Draw entire node background
-		GuiPrint.drawRect(x, y, nodeWidth, nodeHeight * this.getVerticalNodeFieldsAndHeader(node), (byte)0, (byte)0, (byte)0);
+		GuiPrint.drawRect(x, y, nodeWidth, nodeHeight * this.getVerticalAmt(node), (byte)0, (byte)0, (byte)0);
 		
 		//#SelfExplainingCodeIsAMeme
 		this.drawNodeHeader(node, x, y);
@@ -303,7 +303,7 @@ public class GuiPrint extends GuiScreen
 			x = this.guiToPrint(node.posX + this.print.posX);
 			y = this.guiToPrint(node.posY + this.print.posX);
 			w = this.guiToPrint(nodeWidth);
-			h = this.guiToPrint(nodeHeight * this.getVerticalNodeFieldsAndHeader(node));
+			h = this.guiToPrint(nodeHeight * this.getVerticalAmt(node));
 			
 			//Check if the mouse is on top of the entire node
 			if(this.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
@@ -361,24 +361,24 @@ public class GuiPrint extends GuiScreen
 	/**
 	 * Check if the given mouse coordinates are inside given rectangle
 	 */
-	public boolean isCoordInsideRect(float mouseX, float mouseY, float x, float y, float w, float h)
+	public static boolean isCoordInsideRect(float mouseX, float mouseY, float x, float y, float w, float h)
 	{
 		return mouseX >= x && mouseX <= x + w && mouseY >= y && mouseY <= y + h;
 	}
 	
 	/**
 	 * Since inputs and outputs share a line, only the higher amount of inputs or outputs is often needed.
-	 * @return The amount of inputs or outputs (whatever is higher) + 1.
+	 * @return The amount of inputs or outputs (whatever is higher) + 1 for the header.
 	 */
-	public int getVerticalNodeFieldsAndHeader(Node node)
+	public static int getVerticalAmt(Node node)
 	{
 		if(node.getInputAmt() > node.getOutputAmt())
 		{
-			return node.getInputAmt();
+			return node.getInputAmt() + 1;
 		}
 		else
 		{
-			return node.getOutputAmt();
+			return node.getOutputAmt() + 1;
 		}
 	}
 	
