@@ -17,7 +17,7 @@ public abstract class FFtoF extends Node
 	{
 		super(posX, posY, 1, 2);
 		this.in1 = new Input<Float>(0, this, EnumVDataType.FLOAT.dataTypeString, "float");
-		this.in2 = new Input<Float>(0, this, EnumVDataType.FLOAT.dataTypeString, "float");
+		this.in2 = new Input<Float>(1, this, EnumVDataType.FLOAT.dataTypeString, "float");
 		this.out = new Output<Float>(0, this, EnumVDataType.FLOAT.dataTypeString, "float");
 	}
 	

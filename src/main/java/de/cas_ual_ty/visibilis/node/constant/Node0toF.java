@@ -10,7 +10,7 @@ public abstract class Node0toF extends Node
 	
 	public Node0toF(int posX, int posY)
 	{
-		super(posX, posY, 1, 2);
+		super(posX, posY, 1, 0);
 		this.out = new Output<Float>(0, this, EnumVDataType.FLOAT.dataTypeString, "float");
 	}
 	
