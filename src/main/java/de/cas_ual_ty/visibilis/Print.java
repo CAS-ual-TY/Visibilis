@@ -74,7 +74,7 @@ public class Print
 	{
 		if(node instanceof Event)
 		{
-			this.events.remove((Event) node);
+			this.events.remove(node);
 		}
 		
 		return this.nodes.remove(node);
