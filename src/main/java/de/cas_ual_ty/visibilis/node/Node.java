@@ -262,7 +262,7 @@ public abstract class Node
 	 */
 	public float[] getColor()
 	{
-		return new float[] {1F, 1F, 1F};
+		return new float[] {0.5F, 0.5F, 0.5F};
 	}
 	
 	/**

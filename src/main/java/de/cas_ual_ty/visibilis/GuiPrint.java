@@ -191,10 +191,9 @@ public class GuiPrint extends GuiScreen
 		int dotX, dotY; //Where to draw the dot
 		int nameX, nameY; //Where to draw the name
 		
-		//width - dot - gap - border
-		//... to make sure there is a gap between inputs and outputs. Used to trim the String
+		//width - dot - border
 		//the dot is in the middle of a quad of size height x height, at the left/right of the field
-		int nameW = width - nodeHeight - nodeHeight / 2 - 2;
+		int nameW = width - nodeHeight;
 		
 		if(field.isInput())
 		{
@@ -230,7 +229,7 @@ public class GuiPrint extends GuiScreen
 		//Draw name
 		String name = field.getUnlocalizedName(); //TODO lowest: translate
 		name = this.fontRenderer.trimStringToWidth(name, nameW - 4); //Trim the name in case it is too big
-		this.fontRenderer.drawString(name, nameX + 2, y + 2, 0xFFFFFFFF); //Draw the trimmed name, maybe add shadow?
+		this.fontRenderer.drawString(name, nameX + 1, nameY + 1, 0xFFFFFFFF); //Draw the trimmed name, maybe add shadow?
 	}
 	
 	/**
@@ -267,7 +266,8 @@ public class GuiPrint extends GuiScreen
 			offY += (dest.id - field.id) * nodeHeight;
 			
 			//Now draw the line, half transparent
-			drawLine(dotX, dotY, dotX + offX, dotY + offY, 2, type.r, type.g, type.b, nodeFieldConnectionsAlpha);
+			//+ half size so it starts in the middle
+			drawLine(nodeFieldDotSize / 2 + dotX, nodeFieldDotSize / 2 + dotY, nodeFieldDotSize / 2 + dotX + offX, nodeFieldDotSize / 2 + dotY + offY, this.sr.getScaleFactor() * nodeFieldDotSize / 2, type.r, type.g, type.b, nodeFieldConnectionsAlpha);
 		}
 	}
 	
