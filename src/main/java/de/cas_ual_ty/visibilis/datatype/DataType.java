@@ -20,8 +20,8 @@ public class DataType<A>
 	 * Get the color of this data type, for connections and node field dots
 	 * @return
 	 */
-	public byte[] getColor()
+	public float[] getColor()
 	{
-		return new byte[] {(byte) 255, (byte) 255, (byte) 255};
+		return new float[] {1F, 1F, 1F};
 	}
 }

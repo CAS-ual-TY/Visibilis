@@ -260,9 +260,9 @@ public abstract class Node
 	/**
 	 * Get the header color of this node
 	 */
-	public byte[] getColor()
+	public float[] getColor()
 	{
-		return new byte[] {(byte) 255, (byte) 255, (byte) 255};
+		return new float[] {1F, 1F, 1F};
 	}
 	
 	/**

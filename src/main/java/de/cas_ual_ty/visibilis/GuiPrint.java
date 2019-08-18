@@ -24,10 +24,13 @@ public class GuiPrint extends GuiScreen
 	public static int nodeFieldDotSize = 4;
 	
 	//Transparency of connection lines
-	public static byte nodeFieldConnectionsAlpha = 127;
+	public static float nodeFieldConnectionsAlpha = 0.5F;
 	
 	//Transparency of white box when hovering
-	public static byte hoverAlpha = 127;
+	public static float hoverAlpha = 0.5F;
+	
+	//Backround of nodes
+	public static float nodeBackground = 0.125F;
 	
 	protected Print print;
 	
@@ -73,14 +76,10 @@ public class GuiPrint extends GuiScreen
 		
 		int x = 0, y = 0, w = 0, h = 0; //TODO high, window size? Maybe plan layout before starting? Make static?
 		
-		GlStateManager.enableAlpha();
-		
 //		GuiPrint.innerStart(this.sr, x, y, w, h);
 //		GuiPrint.applyZoomAndShift(this.zoom, 0, 0, 0); //Inside of the matrix since you would otherwise "touch" everything outside of the matrix
 		this.drawInner(mouseX, mouseY, partialTicks);
 //		GuiPrint.innerEnd();
-		
-		GlStateManager.disableAlpha();
 		
 		//Draw buttons and labels
 		super.drawScreen(mouseX, mouseY, partialTicks);
@@ -102,7 +101,7 @@ public class GuiPrint extends GuiScreen
 			Node node = (Node) obj;
 			
 			//Draw white rect over node, half transparent
-			GuiPrint.drawRect(this.print.posX + node.posX, this.print.posY + node.posY, nodeWidth, nodeHeight * GuiPrint.getVerticalAmt(node), (byte)255, (byte)255, (byte)255, hoverAlpha);
+			GuiPrint.drawRect(this.print.posX + node.posX, this.print.posY + node.posY, nodeWidth, nodeHeight * GuiPrint.getVerticalAmt(node), 1F, 1F, 1F, hoverAlpha);
 		}
 		else if(obj instanceof NodeField)
 		{
@@ -110,7 +109,7 @@ public class GuiPrint extends GuiScreen
 			NodeField field = (NodeField) obj;
 			
 			//Draw white rect over node field, half transparent
-			GuiPrint.drawRect(this.print.posX + field.node.posX + (field.isInput() ? 0 : nodeWidth / 2), this.print.posY + field.node.posY + nodeHeight * (field.id + 1), nodeWidth / 2, nodeHeight, (byte)255, (byte)255, (byte)255, hoverAlpha);
+			GuiPrint.drawRect(this.print.posX + field.node.posX + (field.isInput() ? 0 : nodeWidth / 2), this.print.posY + field.node.posY + nodeHeight * (field.id + 1), nodeWidth / 2, nodeHeight, 1F, 1F, 1F, hoverAlpha);
 		}
 		
 		// --- Hovering end ---
@@ -141,7 +140,7 @@ public class GuiPrint extends GuiScreen
 		// --- Start drawing node itself ---
 		
 		//Draw entire node background
-		GuiPrint.drawRect(x, y, nodeWidth, nodeHeight * GuiPrint.getVerticalAmt(node), (byte)0, (byte)0, (byte)0);
+		GuiPrint.drawRect(x, y, nodeWidth, nodeHeight * GuiPrint.getVerticalAmt(node), nodeBackground, nodeBackground, nodeBackground);
 		
 		//#SelfExplainingCodeIsAMeme
 		this.drawNodeHeader(node, x, y);
@@ -438,7 +437,7 @@ public class GuiPrint extends GuiScreen
 	/**
 	 * {@link #drawLine(int, int, int, int, byte, byte, byte, byte)} but with quick setting of lineWidth
 	 */
-	public static void drawLine(int x1, int y1, int x2, int y2, float lineWidth, byte r, byte g, byte b, byte a)
+	public static void drawLine(int x1, int y1, int x2, int y2, float lineWidth, float r, float g, float b, float a)
 	{
 		GlStateManager.glLineWidth(lineWidth);
 		drawLine(x1, y1, x2, y2, r, g, b, a);
@@ -447,7 +446,7 @@ public class GuiPrint extends GuiScreen
 	/**
 	 * Draws a solid color line with the specified coordinates and color.
 	 */
-	public static void drawLine(int x1, int y1, int x2, int y2, byte r, byte g, byte b, byte a)
+	public static void drawLine(int x1, int y1, int x2, int y2, float r, float g, float b, float a)
 	{
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
@@ -460,7 +459,7 @@ public class GuiPrint extends GuiScreen
 		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		
 		//Set the color!
-		GL11.glColor4b(r, g, b, a);
+		GlStateManager.color(r, g, b, a);
 		
 		//Start drawing
 		bufferbuilder.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
@@ -480,10 +479,10 @@ public class GuiPrint extends GuiScreen
 	/**
 	 * {@link #drawRect(int, int, int, int, byte, byte, byte, byte)} but without alpha.
 	 */
-	public static void drawRect(int x, int y, int w, int h, byte r, byte g, byte b)
+	public static void drawRect(int x, int y, int w, int h, float r, float g, float b)
 	{
 		//TODO low: write separate code for rects without alpha, maybe...
-		drawRect(x, y, w, h, r, g, b, (byte)127);
+		drawRect(x, y, w, h, r, g, b, 1F);
 	}
 	
 	/**
@@ -491,7 +490,7 @@ public class GuiPrint extends GuiScreen
 	 * Draws a solid color rectangle with the specified coordinates and color.
 	 * @see net.minecraft.client.gui.Gui#drawRect(int, int, int, int, int)
 	 */
-	public static void drawRect(int x, int y, int w, int h, byte r, byte g, byte b, byte a)
+	public static void drawRect(int x, int y, int w, int h, float r, float g, float b, float a)
 	{
 		Tessellator tessellator = Tessellator.getInstance();
 		BufferBuilder bufferbuilder = tessellator.getBuffer();
@@ -504,7 +503,7 @@ public class GuiPrint extends GuiScreen
 		GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
 		
 		//Set the color!
-		GL11.glColor4b(r, g, b, a);
+		GlStateManager.color(r, g, b, a);
 		
 		//Start drawing
 		bufferbuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);

@@ -17,15 +17,15 @@ public enum EnumVDataType
 	BOOLEAN("boolean", (byte)255, (byte)127, (byte)127);
 	
 	public final String dataTypeString;
-	public final byte r;
-	public final byte g;
-	public final byte b;
+	public final float r;
+	public final float g;
+	public final float b;
 	
 	private EnumVDataType(String s, byte r, byte g, byte b)
 	{
 		this.dataTypeString = s;
-		this.r = r;
-		this.g = g;
-		this.b = b;
+		this.r = (r) / 255F;
+		this.g = (g) / 255F;
+		this.b = (b) / 255F;
 	}
 }
