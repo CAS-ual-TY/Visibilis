@@ -5,15 +5,15 @@
 **ENG**: visible, capable of being seen
 
 ## About
-Visibilis is a modification for Minecraft which contains basic functionality for in-game visual coding. It comes with a base structure of nodes, data types and an UI and allows for easy expansion.
-The mod itself does not contain any gameplay elements or additions. It is only effectively usable by extending it with gameplay elements and allowing the player to use visual coding interface.
+Visibilis is a **modification for Minecraft** which contains basic functionality for **in-game visual coding**. It comes with a base structure of nodes, data types and an UI and allows for easy expansion.
+The mod itself does not contain any gameplay elements or additions. It is only effectively usable by extending it with gameplay elements and allowing the player to use the visual coding interface.
 
-### Why
+### Why...
 Personally, I have tried several attempts of a modification which allows the player to create and customize spells while in-game. Even thought these have all worked (with the latest instance - [Mundus Magicus](https://www.curseforge.com/minecraft/mc-mods/mundus-magicus) - working very great in my opinion) I have never been happy with the design choices behind any of these.
 The spells in these mods had to be created out of components put together in a specific structure. These structures of the various mods always allowed full customization and endless possibilities in their own ways, but also minor flaws in a way that would force you to sometimes put components in twice if you wanted to achieve a certain functionality.
 So I realized that the problem I had was not the way I setup these spell structures, but rather a structure itself.
 
-### Visual Coding
+### ... Visual Coding?
 So following up on the point above, I had several ideas of how to make a "no-structure" based spell mod. But all of these involved nodes and connections in one way or another. So I thought that I could also just make an entire visual coding functionality, as that would not be much more.
 Additionally, while drafting some ideas, I took part in a "Nerd Memes" thread and someone said "make your own programming language for fun" as a meme which is kinda what I am doing (?).
 
@@ -23,7 +23,6 @@ Here are some basic mod ideas I have. I don't know if I am going make any of the
 #### Magica Mundi - *The magic things of this world*
 The sequel to **[Mundus Magicus](https://www.curseforge.com/minecraft/mc-mods/mundus-magicus)**: Visual coding to design, create and customize your own spells (In case you are wondering: Mundus Magicus - *Magic world*).
 A spell is made up of 3 basic components:
-
  - **Events - When** to "fire" the spell (eg. right click, every second, when taking damage etc.)
  - **Detectors - Who** or what to affect (eg. everyone within 5m of you, all pigs, your cursor etc.)
  - **Effects - What** to do or how to affect the targets (eg. lighting, healing or damage, freezing etc.)
@@ -46,7 +45,6 @@ Possibilities are endless. You will come up with something I am sure.
 A list of contributors is at the bottom.
 
 ### What to contribute
-
  - Code contributions to Visibilis
  - Code contributions to Magica Mundi
  - Your own ideas and mods
@@ -56,14 +54,12 @@ If you ever think that I made a poor design choice and **you have a good idea: T
 Though in case you do think about making a pull-request: Please **contact me first** (see below)! I don't want anyone to put work into improvements with myself not agreeing to them.
 
 ### How to contribute
-
  - Pull requests
  - Contact me
  - Publish your own ideas and mods
 
 ### What to get started with
 Terminology:
-
  - **Print**: Contains nodes which can be connected in various ways to create **functionality**
  - **Node**: A component which uses its inputs to **calculate** its outputs; All parent nodes must be calculated beforehand
  - **Node Field**: A connection anchor you could say: Either an **input** or an **output**. Outputs can be connected to various inputs, but inputs can each only be connected to a single output; They all have a specific data type
@@ -72,7 +68,6 @@ Terminology:
  - **Event Node**: Extends "Exec Node"; This is the **start of the execution chain** in each print depending on the **event type**
 
 Code to take a look at:
-
  - **de.cas_ual_ty.visibilis.GuiPrint**: contains **basic user interface** functionality
  - **de.cas_ual_ty.visibilis.Print#execute(NodeExec)**: starts the node chain; "exec" nodes are calculated in succession
  - **de.cas_ual_ty.visibilis.node.Node#preCalculate()**: whenever a node is executed that has an uncalculated **"non-exec" parent**, that parent is **calculated first**, then the "exec" node
