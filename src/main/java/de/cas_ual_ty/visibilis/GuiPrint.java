@@ -73,10 +73,10 @@ public class GuiPrint extends GuiScreen
 		
 		int x = 0, y = 0, w = 0, h = 0; //TODO high, window size? Maybe plan layout before starting? Make static?
 		
-		GuiPrint.innerStart(this.sr, x, y, w, h);
-		GuiPrint.applyZoomAndShift(this.zoom, 0, 0, 0); //Inside of the matrix since you would otherwise "touch" everything outside of the matrix
+//		GuiPrint.innerStart(this.sr, x, y, w, h);
+//		GuiPrint.applyZoomAndShift(this.zoom, 0, 0, 0); //Inside of the matrix since you would otherwise "touch" everything outside of the matrix
 		this.drawInner(mouseX, mouseY, partialTicks);
-		GuiPrint.innerEnd();
+//		GuiPrint.innerEnd();
 		
 		//Draw buttons and labels
 		super.drawScreen(mouseX, mouseY, partialTicks);
