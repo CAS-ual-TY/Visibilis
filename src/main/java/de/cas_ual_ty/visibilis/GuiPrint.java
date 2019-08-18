@@ -74,7 +74,7 @@ public class GuiPrint extends GuiScreen
 		int x = 0, y = 0, w = 0, h = 0; //TODO high, window size? Maybe plan layout before starting? Make static?
 		
 		GuiPrint.innerStart(this.sr, x, y, w, h);
-		applyZoomAndShift(this.zoom, 0, 0, 0); //Inside of the matrix since you would otherwise "touch" everything outside of the matrix
+		GuiPrint.applyZoomAndShift(this.zoom, 0, 0, 0); //Inside of the matrix since you would otherwise "touch" everything outside of the matrix
 		this.drawInner(mouseX, mouseY, partialTicks);
 		GuiPrint.innerEnd();
 		
@@ -123,7 +123,6 @@ public class GuiPrint extends GuiScreen
 		//Loop through all nodes. Nodes at the end of the list will be drawn on top.
 		for(Node node : print.getNodes())
 		{
-			//TODO high, adjust these coordinates later for scrolling
 			x = node.posX + print.posX;
 			y = node.posY + print.posX;
 			this.drawNode(node, x, y);
@@ -137,7 +136,7 @@ public class GuiPrint extends GuiScreen
 	{
 		// --- Start drawing node itself ---
 		
-		//Draw entire node background (the +1 to include the header)
+		//Draw entire node background
 		GuiPrint.drawRect(x, y, nodeWidth, nodeHeight * this.getVerticalNodeFieldsAndHeader(node), (byte)0, (byte)0, (byte)0);
 		
 		//#SelfExplainingCodeIsAMeme
@@ -189,8 +188,9 @@ public class GuiPrint extends GuiScreen
 		int dotX, dotY; //Where to draw the dot
 		int nameX, nameY; //Where to draw the name
 		
-		//width - dot - extra pixels - border
+		//width - dot - gap - border
 		//... to make sure there is a gap between inputs and outputs. Used to trim the String
+		//the dot is in the middle of a quad of size height x height, at the left/right of the field
 		int nameW = width - nodeHeight - nodeHeight / 2 - 2;
 		
 		if(field.isInput())
@@ -212,29 +212,32 @@ public class GuiPrint extends GuiScreen
 		//Draw inner colored rectangle
 		nameX += 1;
 		nameY = y + 1;
-		drawRect(nameX, y, nameW - 2, nodeHeight - 2, type.r, type.g, type.b);
+		drawRect(nameX, nameY, nameW - 2, nodeHeight - 2, type.r, type.g, type.b);
 		
 		//Finally adjust dot position for its size
 		dotX += (nodeHeight - nodeFieldDotSize) / 2;
 		dotY = y + (nodeHeight - nodeFieldDotSize) / 2;
 		
 		//Draw connections
-		this.drawNodeFieldConnections(field, dotX, dotY, type);
+		this.drawNodeFieldConnections(field, dotX, dotY);
 		
 		//Draw dot on top
 		drawRect(dotX, dotY, nodeFieldDotSize, nodeFieldDotSize, type.r, type.g, type.b);
 		
 		//Draw name
 		String name = field.getUnlocalizedName(); //TODO lowest: translate
-		name = this.fontRenderer.trimStringToWidth(name, width - 4); //Trim the name in case it is too big
+		name = this.fontRenderer.trimStringToWidth(name, nameW - 4); //Trim the name in case it is too big
 		this.fontRenderer.drawString(name, nameX + 2, y + 2, 0xFFFFFFFF); //Draw the trimmed name, maybe add shadow?
 	}
 	
 	/**
 	 * Draw a node field's connections of the given coordinates (not the node's coordinates!).
 	 */
-	public void drawNodeFieldConnections(NodeField field, int dotX, int dotY, EnumVDataType type)
+	public void drawNodeFieldConnections(NodeField field, int dotX, int dotY)
 	{
+		//See de.cas_ual_ty.visibilis.datatype.DataType for explanation of deprecation. TODO high, Remove as this only works for Visibilis only data types. THIS IS TEMPORARY CALM DOWN
+		EnumVDataType type = EnumVDataType.valueOf(field.name.toUpperCase());
+		
 		//Draw output -> input connections, not the other way around, for proper overlay order.
 		if(field.isInput())
 		{
@@ -265,6 +268,9 @@ public class GuiPrint extends GuiScreen
 		}
 	}
 	
+	/**
+	 * Returns the object the mouse is hovering over, can be a node or a node field
+	 */
 	public Object getObjectHovering(int mouseX, int mouseY, int x, int y, int w, int h)
 	{
 		if(this.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
@@ -280,6 +286,9 @@ public class GuiPrint extends GuiScreen
 		return null;
 	}
 	
+	/**
+	 * Returns the object the mouse is hovering over that is inside the inner part
+	 */
 	protected Object getObjectHoveringInner(int mouseX, int mouseY)
 	{
 		Node node;
@@ -290,9 +299,9 @@ public class GuiPrint extends GuiScreen
 		{
 			node = this.print.nodes.get(i);
 			
-			//Entire node position and size, zoom accounted for
-			x = this.guiToPrint(node.posX);
-			y = this.guiToPrint(node.posY);
+			//Entire node position and size, zoom and shift accounted for
+			x = this.guiToPrint(node.posX + this.print.posX);
+			y = this.guiToPrint(node.posY + this.print.posX);
 			w = this.guiToPrint(nodeWidth);
 			h = this.guiToPrint(nodeHeight * this.getVerticalNodeFieldsAndHeader(node));
 			
