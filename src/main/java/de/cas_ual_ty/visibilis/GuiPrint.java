@@ -3,7 +3,6 @@ package de.cas_ual_ty.visibilis;
 import java.util.ArrayList;
 
 import org.lwjgl.opengl.GL11;
-
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
 import net.minecraft.client.gui.GuiScreen;
@@ -74,9 +73,10 @@ public class GuiPrint extends GuiScreen
 		
 		int x = 0, y = 0, w = 0, h = 0; //TODO high, window size? Maybe plan layout before starting? Make static?
 		
-		this.innerStart(x, y, w, h);
+		GuiPrint.innerStart(this.sr, x, y, w, h);
+		applyZoomAndShift(this.zoom, 0, 0, 0); //Inside of the matrix since you would otherwise "touch" everything outside of the matrix
 		this.drawInner(mouseX, mouseY, partialTicks);
-		this.innerEnd();
+		GuiPrint.innerEnd();
 		
 		//Draw buttons and labels
 		super.drawScreen(mouseX, mouseY, partialTicks);
@@ -396,20 +396,19 @@ public class GuiPrint extends GuiScreen
 	 * @param w Width of the rectangle.
 	 * @param h Height of the rectangle.
 	 */
-	protected void innerStart(int x, int y, int w, int h)
+	public static void innerStart(ScaledResolution sr, int x, int y, int w, int h)
 	{
 		GL11.glEnable(GL11.GL_SCISSOR_TEST);
 		//* scaleFactor due to the automatic resizing depending on window size (or the GUI size settings)
 		//All the derparoundery with the Y position because Minecraft 0,0 is at the top left, but lwjgl 0,0 is at the bottom left
-		GL11.glScissor(x * this.sr.getScaleFactor(), (this.sr.getScaledHeight() - y - h) * this.sr.getScaleFactor(), w * this.sr.getScaleFactor(), h * this.sr.getScaleFactor());
+		GL11.glScissor(x * sr.getScaleFactor(), (sr.getScaledHeight() - y - h) * sr.getScaleFactor(), w * sr.getScaleFactor(), h * sr.getScaleFactor());
 		GL11.glPushMatrix();
-		this.applyZoomAndShift(); //Inside of the matrix since you would otherwise "touch" everything outside of the matrix
 	}
 	
 	/**
 	 * Scissor cleanup. Call {@link #innerStart(int, int, int, int)}, then all the draw code, then this.
 	 */
-	protected void innerEnd()
+	public static void innerEnd()
 	{
 		GL11.glPopMatrix();
 		GL11.glDisable(GL11.GL_SCISSOR_TEST);
@@ -418,9 +417,9 @@ public class GuiPrint extends GuiScreen
 	/**
 	 * Move according to the scolling of the user and apply zoom
 	 */
-	protected void applyZoomAndShift() //TODO high: shift/move (scrolling)
+	public static void applyZoomAndShift(float zoom, float x, float y, float z) //TODO high: shift/move (scrolling)
 	{
-		GL11.glScalef(this.zoom, this.zoom, 1); //Apply zoom, 2x zoom means 2x size of prints, so this is fine
+		GL11.glScalef(zoom, zoom, 1); //Apply zoom, 2x zoom means 2x size of prints, so this is fine
 	}
 	
 	/**
