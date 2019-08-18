@@ -328,7 +328,7 @@ public class GuiPrint extends GuiScreen
 							if(GuiPrint.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(node.posY + nodeHeight * j), w, this.guiToPrint(nodeHeight)))
 							{
 								//inside this node field -> return it
-								return node.getInput(j);
+								return node.getInput(j - 1);
 							}
 						}
 						
@@ -344,7 +344,7 @@ public class GuiPrint extends GuiScreen
 							if(GuiPrint.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(node.posY + nodeHeight * j), w, this.guiToPrint(nodeHeight)))
 							{
 								//inside this node field -> return it
-								return node.getOutput(j);
+								return node.getOutput(j - 1);
 							}
 						}
 						
