@@ -98,7 +98,7 @@ public class GuiPrint extends GuiScreen
 			Node node = (Node) obj;
 			
 			//Draw white rect over node, half transparent
-			GuiPrint.drawRect(node.posX, node.posY, nodeWidth, nodeHeight * this.getVerticalAmt(node), (byte)255, (byte)255, (byte)255, hoverAlpha);
+			GuiPrint.drawRect(node.posX, node.posY, nodeWidth, nodeHeight * GuiPrint.getVerticalAmt(node), (byte)255, (byte)255, (byte)255, hoverAlpha);
 		}
 		else if(obj instanceof NodeField)
 		{
@@ -132,12 +132,12 @@ public class GuiPrint extends GuiScreen
 	/**
 	 * Draw a node at the given coordinates (not the node's coordinates!) and all its node fields.
 	 */
-	public void drawNode(Node node, final int x, final int y)
+	public void drawNode(Node node, int x, int y)
 	{
 		// --- Start drawing node itself ---
 		
 		//Draw entire node background
-		GuiPrint.drawRect(x, y, nodeWidth, nodeHeight * this.getVerticalAmt(node), (byte)0, (byte)0, (byte)0);
+		GuiPrint.drawRect(x, y, nodeWidth, nodeHeight * GuiPrint.getVerticalAmt(node), (byte)0, (byte)0, (byte)0);
 		
 		//#SelfExplainingCodeIsAMeme
 		this.drawNodeHeader(node, x, y);
@@ -167,7 +167,7 @@ public class GuiPrint extends GuiScreen
 	/**
 	 * Draw a node header at the given coordinates (not the node's coordinates!).
 	 */
-	public void drawNodeHeader(Node node, final int x, final int y)
+	public void drawNodeHeader(Node node, int x, int y)
 	{
 		//Draw the inner colored rectangle
 		drawRect(x + 1, y + 1, nodeWidth - 2, nodeHeight - 2, node.getColor()[0], node.getColor()[1], node.getColor()[2]);
@@ -181,7 +181,7 @@ public class GuiPrint extends GuiScreen
 	/**
 	 * Draw a node field at the given coordinates (not the node's coordinates!).
 	 */
-	public void drawNodeField(NodeField field, final int x, final int y)
+	public void drawNodeField(NodeField field, int x, int y)
 	{
 		int width = nodeWidth / 2;
 		
@@ -273,7 +273,7 @@ public class GuiPrint extends GuiScreen
 	 */
 	public Object getObjectHovering(int mouseX, int mouseY, int x, int y, int w, int h)
 	{
-		if(this.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
+		if(GuiPrint.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
 		{
 			//Inner
 			return this.getObjectHoveringInner(mouseX, mouseY);
@@ -303,12 +303,12 @@ public class GuiPrint extends GuiScreen
 			x = this.guiToPrint(node.posX + this.print.posX);
 			y = this.guiToPrint(node.posY + this.print.posX);
 			w = this.guiToPrint(nodeWidth);
-			h = this.guiToPrint(nodeHeight * this.getVerticalAmt(node));
+			h = this.guiToPrint(nodeHeight * GuiPrint.getVerticalAmt(node));
 			
 			//Check if the mouse is on top of the entire node
-			if(this.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
+			if(GuiPrint.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
 			{
-				if(this.isCoordInsideRect(mouseX, mouseY, x, y, w, this.guiToPrint(nodeHeight)))
+				if(GuiPrint.isCoordInsideRect(mouseX, mouseY, x, y, w, this.guiToPrint(nodeHeight)))
 				{
 					//Inside header -> return node itself
 					return node;
@@ -319,13 +319,13 @@ public class GuiPrint extends GuiScreen
 					
 					int j;
 					
-					if(this.isCoordInsideRect(mouseX, mouseY, x, y, this.guiToPrint(nodeWidth / 2), h))
+					if(GuiPrint.isCoordInsideRect(mouseX, mouseY, x, y, this.guiToPrint(nodeWidth / 2), h))
 					{
 						//Left side -> inputs
 						
 						for(j = 1; j <= node.getInputAmt(); ++j)
 						{
-							if(this.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(node.posY + nodeHeight * j), w, this.guiToPrint(nodeHeight)))
+							if(GuiPrint.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(node.posY + nodeHeight * j), w, this.guiToPrint(nodeHeight)))
 							{
 								//inside this node field -> return it
 								return node.getInput(j);
@@ -341,7 +341,7 @@ public class GuiPrint extends GuiScreen
 						
 						for(j = 1; j <= node.getOutputAmt(); ++j)
 						{
-							if(this.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(node.posY + nodeHeight * j), w, this.guiToPrint(nodeHeight)))
+							if(GuiPrint.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(node.posY + nodeHeight * j), w, this.guiToPrint(nodeHeight)))
 							{
 								//inside this node field -> return it
 								return node.getOutput(j);
