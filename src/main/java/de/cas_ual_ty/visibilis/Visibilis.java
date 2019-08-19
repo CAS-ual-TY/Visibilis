@@ -56,6 +56,12 @@ public class Visibilis
 		
 	}
 	
+	//TODO low: Some nice logging here please
+	public static void error(String s)
+	{
+		System.err.println("[" + MOD_ID + "] " + s);
+	}
+	
 	@EventBusSubscriber(modid = MOD_ID)
 	public static class Registries
 	{
