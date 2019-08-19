@@ -34,7 +34,7 @@ public abstract class Float2to1 extends Node
 			return false;
 		}
 		
-		this.calculate(this.in1.getValue(), this.in2.getValue());
+		this.value = this.calculate(this.in1.getValue(), this.in2.getValue());
 		
 		return true;
 	}
