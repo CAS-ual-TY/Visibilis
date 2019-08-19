@@ -5,17 +5,17 @@ import net.minecraftforge.common.MinecraftForge;
 
 public class VProxyClient implements ISidedProxy
 {
-	public static VEventHandlerClient eventHandlerClient;
-	
-	@Override
-	public void preInit()
-	{
-		
-	}
-	
-	@Override
-	public void init()
-	{
-		MinecraftForge.EVENT_BUS.register((eventHandlerClient = new VEventHandlerClient()));
-	}
+    public static VEventHandlerClient eventHandlerClient;
+
+    @Override
+    public void preInit()
+    {
+
+    }
+
+    @Override
+    public void init()
+    {
+        MinecraftForge.EVENT_BUS.register((eventHandlerClient = new VEventHandlerClient()));
+    }
 }
