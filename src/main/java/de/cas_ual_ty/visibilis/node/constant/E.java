@@ -1,6 +1,8 @@
 package de.cas_ual_ty.visibilis.node.constant;
 
-public class E extends Node0toF
+import de.cas_ual_ty.visibilis.node.general.NtoF;
+
+public class E extends NtoF
 {
 	public E()
 	{

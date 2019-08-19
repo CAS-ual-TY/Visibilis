@@ -1,11 +1,11 @@
-package de.cas_ual_ty.visibilis.node.condition;
+package de.cas_ual_ty.visibilis.node.logic;
 
 import de.cas_ual_ty.visibilis.EnumVDataType;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.NodeExec;
 import de.cas_ual_ty.visibilis.node.Output;
 
-public class NodeCondition extends NodeExec
+public class Condition extends NodeExec
 {
 	public final Output outExec1;
 	public final Output outExec2;
@@ -14,7 +14,7 @@ public class NodeCondition extends NodeExec
 	
 	public boolean value;
 	
-	public NodeCondition(int outputAmt, int inputAmt)
+	public Condition(int outputAmt, int inputAmt)
 	{
 		super(outputAmt, inputAmt);
 		this.outExec1 = new Output(0, this, EnumVDataType.EXEC.dataTypeString, "exec");

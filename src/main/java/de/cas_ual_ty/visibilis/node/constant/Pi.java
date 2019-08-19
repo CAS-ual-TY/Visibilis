@@ -1,6 +1,8 @@
 package de.cas_ual_ty.visibilis.node.constant;
 
-public class Pi extends Node0toF
+import de.cas_ual_ty.visibilis.node.general.NtoF;
+
+public class Pi extends NtoF
 {
 	public Pi()
 	{

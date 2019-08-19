@@ -3,9 +3,9 @@ package de.cas_ual_ty.visibilis.test;
 import de.cas_ual_ty.visibilis.Print;
 import de.cas_ual_ty.visibilis.node.calculate.FFtoFPlus;
 import de.cas_ual_ty.visibilis.node.constant.E;
-import de.cas_ual_ty.visibilis.node.constant.Node0toF;
 import de.cas_ual_ty.visibilis.node.constant.Pi;
 import de.cas_ual_ty.visibilis.node.general.FFtoF;
+import de.cas_ual_ty.visibilis.node.general.NtoF;
 
 public class PrintTest extends Print
 {
@@ -15,8 +15,8 @@ public class PrintTest extends Print
 	{
 		super();
 		
-		Node0toF const_e = (Node0toF) new E().setPosition(0, 0);
-		Node0toF const_pi = (Node0toF) new Pi().setPosition(12, 48);
+		NtoF const_e = (NtoF) new E().setPosition(0, 0);
+		NtoF const_pi = (NtoF) new Pi().setPosition(12, 48);
 		
 		FFtoF plus = (FFtoF) new FFtoFPlus().setPosition(240, 18);
 		
