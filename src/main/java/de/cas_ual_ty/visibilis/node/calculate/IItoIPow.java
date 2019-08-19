@@ -4,9 +4,9 @@ import de.cas_ual_ty.visibilis.node.general.IItoI;
 
 public class IItoIPow extends IItoI
 {
-	public IItoIPow()
+	public IItoIPow(int assignedID)
 	{
-		super();
+		super(assignedID);
 	}
 	
 	@Override

@@ -4,9 +4,9 @@ import de.cas_ual_ty.visibilis.node.general.NtoF;
 
 public class Pi extends NtoF
 {
-	public Pi()
+	public Pi(int assignedID)
 	{
-		super();
+		super(assignedID);
 	}
 	
 	@Override

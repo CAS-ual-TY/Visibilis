@@ -13,9 +13,9 @@ public abstract class IItoI extends Node
 	
 	public int value;
 	
-	public IItoI()
+	public IItoI(int assignedID)
 	{
-		super(1, 2);
+		super(assignedID, 1, 2);
 		this.in1 = new Input<Integer>(0, this, EnumVDataType.INTEGER.dataTypeString, "integer");
 		this.in2 = new Input<Integer>(0, this, EnumVDataType.INTEGER.dataTypeString, "integer");
 		this.out = new Output<Integer>(0, this, EnumVDataType.INTEGER.dataTypeString, "integer");

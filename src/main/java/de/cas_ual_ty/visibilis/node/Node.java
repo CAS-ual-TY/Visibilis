@@ -26,8 +26,9 @@ public abstract class Node
 	protected Output[] outputFields;
 	protected Input[] inputFields;
 	
-	public Node(int outputAmt, int inputAmt)
+	public Node(int assignedID, int outputAmt, int inputAmt)
 	{
+		this.assignedID = assignedID;
 		this.outputFields = new Output[outputAmt];
 		this.inputFields = new Input[inputAmt];
 		this.setPosition(0, 0); //Just to make sure they are always initialized
@@ -53,15 +54,6 @@ public abstract class Node
 	 * At the end of calculation this gets reset.
 	 */
 	private boolean isCalculating = false;
-	
-	/**
-	 * Assigned ID from the Print instance this Node is in. Unique for all Nodes in the Print
-	 */
-	public Node assignID(int id)
-	{
-		this.assignedID = id;
-		return this;
-	}
 	
 	/**
 	 * Did this node already calculate? If yes the result is already saved and can just be retrieved.

@@ -4,9 +4,9 @@ import de.cas_ual_ty.visibilis.node.general.FtoF;
 
 public class Sines extends FtoF
 {
-	public Sines()
+	public Sines(int assignedID)
 	{
-		super();
+		super(assignedID);
 	}
 	
 	@Override

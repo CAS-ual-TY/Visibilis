@@ -13,22 +13,22 @@ public abstract class Effect extends NodeExec
 	public final Input inExec;
 	public final Input<TargetsList> inTargetsList;
 	
-	public Effect(int outputAmt, int inputAmt)
+	public Effect(int assignedID, int outputAmt, int inputAmt)
 	{
-		super(outputAmt, inputAmt);
+		super(assignedID, outputAmt, inputAmt);
 		this.outExec = new Output(0, this, EnumVDataType.EXEC.dataTypeString, "exec");
 		this.inExec = new Input(0, this, EnumVDataType.EXEC.dataTypeString, "exec");
 		this.inTargetsList = new Input<TargetsList>(1, this, EnumMMDataType.TARGETS_LIST.dataTypeString, "targets_list");
 	}
 	
-	public Effect(int inputAmt)
+	public Effect(int assignedID, int inputAmt)
 	{
-		this(1, inputAmt);
+		this(assignedID, 1, inputAmt);
 	}
 	
-	public Effect()
+	public Effect(int assignedID)
 	{
-		this(2);
+		this(assignedID, 2);
 	}
 	
 	@Override

@@ -8,9 +8,9 @@ public abstract class NtoF extends Node
 {
 	public final Output<Float> out;
 	
-	public NtoF()
+	public NtoF(int assignedID)
 	{
-		super(1, 0);
+		super(assignedID, 1, 0);
 		this.out = new Output<Float>(0, this, EnumVDataType.FLOAT.dataTypeString, "float");
 	}
 	

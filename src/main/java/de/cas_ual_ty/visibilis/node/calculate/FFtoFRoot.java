@@ -4,9 +4,9 @@ import de.cas_ual_ty.visibilis.node.general.FFtoF;
 
 public class FFtoFRoot extends FFtoF
 {
-	public FFtoFRoot()
+	public FFtoFRoot(int assignedID)
 	{
-		super();
+		super(assignedID);
 	}
 	
 	@Override
