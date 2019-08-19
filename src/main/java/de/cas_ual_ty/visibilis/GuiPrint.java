@@ -267,7 +267,7 @@ public class GuiPrint extends GuiScreen
 			
 			//Now draw the line, half transparent
 			//+ half size so it starts in the middle
-			drawLine(nodeFieldDotSize / 2 + dotX, nodeFieldDotSize / 2 + dotY, nodeFieldDotSize / 2 + dotX + offX, nodeFieldDotSize / 2 + dotY + offY, this.sr.getScaleFactor() * nodeFieldDotSize / 2, type.r, type.g, type.b, nodeFieldConnectionsAlpha);
+			drawLine(nodeFieldDotSize / 2 + dotX, nodeFieldDotSize / 2 + dotY, nodeFieldDotSize / 2 + dotX + offX, nodeFieldDotSize / 2 + dotY + offY, (type == EnumVDataType.EXEC ? 2 : 1) * this.sr.getScaleFactor() * nodeFieldDotSize / 2, type.r, type.g, type.b, nodeFieldConnectionsAlpha);
 		}
 	}
 	
