@@ -194,22 +194,66 @@ public class Print
 	}
 	
 	/**
-	 * Read from NBT. Does not load everything,
-	 * see {@link VUtility#readPrintFromNBT(Print, NBTTagCompound)} for a proper method
+	 * Read from NBT.
 	 */
 	public void readFromNBT(NBTTagCompound nbt)
 	{
 		this.posX = nbt.getInteger("posX");
 		this.posY = nbt.getInteger("posY");
+		
+		VUtility.readPrintNodesFromNBT(this, nbt);
+		VUtility.readPrintConnectionsFromNBT(this, nbt);
 	}
 	
 	/**
-	 * Write to NBT. Does not write everything,
-	 * see {@link VUtility#writePrintToNBT(Print, NBTTagCompound)} for a proper method
+	 * Write to NBT.
 	 */
 	public void writeToNBT(NBTTagCompound nbt)
 	{
 		nbt.setInteger("posX", this.posX);
 		nbt.setInteger("posY", this.posY);
+		
+		VUtility.writePrintNodesToNBT(this, nbt);
+		VUtility.writePrintConnectionsToNBT(this, nbt);
+	}
+	
+	/**
+	 * Get the idx of the node in the nodes list of the print
+	 */
+	public static int getIdxForNode(Print p, Node n)
+	{
+		Node n1;
+		
+		for(int i = 0; i < p.getNodes().size(); ++i)
+		{
+			n1 = p.getNodes().get(i);
+			
+			if(n1 == n)
+			{
+				return i;
+			}
+		}
+		
+		Visibilis.error("Could not find index for node!");
+		
+		return -1;
+	}
+	
+	/**
+	 * Get the node at the idx in the nodes list of the print
+	 */
+	public static Node getNodeForIdx(Print p, int idx)
+	{
+		for(int i = 0; i < p.getNodes().size(); ++i)
+		{
+			if(i == idx)
+			{
+				return p.getNodes().get(i);
+			}
+		}
+		
+		Visibilis.error("Could not find node for index!");
+		
+		return null;
 	}
 }

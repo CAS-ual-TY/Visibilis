@@ -16,36 +16,54 @@ public class VUtility
 	//save: Creating an NBT from the data of the instance
 	//load: Creating a basic instance from NBT data
 	
+	/*
+	 * A Node's idx (index) is basically the in the list of the print. Using these positions,
+	 * all connections can be numerically saved and read again. The only condition is
+	 * that you must load all connections before you modify any node positions.
+	 * ... -> Modify Print -> Save Nodes -> Save Connections -> Load Nodes -> Load Connections -> Modify Print -> ...
+	 */
+	
+	/**
+	 * Creates and loads a new {@link Print} instance from the given NBT tag, including all its nodes and connections
+	 */
 	public static Print loadPrintFromNBT(NBTTagCompound nbt)
 	{
 		Print p = new Print();
 		readPrintFromNBT(p, nbt);
-		readPrintConnectionsFromNBT(p, nbt);
 		
 		return p;
 	}
 	
+	/**
+	 * Creates a new {@link Print} with the given Print instance saved onto it, including all its nodes an connections
+	 */
 	public static NBTTagCompound savePrintToNBT(Print p)
 	{
 		NBTTagCompound nbt = new NBTTagCompound();
 		writePrintToNBT(p, nbt);
-		writePrintConnectionsToNBT(p, nbt);
 		
 		return nbt;
 	}
 	
+	/**
+	 * Reads a {@link Print} instance's data from the given NBT, excluding nodes and connections
+	 */
 	public static void readPrintFromNBT(Print p, NBTTagCompound nbt)
 	{
 		p.readFromNBT(nbt);
-		readPrintNodesFromNBT(p, nbt);
 	}
 	
+	/**
+	 * Writes a {@link Print} instance's data to the given NBT, excluding nodes and connections
+	 */
 	public static void writePrintToNBT(Print p, NBTTagCompound nbt)
 	{
 		p.writeToNBT(nbt);
-		writePrintNodesToNBT(p, nbt);
 	}
 	
+	/**
+	 * Reads a {@link Print} instance's node list from the given NBT, excluding connections
+	 */
 	public static void readPrintNodesFromNBT(Print p, NBTTagCompound nbt)
 	{
 		NBTTagList nbtlist = nbt.getTagList("nodes", Constants.NBT.TAG_COMPOUND);
@@ -70,6 +88,9 @@ public class VUtility
 		}
 	}
 	
+	/**
+	 * Writes a {@link Print} instance's node list to the given NBT, excluding connections
+	 */
 	public static void writePrintNodesToNBT(Print p, NBTTagCompound nbt)
 	{
 		NBTTagList nbtlist = new NBTTagList();
@@ -96,6 +117,9 @@ public class VUtility
 		nbt.setTag("nodes", nbtlist);
 	}
 	
+	/**
+	 * Creates and loads a new {@link Node} instance from the given NBT tag, excluding all its connections
+	 */
 	public static Node loadNodeFromNBT(NBTTagCompound nbt)
 	{
 		Node n;
@@ -114,6 +138,9 @@ public class VUtility
 		return n;
 	}
 	
+	/**
+	 * Creates a new NBT with the given {@link Node} instance saved onto it, excluding all its connections
+	 */
 	public static NBTTagCompound saveNodeToNBT(Node n)
 	{
 		NBTTagCompound nbt = new NBTTagCompound();
@@ -132,16 +159,25 @@ public class VUtility
 		return nbt;
 	}
 	
+	/**
+	 * Reads a {@link Node} instance's data from the given NBT, excluding connections
+	 */
 	public static void readNodeFromNBT(Node n, NBTTagCompound nbt)
 	{
 		n.readNodeFromNBT(nbt);
 	}
 	
+	/**
+	 * Writes a {@link Node} instance's data to the given NBT, excluding connections
+	 */
 	public static void writeNodeToNBT(Node n, NBTTagCompound nbt)
 	{
 		n.writeNodeToNBT(nbt);
 	}
 	
+	/**
+	 * Reads all connections of this {@link Print} instance's node list from the NBT
+	 */
 	public static void readPrintConnectionsFromNBT(Print p, NBTTagCompound nbt)
 	{
 		int[] array = nbt.getIntArray("connections");
@@ -153,18 +189,21 @@ public class VUtility
 		
 		for(int i = 0; i + 3 < array.length; i += 4)
 		{
-			n = getNodeForIdx(p, 	array[i + 0]);
+			n = Print.getNodeForIdx(p, 	array[i + 0]);
 			f = n.getOutput(		array[i + 1]);
-			n1 = getNodeForIdx(p, 	array[i + 2]);
+			n1 = Print.getNodeForIdx(p, 	array[i + 2]);
 			f1 = n1.getInput(		array[i + 3]);
 			
 			if(!f.tryConnectTo(f1))
 			{
-				Visibilis.error("Could not load connection!");
+				Visibilis.error("Could not load connection! Connecting failed.");
 			}
 		}
 	}
 	
+	/**
+	 * Writes all connections of this {@link Print} instance's node list to the NBT
+	 */
 	public static void writePrintConnectionsToNBT(Print p, NBTTagCompound nbt)
 	{
 		ArrayList<Integer> array = new ArrayList<Integer>();
@@ -195,46 +234,12 @@ public class VUtility
 					
 					array.add(i);
 					array.add(f.id);
-					array.add(getIdxForNode(p, n));
+					array.add(Print.getIdxForNode(p, n));
 					array.add(f1.id);
 				}
 			}
 		}
 		
 		nbt.setTag("connections", new NBTTagIntArray(array));
-	}
-	
-	public static int getIdxForNode(Print p, Node n)
-	{
-		Node n1;
-		
-		for(int i = 0; i < p.getNodes().size(); ++i)
-		{
-			n1 = p.getNodes().get(i);
-			
-			if(n1 == n)
-			{
-				return i;
-			}
-		}
-		
-		Visibilis.error("Could not find index for node!");
-		
-		return -1;
-	}
-	
-	public static Node getNodeForIdx(Print p, int idx)
-	{
-		for(int i = 0; i < p.getNodes().size(); ++i)
-		{
-			if(i == idx)
-			{
-				return p.getNodes().get(i);
-			}
-		}
-		
-		Visibilis.error("Could not find node for index!");
-		
-		return null;
 	}
 }
