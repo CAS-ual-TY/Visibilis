@@ -5,7 +5,7 @@ import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.Output;
 
-public abstract class IItoI extends Node
+public abstract class Int1to1 extends Node
 {
 	public final Input<Integer> in1;
 	public final Input<Integer> in2;
@@ -13,7 +13,7 @@ public abstract class IItoI extends Node
 	
 	public int value;
 	
-	public IItoI()
+	public Int1to1()
 	{
 		super(1, 2);
 		this.in1 = new Input<Integer>(0, this, EnumVDataType.INTEGER.dataTypeString, "integer");

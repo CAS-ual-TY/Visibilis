@@ -1,10 +1,10 @@
 package de.cas_ual_ty.visibilis.node.constant;
 
-import de.cas_ual_ty.visibilis.node.general.NtoF;
+import de.cas_ual_ty.visibilis.node.general.Float0to1;
 
-public class Pi extends NtoF
+public class FloatConstPi extends Float0to1
 {
-	public Pi()
+	public FloatConstPi()
 	{
 		super();
 	}

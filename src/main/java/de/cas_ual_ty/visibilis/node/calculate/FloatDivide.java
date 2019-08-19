@@ -1,10 +1,10 @@
 package de.cas_ual_ty.visibilis.node.calculate;
 
-import de.cas_ual_ty.visibilis.node.general.FFtoF;
+import de.cas_ual_ty.visibilis.node.general.Float2to1;
 
-public class FFtoFRoot extends FFtoF
+public class FloatDivide extends Float2to1
 {
-	public FFtoFRoot()
+	public FloatDivide()
 	{
 		super();
 	}
@@ -18,12 +18,12 @@ public class FFtoFRoot extends FFtoF
 	@Override
 	protected float calculate(float in1, float in2)
 	{
-		return (float) Math.pow(Math.E, Math.log(in1) / in2);
+		return in1 / in2;
 	}
 	
 	@Override
 	public String getID()
 	{
-		return "calc_f_root";
+		return "calc_f_divide";
 	}
 }

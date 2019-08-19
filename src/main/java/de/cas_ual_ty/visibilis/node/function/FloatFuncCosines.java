@@ -1,10 +1,10 @@
 package de.cas_ual_ty.visibilis.node.function;
 
-import de.cas_ual_ty.visibilis.node.general.FtoF;
+import de.cas_ual_ty.visibilis.node.general.Float1to1;
 
-public class Cosines extends FtoF
+public class FloatFuncCosines extends Float1to1
 {
-	public Cosines()
+	public FloatFuncCosines()
 	{
 		super();
 	}

@@ -1,10 +1,10 @@
 package de.cas_ual_ty.visibilis.node.calculate;
 
-import de.cas_ual_ty.visibilis.node.general.FFtoF;
+import de.cas_ual_ty.visibilis.node.general.Float2to1;
 
-public class FFtoFMultiply extends FFtoF
+public class FloatMultiply extends Float2to1
 {
-	public FFtoFMultiply()
+	public FloatMultiply()
 	{
 		super();
 	}

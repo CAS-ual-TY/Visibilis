@@ -1,10 +1,10 @@
 package de.cas_ual_ty.visibilis.node.constant;
 
-import de.cas_ual_ty.visibilis.node.general.NtoF;
+import de.cas_ual_ty.visibilis.node.general.Float0to1;
 
-public class E extends NtoF
+public class FloatConstE extends Float0to1
 {
-	public E()
+	public FloatConstE()
 	{
 		super();
 	}

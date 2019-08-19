@@ -1,10 +1,10 @@
 package de.cas_ual_ty.visibilis.node.function;
 
-import de.cas_ual_ty.visibilis.node.general.FtoF;
+import de.cas_ual_ty.visibilis.node.general.Float1to1;
 
-public class Logarithm10 extends FtoF
+public class FloatFuncLogarithm10 extends Float1to1
 {
-	public Logarithm10()
+	public FloatFuncLogarithm10()
 	{
 		super();
 	}

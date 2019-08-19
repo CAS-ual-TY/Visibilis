@@ -4,13 +4,13 @@ import de.cas_ual_ty.visibilis.EnumVDataType;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.Output;
 
-public abstract class NtoF extends Node
+public abstract class Float0to1 extends Node
 {
 	public final Output<Float> out;
 	
 	public float value;
 	
-	public NtoF()
+	public Float0to1()
 	{
 		super(1, 0);
 		this.out = new Output<Float>(0, this, EnumVDataType.FLOAT.dataTypeString, "float");

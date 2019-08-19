@@ -1,10 +1,10 @@
 package de.cas_ual_ty.visibilis.node.calculate;
 
-import de.cas_ual_ty.visibilis.node.general.IItoI;
+import de.cas_ual_ty.visibilis.node.general.Int1to1;
 
-public class IItoIPow extends IItoI
+public class IntPlus extends Int1to1
 {
-	public IItoIPow()
+	public IntPlus()
 	{
 		super();
 	}
@@ -12,12 +12,12 @@ public class IItoIPow extends IItoI
 	@Override
 	protected int calculate(int in1, int in2)
 	{
-		return (int) Math.pow(in1, in2);
+		return in1 + in2;
 	}
 	
 	@Override
 	public String getID()
 	{
-		return "calc_i_pow";
+		return "calc_i_plus";
 	}
 }

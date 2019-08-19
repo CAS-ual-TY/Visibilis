@@ -1,10 +1,10 @@
 package de.cas_ual_ty.visibilis.node.calculate;
 
-import de.cas_ual_ty.visibilis.node.general.IItoI;
+import de.cas_ual_ty.visibilis.node.general.Int1to1;
 
-public class IItoIModulus extends IItoI
+public class IntModulus extends Int1to1
 {
-	public IItoIModulus()
+	public IntModulus()
 	{
 		super();
 	}
