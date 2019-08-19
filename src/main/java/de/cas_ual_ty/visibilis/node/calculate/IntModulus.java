@@ -1,8 +1,8 @@
 package de.cas_ual_ty.visibilis.node.calculate;
 
-import de.cas_ual_ty.visibilis.node.general.Int1to1;
+import de.cas_ual_ty.visibilis.node.general.Int2to1;
 
-public class IntModulus extends Int1to1
+public class IntModulus extends Int2to1
 {
 	public IntModulus()
 	{

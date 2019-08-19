@@ -1,8 +1,8 @@
 package de.cas_ual_ty.visibilis.node.function;
 
-import de.cas_ual_ty.visibilis.node.general.Float1to1;
+import de.cas_ual_ty.visibilis.node.general.FloatFunc;
 
-public class FloatFuncCosines extends Float1to1
+public class FloatFuncCosines extends FloatFunc
 {
 	public FloatFuncCosines()
 	{

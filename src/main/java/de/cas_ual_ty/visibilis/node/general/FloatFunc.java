@@ -5,18 +5,23 @@ import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.Output;
 
-public abstract class Float1to1 extends Node
+public abstract class FloatFunc extends Node
 {
+	public final Output<Float> out1;
 	public final Input<Float> in1;
-	public final Output<Float> out;
 	
 	public float value;
 	
-	public Float1to1()
+	public FloatFunc(int outputAmt, int inputAmt)
 	{
-		super(1, 2);
+		super(outputAmt, inputAmt);
+		this.out1 = new Output<Float>(0, this, EnumVDataType.FLOAT.dataTypeString, "float");
 		this.in1 = new Input<Float>(0, this, EnumVDataType.FLOAT.dataTypeString, "float");
-		this.out = new Output<Float>(0, this, EnumVDataType.FLOAT.dataTypeString, "float");
+	}
+	
+	public FloatFunc()
+	{
+		this(1, 2);
 	}
 	
 	@Override
@@ -52,7 +57,7 @@ public abstract class Float1to1 extends Node
 	@Override
 	public <B> B getOutputValue(int index)
 	{
-		if(index == this.out.id)
+		if(index == this.out1.id)
 		{
 			return (B) (Float) this.value;
 		}

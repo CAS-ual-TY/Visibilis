@@ -5,20 +5,25 @@ import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.Output;
 
-public abstract class Int1to1 extends Node
+public abstract class Int2to1 extends Node
 {
+	public final Output<Integer> out1;
 	public final Input<Integer> in1;
 	public final Input<Integer> in2;
-	public final Output<Integer> out;
 	
 	public int value;
 	
-	public Int1to1()
+	public Int2to1(int outputAmt, int inputAmt)
 	{
-		super(1, 2);
+		super(outputAmt, inputAmt);
+		this.out1 = new Output<Integer>(0, this, EnumVDataType.INTEGER.dataTypeString, "integer");
 		this.in1 = new Input<Integer>(0, this, EnumVDataType.INTEGER.dataTypeString, "integer");
 		this.in2 = new Input<Integer>(0, this, EnumVDataType.INTEGER.dataTypeString, "integer");
-		this.out = new Output<Integer>(0, this, EnumVDataType.INTEGER.dataTypeString, "integer");
+	}
+	
+	public Int2to1()
+	{
+		this(1, 2);
 	}
 	
 	@Override
@@ -56,7 +61,7 @@ public abstract class Int1to1 extends Node
 	@Override
 	public <B> B getOutputValue(int index)
 	{
-		if(index == this.out.id)
+		if(index == this.out1.id)
 		{
 			return (B) (Integer) this.value;
 		}

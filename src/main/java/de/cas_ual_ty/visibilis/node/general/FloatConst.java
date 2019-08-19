@@ -4,16 +4,21 @@ import de.cas_ual_ty.visibilis.EnumVDataType;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.Output;
 
-public abstract class Float0to1 extends Node
+public abstract class FloatConst extends Node
 {
-	public final Output<Float> out;
+	public final Output<Float> out1;
 	
 	public float value;
 	
-	public Float0to1()
+	public FloatConst(int outputAmt, int inputAmt)
 	{
-		super(1, 0);
-		this.out = new Output<Float>(0, this, EnumVDataType.FLOAT.dataTypeString, "float");
+		super(outputAmt, inputAmt);
+		this.out1 = new Output<Float>(0, this, EnumVDataType.FLOAT.dataTypeString, "float");
+	}
+	
+	public FloatConst()
+	{
+		this(1, 0);
 	}
 	
 	@Override
@@ -31,7 +36,7 @@ public abstract class Float0to1 extends Node
 	@Override
 	public <B> B getOutputValue(int index)
 	{
-		if(index == this.out.id)
+		if(index == this.out1.id)
 		{
 			return (B) (Float) this.value;
 		}

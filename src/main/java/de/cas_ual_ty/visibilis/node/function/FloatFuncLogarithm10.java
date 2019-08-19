@@ -1,8 +1,8 @@
 package de.cas_ual_ty.visibilis.node.function;
 
-import de.cas_ual_ty.visibilis.node.general.Float1to1;
+import de.cas_ual_ty.visibilis.node.general.FloatFunc;
 
-public class FloatFuncLogarithm10 extends Float1to1
+public class FloatFuncLogarithm10 extends FloatFunc
 {
 	public FloatFuncLogarithm10()
 	{
