@@ -56,9 +56,9 @@ public abstract class IItoI extends Node
 	@Override
 	public <B> B getOutputValue(int index)
 	{
-		switch(index)
+		if(index == this.out.id)
 		{
-			case 0: return (B) (Integer) this.value;
+			return (B) (Integer) this.value;
 		}
 		
 		return null;

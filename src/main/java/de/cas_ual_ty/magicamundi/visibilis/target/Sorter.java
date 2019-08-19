@@ -17,15 +17,20 @@ public abstract class Sorter extends NodeExec
 	public TargetsList targetsList1;
 	public final TargetsList targetsList2;
 	
-	public Sorter(int inputAmt)
+	public Sorter(int outputAmt, int inputAmt)
 	{
-		super(3, inputAmt);
+		super(outputAmt, inputAmt);
 		this.outExec = new Output(0, this, EnumVDataType.EXEC.dataTypeString, "exec");
 		this.outTargetsList1 = new Output<TargetsList>(1, this, EnumMMDataType.TARGETS_LIST.dataTypeString, "targets_list");
 		this.outTargetsList2 = new Output<TargetsList>(2, this, EnumMMDataType.TARGETS_LIST.dataTypeString, "targets_list");
 		this.inExec = new Input(0, this, EnumVDataType.EXEC.dataTypeString, "exec");
 		this.inTargetsList = new Input<TargetsList>(1, this, EnumMMDataType.TARGETS_LIST.dataTypeString, "targets_list");
 		this.targetsList2 = new TargetsList();
+	}
+	
+	public Sorter(int inputAmt)
+	{
+		this(3, inputAmt);
 	}
 	
 	public Sorter()
@@ -52,10 +57,13 @@ public abstract class Sorter extends NodeExec
 	@Override
 	public <B> B getOutputValue(int index)
 	{
-		switch(index)
+		if(index == this.outTargetsList1.id)
 		{
-			case 1: return (B) this.targetsList1;
-			case 2: return (B) this.targetsList2;
+			return (B) this.targetsList1;
+		}
+		else if(index == this.outTargetsList2.id)
+		{
+			return (B) this.targetsList2;
 		}
 		
 		return null;

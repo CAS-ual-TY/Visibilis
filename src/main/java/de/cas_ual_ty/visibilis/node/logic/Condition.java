@@ -23,6 +23,16 @@ public class Condition extends NodeExec
 		this.inBoolean = new Input<Boolean>(1, this, EnumVDataType.BOOLEAN.dataTypeString, "boolean");
 	}
 	
+	public Condition(int inputAmt)
+	{
+		this(2, inputAmt);
+	}
+	
+	public Condition()
+	{
+		this(2);
+	}
+	
 	@Override
 	public Output getOutExec(int index)
 	{

@@ -56,9 +56,9 @@ public abstract class FFtoF extends Node
 	@Override
 	public <B> B getOutputValue(int index)
 	{
-		switch(index)
+		if(index == this.out.id)
 		{
-			case 0: return (B) (Float) this.value;
+			return (B) (Float) this.value;
 		}
 		
 		return null;

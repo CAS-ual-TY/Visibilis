@@ -8,6 +8,8 @@ public abstract class NtoF extends Node
 {
 	public final Output<Float> out;
 	
+	public float value;
+	
 	public NtoF()
 	{
 		super(1, 0);
@@ -17,6 +19,7 @@ public abstract class NtoF extends Node
 	@Override
 	public boolean doCalculate()
 	{
+		this.value = this.getValue();
 		return true;
 	}
 	
@@ -28,9 +31,9 @@ public abstract class NtoF extends Node
 	@Override
 	public <B> B getOutputValue(int index)
 	{
-		switch(index)
+		if(index == this.out.id)
 		{
-			case 0: return (B) (Float) this.getValue();
+			return (B) (Float) this.value;
 		}
 		
 		return null;
