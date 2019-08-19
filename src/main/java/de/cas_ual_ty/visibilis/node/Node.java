@@ -17,6 +17,10 @@ public abstract class Node
 	 * Empty constructor needed for instantiation of nodes. outAmt and inAmt should be hardcoded inside that constructor
 	 */
 	
+	//NBT Keys
+	public static final String KEY_POS_X = "posX";
+	public static final String KEY_POS_Y = "posY";
+	
 	public int posX, posY;
 	
 	protected Output[] outputFields;
@@ -320,8 +324,8 @@ public abstract class Node
 	 */
 	public void readNodeFromNBT(NBTTagCompound nbt)
 	{
-		this.posX = nbt.getInteger("posX");
-		this.posY = nbt.getInteger("posY");
+		this.posX = nbt.getInteger(KEY_POS_X);
+		this.posY = nbt.getInteger(KEY_POS_Y);
 	}
 	
 	/**
@@ -330,7 +334,7 @@ public abstract class Node
 	 */
 	public void writeNodeToNBT(NBTTagCompound nbt)
 	{
-		nbt.setInteger("posX", this.posX);
-		nbt.setInteger("posY", this.posY);
+		nbt.setInteger(KEY_POS_X, this.posX);
+		nbt.setInteger(KEY_POS_Y, this.posY);
 	}
 }

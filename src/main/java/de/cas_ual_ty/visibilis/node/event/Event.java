@@ -7,6 +7,9 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class Event extends NodeExec
 {
+	//NBT Keys
+	public static final String KEY_EVENT_TYPE = "eventType";
+	
 	public final Output outExec;
 	
 	/**
@@ -75,7 +78,7 @@ public class Event extends NodeExec
 	{
 		super.readNodeFromNBT(nbt);
 		
-		this.eventType = nbt.getString("eventType");
+		this.eventType = nbt.getString(KEY_EVENT_TYPE);
 	}
 	
 	@Override
@@ -83,6 +86,6 @@ public class Event extends NodeExec
 	{
 		super.writeNodeToNBT(nbt);
 		
-		nbt.setString("eventType", this.getEventType());
+		nbt.setString(KEY_EVENT_TYPE, this.getEventType());
 	}
 }

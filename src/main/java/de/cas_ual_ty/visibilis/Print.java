@@ -11,6 +11,10 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class Print
 {
+	//NBT Keys
+	public static final String KEY_POS_X = "posX";
+	public static final String KEY_POS_Y = "posY";
+	
 	/**
 	 * Where the user currently shifted the print in the GUI. Saved so that they start off again where they last left
 	 */
@@ -198,8 +202,8 @@ public class Print
 	 */
 	public void readFromNBT(NBTTagCompound nbt)
 	{
-		this.posX = nbt.getInteger("posX");
-		this.posY = nbt.getInteger("posY");
+		this.posX = nbt.getInteger(KEY_POS_X);
+		this.posY = nbt.getInteger(KEY_POS_Y);
 		
 		VUtility.readPrintNodesFromNBT(this, nbt);
 		VUtility.readPrintConnectionsFromNBT(this, nbt);
@@ -210,8 +214,8 @@ public class Print
 	 */
 	public void writeToNBT(NBTTagCompound nbt)
 	{
-		nbt.setInteger("posX", this.posX);
-		nbt.setInteger("posY", this.posY);
+		nbt.setInteger(KEY_POS_X, this.posX);
+		nbt.setInteger(KEY_POS_Y, this.posY);
 		
 		VUtility.writePrintNodesToNBT(this, nbt);
 		VUtility.writePrintConnectionsToNBT(this, nbt);

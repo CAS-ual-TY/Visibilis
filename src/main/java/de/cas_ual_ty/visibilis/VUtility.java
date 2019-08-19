@@ -23,6 +23,12 @@ public class VUtility
 	 * ... -> Modify Print -> Save Nodes -> Save Connections -> Load Nodes -> Load Connections -> Modify Print -> ...
 	 */
 	
+	//NBT Keys
+	public static final String KEY_PRINT = "print";
+	public static final String KEY_NODE = "node";
+	public static final String KEY_PRINT_NODES = "nodes";
+	public static final String KEY_PRINT_CONNECTIONS = "connections";
+	
 	/**
 	 * Creates and loads a new {@link Print} instance from the given NBT tag, including all its nodes and connections
 	 */
@@ -50,7 +56,8 @@ public class VUtility
 	 */
 	public static void readPrintFromNBT(Print p, NBTTagCompound nbt)
 	{
-		p.readFromNBT(nbt);
+		NBTTagCompound nbt1 = nbt.getCompoundTag(KEY_PRINT);
+		p.readFromNBT(nbt1);
 	}
 	
 	/**
@@ -58,7 +65,9 @@ public class VUtility
 	 */
 	public static void writePrintToNBT(Print p, NBTTagCompound nbt)
 	{
-		p.writeToNBT(nbt);
+		NBTTagCompound nbt1 = new NBTTagCompound();
+		p.writeToNBT(nbt1);
+		nbt.setTag(KEY_PRINT, nbt1);
 	}
 	
 	/**
@@ -66,7 +75,7 @@ public class VUtility
 	 */
 	public static void readPrintNodesFromNBT(Print p, NBTTagCompound nbt)
 	{
-		NBTTagList nbtlist = nbt.getTagList("nodes", Constants.NBT.TAG_COMPOUND);
+		NBTTagList nbtlist = nbt.getTagList(KEY_PRINT_NODES, Constants.NBT.TAG_COMPOUND);
 		
 		NBTTagCompound nbt1;
 		Node n;
@@ -114,7 +123,7 @@ public class VUtility
 			}
 		}
 		
-		nbt.setTag("nodes", nbtlist);
+		nbt.setTag(KEY_PRINT_NODES, nbtlist);
 	}
 	
 	/**
@@ -124,7 +133,7 @@ public class VUtility
 	{
 		Node n;
 		
-		String id = nbt.getString("id");
+		String id = nbt.getString(KEY_NODE);
 		
 		n = VRegistry.INSTANCE.instantiateNode(id);
 		
@@ -152,7 +161,7 @@ public class VUtility
 			return null;
 		}
 		
-		nbt.setString("id", name);
+		nbt.setString(KEY_NODE, name);
 		
 		writeNodeToNBT(n, nbt);
 		
@@ -180,7 +189,7 @@ public class VUtility
 	 */
 	public static void readPrintConnectionsFromNBT(Print p, NBTTagCompound nbt)
 	{
-		int[] array = nbt.getIntArray("connections");
+		int[] array = nbt.getIntArray(KEY_PRINT_CONNECTIONS);
 		
 		Node n;
 		NodeField f;
@@ -240,6 +249,6 @@ public class VUtility
 			}
 		}
 		
-		nbt.setTag("connections", new NBTTagIntArray(array));
+		nbt.setTag(KEY_PRINT_CONNECTIONS, new NBTTagIntArray(array));
 	}
 }
