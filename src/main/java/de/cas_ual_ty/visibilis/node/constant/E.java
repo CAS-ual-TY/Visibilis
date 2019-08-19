@@ -2,9 +2,9 @@ package de.cas_ual_ty.visibilis.node.constant;
 
 public class E extends Node0toF
 {
-	public E(int posX, int posY)
+	public E()
 	{
-		super(posX, posY);
+		super();
 	}
 	
 	@Override

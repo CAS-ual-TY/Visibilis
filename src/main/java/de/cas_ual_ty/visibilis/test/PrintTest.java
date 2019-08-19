@@ -15,10 +15,10 @@ public class PrintTest extends Print
 	{
 		super();
 		
-		Node0toF const_e = new E(0, 0);
-		Node0toF const_pi = new Pi(12, 48);
+		Node0toF const_e = (Node0toF) new E().setPosition(0, 0);
+		Node0toF const_pi = (Node0toF) new Pi().setPosition(12, 48);
 		
-		FFtoF plus = new FFtoFPlus(240, 18);
+		FFtoF plus = (FFtoF) new FFtoFPlus().setPosition(240, 18);
 		
 		this.addNode(const_e);
 		this.addNode(const_pi);

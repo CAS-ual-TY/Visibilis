@@ -4,9 +4,9 @@ import de.cas_ual_ty.visibilis.node.general.FtoF;
 
 public class Logarithm10 extends FtoF
 {
-	public Logarithm10(int posX, int posY)
+	public Logarithm10()
 	{
-		super(posX, posY);
+		super();
 	}
 	
 	@Override

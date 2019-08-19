@@ -4,9 +4,9 @@ import de.cas_ual_ty.visibilis.node.general.FtoF;
 
 public class Cosines extends FtoF
 {
-	public Cosines(int posX, int posY)
+	public Cosines()
 	{
-		super(posX, posY);
+		super();
 	}
 	
 	@Override

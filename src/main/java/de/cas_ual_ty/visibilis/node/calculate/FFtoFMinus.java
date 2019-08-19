@@ -4,9 +4,9 @@ import de.cas_ual_ty.visibilis.node.general.FFtoF;
 
 public class FFtoFMinus extends FFtoF
 {
-	public FFtoFMinus(int posX, int posY)
+	public FFtoFMinus()
 	{
-		super(posX, posY);
+		super();
 	}
 	
 	@Override

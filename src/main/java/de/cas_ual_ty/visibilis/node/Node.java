@@ -2,6 +2,8 @@ package de.cas_ual_ty.visibilis.node;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 public abstract class Node
 {
 	/*
@@ -10,6 +12,8 @@ public abstract class Node
 	 * The values are then stored so that multiple child nodes can get them without the need to calculate more than once.
 	 * Once all nodes have been calculated, they will be "reset",
 	 * meaning that the "isCalculated()" state will be false again, triggering recalculation on next call (and possibly other things).
+	 * 
+	 * Empty constructor needed for instantiation of nodes. outAmt and inAmt should be hardcoded inside that constructor
 	 */
 	
 	public int posX, posY;
@@ -17,12 +21,18 @@ public abstract class Node
 	protected Output[] outputFields;
 	protected Input[] inputFields;
 	
-	public Node(int posX, int posY, int outputAmt, int inputAmt)
+	public Node(int outputAmt, int inputAmt)
 	{
-		this.posX = posX;
-		this.posY = posY;
 		this.outputFields = new Output[outputAmt];
 		this.inputFields = new Input[inputAmt];
+		this.setPosition(0, 0); //Just to make sure they are always initialized
+	}
+	
+	public Node setPosition(int x, int y)
+	{
+		this.posX = x;
+		this.posY = y;
+		return this;
 	}
 	
 	/**
@@ -301,5 +311,21 @@ public abstract class Node
 	public String getFieldUnlocalizedDesc(NodeField field)
 	{
 		return "field." + this.getID() + "." + field.name + ".desc";
+	}
+	
+	/**
+	 * Reads the node from NBT
+	 */
+	public void readFromNBT(NBTTagCompound nbt)
+	{
+		
+	}
+	
+	/**
+	 * Writes the node to NBT
+	 */
+	public void writeToNBT(NBTTagCompound nbt)
+	{
+		
 	}
 }

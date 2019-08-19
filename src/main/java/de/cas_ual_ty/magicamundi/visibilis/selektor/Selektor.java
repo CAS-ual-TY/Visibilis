@@ -13,22 +13,22 @@ public abstract class Selektor extends Node
 	
 	public final TargetsList targetsList;
 	
-	public Selektor(int posX, int posY, int outputAmt, int inputAmt)
+	public Selektor(int outputAmt, int inputAmt)
 	{
-		super(posX, posY, outputAmt, inputAmt);
+		super(outputAmt, inputAmt);
 		this.outExec = new Output(0, this, EnumVDataType.EXEC.dataTypeString, "exec");
 		this.outTargetsList = new Output<TargetsList>(1, this, EnumMMDataType.TARGETS_LIST.dataTypeString, "targets_list");
 		this.targetsList = new TargetsList();
 	}
 	
-	public Selektor(int posX, int posY, int outputAmt)
+	public Selektor(int outputAmt)
 	{
-		this(posX, posY, outputAmt, 0);
+		this(outputAmt, 0);
 	}
 	
-	public Selektor(int posX, int posY)
+	public Selektor()
 	{
-		this(posX, posY, 1);
+		this(1);
 	}
 	
 	@Override

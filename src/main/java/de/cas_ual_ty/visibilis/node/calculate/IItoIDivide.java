@@ -4,9 +4,9 @@ import de.cas_ual_ty.visibilis.node.general.IItoI;
 
 public class IItoIDivide extends IItoI
 {
-	public IItoIDivide(int posX, int posY)
+	public IItoIDivide()
 	{
-		super(posX, posY);
+		super();
 	}
 	
 	@Override

@@ -4,9 +4,9 @@ import de.cas_ual_ty.visibilis.node.general.FFtoF;
 
 public class FFtoFMultiply extends FFtoF
 {
-	public FFtoFMultiply(int posX, int posY)
+	public FFtoFMultiply()
 	{
-		super(posX, posY);
+		super();
 	}
 	
 	@Override

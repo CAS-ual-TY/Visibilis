@@ -4,9 +4,9 @@ import de.cas_ual_ty.visibilis.node.general.IItoI;
 
 public class IItoIPlus extends IItoI
 {
-	public IItoIPlus(int posX, int posY)
+	public IItoIPlus()
 	{
-		super(posX, posY);
+		super();
 	}
 	
 	@Override

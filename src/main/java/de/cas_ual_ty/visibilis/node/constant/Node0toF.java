@@ -8,9 +8,9 @@ public abstract class Node0toF extends Node
 {
 	public final Output<Float> out;
 	
-	public Node0toF(int posX, int posY)
+	public Node0toF()
 	{
-		super(posX, posY, 1, 0);
+		super(1, 0);
 		this.out = new Output<Float>(0, this, EnumVDataType.FLOAT.dataTypeString, "float");
 	}
 	

@@ -4,9 +4,9 @@ import javax.annotation.Nullable;
 
 public abstract class NodeExec extends Node
 {
-	public NodeExec(int posX, int posY, int outputAmt, int inputAmt)
+	public NodeExec(int outputAmt, int inputAmt)
 	{
-		super(posX, posY, outputAmt, inputAmt);
+		super(outputAmt, inputAmt);
 	}
 	
 	/**

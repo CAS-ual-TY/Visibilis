@@ -18,22 +18,12 @@ public class Event extends NodeExec
 	 */
 	public final String eventType;
 	
-	public Event(int posX, int posY, int outputAmt, int inputAmt, String modId, String eventType)
+	public Event(int outputAmt, int inputAmt, String modId, String eventType)
 	{
-		super(posX, posY, outputAmt, inputAmt);
+		super(outputAmt, inputAmt);
 		this.outExec = new Output(0, this, EnumVDataType.EXEC.dataTypeString, "exec");
 		this.modId = modId;
 		this.eventType = eventType;
-	}
-	
-	public Event(int posX, int posY, int inputAmt, String modId, String eventType)
-	{
-		this(posX, posY, 1, inputAmt, modId, eventType);
-	}
-	
-	public Event(int posX, int posY, String modId, String eventType)
-	{
-		this(posX, posY, 0, modId, eventType);
 	}
 	
 	@Override
