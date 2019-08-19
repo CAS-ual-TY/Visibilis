@@ -40,7 +40,7 @@ public class Visibilis
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
-		proxy.registerThings();
+		proxy.preInit();
 	}
 	
 	@EventHandler
