@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraftforge.fml.common.gameevent.InputEvent.KeyInputEvent;
 
 public class GuiPrint extends GuiScreen
 {
@@ -362,6 +363,15 @@ public class GuiPrint extends GuiScreen
 	}
 	
 	/**
+	 * Used to intercept key downs
+	 * @see de.cas_ual_ty.visibilis.handler.VEventHandlerClient#onEvent(KeyInputEvent)
+	 */
+	public void onKeyInput(KeyInputEvent event)
+	{
+		//TODO scrolling, zooming
+	}
+	
+	/**
 	 * Check if the given mouse coordinates are inside given rectangle
 	 */
 	public static boolean isCoordInsideRect(float mouseX, float mouseY, float x, float y, float w, float h)
@@ -390,7 +400,7 @@ public class GuiPrint extends GuiScreen
 	 */
 	public float guiToPrint(int i)
 	{
-		return i * this.zoom; //TODO high: see below as well, separate method to adjust for the position of the print
+		return i * this.zoom; //TODO today: see below as well, separate method to adjust for the position of the print
 	}
 	
 	/**
@@ -429,7 +439,7 @@ public class GuiPrint extends GuiScreen
 	/**
 	 * Move according to the scolling of the user and apply zoom
 	 */
-	public static void applyZoomAndShift(float zoom, float x, float y, float z) //TODO high: shift/move (scrolling)
+	public static void applyZoomAndShift(float zoom, float x, float y, float z) //TODO today: shift/move (scrolling)
 	{
 		GL11.glScalef(zoom, zoom, 1); //Apply zoom, 2x zoom means 2x size of prints, so this is fine
 	}
