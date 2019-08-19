@@ -18,6 +18,6 @@ public class BooleanNOR extends Boolean2to1
     @Override
     public String getID()
     {
-        return "logic_xnor";
+        return "logic_nor";
     }
 }
