@@ -18,6 +18,11 @@ public abstract class Node
 	
 	public int posX, posY;
 	
+	/**
+	 * Assigned ID from the Print instance this Node is in. Unique for all Nodes in the Print
+	 */
+	public int assignedID;
+	
 	protected Output[] outputFields;
 	protected Input[] inputFields;
 	
@@ -48,6 +53,15 @@ public abstract class Node
 	 * At the end of calculation this gets reset.
 	 */
 	private boolean isCalculating = false;
+	
+	/**
+	 * Assigned ID from the Print instance this Node is in. Unique for all Nodes in the Print
+	 */
+	public Node assignID(int id)
+	{
+		this.assignedID = id;
+		return this;
+	}
 	
 	/**
 	 * Did this node already calculate? If yes the result is already saved and can just be retrieved.
