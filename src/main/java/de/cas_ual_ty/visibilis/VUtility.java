@@ -12,9 +12,9 @@ import net.minecraftforge.common.util.Constants;
 public class VUtility
 {
 	//read: Instance reading itself from NBT
-	//write: Instance writing itself from NBT
-	//save: Creating an NBT from the data of the instance
-	//load: Creating a basic instance from NBT data
+	//write: Instance writing itself to NBT
+	//save: Creating an NBT from the instance
+	//load: Creating an instance from the NBT
 	
 	/*
 	 * A Node's idx (index) is basically the in the list of the print. Using these positions,
