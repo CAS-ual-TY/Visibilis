@@ -4,9 +4,9 @@ import de.cas_ual_ty.visibilis.node.general.FFtoF;
 
 public class FFtoFModulus extends FFtoF
 {
-	public FFtoFModulus(int assignedID)
+	public FFtoFModulus()
 	{
-		super(assignedID);
+		super();
 	}
 	
 	@Override

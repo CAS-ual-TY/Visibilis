@@ -14,9 +14,9 @@ public class Condition extends NodeExec
 	
 	public boolean value;
 	
-	public Condition(int assignedID, int outputAmt, int inputAmt)
+	public Condition(int outputAmt, int inputAmt)
 	{
-		super(assignedID, outputAmt, inputAmt);
+		super(outputAmt, inputAmt);
 		this.outExec1 = new Output(0, this, EnumVDataType.EXEC.dataTypeString, "exec");
 		this.outExec2 = new Output(1, this, EnumVDataType.EXEC.dataTypeString, "exec");
 		this.inExec = new Input(0, this, EnumVDataType.EXEC.dataTypeString, "exec");

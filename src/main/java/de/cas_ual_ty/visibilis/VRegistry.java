@@ -1,7 +1,7 @@
 package de.cas_ual_ty.visibilis;
 
 import java.util.HashMap;
-
+import java.util.Map;
 import de.cas_ual_ty.visibilis.node.Node;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.GameData;
@@ -70,6 +70,26 @@ public class VRegistry
 		}
 		
 		Visibilis.error("Node \"" + modIdName + "\" does not exist!");
+		
+		return null;
+	}
+	
+	//--- ---
+	
+	public String getNameForNode(Node n)
+	{
+		return getNameForNode(n.getClass());
+	}
+	
+	public String getNameForNode(Class<? extends Node> c)
+	{
+		for(Map.Entry<String, Class<? extends Node>> e : this.mapNodes.entrySet())
+		{
+			if(e.getValue().equals(c))
+			{
+				return e.getKey();
+			}
+		}
 		
 		return null;
 	}

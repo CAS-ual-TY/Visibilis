@@ -12,9 +12,9 @@ public abstract class FtoF extends Node
 	
 	public float value;
 	
-	public FtoF(int assignedID)
+	public FtoF()
 	{
-		super(assignedID, 1, 2);
+		super(1, 2);
 		this.in1 = new Input<Float>(0, this, EnumVDataType.FLOAT.dataTypeString, "float");
 		this.out = new Output<Float>(0, this, EnumVDataType.FLOAT.dataTypeString, "float");
 	}

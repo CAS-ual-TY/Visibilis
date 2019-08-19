@@ -4,9 +4,9 @@ import de.cas_ual_ty.visibilis.node.general.IItoI;
 
 public class IItoIModulus extends IItoI
 {
-	public IItoIModulus(int assignedID)
+	public IItoIModulus()
 	{
-		super(assignedID);
+		super();
 	}
 	
 	@Override

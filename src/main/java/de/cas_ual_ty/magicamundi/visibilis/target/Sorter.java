@@ -17,9 +17,9 @@ public abstract class Sorter extends NodeExec
 	public TargetsList targetsList1;
 	public final TargetsList targetsList2;
 	
-	public Sorter(int assignedID, int inputAmt)
+	public Sorter(int inputAmt)
 	{
-		super(assignedID, 3, inputAmt);
+		super(3, inputAmt);
 		this.outExec = new Output(0, this, EnumVDataType.EXEC.dataTypeString, "exec");
 		this.outTargetsList1 = new Output<TargetsList>(1, this, EnumMMDataType.TARGETS_LIST.dataTypeString, "targets_list");
 		this.outTargetsList2 = new Output<TargetsList>(2, this, EnumMMDataType.TARGETS_LIST.dataTypeString, "targets_list");
@@ -28,9 +28,9 @@ public abstract class Sorter extends NodeExec
 		this.targetsList2 = new TargetsList();
 	}
 	
-	public Sorter(int assignedID)
+	public Sorter()
 	{
-		this(assignedID, 2);
+		this(2);
 	}
 	
 	@Override

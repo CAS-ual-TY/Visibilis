@@ -4,9 +4,9 @@ import de.cas_ual_ty.visibilis.node.general.NtoF;
 
 public class E extends NtoF
 {
-	public E(int assignedID)
+	public E()
 	{
-		super(assignedID);
+		super();
 	}
 	
 	@Override

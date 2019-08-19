@@ -4,9 +4,9 @@ import de.cas_ual_ty.visibilis.node.general.FtoF;
 
 public class Tangent extends FtoF
 {
-	public Tangent(int assignedID)
+	public Tangent()
 	{
-		super(assignedID);
+		super();
 	}
 	
 	@Override

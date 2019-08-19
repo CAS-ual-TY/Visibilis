@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis.node;
 
 import javax.annotation.Nullable;
 
+import de.cas_ual_ty.visibilis.VUtility;
 import net.minecraft.nbt.NBTTagCompound;
 
 public abstract class Node
@@ -18,17 +19,11 @@ public abstract class Node
 	
 	public int posX, posY;
 	
-	/**
-	 * Assigned ID from the Print instance this Node is in. Unique for all Nodes in the Print
-	 */
-	public int assignedID;
-	
 	protected Output[] outputFields;
 	protected Input[] inputFields;
 	
-	public Node(int assignedID, int outputAmt, int inputAmt)
+	public Node(int outputAmt, int inputAmt)
 	{
-		this.assignedID = assignedID;
 		this.outputFields = new Output[outputAmt];
 		this.inputFields = new Input[inputAmt];
 		this.setPosition(0, 0); //Just to make sure they are always initialized
@@ -320,18 +315,22 @@ public abstract class Node
 	}
 	
 	/**
-	 * Reads the node from NBT
+	 * Read from NBT. Does not load everything,
+	 * see {@link VUtility#readNodeFromNBT(Node, NBTTagCompound)} for a proper method
 	 */
-	public void readFromNBT(NBTTagCompound nbt)
+	public void readNodeFromNBT(NBTTagCompound nbt)
 	{
-		
+		this.posX = nbt.getInteger("posX");
+		this.posY = nbt.getInteger("posY");
 	}
 	
 	/**
-	 * Writes the node to NBT
+	 * Write to NBT. Does not write everything,
+	 * see {@link VUtility#writeNodeToNBT(Node, NBTTagCompound)} for a proper method
 	 */
-	public void writeToNBT(NBTTagCompound nbt)
+	public void writeNodeToNBT(NBTTagCompound nbt)
 	{
-		
+		nbt.setInteger("posX", this.posX);
+		nbt.setInteger("posY", this.posY);
 	}
 }

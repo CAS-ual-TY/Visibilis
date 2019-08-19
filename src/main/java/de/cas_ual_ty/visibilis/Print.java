@@ -7,6 +7,7 @@ import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeExec;
 import de.cas_ual_ty.visibilis.node.Output;
 import de.cas_ual_ty.visibilis.node.event.Event;
+import net.minecraft.nbt.NBTTagCompound;
 
 public class Print
 {
@@ -190,5 +191,25 @@ public class Print
 		}
 		
 		return true;
+	}
+	
+	/**
+	 * Read from NBT. Does not load everything,
+	 * see {@link VUtility#readPrintFromNBT(Print, NBTTagCompound)} for a proper method
+	 */
+	public void readFromNBT(NBTTagCompound nbt)
+	{
+		this.posX = nbt.getInteger("posX");
+		this.posY = nbt.getInteger("posY");
+	}
+	
+	/**
+	 * Write to NBT. Does not write everything,
+	 * see {@link VUtility#writePrintToNBT(Print, NBTTagCompound)} for a proper method
+	 */
+	public void writeToNBT(NBTTagCompound nbt)
+	{
+		nbt.setInteger("posX", this.posX);
+		nbt.setInteger("posY", this.posY);
 	}
 }

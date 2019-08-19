@@ -4,9 +4,9 @@ import de.cas_ual_ty.visibilis.node.general.IItoI;
 
 public class IItoIMultiply extends IItoI
 {
-	public IItoIMultiply(int assignedID)
+	public IItoIMultiply()
 	{
-		super(assignedID);
+		super();
 	}
 	
 	@Override
