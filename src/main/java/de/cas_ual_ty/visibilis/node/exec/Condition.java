@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.node.logic;
+package de.cas_ual_ty.visibilis.node.exec;
 
 import de.cas_ual_ty.visibilis.EnumVDataType;
 import de.cas_ual_ty.visibilis.node.Input;
