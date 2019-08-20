@@ -12,6 +12,8 @@ import de.cas_ual_ty.visibilis.node.NodeField;
 
 public class VDataType<A>
 {
+    public static final Map<String, VDataType> DATA_TYPES_LIST = new HashMap<String, VDataType>();
+    
     public static final VDataType EXEC = new VDataType("exec", new float[] { 1F, 1F, 1F });
     public static final VDataType<Number> NUMBER = new VDataType<Number>("number", new float[] { 1F, 1F, 0F });
     public static final VDataType<Float> FLOAT = new VDataType<Float>("float", new float[] { 1F, 1F, 0F });
@@ -28,8 +30,6 @@ public class VDataType<A>
         
         INTEGER.registerConverter(NUMBER, new NumberInteger()); // here Number#intValue() should be used, so not a generic converter
     }
-    
-    public static final Map<String, VDataType> DATA_TYPES_LIST = new HashMap<String, VDataType>();
     
     /**
      * All registered converters
