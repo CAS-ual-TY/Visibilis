@@ -17,7 +17,7 @@ public class VEventHandlerClient
     public static void onEvent(KeyInputEvent event)
     {
         EntityPlayerSP player = Minecraft.getMinecraft().player;
-
+        
         if (player != null)
         {
             if (Minecraft.getMinecraft().currentScreen instanceof GuiPrint)

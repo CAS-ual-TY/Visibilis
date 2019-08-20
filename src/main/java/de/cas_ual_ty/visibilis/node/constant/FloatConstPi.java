@@ -8,13 +8,13 @@ public class FloatConstPi extends FloatConst
     {
         super();
     }
-
+    
     @Override
     protected float getValue()
     {
         return (float) Math.PI;
     }
-
+    
     @Override
     public String getID()
     {

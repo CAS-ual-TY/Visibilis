@@ -16,7 +16,7 @@ public class VItemTest extends Item
     {
         this.setCreativeTab(CreativeTabs.COMBAT);
     }
-
+    
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {
@@ -24,7 +24,7 @@ public class VItemTest extends Item
         {
             playerIn.openGui(Visibilis.instance, 0, worldIn, (int) playerIn.posX, (int) playerIn.posY, (int) playerIn.posZ);
         }
-
+        
         return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
     }
 }

@@ -8,13 +8,13 @@ public class IntMinus extends Int2to1
     {
         super();
     }
-
+    
     @Override
     protected int calculate(int in1, int in2)
     {
         return in1 - in2;
     }
-
+    
     @Override
     public String getID()
     {

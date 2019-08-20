@@ -8,13 +8,13 @@ public class FloatFuncLogarithm1p extends FloatFunc
     {
         super();
     }
-
+    
     @Override
     protected float calculate(float in1)
     {
         return (float) Math.log1p(in1);
     }
-
+    
     @Override
     public String getID()
     {

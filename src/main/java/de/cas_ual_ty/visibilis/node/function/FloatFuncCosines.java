@@ -8,13 +8,13 @@ public class FloatFuncCosines extends FloatFunc
     {
         super();
     }
-
+    
     @Override
     protected float calculate(float in1)
     {
         return (float) Math.cos(this.in1.getValue());
     }
-
+    
     @Override
     public String getID()
     {

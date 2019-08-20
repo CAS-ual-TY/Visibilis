@@ -8,13 +8,13 @@ public class IntPower extends Int2to1
     {
         super();
     }
-
+    
     @Override
     protected int calculate(int in1, int in2)
     {
         return (int) Math.pow(in1, in2);
     }
-
+    
     @Override
     public String getID()
     {

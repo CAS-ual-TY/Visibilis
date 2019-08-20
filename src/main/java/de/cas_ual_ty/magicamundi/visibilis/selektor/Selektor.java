@@ -10,9 +10,9 @@ public abstract class Selektor extends Node
 {
     public final Output outExec;
     public final Output<TargetsList> outTargetsList;
-
+    
     public final TargetsList targetsList;
-
+    
     public Selektor(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
@@ -20,24 +20,24 @@ public abstract class Selektor extends Node
         this.outTargetsList = new Output<TargetsList>(1, this, MMDataType.TARGETS_LIST, "targets_list");
         this.targetsList = new TargetsList();
     }
-
+    
     public Selektor(int outputAmt)
     {
         this(outputAmt, 0);
     }
-
+    
     public Selektor()
     {
         this(1);
     }
-
+    
     @Override
     public boolean doCalculate()
     {
         this.targetsList.clear();
         return this.findTargets(this.targetsList);
     }
-
+    
     /**
      * Find/select all targets and add them to the given TargetsList.
      * 
@@ -46,7 +46,7 @@ public abstract class Selektor extends Node
      * @return <b>false</b> if there was an error and the process could not be done (example: input variable was undefined or it's value not allowed or out of range).
      */
     public abstract boolean findTargets(TargetsList list);
-
+    
     @Override
     public <B> B getOutputValue(int index)
     {
@@ -54,7 +54,7 @@ public abstract class Selektor extends Node
         {
             return (B) this.targetsList;
         }
-
+        
         return null;
     }
 }

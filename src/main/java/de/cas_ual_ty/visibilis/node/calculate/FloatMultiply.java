@@ -8,13 +8,13 @@ public class FloatMultiply extends Float2to1
     {
         super();
     }
-
+    
     @Override
     protected float calculate(float in1, float in2)
     {
         return in1 * in2;
     }
-
+    
     @Override
     public String getID()
     {

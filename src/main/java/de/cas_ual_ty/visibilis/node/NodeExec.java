@@ -8,10 +8,9 @@ public abstract class NodeExec extends Node
     {
         super(outputAmt, inputAmt);
     }
-
+    
     /**
-     * After calculation, get the next output of the exec data type (basically just the next exec node to calculate). This is getting called repeatedly until <b>null</b> is
-     * returned.
+     * After calculation, get the next output of the exec data type (basically just the next exec node to calculate). This is getting called repeatedly until <b>null</b> is returned.
      * 
      * @see de.cas_ual_ty.visibilis.Print#execute()
      * @param index

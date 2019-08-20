@@ -8,13 +8,13 @@ public class FloatConstE extends FloatConst
     {
         super();
     }
-
+    
     @Override
     protected float getValue()
     {
         return (float) Math.E;
     }
-
+    
     @Override
     public String getID()
     {

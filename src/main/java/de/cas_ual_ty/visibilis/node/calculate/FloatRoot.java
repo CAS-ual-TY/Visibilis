@@ -8,19 +8,19 @@ public class FloatRoot extends Float2to1
     {
         super();
     }
-
+    
     @Override
     protected boolean canCalculate(float in1, float in2)
     {
         return in2 != 0F;
     }
-
+    
     @Override
     protected float calculate(float in1, float in2)
     {
         return (float) Math.pow(Math.E, Math.log(in1) / in2);
     }
-
+    
     @Override
     public String getID()
     {

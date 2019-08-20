@@ -9,21 +9,21 @@ public abstract class FloatFunc extends Node
 {
     public final Output<Float> out1;
     public final Input<Float> in1;
-
+    
     public float value;
-
+    
     public FloatFunc(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
         this.out1 = new Output<Float>(0, this, VDataType.FLOAT, "float");
         this.in1 = new Input<Float>(0, this, VDataType.FLOAT, "float");
     }
-
+    
     public FloatFunc()
     {
         this(1, 2);
     }
-
+    
     @Override
     public boolean doCalculate()
     {
@@ -31,12 +31,12 @@ public abstract class FloatFunc extends Node
         {
             return false;
         }
-
+        
         this.value = this.calculate(this.in1.getValue());
-
+        
         return true;
     }
-
+    
     /**
      * Can this node calculate or are there going to be errors (example: 1 / 0)?
      * 
@@ -48,7 +48,7 @@ public abstract class FloatFunc extends Node
     {
         return true;
     }
-
+    
     /**
      * Calculate the result using the input number.
      * 
@@ -57,7 +57,7 @@ public abstract class FloatFunc extends Node
      * @return The result.
      */
     protected abstract float calculate(float in1);
-
+    
     @Override
     public <B> B getOutputValue(int index)
     {
@@ -65,7 +65,7 @@ public abstract class FloatFunc extends Node
         {
             return (B) (Float) this.value;
         }
-
+        
         return null;
     }
 }

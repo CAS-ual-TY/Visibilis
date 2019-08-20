@@ -10,9 +10,9 @@ public abstract class Int2to1 extends Node
     public final Output<Integer> out1;
     public final Input<Integer> in1;
     public final Input<Integer> in2;
-
+    
     public int value;
-
+    
     public Int2to1(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
@@ -20,12 +20,12 @@ public abstract class Int2to1 extends Node
         this.in1 = new Input<Integer>(0, this, VDataType.INTEGER, "integer");
         this.in2 = new Input<Integer>(0, this, VDataType.INTEGER, "integer");
     }
-
+    
     public Int2to1()
     {
         this(1, 2);
     }
-
+    
     @Override
     public boolean doCalculate()
     {
@@ -33,12 +33,12 @@ public abstract class Int2to1 extends Node
         {
             return false;
         }
-
+        
         this.calculate(this.in1.getValue(), this.in2.getValue());
-
+        
         return true;
     }
-
+    
     /**
      * Can this node calculate or are there going to be errors (example: 1 / 0)?
      * 
@@ -52,7 +52,7 @@ public abstract class Int2to1 extends Node
     {
         return true;
     }
-
+    
     /**
      * Calculate the result using the 2 input numbers.
      * 
@@ -63,7 +63,7 @@ public abstract class Int2to1 extends Node
      * @return The result.
      */
     protected abstract int calculate(int in1, int in2);
-
+    
     @Override
     public <B> B getOutputValue(int index)
     {
@@ -71,7 +71,7 @@ public abstract class Int2to1 extends Node
         {
             return (B) (Integer) this.value;
         }
-
+        
         return null;
     }
 }

@@ -10,9 +10,9 @@ public abstract class Boolean2to1 extends Node
     public final Output<Boolean> out1;
     public final Input<Boolean> in1;
     public final Input<Boolean> in2;
-
+    
     public boolean value;
-
+    
     public Boolean2to1(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
@@ -20,12 +20,12 @@ public abstract class Boolean2to1 extends Node
         this.in1 = new Input<Boolean>(0, this, VDataType.BOOLEAN, "boolean");
         this.in2 = new Input<Boolean>(1, this, VDataType.BOOLEAN, "boolean");
     }
-
+    
     public Boolean2to1()
     {
         this(1, 2);
     }
-
+    
     @Override
     public boolean doCalculate()
     {
@@ -33,12 +33,12 @@ public abstract class Boolean2to1 extends Node
         {
             return false;
         }
-
+        
         this.value = this.calculate(this.in1.getValue(), this.in2.getValue());
-
+        
         return true;
     }
-
+    
     /**
      * Can this node calculate or are there going to be errors (example: 1 / 0)?
      * 
@@ -52,7 +52,7 @@ public abstract class Boolean2to1 extends Node
     {
         return true;
     }
-
+    
     /**
      * Calculate the result using the 2 input numbers.
      * 
@@ -63,7 +63,7 @@ public abstract class Boolean2to1 extends Node
      * @return The result.
      */
     protected abstract boolean calculate(boolean in1, boolean in2);
-
+    
     @Override
     public <B> B getOutputValue(int index)
     {
@@ -71,7 +71,7 @@ public abstract class Boolean2to1 extends Node
         {
             return (B) (Boolean) this.value;
         }
-
+        
         return null;
     }
 }

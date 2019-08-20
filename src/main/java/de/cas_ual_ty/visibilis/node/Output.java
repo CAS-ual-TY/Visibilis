@@ -9,18 +9,18 @@ public class Output<A> extends NodeField<A>
     /*
      * Clarifications: "Node": The node of this node field "Parent": The parent node of the node of this field
      */
-
+    
     /**
      * All inputs this is connected to.
      */
     protected final ArrayList<Input> connections;
-
+    
     public Output(int id, Node node, VDataType dataType, String name)
     {
         super(id, node, dataType, name);
         this.connections = new ArrayList<Input>();
     }
-
+    
     /**
      * @return The list of all connections.
      */
@@ -28,7 +28,7 @@ public class Output<A> extends NodeField<A>
     {
         return this.connections;
     }
-
+    
     @Override
     protected boolean setConnectionTo(NodeField field)
     {
@@ -51,36 +51,36 @@ public class Output<A> extends NodeField<A>
                     this.connections.add((Input) field);
                 }
             }
-
+            
             return true;
         }
-
+        
         return false;
     }
-
+    
     @Override
     public A getValue()
     {
         return this.node.<A> getOutputValue(this.id);
     }
-
+    
     @Override
     public boolean hasConnections()
     {
         return !this.connections.isEmpty();
     }
-
+    
     @Override
     public boolean isOutput()
     {
         return true;
     }
-
+    
     @Override
     public ArrayList<NodeField> getConnectionsList()
     {
         ArrayList<NodeField> list = new ArrayList<NodeField>();
-
+        
         if (this.hasConnections())
         {
             for (Input input : this.connections)
@@ -88,16 +88,16 @@ public class Output<A> extends NodeField<A>
                 list.add(input);
             }
         }
-
+        
         return list;
     }
-
+    
     @Override
     public void clearConnections()
     {
         this.connections.clear();
     }
-
+    
     @Override
     public void removeConnection(NodeField field)
     {

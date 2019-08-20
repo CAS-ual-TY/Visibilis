@@ -9,29 +9,29 @@ public class BooleanNOT extends Node
 {
     public final Output<Boolean> out1;
     public final Input<Boolean> in1;
-
+    
     public boolean value;
-
+    
     public BooleanNOT(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
         this.out1 = new Output<Boolean>(0, this, VDataType.BOOLEAN, "boolean");
         this.in1 = new Input<Boolean>(0, this, VDataType.BOOLEAN, "boolean");
     }
-
+    
     public BooleanNOT()
     {
         this(1, 1);
     }
-
+    
     @Override
     public boolean doCalculate()
     {
         this.value = !this.in1.getValue();
-
+        
         return true;
     }
-
+    
     @Override
     public <B> B getOutputValue(int index)
     {
@@ -39,10 +39,10 @@ public class BooleanNOT extends Node
         {
             return (B) (Boolean) this.value;
         }
-
+        
         return null;
     }
-
+    
     @Override
     public String getID()
     {

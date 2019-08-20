@@ -14,28 +14,28 @@ public class Print
     // NBT Keys
     public static final String KEY_POS_X = "posX";
     public static final String KEY_POS_Y = "posY";
-
+    
     /**
      * Where the user currently shifted the print in the GUI. Saved so that they start off again where they last left
      */
     public int posX, posY;
-
+    
     /**
      * All nodes in this print (including events).
      */
     protected final ArrayList<Node> nodes = new ArrayList<Node>();
-
+    
     /**
      * All event nodes in this print
      */
     protected final ArrayList<Event> events = new ArrayList<Event>();
-
+    
     public Print()
     {
         this.posX = 0;
         this.posY = 0;
     }
-
+    
     /**
      * Add a node to this print. It will be added on top. If the node is already present it will be moved to the top.
      * 
@@ -50,17 +50,17 @@ public class Print
             // Remove node from the list to add it on top again
             this.removeNodeKeepConnections(node);
         }
-
+        
         this.nodes.add(node);
-
+        
         if (node instanceof Event)
         {
             this.events.add((Event) node);
         }
-
+        
         return this;
     }
-
+    
     /**
      * Remove a node from the print and disconnect it from all nodes. Used to delete a node safely.
      * 
@@ -73,7 +73,7 @@ public class Print
         node.disconnect();
         return this.removeNodeKeepConnections(node);
     }
-
+    
     /**
      * Remove a node from the print but keep the connections. Used to reposition the node in the node list.
      * 
@@ -87,10 +87,10 @@ public class Print
         {
             this.events.remove(node);
         }
-
+        
         return this.nodes.remove(node);
     }
-
+    
     /**
      * @param node
      *            The node to check for.
@@ -100,7 +100,7 @@ public class Print
     {
         return this.nodes.contains(node);
     }
-
+    
     /**
      * @return The list of nodes (no clone or copy).
      */
@@ -108,30 +108,29 @@ public class Print
     {
         return this.nodes;
     }
-
+    
     /**
-     * 
      * @param eventType
      * @return
      */
     public boolean executeEvent(String eventType)
     {
         Event event;
-
+        
         // Start from back (= top) to front (= bottom)
         for (int i = this.events.size() - 1; i >= 0; --i)
         {
             event = this.events.get(i);
-
+            
             if (event.eventType.equals(eventType))
             {
                 return this.execute(event);
             }
         }
-
+        
         return false;
     }
-
+    
     /**
      * Executes all connected exec nodes in succession to the given parameter ({@link #exec(NodeExec)}). Then resets all nodes.
      * 
@@ -142,15 +141,15 @@ public class Print
     public boolean execute(NodeExec node)
     {
         boolean ret = this.exec(node);
-
+        
         for (Node n : this.nodes)
         {
             n.resetValues();
         }
-
+        
         return ret;
     }
-
+    
     /**
      * Recursive method. Executes all connected exec nodes in succession to the given parameter.
      * 
@@ -165,28 +164,27 @@ public class Print
         {
             return false;
         }
-
+        
         Output out;
         Input in;
         NodeExec next;
         int i = 0;
-
+        
         /*
-         * Now to explain the following segment and loop... You might be asking: "Why a loop? Why not just a single connection?" And the answer is in the question: Loops! This way,
-         * you can make nodes which can actually loop. Because for every exec node it will keep looping through, until no further sub node can be found.
+         * Now to explain the following segment and loop... You might be asking: "Why a loop? Why not just a single connection?" And the answer is in the question: Loops! This way, you can make nodes which can actually loop. Because for every exec node it will keep looping through, until no further sub node can be found.
          */
-
+        
         // Loop through all outputs of the exec type
         while ((out = node.getOutExec(i)) != null)
         {
             // Get the connected input of the next node
             in = (Input) out.getConnections().get(0);
-
+            
             if (in != null)
             {
                 // Get the node of the input
                 next = (NodeExec) in.node;
-
+                
                 if (next != null)
                 {
                     // Check the the sub node has been successfully calculated
@@ -196,15 +194,15 @@ public class Print
                         return false;
                     }
                 }
-
+                
                 // Increment to get the next sub node once the current one is finished calculating
                 ++i;
             }
         }
-
+        
         return true;
     }
-
+    
     /**
      * Read from NBT.
      */
@@ -212,11 +210,11 @@ public class Print
     {
         this.posX = nbt.getInteger(KEY_POS_X);
         this.posY = nbt.getInteger(KEY_POS_Y);
-
+        
         VUtility.readPrintNodesFromNBT(this, nbt);
         VUtility.readPrintConnectionsFromNBT(this, nbt);
     }
-
+    
     /**
      * Write to NBT.
      */
@@ -224,33 +222,33 @@ public class Print
     {
         nbt.setInteger(KEY_POS_X, this.posX);
         nbt.setInteger(KEY_POS_Y, this.posY);
-
+        
         VUtility.writePrintNodesToNBT(this, nbt);
         VUtility.writePrintConnectionsToNBT(this, nbt);
     }
-
+    
     /**
      * Get the idx of the node in the nodes list of the print
      */
     public static int getIdxForNode(Print p, Node n)
     {
         Node n1;
-
+        
         for (int i = 0; i < p.getNodes().size(); ++i)
         {
             n1 = p.getNodes().get(i);
-
+            
             if (n1 == n)
             {
                 return i;
             }
         }
-
+        
         Visibilis.error("Could not find index for node!");
-
+        
         return -1;
     }
-
+    
     /**
      * Get the node at the idx in the nodes list of the print
      */
@@ -263,9 +261,9 @@ public class Print
                 return p.getNodes().get(i);
             }
         }
-
+        
         Visibilis.error("Could not find node for index!");
-
+        
         return null;
     }
 }

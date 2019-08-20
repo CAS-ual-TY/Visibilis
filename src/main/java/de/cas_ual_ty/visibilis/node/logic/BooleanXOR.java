@@ -8,13 +8,13 @@ public class BooleanXOR extends Boolean2to1
     {
         super();
     }
-
+    
     @Override
     protected boolean calculate(boolean in1, boolean in2)
     {
         return in1 != in2;
     }
-
+    
     @Override
     public String getID()
     {

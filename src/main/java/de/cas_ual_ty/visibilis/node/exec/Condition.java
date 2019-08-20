@@ -11,9 +11,9 @@ public class Condition extends NodeExec
     public final Output outExec2;
     public final Input inExec;
     public final Input<Boolean> inBoolean;
-
+    
     public boolean value;
-
+    
     public Condition(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
@@ -22,36 +22,36 @@ public class Condition extends NodeExec
         this.inExec = new Input(0, this, VDataType.EXEC, "exec");
         this.inBoolean = new Input<Boolean>(1, this, VDataType.BOOLEAN, "boolean");
     }
-
+    
     public Condition(int inputAmt)
     {
         this(2, inputAmt);
     }
-
+    
     public Condition()
     {
         this(2);
     }
-
+    
     @Override
     public Output getOutExec(int index)
     {
         return index == 0 ? (this.value ? this.outExec1 : this.outExec2) : null;
     }
-
+    
     @Override
     public boolean doCalculate()
     {
         this.value = this.inBoolean.getValue();
         return true;
     }
-
+    
     @Override
     public <B> B getOutputValue(int index)
     {
         return null;
     }
-
+    
     @Override
     public String getID()
     {

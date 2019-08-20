@@ -8,47 +8,44 @@ import net.minecraft.nbt.NBTTagCompound;
 public abstract class Node
 {
     /*
-     * Some explanations: The word "calculate" is described to calculate all output values of this node (output field nodes). The values are then stored so that multiple child
-     * nodes can get them without the need to calculate more than once. Once all nodes have been calculated, they will be "reset", meaning that the "isCalculated()" state will be
-     * false again, triggering recalculation on next call (and possibly other things).
+     * Some explanations: The word "calculate" is described to calculate all output values of this node (output field nodes). The values are then stored so that multiple child nodes can get them without the need to calculate more than once. Once all nodes have been calculated, they will be "reset", meaning that the "isCalculated()" state will be false again, triggering recalculation on next call (and possibly other things).
      * 
      * Empty constructor needed for instantiation of nodes. outAmt and inAmt should be hardcoded inside that constructor
      */
-
+    
     // NBT Keys
     public static final String KEY_POS_X = "posX";
     public static final String KEY_POS_Y = "posY";
-
+    
     public int posX, posY;
-
+    
     protected Output[] outputFields;
     protected Input[] inputFields;
-
+    
     public Node(int outputAmt, int inputAmt)
     {
         this.outputFields = new Output[outputAmt];
         this.inputFields = new Input[inputAmt];
         this.setPosition(0, 0); // Just to make sure they are always initialized
     }
-
+    
     public Node setPosition(int x, int y)
     {
         this.posX = x;
         this.posY = y;
         return this;
     }
-
+    
     /**
      * Did this node already calculate? If yes the result is already saved and can just be retrieved. Use {@link #isCalculated()} to check.
      */
     protected boolean calculated = false;
-
+    
     /**
-     * This is used to make sure that there are no endless loops. When this node starts calculating, this gets set to <b>true</b>. If it now gets called again before being done
-     * calculating, it will immediately be aborted. At the end of calculation this gets reset.
+     * This is used to make sure that there are no endless loops. When this node starts calculating, this gets set to <b>true</b>. If it now gets called again before being done calculating, it will immediately be aborted. At the end of calculation this gets reset.
      */
     private boolean isCalculating = false;
-
+    
     /**
      * Did this node already calculate? If yes the result is already saved and can just be retrieved.
      * 
@@ -58,7 +55,7 @@ public abstract class Node
     {
         return this.calculated;
     }
-
+    
     /**
      * Calculate all parent nodes.
      * 
@@ -71,15 +68,15 @@ public abstract class Node
         if (this.isStart())
         {
             NodeField field0, field1;
-
+            
             int i, j;
-
+            
             // Loop through all input fields
             for (i = 0; i < this.getInputAmt(); ++i)
             {
                 // Get the input field of this node
                 field0 = this.getInput(i);
-
+                
                 // Check if it also has some connections (parent nodes)
                 // Input fields might also be disconnected
                 if (field0.hasConnections())
@@ -89,7 +86,7 @@ public abstract class Node
                     {
                         // Get the parent node field (output of parent node)
                         field1 = (NodeField) field0.getConnectionsList().get(j);
-
+                        
                         // Check if it is calculated
                         if (field1.node.isCalculated())
                         {
@@ -103,10 +100,10 @@ public abstract class Node
                 }
             }
         }
-
+        
         return true;
     }
-
+    
     /**
      * Calculate this node and all parent nodes.
      * 
@@ -120,18 +117,18 @@ public abstract class Node
             // Abort if parents could not be calculated
             return false;
         }
-
+        
         // Now try calculate this node
         return this.doCalculate();
     }
-
+    
     /**
      * Calculate this node (make sure all parents are calculated already).
      * 
      * @return <b>true</b> if this node has successfully been calculated, <false> if it could not be calculated.
      */
     public abstract boolean doCalculate();
-
+    
     /**
      * See if this node is a dead end with no further connections at the output.
      * 
@@ -143,24 +140,24 @@ public abstract class Node
         {
             return true;
         }
-
+        
         NodeField field0;
-
+        
         int i;
-
+        
         for (i = 0; i < this.getOutputAmt(); ++i)
         {
             field0 = this.getOutput(i);
-
+            
             if (field0.hasConnections())
             {
                 return false;
             }
         }
-
+        
         return true;
     }
-
+    
     /**
      * See if this node is a dead <s>end</s> start with no further connections at the input.
      * 
@@ -173,17 +170,17 @@ public abstract class Node
         {
             return true;
         }
-
+        
         NodeField field0;
-
+        
         int i;
-
+        
         // Otherwise, loop through inputs
         for (i = 0; i < this.getInputAmt(); ++i)
         {
             // Get the input here
             field0 = this.getInput(i);
-
+            
             // Check if it has any connections
             if (field0.hasConnections())
             {
@@ -191,10 +188,10 @@ public abstract class Node
                 return false;
             }
         }
-
+        
         return true;
     }
-
+    
     /**
      * @return The total amount of output node fields.
      */
@@ -202,7 +199,7 @@ public abstract class Node
     {
         return this.outputFields.length;
     }
-
+    
     /**
      * @return The total amount of input node fields.
      */
@@ -210,7 +207,7 @@ public abstract class Node
     {
         return this.inputFields.length;
     }
-
+    
     /**
      * Get the output node field of the specified index.
      * 
@@ -222,7 +219,7 @@ public abstract class Node
     {
         return this.outputFields[index];
     }
-
+    
     /**
      * Get the input node field of the specified index.
      * 
@@ -234,7 +231,7 @@ public abstract class Node
     {
         return this.inputFields[index];
     }
-
+    
     // Output.getValue() links to this. So the value must be stored inside the Node, not inside NodeField.
     /**
      * Get the output value of the specified index stored in this node.
@@ -245,7 +242,7 @@ public abstract class Node
      */
     @Nullable
     public abstract <B> B getOutputValue(int index);
-
+    
     // This links to Input.getValue(), which links to the connected output's Output.GetValue(), which links to this node's parent node's Node.getOutputValue().
     // Deprecated since it is better to just call Input.getValue() directly.
     @Deprecated
@@ -254,7 +251,7 @@ public abstract class Node
     {
         return (B) this.getInput(index).getValue();
     }
-
+    
     /**
      * Reset all values of this node (if needed) and make it calculate again on next call.
      */
@@ -262,7 +259,7 @@ public abstract class Node
     {
         this.calculated = false;
     }
-
+    
     /**
      * Cut all connections of inputs and outputs (both directions).
      */
@@ -272,13 +269,13 @@ public abstract class Node
         {
             out.cutConnections();
         }
-
+        
         for (Input in : this.inputFields)
         {
             in.cutConnections();
         }
     }
-
+    
     /**
      * Get the header color of this node
      */
@@ -286,14 +283,14 @@ public abstract class Node
     {
         return new float[] { 0.5F, 0.5F, 0.5F };
     }
-
+    
     /**
      * Used for storing this node in NBT and for translation. All lower case, '_' can be used.
      * 
      * @return A unique identifier (similar to unlocalizedName)
      */
     public abstract String getID();
-
+    
     /**
      * Used for translating the name of this node.
      */
@@ -301,7 +298,7 @@ public abstract class Node
     {
         return "node." + this.getID() + ".name";
     }
-
+    
     /**
      * Used for translating the description of this node.
      */
@@ -309,7 +306,7 @@ public abstract class Node
     {
         return "node." + this.getID() + ".desc";
     }
-
+    
     /**
      * Used for translating the name of a field of this node.
      */
@@ -317,7 +314,7 @@ public abstract class Node
     {
         return "field." + this.getID() + "." + field.name + ".name";
     }
-
+    
     /**
      * Used for translating the description of a field of this node.
      */
@@ -325,7 +322,7 @@ public abstract class Node
     {
         return "field." + this.getID() + "." + field.name + ".desc";
     }
-
+    
     /**
      * Read from NBT. Does not load everything, see {@link VUtility#readNodeFromNBT(Node, NBTTagCompound)} for a proper method
      */
@@ -334,7 +331,7 @@ public abstract class Node
         this.posX = nbt.getInteger(KEY_POS_X);
         this.posY = nbt.getInteger(KEY_POS_Y);
     }
-
+    
     /**
      * Write to NBT. Does not write everything, see {@link VUtility#writeNodeToNBT(Node, NBTTagCompound)} for a proper method
      */
