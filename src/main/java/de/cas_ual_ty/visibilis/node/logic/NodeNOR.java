@@ -1,10 +1,10 @@
 package de.cas_ual_ty.visibilis.node.logic;
 
-import de.cas_ual_ty.visibilis.node.general.Boolean2to1;
+import de.cas_ual_ty.visibilis.node.general.NodeBoolean2to1;
 
-public class BooleanNOR extends Boolean2to1
+public class NodeNOR extends NodeBoolean2to1
 {
-    public BooleanNOR()
+    public NodeNOR()
     {
         super();
     }
@@ -18,6 +18,6 @@ public class BooleanNOR extends Boolean2to1
     @Override
     public String getID()
     {
-        return "logic_nor";
+        return "nor";
     }
 }

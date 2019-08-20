@@ -1,11 +1,11 @@
 package de.cas_ual_ty.visibilis.test;
 
 import de.cas_ual_ty.visibilis.Print;
-import de.cas_ual_ty.visibilis.node.calculate.FloatPlus;
-import de.cas_ual_ty.visibilis.node.constant.FloatConstE;
-import de.cas_ual_ty.visibilis.node.constant.FloatConstPi;
-import de.cas_ual_ty.visibilis.node.general.Float2to1;
-import de.cas_ual_ty.visibilis.node.general.FloatConst;
+import de.cas_ual_ty.visibilis.node.calculate.NodeAddition;
+import de.cas_ual_ty.visibilis.node.constant.NodeE;
+import de.cas_ual_ty.visibilis.node.constant.NodePi;
+import de.cas_ual_ty.visibilis.node.general.NodeFloatConst;
+import de.cas_ual_ty.visibilis.node.general.NodeNumber2to1;
 
 public class PrintTest extends Print
 {
@@ -15,10 +15,10 @@ public class PrintTest extends Print
     {
         super();
         
-        FloatConst const_e = (FloatConst) new FloatConstE().setPosition(0, 0);
-        FloatConst const_pi = (FloatConst) new FloatConstPi().setPosition(12, 48);
+        NodeFloatConst const_e = (NodeFloatConst) new NodeE().setPosition(0, 0);
+        NodeFloatConst const_pi = (NodeFloatConst) new NodePi().setPosition(12, 48);
         
-        Float2to1 plus = (Float2to1) new FloatPlus().setPosition(240, 18);
+        NodeNumber2to1 plus = (NodeNumber2to1) new NodeAddition().setPosition(240, 18);
         
         this.addNode(const_e);
         this.addNode(const_pi);

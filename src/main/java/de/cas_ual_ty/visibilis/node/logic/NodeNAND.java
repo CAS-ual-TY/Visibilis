@@ -1,10 +1,10 @@
 package de.cas_ual_ty.visibilis.node.logic;
 
-import de.cas_ual_ty.visibilis.node.general.Boolean2to1;
+import de.cas_ual_ty.visibilis.node.general.NodeBoolean2to1;
 
-public class BooleanXOR extends Boolean2to1
+public class NodeNAND extends NodeBoolean2to1
 {
-    public BooleanXOR()
+    public NodeNAND()
     {
         super();
     }
@@ -12,12 +12,12 @@ public class BooleanXOR extends Boolean2to1
     @Override
     protected boolean calculate(boolean in1, boolean in2)
     {
-        return in1 != in2;
+        return !in1 || !in2;
     }
     
     @Override
     public String getID()
     {
-        return "logic_xor";
+        return "nand";
     }
 }

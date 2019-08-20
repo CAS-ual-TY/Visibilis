@@ -5,21 +5,21 @@ import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.Output;
 
-public class BooleanNOT extends Node
+public class NodeNOT extends Node
 {
     public final Output<Boolean> out1;
     public final Input<Boolean> in1;
     
     public boolean value;
     
-    public BooleanNOT(int outputAmt, int inputAmt)
+    public NodeNOT(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
         this.out1 = new Output<Boolean>(0, this, VDataType.BOOLEAN, "boolean");
         this.in1 = new Input<Boolean>(0, this, VDataType.BOOLEAN, "boolean");
     }
     
-    public BooleanNOT()
+    public NodeNOT()
     {
         this(1, 1);
     }
@@ -46,6 +46,6 @@ public class BooleanNOT extends Node
     @Override
     public String getID()
     {
-        return "logic_not";
+        return "not";
     }
 }

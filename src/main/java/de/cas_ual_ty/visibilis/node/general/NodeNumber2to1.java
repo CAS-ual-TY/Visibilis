@@ -5,23 +5,23 @@ import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.Output;
 
-public abstract class Boolean2to1 extends Node
+public abstract class NodeNumber2to1 extends Node
 {
-    public final Output<Boolean> out1;
-    public final Input<Boolean> in1;
-    public final Input<Boolean> in2;
+    public final Output<Number> out1;
+    public final Input<Number> in1;
+    public final Input<Number> in2;
     
-    public boolean value;
+    public Number value;
     
-    public Boolean2to1(int outputAmt, int inputAmt)
+    public NodeNumber2to1(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.out1 = new Output<Boolean>(0, this, VDataType.BOOLEAN, "boolean");
-        this.in1 = new Input<Boolean>(0, this, VDataType.BOOLEAN, "boolean");
-        this.in2 = new Input<Boolean>(1, this, VDataType.BOOLEAN, "boolean");
+        this.out1 = new Output<Number>(0, this, VDataType.NUMBER, "number");
+        this.in1 = new Input<Number>(0, this, VDataType.NUMBER, "number");
+        this.in2 = new Input<Number>(1, this, VDataType.NUMBER, "number");
     }
     
-    public Boolean2to1()
+    public NodeNumber2to1()
     {
         this(1, 2);
     }
@@ -48,7 +48,7 @@ public abstract class Boolean2to1 extends Node
      *            The 2nd input
      * @return <b>true</b> if this node can calculate.
      */
-    protected boolean canCalculate(boolean in1, boolean in2)
+    protected boolean canCalculate(Number in1, Number in2)
     {
         return true;
     }
@@ -62,14 +62,14 @@ public abstract class Boolean2to1 extends Node
      *            The 2nd input
      * @return The result.
      */
-    protected abstract boolean calculate(boolean in1, boolean in2);
+    protected abstract Number calculate(Number in1, Number in2);
     
     @Override
     public <B> B getOutputValue(int index)
     {
         if (index == this.out1.id)
         {
-            return (B) (Boolean) this.value;
+            return (B) (Number) this.value;
         }
         
         return null;

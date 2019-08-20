@@ -5,21 +5,23 @@ import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.Output;
 
-public abstract class FloatFunc extends Node
+public abstract class NodeBoolean2to1 extends Node
 {
-    public final Output<Float> out1;
-    public final Input<Float> in1;
+    public final Output<Boolean> out1;
+    public final Input<Boolean> in1;
+    public final Input<Boolean> in2;
     
-    public float value;
+    public boolean value;
     
-    public FloatFunc(int outputAmt, int inputAmt)
+    public NodeBoolean2to1(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.out1 = new Output<Float>(0, this, VDataType.FLOAT, "float");
-        this.in1 = new Input<Float>(0, this, VDataType.FLOAT, "float");
+        this.out1 = new Output<Boolean>(0, this, VDataType.BOOLEAN, "boolean");
+        this.in1 = new Input<Boolean>(0, this, VDataType.BOOLEAN, "boolean");
+        this.in2 = new Input<Boolean>(1, this, VDataType.BOOLEAN, "boolean");
     }
     
-    public FloatFunc()
+    public NodeBoolean2to1()
     {
         this(1, 2);
     }
@@ -27,12 +29,12 @@ public abstract class FloatFunc extends Node
     @Override
     public boolean doCalculate()
     {
-        if (!this.canCalculate(this.in1.getValue()))
+        if (!this.canCalculate(this.in1.getValue(), this.in2.getValue()))
         {
             return false;
         }
         
-        this.value = this.calculate(this.in1.getValue());
+        this.value = this.calculate(this.in1.getValue(), this.in2.getValue());
         
         return true;
     }
@@ -42,28 +44,32 @@ public abstract class FloatFunc extends Node
      * 
      * @param in1
      *            The first input
+     * @param in2
+     *            The 2nd input
      * @return <b>true</b> if this node can calculate.
      */
-    protected boolean canCalculate(float in1)
+    protected boolean canCalculate(boolean in1, boolean in2)
     {
         return true;
     }
     
     /**
-     * Calculate the result using the input number.
+     * Calculate the result using the 2 input numbers.
      * 
      * @param in1
      *            The first input
+     * @param in2
+     *            The 2nd input
      * @return The result.
      */
-    protected abstract float calculate(float in1);
+    protected abstract boolean calculate(boolean in1, boolean in2);
     
     @Override
     public <B> B getOutputValue(int index)
     {
         if (index == this.out1.id)
         {
-            return (B) (Float) this.value;
+            return (B) (Boolean) this.value;
         }
         
         return null;

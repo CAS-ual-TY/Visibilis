@@ -1,10 +1,10 @@
 package de.cas_ual_ty.visibilis.node.constant;
 
-import de.cas_ual_ty.visibilis.node.general.FloatConst;
+import de.cas_ual_ty.visibilis.node.general.NodeFloatConst;
 
-public class FloatConstE extends FloatConst
+public class NodeE extends NodeFloatConst
 {
-    public FloatConstE()
+    public NodeE()
     {
         super();
     }
@@ -18,6 +18,6 @@ public class FloatConstE extends FloatConst
     @Override
     public String getID()
     {
-        return "constant_e";
+        return "e";
     }
 }
