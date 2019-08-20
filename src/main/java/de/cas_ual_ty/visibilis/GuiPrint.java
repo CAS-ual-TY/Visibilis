@@ -252,7 +252,8 @@ public class GuiPrint extends GuiScreen
         // See de.cas_ual_ty.visibilis.datatype.DataType for explanation of deprecation.
         // TODO high, Remove as this only works for Visibilis only data types. THIS IS
         // TEMPORARY CALM DOWN
-        VDataType type = field.dataType;
+        VDataType type1 = field.dataType;
+        VDataType type2;
 
         // Draw output -> input connections, not the other way around, for proper
         // overlay order.
@@ -267,9 +268,13 @@ public class GuiPrint extends GuiScreen
         // Prepare variables so we dont create new ones in each loop
         int offX, offY;
 
+        int x1, y1, x2, y2;
+
         // Loop through "destinations"
         for (NodeField dest : connections)
         {
+            type2 = dest.dataType;
+
             // We are already at the dot position of the 1st field, so we can just take the
             // difference of the nodes themselves to get the 2nd dot's position
             offX = dest.node.posX - field.node.posX;
@@ -282,12 +287,16 @@ public class GuiPrint extends GuiScreen
             // 4th in order
             offY += (dest.id - field.id) * nodeHeight;
 
-            // Now draw the line, half transparent
             // + half size so it starts in the middle
-            drawLine(nodeFieldDotSize / 2 + dotX, nodeFieldDotSize / 2 + dotY, nodeFieldDotSize / 2 + dotX + offX,
-                    nodeFieldDotSize / 2 + dotY + offY,
-                    (type == VDataType.EXEC ? 2 : 1) * this.sr.getScaleFactor() * nodeFieldDotSize / 2, type.getColor()[0], type.getColor()[1],
-                    type.getColor()[2], nodeFieldConnectionsAlpha);
+            x1 = nodeFieldDotSize / 2 + dotX;
+            y1 = nodeFieldDotSize / 2 + dotY;
+            x2 = x1 + offX;
+            y2 = y1 + offY;
+
+            // Now draw the line, half transparent
+            drawGradientLine(x1, y2, x2, y2, (type1 == VDataType.EXEC ? 2 : 1) * this.sr.getScaleFactor() * nodeFieldDotSize / 2,
+                    type1.getColor()[0], type1.getColor()[1], type1.getColor()[2], nodeFieldConnectionsAlpha,
+                    type2.getColor()[0], type2.getColor()[1], type2.getColor()[2], nodeFieldConnectionsAlpha);
         }
     }
 
@@ -520,6 +529,39 @@ public class GuiPrint extends GuiScreen
         // Cleanup time
         GlStateManager.enableTexture2D(); // Turn textures back on
         GlStateManager.disableBlend(); // Turn blending uhh... back off?
+    }
+
+    public static void drawGradientLine(int x1, int y1, int x2, int y2, float lineWidth, float r1, float g1, float b1, float a1, float r2, float g2, float b2,
+            float a2)
+    {
+        GlStateManager.glLineWidth(lineWidth);
+
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder bufferbuilder = tessellator.getBuffer();
+
+        GlStateManager.enableBlend();
+        GlStateManager.disableTexture2D();
+
+        GlStateManager.disableAlpha();
+
+        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
+                GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+
+        GlStateManager.shadeModel(GL11.GL_SMOOTH);
+
+        bufferbuilder.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
+
+        bufferbuilder.pos(x1, y1, 0.0D).color(r1, g1, b1, a1).endVertex();
+        bufferbuilder.pos(x2, y2, 0.0D).color(r2, g2, b2, a2).endVertex();
+
+        tessellator.draw();
+
+        GlStateManager.shadeModel(GL11.GL_FLAT);
+
+        GlStateManager.enableAlpha();
+
+        GlStateManager.enableTexture2D();
+        GlStateManager.disableBlend();
     }
 
     /**
