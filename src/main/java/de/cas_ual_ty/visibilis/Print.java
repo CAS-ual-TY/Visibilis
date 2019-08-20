@@ -6,7 +6,7 @@ import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeExec;
 import de.cas_ual_ty.visibilis.node.Output;
-import de.cas_ual_ty.visibilis.node.event.Event;
+import de.cas_ual_ty.visibilis.node.event.NodeEvent;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class Print
@@ -28,7 +28,7 @@ public class Print
     /**
      * All event nodes in this print
      */
-    protected final ArrayList<Event> events = new ArrayList<Event>();
+    protected final ArrayList<NodeEvent> events = new ArrayList<NodeEvent>();
     
     public Print()
     {
@@ -53,9 +53,9 @@ public class Print
         
         this.nodes.add(node);
         
-        if (node instanceof Event)
+        if (node instanceof NodeEvent)
         {
-            this.events.add((Event) node);
+            this.events.add((NodeEvent) node);
         }
         
         return this;
@@ -83,7 +83,7 @@ public class Print
      */
     public boolean removeNodeKeepConnections(Node node)
     {
-        if (node instanceof Event)
+        if (node instanceof NodeEvent)
         {
             this.events.remove(node);
         }
@@ -115,7 +115,7 @@ public class Print
      */
     public boolean executeEvent(String eventType)
     {
-        Event event;
+        NodeEvent event;
         
         // Start from back (= top) to front (= bottom)
         for (int i = this.events.size() - 1; i >= 0; --i)

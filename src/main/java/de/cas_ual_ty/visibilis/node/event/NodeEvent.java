@@ -5,7 +5,7 @@ import de.cas_ual_ty.visibilis.node.NodeExec;
 import de.cas_ual_ty.visibilis.node.Output;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class Event extends NodeExec
+public class NodeEvent extends NodeExec
 {
     // NBT Keys
     public static final String KEY_EVENT_TYPE = "eventType";
@@ -17,25 +17,25 @@ public class Event extends NodeExec
      */
     public String eventType;
     
-    public Event(int outputAmt)
+    public NodeEvent(int outputAmt)
     {
         super(outputAmt, 0);
         this.outExec = new Output(0, this, VDataType.EXEC, "exec");
         this.eventType = null; // Just to make sure it is initialized
     }
     
-    public Event()
+    public NodeEvent()
     {
         this(0);
     }
     
-    public Event(int outputAmt, String modId, String eventType)
+    public NodeEvent(int outputAmt, String modId, String eventType)
     {
         this(outputAmt);
         this.eventType = modId + ":" + eventType;
     }
     
-    public Event(String modId, String eventType)
+    public NodeEvent(String modId, String eventType)
     {
         this(1, modId, eventType);
     }
