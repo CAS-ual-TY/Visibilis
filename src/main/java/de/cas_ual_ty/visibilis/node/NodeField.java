@@ -58,7 +58,7 @@ public abstract class NodeField<A>
      */
     public boolean canConnectTo(NodeField field)
     {
-        return this.isOutput() != field.isOutput() && this.dataType == field.dataType;
+        return this.isOutput() != field.isOutput() && (this.isOutput() ? this.dataType.canConvert(field.dataType) : field.dataType.canConvert(this.dataType));
     }
 
     /**
