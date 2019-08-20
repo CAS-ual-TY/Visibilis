@@ -2,6 +2,8 @@ package de.cas_ual_ty.visibilis.node;
 
 import java.util.ArrayList;
 
+import de.cas_ual_ty.visibilis.datatype.VDataType;
+
 public class Input<A> extends NodeField<A>
 {
     /*
@@ -13,7 +15,7 @@ public class Input<A> extends NodeField<A>
      */
     protected Output connection;
 
-    public Input(int id, Node node, String dataType, String name)
+    public Input(int id, Node node, VDataType dataType, String name)
     {
         super(id, node, dataType, name);
     }

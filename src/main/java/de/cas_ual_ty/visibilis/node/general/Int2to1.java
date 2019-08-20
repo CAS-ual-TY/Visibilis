@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.general;
 
-import de.cas_ual_ty.visibilis.EnumVDataType;
+import de.cas_ual_ty.visibilis.datatype.VDataType;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.Output;
@@ -16,9 +16,9 @@ public abstract class Int2to1 extends Node
     public Int2to1(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.out1 = new Output<Integer>(0, this, EnumVDataType.INTEGER.dataTypeString, "integer");
-        this.in1 = new Input<Integer>(0, this, EnumVDataType.INTEGER.dataTypeString, "integer");
-        this.in2 = new Input<Integer>(0, this, EnumVDataType.INTEGER.dataTypeString, "integer");
+        this.out1 = new Output<Integer>(0, this, VDataType.INTEGER, "integer");
+        this.in1 = new Input<Integer>(0, this, VDataType.INTEGER, "integer");
+        this.in2 = new Input<Integer>(0, this, VDataType.INTEGER, "integer");
     }
 
     public Int2to1()

@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.general;
 
-import de.cas_ual_ty.visibilis.EnumVDataType;
+import de.cas_ual_ty.visibilis.datatype.VDataType;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.Output;
@@ -16,9 +16,9 @@ public abstract class Boolean2to1 extends Node
     public Boolean2to1(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.out1 = new Output<Boolean>(0, this, EnumVDataType.BOOLEAN.dataTypeString, "boolean");
-        this.in1 = new Input<Boolean>(0, this, EnumVDataType.BOOLEAN.dataTypeString, "boolean");
-        this.in2 = new Input<Boolean>(1, this, EnumVDataType.BOOLEAN.dataTypeString, "boolean");
+        this.out1 = new Output<Boolean>(0, this, VDataType.BOOLEAN, "boolean");
+        this.in1 = new Input<Boolean>(0, this, VDataType.BOOLEAN, "boolean");
+        this.in2 = new Input<Boolean>(1, this, VDataType.BOOLEAN, "boolean");
     }
 
     public Boolean2to1()

@@ -1,7 +1,7 @@
 package de.cas_ual_ty.magicamundi.visibilis.target;
 
-import de.cas_ual_ty.magicamundi.visibilis.EnumMMDataType;
-import de.cas_ual_ty.visibilis.EnumVDataType;
+import de.cas_ual_ty.magicamundi.visibilis.MMDataType;
+import de.cas_ual_ty.visibilis.datatype.VDataType;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.NodeExec;
 import de.cas_ual_ty.visibilis.node.Output;
@@ -20,11 +20,11 @@ public abstract class Sorter extends NodeExec
     public Sorter(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.outExec = new Output(0, this, EnumVDataType.EXEC.dataTypeString, "exec");
-        this.outTargetsList1 = new Output<TargetsList>(1, this, EnumMMDataType.TARGETS_LIST.dataTypeString, "targets_list");
-        this.outTargetsList2 = new Output<TargetsList>(2, this, EnumMMDataType.TARGETS_LIST.dataTypeString, "targets_list");
-        this.inExec = new Input(0, this, EnumVDataType.EXEC.dataTypeString, "exec");
-        this.inTargetsList = new Input<TargetsList>(1, this, EnumMMDataType.TARGETS_LIST.dataTypeString, "targets_list");
+        this.outExec = new Output(0, this, VDataType.EXEC, "exec");
+        this.outTargetsList1 = new Output<TargetsList>(1, this, MMDataType.TARGETS_LIST, "targets_list");
+        this.outTargetsList2 = new Output<TargetsList>(2, this, MMDataType.TARGETS_LIST, "targets_list");
+        this.inExec = new Input(0, this, VDataType.EXEC, "exec");
+        this.inTargetsList = new Input<TargetsList>(1, this, MMDataType.TARGETS_LIST, "targets_list");
         this.targetsList2 = new TargetsList();
     }
 

@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.general;
 
-import de.cas_ual_ty.visibilis.EnumVDataType;
+import de.cas_ual_ty.visibilis.datatype.VDataType;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.Output;
@@ -16,9 +16,9 @@ public abstract class Float2to1 extends Node
     public Float2to1(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.out1 = new Output<Float>(0, this, EnumVDataType.FLOAT.dataTypeString, "float");
-        this.in1 = new Input<Float>(0, this, EnumVDataType.FLOAT.dataTypeString, "float");
-        this.in2 = new Input<Float>(1, this, EnumVDataType.FLOAT.dataTypeString, "float");
+        this.out1 = new Output<Float>(0, this, VDataType.FLOAT, "float");
+        this.in1 = new Input<Float>(0, this, VDataType.FLOAT, "float");
+        this.in2 = new Input<Float>(1, this, VDataType.FLOAT, "float");
     }
 
     public Float2to1()

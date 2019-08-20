@@ -3,6 +3,8 @@ package de.cas_ual_ty.visibilis;
 import java.util.ArrayList;
 
 import org.lwjgl.opengl.GL11;
+
+import de.cas_ual_ty.visibilis.datatype.VDataType;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
 import net.minecraft.client.gui.GuiScreen;
@@ -218,15 +220,12 @@ public class GuiPrint extends GuiScreen
             dotX = x + width - nodeHeight;
         }
 
-        // See de.cas_ual_ty.visibilis.datatype.DataType for explanation of deprecation.
-        // TODO high, Remove as this only works for Visibilis only data types. THIS IS
-        // TEMPORARY CALM DOWN
-        EnumVDataType type = EnumVDataType.valueOf(field.name.toUpperCase());
+        VDataType type = field.dataType;
 
         // Draw inner colored rectangle
         nameX += 1;
         nameY = y + 1;
-        drawRect(nameX, nameY, nameW - 2, nodeHeight - 2, type.r, type.g, type.b);
+        drawRect(nameX, nameY, nameW - 2, nodeHeight - 2, type.getColor()[0], type.getColor()[1], type.getColor()[2]);
 
         // Finally adjust dot position for its size
         dotX += (nodeHeight - nodeFieldDotSize) / 2;
@@ -236,7 +235,7 @@ public class GuiPrint extends GuiScreen
         this.drawNodeFieldConnections(field, dotX, dotY);
 
         // Draw dot on top
-        drawRect(dotX, dotY, nodeFieldDotSize, nodeFieldDotSize, type.r, type.g, type.b);
+        drawRect(dotX, dotY, nodeFieldDotSize, nodeFieldDotSize, type.getColor()[0], type.getColor()[1], type.getColor()[2]);
 
         // Draw name
         String name = field.getUnlocalizedName(); // TODO lowest: translate
@@ -253,7 +252,7 @@ public class GuiPrint extends GuiScreen
         // See de.cas_ual_ty.visibilis.datatype.DataType for explanation of deprecation.
         // TODO high, Remove as this only works for Visibilis only data types. THIS IS
         // TEMPORARY CALM DOWN
-        EnumVDataType type = EnumVDataType.valueOf(field.name.toUpperCase());
+        VDataType type = field.dataType;
 
         // Draw output -> input connections, not the other way around, for proper
         // overlay order.
@@ -287,8 +286,8 @@ public class GuiPrint extends GuiScreen
             // + half size so it starts in the middle
             drawLine(nodeFieldDotSize / 2 + dotX, nodeFieldDotSize / 2 + dotY, nodeFieldDotSize / 2 + dotX + offX,
                     nodeFieldDotSize / 2 + dotY + offY,
-                    (type == EnumVDataType.EXEC ? 2 : 1) * this.sr.getScaleFactor() * nodeFieldDotSize / 2, type.r,
-                    type.g, type.b, nodeFieldConnectionsAlpha);
+                    (type == VDataType.EXEC ? 2 : 1) * this.sr.getScaleFactor() * nodeFieldDotSize / 2, type.getColor()[0], type.getColor()[1],
+                    type.getColor()[2], nodeFieldConnectionsAlpha);
         }
     }
 

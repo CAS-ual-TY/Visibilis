@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.logic;
 
-import de.cas_ual_ty.visibilis.EnumVDataType;
+import de.cas_ual_ty.visibilis.datatype.VDataType;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.Output;
@@ -15,8 +15,8 @@ public class BooleanNOT extends Node
     public BooleanNOT(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.out1 = new Output<Boolean>(0, this, EnumVDataType.BOOLEAN.dataTypeString, "boolean");
-        this.in1 = new Input<Boolean>(0, this, EnumVDataType.BOOLEAN.dataTypeString, "boolean");
+        this.out1 = new Output<Boolean>(0, this, VDataType.BOOLEAN, "boolean");
+        this.in1 = new Input<Boolean>(0, this, VDataType.BOOLEAN, "boolean");
     }
 
     public BooleanNOT()

@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import de.cas_ual_ty.visibilis.node.Node;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.GameData;

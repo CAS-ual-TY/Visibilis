@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.general;
 
-import de.cas_ual_ty.visibilis.EnumVDataType;
+import de.cas_ual_ty.visibilis.datatype.VDataType;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.Output;
 
@@ -13,7 +13,7 @@ public abstract class FloatConst extends Node
     public FloatConst(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.out1 = new Output<Float>(0, this, EnumVDataType.FLOAT.dataTypeString, "float");
+        this.out1 = new Output<Float>(0, this, VDataType.FLOAT, "float");
     }
 
     public FloatConst()
