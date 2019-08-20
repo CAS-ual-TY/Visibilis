@@ -13,10 +13,6 @@ public class MagicaMundi
     public static final String MOD_NAME = "Magica Mundi";
     public static final String MOD_VERSION = "1.0.0.0";
 
-    /*
-     * For tomorrow (8/18/2019): - If you came up with a good design: Rewrite datatypes and conversion - Anything you come up with on the way ;)
-     */
-
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
