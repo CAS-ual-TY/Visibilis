@@ -9,7 +9,7 @@ public class NodeExponentiation extends NodeNumber2to1
     {
         return (float) Math.pow(in1.floatValue(), in2.floatValue());
     }
-
+    
     @Override
     public String getID()
     {

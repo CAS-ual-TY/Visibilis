@@ -15,7 +15,7 @@ public class NodeRoot extends NodeNumber2to1
     {
         return (float) Math.pow(Math.E, Math.log(in1.floatValue()) / in2.floatValue());
     }
-
+    
     @Override
     public String getID()
     {

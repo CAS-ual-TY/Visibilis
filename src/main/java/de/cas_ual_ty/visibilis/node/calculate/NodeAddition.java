@@ -9,7 +9,7 @@ public class NodeAddition extends NodeNumber2to1
     {
         return in1.floatValue() + in2.floatValue();
     }
-
+    
     @Override
     public String getID()
     {

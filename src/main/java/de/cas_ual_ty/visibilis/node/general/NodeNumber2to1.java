@@ -69,7 +69,7 @@ public abstract class NodeNumber2to1 extends Node
     {
         if (index == this.out1.id)
         {
-            return (B) (Number) this.value;
+            return (B) this.value;
         }
         
         return null;
