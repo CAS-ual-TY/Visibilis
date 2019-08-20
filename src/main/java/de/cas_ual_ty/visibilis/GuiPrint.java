@@ -281,7 +281,7 @@ public class GuiPrint extends GuiScreen
             y2 = y1 + offY;
             
             // Now draw the line, half transparent
-            drawGradientLine(x1, y2, x2, y2, (type1 == VDataType.EXEC ? 2 : 1) * this.sr.getScaleFactor() * nodeFieldDotSize / 2, type1.getColor()[0], type1.getColor()[1], type1.getColor()[2], nodeFieldConnectionsAlpha, type2.getColor()[0], type2.getColor()[1], type2.getColor()[2], nodeFieldConnectionsAlpha);
+            drawGradientLine(x1, y1, x2, y2, (type1 == VDataType.EXEC ? 2 : 1) * this.sr.getScaleFactor() * nodeFieldDotSize / 2, type1.getColor()[0], type1.getColor()[1], type1.getColor()[2], nodeFieldConnectionsAlpha, type2.getColor()[0], type2.getColor()[1], type2.getColor()[2], nodeFieldConnectionsAlpha);
         }
     }
     
