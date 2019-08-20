@@ -19,6 +19,6 @@ public class NodeSQRT extends NodeFloatConst
     @Override
     public String getID()
     {
-        return "pi";
+        return "sqrt_2";
     }
 }
