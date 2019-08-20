@@ -2,14 +2,14 @@ package de.cas_ual_ty.visibilis.datatype;
 
 public class Converter
 {
-    public VDataType from;
-    public VDataType to;
+    public DataType from;
+    public DataType to;
     
     public Converter()
     {
     }
     
-    public Converter setFromTo(VDataType from, VDataType to)
+    public Converter setFromTo(DataType from, DataType to)
     {
         this.from = from;
         this.to = to;

@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.general;
 
-import de.cas_ual_ty.visibilis.datatype.VDataType;
+import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.Output;
@@ -16,9 +16,9 @@ public abstract class NodeNumber2to1 extends Node
     public NodeNumber2to1(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.out1 = new Output<Number>(0, this, VDataType.NUMBER, "number");
-        this.in1 = new Input<Number>(0, this, VDataType.NUMBER, "number");
-        this.in2 = new Input<Number>(1, this, VDataType.NUMBER, "number");
+        this.out1 = new Output<Number>(0, this, DataType.NUMBER, "number");
+        this.in1 = new Input<Number>(0, this, DataType.NUMBER, "number");
+        this.in2 = new Input<Number>(1, this, DataType.NUMBER, "number");
     }
     
     public NodeNumber2to1()

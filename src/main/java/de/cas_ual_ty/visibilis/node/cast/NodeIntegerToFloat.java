@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.cast;
 
-import de.cas_ual_ty.visibilis.datatype.VDataType;
+import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.Output;
@@ -15,8 +15,8 @@ public class NodeIntegerToFloat extends Node
     public NodeIntegerToFloat(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.out1 = new Output<Integer>(0, this, VDataType.INTEGER, "integer");
-        this.in1 = new Input<Float>(0, this, VDataType.FLOAT, "float");
+        this.out1 = new Output<Integer>(0, this, DataType.INTEGER, "integer");
+        this.in1 = new Input<Float>(0, this, DataType.FLOAT, "float");
     }
     
     @Override

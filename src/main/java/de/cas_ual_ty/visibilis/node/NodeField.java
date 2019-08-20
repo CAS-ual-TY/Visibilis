@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javax.annotation.Nullable;
 
-import de.cas_ual_ty.visibilis.datatype.VDataType;
+import de.cas_ual_ty.visibilis.datatype.DataType;
 
 public abstract class NodeField<A>
 {
@@ -25,14 +25,14 @@ public abstract class NodeField<A>
     /**
      * The data type of this node field.
      */
-    public final VDataType dataType;
+    public final DataType dataType;
     
     /**
      * The name of this node field (before translation).
      */
     public final String name;
     
-    public NodeField(int id, Node node, VDataType dataType, String name)
+    public NodeField(int id, Node node, DataType dataType, String name)
     {
         this.id = id;
         this.node = node;

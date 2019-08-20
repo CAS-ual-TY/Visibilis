@@ -2,7 +2,7 @@ package de.cas_ual_ty.magicamundi.visibilis.selektor;
 
 import de.cas_ual_ty.magicamundi.visibilis.MMDataType;
 import de.cas_ual_ty.magicamundi.visibilis.target.TargetsList;
-import de.cas_ual_ty.visibilis.datatype.VDataType;
+import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.Output;
 
@@ -16,7 +16,7 @@ public abstract class Selektor extends Node
     public Selektor(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.outExec = new Output(0, this, VDataType.EXEC, "exec");
+        this.outExec = new Output(0, this, DataType.EXEC, "exec");
         this.outTargetsList = new Output<TargetsList>(1, this, MMDataType.TARGETS_LIST, "targets_list");
         this.targetsList = new TargetsList();
     }

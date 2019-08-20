@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.lwjgl.opengl.GL11;
 
-import de.cas_ual_ty.visibilis.datatype.VDataType;
+import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
 import net.minecraft.client.gui.GuiScreen;
@@ -212,7 +212,7 @@ public class GuiPrint extends GuiScreen
             dotX = x + width - nodeHeight;
         }
         
-        VDataType type = field.dataType;
+        DataType type = field.dataType;
         
         // Draw inner colored rectangle
         nameX += 1;
@@ -240,8 +240,8 @@ public class GuiPrint extends GuiScreen
      */
     public void drawNodeFieldConnections(NodeField field, int dotX, int dotY)
     {
-        VDataType type1 = field.dataType;
-        VDataType type2;
+        DataType type1 = field.dataType;
+        DataType type2;
         
         // Draw output -> input connections, not the other way around, for proper overlay order.
         if (field.isInput())
@@ -281,7 +281,7 @@ public class GuiPrint extends GuiScreen
             y2 = y1 + offY;
             
             // Now draw the line, half transparent
-            drawGradientLine(x1, y1, x2, y2, (type1 == VDataType.EXEC ? 2 : 1) * this.sr.getScaleFactor() * nodeFieldDotSize / 2, type1.getColor()[0], type1.getColor()[1], type1.getColor()[2], nodeFieldConnectionsAlpha, type2.getColor()[0], type2.getColor()[1], type2.getColor()[2], nodeFieldConnectionsAlpha);
+            drawGradientLine(x1, y1, x2, y2, (type1 == DataType.EXEC ? 2 : 1) * this.sr.getScaleFactor() * nodeFieldDotSize / 2, type1.getColor()[0], type1.getColor()[1], type1.getColor()[2], nodeFieldConnectionsAlpha, type2.getColor()[0], type2.getColor()[1], type2.getColor()[2], nodeFieldConnectionsAlpha);
         }
     }
     

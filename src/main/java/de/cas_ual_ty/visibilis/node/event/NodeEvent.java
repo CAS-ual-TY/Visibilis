@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.event;
 
-import de.cas_ual_ty.visibilis.datatype.VDataType;
+import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.NodeExec;
 import de.cas_ual_ty.visibilis.node.Output;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,7 +20,7 @@ public class NodeEvent extends NodeExec
     public NodeEvent(int outputAmt)
     {
         super(outputAmt, 0);
-        this.outExec = new Output(0, this, VDataType.EXEC, "exec");
+        this.outExec = new Output(0, this, DataType.EXEC, "exec");
         this.eventType = null; // Just to make sure it is initialized
     }
     

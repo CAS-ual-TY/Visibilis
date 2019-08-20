@@ -2,7 +2,7 @@ package de.cas_ual_ty.visibilis.node;
 
 import java.util.ArrayList;
 
-import de.cas_ual_ty.visibilis.datatype.VDataType;
+import de.cas_ual_ty.visibilis.datatype.DataType;
 
 public class Output<A> extends NodeField<A>
 {
@@ -15,7 +15,7 @@ public class Output<A> extends NodeField<A>
      */
     protected final ArrayList<Input> connections;
     
-    public Output(int id, Node node, VDataType dataType, String name)
+    public Output(int id, Node node, DataType dataType, String name)
     {
         super(id, node, dataType, name);
         this.connections = new ArrayList<Input>();
@@ -37,7 +37,7 @@ public class Output<A> extends NodeField<A>
             if (!this.connections.contains(field))
             {
                 // Make sure exec node fields can only have 1 connection (not output to multiple inputs)
-                if (this.dataType == VDataType.EXEC)
+                if (this.dataType == DataType.EXEC)
                 {
                     // Just to be sure. This is only false if someone accidentally added an exec node field to a non exec node
                     if (field.node instanceof NodeExec)

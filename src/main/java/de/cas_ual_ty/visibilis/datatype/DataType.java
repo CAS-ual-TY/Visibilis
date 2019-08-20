@@ -10,15 +10,15 @@ import de.cas_ual_ty.visibilis.datatype.converter.NumberFloat;
 import de.cas_ual_ty.visibilis.datatype.converter.NumberInteger;
 import de.cas_ual_ty.visibilis.node.NodeField;
 
-public class VDataType<A>
+public class DataType<A>
 {
-    public static final Map<String, VDataType> DATA_TYPES_LIST = new HashMap<String, VDataType>();
+    public static final Map<String, DataType> DATA_TYPES_LIST = new HashMap<String, DataType>();
     
-    public static final VDataType EXEC = new VDataType("exec", new float[] { 1F, 1F, 1F });
-    public static final VDataType<Number> NUMBER = new VDataType<Number>("number", new float[] { 1F, 1F, 0F });
-    public static final VDataType<Float> FLOAT = new VDataType<Float>("float", new float[] { 1F, 0.5F, 0F });
-    public static final VDataType<Integer> INTEGER = new VDataType<Integer>("integer", new float[] { 0.5F, 1F, 0F });
-    public static final VDataType<Boolean> BOOLEAN = new VDataType<Boolean>("boolean", new float[] { 1F, 0F, 1F });
+    public static final DataType EXEC = new DataType("exec", new float[] { 1F, 1F, 1F });
+    public static final DataType<Number> NUMBER = new DataType<Number>("number", new float[] { 1F, 1F, 0F });
+    public static final DataType<Float> FLOAT = new DataType<Float>("float", new float[] { 1F, 0.5F, 0F });
+    public static final DataType<Integer> INTEGER = new DataType<Integer>("integer", new float[] { 0.5F, 1F, 0F });
+    public static final DataType<Boolean> BOOLEAN = new DataType<Boolean>("boolean", new float[] { 1F, 0F, 1F });
     
     static
     {
@@ -34,7 +34,7 @@ public class VDataType<A>
     /**
      * All registered converters
      */
-    protected HashMap<VDataType, Converter> converters;
+    protected HashMap<DataType, Converter> converters;
     
     /**
      * Unique id. Used for translation
@@ -46,15 +46,15 @@ public class VDataType<A>
      */
     protected float[] color;
     
-    public VDataType(String id)
+    public DataType(String id)
     {
         this(id, new float[] { 0.5F, 0.5F, 0.5F });
     }
     
-    public VDataType(String id, float[] color)
+    public DataType(String id, float[] color)
     {
         this.id = id;
-        this.converters = new HashMap<VDataType, Converter>();
+        this.converters = new HashMap<DataType, Converter>();
         this.color = color;
         
         if (DATA_TYPES_LIST.containsKey(id))
@@ -74,7 +74,7 @@ public class VDataType<A>
      *            The converter to set how data is converted
      * @return This for chaining
      */
-    public /* final */ VDataType registerConverter(VDataType from, Converter converter)
+    public /* final */ DataType registerConverter(DataType from, Converter converter)
     {
         if (this == EXEC || from == EXEC)
         {
@@ -96,7 +96,7 @@ public class VDataType<A>
      *            The converter to set how data is converted
      * @return This for chaining
      */
-    public /* final */ VDataType registerGenericConverter(VDataType from)
+    public /* final */ DataType registerGenericConverter(DataType from)
     {
         if (this == EXEC || from == EXEC)
         {
@@ -112,13 +112,13 @@ public class VDataType<A>
     /**
      * @return <b>true</b> if any data of the given data type can be converted to this data type
      */
-    public boolean canConvert(VDataType from)
+    public boolean canConvert(DataType from)
     {
         return this.converters.containsKey(from);
     }
     
     /**
-     * Converts the value of this node field to this data type; {@link #canConvert(VDataType)} for the node field's data type must be true otherwise NullPointer is thrown.
+     * Converts the value of this node field to this data type; {@link #canConvert(DataType)} for the node field's data type must be true otherwise NullPointer is thrown.
      */
     public A convert(NodeField from)
     {
@@ -126,9 +126,9 @@ public class VDataType<A>
     }
     
     /**
-     * Converts the value which represents the given data type to this data type; {@link #canConvert(VDataType)} for the given data type must be true otherwise NullPointer is thrown.
+     * Converts the value which represents the given data type to this data type; {@link #canConvert(DataType)} for the given data type must be true otherwise NullPointer is thrown.
      */
-    public A convert(VDataType from, Object value)
+    public A convert(DataType from, Object value)
     {
         return this.converters.get(from).<A> convert(value);
     }

@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.exec;
 
-import de.cas_ual_ty.visibilis.datatype.VDataType;
+import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.NodeExec;
 import de.cas_ual_ty.visibilis.node.Output;
@@ -17,10 +17,10 @@ public class NodeCondition extends NodeExec
     public NodeCondition(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.outExec1 = new Output(0, this, VDataType.EXEC, "exec");
-        this.outExec2 = new Output(1, this, VDataType.EXEC, "exec");
-        this.inExec = new Input(0, this, VDataType.EXEC, "exec");
-        this.inBoolean = new Input<Boolean>(1, this, VDataType.BOOLEAN, "boolean");
+        this.outExec1 = new Output(0, this, DataType.EXEC, "exec");
+        this.outExec2 = new Output(1, this, DataType.EXEC, "exec");
+        this.inExec = new Input(0, this, DataType.EXEC, "exec");
+        this.inBoolean = new Input<Boolean>(1, this, DataType.BOOLEAN, "boolean");
     }
     
     public NodeCondition(int inputAmt)
