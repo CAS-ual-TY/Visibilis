@@ -16,8 +16,8 @@ public class VDataType<A>
     
     public static final VDataType EXEC = new VDataType("exec", new float[] { 1F, 1F, 1F });
     public static final VDataType<Number> NUMBER = new VDataType<Number>("number", new float[] { 1F, 1F, 0F });
-    public static final VDataType<Float> FLOAT = new VDataType<Float>("float", new float[] { 1F, 1F, 0F });
-    public static final VDataType<Integer> INTEGER = new VDataType<Integer>("integer", new float[] { 1F, 1F, 0F });
+    public static final VDataType<Float> FLOAT = new VDataType<Float>("float", new float[] { 1F, 0.5F, 0F });
+    public static final VDataType<Integer> INTEGER = new VDataType<Integer>("integer", new float[] { 0.5F, 1F, 0F });
     public static final VDataType<Boolean> BOOLEAN = new VDataType<Boolean>("boolean", new float[] { 1F, 0F, 1F });
     
     static
@@ -55,6 +55,7 @@ public class VDataType<A>
     {
         this.id = id;
         this.converters = new HashMap<VDataType, Converter>();
+        this.color = color;
         
         if (DATA_TYPES_LIST.containsKey(id))
         {
@@ -139,6 +140,6 @@ public class VDataType<A>
      */
     public float[] getColor()
     {
-        return new float[] { 1F, 1F, 1F };
+        return this.color;
     }
 }
