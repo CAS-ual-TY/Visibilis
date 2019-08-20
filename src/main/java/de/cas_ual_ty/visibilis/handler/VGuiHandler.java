@@ -1,7 +1,7 @@
 package de.cas_ual_ty.visibilis.handler;
 
 import de.cas_ual_ty.visibilis.GuiPrint;
-import de.cas_ual_ty.visibilis.test.PrintTest;
+import de.cas_ual_ty.visibilis.test.VPrintTest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
@@ -22,7 +22,7 @@ public class VGuiHandler implements IGuiHandler
         switch (ID)
         {
             case ID_DEFAULT_GUI:
-                return new GuiPrint(PrintTest.printTest);
+                return new GuiPrint(VPrintTest.printTest);
         }
         
         return null;

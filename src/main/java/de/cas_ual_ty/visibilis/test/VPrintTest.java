@@ -7,11 +7,11 @@ import de.cas_ual_ty.visibilis.node.constant.NodePi;
 import de.cas_ual_ty.visibilis.node.general.NodeFloatConst;
 import de.cas_ual_ty.visibilis.node.general.NodeNumber2to1;
 
-public class PrintTest extends Print
+public class VPrintTest extends Print
 {
-    public static PrintTest printTest = new PrintTest();
+    public static VPrintTest printTest = new VPrintTest();
     
-    public PrintTest()
+    public VPrintTest()
     {
         super();
         
