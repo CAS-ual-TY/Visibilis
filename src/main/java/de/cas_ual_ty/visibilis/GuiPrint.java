@@ -77,12 +77,12 @@ public class GuiPrint extends GuiScreen
     {
         GlStateManager.disableLighting();
         
-        int x = 0, y = 0, w = 0, h = 0; // TODO high, window size? Maybe plan layout before starting? Make static?
+        int x = 4, y = 10, w = 900, h = 900; // TODO high, window size? Maybe plan layout before starting? Make static?
         
-        // GuiPrint.innerStart(this.sr, x, y, w, h);
-        // GuiPrint.applyZoomAndShift(this.zoom, 0, 0, 0); //Inside of the matrix since you would otherwise "touch" everything outside of the matrix
+         GuiPrint.innerStart(this.sr, x, y, w, h);
+         GuiPrint.applyZoomAndShift(this.zoom, 0, 0); //Inside of the matrix since you would otherwise "touch" everything outside of the matrix
         this.drawInner(mouseX, mouseY, partialTicks);
-        // GuiPrint.innerEnd();
+         GuiPrint.innerEnd();
         
         // Draw buttons and labels
         super.drawScreen(mouseX, mouseY, partialTicks);
@@ -281,7 +281,7 @@ public class GuiPrint extends GuiScreen
             y2 = y1 + offY;
             
             // Now draw the line, half transparent
-            drawGradientLine(x1, y1, x2, y2, (type1 == DataType.EXEC ? 2 : 1) * this.sr.getScaleFactor() * nodeFieldDotSize / 2, type1.getColor()[0], type1.getColor()[1], type1.getColor()[2], nodeFieldConnectionsAlpha, type2.getColor()[0], type2.getColor()[1], type2.getColor()[2], nodeFieldConnectionsAlpha);
+            drawGradientLine(x1, y1, x2, y2, this.getLineWidth(type1), type1.getColor()[0], type1.getColor()[1], type1.getColor()[2], nodeFieldConnectionsAlpha, type2.getColor()[0], type2.getColor()[1], type2.getColor()[2], nodeFieldConnectionsAlpha);
         }
     }
     
@@ -428,6 +428,11 @@ public class GuiPrint extends GuiScreen
         return Math.round(f / this.zoom);
     }
     
+    public float getLineWidth(DataType type)
+    {
+        return this.zoom * (type == DataType.EXEC ? 2 : 1) * this.sr.getScaleFactor() * nodeFieldDotSize / 2;
+    }
+    
     /**
      * Cut everything off outside the given rectangle. Call this, then the all the draw code, then {@link #innerEnd()} for cleanup.
      * 
@@ -463,9 +468,10 @@ public class GuiPrint extends GuiScreen
     /**
      * Move according to the scolling of the user and apply zoom
      */
-    public static void applyZoomAndShift(float zoom, float x, float y, float z) // TODO today: shift/move (scrolling)
+    public static void applyZoomAndShift(float zoom, float x, float y) // TODO today: shift/move (scrolling)
     {
         GL11.glScalef(zoom, zoom, 1); // Apply zoom, 2x zoom means 2x size of prints, so this is fine
+        GL11.glTranslatef(x, y, 0);
     }
     
     /**
