@@ -14,7 +14,7 @@ public class DataType<A>
 {
     public static final Map<String, DataType> DATA_TYPES_LIST = new HashMap<String, DataType>();
     
-    public static final DataType EXEC = new DataType("exec", new float[] { 1F, 1F, 1F });
+    public static final DataType EXEC = new DataType("exec", new float[] { 1F, 0F, 0F });
     public static final DataType<Number> NUMBER = new DataType<Number>("number", new float[] { 1F, 1F, 0F });
     public static final DataType<Float> FLOAT = new DataType<Float>("float", new float[] { 1F, 0.5F, 0F });
     public static final DataType<Integer> INTEGER = new DataType<Integer>("integer", new float[] { 0.5F, 1F, 0F });
@@ -114,7 +114,7 @@ public class DataType<A>
      */
     public boolean canConvert(DataType from)
     {
-        return this.converters.containsKey(from);
+        return from == this || this.converters.containsKey(from);
     }
     
     /**
