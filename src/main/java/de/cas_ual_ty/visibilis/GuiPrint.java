@@ -463,14 +463,6 @@ public class GuiPrint extends GuiScreen
         return Math.round(this.guiToPrint(i));
     }
     
-    /**
-     * Remove the zoom factor.
-     */
-    public int printToGui(float f)
-    {
-        return Math.round(f / this.zoom);
-    }
-    
     public float getLineWidth(DataType type)
     {
         return this.zoom * (type == DataType.EXEC ? 2 : 1) * this.sr.getScaleFactor() * nodeFieldDotSize / 2;
