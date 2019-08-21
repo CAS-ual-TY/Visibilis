@@ -93,9 +93,9 @@ public class GuiPrint extends GuiScreen
         {
             this.zoom *= 2;
             
-            if(this.zoom > 4)
+            if(this.zoom > 2)
             {
-                this.zoom = 4;
+                this.zoom = 2;
             }
             else
             {
@@ -151,7 +151,7 @@ public class GuiPrint extends GuiScreen
             Node node = (Node) obj;
             
             // Draw white rect over node, half transparent
-            GuiPrint.drawRect(this.print.posX + node.posX, this.print.posY + node.posY, nodeWidth, nodeHeight * GuiPrint.getVerticalAmt(node), 1F, 1F, 1F, hoverAlpha);
+            GuiPrint.drawRect(this.getNodePosX(node), this.getNodePosY(node), nodeWidth, nodeHeight * GuiPrint.getVerticalAmt(node), 1F, 1F, 1F, hoverAlpha);
         }
         else if (obj instanceof NodeField)
         {
@@ -159,7 +159,7 @@ public class GuiPrint extends GuiScreen
             NodeField field = (NodeField) obj;
             
             // Draw white rect over node field, half transparent
-            GuiPrint.drawRect(this.print.posX + field.node.posX + (field.isInput() ? 0 : nodeWidth / 2), this.print.posY + field.node.posY + nodeHeight * (field.id + 1), nodeWidth / 2, nodeHeight, 1F, 1F, 1F, hoverAlpha);
+            GuiPrint.drawRect(this.getNodePosX(field.node) + (field.isInput() ? 0 : nodeWidth / 2), this.getNodePosY(field.node) + nodeHeight * (field.id + 1), nodeWidth / 2, nodeHeight, 1F, 1F, 1F, hoverAlpha);
         }
         
         // --- Hovering end ---
@@ -176,8 +176,8 @@ public class GuiPrint extends GuiScreen
         // Loop through all nodes. Nodes at the end of the list will be drawn on top.
         for (Node node : print.getNodes())
         {
-            x = node.posX + print.posX;
-            y = node.posY + print.posY;
+            x = this.getNodePosX(node);
+            y = this.getNodePosY(node);
             this.drawNode(node, x, y);
         }
     }
@@ -364,8 +364,8 @@ public class GuiPrint extends GuiScreen
             node = this.print.nodes.get(i);
             
             // Entire node position and size, zoom and shift accounted for
-            x = this.guiToPrint(node.posX + this.print.posX);
-            y = this.guiToPrint(node.posY + this.print.posY);
+            x = this.getNodePosX2(node);
+            y = this.getNodePosY2(node);
             w = this.guiToPrint(nodeWidth);
             h = this.guiToPrint(nodeHeight * GuiPrint.getVerticalAmt(node));
             
@@ -390,7 +390,7 @@ public class GuiPrint extends GuiScreen
                         
                         for (j = 1; j <= node.getInputAmt(); ++j)
                         {
-                            if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.print.posY + node.posY + nodeHeight * j), w, this.guiToPrint(nodeHeight)))
+                            if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getNodePosY(node) + nodeHeight * j), w, this.guiToPrint(nodeHeight)))
                             {
                                 // inside this node field -> return it
                                 return node.getInput(j - 1);
@@ -407,7 +407,7 @@ public class GuiPrint extends GuiScreen
                         
                         for (j = 1; j <= node.getOutputAmt(); ++j)
                         {
-                            if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.print.posY + node.posY + nodeHeight * j), w, this.guiToPrint(nodeHeight)))
+                            if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getNodePosY(node) + nodeHeight * j), w, this.guiToPrint(nodeHeight)))
                             {
                                 // inside this node field -> return it
                                 return node.getOutput(j - 1);
@@ -461,6 +461,38 @@ public class GuiPrint extends GuiScreen
     public int guiToPrintRounded(int i)
     {
         return Math.round(this.guiToPrint(i));
+    }
+    
+    /**
+     * Print posX + Node posX
+     */
+    public int getNodePosX(Node n)
+    {
+        return this.print.posX + n.posX;
+    }
+    
+    /**
+     * Print posY + Node posY
+     */
+    public int getNodePosY(Node n)
+    {
+        return this.print.posY + n.posY;
+    }
+    
+    /**
+     * (Print posX + Node posX) * zoom
+     */
+    public float getNodePosX2(Node n)
+    {
+        return this.guiToPrint(this.print.posX + n.posX);
+    }
+    
+    /**
+     * (Print posY + Node posY) * zoom
+     */
+    public float getNodePosY2(Node n)
+    {
+        return this.guiToPrint(this.print.posY + n.posY);
     }
     
     public float getLineWidth(DataType type)
