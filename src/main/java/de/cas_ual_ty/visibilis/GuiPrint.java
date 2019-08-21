@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis;
 
 import java.util.ArrayList;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
@@ -70,6 +71,52 @@ public class GuiPrint extends GuiScreen
     @Override
     public void updateScreen()
     {
+        //--- Temporary key test ---
+        
+        if(this.mc.gameSettings.keyBindForward.isKeyDown() || Keyboard.isKeyDown(Keyboard.KEY_W))
+        {
+            this.print.posY--;
+        }
+        if(this.mc.gameSettings.keyBindBack.isKeyDown() || Keyboard.isKeyDown(Keyboard.KEY_S))
+        {
+            this.print.posY++;
+        }
+        if(this.mc.gameSettings.keyBindLeft.isKeyDown() || Keyboard.isKeyDown(Keyboard.KEY_A))
+        {
+            this.print.posX--;
+        }
+        if(this.mc.gameSettings.keyBindRight.isKeyDown() || Keyboard.isKeyDown(Keyboard.KEY_D))
+        {
+            this.print.posX++;
+        }
+        if(this.mc.gameSettings.keyBindJump.isKeyDown() || Keyboard.isKeyDown(Keyboard.KEY_ADD))
+        {
+            this.zoom *= 2;
+            
+            if(this.zoom > 4)
+            {
+                this.zoom = 4;
+            }
+            else
+            {
+                //TODO Adjust print position so that the middle of the screen stays the middle when zooming
+            }
+        }
+        if(this.mc.gameSettings.keyBindSneak.isKeyDown() || Keyboard.isKeyDown(Keyboard.KEY_SUBTRACT))
+        {
+            this.zoom *= 0.5F;
+            
+            if(this.zoom < 0.125F)
+            {
+                this.zoom = 0.125F;
+            }
+            else
+            {
+              //TODO Adjust print position so that the middle of the screen stays the middle when zooming
+            }
+        }
+        
+        //--- key test end ---
     }
     
     @Override
@@ -80,8 +127,8 @@ public class GuiPrint extends GuiScreen
         int x = 4, y = 10, w = 900, h = 900; // TODO high, window size? Maybe plan layout before starting? Make static?
         
          GuiPrint.innerStart(this.sr, x, y, w, h);
-         GuiPrint.applyZoomAndShift(this.zoom, 0, 0); //Inside of the matrix since you would otherwise "touch" everything outside of the matrix
-        this.drawInner(mouseX, mouseY, partialTicks);
+         GuiPrint.applyZoom(this.zoom); //Inside of the matrix since you would otherwise "touch" everything outside of the matrix
+         this.drawInner(mouseX, mouseY, partialTicks);
          GuiPrint.innerEnd();
         
         // Draw buttons and labels
@@ -130,7 +177,7 @@ public class GuiPrint extends GuiScreen
         for (Node node : print.getNodes())
         {
             x = node.posX + print.posX;
-            y = node.posY + print.posX;
+            y = node.posY + print.posY;
             this.drawNode(node, x, y);
         }
     }
@@ -318,7 +365,7 @@ public class GuiPrint extends GuiScreen
             
             // Entire node position and size, zoom and shift accounted for
             x = this.guiToPrint(node.posX + this.print.posX);
-            y = this.guiToPrint(node.posY + this.print.posX);
+            y = this.guiToPrint(node.posY + this.print.posY);
             w = this.guiToPrint(nodeWidth);
             h = this.guiToPrint(nodeHeight * GuiPrint.getVerticalAmt(node));
             
@@ -328,6 +375,7 @@ public class GuiPrint extends GuiScreen
                 if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, y, w, this.guiToPrint(nodeHeight)))
                 {
                     // Inside header -> return node itself
+                    
                     return node;
                 }
                 else
@@ -342,7 +390,7 @@ public class GuiPrint extends GuiScreen
                         
                         for (j = 1; j <= node.getInputAmt(); ++j)
                         {
-                            if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(node.posY + nodeHeight * j), w, this.guiToPrint(nodeHeight)))
+                            if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.print.posY + node.posY + nodeHeight * j), w, this.guiToPrint(nodeHeight)))
                             {
                                 // inside this node field -> return it
                                 return node.getInput(j - 1);
@@ -359,7 +407,7 @@ public class GuiPrint extends GuiScreen
                         
                         for (j = 1; j <= node.getOutputAmt(); ++j)
                         {
-                            if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(node.posY + nodeHeight * j), w, this.guiToPrint(nodeHeight)))
+                            if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.print.posY + node.posY + nodeHeight * j), w, this.guiToPrint(nodeHeight)))
                             {
                                 // inside this node field -> return it
                                 return node.getOutput(j - 1);
@@ -375,16 +423,6 @@ public class GuiPrint extends GuiScreen
         }
         
         return null;
-    }
-    
-    /**
-     * Used to intercept key downs
-     * 
-     * @see de.cas_ual_ty.visibilis.handler.VEventHandlerClient#onEvent(KeyInputEvent)
-     */
-    public void onKeyInput(KeyInputEvent event)
-    {
-        // TODO scrolling, zooming
     }
     
     /**
@@ -417,7 +455,12 @@ public class GuiPrint extends GuiScreen
      */
     public float guiToPrint(int i)
     {
-        return i * this.zoom; // TODO today: see below as well, separate method to adjust for the position of the print
+        return i * this.zoom;
+    }
+    
+    public int guiToPrintRounded(int i)
+    {
+        return Math.round(this.guiToPrint(i));
     }
     
     /**
@@ -466,12 +509,11 @@ public class GuiPrint extends GuiScreen
     }
     
     /**
-     * Move according to the scolling of the user and apply zoom
+     * Apply zoom
      */
-    public static void applyZoomAndShift(float zoom, float x, float y) // TODO today: shift/move (scrolling)
+    public static void applyZoom(float zoom)
     {
         GL11.glScalef(zoom, zoom, 1); // Apply zoom, 2x zoom means 2x size of prints, so this is fine
-        GL11.glTranslatef(x, y, 0);
     }
     
     /**
