@@ -14,11 +14,17 @@ public class Print
     // NBT Keys
     public static final String KEY_POS_X = "posX";
     public static final String KEY_POS_Y = "posY";
+    public static final String KEY_ZOOM = "zoom";
     
     /**
      * Where the user currently shifted the print in the GUI. Saved so that they start off again where they last left
      */
     public int posX, posY;
+    
+    /**
+     * How much the user currently zoomed in the GUI. Saved so that they start off again where they last left
+     */
+    public float zoom = 1F;
     
     /**
      * All nodes in this print (including events).
@@ -210,6 +216,7 @@ public class Print
     {
         this.posX = nbt.getInteger(KEY_POS_X);
         this.posY = nbt.getInteger(KEY_POS_Y);
+        this.zoom = nbt.getFloat(KEY_ZOOM);
         
         VUtility.readPrintNodesFromNBT(this, nbt);
         VUtility.readPrintConnectionsFromNBT(this, nbt);
@@ -222,6 +229,7 @@ public class Print
     {
         nbt.setInteger(KEY_POS_X, this.posX);
         nbt.setInteger(KEY_POS_Y, this.posY);
+        nbt.setFloat(KEY_ZOOM, this.zoom);
         
         VUtility.writePrintNodesToNBT(this, nbt);
         VUtility.writePrintConnectionsToNBT(this, nbt);

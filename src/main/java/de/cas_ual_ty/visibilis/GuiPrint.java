@@ -38,8 +38,6 @@ public class GuiPrint extends GuiScreen
     
     protected Print print;
     
-    public float zoom = 1F;
-    
     protected ScaledResolution sr;
     
     // --- Mouse clicks on node or field -> temporarily stored here ---
@@ -91,11 +89,11 @@ public class GuiPrint extends GuiScreen
         }
         if(this.mc.gameSettings.keyBindJump.isKeyDown() || Keyboard.isKeyDown(Keyboard.KEY_ADD))
         {
-            this.zoom *= 2;
+            this.print.zoom *= 2;
             
-            if(this.zoom > 2)
+            if(this.print.zoom > 2)
             {
-                this.zoom = 2;
+                this.print.zoom = 2;
             }
             else
             {
@@ -104,11 +102,11 @@ public class GuiPrint extends GuiScreen
         }
         if(this.mc.gameSettings.keyBindSneak.isKeyDown() || Keyboard.isKeyDown(Keyboard.KEY_SUBTRACT))
         {
-            this.zoom *= 0.5F;
+            this.print.zoom *= 0.5F;
             
-            if(this.zoom < 0.125F)
+            if(this.print.zoom < 0.125F)
             {
-                this.zoom = 0.125F;
+                this.print.zoom = 0.125F;
             }
             else
             {
@@ -127,7 +125,7 @@ public class GuiPrint extends GuiScreen
         int x = 4, y = 10, w = 900, h = 900; // TODO high, window size? Maybe plan layout before starting? Make static?
         
          GuiPrint.innerStart(this.sr, x, y, w, h);
-         GuiPrint.applyZoom(this.zoom); //Inside of the matrix since you would otherwise "touch" everything outside of the matrix
+         GuiPrint.applyZoom(this.print.zoom); //Inside of the matrix since you would otherwise "touch" everything outside of the matrix
          this.drawInner(mouseX, mouseY, partialTicks);
          GuiPrint.innerEnd();
         
@@ -455,7 +453,7 @@ public class GuiPrint extends GuiScreen
      */
     public float guiToPrint(int i)
     {
-        return i * this.zoom;
+        return i * this.print.zoom;
     }
     
     public int guiToPrintRounded(int i)
@@ -497,7 +495,7 @@ public class GuiPrint extends GuiScreen
     
     public float getLineWidth(DataType type)
     {
-        return this.zoom * (type == DataType.EXEC ? 2 : 1) * this.sr.getScaleFactor() * nodeFieldDotSize / 2;
+        return this.print.zoom * (type == DataType.EXEC ? 2 : 1) * this.sr.getScaleFactor() * nodeFieldDotSize / 2;
     }
     
     /**
