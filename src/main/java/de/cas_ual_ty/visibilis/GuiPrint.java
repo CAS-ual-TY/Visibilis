@@ -1,5 +1,6 @@
 package de.cas_ual_ty.visibilis;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.lwjgl.input.Keyboard;
@@ -33,8 +34,11 @@ public class GuiPrint extends GuiScreen
     // Transparency of white box when hovering
     public static float hoverAlpha = 0.5F;
     
-    // Backround of nodes
+    // Background of nodes
     public static float nodeBackground = 0.125F;
+    
+    // Empty connection grey tone
+    public static float nodeFieldDef = 0.5F;
     
     protected Print print;
     
@@ -42,11 +46,15 @@ public class GuiPrint extends GuiScreen
     
     // --- Mouse hovers/clicks on node or field -> temporarily stored here ---
     //
-    // The thing clicked on
-    protected Node mouseAttachedNode;
-    protected NodeField mouseAttachedField;
+    // The thing clicked on (for input)
+    protected Node mouseClickedNode;
+    protected NodeField mouseClickedField;
+    
+    // The thing currently hovering on (for rendering)
+    protected Node mouseHoveringNode;
+    protected NodeField mouseHoveringField;
     //
-    // true = Mouse clicked on above objects, false = mouse is hovering over above objects
+    // true = Mouse clicked and is holding smth
     protected boolean clicked;
     //
     // The position it was at when clicked on
@@ -58,6 +66,7 @@ public class GuiPrint extends GuiScreen
     public GuiPrint(Print print)
     {
         this.print = print;
+        this.clicked = false;
     }
     
     @Override
@@ -127,6 +136,8 @@ public class GuiPrint extends GuiScreen
         
         int x = 4, y = 10, w = 900, h = 900; // TODO high, window size? Maybe plan layout before starting? Make static?
         
+        this.updateHoveringAndClicked(mouseX, mouseY); // Check for all hovering objects already, so it is done only once
+        
         GuiPrint.innerStart(this.sr, x, y, w, h);
         GuiPrint.applyZoom(this.print.zoom); // Inside of the matrix since you would otherwise "touch" everything outside of the matrix
         this.drawInner(mouseX, mouseY, partialTicks);
@@ -138,32 +149,114 @@ public class GuiPrint extends GuiScreen
         GlStateManager.enableLighting();
     }
     
+    /**
+     * Update the node or node field hovering over or previously clicked on
+     */
+    public void updateHoveringAndClicked(int mouseX, int mouseY)
+    {
+        if (!this.clicked)
+        {
+            Object obj = this.getObjectHovering(mouseX, mouseY, 0, 0, this.width, this.height);
+            
+            this.mouseHoveringNode = null;
+            this.mouseHoveringField = null;
+            
+            if (obj instanceof Node)
+            {
+                this.mouseHoveringNode = (Node) obj;
+            }
+            else if (obj instanceof NodeField)
+            {
+                this.mouseHoveringField = (NodeField) obj;
+            }
+        }
+        else
+        {
+            if (this.mouseClickedNode != null)
+            {
+                this.mouseClickedNode.posX = this.printToGuiRounded(mouseX) - print.posX;
+                this.mouseClickedNode.posY = this.printToGuiRounded(mouseY) - print.posY;
+            }
+        }
+    }
+    
+    @Override
+    protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException
+    {
+        if (mouseButton == 0)
+        {
+            // --- if inside inner ---
+            if (!this.clicked)
+            {
+                Object obj = this.getObjectHovering(mouseX, mouseY, 0, 0, this.width, this.height);
+                
+                if (obj instanceof Node)
+                {
+                    this.clicked = true;
+                    this.mouseClickedNode = (Node) obj;
+                    this.attachedPrevX = this.getNodePosX(mouseClickedNode);
+                    this.attachedPrevY = this.getNodePosY(mouseClickedNode);
+                }
+                else if (obj instanceof NodeField)
+                {
+                    this.clicked = true;
+                    this.mouseClickedField = (NodeField) obj;
+                }
+            }
+            else
+            {
+                this.clicked = false;
+                this.mouseClickedNode = null;
+                this.mouseClickedField = null;
+            }
+            
+            // --- else ---
+            super.mouseClicked(mouseX, mouseY, mouseButton);
+        }
+    }
+    
     public void drawInner(int mouseX, int mouseY, float partialTicks)
     {
         this.drawPrint(this.print);
         
-        // --- Draw hovering start ---
+        // --- Draw hovering/clicked start ---
         
-        Object obj = this.getObjectHoveringInner(mouseX, mouseY);
-        
-        if (obj instanceof Node)
+        if (this.clicked)
         {
-            // Hovering over a node
-            Node node = (Node) obj;
+            // Objects that the player clicked on to be outlined
             
-            // Draw white rect over node, half transparent
-            GuiPrint.drawRect(this.getNodePosX(node), this.getNodePosY(node), nodeWidth, nodeHeight * GuiPrint.getVerticalAmt(node), 1F, 1F, 1F, hoverAlpha);
+            if (this.mouseClickedNode != null)
+            {
+                // Outline clicked on node
+                this.drawOutlineRect(this.attachedPrevX, this.attachedPrevY, nodeWidth, nodeHeight * GuiPrint.getVerticalAmt(this.mouseClickedNode));
+            }
+            if (this.mouseClickedField != null)
+            {
+                // Where to draw the 1st dot at
+                int dotX = this.getDotPosX(this.mouseClickedField);
+                int dotY = this.getDotPosY(mouseClickedField);
+                
+                // Node field was clicked on -> Render line from Dot -> Mouse
+                this.drawConnectionLine(dotX + nodeFieldDotSize / 2, dotY + nodeFieldDotSize / 2, this.printToGuiRounded(mouseX), this.printToGuiRounded(mouseY), this.getLineWidth(this.mouseClickedField.dataType), this.mouseClickedField.dataType.getColor()[0], this.mouseClickedField.dataType.getColor()[1], this.mouseClickedField.dataType.getColor()[2], nodeFieldConnectionsAlpha, nodeFieldDef, nodeFieldDef, nodeFieldDef, nodeFieldConnectionsAlpha);
+            }
         }
-        else if (obj instanceof NodeField)
+        else
         {
-            // Hovering over a node field
-            NodeField field = (NodeField) obj;
+            // Nothing has been clicked on, render normal hovering rects
             
-            // Draw white rect over node field, half transparent
-            GuiPrint.drawRect(this.getNodePosX(field.node) + (field.isInput() ? 0 : nodeWidth / 2), this.getNodePosY(field.node) + nodeHeight * (field.id + 1), nodeWidth / 2, nodeHeight, 1F, 1F, 1F, hoverAlpha);
+            if (this.mouseHoveringNode != null)
+            {
+                // Node hover rect
+                this.drawHoverRect(this.getNodePosX(this.mouseHoveringNode), this.getNodePosY(this.mouseHoveringNode), nodeWidth, nodeHeight * GuiPrint.getVerticalAmt(this.mouseHoveringNode));
+            }
+            if (this.mouseHoveringField != null)
+            {
+                // Node field hover rect
+                this.drawHoverRect(this.getNodePosX(this.mouseHoveringField.node) + (this.mouseHoveringField.isInput() ? 0 : nodeWidth / 2), this.getNodePosY(this.mouseHoveringField.node) + nodeHeight * (this.mouseHoveringField.id + 1), nodeWidth / 2, nodeHeight);
+            }
         }
         
-        // --- Hovering end ---
+        // --- Hovering/clicked end ---
     }
     
     /**
@@ -240,8 +333,8 @@ public class GuiPrint extends GuiScreen
     {
         int width = nodeWidth / 2;
         
-        int dotX, dotY; // Where to draw the dot
-        int nameX, nameY; // Where to draw the name
+        int dotX = this.getDotPosX(field), dotY = this.getDotPosY(field); // Where to draw the dot
+        int nameX = x, nameY = y; // Where to draw the name
         
         // width - dot - border
         // the dot is in the middle of a quad of size height x height, at the left/right of the field
@@ -250,26 +343,13 @@ public class GuiPrint extends GuiScreen
         if (field.isInput())
         {
             // Input, so draw the dot on the left, the name on the right
-            dotX = x;
-            nameX = dotX + nodeHeight;
-        }
-        else
-        {
-            // Output, so draw the dot on the right, the name on the left
-            nameX = x;
-            dotX = x + width - nodeHeight;
+            nameX += nodeHeight;
         }
         
         DataType type = field.dataType;
         
         // Draw inner colored rectangle
-        nameX += 1;
-        nameY = y + 1;
-        drawRect(nameX, nameY, nameW - 2, nodeHeight - 2, type.getColor()[0], type.getColor()[1], type.getColor()[2]);
-        
-        // Finally adjust dot position for its size
-        dotX += (nodeHeight - nodeFieldDotSize) / 2;
-        dotY = y + (nodeHeight - nodeFieldDotSize) / 2;
+        drawRect(nameX + 1, nameY + 1, nameW - 2, nodeHeight - 2, type.getColor()[0], type.getColor()[1], type.getColor()[2]);
         
         // Draw connections
         this.drawNodeFieldConnections(field, dotX, dotY);
@@ -280,7 +360,7 @@ public class GuiPrint extends GuiScreen
         // Draw name
         String name = I18n.format(field.getUnlocalizedName());
         name = this.fontRenderer.trimStringToWidth(name, nameW - 4); // Trim the name in case it is too big
-        this.fontRenderer.drawString(name, nameX + 1, nameY + 1, 0xFFFFFFFF); // Draw the trimmed name, maybe add shadow?
+        this.fontRenderer.drawString(name, nameX + 2, nameY + 2, 0xFFFFFFFF); // Draw the trimmed name, maybe add shadow?
     }
     
     /**
@@ -329,8 +409,24 @@ public class GuiPrint extends GuiScreen
             y2 = y1 + offY;
             
             // Now draw the line, half transparent
-            drawGradientLine(x1, y1, x2, y2, this.getLineWidth(type1), type1.getColor()[0], type1.getColor()[1], type1.getColor()[2], nodeFieldConnectionsAlpha, type2.getColor()[0], type2.getColor()[1], type2.getColor()[2], nodeFieldConnectionsAlpha);
+            this.drawConnectionLine(x1, y1, x2, y2, type1, type2);
         }
+    }
+    
+    /**
+     * Draw a single connection line with a gradient and width according to the data type(s).
+     */
+    public void drawConnectionLine(int x1, int y1, int x2, int y2, DataType type1, DataType type2)
+    {
+        this.drawConnectionLine(x1, y1, x2, y2, this.getLineWidth(type1), type1.getColor()[0], type1.getColor()[1], type1.getColor()[2], nodeFieldConnectionsAlpha, type2.getColor()[0], type2.getColor()[1], type2.getColor()[2], nodeFieldConnectionsAlpha);
+    }
+    
+    /**
+     * Draw a single connection line with a gradient and width according to the data type(s).
+     */
+    public void drawConnectionLine(int x1, int y1, int x2, int y2, float lineWidth, float r1, float g1, float b1, float a1, float r2, float g2, float b2, float a2)
+    {
+        drawGradientLine(x1, y1, x2, y2, lineWidth, r1, g1, b1, a1, r2, g2, b2, a2);
     }
     
     /**
@@ -459,9 +555,20 @@ public class GuiPrint extends GuiScreen
         return i * this.print.zoom;
     }
     
+    /**
+     * Apply zoom factor and round
+     */
     public int guiToPrintRounded(int i)
     {
         return Math.round(this.guiToPrint(i));
+    }
+    
+    /**
+     * Remove zoom factor and round
+     */
+    public int printToGuiRounded(int i)
+    {
+        return Math.round(i / this.print.zoom);
     }
     
     /**
@@ -496,9 +603,47 @@ public class GuiPrint extends GuiScreen
         return this.guiToPrint(this.print.posY + n.posY);
     }
     
+    /**
+     * Get the node field dot posX
+     */
+    public int getDotPosX(NodeField field)
+    {
+        return this.getNodePosX(field.node) + (field.isOutput() ? nodeWidth - nodeHeight : 0) + (nodeHeight - nodeFieldDotSize) / 2;
+    }
+    
+    /**
+     * Get the node field dot posY
+     */
+    public int getDotPosY(NodeField field)
+    {
+        return this.getNodePosY(field.node) + nodeHeight * (field.id + 1) + (nodeHeight - nodeFieldDotSize) / 2;
+    }
+    
+    /**
+     * Get the line width for the data type. Adjusts for current zoom, scaled resolution scale factor, and doubles if "eec" type
+     */
     public float getLineWidth(DataType type)
     {
         return this.print.zoom * (type == DataType.EXEC ? 2 : 1) * this.sr.getScaleFactor() * nodeFieldDotSize / 2;
+    }
+    
+    /**
+     * Draw the white rectangle when hovering over an object. This can later be changed to eg. an outline (wich is why I made this a method)
+     */
+    public void drawHoverRect(int x, int y, int w, int h)
+    {
+        drawRect(x, y, w, h, 1F, 1F, 1F, hoverAlpha);
+    }
+    
+    /**
+     * Draw the white border over an object.
+     */
+    public void drawOutlineRect(int x, int y, int w, int h)
+    {
+        drawRect(x, y, w, 2, 1F, 1F, 1F, hoverAlpha); // TOP, x -> x + w
+        drawRect(x, y + h - 2, w, 2, 1F, 1F, 1F, hoverAlpha);// BOT, x -> x + w
+        drawRect(x, y + 2, 2, h - 4, 1F, 1F, 1F, hoverAlpha);// LEFT, y + 2 -> y + h - 2
+        drawRect(x + w - 2, y + 2, 2, h - 4, 1F, 1F, 1F, hoverAlpha);// RIGHT, y + 2 -> y + h - 2
     }
     
     /**
