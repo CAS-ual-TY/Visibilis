@@ -200,7 +200,7 @@ public class VUtility
             n1 = Print.getNodeForIdx(p, array[i + 2]);
             f1 = n1.getInput(array[i + 3]);
             
-            if (!f.tryConnectTo(f1))
+            if (!NodeField.tryConnect(f, f1))
             {
                 Visibilis.error("Could not load connection! Connecting failed.");
             }

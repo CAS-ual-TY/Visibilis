@@ -154,23 +154,21 @@ public class GuiPrint extends GuiScreen
      */
     public void updateHoveringAndClicked(int mouseX, int mouseY)
     {
-        if (!this.clicked)
+        Object obj = this.getObjectHovering(mouseX, mouseY, 0, 0, this.width, this.height);
+        
+        this.mouseHoveringNode = null;
+        this.mouseHoveringField = null;
+        
+        if (obj instanceof Node)
         {
-            Object obj = this.getObjectHovering(mouseX, mouseY, 0, 0, this.width, this.height);
-            
-            this.mouseHoveringNode = null;
-            this.mouseHoveringField = null;
-            
-            if (obj instanceof Node)
-            {
-                this.mouseHoveringNode = (Node) obj;
-            }
-            else if (obj instanceof NodeField)
-            {
-                this.mouseHoveringField = (NodeField) obj;
-            }
+            this.mouseHoveringNode = (Node) obj;
         }
-        else
+        else if (obj instanceof NodeField)
+        {
+            this.mouseHoveringField = (NodeField) obj;
+        }
+        
+        if (this.clicked)
         {
             if (this.mouseClickedNode != null)
             {
@@ -185,11 +183,11 @@ public class GuiPrint extends GuiScreen
     {
         if (mouseButton == 0)
         {
+            Object obj = this.getObjectHovering(mouseX, mouseY, 0, 0, this.width, this.height);
+            
             // --- if inside inner ---
             if (!this.clicked)
             {
-                Object obj = this.getObjectHovering(mouseX, mouseY, 0, 0, this.width, this.height);
-                
                 if (obj instanceof Node)
                 {
                     this.clicked = true;
@@ -205,6 +203,13 @@ public class GuiPrint extends GuiScreen
             }
             else
             {
+                if (this.mouseClickedField != null && obj instanceof NodeField)
+                {
+                    NodeField field = (NodeField) obj;
+                    
+                    NodeField.tryConnect(this.mouseClickedField, field);
+                }
+                
                 this.clicked = false;
                 this.mouseClickedNode = null;
                 this.mouseClickedField = null;
@@ -235,6 +240,11 @@ public class GuiPrint extends GuiScreen
                 // Where to draw the 1st dot at
                 int dotX = this.getDotPosX(this.mouseClickedField);
                 int dotY = this.getDotPosY(mouseClickedField);
+                
+                if (this.mouseHoveringField != null && NodeField.canConnect(this.mouseClickedField, this.mouseHoveringField))
+                {
+                    this.drawHoverRect(this.getNodePosX(this.mouseHoveringField.node) + (this.mouseHoveringField.isInput() ? 0 : nodeWidth / 2), this.getNodePosY(this.mouseHoveringField.node) + nodeHeight * (this.mouseHoveringField.id + 1), nodeWidth / 2, nodeHeight);
+                }
                 
                 // Node field was clicked on -> Render line from Dot -> Mouse
                 this.drawConnectionLine(dotX + nodeFieldDotSize / 2, dotY + nodeFieldDotSize / 2, this.printToGuiRounded(mouseX), this.printToGuiRounded(mouseY), this.getLineWidth(this.mouseClickedField.dataType), this.mouseClickedField.dataType.getColor()[0], this.mouseClickedField.dataType.getColor()[1], this.mouseClickedField.dataType.getColor()[2], nodeFieldConnectionsAlpha, nodeFieldDef, nodeFieldDef, nodeFieldDef, nodeFieldConnectionsAlpha);

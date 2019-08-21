@@ -32,6 +32,8 @@ public class Output<A> extends NodeField<A>
     @Override
     protected boolean setConnectionTo(NodeField field)
     {
+        System.out.println("Setting Connection Out -> In");
+        
         if (field instanceof Input)
         {
             if (!this.connections.contains(field))
@@ -99,7 +101,7 @@ public class Output<A> extends NodeField<A>
     }
     
     @Override
-    public void removeConnection(NodeField field)
+    public void removeConnectionOneSided(NodeField field)
     {
         this.connections.remove(field);
     }

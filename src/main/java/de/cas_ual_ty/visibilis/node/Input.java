@@ -33,7 +33,9 @@ public class Input<A> extends NodeField<A>
     {
         if (field instanceof Output)
         {
-            this.connection = (Output) field;
+            Output output = (Output) field;
+            
+            this.connection = output;
             return true;
         }
         
@@ -78,7 +80,7 @@ public class Input<A> extends NodeField<A>
     }
     
     @Override
-    public void removeConnection(NodeField field)
+    public void removeConnectionOneSided(NodeField field)
     {
         if (this.connection == field)
         {

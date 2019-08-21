@@ -50,18 +50,6 @@ public abstract class NodeField<A>
     }
     
     /**
-     * Check if this node field can connect to another node field.
-     * 
-     * @param field
-     *            The other node field.
-     * @return <b>true</b>, if this node field can be connected to the other node field.
-     */
-    public boolean canConnectTo(NodeField field)
-    {
-        return this.isOutput() != field.isOutput() && (this.isOutput() ? this.dataType.canConvert(field.dataType) : field.dataType.canConvert(this.dataType));
-    }
-    
-    /**
      * Try to connect this node field to another node field.
      * 
      * @param field
@@ -69,24 +57,6 @@ public abstract class NodeField<A>
      * @return <b>true</b>, if this node field has been connected to the other node field (or the connection was already present).
      */
     protected abstract boolean setConnectionTo(NodeField field);
-    
-    /**
-     * Try to connect this node field to another node field.
-     * 
-     * @param field
-     *            The other node field.
-     * @return <b>true</b>, if this node field has been connected to the other node field (or the connection was already present).
-     */
-    public boolean tryConnectTo(NodeField field)
-    {
-        if (this.canConnectTo(field))
-        {
-            this.setConnectionTo(field);
-            return true;
-        }
-        
-        return false;
-    }
     
     public abstract boolean isOutput();
     
@@ -124,7 +94,7 @@ public abstract class NodeField<A>
      * @param field
      *            The node field to cut the connection from.
      */
-    public abstract void removeConnection(NodeField field);
+    public abstract void removeConnectionOneSided(NodeField field);
     
     /**
      * Cut all connections to other fields, and their connections to this field.
@@ -133,7 +103,7 @@ public abstract class NodeField<A>
     {
         for (NodeField field : this.getConnectionsList())
         {
-            field.removeConnection(this);
+            field.removeConnectionOneSided(this);
         }
         
         this.clearConnections();
@@ -153,5 +123,61 @@ public abstract class NodeField<A>
     public String getUnlocalizedDesc()
     {
         return this.node.getFieldUnlocalizedDesc(this);
+    }
+    
+    public static void connect(Output out, Input in)
+    {
+        //Inputs can only be connected once...
+        if(in.connection != null && in.connection != out)
+        {
+            //... so remove the input from the current output it is connected to (if there is any)
+            in.connection.removeConnectionOneSided(in);
+        }
+        
+        out.setConnectionTo(in);
+        in.setConnectionTo(out);
+    }
+    
+    /**
+     * Returns false if both are Inputs/Outputs, otherwise returns {@link #canConnect(Output, Input, boolean)} ignoring present connections (on true).
+     */
+    public static boolean canConnect(NodeField n1, NodeField n2)
+    {
+        return (n1.isOutput() != n2.isOutput()) && (n1.isOutput() ? canConnect((Output)n1, (Input)n2, true) : canConnect((Output)n2, (Input)n1, true));
+    }
+    
+    /**
+     * Check if the given Input and Output can be connected to each other.
+     * @param ignorePresentConnection If <b>false</b> then it will immediately return <b>false</b> if the Input already has a connection, if <b>true</b> then it will ignore a present connection of the input
+     */
+    public static boolean canConnect(Output out, Input in, boolean ignorePresentConnection)
+    {
+        return out.node != in.node & in.dataType.canConvert(out.dataType) && (!ignorePresentConnection ? (in.connection == null) : true);
+    }
+    
+    public static boolean tryConnect(NodeField n1, NodeField n2)
+    {
+        if(n1 instanceof Output && n2 instanceof Input)
+        {
+            return tryConnect((Output)n1, (Input)n2, true);
+        }
+        else if(n2 instanceof Output && n1 instanceof Input)
+        {
+            return tryConnect((Output)n2, (Input)n1, true);
+        }
+        
+        return false;
+    }
+    
+    public static boolean tryConnect(Output out, Input in, boolean ignorePresentConnection)
+    {
+        if(canConnect(out, in))
+        {
+            connect(out, in);
+            
+            return true;
+        }
+        
+        return false;
     }
 }
