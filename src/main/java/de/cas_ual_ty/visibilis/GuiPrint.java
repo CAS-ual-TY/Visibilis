@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.resources.I18n;
 
 public class GuiPrint extends GuiScreen
 {
@@ -224,7 +225,7 @@ public class GuiPrint extends GuiScreen
         drawRect(x + 1, y + 1, nodeWidth - 2, nodeHeight - 2, node.getColor()[0], node.getColor()[1], node.getColor()[2]);
         
         // Draw the name
-        String name = node.getUnlocalizedName(); // TODO lowest, translate
+        String name = I18n.format(node.getUnlocalizedName());
         name = this.fontRenderer.trimStringToWidth(name, nodeWidth - 4); // Trim the name in case it is too big
         this.fontRenderer.drawString(name, x + 2, y + 2, 0xFFFFFFFF); // Draw the trimmed name, maybe add shadow?
     }
@@ -274,7 +275,7 @@ public class GuiPrint extends GuiScreen
         drawRect(dotX, dotY, nodeFieldDotSize, nodeFieldDotSize, type.getColor()[0], type.getColor()[1], type.getColor()[2]);
         
         // Draw name
-        String name = field.getUnlocalizedName(); // TODO lowest: translate
+        String name = I18n.format(field.getUnlocalizedName());
         name = this.fontRenderer.trimStringToWidth(name, nameW - 4); // Trim the name in case it is too big
         this.fontRenderer.drawString(name, nameX + 1, nameY + 1, 0xFFFFFFFF); // Draw the trimmed name, maybe add shadow?
     }
