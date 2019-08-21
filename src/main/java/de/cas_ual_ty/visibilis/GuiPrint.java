@@ -40,11 +40,14 @@ public class GuiPrint extends GuiScreen
     
     protected ScaledResolution sr;
     
-    // --- Mouse clicks on node or field -> temporarily stored here ---
+    // --- Mouse hovers/clicks on node or field -> temporarily stored here ---
     //
     // The thing clicked on
     protected Node mouseAttachedNode;
     protected NodeField mouseAttachedField;
+    //
+    // true = Mouse clicked on above objects, false = mouse is hovering over above objects
+    protected boolean clicked;
     //
     // The position it was at when clicked on
     protected int attachedPrevX;
@@ -612,7 +615,7 @@ public class GuiPrint extends GuiScreen
     }
     
     /**
-     * {@link #drawRect(int, int, int, int, byte, byte, byte, byte)} but without alpha.
+     * {@link #drawRect(int, int, int, int, float, float, float, float)} but without alpha.
      */
     public static void drawRect(int x, int y, int w, int h, float r, float g, float b)
     {
@@ -621,7 +624,7 @@ public class GuiPrint extends GuiScreen
     }
     
     /**
-     * (This is the almost-equivalent of the vanilla Gui class's drawRect method. The differences are direct byte rgba input without bit shifting, and width/height instead of max x/y.) Draws a solid color rectangle with the specified coordinates and color.
+     * (This is the almost-equivalent of the vanilla Gui class's drawRect method. The differences are no without bit shifting, and width/height instead of max x/y.) Draws a solid color rectangle with the specified coordinates and color.
      * 
      * @see net.minecraft.client.gui.Gui#drawRect(int, int, int, int, int)
      */
