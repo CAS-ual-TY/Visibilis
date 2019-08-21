@@ -32,7 +32,7 @@ public class VUtility
     public static Print loadPrintFromNBT(NBTTagCompound nbt)
     {
         Print p = new Print();
-        readPrintFromNBT(p, nbt);
+        VUtility.readPrintFromNBT(p, nbt);
         
         return p;
     }
@@ -43,7 +43,7 @@ public class VUtility
     public static NBTTagCompound savePrintToNBT(Print p)
     {
         NBTTagCompound nbt = new NBTTagCompound();
-        writePrintToNBT(p, nbt);
+        VUtility.writePrintToNBT(p, nbt);
         
         return nbt;
     }
@@ -53,7 +53,7 @@ public class VUtility
      */
     public static void readPrintFromNBT(Print p, NBTTagCompound nbt)
     {
-        NBTTagCompound nbt1 = nbt.getCompoundTag(KEY_PRINT);
+        NBTTagCompound nbt1 = nbt.getCompoundTag(VUtility.KEY_PRINT);
         p.readFromNBT(nbt1);
     }
     
@@ -64,7 +64,7 @@ public class VUtility
     {
         NBTTagCompound nbt1 = new NBTTagCompound();
         p.writeToNBT(nbt1);
-        nbt.setTag(KEY_PRINT, nbt1);
+        nbt.setTag(VUtility.KEY_PRINT, nbt1);
     }
     
     /**
@@ -72,7 +72,7 @@ public class VUtility
      */
     public static void readPrintNodesFromNBT(Print p, NBTTagCompound nbt)
     {
-        NBTTagList nbtlist = nbt.getTagList(KEY_PRINT_NODES, Constants.NBT.TAG_COMPOUND);
+        NBTTagList nbtlist = nbt.getTagList(VUtility.KEY_PRINT_NODES, Constants.NBT.TAG_COMPOUND);
         
         NBTTagCompound nbt1;
         Node n;
@@ -81,7 +81,7 @@ public class VUtility
         {
             nbt1 = nbtlist.getCompoundTagAt(i);
             
-            n = loadNodeFromNBT(nbt1);
+            n = VUtility.loadNodeFromNBT(nbt1);
             
             if (n != null)
             {
@@ -108,7 +108,7 @@ public class VUtility
         {
             n = p.getNodes().get(i);
             
-            nbt1 = saveNodeToNBT(n);
+            nbt1 = VUtility.saveNodeToNBT(n);
             
             if (nbt1 != null)
             {
@@ -120,7 +120,7 @@ public class VUtility
             }
         }
         
-        nbt.setTag(KEY_PRINT_NODES, nbtlist);
+        nbt.setTag(VUtility.KEY_PRINT_NODES, nbtlist);
     }
     
     /**
@@ -130,7 +130,7 @@ public class VUtility
     {
         Node n;
         
-        String id = nbt.getString(KEY_NODE);
+        String id = nbt.getString(VUtility.KEY_NODE);
         
         n = VRegistry.INSTANCE.instantiateNode(id);
         
@@ -139,7 +139,7 @@ public class VUtility
             return null;
         }
         
-        readNodeFromNBT(n, nbt);
+        VUtility.readNodeFromNBT(n, nbt);
         
         return n;
     }
@@ -158,9 +158,9 @@ public class VUtility
             return null;
         }
         
-        nbt.setString(KEY_NODE, name);
+        nbt.setString(VUtility.KEY_NODE, name);
         
-        writeNodeToNBT(n, nbt);
+        VUtility.writeNodeToNBT(n, nbt);
         
         return nbt;
     }
@@ -186,7 +186,7 @@ public class VUtility
      */
     public static void readPrintConnectionsFromNBT(Print p, NBTTagCompound nbt)
     {
-        int[] array = nbt.getIntArray(KEY_PRINT_CONNECTIONS);
+        int[] array = nbt.getIntArray(VUtility.KEY_PRINT_CONNECTIONS);
         
         Node n;
         NodeField f;
@@ -221,7 +221,6 @@ public class VUtility
         Node n;
         NodeField f;
         ArrayList<NodeField> connections;
-        Node n1;
         NodeField f1;
         
         for (i = 0; i < p.getNodes().size(); ++i)
@@ -236,8 +235,6 @@ public class VUtility
                 for (k = 0; k < connections.size(); ++k)
                 {
                     f1 = connections.get(k);
-                    n1 = f1.node;
-                    
                     array.add(i);
                     array.add(f.id);
                     array.add(Print.getIdxForNode(p, n));
@@ -246,6 +243,6 @@ public class VUtility
             }
         }
         
-        nbt.setTag(KEY_PRINT_CONNECTIONS, new NBTTagIntArray(array));
+        nbt.setTag(VUtility.KEY_PRINT_CONNECTIONS, new NBTTagIntArray(array));
     }
 }

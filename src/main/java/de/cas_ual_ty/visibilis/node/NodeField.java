@@ -143,7 +143,7 @@ public abstract class NodeField<A>
      */
     public static boolean canConnect(NodeField n1, NodeField n2)
     {
-        return (n1.isOutput() != n2.isOutput()) && (n1.isOutput() ? canConnect((Output)n1, (Input)n2, true) : canConnect((Output)n2, (Input)n1, true));
+        return (n1.isOutput() != n2.isOutput()) && (n1.isOutput() ? NodeField.canConnect((Output)n1, (Input)n2, true) : NodeField.canConnect((Output)n2, (Input)n1, true));
     }
     
     /**
@@ -159,11 +159,11 @@ public abstract class NodeField<A>
     {
         if(n1 instanceof Output && n2 instanceof Input)
         {
-            return tryConnect((Output)n1, (Input)n2, true);
+            return NodeField.tryConnect((Output)n1, (Input)n2, true);
         }
         else if(n2 instanceof Output && n1 instanceof Input)
         {
-            return tryConnect((Output)n2, (Input)n1, true);
+            return NodeField.tryConnect((Output)n2, (Input)n1, true);
         }
         
         return false;
@@ -171,9 +171,9 @@ public abstract class NodeField<A>
     
     public static boolean tryConnect(Output out, Input in, boolean ignorePresentConnection)
     {
-        if(canConnect(out, in))
+        if(NodeField.canConnect(out, in))
         {
-            connect(out, in);
+            NodeField.connect(out, in);
             
             return true;
         }

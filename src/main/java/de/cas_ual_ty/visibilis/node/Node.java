@@ -42,11 +42,6 @@ public abstract class Node
     protected boolean calculated = false;
     
     /**
-     * This is used to make sure that there are no endless loops. When this node starts calculating, this gets set to <b>true</b>. If it now gets called again before being done calculating, it will immediately be aborted. At the end of calculation this gets reset.
-     */
-    private boolean isCalculating = false;
-    
-    /**
      * Did this node already calculate? If yes the result is already saved and can just be retrieved.
      * 
      * @return <b>true</b> if already calculated, <b>false</b> if calculation still needs to be done.
@@ -328,8 +323,8 @@ public abstract class Node
      */
     public void readNodeFromNBT(NBTTagCompound nbt)
     {
-        this.posX = nbt.getInteger(KEY_POS_X);
-        this.posY = nbt.getInteger(KEY_POS_Y);
+        this.posX = nbt.getInteger(Node.KEY_POS_X);
+        this.posY = nbt.getInteger(Node.KEY_POS_Y);
     }
     
     /**
@@ -337,7 +332,7 @@ public abstract class Node
      */
     public void writeNodeToNBT(NBTTagCompound nbt)
     {
-        nbt.setInteger(KEY_POS_X, this.posX);
-        nbt.setInteger(KEY_POS_Y, this.posY);
+        nbt.setInteger(Node.KEY_POS_X, this.posX);
+        nbt.setInteger(Node.KEY_POS_Y, this.posY);
     }
 }

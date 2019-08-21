@@ -214,9 +214,9 @@ public class Print
      */
     public void readFromNBT(NBTTagCompound nbt)
     {
-        this.posX = nbt.getInteger(KEY_POS_X);
-        this.posY = nbt.getInteger(KEY_POS_Y);
-        this.zoom = nbt.getFloat(KEY_ZOOM);
+        this.posX = nbt.getInteger(Print.KEY_POS_X);
+        this.posY = nbt.getInteger(Print.KEY_POS_Y);
+        this.zoom = nbt.getFloat(Print.KEY_ZOOM);
         
         VUtility.readPrintNodesFromNBT(this, nbt);
         VUtility.readPrintConnectionsFromNBT(this, nbt);
@@ -227,9 +227,9 @@ public class Print
      */
     public void writeToNBT(NBTTagCompound nbt)
     {
-        nbt.setInteger(KEY_POS_X, this.posX);
-        nbt.setInteger(KEY_POS_Y, this.posY);
-        nbt.setFloat(KEY_ZOOM, this.zoom);
+        nbt.setInteger(Print.KEY_POS_X, this.posX);
+        nbt.setInteger(Print.KEY_POS_Y, this.posY);
+        nbt.setFloat(Print.KEY_ZOOM, this.zoom);
         
         VUtility.writePrintNodesToNBT(this, nbt);
         VUtility.writePrintConnectionsToNBT(this, nbt);

@@ -79,7 +79,7 @@ public class NodeEvent extends NodeExec
     {
         super.readNodeFromNBT(nbt);
         
-        this.eventType = nbt.getString(KEY_EVENT_TYPE);
+        this.eventType = nbt.getString(NodeEvent.KEY_EVENT_TYPE);
     }
     
     @Override
@@ -87,6 +87,6 @@ public class NodeEvent extends NodeExec
     {
         super.writeNodeToNBT(nbt);
         
-        nbt.setString(KEY_EVENT_TYPE, this.getEventType());
+        nbt.setString(NodeEvent.KEY_EVENT_TYPE, this.getEventType());
     }
 }

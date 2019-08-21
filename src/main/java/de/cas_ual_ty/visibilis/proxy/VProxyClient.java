@@ -16,6 +16,6 @@ public class VProxyClient implements ISidedProxy
     @Override
     public void init()
     {
-        MinecraftForge.EVENT_BUS.register((eventHandlerClient = new VEventHandlerClient()));
+        MinecraftForge.EVENT_BUS.register((VProxyClient.eventHandlerClient = new VEventHandlerClient()));
     }
 }

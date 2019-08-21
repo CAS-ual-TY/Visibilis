@@ -23,7 +23,7 @@ public class GuiPrint extends GuiScreen
     public static int nodeHeight = 12;
     
     // The entire node width
-    public static int nodeWidth = nodeHeight * 10;
+    public static int nodeWidth = GuiPrint.nodeHeight * 10;
     
     // The dot x/y size of node fields
     public static int nodeFieldDotSize = 4;
@@ -172,8 +172,8 @@ public class GuiPrint extends GuiScreen
         {
             if (this.mouseClickedNode != null)
             {
-                this.mouseClickedNode.posX = this.printToGuiRounded(mouseX) - print.posX;
-                this.mouseClickedNode.posY = this.printToGuiRounded(mouseY) - print.posY;
+                this.mouseClickedNode.posX = this.printToGuiRounded(mouseX) - this.print.posX;
+                this.mouseClickedNode.posY = this.printToGuiRounded(mouseY) - this.print.posY;
             }
         }
     }
@@ -192,8 +192,8 @@ public class GuiPrint extends GuiScreen
                 {
                     this.clicked = true;
                     this.mouseClickedNode = (Node) obj;
-                    this.attachedPrevX = this.getNodePosX(mouseClickedNode);
-                    this.attachedPrevY = this.getNodePosY(mouseClickedNode);
+                    this.attachedPrevX = this.getNodePosX(this.mouseClickedNode);
+                    this.attachedPrevY = this.getNodePosY(this.mouseClickedNode);
                 }
                 else if (obj instanceof NodeField)
                 {
@@ -233,21 +233,21 @@ public class GuiPrint extends GuiScreen
             if (this.mouseClickedNode != null)
             {
                 // Outline clicked on node
-                this.drawOutlineRect(this.attachedPrevX, this.attachedPrevY, nodeWidth, nodeHeight * GuiPrint.getVerticalAmt(this.mouseClickedNode));
+                this.drawOutlineRect(this.attachedPrevX, this.attachedPrevY, GuiPrint.nodeWidth, GuiPrint.nodeHeight * GuiPrint.getVerticalAmt(this.mouseClickedNode));
             }
             if (this.mouseClickedField != null)
             {
                 // Where to draw the 1st dot at
                 int dotX = this.getDotPosX(this.mouseClickedField);
-                int dotY = this.getDotPosY(mouseClickedField);
+                int dotY = this.getDotPosY(this.mouseClickedField);
                 
                 if (this.mouseHoveringField != null && NodeField.canConnect(this.mouseClickedField, this.mouseHoveringField))
                 {
-                    this.drawHoverRect(this.getNodePosX(this.mouseHoveringField.node) + (this.mouseHoveringField.isInput() ? 0 : nodeWidth / 2), this.getNodePosY(this.mouseHoveringField.node) + nodeHeight * (this.mouseHoveringField.id + 1), nodeWidth / 2, nodeHeight);
+                    this.drawHoverRect(this.getNodePosX(this.mouseHoveringField.node) + (this.mouseHoveringField.isInput() ? 0 : GuiPrint.nodeWidth / 2), this.getNodePosY(this.mouseHoveringField.node) + GuiPrint.nodeHeight * (this.mouseHoveringField.id + 1), GuiPrint.nodeWidth / 2, GuiPrint.nodeHeight);
                 }
                 
                 // Node field was clicked on -> Render line from Dot -> Mouse
-                this.drawConnectionLine(dotX + nodeFieldDotSize / 2, dotY + nodeFieldDotSize / 2, this.printToGuiRounded(mouseX), this.printToGuiRounded(mouseY), this.getLineWidth(this.mouseClickedField.dataType), this.mouseClickedField.dataType.getColor()[0], this.mouseClickedField.dataType.getColor()[1], this.mouseClickedField.dataType.getColor()[2], nodeFieldConnectionsAlpha, nodeFieldDef, nodeFieldDef, nodeFieldDef, nodeFieldConnectionsAlpha);
+                this.drawConnectionLine(dotX + GuiPrint.nodeFieldDotSize / 2, dotY + GuiPrint.nodeFieldDotSize / 2, this.printToGuiRounded(mouseX), this.printToGuiRounded(mouseY), this.getLineWidth(this.mouseClickedField.dataType), this.mouseClickedField.dataType.getColor()[0], this.mouseClickedField.dataType.getColor()[1], this.mouseClickedField.dataType.getColor()[2], GuiPrint.nodeFieldConnectionsAlpha, GuiPrint.nodeFieldDef, GuiPrint.nodeFieldDef, GuiPrint.nodeFieldDef, GuiPrint.nodeFieldConnectionsAlpha);
             }
         }
         else
@@ -257,12 +257,12 @@ public class GuiPrint extends GuiScreen
             if (this.mouseHoveringNode != null)
             {
                 // Node hover rect
-                this.drawHoverRect(this.getNodePosX(this.mouseHoveringNode), this.getNodePosY(this.mouseHoveringNode), nodeWidth, nodeHeight * GuiPrint.getVerticalAmt(this.mouseHoveringNode));
+                this.drawHoverRect(this.getNodePosX(this.mouseHoveringNode), this.getNodePosY(this.mouseHoveringNode), GuiPrint.nodeWidth, GuiPrint.nodeHeight * GuiPrint.getVerticalAmt(this.mouseHoveringNode));
             }
             if (this.mouseHoveringField != null)
             {
                 // Node field hover rect
-                this.drawHoverRect(this.getNodePosX(this.mouseHoveringField.node) + (this.mouseHoveringField.isInput() ? 0 : nodeWidth / 2), this.getNodePosY(this.mouseHoveringField.node) + nodeHeight * (this.mouseHoveringField.id + 1), nodeWidth / 2, nodeHeight);
+                this.drawHoverRect(this.getNodePosX(this.mouseHoveringField.node) + (this.mouseHoveringField.isInput() ? 0 : GuiPrint.nodeWidth / 2), this.getNodePosY(this.mouseHoveringField.node) + GuiPrint.nodeHeight * (this.mouseHoveringField.id + 1), GuiPrint.nodeWidth / 2, GuiPrint.nodeHeight);
             }
         }
         
@@ -294,7 +294,7 @@ public class GuiPrint extends GuiScreen
         // --- Start drawing node itself ---
         
         // Draw entire node background
-        GuiPrint.drawRect(x, y, nodeWidth, nodeHeight * GuiPrint.getVerticalAmt(node), nodeBackground, nodeBackground, nodeBackground);
+        GuiPrint.drawRect(x, y, GuiPrint.nodeWidth, GuiPrint.nodeHeight * GuiPrint.getVerticalAmt(node), GuiPrint.nodeBackground, GuiPrint.nodeBackground, GuiPrint.nodeBackground);
         
         // #SelfExplainingCodeIsAMeme
         this.drawNodeHeader(node, x, y);
@@ -308,15 +308,15 @@ public class GuiPrint extends GuiScreen
         for (i = 0; i < node.getInputAmt(); ++i)
         {
             field = node.getInput(i);
-            this.drawNodeField(field, x, y + nodeHeight * (i + 1));
+            this.drawNodeField(field, x, y + GuiPrint.nodeHeight * (i + 1));
         }
         
         // Draw outputs, i + 1 to draw below header
         for (i = 0; i < node.getOutputAmt(); ++i)
         {
             field = node.getOutput(i);
-            this.drawNodeField(field, x + nodeWidth / 2, y + nodeHeight * (i + 1)); // Outputs are on the right, so add
-                                                                                    // half width of the node
+            this.drawNodeField(field, x + GuiPrint.nodeWidth / 2, y + GuiPrint.nodeHeight * (i + 1)); // Outputs are on the right, so add
+            // half width of the node
         }
         
         // --- End drawing fields ---
@@ -328,11 +328,11 @@ public class GuiPrint extends GuiScreen
     public void drawNodeHeader(Node node, int x, int y)
     {
         // Draw the inner colored rectangle
-        drawRect(x + 1, y + 1, nodeWidth - 2, nodeHeight - 2, node.getColor()[0], node.getColor()[1], node.getColor()[2]);
+        GuiPrint.drawRect(x + 1, y + 1, GuiPrint.nodeWidth - 2, GuiPrint.nodeHeight - 2, node.getColor()[0], node.getColor()[1], node.getColor()[2]);
         
         // Draw the name
         String name = I18n.format(node.getUnlocalizedName());
-        name = this.fontRenderer.trimStringToWidth(name, nodeWidth - 4); // Trim the name in case it is too big
+        name = this.fontRenderer.trimStringToWidth(name, GuiPrint.nodeWidth - 4); // Trim the name in case it is too big
         this.fontRenderer.drawString(name, x + 2, y + 2, 0xFFFFFFFF); // Draw the trimmed name, maybe add shadow?
     }
     
@@ -341,31 +341,31 @@ public class GuiPrint extends GuiScreen
      */
     public void drawNodeField(NodeField field, int x, int y)
     {
-        int width = nodeWidth / 2;
+        int width = GuiPrint.nodeWidth / 2;
         
         int dotX = this.getDotPosX(field), dotY = this.getDotPosY(field); // Where to draw the dot
         int nameX = x, nameY = y; // Where to draw the name
         
         // width - dot - border
         // the dot is in the middle of a quad of size height x height, at the left/right of the field
-        int nameW = width - nodeHeight;
+        int nameW = width - GuiPrint.nodeHeight;
         
         if (field.isInput())
         {
             // Input, so draw the dot on the left, the name on the right
-            nameX += nodeHeight;
+            nameX += GuiPrint.nodeHeight;
         }
         
         DataType type = field.dataType;
         
         // Draw inner colored rectangle
-        drawRect(nameX + 1, nameY + 1, nameW - 2, nodeHeight - 2, type.getColor()[0], type.getColor()[1], type.getColor()[2]);
+        GuiPrint.drawRect(nameX + 1, nameY + 1, nameW - 2, GuiPrint.nodeHeight - 2, type.getColor()[0], type.getColor()[1], type.getColor()[2]);
         
         // Draw connections
         this.drawNodeFieldConnections(field, dotX, dotY);
         
         // Draw dot on top
-        drawRect(dotX, dotY, nodeFieldDotSize, nodeFieldDotSize, type.getColor()[0], type.getColor()[1], type.getColor()[2]);
+        GuiPrint.drawRect(dotX, dotY, GuiPrint.nodeFieldDotSize, GuiPrint.nodeFieldDotSize, type.getColor()[0], type.getColor()[1], type.getColor()[2]);
         
         // Draw name
         String name = I18n.format(field.getUnlocalizedName());
@@ -406,15 +406,15 @@ public class GuiPrint extends GuiScreen
             offY = dest.node.posY - field.node.posY;
             
             // Our position is an output dot, so we need to shift to an input dot
-            offX -= nodeWidth - nodeHeight;
+            offX -= GuiPrint.nodeWidth - GuiPrint.nodeHeight;
             
             // Adjust Y, eg. 1st field might be the 2nd in order, the 2nd field might be the
             // 4th in order
-            offY += (dest.id - field.id) * nodeHeight;
+            offY += (dest.id - field.id) * GuiPrint.nodeHeight;
             
             // + half size so it starts in the middle
-            x1 = nodeFieldDotSize / 2 + dotX;
-            y1 = nodeFieldDotSize / 2 + dotY;
+            x1 = GuiPrint.nodeFieldDotSize / 2 + dotX;
+            y1 = GuiPrint.nodeFieldDotSize / 2 + dotY;
             x2 = x1 + offX;
             y2 = y1 + offY;
             
@@ -428,7 +428,7 @@ public class GuiPrint extends GuiScreen
      */
     public void drawConnectionLine(int x1, int y1, int x2, int y2, DataType type1, DataType type2)
     {
-        this.drawConnectionLine(x1, y1, x2, y2, this.getLineWidth(type1), type1.getColor()[0], type1.getColor()[1], type1.getColor()[2], nodeFieldConnectionsAlpha, type2.getColor()[0], type2.getColor()[1], type2.getColor()[2], nodeFieldConnectionsAlpha);
+        this.drawConnectionLine(x1, y1, x2, y2, this.getLineWidth(type1), type1.getColor()[0], type1.getColor()[1], type1.getColor()[2], GuiPrint.nodeFieldConnectionsAlpha, type2.getColor()[0], type2.getColor()[1], type2.getColor()[2], GuiPrint.nodeFieldConnectionsAlpha);
     }
     
     /**
@@ -436,7 +436,7 @@ public class GuiPrint extends GuiScreen
      */
     public void drawConnectionLine(int x1, int y1, int x2, int y2, float lineWidth, float r1, float g1, float b1, float a1, float r2, float g2, float b2, float a2)
     {
-        drawGradientLine(x1, y1, x2, y2, lineWidth, r1, g1, b1, a1, r2, g2, b2, a2);
+        GuiPrint.drawGradientLine(x1, y1, x2, y2, lineWidth, r1, g1, b1, a1, r2, g2, b2, a2);
     }
     
     /**
@@ -473,13 +473,13 @@ public class GuiPrint extends GuiScreen
             // Entire node position and size, zoom and shift accounted for
             x = this.getNodePosX2(node);
             y = this.getNodePosY2(node);
-            w = this.guiToPrint(nodeWidth);
-            h = this.guiToPrint(nodeHeight * GuiPrint.getVerticalAmt(node));
+            w = this.guiToPrint(GuiPrint.nodeWidth);
+            h = this.guiToPrint(GuiPrint.nodeHeight * GuiPrint.getVerticalAmt(node));
             
             // Check if the mouse is on top of the entire node
             if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
             {
-                if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, y, w, this.guiToPrint(nodeHeight)))
+                if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, y, w, this.guiToPrint(GuiPrint.nodeHeight)))
                 {
                     // Inside header -> return node itself
                     
@@ -491,13 +491,13 @@ public class GuiPrint extends GuiScreen
                     
                     int j;
                     
-                    if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, y, this.guiToPrint(nodeWidth / 2), h))
+                    if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, y, this.guiToPrint(GuiPrint.nodeWidth / 2), h))
                     {
                         // Left side -> inputs
                         
                         for (j = 1; j <= node.getInputAmt(); ++j)
                         {
-                            if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getNodePosY(node) + nodeHeight * j), w, this.guiToPrint(nodeHeight)))
+                            if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getNodePosY(node) + GuiPrint.nodeHeight * j), w, this.guiToPrint(GuiPrint.nodeHeight)))
                             {
                                 // inside this node field -> return it
                                 return node.getInput(j - 1);
@@ -514,7 +514,7 @@ public class GuiPrint extends GuiScreen
                         
                         for (j = 1; j <= node.getOutputAmt(); ++j)
                         {
-                            if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getNodePosY(node) + nodeHeight * j), w, this.guiToPrint(nodeHeight)))
+                            if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getNodePosY(node) + GuiPrint.nodeHeight * j), w, this.guiToPrint(GuiPrint.nodeHeight)))
                             {
                                 // inside this node field -> return it
                                 return node.getOutput(j - 1);
@@ -618,7 +618,7 @@ public class GuiPrint extends GuiScreen
      */
     public int getDotPosX(NodeField field)
     {
-        return this.getNodePosX(field.node) + (field.isOutput() ? nodeWidth - nodeHeight : 0) + (nodeHeight - nodeFieldDotSize) / 2;
+        return this.getNodePosX(field.node) + (field.isOutput() ? GuiPrint.nodeWidth - GuiPrint.nodeHeight : 0) + (GuiPrint.nodeHeight - GuiPrint.nodeFieldDotSize) / 2;
     }
     
     /**
@@ -626,7 +626,7 @@ public class GuiPrint extends GuiScreen
      */
     public int getDotPosY(NodeField field)
     {
-        return this.getNodePosY(field.node) + nodeHeight * (field.id + 1) + (nodeHeight - nodeFieldDotSize) / 2;
+        return this.getNodePosY(field.node) + GuiPrint.nodeHeight * (field.id + 1) + (GuiPrint.nodeHeight - GuiPrint.nodeFieldDotSize) / 2;
     }
     
     /**
@@ -634,7 +634,7 @@ public class GuiPrint extends GuiScreen
      */
     public float getLineWidth(DataType type)
     {
-        return this.print.zoom * (type == DataType.EXEC ? 2 : 1) * this.sr.getScaleFactor() * nodeFieldDotSize / 2;
+        return this.print.zoom * (type == DataType.EXEC ? 2 : 1) * this.sr.getScaleFactor() * GuiPrint.nodeFieldDotSize / 2;
     }
     
     /**
@@ -642,7 +642,7 @@ public class GuiPrint extends GuiScreen
      */
     public void drawHoverRect(int x, int y, int w, int h)
     {
-        drawRect(x, y, w, h, 1F, 1F, 1F, hoverAlpha);
+        GuiPrint.drawRect(x, y, w, h, 1F, 1F, 1F, GuiPrint.hoverAlpha);
     }
     
     /**
@@ -650,10 +650,10 @@ public class GuiPrint extends GuiScreen
      */
     public void drawOutlineRect(int x, int y, int w, int h)
     {
-        drawRect(x, y, w, 2, 1F, 1F, 1F, hoverAlpha); // TOP, x -> x + w
-        drawRect(x, y + h - 2, w, 2, 1F, 1F, 1F, hoverAlpha);// BOT, x -> x + w
-        drawRect(x, y + 2, 2, h - 4, 1F, 1F, 1F, hoverAlpha);// LEFT, y + 2 -> y + h - 2
-        drawRect(x + w - 2, y + 2, 2, h - 4, 1F, 1F, 1F, hoverAlpha);// RIGHT, y + 2 -> y + h - 2
+        GuiPrint.drawRect(x, y, w, 2, 1F, 1F, 1F, GuiPrint.hoverAlpha); // TOP, x -> x + w
+        GuiPrint.drawRect(x, y + h - 2, w, 2, 1F, 1F, 1F, GuiPrint.hoverAlpha);// BOT, x -> x + w
+        GuiPrint.drawRect(x, y + 2, 2, h - 4, 1F, 1F, 1F, GuiPrint.hoverAlpha);// LEFT, y + 2 -> y + h - 2
+        GuiPrint.drawRect(x + w - 2, y + 2, 2, h - 4, 1F, 1F, 1F, GuiPrint.hoverAlpha);// RIGHT, y + 2 -> y + h - 2
     }
     
     /**
@@ -702,7 +702,7 @@ public class GuiPrint extends GuiScreen
     public static void drawLine(int x1, int y1, int x2, int y2, float lineWidth, float r, float g, float b, float a)
     {
         GlStateManager.glLineWidth(lineWidth);
-        drawLine(x1, y1, x2, y2, r, g, b, a);
+        GuiPrint.drawLine(x1, y1, x2, y2, r, g, b, a);
     }
     
     /**
@@ -775,7 +775,7 @@ public class GuiPrint extends GuiScreen
     public static void drawRect(int x, int y, int w, int h, float r, float g, float b)
     {
         // TODO low: write separate code for rects without alpha, maybe...
-        drawRect(x, y, w, h, r, g, b, 1F);
+        GuiPrint.drawRect(x, y, w, h, r, g, b, 1F);
     }
     
     /**

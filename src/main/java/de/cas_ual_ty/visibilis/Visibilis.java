@@ -26,12 +26,12 @@ public class Visibilis
     public static final String MOD_VERSION = "1.0.0.0";
     
     // @GameRegistry.ObjectHolder(MOD_ID + ":" + "test")
-    public static VItemTest itemTest = (VItemTest) new VItemTest().setUnlocalizedName(MOD_ID + ":" + "test").setRegistryName(MOD_ID + ":" + "test");
+    public static VItemTest itemTest = (VItemTest) new VItemTest().setUnlocalizedName(Visibilis.MOD_ID + ":" + "test").setRegistryName(Visibilis.MOD_ID + ":" + "test");
     
     @Instance
     public static Visibilis instance;
     
-    @SidedProxy(modId = MOD_ID, clientSide = "de.cas_ual_ty.visibilis.proxy.VProxyClient", serverSide = "de.cas_ual_ty.visibilis.proxy.VProxyServer")
+    @SidedProxy(modId = Visibilis.MOD_ID, clientSide = "de.cas_ual_ty.visibilis.proxy.VProxyClient", serverSide = "de.cas_ual_ty.visibilis.proxy.VProxyServer")
     public static ISidedProxy proxy;
     
     public static VEventHandler eventHandler;
@@ -40,14 +40,14 @@ public class Visibilis
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-        proxy.preInit();
+        Visibilis.proxy.preInit();
     }
     
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-        MinecraftForge.EVENT_BUS.register((eventHandler = new VEventHandler()));
-        NetworkRegistry.INSTANCE.registerGuiHandler(instance, (guiHandler = new VGuiHandler()));
+        MinecraftForge.EVENT_BUS.register((Visibilis.eventHandler = new VEventHandler()));
+        NetworkRegistry.INSTANCE.registerGuiHandler(Visibilis.instance, (Visibilis.guiHandler = new VGuiHandler()));
     }
     
     @EventHandler
@@ -59,16 +59,16 @@ public class Visibilis
     // TODO low: Some nice logging here please
     public static void error(String s)
     {
-        System.err.println("[" + MOD_ID + "] " + s);
+        System.err.println("[" + Visibilis.MOD_ID + "] " + s);
     }
     
-    @EventBusSubscriber(modid = MOD_ID)
+    @EventBusSubscriber(modid = Visibilis.MOD_ID)
     public static class Registries
     {
         @SubscribeEvent
         public static void registerItems(RegistryEvent.Register<Item> event)
         {
-            event.getRegistry().register(itemTest);
+            event.getRegistry().register(Visibilis.itemTest);
         }
     }
 }

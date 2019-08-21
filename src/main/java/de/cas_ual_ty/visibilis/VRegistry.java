@@ -34,7 +34,7 @@ public class VRegistry
     {
         modIdName = GameData.checkPrefix(modIdName, false).toString();
         
-        if (hasEmptyConstructor(c))
+        if (VRegistry.hasEmptyConstructor(c))
         {
             this.mapNodes.put(modIdName, c);
         }
@@ -79,7 +79,7 @@ public class VRegistry
     
     public String getNameForNode(Node n)
     {
-        return getNameForNode(n.getClass());
+        return this.getNameForNode(n.getClass());
     }
     
     public String getNameForNode(Class<? extends Node> c)

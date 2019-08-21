@@ -22,13 +22,13 @@ public class DataType<A>
     
     static
     {
-        NUMBER.registerConverter(FLOAT, new FloatNumber()); // "But int can be casted to Number! Why not use the generic one?"
-        NUMBER.registerConverter(INTEGER, new IntegerNumber()); // - Well, yes. But only the Integer type, not the "small" int. As I dont know how this will be used in the future, I rather add this in.
+        DataType.NUMBER.registerConverter(DataType.FLOAT, new FloatNumber()); // "But int can be casted to Number! Why not use the generic one?"
+        DataType.NUMBER.registerConverter(DataType.INTEGER, new IntegerNumber()); // - Well, yes. But only the Integer type, not the "small" int. As I dont know how this will be used in the future, I rather add this in.
         
-        FLOAT.registerGenericConverter(INTEGER); // int can be casted to float, so generic converter
-        FLOAT.registerConverter(NUMBER, new NumberFloat()); // here Number#floatValue() should be used, so not a generic converter
+        DataType.FLOAT.registerGenericConverter(DataType.INTEGER); // int can be casted to float, so generic converter
+        DataType.FLOAT.registerConverter(DataType.NUMBER, new NumberFloat()); // here Number#floatValue() should be used, so not a generic converter
         
-        INTEGER.registerConverter(NUMBER, new NumberInteger()); // here Number#intValue() should be used, so not a generic converter
+        DataType.INTEGER.registerConverter(DataType.NUMBER, new NumberInteger()); // here Number#intValue() should be used, so not a generic converter
     }
     
     /**
@@ -57,12 +57,12 @@ public class DataType<A>
         this.converters = new HashMap<DataType, Converter>();
         this.color = color;
         
-        if (DATA_TYPES_LIST.containsKey(id))
+        if (DataType.DATA_TYPES_LIST.containsKey(id))
         {
             Visibilis.error("Data type \"" + id + "\" already exists!");
         }
         
-        DATA_TYPES_LIST.put(id, this);
+        DataType.DATA_TYPES_LIST.put(id, this);
     }
     
     /**
@@ -76,7 +76,7 @@ public class DataType<A>
      */
     public /* final */ DataType registerConverter(DataType from, Converter converter)
     {
-        if (this == EXEC || from == EXEC)
+        if (this == DataType.EXEC || from == DataType.EXEC)
         {
             Visibilis.error("EXEC is not convertible!");
             return this;
@@ -98,7 +98,7 @@ public class DataType<A>
      */
     public /* final */ DataType registerGenericConverter(DataType from)
     {
-        if (this == EXEC || from == EXEC)
+        if (this == DataType.EXEC || from == DataType.EXEC)
         {
             return this;
         }
