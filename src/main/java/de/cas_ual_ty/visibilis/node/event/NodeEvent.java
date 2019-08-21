@@ -26,7 +26,7 @@ public class NodeEvent extends NodeExec
     
     public NodeEvent()
     {
-        this(0);
+        this(1);
     }
     
     public NodeEvent(int outputAmt, String modId, String eventType)
