@@ -1,7 +1,7 @@
 package de.cas_ual_ty.visibilis.test;
 
 import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.print.PrintHelperItem;
+import de.cas_ual_ty.visibilis.print.item.PrintHelperItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 

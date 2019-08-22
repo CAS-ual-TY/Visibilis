@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.print;
+package de.cas_ual_ty.visibilis.print.item;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;

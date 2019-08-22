@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.print;
+package de.cas_ual_ty.visibilis.print.item;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;
