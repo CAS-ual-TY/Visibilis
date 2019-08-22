@@ -96,10 +96,10 @@ public class GuiPrint extends GuiScreen
         
         this.updateHoveringAndClicked(mouseX, mouseY); // Check for all hovering objects already, so it is done only once
         
-        GuiPrint.innerStart(this.sr, this.inner.x, this.inner.y, this.inner.w, this.inner.h);
+        GuiPrint.scissorStart(this.sr, this.inner.x, this.inner.y, this.inner.w, this.inner.h);
         GuiPrint.applyZoom(this.print.zoom); // Inside of the matrix since you would otherwise "touch" everything outside of the matrix
         this.drawInner(mouseX, mouseY, partialTicks);
-        GuiPrint.innerEnd();
+        GuiPrint.scissorEnd();
         
         // Draw buttons and labels
         super.drawScreen(mouseX, mouseY, partialTicks);
@@ -672,7 +672,7 @@ public class GuiPrint extends GuiScreen
     }
     
     /**
-     * Cut everything off outside the given rectangle. Call this, then the all the draw code, then {@link #innerEnd()} for cleanup.
+     * Cut everything off outside the given rectangle. Call this, then the all the draw code, then {@link #scissorEnd()} for cleanup.
      * 
      * @param x
      *            Pos X of the rectangle.
@@ -683,7 +683,7 @@ public class GuiPrint extends GuiScreen
      * @param h
      *            Height of the rectangle.
      */
-    public static void innerStart(ScaledResolution sr, int x, int y, int w, int h)
+    public static void scissorStart(ScaledResolution sr, int x, int y, int w, int h)
     {
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
         // * scaleFactor due to the automatic resizing depending on window size (or the
@@ -697,7 +697,7 @@ public class GuiPrint extends GuiScreen
     /**
      * Scissor cleanup. Call {@link #innerStart(int, int, int, int)}, then all the draw code, then this.
      */
-    public static void innerEnd()
+    public static void scissorEnd()
     {
         GL11.glPopMatrix();
         GL11.glDisable(GL11.GL_SCISSOR_TEST);
