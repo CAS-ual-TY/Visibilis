@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.proxy;
 
-public interface ISidedProxy
+public interface IVSidedProxy
 {
     public default void preInit()
     {

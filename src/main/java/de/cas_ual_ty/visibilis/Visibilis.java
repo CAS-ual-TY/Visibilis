@@ -2,7 +2,7 @@ package de.cas_ual_ty.visibilis;
 
 import de.cas_ual_ty.visibilis.handler.VEventHandler;
 import de.cas_ual_ty.visibilis.handler.VGuiHandler;
-import de.cas_ual_ty.visibilis.proxy.ISidedProxy;
+import de.cas_ual_ty.visibilis.proxy.IVSidedProxy;
 import de.cas_ual_ty.visibilis.test.VItemTest;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
@@ -32,7 +32,7 @@ public class Visibilis
     public static Visibilis instance;
     
     @SidedProxy(modId = Visibilis.MOD_ID, clientSide = "de.cas_ual_ty.visibilis.proxy.VProxyClient", serverSide = "de.cas_ual_ty.visibilis.proxy.VProxyServer")
-    public static ISidedProxy proxy;
+    public static IVSidedProxy proxy;
     
     public static VEventHandler eventHandler;
     public static VGuiHandler guiHandler;
