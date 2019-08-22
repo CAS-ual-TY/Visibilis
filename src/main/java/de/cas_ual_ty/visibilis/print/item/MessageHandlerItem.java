@@ -14,7 +14,7 @@ public class MessageHandlerItem implements IMessageHandler<MessageItem, IMessage
         ItemStack itemStack = ctx.getServerHandler().player.getHeldItem(EnumHand.MAIN_HAND);
         itemStack.setTagCompound(message.nbt);
         
-        //TODO validate! fire event?
+        // TODO validate! fire event?
         
         return null;
     }
