@@ -17,6 +17,9 @@ import de.cas_ual_ty.visibilis.node.constant.NodePi;
 import de.cas_ual_ty.visibilis.node.constant.NodeSQRT2;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
 import de.cas_ual_ty.visibilis.node.exec.NodeCondition;
+import de.cas_ual_ty.visibilis.node.function.NodeCosines;
+import de.cas_ual_ty.visibilis.node.function.NodeSines;
+import de.cas_ual_ty.visibilis.node.function.NodeTangent;
 import de.cas_ual_ty.visibilis.node.general.NodeFloatConst;
 import de.cas_ual_ty.visibilis.node.general.NodeNumber2to1;
 
@@ -62,5 +65,9 @@ public class VPrintTest extends Print
         this.addNode(new NodeE());
         this.addNode(new NodePi());
         this.addNode(new NodeSQRT2());
+        
+        this.addNode(new NodeSines());
+        this.addNode(new NodeCosines());
+        this.addNode(new NodeTangent());
     }
 }

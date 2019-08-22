@@ -18,6 +18,6 @@ public class NodeTangent extends NodeNumber1to1
     @Override
     public String getID()
     {
-        return "func_tan";
+        return "tangent";
     }
 }

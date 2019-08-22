@@ -18,6 +18,6 @@ public class NodeSines extends NodeNumber1to1
     @Override
     public String getID()
     {
-        return "func_sin";
+        return "sines";
     }
 }

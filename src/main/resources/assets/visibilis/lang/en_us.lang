@@ -48,3 +48,15 @@ field.pi.out1.name=Pi
 
 node.sqrt_2.name=Square Root of 2
 field.sqrt_2.out1.name=SQRT 2
+
+node.sines.name=Sines
+field.sines.out1.name=sin(x)
+field.sines.in1.name=x
+
+node.cosines.name=Cosines
+field.cosines.out1.name=cos(x)
+field.cosines.in1.name=x
+
+node.tangent.name=Tangent
+field.tangent.out1.name=tan(x)
+field.tangent.in1.name=x
