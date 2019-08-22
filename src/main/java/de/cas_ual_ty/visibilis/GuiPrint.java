@@ -13,7 +13,6 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.GlStateManager.CullFace;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
@@ -238,7 +237,7 @@ public class GuiPrint extends GuiScreen
     
     public void drawInner(int mouseX, int mouseY, float partialTicks)
     {
-        drawBorder(10, 10, this.width - 20, this.height - 20, 10, 0, 0, 0, 1);
+        GuiPrint.drawBorder(10, 10, this.width - 20, this.height - 20, 10, 0, 0, 0, 1);
         
         this.drawPrint(this.print);
         
@@ -838,7 +837,7 @@ public class GuiPrint extends GuiScreen
      */
     public static void drawBorderInside(int x, int y, int w, int h, int borderWidth, float r, float g, float b, float a)
     {
-        drawBorder(x + borderWidth, y + borderWidth, w - borderWidth * 2, h - borderWidth * 2, borderWidth, r, g, b, a);
+        GuiPrint.drawBorder(x + borderWidth, y + borderWidth, w - borderWidth * 2, h - borderWidth * 2, borderWidth, r, g, b, a);
     }
     
     /**
