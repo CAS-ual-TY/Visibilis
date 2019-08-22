@@ -81,52 +81,7 @@ public class GuiPrint extends GuiScreen
     @Override
     public void updateScreen()
     {
-        // --- Temporary key test ---
         
-        if (this.mc.gameSettings.keyBindForward.isKeyDown() || Keyboard.isKeyDown(Keyboard.KEY_W))
-        {
-            this.print.posY--;
-        }
-        if (this.mc.gameSettings.keyBindBack.isKeyDown() || Keyboard.isKeyDown(Keyboard.KEY_S))
-        {
-            this.print.posY++;
-        }
-        if (this.mc.gameSettings.keyBindLeft.isKeyDown() || Keyboard.isKeyDown(Keyboard.KEY_A))
-        {
-            this.print.posX--;
-        }
-        if (this.mc.gameSettings.keyBindRight.isKeyDown() || Keyboard.isKeyDown(Keyboard.KEY_D))
-        {
-            this.print.posX++;
-        }
-        if (this.mc.gameSettings.keyBindJump.isKeyDown() || Keyboard.isKeyDown(Keyboard.KEY_ADD))
-        {
-            this.print.zoom *= 2;
-            
-            if (this.print.zoom > 2)
-            {
-                this.print.zoom = 2;
-            }
-            else
-            {
-                // TODO Adjust print position so that the middle of the screen stays the middle when zooming
-            }
-        }
-        if (this.mc.gameSettings.keyBindSneak.isKeyDown() || Keyboard.isKeyDown(Keyboard.KEY_SUBTRACT))
-        {
-            this.print.zoom *= 0.5F;
-            
-            if (this.print.zoom < 0.125F)
-            {
-                this.print.zoom = 0.125F;
-            }
-            else
-            {
-                // TODO Adjust print position so that the middle of the screen stays the middle when zooming
-            }
-        }
-        
-        // --- key test end ---
     }
     
     @Override
@@ -174,6 +129,63 @@ public class GuiPrint extends GuiScreen
             {
                 this.mouseClickedNode.posX = this.printToGuiRounded(mouseX) - this.print.posX;
                 this.mouseClickedNode.posY = this.printToGuiRounded(mouseY) - this.print.posY;
+            }
+        }
+    }
+    
+    @Override
+    protected void keyTyped(char typedChar, int keyCode) throws IOException
+    {
+        // if focused on eg. a field where you can input stuff manually
+        // - shift input there
+        // - return
+        
+        if (keyCode == 1)
+        {
+            super.keyTyped(typedChar, keyCode);
+            return;
+        }
+        
+        if (keyCode == Keyboard.KEY_W || keyCode == Keyboard.KEY_UP)
+        {
+            this.print.posY--;
+        }
+        if (keyCode == Keyboard.KEY_S || keyCode == Keyboard.KEY_DOWN)
+        {
+            this.print.posY++;
+        }
+        if (keyCode == Keyboard.KEY_A || keyCode == Keyboard.KEY_LEFT)
+        {
+            this.print.posX--;
+        }
+        if (keyCode == Keyboard.KEY_D || keyCode == Keyboard.KEY_RIGHT)
+        {
+            this.print.posX++;
+        }
+        if (keyCode == Keyboard.KEY_SPACE || keyCode == Keyboard.KEY_ADD)
+        {
+            this.print.zoom *= 2;
+            
+            if (this.print.zoom > 2)
+            {
+                this.print.zoom = 2;
+            }
+            else
+            {
+                // TODO Adjust print position so that the middle of the screen stays the middle when zooming
+            }
+        }
+        if (keyCode == Keyboard.KEY_LSHIFT || keyCode == Keyboard.KEY_SUBTRACT)
+        {
+            this.print.zoom *= 0.5F;
+            
+            if (this.print.zoom < 0.125F)
+            {
+                this.print.zoom = 0.125F;
+            }
+            else
+            {
+                // TODO Adjust print position so that the middle of the screen stays the middle when zooming
             }
         }
     }
