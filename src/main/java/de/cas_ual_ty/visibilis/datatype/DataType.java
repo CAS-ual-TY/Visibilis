@@ -12,8 +12,8 @@ import de.cas_ual_ty.visibilis.node.NodeField;
 
 public class DataType<A>
 {
-    public static final float[] COLOR_TEXT_WHITE = new float[] {1F, 1F, 1F};
-    public static final float[] COLOR_TEXT_BLACK = new float[] {0F, 0F, 0F};
+    public static final float[] COLOR_TEXT_WHITE = new float[] { 1F, 1F, 1F };
+    public static final float[] COLOR_TEXT_BLACK = new float[] { 0F, 0F, 0F };
     
     public static final Map<String, DataType> DATA_TYPES_LIST = new HashMap<String, DataType>();
     
@@ -64,7 +64,7 @@ public class DataType<A>
         this.id = id;
         this.converters = new HashMap<DataType, Converter>();
         this.color = color;
-        this.textColor = COLOR_TEXT_WHITE;
+        this.textColor = DataType.COLOR_TEXT_WHITE;
         
         if (DataType.DATA_TYPES_LIST.containsKey(id))
         {
@@ -183,6 +183,6 @@ public class DataType<A>
     
     public DataType setBlackText()
     {
-        return this.setTextColor(COLOR_TEXT_BLACK);
+        return this.setTextColor(DataType.COLOR_TEXT_BLACK);
     }
 }
