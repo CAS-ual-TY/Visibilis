@@ -1,6 +1,5 @@
 package de.cas_ual_ty.visibilis.test;
 
-import de.cas_ual_ty.visibilis.Print;
 import de.cas_ual_ty.visibilis.node.constant.NodeFalse;
 import de.cas_ual_ty.visibilis.node.constant.NodeTrue;
 import de.cas_ual_ty.visibilis.node.logic.NodeAND;
@@ -10,6 +9,7 @@ import de.cas_ual_ty.visibilis.node.logic.NodeNOT;
 import de.cas_ual_ty.visibilis.node.logic.NodeOR;
 import de.cas_ual_ty.visibilis.node.logic.NodeXNOR;
 import de.cas_ual_ty.visibilis.node.logic.NodeXOR;
+import de.cas_ual_ty.visibilis.print.Print;
 
 public class VPrintTest extends Print
 {

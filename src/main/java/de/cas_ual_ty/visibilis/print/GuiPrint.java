@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis;
+package de.cas_ual_ty.visibilis.print;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -563,7 +563,7 @@ public class GuiPrint extends GuiScreen
     
     public Print getPrint()
     {
-        return this.helper.getActivePrint(this);
+        return this.helper.getPrint(this);
     }
     
     /**

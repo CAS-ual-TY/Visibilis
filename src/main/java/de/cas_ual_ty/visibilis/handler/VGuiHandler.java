@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.handler;
 
-import de.cas_ual_ty.visibilis.GuiPrint;
+import de.cas_ual_ty.visibilis.print.GuiPrint;
 import de.cas_ual_ty.visibilis.test.VPrintTest;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
