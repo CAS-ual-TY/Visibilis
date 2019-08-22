@@ -24,15 +24,6 @@ public class PrintHelperItem extends PrintHelperBase
     }
     
     @Override
-    public void writeToNBT(NBTTagCompound nbt0)
-    {
-        super.writeToNBT(nbt0);
-        
-        // Synch to server
-        Visibilis.channel.sendToServer(new MessageItem(this.itemStack, this.hand));
-    }
-    
-    @Override
     public NBTTagCompound getNBT()
     {
         return this.itemStack.getTagCompound();
@@ -42,5 +33,11 @@ public class PrintHelperItem extends PrintHelperBase
     public Print createNewPrint()
     {
         return new Print();
+    }
+    
+    @Override
+    public void synchToServer(NBTTagCompound nbt)
+    {
+        Visibilis.channel.sendToServer(new MessageItem(this.itemStack, this.hand));
     }
 }

@@ -55,6 +55,11 @@ public abstract class PrintHelperBase implements IPrintHelper
      */
     public abstract Print createNewPrint();
     
+    /**
+     * Called after the nbt has been written to.
+     */
+    public void synchToServer(NBTTagCompound nbt) {}
+    
     public void readFromNBT(NBTTagCompound nbt0)
     {
         if (!nbt0.hasKey(Visibilis.MOD_ID))
