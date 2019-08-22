@@ -237,8 +237,6 @@ public class GuiPrint extends GuiScreen
     
     public void drawInner(int mouseX, int mouseY, float partialTicks)
     {
-        GuiPrint.drawBorder(10, 10, this.width - 20, this.height - 20, 10, 0, 0, 0, 1);
-        
         this.drawPrint(this.print);
         
         // --- Draw hovering/clicked start ---
