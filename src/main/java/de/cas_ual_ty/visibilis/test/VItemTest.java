@@ -1,16 +1,16 @@
 package de.cas_ual_ty.visibilis.test;
 
-import de.cas_ual_ty.visibilis.Visibilis;
+import de.cas_ual_ty.visibilis.print.IPrintHelper;
+import de.cas_ual_ty.visibilis.print.ItemPrint;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
-public class VItemTest extends Item
+public class VItemTest extends ItemPrint
 {
     public VItemTest()
     {
@@ -22,10 +22,16 @@ public class VItemTest extends Item
     {
         if (worldIn.isRemote)
         {
-            Visibilis.proxy.openGuiPrint(new VPrintHelperTest(playerIn.getHeldItem(handIn), handIn));
+            this.openGui(playerIn, handIn);
             return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
         }
         
         return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
+    }
+    
+    @Override
+    public IPrintHelper getHelper(ItemStack itemStack, EnumHand hand)
+    {
+        return new VPrintHelperTest(itemStack, hand);
     }
 }
