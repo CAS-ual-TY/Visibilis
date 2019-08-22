@@ -13,6 +13,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GlStateManager.CullFace;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
@@ -237,6 +238,8 @@ public class GuiPrint extends GuiScreen
     
     public void drawInner(int mouseX, int mouseY, float partialTicks)
     {
+        drawBorder(10, 10, this.width - 20, this.height - 20, 10, 0, 0, 0, 1);
+        
         this.drawPrint(this.print);
         
         // --- Draw hovering/clicked start ---
@@ -830,7 +833,18 @@ public class GuiPrint extends GuiScreen
         GlStateManager.disableBlend(); // Turn blending uhh... back off?
     }
     
-    public static void drawBorder(int x, int y, int w, int h, float border, float r, float g, float b, float a)
+    /**
+     * Draw a border. The given rect is the outside, the border width is subtracted from it.
+     */
+    public static void drawBorderInside(int x, int y, int w, int h, int borderWidth, float r, float g, float b, float a)
+    {
+        drawBorder(x + borderWidth, y + borderWidth, w - borderWidth * 2, h - borderWidth * 2, borderWidth, r, g, b, a);
+    }
+    
+    /**
+     * Draw a border. The given rect is the inside, the border width is added to it.
+     */
+    public static void drawBorder(int x, int y, int w, int h, int borderWidth, float r, float g, float b, float a)
     {
         int x2 = x + w;
         int y2 = y + h;
@@ -852,13 +866,16 @@ public class GuiPrint extends GuiScreen
         bufferbuilder.begin(GL11.GL_QUAD_STRIP, DefaultVertexFormats.POSITION);
         
         // Add vertices
-        bufferbuilder.pos(x2 + border, y - border, 0.0D).endVertex(); // TR Outer
+        bufferbuilder.pos(x2 + borderWidth, y - borderWidth, 0.0D).endVertex(); // TR Outer
         bufferbuilder.pos(x2, y, 0.0D).endVertex(); // TR Inner
-        bufferbuilder.pos(x - border, y - border, 0.0D).endVertex(); // TL Outer
-        bufferbuilder.pos(x, y, 0.0D).endVertex(); // TL Inner
-        bufferbuilder.pos(x - border, y2 + border, 0.0D).endVertex(); // BL Outer
+        bufferbuilder.pos(x2 + borderWidth, y2 + borderWidth, 0.0D).endVertex(); // BR Outer
+        bufferbuilder.pos(x2, y2, 0.0D).endVertex(); // BR Inner
+        bufferbuilder.pos(x - borderWidth, y2 + borderWidth, 0.0D).endVertex(); // BL Outer
         bufferbuilder.pos(x, y2, 0.0D).endVertex(); // BL Inner
-        bufferbuilder.pos(x2 + border, y2 + border, 0.0D).endVertex(); // BR Outer
+        bufferbuilder.pos(x - borderWidth, y - borderWidth, 0.0D).endVertex(); // TL Outer
+        bufferbuilder.pos(x, y, 0.0D).endVertex(); // TL Inner
+        bufferbuilder.pos(x2 + borderWidth, y - borderWidth, 0.0D).endVertex(); // TR Outer
+        bufferbuilder.pos(x2, y, 0.0D).endVertex(); // TR Inner
         
         // End drawing
         tessellator.draw();
