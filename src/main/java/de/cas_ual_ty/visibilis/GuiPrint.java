@@ -828,4 +828,21 @@ public class GuiPrint extends GuiScreen
         GlStateManager.enableTexture2D(); // Turn textures back on
         GlStateManager.disableBlend(); // Turn blending uhh... back off?
     }
+    
+    //Maybe temporary, maybe not
+    public static class Rectangle
+    {
+        public int x, y, w, h, l, r;
+        
+        public Rectangle(int x, int y, int w, int h)
+        {
+            super();
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+            this.l = x + w;
+            this.r = y + h;
+        }
+    }
 }
