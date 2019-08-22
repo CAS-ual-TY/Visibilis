@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis.node;
 
 import javax.annotation.Nullable;
 
+import de.cas_ual_ty.visibilis.VRegistry;
 import de.cas_ual_ty.visibilis.VUtility;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -280,9 +281,9 @@ public abstract class Node
     }
     
     /**
-     * Used for storing this node in NBT and for translation. All lower case, '_' can be used.
+     * Used for translation. All lower case, '_' can be used. Use {@link VRegistry#getNameForNode(Class)} for a registry name instead.
      * 
-     * @return A unique identifier (similar to unlocalizedName)
+     * @return A unique identifier (for translation only)
      */
     public abstract String getID();
     

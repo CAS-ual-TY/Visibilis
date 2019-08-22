@@ -2,6 +2,13 @@ package de.cas_ual_ty.visibilis;
 
 import de.cas_ual_ty.visibilis.handler.VEventHandler;
 import de.cas_ual_ty.visibilis.handler.VGuiHandler;
+import de.cas_ual_ty.visibilis.node.logic.NodeAND;
+import de.cas_ual_ty.visibilis.node.logic.NodeNAND;
+import de.cas_ual_ty.visibilis.node.logic.NodeNOR;
+import de.cas_ual_ty.visibilis.node.logic.NodeNOT;
+import de.cas_ual_ty.visibilis.node.logic.NodeOR;
+import de.cas_ual_ty.visibilis.node.logic.NodeXNOR;
+import de.cas_ual_ty.visibilis.node.logic.NodeXOR;
 import de.cas_ual_ty.visibilis.print.MessageHandlerItem;
 import de.cas_ual_ty.visibilis.print.MessageItem;
 import de.cas_ual_ty.visibilis.proxy.IVSidedProxy;
@@ -55,6 +62,14 @@ public class Visibilis
         NetworkRegistry.INSTANCE.registerGuiHandler(Visibilis.instance, (Visibilis.guiHandler = new VGuiHandler()));
         Visibilis.channel = NetworkRegistry.INSTANCE.newSimpleChannel(Visibilis.MOD_ID);
         Visibilis.channel.registerMessage(MessageHandlerItem.class, MessageItem.class, 0, Side.SERVER);
+        
+        VRegistry.INSTANCE.registerNode(NodeAND.class, Visibilis.MOD_ID, "and");
+        VRegistry.INSTANCE.registerNode(NodeNAND.class, Visibilis.MOD_ID, "nand");
+        VRegistry.INSTANCE.registerNode(NodeNOR.class, Visibilis.MOD_ID, "nor");
+        VRegistry.INSTANCE.registerNode(NodeNOT.class, Visibilis.MOD_ID, "not");
+        VRegistry.INSTANCE.registerNode(NodeOR.class, Visibilis.MOD_ID, "or");
+        VRegistry.INSTANCE.registerNode(NodeXNOR.class, Visibilis.MOD_ID, "xnor");
+        VRegistry.INSTANCE.registerNode(NodeXOR.class, Visibilis.MOD_ID, "xor");
     }
     
     @EventHandler
