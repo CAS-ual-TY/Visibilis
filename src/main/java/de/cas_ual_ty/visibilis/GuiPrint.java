@@ -76,7 +76,7 @@ public class GuiPrint extends GuiScreen
     @Override
     public void initGui()
     {
-        this.inner = new Rectangle(0, 0, this.width, this.height);
+        this.inner = Rectangle.fromXYWH(0, 0, this.width, this.height);
         this.sr = new ScaledResolution(this.mc);
     }
     
@@ -151,19 +151,19 @@ public class GuiPrint extends GuiScreen
         
         if (keyCode == Keyboard.KEY_W || keyCode == Keyboard.KEY_UP)
         {
-            this.print.posY += scrollSpeedInner;
+            this.print.posY += GuiPrint.scrollSpeedInner;
         }
         if (keyCode == Keyboard.KEY_S || keyCode == Keyboard.KEY_DOWN)
         {
-            this.print.posY += scrollSpeedInner;
+            this.print.posY += GuiPrint.scrollSpeedInner;
         }
         if (keyCode == Keyboard.KEY_A || keyCode == Keyboard.KEY_LEFT)
         {
-            this.print.posX += scrollSpeedInner;
+            this.print.posX += GuiPrint.scrollSpeedInner;
         }
         if (keyCode == Keyboard.KEY_D || keyCode == Keyboard.KEY_RIGHT)
         {
-            this.print.posX += scrollSpeedInner;
+            this.print.posX += GuiPrint.scrollSpeedInner;
         }
         if (keyCode == Keyboard.KEY_SPACE || keyCode == Keyboard.KEY_ADD)
         {
@@ -830,20 +830,70 @@ public class GuiPrint extends GuiScreen
         GlStateManager.disableBlend(); // Turn blending uhh... back off?
     }
     
-    //Maybe temporary, maybe not
+    public static void drawBorder(int x, int y, int w, int h, float border, float r, float g, float b, float a)
+    {
+        int x2 = x + w;
+        int y2 = y + h;
+        
+        Tessellator tessellator = Tessellator.getInstance();
+        BufferBuilder bufferbuilder = tessellator.getBuffer();
+        
+        // Prep time
+        GlStateManager.enableBlend(); // We do need blending
+        GlStateManager.disableTexture2D(); // We dont need textures
+        
+        // Make sure alpha is working
+        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        
+        // Set the color!
+        GlStateManager.color(r, g, b, a);
+        
+        // Start drawing
+        bufferbuilder.begin(GL11.GL_QUAD_STRIP, DefaultVertexFormats.POSITION);
+        
+        // Add vertices
+        bufferbuilder.pos(x2 + border, y - border, 0.0D).endVertex(); // TR Outer
+        bufferbuilder.pos(x2, y, 0.0D).endVertex(); // TR Inner
+        bufferbuilder.pos(x - border, y - border, 0.0D).endVertex(); // TL Outer
+        bufferbuilder.pos(x, y, 0.0D).endVertex(); // TL Inner
+        bufferbuilder.pos(x - border, y2 + border, 0.0D).endVertex(); // BL Outer
+        bufferbuilder.pos(x, y2, 0.0D).endVertex(); // BL Inner
+        bufferbuilder.pos(x2 + border, y2 + border, 0.0D).endVertex(); // BR Outer
+        
+        // End drawing
+        tessellator.draw();
+        
+        // Cleanup time
+        GlStateManager.enableTexture2D(); // Turn textures back on
+        GlStateManager.disableBlend(); // Turn blending uhh... back off?
+    }
+    
+    // Maybe temporary, maybe not
     public static class Rectangle
     {
-        public int x, y, w, h, l, r;
+        public int l, r, t, b, x, y, w, h;
         
-        public Rectangle(int x, int y, int w, int h)
+        private Rectangle(int l, int r, int t, int b, int w, int h)
         {
-            super();
-            this.x = x;
-            this.y = y;
+            this.l = l;
+            this.r = r;
+            this.t = t;
+            this.b = b;
             this.w = w;
             this.h = h;
-            this.l = x + w;
-            this.r = y + h;
+            
+            this.x = l;
+            this.y = t;
+        }
+        
+        public static Rectangle fromXYWH(int x, int y, int w, int h)
+        {
+            return new Rectangle(x, x + w, y, y + w, w, h);
+        }
+        
+        public static Rectangle fromLRTB(int l, int r, int t, int b)
+        {
+            return new Rectangle(l, r, t, b, r - l, b - t);
         }
     }
 }
