@@ -53,6 +53,12 @@ field.pi.out1.name=Pi
 node.sqrt_2.name=Square Root of 2
 field.sqrt_2.out1.name=SQRT 2
 
+node.true.name=True
+field.true.out1.name=True
+
+node.false.name=False
+field.false.out1.name=False
+
 # --- Functions ---
 
 node.sines.name=Sines
