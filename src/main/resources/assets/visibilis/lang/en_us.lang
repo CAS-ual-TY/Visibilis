@@ -39,3 +39,12 @@ field.logarithm_e.in1.name=Anti-Logarithm
 node.logarithm_1p.name=Logarithm Base x+1
 field.logarithm_1p.out1.name=Logarithm
 field.logarithm_1p.in1.name=Anti-Logarithm
+
+node.e.name=e
+field.e.out1.name=e
+
+node.pi.name=Pi
+field.pi.out1.name=Pi
+
+node.sqrt_2.name=Square Root of 2
+field.sqrt_2.out1.name=SQRT 2
