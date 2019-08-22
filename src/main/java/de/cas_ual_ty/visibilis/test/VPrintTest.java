@@ -20,7 +20,7 @@ import de.cas_ual_ty.visibilis.node.exec.NodeCondition;
 import de.cas_ual_ty.visibilis.node.function.NodeCosines;
 import de.cas_ual_ty.visibilis.node.function.NodeSines;
 import de.cas_ual_ty.visibilis.node.function.NodeTangent;
-import de.cas_ual_ty.visibilis.node.general.NodeFloatConst;
+import de.cas_ual_ty.visibilis.node.general.NodeFloat0to1;
 import de.cas_ual_ty.visibilis.node.general.NodeNumber2to1;
 import de.cas_ual_ty.visibilis.node.logic.NodeAND;
 import de.cas_ual_ty.visibilis.node.logic.NodeNAND;

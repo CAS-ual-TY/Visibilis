@@ -1,8 +1,8 @@
 package de.cas_ual_ty.visibilis.node.constant;
 
-import de.cas_ual_ty.visibilis.node.general.NodeFloatConst;
+import de.cas_ual_ty.visibilis.node.general.NodeFloat0to1;
 
-public class NodeE extends NodeFloatConst
+public class NodeE extends NodeFloat0to1
 {
     public NodeE()
     {

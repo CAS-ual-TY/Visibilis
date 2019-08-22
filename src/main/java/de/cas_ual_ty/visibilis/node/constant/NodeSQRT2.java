@@ -1,9 +1,9 @@
 package de.cas_ual_ty.visibilis.node.constant;
 
-import de.cas_ual_ty.visibilis.node.general.NodeFloatConst;
+import de.cas_ual_ty.visibilis.node.general.NodeFloat0to1;
 import net.minecraft.util.math.MathHelper;
 
-public class NodeSQRT2 extends NodeFloatConst
+public class NodeSQRT2 extends NodeFloat0to1
 {
     public NodeSQRT2()
     {
