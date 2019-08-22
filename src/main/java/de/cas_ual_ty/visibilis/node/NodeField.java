@@ -176,7 +176,6 @@ public abstract class NodeField<A>
         if (NodeField.canConnect(out, in))
         {
             NodeField.connect(out, in);
-            
             return true;
         }
         

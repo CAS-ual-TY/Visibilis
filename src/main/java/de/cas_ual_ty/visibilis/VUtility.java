@@ -238,7 +238,7 @@ public class VUtility
                     f1 = connections.get(k);
                     array.add(i);
                     array.add(f.id);
-                    array.add(Print.getIdxForNode(p, n));
+                    array.add(Print.getIdxForNode(p, f1.node));
                     array.add(f1.id);
                 }
             }
