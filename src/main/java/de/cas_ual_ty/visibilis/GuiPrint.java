@@ -40,6 +40,8 @@ public class GuiPrint extends GuiScreen
     // Empty connection grey tone
     public static float nodeFieldDef = 0.5F;
     
+    public static int scrollSpeedInner = 2;
+    
     protected Print print;
     
     protected ScaledResolution sr;
@@ -148,19 +150,19 @@ public class GuiPrint extends GuiScreen
         
         if (keyCode == Keyboard.KEY_W || keyCode == Keyboard.KEY_UP)
         {
-            this.print.posY--;
+            this.print.posY += scrollSpeedInner;
         }
         if (keyCode == Keyboard.KEY_S || keyCode == Keyboard.KEY_DOWN)
         {
-            this.print.posY++;
+            this.print.posY += scrollSpeedInner;
         }
         if (keyCode == Keyboard.KEY_A || keyCode == Keyboard.KEY_LEFT)
         {
-            this.print.posX--;
+            this.print.posX += scrollSpeedInner;
         }
         if (keyCode == Keyboard.KEY_D || keyCode == Keyboard.KEY_RIGHT)
         {
-            this.print.posX++;
+            this.print.posX += scrollSpeedInner;
         }
         if (keyCode == Keyboard.KEY_SPACE || keyCode == Keyboard.KEY_ADD)
         {
