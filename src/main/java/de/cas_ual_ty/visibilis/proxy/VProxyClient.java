@@ -2,10 +2,8 @@ package de.cas_ual_ty.visibilis.proxy;
 
 import de.cas_ual_ty.visibilis.handler.VEventHandlerClient;
 import de.cas_ual_ty.visibilis.print.GuiPrint;
-import de.cas_ual_ty.visibilis.print.PrintHelperItem;
+import de.cas_ual_ty.visibilis.print.IPrintHelper;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
 import net.minecraftforge.common.MinecraftForge;
 
 public class VProxyClient implements IVSidedProxy
@@ -25,8 +23,8 @@ public class VProxyClient implements IVSidedProxy
     }
     
     @Override
-    public void openGuiPrintForItemStack(ItemStack itemStack, EnumHand hand)
+    public void openGuiPrint(IPrintHelper helper)
     {
-        Minecraft.getMinecraft().displayGuiScreen(new GuiPrint(new PrintHelperItem(itemStack, hand)));
+        Minecraft.getMinecraft().displayGuiScreen(new GuiPrint(helper));
     }
 }

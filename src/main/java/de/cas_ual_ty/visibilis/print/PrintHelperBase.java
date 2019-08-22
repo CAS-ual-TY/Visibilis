@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import de.cas_ual_ty.visibilis.VUtility;
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Node;
-import de.cas_ual_ty.visibilis.test.VPrintTest;
 import net.minecraft.nbt.NBTTagCompound;
 
 public abstract class PrintHelperBase implements IPrintHelper
@@ -51,11 +50,16 @@ public abstract class PrintHelperBase implements IPrintHelper
      */
     public abstract NBTTagCompound getNBT();
     
+    /**
+     * Create a new print in case the NBT does not contain data
+     */
+    public abstract Print createNewPrint();
+    
     public void readFromNBT(NBTTagCompound nbt0)
     {
         if (!nbt0.hasKey(Visibilis.MOD_ID))
         {
-            this.print = new VPrintTest(); // TODO HIGHEST: change this to default (this is for debugging)
+            this.print = this.createNewPrint();
             return;
         }
         

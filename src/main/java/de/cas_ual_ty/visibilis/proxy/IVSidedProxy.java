@@ -1,7 +1,6 @@
 package de.cas_ual_ty.visibilis.proxy;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
+import de.cas_ual_ty.visibilis.print.IPrintHelper;
 
 public interface IVSidedProxy
 {
@@ -17,7 +16,7 @@ public interface IVSidedProxy
     {
     }
     
-    public default void openGuiPrintForItemStack(ItemStack itemStack, EnumHand hand)
+    public default void openGuiPrint(IPrintHelper helper)
     {
     }
 }

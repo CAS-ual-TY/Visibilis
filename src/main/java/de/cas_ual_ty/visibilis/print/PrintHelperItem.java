@@ -35,4 +35,10 @@ public class PrintHelperItem extends PrintHelperBase
     {
         return this.itemStack.getTagCompound();
     }
+    
+    @Override
+    public Print createNewPrint()
+    {
+        return new Print();
+    }
 }

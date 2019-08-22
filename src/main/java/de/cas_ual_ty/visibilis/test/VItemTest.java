@@ -22,7 +22,7 @@ public class VItemTest extends Item
     {
         if (worldIn.isRemote)
         {
-            Visibilis.proxy.openGuiPrintForItemStack(playerIn.getHeldItem(handIn), handIn);
+            Visibilis.proxy.openGuiPrint(new VPrintHelperTest(playerIn.getHeldItem(handIn), handIn));
             return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
         }
         
