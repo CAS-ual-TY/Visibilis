@@ -42,6 +42,8 @@ public class GuiPrint extends GuiScreen
     
     public static int scrollSpeedInner = 2;
     
+    public Rectangle inner;
+    
     protected Print print;
     
     protected ScaledResolution sr;
@@ -74,6 +76,7 @@ public class GuiPrint extends GuiScreen
     @Override
     public void initGui()
     {
+        this.inner = new Rectangle(0, 0, this.width, this.height);
         this.sr = new ScaledResolution(this.mc);
     }
     
@@ -91,11 +94,9 @@ public class GuiPrint extends GuiScreen
     {
         GlStateManager.disableLighting();
         
-        int x = 4, y = 10, w = 900, h = 900; // TODO high, window size? Maybe plan layout before starting? Make static?
-        
         this.updateHoveringAndClicked(mouseX, mouseY); // Check for all hovering objects already, so it is done only once
         
-        GuiPrint.innerStart(this.sr, x, y, w, h);
+        GuiPrint.innerStart(this.sr, this.inner.x, this.inner.y, this.inner.w, this.inner.h);
         GuiPrint.applyZoom(this.print.zoom); // Inside of the matrix since you would otherwise "touch" everything outside of the matrix
         this.drawInner(mouseX, mouseY, partialTicks);
         GuiPrint.innerEnd();
