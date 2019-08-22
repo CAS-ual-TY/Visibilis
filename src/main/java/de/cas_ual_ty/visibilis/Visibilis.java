@@ -62,6 +62,14 @@ public class Visibilis
         System.err.println("[" + Visibilis.MOD_ID + "] " + s);
     }
     
+    /**
+     * For modding environment only
+     */
+    public static void debug(String s)
+    {
+        System.out.println("------------------------ " + s);
+    }
+    
     @EventBusSubscriber(modid = Visibilis.MOD_ID)
     public static class Registries
     {

@@ -127,10 +127,10 @@ public abstract class NodeField<A>
     
     public static void connect(Output out, Input in)
     {
-        //Inputs can only be connected once...
-        if(in.connection != null && in.connection != out)
+        // Inputs can only be connected once...
+        if (in.connection != null && in.connection != out)
         {
-            //... so remove the input from the current output it is connected to (if there is any)
+            // ... so remove the input from the current output it is connected to (if there is any)
             in.connection.removeConnectionOneSided(in);
         }
         
@@ -143,12 +143,14 @@ public abstract class NodeField<A>
      */
     public static boolean canConnect(NodeField n1, NodeField n2)
     {
-        return (n1.isOutput() != n2.isOutput()) && (n1.isOutput() ? NodeField.canConnect((Output)n1, (Input)n2, true) : NodeField.canConnect((Output)n2, (Input)n1, true));
+        return (n1.isOutput() != n2.isOutput()) && (n1.isOutput() ? NodeField.canConnect((Output) n1, (Input) n2, true) : NodeField.canConnect((Output) n2, (Input) n1, true));
     }
     
     /**
      * Check if the given Input and Output can be connected to each other.
-     * @param ignorePresentConnection If <b>false</b> then it will immediately return <b>false</b> if the Input already has a connection, if <b>true</b> then it will ignore a present connection of the input
+     * 
+     * @param ignorePresentConnection
+     *            If <b>false</b> then it will immediately return <b>false</b> if the Input already has a connection, if <b>true</b> then it will ignore a present connection of the input
      */
     public static boolean canConnect(Output out, Input in, boolean ignorePresentConnection)
     {
@@ -157,13 +159,13 @@ public abstract class NodeField<A>
     
     public static boolean tryConnect(NodeField n1, NodeField n2)
     {
-        if(n1 instanceof Output && n2 instanceof Input)
+        if (n1 instanceof Output && n2 instanceof Input)
         {
-            return NodeField.tryConnect((Output)n1, (Input)n2, true);
+            return NodeField.tryConnect((Output) n1, (Input) n2, true);
         }
-        else if(n2 instanceof Output && n1 instanceof Input)
+        else if (n2 instanceof Output && n1 instanceof Input)
         {
-            return NodeField.tryConnect((Output)n2, (Input)n1, true);
+            return NodeField.tryConnect((Output) n2, (Input) n1, true);
         }
         
         return false;
@@ -171,7 +173,7 @@ public abstract class NodeField<A>
     
     public static boolean tryConnect(Output out, Input in, boolean ignorePresentConnection)
     {
-        if(NodeField.canConnect(out, in))
+        if (NodeField.canConnect(out, in))
         {
             NodeField.connect(out, in);
             
