@@ -385,7 +385,7 @@ public class GuiPrint extends GuiScreen
         // Draw name
         String name = I18n.format(field.getUnlocalizedName());
         name = this.fontRenderer.trimStringToWidth(name, nameW - 4); // Trim the name in case it is too big
-        this.fontRenderer.drawString(name, nameX + 2, nameY + 2, 0xFFFFFFFF); // Draw the trimmed name, maybe add shadow?
+        this.fontRenderer.drawString(name, nameX + 2, nameY + 2, type.getTextColorInt()); // Draw the trimmed name, maybe add shadow?
     }
     
     /**

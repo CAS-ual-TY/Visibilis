@@ -12,12 +12,15 @@ import de.cas_ual_ty.visibilis.node.NodeField;
 
 public class DataType<A>
 {
+    public static final float[] COLOR_TEXT_WHITE = new float[] {1F, 1F, 1F};
+    public static final float[] COLOR_TEXT_BLACK = new float[] {0F, 0F, 0F};
+    
     public static final Map<String, DataType> DATA_TYPES_LIST = new HashMap<String, DataType>();
     
     public static final DataType EXEC = new DataType("exec", new float[] { 1F, 0F, 0F });
-    public static final DataType<Number> NUMBER = new DataType<Number>("number", new float[] { 1F, 1F, 0F });
-    public static final DataType<Float> FLOAT = new DataType<Float>("float", new float[] { 1F, 0.5F, 0F });
-    public static final DataType<Integer> INTEGER = new DataType<Integer>("integer", new float[] { 0.5F, 1F, 0F });
+    public static final DataType<Number> NUMBER = new DataType<Number>("number", new float[] { 1F, 1F, 0F }).setBlackText();
+    public static final DataType<Float> FLOAT = new DataType<Float>("float", new float[] { 1F, 0.5F, 0F }).setBlackText();
+    public static final DataType<Integer> INTEGER = new DataType<Integer>("integer", new float[] { 0.5F, 1F, 0F }).setBlackText();
     public static final DataType<Boolean> BOOLEAN = new DataType<Boolean>("boolean", new float[] { 1F, 0F, 1F });
     
     static
@@ -42,9 +45,14 @@ public class DataType<A>
     public final String id;
     
     /**
-     * Color for rendering
+     * Color for rendering - background of the text. This should be colored, its the representation of this data type
      */
     protected float[] color;
+    
+    /**
+     * Color for rendering - text itself. This should be a grey tone, ideally just black or white.
+     */
+    protected float[] textColor;
     
     public DataType(String id)
     {
@@ -56,6 +64,7 @@ public class DataType<A>
         this.id = id;
         this.converters = new HashMap<DataType, Converter>();
         this.color = color;
+        this.textColor = COLOR_TEXT_WHITE;
         
         if (DataType.DATA_TYPES_LIST.containsKey(id))
         {
@@ -141,5 +150,39 @@ public class DataType<A>
     public float[] getColor()
     {
         return this.color;
+    }
+    
+    /**
+     * Color of the text rendered on top of rectangles of {@link #getColor()} color. So it should be distinguishable
+     */
+    public float[] getTextColor()
+    {
+        return this.textColor;
+    }
+    
+    public int getTextColorInt()
+    {
+        int r = (int) (this.getTextColor()[0] * 255F);
+        int g = (int) (this.getTextColor()[1] * 255F);
+        int b = (int) (this.getTextColor()[2] * 255F);
+        int a = 255;
+        
+        int color = (a << 24);
+        color = color | (r << 16);
+        color = color | (g << 8);
+        color = color | (b);
+        
+        return color;
+    }
+    
+    public DataType setTextColor(float[] color)
+    {
+        this.textColor = color;
+        return this;
+    }
+    
+    public DataType setBlackText()
+    {
+        return this.setTextColor(COLOR_TEXT_BLACK);
     }
 }
