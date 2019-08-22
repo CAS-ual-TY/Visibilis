@@ -64,8 +64,8 @@ public class GuiPrint extends GuiScreen
     protected boolean clicked;
     //
     // The position it was at when clicked on
-    protected int attachedPrevX;
-    protected int attachedPrevY;
+    protected int attachedPrevX = 0;
+    protected int attachedPrevY = 0;
     //
     // --- End temporarily stored things the user clicked on ---
     
@@ -165,19 +165,23 @@ public class GuiPrint extends GuiScreen
         
         if (keyCode == Keyboard.KEY_W || keyCode == Keyboard.KEY_UP)
         {
-            this.getPrint().posY += GuiPrint.scrollSpeedInner;
+            this.getPrint().posY -= GuiPrint.scrollSpeedInner;
+            this.attachedPrevY -= GuiPrint.scrollSpeedInner;
         }
         if (keyCode == Keyboard.KEY_S || keyCode == Keyboard.KEY_DOWN)
         {
             this.getPrint().posY += GuiPrint.scrollSpeedInner;
+            this.attachedPrevY += GuiPrint.scrollSpeedInner;
         }
         if (keyCode == Keyboard.KEY_A || keyCode == Keyboard.KEY_LEFT)
         {
-            this.getPrint().posX += GuiPrint.scrollSpeedInner;
+            this.getPrint().posX -= GuiPrint.scrollSpeedInner;
+            this.attachedPrevX -= GuiPrint.scrollSpeedInner;
         }
         if (keyCode == Keyboard.KEY_D || keyCode == Keyboard.KEY_RIGHT)
         {
             this.getPrint().posX += GuiPrint.scrollSpeedInner;
+            this.attachedPrevX += GuiPrint.scrollSpeedInner;
         }
         if (keyCode == Keyboard.KEY_SPACE || keyCode == Keyboard.KEY_ADD)
         {
