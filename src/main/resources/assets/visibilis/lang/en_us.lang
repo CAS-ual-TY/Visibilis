@@ -1,0 +1,41 @@
+node.addition.name=Addition
+field.addition.out1.name=Sum
+field.addition.in1.name=Summand
+field.addition.in2.name=Summand
+
+node.subtraction.name=Subtraction
+field.subtraction.out1.name=Difference
+field.subtraction.in1.name=Minuend
+field.subtraction.in2.name=Subtrahend
+
+node.multiplication.name=Multiplication
+field.multiplication.out1.name=Product
+field.multiplication.in1.name=Factor
+field.multiplication.in2.name=Factor
+
+node.division.name=Division
+field.division.out1.name=Quotient
+field.division.in1.name=Dividend
+field.division.in2.name=Divisor
+
+node.exponentiation.name=Exponentiation
+field.exponentiation.out1.name=Power
+field.exponentiation.in1.name=Base
+field.exponentiation.in2.name=Exponent
+
+node.root.name=Nth Root
+field.root.out1.name=Root
+field.root.in1.name=Radicand
+field.root.in2.name=Degree
+
+node.logarithm_10.name=Logarithm Base 10
+field.logarithm_10.out1.name=Logarithm
+field.logarithm_10.in1.name=Anti-Logarithm
+
+node.logarithm_e.name=Logarithm Base e
+field.logarithm_e.out1.name=Logarithm
+field.logarithm_e.in1.name=Anti-Logarithm
+
+node.logarithm_1p.name=Logarithm Base x+1
+field.logarithm_1p.out1.name=Logarithm
+field.logarithm_1p.in1.name=Anti-Logarithm

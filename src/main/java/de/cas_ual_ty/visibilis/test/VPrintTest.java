@@ -4,6 +4,14 @@ import de.cas_ual_ty.visibilis.Print;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
 import de.cas_ual_ty.visibilis.node.calculate.NodeAddition;
+import de.cas_ual_ty.visibilis.node.calculate.NodeDivision;
+import de.cas_ual_ty.visibilis.node.calculate.NodeExponentiation;
+import de.cas_ual_ty.visibilis.node.calculate.NodeLogarithm10;
+import de.cas_ual_ty.visibilis.node.calculate.NodeLogarithm1p;
+import de.cas_ual_ty.visibilis.node.calculate.NodeLogarithmE;
+import de.cas_ual_ty.visibilis.node.calculate.NodeMultiplication;
+import de.cas_ual_ty.visibilis.node.calculate.NodeRoot;
+import de.cas_ual_ty.visibilis.node.calculate.NodeSubtraction;
 import de.cas_ual_ty.visibilis.node.constant.NodeE;
 import de.cas_ual_ty.visibilis.node.constant.NodePi;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
@@ -19,7 +27,7 @@ public class VPrintTest extends Print
     {
         super();
         
-        NodeFloatConst const_e = (NodeFloatConst) new NodeE().setPosition(0, 0);
+        /*NodeFloatConst const_e = (NodeFloatConst) new NodeE().setPosition(0, 0);
         NodeFloatConst const_pi = (NodeFloatConst) new NodePi().setPosition(12, 48);
         
         NodeNumber2to1 plus = (NodeNumber2to1) new NodeAddition().setPosition(240, 18);
@@ -35,6 +43,16 @@ public class VPrintTest extends Print
         Node node2 = new NodeCondition();
         
         this.addNode(node1);
-        this.addNode(node2);
+        this.addNode(node2);*/
+        
+        this.addNode(new NodeAddition());
+        this.addNode(new NodeSubtraction());
+        this.addNode(new NodeMultiplication());
+        this.addNode(new NodeDivision());
+        this.addNode(new NodeExponentiation());
+        this.addNode(new NodeRoot());
+        this.addNode(new NodeLogarithm10());
+        this.addNode(new NodeLogarithmE());
+        this.addNode(new NodeLogarithm1p());
     }
 }

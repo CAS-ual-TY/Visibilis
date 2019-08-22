@@ -15,8 +15,8 @@ public abstract class NodeNumber1to1 extends Node
     public NodeNumber1to1(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.out1 = new Output<Number>(0, this, DataType.NUMBER, "number");
-        this.in1 = new Input<Number>(0, this, DataType.NUMBER, "number");
+        this.out1 = new Output<Number>(0, this, DataType.NUMBER, "out1");
+        this.in1 = new Input<Number>(0, this, DataType.NUMBER, "in1");
     }
     
     public NodeNumber1to1()
