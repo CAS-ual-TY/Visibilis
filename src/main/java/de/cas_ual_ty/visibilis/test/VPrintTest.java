@@ -22,6 +22,13 @@ import de.cas_ual_ty.visibilis.node.function.NodeSines;
 import de.cas_ual_ty.visibilis.node.function.NodeTangent;
 import de.cas_ual_ty.visibilis.node.general.NodeFloatConst;
 import de.cas_ual_ty.visibilis.node.general.NodeNumber2to1;
+import de.cas_ual_ty.visibilis.node.logic.NodeAND;
+import de.cas_ual_ty.visibilis.node.logic.NodeNAND;
+import de.cas_ual_ty.visibilis.node.logic.NodeNOR;
+import de.cas_ual_ty.visibilis.node.logic.NodeNOT;
+import de.cas_ual_ty.visibilis.node.logic.NodeOR;
+import de.cas_ual_ty.visibilis.node.logic.NodeXNOR;
+import de.cas_ual_ty.visibilis.node.logic.NodeXOR;
 
 public class VPrintTest extends Print
 {
@@ -62,6 +69,7 @@ public class VPrintTest extends Print
         this.addNode(new NodeLogarithmE());
         */
         
+        /*
         this.addNode(new NodeE());
         this.addNode(new NodePi());
         this.addNode(new NodeSQRT2());
@@ -69,5 +77,14 @@ public class VPrintTest extends Print
         this.addNode(new NodeSines());
         this.addNode(new NodeCosines());
         this.addNode(new NodeTangent());
+        */
+        
+        this.addNode(new NodeAND());
+        this.addNode(new NodeNAND());
+        this.addNode(new NodeNOR());
+        this.addNode(new NodeNOT());
+        this.addNode(new NodeOR());
+        this.addNode(new NodeXNOR());
+        this.addNode(new NodeXOR());
     }
 }

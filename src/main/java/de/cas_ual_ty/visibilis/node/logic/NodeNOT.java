@@ -15,8 +15,8 @@ public class NodeNOT extends Node
     public NodeNOT(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.out1 = new Output<Boolean>(0, this, DataType.BOOLEAN, "boolean");
-        this.in1 = new Input<Boolean>(0, this, DataType.BOOLEAN, "boolean");
+        this.out1 = new Output<Boolean>(0, this, DataType.BOOLEAN, "out1");
+        this.in1 = new Input<Boolean>(0, this, DataType.BOOLEAN, "in1");
     }
     
     public NodeNOT()

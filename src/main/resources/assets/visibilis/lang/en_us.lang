@@ -60,3 +60,37 @@ field.cosines.in1.name=x
 node.tangent.name=Tangent
 field.tangent.out1.name=tan(x)
 field.tangent.in1.name=x
+
+node.and.name=AND
+field.and.out1.name=A AND B
+field.and.in1.name=A
+field.and.in2.name=B
+
+node.nand.name=NAND
+field.nand.out1.name=A NAND B
+field.nand.in1.name=A
+field.nand.in2.name=B
+
+node.nor.name=NOR
+field.nor.out1.name=A NOR B
+field.nor.in1.name=A
+field.nor.in2.name=B
+
+node.not.name=NOT
+field.not.out1.name=NOT A
+field.not.in1.name=A
+
+node.or.name=OR
+field.or.out1.name=A OR B
+field.or.in1.name=A
+field.or.in2.name=B
+
+node.xnor.name=XNOR
+field.xnor.out1.name=A XNOR B
+field.xnor.in1.name=A
+field.xnor.in2.name=B
+
+node.xor.name=XOR
+field.xor.out1.name=A XOR B
+field.xor.in1.name=A
+field.xor.in2.name=B
