@@ -42,7 +42,7 @@ public class GuiPrint extends GuiScreen
     
     public static int scrollSpeedInner = 2;
     
-    public IGuiPrintHelper helper;
+    public IPrintHelper helper;
     
     public Rectangle inner;
     
@@ -69,7 +69,7 @@ public class GuiPrint extends GuiScreen
     //
     // --- End temporarily stored things the user clicked on ---
     
-    public GuiPrint(IGuiPrintHelper helper)
+    public GuiPrint(IPrintHelper helper)
     {
         this.helper = helper;
         this.clicked = false;
