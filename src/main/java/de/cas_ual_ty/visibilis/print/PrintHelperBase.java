@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import de.cas_ual_ty.visibilis.VUtility;
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.test.VPrintTest;
 import net.minecraft.nbt.NBTTagCompound;
 
 public abstract class PrintHelperBase implements IPrintHelper
@@ -14,29 +15,31 @@ public abstract class PrintHelperBase implements IPrintHelper
     public PrintHelperBase()
     {
     }
-
+    
     @Override
     public Print getPrint(GuiPrint gui)
     {
         return this.print;
     }
-
+    
     @Override
     public ArrayList<Node> getAvailableNodes(GuiPrint gui)
     {
         // TODO Auto-generated method stub
         return null;
     }
-
+    
     @Override
     public void onGuiOpen(GuiPrint gui)
     {
         this.readFromNBT(this.getNBT());
     }
-
+    
     @Override
-    public void onGuiInit(GuiPrint gui) {}
-
+    public void onGuiInit(GuiPrint gui)
+    {
+    }
+    
     @Override
     public void onGuiClose(GuiPrint gui)
     {
@@ -50,9 +53,9 @@ public abstract class PrintHelperBase implements IPrintHelper
     
     public void readFromNBT(NBTTagCompound nbt0)
     {
-        if(!nbt0.hasKey(Visibilis.MOD_ID))
+        if (!nbt0.hasKey(Visibilis.MOD_ID))
         {
-            this.print = new Print();
+            this.print = new VPrintTest(); // TODO HIGHEST: change this to default (this is for debugging)
             return;
         }
         

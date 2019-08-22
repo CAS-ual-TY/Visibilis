@@ -2,6 +2,8 @@ package de.cas_ual_ty.visibilis;
 
 import de.cas_ual_ty.visibilis.handler.VEventHandler;
 import de.cas_ual_ty.visibilis.handler.VGuiHandler;
+import de.cas_ual_ty.visibilis.print.MessageHandlerItem;
+import de.cas_ual_ty.visibilis.print.MessageItem;
 import de.cas_ual_ty.visibilis.proxy.IVSidedProxy;
 import de.cas_ual_ty.visibilis.test.VItemTest;
 import net.minecraft.item.Item;
@@ -17,6 +19,8 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
+import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = Visibilis.MOD_ID, name = Visibilis.MOD_NAME, version = Visibilis.MOD_VERSION)
 public class Visibilis
@@ -36,6 +40,7 @@ public class Visibilis
     
     public static VEventHandler eventHandler;
     public static VGuiHandler guiHandler;
+    public static SimpleNetworkWrapper channel;
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
@@ -48,6 +53,8 @@ public class Visibilis
     {
         MinecraftForge.EVENT_BUS.register((Visibilis.eventHandler = new VEventHandler()));
         NetworkRegistry.INSTANCE.registerGuiHandler(Visibilis.instance, (Visibilis.guiHandler = new VGuiHandler()));
+        Visibilis.channel = NetworkRegistry.INSTANCE.newSimpleChannel(Visibilis.MOD_ID);
+        Visibilis.channel.registerMessage(MessageHandlerItem.class, MessageItem.class, 0, Side.SERVER);
     }
     
     @EventHandler
