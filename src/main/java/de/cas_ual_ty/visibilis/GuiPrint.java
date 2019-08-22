@@ -42,6 +42,8 @@ public class GuiPrint extends GuiScreen
     
     public static int scrollSpeedInner = 2;
     
+    public IGuiPrintHelper helper;
+    
     public Rectangle inner;
     
     protected Print print;
@@ -67,10 +69,12 @@ public class GuiPrint extends GuiScreen
     //
     // --- End temporarily stored things the user clicked on ---
     
-    public GuiPrint(Print print)
+    public GuiPrint(IGuiPrintHelper helper)
     {
-        this.print = print;
+        this.helper = helper;
         this.clicked = false;
+        
+        this.helper.onGuiOpen(this);
     }
     
     @Override
@@ -78,6 +82,16 @@ public class GuiPrint extends GuiScreen
     {
         this.inner = Rectangle.fromXYWH(0, 0, this.width, this.height);
         this.sr = new ScaledResolution(this.mc);
+        
+        this.helper.onGuiInit(this);
+    }
+    
+    @Override
+    public void onGuiClosed()
+    {
+        super.onGuiClosed();
+        
+        this.helper.onGuiClose(this);
     }
     
     /**
@@ -97,7 +111,7 @@ public class GuiPrint extends GuiScreen
         this.updateHoveringAndClicked(mouseX, mouseY); // Check for all hovering objects already, so it is done only once
         
         GuiPrint.scissorStart(this.sr, this.inner.x, this.inner.y, this.inner.w, this.inner.h);
-        GuiPrint.applyZoom(this.print.zoom); // Inside of the matrix since you would otherwise "touch" everything outside of the matrix
+        GuiPrint.applyZoom(this.getPrint().zoom); // Inside of the matrix since you would otherwise "touch" everything outside of the matrix
         this.drawInner(mouseX, mouseY, partialTicks);
         GuiPrint.scissorEnd();
         
@@ -130,8 +144,8 @@ public class GuiPrint extends GuiScreen
         {
             if (this.mouseClickedNode != null)
             {
-                this.mouseClickedNode.posX = this.printToGuiRounded(mouseX) - this.print.posX;
-                this.mouseClickedNode.posY = this.printToGuiRounded(mouseY) - this.print.posY;
+                this.mouseClickedNode.posX = this.printToGuiRounded(mouseX) - this.getPrint().posX;
+                this.mouseClickedNode.posY = this.printToGuiRounded(mouseY) - this.getPrint().posY;
             }
         }
     }
@@ -151,27 +165,27 @@ public class GuiPrint extends GuiScreen
         
         if (keyCode == Keyboard.KEY_W || keyCode == Keyboard.KEY_UP)
         {
-            this.print.posY += GuiPrint.scrollSpeedInner;
+            this.getPrint().posY += GuiPrint.scrollSpeedInner;
         }
         if (keyCode == Keyboard.KEY_S || keyCode == Keyboard.KEY_DOWN)
         {
-            this.print.posY += GuiPrint.scrollSpeedInner;
+            this.getPrint().posY += GuiPrint.scrollSpeedInner;
         }
         if (keyCode == Keyboard.KEY_A || keyCode == Keyboard.KEY_LEFT)
         {
-            this.print.posX += GuiPrint.scrollSpeedInner;
+            this.getPrint().posX += GuiPrint.scrollSpeedInner;
         }
         if (keyCode == Keyboard.KEY_D || keyCode == Keyboard.KEY_RIGHT)
         {
-            this.print.posX += GuiPrint.scrollSpeedInner;
+            this.getPrint().posX += GuiPrint.scrollSpeedInner;
         }
         if (keyCode == Keyboard.KEY_SPACE || keyCode == Keyboard.KEY_ADD)
         {
-            this.print.zoom *= 2;
+            this.getPrint().zoom *= 2;
             
-            if (this.print.zoom > 2)
+            if (this.getPrint().zoom > 2)
             {
-                this.print.zoom = 2;
+                this.getPrint().zoom = 2;
             }
             else
             {
@@ -180,11 +194,11 @@ public class GuiPrint extends GuiScreen
         }
         if (keyCode == Keyboard.KEY_LSHIFT || keyCode == Keyboard.KEY_SUBTRACT)
         {
-            this.print.zoom *= 0.5F;
+            this.getPrint().zoom *= 0.5F;
             
-            if (this.print.zoom < 0.125F)
+            if (this.getPrint().zoom < 0.125F)
             {
-                this.print.zoom = 0.125F;
+                this.getPrint().zoom = 0.125F;
             }
             else
             {
@@ -237,7 +251,7 @@ public class GuiPrint extends GuiScreen
     
     public void drawInner(int mouseX, int mouseY, float partialTicks)
     {
-        this.drawPrint(this.print);
+        this.drawPrint(this.getPrint());
         
         // --- Draw hovering/clicked start ---
         
@@ -481,9 +495,9 @@ public class GuiPrint extends GuiScreen
         float x, y, w, h;
         
         // Loop from back to front, as those are on top
-        for (int i = this.print.nodes.size() - 1; i >= 0; --i)
+        for (int i = this.getPrint().nodes.size() - 1; i >= 0; --i)
         {
-            node = this.print.nodes.get(i);
+            node = this.getPrint().nodes.get(i);
             
             // Entire node position and size, zoom and shift accounted for
             x = this.getNodePosX2(node);
@@ -547,6 +561,11 @@ public class GuiPrint extends GuiScreen
         return null;
     }
     
+    public Print getPrint()
+    {
+        return this.helper.getActivePrint(this);
+    }
+    
     /**
      * Check if the given mouse coordinates are inside given rectangle
      */
@@ -577,7 +596,7 @@ public class GuiPrint extends GuiScreen
      */
     public float guiToPrint(int i)
     {
-        return i * this.print.zoom;
+        return i * this.getPrint().zoom;
     }
     
     /**
@@ -593,7 +612,7 @@ public class GuiPrint extends GuiScreen
      */
     public int printToGuiRounded(int i)
     {
-        return Math.round(i / this.print.zoom);
+        return Math.round(i / this.getPrint().zoom);
     }
     
     /**
@@ -601,7 +620,7 @@ public class GuiPrint extends GuiScreen
      */
     public int getNodePosX(Node n)
     {
-        return this.print.posX + n.posX;
+        return this.getPrint().posX + n.posX;
     }
     
     /**
@@ -609,7 +628,7 @@ public class GuiPrint extends GuiScreen
      */
     public int getNodePosY(Node n)
     {
-        return this.print.posY + n.posY;
+        return this.getPrint().posY + n.posY;
     }
     
     /**
@@ -617,7 +636,7 @@ public class GuiPrint extends GuiScreen
      */
     public float getNodePosX2(Node n)
     {
-        return this.guiToPrint(this.print.posX + n.posX);
+        return this.guiToPrint(this.getPrint().posX + n.posX);
     }
     
     /**
@@ -625,7 +644,7 @@ public class GuiPrint extends GuiScreen
      */
     public float getNodePosY2(Node n)
     {
-        return this.guiToPrint(this.print.posY + n.posY);
+        return this.guiToPrint(this.getPrint().posY + n.posY);
     }
     
     /**
@@ -649,7 +668,7 @@ public class GuiPrint extends GuiScreen
      */
     public float getLineWidth(DataType type)
     {
-        return this.print.zoom * (type == DataType.EXEC ? 2 : 1) * this.sr.getScaleFactor() * GuiPrint.nodeFieldDotSize / 2;
+        return this.getPrint().zoom * (type == DataType.EXEC ? 2 : 1) * this.sr.getScaleFactor() * GuiPrint.nodeFieldDotSize / 2;
     }
     
     /**
