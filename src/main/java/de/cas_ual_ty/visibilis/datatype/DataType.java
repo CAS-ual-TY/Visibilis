@@ -143,7 +143,7 @@ public class DataType<A>
     }
     
     /**
-     * Get the color of this data type, for connections and node field dots
+     * Get the color of this data type, for connections and node field dots.
      * 
      * @return
      */
