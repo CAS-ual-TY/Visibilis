@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL11;
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
+import de.cas_ual_ty.visibilis.print.Print;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -48,6 +49,22 @@ public class RenderUtility
     public RenderUtility(FontRenderer fontRenderer)
     {
         this.fontRenderer = fontRenderer;
+    }
+    
+    /**
+     * Draw a print and all its nodes and connections at their coordinates.
+     */
+    public void drawPrint(Print print)
+    {
+        for(Node node : print.getNodes())
+        {
+            this.drawNode(node, node.posX + print.posX, node.posY + print.posY);
+        }
+        
+        for(Node node : print.getNodes())
+        {
+            this.drawNodeConnections(node, node.posX + print.posX, node.posY + print.posY);
+        }
     }
     
     /**
