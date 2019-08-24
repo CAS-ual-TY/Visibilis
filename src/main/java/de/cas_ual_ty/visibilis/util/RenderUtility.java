@@ -8,6 +8,7 @@ import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
 import de.cas_ual_ty.visibilis.print.Print;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -21,34 +22,65 @@ public class RenderUtility
     public final FontRenderer fontRenderer;
     
     /** The height of the header or an output/input NOT THE ENTIRE NODE WIDTH AS THEY HAVE DIFFERENT SIZES */
-    public int nodeHeight = 12;
+    public int nodeHeight;
     
     /** The entire node width */
-    public int nodeWidth = this.nodeHeight * 10;
+    public int nodeWidth;
     
     /** Half node width */
-    public int fieldWidth = this.nodeWidth / 2;
+    public int fieldWidth;
     
     /** The dot x/y size of node fields */
-    public int nodeFieldDotSize = 4;
+    public int nodeFieldDotSize;
     
     /** Transparency of connection lines */
-    public float nodeFieldConnectionsAlpha = 0.5F;
+    public float nodeFieldConnectionsAlpha;
     
-    public float nodeFieldConnectionsWidth = this.nodeFieldDotSize * 2;;
+    /** Line width for connection lines */
+    public float nodeFieldConnectionsWidth;
+    
+    /** The margin of the colored rectangles to the outside ({@link #nodeHeight}) text gets rendered inside of */
+    public int nodeRectMargin;
+    
+    /** The margin of the text to the colored rectangles */
+    public int nodeTextMargin;
     
     /** Color of the box when hovering over an object */
-    public float[] hoverColor = new float[] { 1F, 1F, 1F };
+    public float[] hoverColor;
     
     /** Transparency of *insert color above* box when hovering over an object */
-    public float hoverAlpha = 0.5F;
+    public float hoverAlpha;
+    
+    /** Moves the dot further to the edge by this ammount */
+    public int dotOffset;
     
     /** Background color of nodes */
-    public float[] nodeBackground = new float[] { 0.125F, 0.125F, 0.125F };
+    public float[] nodeBackground;
     
-    public RenderUtility(FontRenderer fontRenderer)
+    public RenderUtility()
     {
-        this.fontRenderer = fontRenderer;
+        this.fontRenderer = Minecraft.getMinecraft().fontRenderer;
+        
+        this.nodeHeight = 12;
+        this.nodeFieldDotSize = 4;
+        this.nodeFieldConnectionsAlpha = 0.5F;
+        this.nodeRectMargin = 1;
+        this.hoverColor = new float[] { 1F, 1F, 1F };
+        this.hoverAlpha = 0.5F;
+        this.nodeBackground = new float[] { 0.125F, 0.125F, 0.125F };
+        this.dotOffset = 0;
+        
+        this.genVars();
+    }
+    
+    public RenderUtility genVars()
+    {
+        this.nodeWidth = this.nodeHeight * 10;
+        this.fieldWidth = this.nodeWidth / 2;
+        this.nodeFieldConnectionsWidth = this.nodeFieldDotSize * 2;
+        this.nodeTextMargin = (this.nodeHeight - (this.fontRenderer.FONT_HEIGHT)) / 2 + this.fontRenderer.FONT_HEIGHT % 2;
+        
+        return this;
     }
     
     /**
@@ -56,12 +88,12 @@ public class RenderUtility
      */
     public void drawPrint(Print print)
     {
-        for(Node node : print.getNodes())
+        for (Node node : print.getNodes())
         {
             this.drawNode(node, node.posX + print.posX, node.posY + print.posY);
         }
         
-        for(Node node : print.getNodes())
+        for (Node node : print.getNodes())
         {
             this.drawNodeConnections(node, node.posX + print.posX, node.posY + print.posY);
         }
@@ -124,12 +156,12 @@ public class RenderUtility
     public void drawNodeHeader(Node node, int x, int y)
     {
         // Draw the inner colored rectangle
-        RenderUtility.drawRect(x + 1, y + 1, this.nodeWidth - 2, this.nodeHeight - 2, node.getColor()[0], node.getColor()[1], node.getColor()[2]);
+        RenderUtility.drawRect(x + this.nodeRectMargin, y + this.nodeRectMargin, this.nodeWidth - 2 * this.nodeRectMargin, this.nodeHeight - 2 * this.nodeRectMargin, node.getColor()[0], node.getColor()[1], node.getColor()[2]);
         
         // Draw the name
         String name = I18n.format(node.getUnlocalizedName());
-        name = this.fontRenderer.trimStringToWidth(name, this.nodeWidth - 4); // Trim the name in case it is too big
-        this.fontRenderer.drawString(name, x + 2, y + 2, 0xFFFFFFFF); // Draw the trimmed name, maybe add shadow?
+        name = this.fontRenderer.trimStringToWidth(name, this.nodeWidth - 2 * this.nodeTextMargin); // Trim the name in case it is too big
+        this.fontRenderer.drawString(name, x + this.nodeTextMargin, y + this.nodeTextMargin, 0xFFFFFFFF); // Draw the trimmed name, maybe add shadow?
     }
     
     /**
@@ -156,15 +188,15 @@ public class RenderUtility
         }
         
         // Draw inner colored rectangle
-        RenderUtility.drawRect(nameX + 1, nameY + 1, nameW - 2, this.nodeHeight - 2, field.dataType.getColor()[0], field.dataType.getColor()[1], field.dataType.getColor()[2]);
+        RenderUtility.drawRect(nameX + this.nodeRectMargin, nameY + this.nodeRectMargin, nameW - 2 * this.nodeRectMargin, this.nodeHeight - 2 * this.nodeRectMargin, field.dataType.getColor()[0], field.dataType.getColor()[1], field.dataType.getColor()[2]);
         
         // Draw dot on top
         this.drawNodeFieldDot(field, dotX, dotY);
         
         // Draw name
         String name = I18n.format(field.getUnlocalizedName());
-        name = this.fontRenderer.trimStringToWidth(name, nameW - 4); // Trim the name in case it is too big
-        this.fontRenderer.drawString(name, nameX + 2, nameY + 2, RenderUtility.colorToInt(field.dataType.getTextColor())); // Draw the trimmed name, maybe add shadow?
+        name = this.fontRenderer.trimStringToWidth(name, nameW - 2 * this.nodeTextMargin); // Trim the name in case it is too big
+        this.fontRenderer.drawString(name, nameX + this.nodeTextMargin, nameY + this.nodeTextMargin, RenderUtility.colorToInt(field.dataType.getTextColor())); // Draw the trimmed name, maybe add shadow?
     }
     
     /**
@@ -301,7 +333,7 @@ public class RenderUtility
      */
     public int getDotOffX(NodeField field)
     {
-        return this.getDotOffToHeight(field) + (field.isOutput() ? (this.fieldWidth - this.nodeHeight) : 0);
+        return (field.isOutput() ? (this.fieldWidth + this.dotOffset - (this.getDotOffToHeight(field) + this.nodeFieldDotSize)) : (this.getDotOffToHeight(field)) - this.dotOffset);
     }
     
     /**
@@ -327,7 +359,7 @@ public class RenderUtility
     {
         return (type == DataType.EXEC ? 2 : 1) * this.nodeFieldConnectionsWidth;
     }
-
+    
     /**
      * Since inputs and outputs share a line, only the higher amount of inputs or outputs is often needed.
      * 
@@ -383,7 +415,7 @@ public class RenderUtility
         // All the derparoundery with the Y position because Minecraft 0,0 is at the top left, but lwjgl 0,0 is at the bottom left
         GL11.glScissor(x * sr.getScaleFactor(), (sr.getScaledHeight() - y - h) * sr.getScaleFactor(), w * sr.getScaleFactor(), h * sr.getScaleFactor());
     }
-
+    
     /**
      * Scissor cleanup. Call {@link #innerStart(ScaledResolution, int, int, int, int)}, then all the draw code, then this.
      */
@@ -392,7 +424,7 @@ public class RenderUtility
         GL11.glDisable(GL11.GL_SCISSOR_TEST);
         GlStateManager.popMatrix();
     }
-
+    
     /**
      * Apply zoom
      */
@@ -400,7 +432,7 @@ public class RenderUtility
     {
         GL11.glScalef(zoom, zoom, 1); // Apply zoom, 2x zoom means 2x size of prints, so this is fine
     }
-
+    
     /**
      * {@link #drawLine(int, int, int, int, byte, byte, byte, byte)} but with width of 1F.
      */

@@ -7,7 +7,6 @@ import org.lwjgl.input.Keyboard;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
@@ -46,7 +45,7 @@ public class GuiPrint extends GuiScreen
     
     public GuiPrint(IPrintHelper helper)
     {
-        this(helper, new RenderUtility(Minecraft.getMinecraft().fontRenderer));
+        this(helper, new RenderUtility());
     }
     
     public GuiPrint(IPrintHelper helper, RenderUtility util)
@@ -121,7 +120,7 @@ public class GuiPrint extends GuiScreen
             this.mouseHoveringField = (NodeField) obj;
         }
     }
-
+    
     @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException
     {
@@ -202,7 +201,7 @@ public class GuiPrint extends GuiScreen
             }
             else
             {
-                if(this.mouseClickedNode != null)
+                if (this.mouseClickedNode != null)
                 {
                     this.mouseClickedNode.posX = this.mouseXToPrint(mouseX);
                     this.mouseClickedNode.posY = this.mouseYToPrint(mouseY);
