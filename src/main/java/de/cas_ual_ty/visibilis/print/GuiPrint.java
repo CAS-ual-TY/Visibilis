@@ -317,7 +317,7 @@ public class GuiPrint extends GuiScreen
      */
     public Object getObjectHovering(int mouseX, int mouseY, int x, int y, int w, int h)
     {
-        if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
+        if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
         {
             // Inner
             return this.getObjectHoveringInner(mouseX, mouseY);
@@ -350,9 +350,9 @@ public class GuiPrint extends GuiScreen
             h = this.guiToPrint(this.util.nodeHeight * RenderUtility.getVerticalAmt(node));
             
             // Check if the mouse is on top of the entire node
-            if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
+            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
             {
-                if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, y, w, this.guiToPrint(this.util.nodeHeight)))
+                if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, this.guiToPrint(this.util.nodeHeight)))
                 {
                     // Inside header -> return node itself
                     
@@ -364,13 +364,13 @@ public class GuiPrint extends GuiScreen
                     
                     int j;
                     
-                    if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, y, this.guiToPrint(this.util.nodeWidth / 2), h))
+                    if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, this.guiToPrint(this.util.nodeWidth / 2), h))
                     {
                         // Left side -> inputs
                         
                         for (j = 1; j <= node.getInputAmt(); ++j)
                         {
-                            if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getNodePosY(node) + this.util.nodeHeight * j), w, this.guiToPrint(this.util.nodeHeight)))
+                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getNodePosY(node) + this.util.nodeHeight * j), w, this.guiToPrint(this.util.nodeHeight)))
                             {
                                 // inside this node field -> return it
                                 return node.getInput(j - 1);
@@ -387,7 +387,7 @@ public class GuiPrint extends GuiScreen
                         
                         for (j = 1; j <= node.getOutputAmt(); ++j)
                         {
-                            if (GuiPrint.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getNodePosY(node) + this.util.nodeHeight * j), w, this.guiToPrint(this.util.nodeHeight)))
+                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getNodePosY(node) + this.util.nodeHeight * j), w, this.guiToPrint(this.util.nodeHeight)))
                             {
                                 // inside this node field -> return it
                                 return node.getOutput(j - 1);
@@ -408,14 +408,6 @@ public class GuiPrint extends GuiScreen
     public Print getPrint()
     {
         return this.helper.getPrint(this);
-    }
-    
-    /**
-     * Check if the given mouse coordinates are inside given rectangle
-     */
-    public static boolean isCoordInsideRect(float mouseX, float mouseY, float x, float y, float w, float h)
-    {
-        return mouseX >= x && mouseX <= x + w && mouseY >= y && mouseY <= y + h;
     }
     
     /**

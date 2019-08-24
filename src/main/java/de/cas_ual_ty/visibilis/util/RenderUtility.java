@@ -310,7 +310,7 @@ public class RenderUtility
     {
         return (type == DataType.EXEC ? 2 : 1) * this.nodeFieldConnectionsWidth;
     }
-    
+
     /**
      * Since inputs and outputs share a line, only the higher amount of inputs or outputs is often needed.
      * 
@@ -565,6 +565,14 @@ public class RenderUtility
         // Cleanup time
         GlStateManager.enableTexture2D(); // Turn textures back on
         GlStateManager.disableBlend(); // Turn blending uhh... back off?
+    }
+    
+    /**
+     * Check if the given mouse coordinates are inside given rectangle
+     */
+    public static boolean isCoordInsideRect(float mouseX, float mouseY, float x, float y, float w, float h)
+    {
+        return mouseX >= x && mouseX <= x + w && mouseY >= y && mouseY <= y + h;
     }
     
     // Maybe temporary, maybe not
