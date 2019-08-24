@@ -40,10 +40,6 @@ public class GuiPrint extends GuiScreen
     // true = Mouse clicked and is holding smth
     protected boolean clicked;
     //
-    // The position it was at when clicked on
-    protected int attachedPrevX = 0;
-    protected int attachedPrevY = 0;
-    //
     // --- End temporarily stored things the user clicked on ---
     
     protected RenderUtility util;
@@ -124,17 +120,8 @@ public class GuiPrint extends GuiScreen
         {
             this.mouseHoveringField = (NodeField) obj;
         }
-        
-        if (this.clicked)
-        {
-            if (this.mouseClickedNode != null)
-            {
-                this.mouseClickedNode.posX = this.printToGuiRounded(mouseX) - this.getPrint().posX;
-                this.mouseClickedNode.posY = this.printToGuiRounded(mouseY) - this.getPrint().posY;
-            }
-        }
     }
-    
+
     @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException
     {
@@ -151,22 +138,18 @@ public class GuiPrint extends GuiScreen
         if (keyCode == Keyboard.KEY_W || keyCode == Keyboard.KEY_UP)
         {
             this.getPrint().posY -= GuiPrint.scrollSpeedInner;
-            this.attachedPrevY -= GuiPrint.scrollSpeedInner;
         }
         if (keyCode == Keyboard.KEY_S || keyCode == Keyboard.KEY_DOWN)
         {
             this.getPrint().posY += GuiPrint.scrollSpeedInner;
-            this.attachedPrevY += GuiPrint.scrollSpeedInner;
         }
         if (keyCode == Keyboard.KEY_A || keyCode == Keyboard.KEY_LEFT)
         {
             this.getPrint().posX -= GuiPrint.scrollSpeedInner;
-            this.attachedPrevX -= GuiPrint.scrollSpeedInner;
         }
         if (keyCode == Keyboard.KEY_D || keyCode == Keyboard.KEY_RIGHT)
         {
             this.getPrint().posX += GuiPrint.scrollSpeedInner;
-            this.attachedPrevX += GuiPrint.scrollSpeedInner;
         }
         if (keyCode == Keyboard.KEY_SPACE || keyCode == Keyboard.KEY_ADD)
         {
@@ -210,8 +193,6 @@ public class GuiPrint extends GuiScreen
                 {
                     this.clicked = true;
                     this.mouseClickedNode = (Node) obj;
-                    this.attachedPrevX = this.getNodePosX(this.mouseClickedNode);
-                    this.attachedPrevY = this.getNodePosY(this.mouseClickedNode);
                 }
                 else if (obj instanceof NodeField)
                 {
@@ -221,6 +202,11 @@ public class GuiPrint extends GuiScreen
             }
             else
             {
+                if(this.mouseClickedNode != null)
+                {
+                    this.mouseClickedNode.posX = this.mouseXToPrint(mouseX);
+                    this.mouseClickedNode.posY = this.mouseYToPrint(mouseY);
+                }
                 if (this.mouseClickedField != null && obj instanceof NodeField)
                 {
                     NodeField field = (NodeField) obj;
@@ -247,11 +233,11 @@ public class GuiPrint extends GuiScreen
         if (this.clicked)
         {
             // Objects that the player clicked on to be outlined
-            
             if (this.mouseClickedNode != null)
             {
                 // Outline clicked on node
-                this.drawOutlineRect(this.attachedPrevX, this.attachedPrevY, this.util.nodeWidth, this.util.nodeHeight * RenderUtility.getVerticalAmt(this.mouseClickedNode));
+                
+                this.drawOutlineRect(this.printToGuiRounded(mouseX) - this.getPrint().posX, this.printToGuiRounded(mouseY) - this.getPrint().posY, this.util.nodeWidth, this.util.getNodeTotalHeight(this.mouseClickedNode));
             }
             if (this.mouseClickedField != null)
             {
@@ -454,6 +440,16 @@ public class GuiPrint extends GuiScreen
     public int printToGuiRounded(int i)
     {
         return Math.round(i / this.getPrint().zoom);
+    }
+    
+    public int mouseXToPrint(int mouseX)
+    {
+        return this.printToGuiRounded(mouseX) - this.getPrint().posX;
+    }
+    
+    public int mouseYToPrint(int mouseY)
+    {
+        return this.printToGuiRounded(mouseY) - this.getPrint().posX;
     }
     
     /**
