@@ -2,6 +2,8 @@ package de.cas_ual_ty.visibilis.node;
 
 import javax.annotation.Nullable;
 
+import de.cas_ual_ty.visibilis.datatype.DataType;
+
 public abstract class NodeExec extends Node
 {
     public NodeExec(int outputAmt, int inputAmt)
@@ -19,4 +21,10 @@ public abstract class NodeExec extends Node
      */
     @Nullable
     public abstract Output getOutExec(int index);
+    
+    @Override
+    public float[] getColor()
+    {
+        return DataType.EXEC.getColor();
+    }
 }

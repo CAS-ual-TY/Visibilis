@@ -70,4 +70,10 @@ public abstract class NodeNumber1to1 extends Node
         
         return null;
     }
+    
+    @Override
+    public float[] getColor()
+    {
+        return DataType.NUMBER.getColor();
+    }
 }

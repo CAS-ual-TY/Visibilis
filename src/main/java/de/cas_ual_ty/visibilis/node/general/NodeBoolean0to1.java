@@ -43,4 +43,10 @@ public abstract class NodeBoolean0to1 extends Node
         
         return null;
     }
+    
+    @Override
+    public float[] getColor()
+    {
+        return DataType.BOOLEAN.getColor();
+    }
 }
