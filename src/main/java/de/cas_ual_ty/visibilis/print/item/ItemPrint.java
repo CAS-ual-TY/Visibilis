@@ -13,14 +13,18 @@ public class ItemPrint extends Item
 {
     /**
      * Opens the {@link GuiPrint} for the given player
-     * @param player The player to open the Gui for
-     * @param itemStack The itemStack to edit the {@link Print} of (item must be in hand)
-     * @param hand The hand the given itemStack is in
+     * 
+     * @param player
+     *            The player to open the Gui for
+     * @param itemStack
+     *            The itemStack to edit the {@link Print} of (item must be in hand)
+     * @param hand
+     *            The hand the given itemStack is in
      * @return <b>true</b> if the Gui was opened
      */
     public boolean openGui(EntityPlayer player, ItemStack itemStack, EnumHand hand)
     {
-        if(player.world.isRemote)
+        if (player.world.isRemote)
         {
             Visibilis.proxy.openGuiPrint(this.getHelper(itemStack, hand));
             return true;

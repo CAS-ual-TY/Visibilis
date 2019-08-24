@@ -78,5 +78,6 @@ public abstract class PrintHelperBase implements IPrintHelper
     {
         NBTTagCompound nbt = VUtility.savePrintToNBT(this.print);
         nbt0.setTag(Visibilis.MOD_ID, nbt);
+        this.synchToServer(nbt0);
     }
 }
