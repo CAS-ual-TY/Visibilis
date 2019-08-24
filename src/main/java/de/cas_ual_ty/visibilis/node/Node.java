@@ -3,7 +3,7 @@ package de.cas_ual_ty.visibilis.node;
 import javax.annotation.Nullable;
 
 import de.cas_ual_ty.visibilis.VRegistry;
-import de.cas_ual_ty.visibilis.VUtility;
+import de.cas_ual_ty.visibilis.util.NBTUtility;
 import net.minecraft.nbt.NBTTagCompound;
 
 public abstract class Node
@@ -320,7 +320,7 @@ public abstract class Node
     }
     
     /**
-     * Read from NBT. Does not load everything, see {@link VUtility#readNodeFromNBT(Node, NBTTagCompound)} for a proper method
+     * Read from NBT. Does not load everything, see {@link NBTUtility#readNodeFromNBT(Node, NBTTagCompound)} for a proper method
      */
     public void readNodeFromNBT(NBTTagCompound nbt)
     {
@@ -329,7 +329,7 @@ public abstract class Node
     }
     
     /**
-     * Write to NBT. Does not write everything, see {@link VUtility#writeNodeToNBT(Node, NBTTagCompound)} for a proper method
+     * Write to NBT. Does not write everything, see {@link NBTUtility#writeNodeToNBT(Node, NBTTagCompound)} for a proper method
      */
     public void writeNodeToNBT(NBTTagCompound nbt)
     {

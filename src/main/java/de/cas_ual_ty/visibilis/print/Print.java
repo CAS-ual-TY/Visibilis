@@ -2,13 +2,13 @@ package de.cas_ual_ty.visibilis.print;
 
 import java.util.ArrayList;
 
-import de.cas_ual_ty.visibilis.VUtility;
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeExec;
 import de.cas_ual_ty.visibilis.node.Output;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
+import de.cas_ual_ty.visibilis.util.NBTUtility;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class Print
@@ -224,8 +224,8 @@ public class Print
         this.posY = nbt.getInteger(Print.KEY_POS_Y);
         this.zoom = nbt.getFloat(Print.KEY_ZOOM);
         
-        VUtility.readPrintNodesFromNBT(this, nbt);
-        VUtility.readPrintConnectionsFromNBT(this, nbt);
+        NBTUtility.readPrintNodesFromNBT(this, nbt);
+        NBTUtility.readPrintConnectionsFromNBT(this, nbt);
     }
     
     /**
@@ -237,8 +237,8 @@ public class Print
         nbt.setInteger(Print.KEY_POS_Y, this.posY);
         nbt.setFloat(Print.KEY_ZOOM, this.zoom);
         
-        VUtility.writePrintNodesToNBT(this, nbt);
-        VUtility.writePrintConnectionsToNBT(this, nbt);
+        NBTUtility.writePrintNodesToNBT(this, nbt);
+        NBTUtility.writePrintConnectionsToNBT(this, nbt);
     }
     
     /**

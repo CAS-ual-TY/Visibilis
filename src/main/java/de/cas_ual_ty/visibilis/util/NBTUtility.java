@@ -1,7 +1,9 @@
-package de.cas_ual_ty.visibilis;
+package de.cas_ual_ty.visibilis.util;
 
 import java.util.ArrayList;
 
+import de.cas_ual_ty.visibilis.VRegistry;
+import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
 import de.cas_ual_ty.visibilis.print.Print;
@@ -10,7 +12,7 @@ import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
 
-public class VUtility
+public class NBTUtility
 {
     // read: Instance reading itself from NBT
     // write: Instance writing itself to NBT
@@ -33,7 +35,7 @@ public class VUtility
     public static Print loadPrintFromNBT(NBTTagCompound nbt)
     {
         Print p = new Print();
-        VUtility.readPrintFromNBT(p, nbt);
+        NBTUtility.readPrintFromNBT(p, nbt);
         
         return p;
     }
@@ -44,7 +46,7 @@ public class VUtility
     public static NBTTagCompound savePrintToNBT(Print p)
     {
         NBTTagCompound nbt = new NBTTagCompound();
-        VUtility.writePrintToNBT(p, nbt);
+        NBTUtility.writePrintToNBT(p, nbt);
         
         return nbt;
     }
@@ -54,7 +56,7 @@ public class VUtility
      */
     public static void readPrintFromNBT(Print p, NBTTagCompound nbt)
     {
-        NBTTagCompound nbt1 = nbt.getCompoundTag(VUtility.KEY_PRINT);
+        NBTTagCompound nbt1 = nbt.getCompoundTag(NBTUtility.KEY_PRINT);
         p.readFromNBT(nbt1);
     }
     
@@ -65,7 +67,7 @@ public class VUtility
     {
         NBTTagCompound nbt1 = new NBTTagCompound();
         p.writeToNBT(nbt1);
-        nbt.setTag(VUtility.KEY_PRINT, nbt1);
+        nbt.setTag(NBTUtility.KEY_PRINT, nbt1);
     }
     
     /**
@@ -73,7 +75,7 @@ public class VUtility
      */
     public static void readPrintNodesFromNBT(Print p, NBTTagCompound nbt)
     {
-        NBTTagList nbtlist = nbt.getTagList(VUtility.KEY_PRINT_NODES, Constants.NBT.TAG_COMPOUND);
+        NBTTagList nbtlist = nbt.getTagList(NBTUtility.KEY_PRINT_NODES, Constants.NBT.TAG_COMPOUND);
         
         NBTTagCompound nbt1;
         Node n;
@@ -82,7 +84,7 @@ public class VUtility
         {
             nbt1 = nbtlist.getCompoundTagAt(i);
             
-            n = VUtility.loadNodeFromNBT(nbt1);
+            n = NBTUtility.loadNodeFromNBT(nbt1);
             
             if (n != null)
             {
@@ -109,7 +111,7 @@ public class VUtility
         {
             n = p.getNodes().get(i);
             
-            nbt1 = VUtility.saveNodeToNBT(n);
+            nbt1 = NBTUtility.saveNodeToNBT(n);
             
             if (nbt1 != null)
             {
@@ -121,7 +123,7 @@ public class VUtility
             }
         }
         
-        nbt.setTag(VUtility.KEY_PRINT_NODES, nbtlist);
+        nbt.setTag(NBTUtility.KEY_PRINT_NODES, nbtlist);
     }
     
     /**
@@ -131,7 +133,7 @@ public class VUtility
     {
         Node n;
         
-        String id = nbt.getString(VUtility.KEY_NODE);
+        String id = nbt.getString(NBTUtility.KEY_NODE);
         
         n = VRegistry.INSTANCE.instantiateNode(id);
         
@@ -140,7 +142,7 @@ public class VUtility
             return null;
         }
         
-        VUtility.readNodeFromNBT(n, nbt);
+        NBTUtility.readNodeFromNBT(n, nbt);
         
         return n;
     }
@@ -159,9 +161,9 @@ public class VUtility
             return null;
         }
         
-        nbt.setString(VUtility.KEY_NODE, name);
+        nbt.setString(NBTUtility.KEY_NODE, name);
         
-        VUtility.writeNodeToNBT(n, nbt);
+        NBTUtility.writeNodeToNBT(n, nbt);
         
         return nbt;
     }
@@ -187,7 +189,7 @@ public class VUtility
      */
     public static void readPrintConnectionsFromNBT(Print p, NBTTagCompound nbt)
     {
-        int[] array = nbt.getIntArray(VUtility.KEY_PRINT_CONNECTIONS);
+        int[] array = nbt.getIntArray(NBTUtility.KEY_PRINT_CONNECTIONS);
         
         Node n;
         NodeField f;
@@ -244,6 +246,6 @@ public class VUtility
             }
         }
         
-        nbt.setTag(VUtility.KEY_PRINT_CONNECTIONS, new NBTTagIntArray(array));
+        nbt.setTag(NBTUtility.KEY_PRINT_CONNECTIONS, new NBTTagIntArray(array));
     }
 }

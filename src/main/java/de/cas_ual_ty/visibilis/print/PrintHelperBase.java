@@ -2,9 +2,9 @@ package de.cas_ual_ty.visibilis.print;
 
 import java.util.ArrayList;
 
-import de.cas_ual_ty.visibilis.VUtility;
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.util.NBTUtility;
 import net.minecraft.nbt.NBTTagCompound;
 
 public abstract class PrintHelperBase implements IPrintHelper
@@ -71,12 +71,12 @@ public abstract class PrintHelperBase implements IPrintHelper
         }
         
         NBTTagCompound nbt = nbt0.getCompoundTag(Visibilis.MOD_ID);
-        this.print = VUtility.loadPrintFromNBT(nbt);
+        this.print = NBTUtility.loadPrintFromNBT(nbt);
     }
     
     public void writeToNBT(NBTTagCompound nbt0)
     {
-        NBTTagCompound nbt = VUtility.savePrintToNBT(this.print);
+        NBTTagCompound nbt = NBTUtility.savePrintToNBT(this.print);
         nbt0.setTag(Visibilis.MOD_ID, nbt);
         this.synchToServer(nbt0);
     }
