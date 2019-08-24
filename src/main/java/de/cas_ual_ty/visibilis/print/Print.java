@@ -129,7 +129,7 @@ public class Print
     {
         NodeEvent event;
         
-        // Start from back (= top) to front (= bottom)
+        // Start from back of list (= on top of gui) to front of list (= on bottom of gui)
         for (int i = this.events.size() - 1; i >= 0; --i)
         {
             event = this.events.get(i);
