@@ -48,4 +48,10 @@ public class NodeNOT extends Node
     {
         return "not";
     }
+    
+    @Override
+    public float[] getColor()
+    {
+        return DataType.BOOLEAN.getColor();
+    }
 }
