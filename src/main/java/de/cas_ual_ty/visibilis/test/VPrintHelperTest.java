@@ -15,6 +15,6 @@ public class VPrintHelperTest extends PrintHelperItem
     @Override
     public Print createNewPrint()
     {
-        return new Print();
+        return new VPrintTest();
     }
 }
