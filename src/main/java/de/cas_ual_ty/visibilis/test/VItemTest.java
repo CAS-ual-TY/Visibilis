@@ -20,9 +20,8 @@ public class VItemTest extends ItemPrint
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {
-        if (worldIn.isRemote)
+        if (this.openGui(playerIn, handIn))
         {
-            this.openGui(playerIn, handIn);
             return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
         }
         
