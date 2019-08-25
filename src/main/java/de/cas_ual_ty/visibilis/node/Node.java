@@ -61,7 +61,7 @@ public abstract class Node
     {
         // If this node has no inputs it also has no parents, so it can be calculated immediately
         // (or if none of the inputs have any connections)
-        if (this.isStart())
+        if (!this.isStart())
         {
             NodeField field0, field1;
             
@@ -84,7 +84,7 @@ public abstract class Node
                         field1 = (NodeField) field0.getConnectionsList().get(j);
                         
                         // Check if it is calculated
-                        if (field1.node.isCalculated())
+                        if (!field1.node.isCalculated())
                         {
                             // Calculate it, return false if it fails
                             if (!field1.node.calculate())
