@@ -121,6 +121,11 @@ public class Print
         return this.nodes;
     }
     
+    public boolean executeEvent(String modId, String eventType)
+    {
+        return this.executeEvent(modId + ":" + eventType);
+    }
+    
     /**
      * @param eventType
      * @return
