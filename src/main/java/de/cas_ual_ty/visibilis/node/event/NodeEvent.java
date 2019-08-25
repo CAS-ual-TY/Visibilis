@@ -65,7 +65,7 @@ public class NodeEvent extends NodeExec
     @Override
     public Output getOutExec(int index)
     {
-        return null;
+        return index == 0 ? this.outExec : null;
     }
     
     @Override
