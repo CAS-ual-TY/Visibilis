@@ -17,6 +17,7 @@ import de.cas_ual_ty.visibilis.node.constant.NodeFalse;
 import de.cas_ual_ty.visibilis.node.constant.NodePi;
 import de.cas_ual_ty.visibilis.node.constant.NodeSQRT2;
 import de.cas_ual_ty.visibilis.node.constant.NodeTrue;
+import de.cas_ual_ty.visibilis.node.event.NodeEvent;
 import de.cas_ual_ty.visibilis.node.function.NodeCosines;
 import de.cas_ual_ty.visibilis.node.function.NodeRound;
 import de.cas_ual_ty.visibilis.node.function.NodeRoundDown;
@@ -33,7 +34,9 @@ import de.cas_ual_ty.visibilis.node.logic.NodeXOR;
 import de.cas_ual_ty.visibilis.print.item.MessageHandlerItem;
 import de.cas_ual_ty.visibilis.print.item.MessageItem;
 import de.cas_ual_ty.visibilis.proxy.IVSidedProxy;
+import de.cas_ual_ty.visibilis.test.VCommandExec;
 import de.cas_ual_ty.visibilis.test.VItemTest;
+import de.cas_ual_ty.visibilis.test.VNodeTest;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -45,6 +48,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
@@ -93,8 +97,17 @@ public class Visibilis
         
     }
     
+    @EventHandler
+    public void serverStarting(FMLServerStartingEvent event)
+    {
+        event.registerServerCommand(new VCommandExec());
+    }
+    
     public void registerNodes()
     {
+        VRegistry.INSTANCE.registerNode(NodeEvent.class, Visibilis.MOD_ID, "event");
+        VRegistry.INSTANCE.registerNode(VNodeTest.class, Visibilis.MOD_ID, "test");
+        
         VRegistry.INSTANCE.registerNode(NodeAddition.class, Visibilis.MOD_ID, "addition");
         VRegistry.INSTANCE.registerNode(NodeDivision.class, Visibilis.MOD_ID, "division");
         VRegistry.INSTANCE.registerNode(NodeExponentiation.class, Visibilis.MOD_ID, "exponentiation");
