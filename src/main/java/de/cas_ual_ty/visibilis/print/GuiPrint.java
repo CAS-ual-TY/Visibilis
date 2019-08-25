@@ -251,7 +251,7 @@ public class GuiPrint extends GuiScreen
                 }
                 
                 // Node field was clicked on -> Render line from Dot -> Mouse
-                RenderUtility.drawGradientLine(dotX + this.util.nodeFieldDotSize / 2, dotY + this.util.nodeFieldDotSize / 2, this.printToGuiRounded(mouseX), this.printToGuiRounded(mouseY), this.util.getLineWidth(this.mouseClickedField.dataType), this.mouseClickedField.dataType.getColor()[0], this.mouseClickedField.dataType.getColor()[1], this.mouseClickedField.dataType.getColor()[2], this.util.nodeFieldConnectionsAlpha, GuiPrint.nodeFieldDef, GuiPrint.nodeFieldDef, GuiPrint.nodeFieldDef, this.util.nodeFieldConnectionsAlpha);
+                RenderUtility.drawGradientLine(dotX + this.util.nodeFieldDotSize / 2, dotY + this.util.nodeFieldDotSize / 2, this.printToGuiRounded(mouseX) - this.getPrint().posX, this.printToGuiRounded(mouseY) - this.getPrint().posY, this.util.getLineWidth(this.mouseClickedField.dataType), this.mouseClickedField.dataType.getColor()[0], this.mouseClickedField.dataType.getColor()[1], this.mouseClickedField.dataType.getColor()[2], this.util.nodeFieldConnectionsAlpha, GuiPrint.nodeFieldDef, GuiPrint.nodeFieldDef, GuiPrint.nodeFieldDef, this.util.nodeFieldConnectionsAlpha);
             }
         }
         else
@@ -347,7 +347,7 @@ public class GuiPrint extends GuiScreen
             x = this.getNodePosX2(node);
             y = this.getNodePosY2(node);
             w = this.guiToPrint(this.util.nodeWidth);
-            h = this.guiToPrint(this.util.nodeHeight * RenderUtility.getVerticalAmt(node));
+            h = this.guiToPrint(this.util.getNodeTotalHeight(node));
             
             // Check if the mouse is on top of the entire node
             if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
@@ -364,13 +364,13 @@ public class GuiPrint extends GuiScreen
                     
                     int j;
                     
-                    if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, this.guiToPrint(this.util.nodeWidth / 2), h))
+                    if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, this.guiToPrint(this.util.fieldWidth), h))
                     {
                         // Left side -> inputs
                         
                         for (j = 1; j <= node.getInputAmt(); ++j)
                         {
-                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getNodePosY(node) + this.util.nodeHeight * j), w, this.guiToPrint(this.util.nodeHeight)))
+                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getPrint().posY + this.getNodePosY(node) + this.util.nodeHeight * j), w, this.guiToPrint(this.util.nodeHeight)))
                             {
                                 // inside this node field -> return it
                                 return node.getInput(j - 1);
@@ -387,7 +387,7 @@ public class GuiPrint extends GuiScreen
                         
                         for (j = 1; j <= node.getOutputAmt(); ++j)
                         {
-                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getNodePosY(node) + this.util.nodeHeight * j), w, this.guiToPrint(this.util.nodeHeight)))
+                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getPrint().posY + this.getNodePosY(node) + this.util.nodeHeight * j), w, this.guiToPrint(this.util.nodeHeight)))
                             {
                                 // inside this node field -> return it
                                 return node.getOutput(j - 1);
@@ -441,7 +441,7 @@ public class GuiPrint extends GuiScreen
     
     public int mouseYToPrint(int mouseY)
     {
-        return this.printToGuiRounded(mouseY) - this.getPrint().posX;
+        return this.printToGuiRounded(mouseY) - this.getPrint().posY;
     }
     
     /**
@@ -449,7 +449,7 @@ public class GuiPrint extends GuiScreen
      */
     public int getNodePosX(Node n)
     {
-        return /*this.getPrint().posX + */n.posX;
+        return /* this.getPrint().posX + */n.posX;
     }
     
     /**
@@ -457,7 +457,7 @@ public class GuiPrint extends GuiScreen
      */
     public int getNodePosY(Node n)
     {
-        return /*.getPrint().posY + */n.posY;
+        return /* .getPrint().posY + */n.posY;
     }
     
     /**
