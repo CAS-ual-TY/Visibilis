@@ -659,6 +659,6 @@ public class RenderUtility
         float g = (color1[1] + color2[1]) * 0.5F;
         float b = (color1[2] + color2[2]) * 0.5F;
         
-        return new float[] {r, g, b};
+        return new float[] { r, g, b };
     }
 }
