@@ -108,7 +108,7 @@ public abstract class Node
     public boolean calculate()
     {
         // Make sure all parents are calculated
-        if (!this.preCalculate())
+        if (!this.preCalculate() || !this.hasAllRequiredInputs())
         {
             // Abort if parents could not be calculated
             return false;
@@ -181,6 +181,31 @@ public abstract class Node
             if (field0.hasConnections())
             {
                 // An input of this node has connections, this means that this has a parent node, so this is not a "dead start"
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Returns <b>true</b> if all inputs that are required for calculation are connected. Override if there are any optional inputs not required for calculation.
+     */
+    public boolean hasAllRequiredInputs()
+    {
+        NodeField field0;
+        int i;
+        
+        // loop through inputs
+        for (i = 0; i < this.getInputAmt(); ++i)
+        {
+            // Get the input here
+            field0 = this.getInput(i);
+            
+            // Check if it has any connections
+            if (!field0.hasConnections())
+            {
+                // no connections -> return false
                 return false;
             }
         }

@@ -27,6 +27,13 @@ public class VNodeTest extends NodeExec
     }
     
     @Override
+    public boolean hasAllRequiredInputs()
+    {
+        // We dont need any inputs, technically
+        return true;
+    }
+    
+    @Override
     public boolean doCalculate()
     {
         Visibilis.debug("## " + this.getClass().getSimpleName() + " START");
