@@ -4,9 +4,11 @@ import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.print.GuiPrint;
 import de.cas_ual_ty.visibilis.print.IPrintHelper;
 import de.cas_ual_ty.visibilis.print.Print;
+import de.cas_ual_ty.visibilis.util.NBTUtility;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
 
 public class ItemPrint extends Item
@@ -44,5 +46,21 @@ public class ItemPrint extends Item
     public IPrintHelper getHelper(ItemStack itemStack, EnumHand hand)
     {
         return new PrintHelperItem(itemStack, hand);
+    }
+    
+    public Print getPrint(ItemStack itemStack)
+    {
+        if (itemStack.hasTagCompound())
+        {
+            NBTTagCompound nbt0 = itemStack.getTagCompound();
+            
+            if (nbt0.hasKey(Visibilis.MOD_ID))
+            {
+                NBTTagCompound nbt = nbt0.getCompoundTag(Visibilis.MOD_ID);
+                return NBTUtility.loadPrintFromNBT(nbt);
+            }
+        }
+        
+        return null;
     }
 }
