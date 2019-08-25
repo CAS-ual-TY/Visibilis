@@ -92,6 +92,7 @@ public class GuiPrint extends GuiScreen
         
         RenderUtility.scissorStart(this.sr, this.inner.x, this.inner.y, this.inner.w, this.inner.h);
         RenderUtility.applyZoom(this.getPrint().zoom); // Inside of the matrix since you would otherwise "touch" everything outside of the matrix
+        GlStateManager.translate(this.getPrint().posX, this.getPrint().posY, 0); // Move everything in the print by the print's position
         this.drawInner(mouseX, mouseY, partialTicks);
         RenderUtility.scissorEnd();
         
@@ -160,7 +161,7 @@ public class GuiPrint extends GuiScreen
             }
             else
             {
-                // TODO Adjust print position so that the middle of the screen stays the middle when zooming
+                // TODO low: Adjust print position so that the middle of the screen stays the middle when zooming
             }
         }
         if (keyCode == Keyboard.KEY_LSHIFT || keyCode == Keyboard.KEY_SUBTRACT)
@@ -173,7 +174,7 @@ public class GuiPrint extends GuiScreen
             }
             else
             {
-                // TODO Adjust print position so that the middle of the screen stays the middle when zooming
+                // TODO low: Adjust print position so that the middle of the screen stays the middle when zooming
             }
         }
     }
@@ -448,7 +449,7 @@ public class GuiPrint extends GuiScreen
      */
     public int getNodePosX(Node n)
     {
-        return this.getPrint().posX + n.posX;
+        return /*this.getPrint().posX + */n.posX;
     }
     
     /**
@@ -456,7 +457,7 @@ public class GuiPrint extends GuiScreen
      */
     public int getNodePosY(Node n)
     {
-        return this.getPrint().posY + n.posY;
+        return /*.getPrint().posY + */n.posY;
     }
     
     /**
@@ -492,7 +493,7 @@ public class GuiPrint extends GuiScreen
     }
     
     /**
-     * Draw the white rectangle when hovering over an object. This can later be changed to eg. an outline (wich is why I made this a method)
+     * Draw the white rectangle when hovering over an object. This can later be changed to eg. an outline (which is why I made this a method)
      */
     public void drawHoverRect(int x, int y, int w, int h)
     {
