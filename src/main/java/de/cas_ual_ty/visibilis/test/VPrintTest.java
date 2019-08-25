@@ -1,7 +1,9 @@
 package de.cas_ual_ty.visibilis.test;
 
+import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.constant.NodeFalse;
 import de.cas_ual_ty.visibilis.node.constant.NodeTrue;
+import de.cas_ual_ty.visibilis.node.event.NodeEvent;
 import de.cas_ual_ty.visibilis.node.logic.NodeAND;
 import de.cas_ual_ty.visibilis.node.logic.NodeNAND;
 import de.cas_ual_ty.visibilis.node.logic.NodeNOR;
@@ -52,5 +54,7 @@ public class VPrintTest extends Print
         this.addNode(new NodeXOR());
         this.addNode(new NodeTrue());
         this.addNode(new NodeFalse());
+        this.addNode(new NodeEvent(Visibilis.MOD_ID, "command"));
+        this.addNode(new VNodeTest());
     }
 }
