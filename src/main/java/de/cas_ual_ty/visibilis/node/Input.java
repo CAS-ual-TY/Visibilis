@@ -15,6 +15,8 @@ public class Input<A> extends NodeField<A>
      */
     protected Output connection;
     
+    protected A value = null;
+    
     public Input(int id, Node node, DataType dataType, String name)
     {
         super(id, node, dataType, name);
@@ -42,10 +44,18 @@ public class Input<A> extends NodeField<A>
         return false;
     }
     
+    /**
+     * The first one that is true (top to bottom):</br>
+     * If this input is connected -> value of connected output.</br>
+     * If this input has a default value -> this input's default value.</br>
+     * If this input's data type has a default value -> this input's data type's default value.
+     * @return The value this node field is currently representing.
+     * @see NodeField#getValue()
+     */
     @Override
     public A getValue()
     {
-        return this.hasConnections() ? (A) this.connection.getValue() : null;
+        return this.hasConnections() ? (A) this.connection.getValue() : (this.value != null ? this.value : (this.dataType.hasDefaultValue() ? ((A) this.dataType.getDefaultValue()) : null));
     }
     
     @Override
@@ -86,5 +96,14 @@ public class Input<A> extends NodeField<A>
         {
             this.connection = null;
         }
+    }
+    
+    /**
+     * Set the value that is used if {@link #hasConnections()} is <b>false</b>
+     */
+    public Input setValue(A value)
+    {
+        this.value = value;
+        return this;
     }
 }
