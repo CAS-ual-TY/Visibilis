@@ -62,6 +62,7 @@ public class GuiPrint extends GuiScreen
     {
         this.inner = RenderUtility.Rectangle.fromXYWH(0, 0, this.width, this.height);
         this.sr = new ScaledResolution(this.mc);
+        this.updateLineWidth();
         
         this.helper.onGuiInit(this);
     }
@@ -122,6 +123,11 @@ public class GuiPrint extends GuiScreen
         }
     }
     
+    public void updateLineWidth()
+    {
+        this.util.nodeFieldConnectionsWidth = (this.util.nodeFieldDotSize / 2) * this.getPrint().zoom * this.sr.getScaleFactor();
+    }
+    
     @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException
     {
@@ -163,6 +169,8 @@ public class GuiPrint extends GuiScreen
             {
                 // TODO low: Adjust print position so that the middle of the screen stays the middle when zooming
             }
+            
+            this.updateLineWidth();
         }
         if (keyCode == Keyboard.KEY_LSHIFT || keyCode == Keyboard.KEY_SUBTRACT)
         {
@@ -176,6 +184,8 @@ public class GuiPrint extends GuiScreen
             {
                 // TODO low: Adjust print position so that the middle of the screen stays the middle when zooming
             }
+            
+            this.updateLineWidth();
         }
     }
     
