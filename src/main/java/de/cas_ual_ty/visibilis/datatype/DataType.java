@@ -110,25 +110,7 @@ public class DataType<A>
     }.setDefaultValue(DataType.FLOAT.getDefaultValue()).setBlackText();
     
     public static final DataType<Boolean> BOOLEAN = new DataType<Boolean>("boolean", new float[] { 1F, 0F, 1F })
-    {
-        @Override
-        public boolean acceptStrings()
-        {
-            return true;
-        }
-        
-        @Override
-        public boolean canParseString(String s)
-        {
-            return s.equalsIgnoreCase("true") || s.equalsIgnoreCase("false");
-        }
-        
-        @Override
-        public Boolean stringToValue(String s)
-        {
-            return Boolean.valueOf(s);
-        }
-    }.addEnum(true).addEnum(false);
+    .addEnum(true).addEnum(false);
     
     static
     {
