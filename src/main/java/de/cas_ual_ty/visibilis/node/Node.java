@@ -193,17 +193,17 @@ public abstract class Node
      */
     public boolean hasAllRequiredInputs()
     {
-        NodeField field0;
+        Input field0;
         int i;
         
         // loop through inputs
         for (i = 0; i < this.getInputAmt(); ++i)
         {
             // Get the input here
-            field0 = this.getInput(i);
+            field0 = (Input) this.getInput(i);
             
-            // Check if it has any connections
-            if (!field0.hasConnections())
+            // Check if it needs connections or it currently returns nothing
+            if (field0.getMustUseConnections() && !field0.hasConnections())
             {
                 // no connections -> return false
                 return false;

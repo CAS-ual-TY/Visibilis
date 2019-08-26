@@ -17,9 +17,12 @@ public class Input<A> extends NodeField<A>
     
     protected A value = null;
     
+    protected boolean mustUseConnection;
+    
     public Input(int id, Node node, DataType dataType, String name)
     {
         super(id, node, dataType, name);
+        this.mustUseConnection = !dataType.hasDefaultValue();
     }
     
     /**
@@ -104,6 +107,21 @@ public class Input<A> extends NodeField<A>
     public Input setValue(A value)
     {
         this.value = value;
+        return this;
+    }
+    
+    public boolean getMustUseConnections()
+    {
+        return this.getValue() == null || this.mustUseConnection;
+    }
+    
+    /**
+     * By calling this, {@link #getValue()} will only return a value from the connection.
+     * A connection is required for this input.
+     */
+    public Input setMustUseConnection()
+    {
+        this.mustUseConnection = true;
         return this;
     }
 }
