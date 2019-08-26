@@ -33,12 +33,6 @@ public class DataType<A>
         }
         
         @Override
-        public String valueToString(Float value)
-        {
-            return value.toString();
-        }
-        
-        @Override
         public boolean canParseString(String s)
         {
             try
@@ -57,7 +51,8 @@ public class DataType<A>
         {
             return Float.valueOf(s);
         }
-    }.setDefaultValue(1F).setBlackText();
+    }
+    .setDefaultValue(1F).setBlackText();
     
     public static final DataType<Integer> INTEGER = new DataType<Integer>("integer", new float[] { 0.5F, 1F, 0F })
     {
@@ -86,7 +81,8 @@ public class DataType<A>
         {
             return Integer.valueOf(s);
         }
-    }.setDefaultValue(1).setBlackText();
+    }
+    .setDefaultValue(1).setBlackText();
     
     public static final DataType<Number> NUMBER = new DataType<Number>("number", new float[] { 1F, 1F, 0F })
     {
@@ -107,7 +103,8 @@ public class DataType<A>
         {
             return DataType.INTEGER.canParseString(s) ? DataType.INTEGER.stringToValue(s) : DataType.FLOAT.stringToValue(s); // Float can handle both integer and float values.
         }
-    }.setDefaultValue(DataType.FLOAT.getDefaultValue()).setBlackText();
+    }
+    .setDefaultValue(DataType.FLOAT.getDefaultValue()).setBlackText();
     
     public static final DataType<Boolean> BOOLEAN = new DataType<Boolean>("boolean", new float[] { 1F, 0F, 1F })
     .addEnum(true).addEnum(false);
