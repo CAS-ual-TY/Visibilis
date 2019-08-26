@@ -430,7 +430,7 @@ public class RenderUtility
      */
     public static void applyZoom(float zoom)
     {
-        GL11.glScalef(zoom, zoom, 1); // Apply zoom, 2x zoom means 2x size of prints, so this is fine
+        GlStateManager.scale(zoom, zoom, 1); // Apply zoom, 2x zoom means 2x size of prints, so this is fine
     }
     
     /**
