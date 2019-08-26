@@ -99,13 +99,13 @@ public class DataType<A>
         @Override
         public boolean canParseString(String s)
         {
-            return FLOAT.canParseString(s); // Float can handle both integer and float values.
+            return DataType.FLOAT.canParseString(s); // Float can handle both integer and float values.
         }
         
         @Override
         public Number stringToValue(String s)
         {
-            return INTEGER.canParseString(s) ? INTEGER.stringToValue(s) : FLOAT.stringToValue(s); // Float can handle both integer and float values.
+            return DataType.INTEGER.canParseString(s) ? DataType.INTEGER.stringToValue(s) : DataType.FLOAT.stringToValue(s); // Float can handle both integer and float values.
         }
     }.setDefaultValue(DataType.FLOAT.getDefaultValue()).setBlackText();
     
@@ -250,32 +250,17 @@ public class DataType<A>
     }
     
     /*
-     * --- --- --- --- --- --- --- --- --- ---
-     * --- --- --- --- --- --- --- --- --- ---
-     * --- --- --- --- --- --- --- --- --- ---
+     * --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
      */
     
     /*
-     * The following is used primarily for Guis, but also fields in general. This allows:
-     * - A default value for non-connected inputs to use
-     * - A box to be shown in Gui to either
-     * - - Show an input field to type a value
-     * - - Show a drop down for a value to choose from
+     * The following is used primarily for Guis, but also fields in general. This allows: - A default value for non-connected inputs to use - A box to be shown in Gui to either - - Show an input field to type a value - - Show a drop down for a value to choose from
      * 
-     * Dynamic: This means that the values can all be parsed from a String. Eg. Any integer value.
-     *  It requires:
-     *  - #acceptStrings() to return true (override)
-     *  - #setDefaultValue(A) to be set (chain on instantiation)
-     *  - #canParseString(String) to be implemented (override)
-     *  - #stringToValue(String) to be implemented (override)
+     * Dynamic: This means that the values can all be parsed from a String. Eg. Any integer value. It requires: - #acceptStrings() to return true (override) - #setDefaultValue(A) to be set (chain on instantiation) - #canParseString(String) to be implemented (override) - #stringToValue(String) to be implemented (override)
      * 
-     * enum: this means you have a set list of possibilities to choose from. Eg. Booleans (either "true" or "false", nothing else).
-     *  It requires:
-     *  - #addEnum(A) to be called for each possibility (chain on instantiation)
+     * enum: this means you have a set list of possibilities to choose from. Eg. Booleans (either "true" or "false", nothing else). It requires: - #addEnum(A) to be called for each possibility (chain on instantiation)
      * 
-     * For any non primitive data type, #valueToString(A) should also be overridden either in the data type class or in the passed generic class (A).
-     * You can choose yourself which of these 2 options fit your data type better. But if there are too many possibilities, then the Dynamic one should be better.
-     * This is all not required for a data type anyways. Sometimes it is definitely better NOT to implement this with very advanced types (eg. a list type).
+     * For any non primitive data type, #valueToString(A) should also be overridden either in the data type class or in the passed generic class (A). You can choose yourself which of these 2 options fit your data type better. But if there are too many possibilities, then the Dynamic one should be better. This is all not required for a data type anyways. Sometimes it is definitely better NOT to implement this with very advanced types (eg. a list type).
      */
     
     // --- Dynamic & enum start ---
@@ -289,10 +274,10 @@ public class DataType<A>
      * List of all possible values this data type can have. Used for enums and eg. booleans.
      */
     protected ArrayList<A> enums = null;
-
+    
     /**
-     * Returns the default value. If {@link #isEnum()} is <b>true</b> then returns the first enum instead.
-     * This default value will be used for inputs without connection.
+     * Returns the default value. If {@link #isEnum()} is <b>true</b> then returns the first enum instead. This default value will be used for inputs without connection.
+     * 
      * @see #setDefaultValue(Object)
      */
     public A getDefaultValue()
@@ -302,6 +287,7 @@ public class DataType<A>
     
     /**
      * Gets a string representation of the default value.
+     * 
      * @see #getDefaultValue()
      */
     public String getDefaultValueString()
@@ -318,8 +304,8 @@ public class DataType<A>
     // --- Dynamic start ---
     
     /**
-     * If <b>true</b> inputs can be typed on the Gui. It will deliver a box the user can type in.
-     * Requires a default value to be displayed first.
+     * If <b>true</b> inputs can be typed on the Gui. It will deliver a box the user can type in. Requires a default value to be displayed first.
+     * 
      * @see #setDefaultValue(Object)
      */
     public boolean acceptStrings()
@@ -328,8 +314,7 @@ public class DataType<A>
     }
     
     /**
-     * Set the default value. If {@link #addEnum(Object)} has been used this method has no effect.
-     * This default value will be used for inputs without connection.
+     * Set the default value. If {@link #addEnum(Object)} has been used this method has no effect. This default value will be used for inputs without connection.
      */
     public DataType setDefaultValue(A value)
     {
@@ -339,6 +324,7 @@ public class DataType<A>
     
     /**
      * Returns <b>true</b> if this either has a set default value or is an enum.
+     * 
      * @see #getDefaultValue()
      * @see #getEnum(int)
      */
@@ -361,12 +347,11 @@ public class DataType<A>
     // --- enum start ---
     
     /**
-     * Adds a possible value to this data type. Once a single enum has been set, this data type is effectively an enum and should only be represented by values added by this method.
-     * On a Gui, this will show a dropdown of possibilities for the user to choose from, instead of a string input.
+     * Adds a possible value to this data type. Once a single enum has been set, this data type is effectively an enum and should only be represented by values added by this method. On a Gui, this will show a dropdown of possibilities for the user to choose from, instead of a string input.
      */
     public DataType addEnum(A value)
     {
-        if (enums == null)
+        if (this.enums == null)
         {
             this.enums = new ArrayList<A>();
         }
@@ -423,9 +408,7 @@ public class DataType<A>
     // --- enum end ---
     
     /*
-     * --- --- --- --- --- --- --- --- --- ---
-     * --- --- --- --- --- --- --- --- --- ---
-     * --- --- --- --- --- --- --- --- --- ---
+     * --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
      */
     
     /**
