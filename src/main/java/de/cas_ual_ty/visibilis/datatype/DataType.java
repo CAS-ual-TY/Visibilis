@@ -254,11 +254,22 @@ public class DataType<A>
      */
     
     /*
-     * The following is used primarily for Guis, but also fields in general. This allows: - A default value for non-connected inputs to use - A box to be shown in Gui to either - - Show an input field to type a value - - Show a drop down for a value to choose from
+     * The following is used primarily for Guis, but also fields in general. This allows (as example):
+     * - A default value for non-connected inputs to use
+     * - A box to be shown in Gui to either
+     *   - Show an input field to type a value
+     *   - Show a drop down for a value to choose from
      * 
-     * Dynamic: This means that the values can all be parsed from a String. Eg. Any integer value. It requires: - #acceptStrings() to return true (override) - #setDefaultValue(A) to be set (chain on instantiation) - #canParseString(String) to be implemented (override) - #stringToValue(String) to be implemented (override)
+     * Dynamic: This means that the values can all be parsed from a String. Eg. Any integer value.
+     * - It requires:
+     *   - #acceptStrings() to return true (override)
+     *   - #setDefaultValue(A) to be set (chain on instantiation)
+     *   - #canParseString(String) to be implemented (override)
+     *   - #stringToValue(String) to be implemented (override)
      * 
-     * enum: this means you have a set list of possibilities to choose from. Eg. Booleans (either "true" or "false", nothing else). It requires: - #addEnum(A) to be called for each possibility (chain on instantiation)
+     * enum: this means you have a set list of possibilities to choose from. Eg. Booleans (either "true" or "false", nothing else).
+     * - It requires:
+     *   - #addEnum(A) to be called for each possibility (chain on instantiation)
      * 
      * For any non primitive data type, #valueToString(A) should also be overridden either in the data type class or in the passed generic class (A). You can choose yourself which of these 2 options fit your data type better. But if there are too many possibilities, then the Dynamic one should be better. This is all not required for a data type anyways. Sometimes it is definitely better NOT to implement this with very advanced types (eg. a list type).
      */
