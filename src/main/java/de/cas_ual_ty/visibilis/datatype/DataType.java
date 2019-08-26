@@ -271,7 +271,10 @@ public class DataType<A>
      * - It requires:
      *   - #addEnum(A) to be called for each possibility (chain on instantiation)
      * 
-     * For any non primitive data type, #valueToString(A) should also be overridden either in the data type class or in the passed generic class (A). You can choose yourself which of these 2 options fit your data type better. But if there are too many possibilities, then the Dynamic one should be better. This is all not required for a data type anyways. Sometimes it is definitely better NOT to implement this with very advanced types (eg. a list type).
+     * For any non primitive data type, #valueToString(A) should also be overridden either in the data type class or in the passed generic class (A).
+     * You can choose yourself which of these 2 options fit your data type better. But if there are too many possibilities, then the Dynamic one should be better.
+     * 
+     * This is all not required for a data type anyways. Sometimes it is definitely better NOT to implement this with very advanced types (eg. a list type).
      */
     
     // --- Dynamic & enum start ---
