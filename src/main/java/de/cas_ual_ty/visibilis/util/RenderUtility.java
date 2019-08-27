@@ -361,6 +361,29 @@ public class RenderUtility
     }
     
     /**
+     * With background, for without see {@link #drawRectWithText(FontRenderer, int, int, int, int, int, float[], int, String, float[])}
+     */
+    public static void drawRectWithText(FontRenderer fontRenderer, int x, int y, int w, int h, float[] colorBackground, int marginRect, float[] colorRect, int marginText, String text, float[] colorText)
+    {
+        drawRect(x, y, w, h, colorBackground[0], colorBackground[1], colorBackground[2]);
+        drawRectWithText(fontRenderer, x, y, w, h, marginRect, colorRect, marginText, text, colorText);
+    }
+    
+    /**
+     * Without background, for with see {@link #drawRectWithText(FontRenderer, int, int, int, int, float[], int, float[], int, String, float[])}
+     */
+    public static void drawRectWithText(FontRenderer fontRenderer, int x, int y, int w, int h, int marginRect, float[] colorRect, int marginText, String text, float[] colorText)
+    {
+        // Draw inner colored rectangle
+        RenderUtility.drawRect(x + marginRect, y + marginRect, w - 2 * marginRect, h - 2 * marginRect, colorRect[0], colorRect[1], colorRect[2]);
+        
+        // Draw name
+        String name = text;
+        name = fontRenderer.trimStringToWidth(name, w - 2 * marginText); // Trim the name in case it is too big
+        fontRenderer.drawString(name, x + marginText, y + marginText, RenderUtility.colorToInt(colorText)); // Draw the trimmed name, maybe add shadow?
+    }
+    
+    /**
      * Since inputs and outputs share a line, only the higher amount of inputs or outputs is often needed.
      * 
      * @return The amount of inputs or outputs (whatever is higher) + 1 for the header.
