@@ -1,6 +1,5 @@
 package de.cas_ual_ty.visibilis.datatype;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,22 +15,39 @@ public class DataType<A>
     public static final float[] COLOR_TEXT_WHITE = new float[] { 1F, 1F, 1F };
     public static final float[] COLOR_TEXT_BLACK = new float[] { 0F, 0F, 0F };
     
+    public static final float[] COLOR_DEFAULT_GREY = new float[] { 0.5F, 0.5F, 0.5F };
+    
     public static final Map<String, DataType> DATA_TYPES_LIST = new HashMap<String, DataType>();
     
     /*
-     * Scroll down for more comments and explanations to why I am doing all this overriding and chaining up here.
+     * Explanation for all this overriding:
+     * 
+     * There are 4 kinds of data types:
+     * - 1. DataType without a default value
+     * - 2. DataType with a default value
+     * - 3. DataTypeDynamic
+     * - 4. DataTypeEnum
+     * 
+     * They have the following advantages (same order as above):
+     * - 1. None
+     * - 2. Unconnected inputs now use the default value (and dont require a connection anymore)
+     * - 3. Point 2 and strings can now be parsed to a value
+     * - 4. Point 2 and there is a list of possible values available to choose from
+     * 
+     * Point 3 and 4 allow a box to be shown in Gui to either
+     * - Show an input field to type a value
+     * - Show a drop down for a value to choose from
+     * 
+     * For any non primitive data type, #valueToString(A) should also be overridden in the data type class (or #toString() in the passed generic class (A)).
+     * You can choose yourself which of these 2 options fit your data type better. But if there are too many possibilities, then the Dynamic one should be better.
+     * 
+     * This is all not required for a data type anyways. Sometimes it is definitely better NOT to implement this with very advanced types (eg. a list type).
      */
     
     public static final DataType EXEC = new DataType("exec", new float[] { 1F, 0F, 0F });
     
-    public static final DataType<Float> FLOAT = new DataType<Float>("float", new float[] { 1F, 0.5F, 0F })
+    public static final DataTypeDynamic<Float> FLOAT = (DataTypeDynamic<Float>) new DataTypeDynamic<Float>("float", new float[] { 1F, 0.5F, 0F }, 1F)
     {
-        @Override
-        public boolean acceptStrings()
-        {
-            return true;
-        }
-        
         @Override
         public boolean canParseString(String s)
         {
@@ -51,17 +67,10 @@ public class DataType<A>
         {
             return Float.valueOf(s);
         }
-    }
-    .setDefaultValue(1F).setBlackText();
+    }.setBlackText();
     
-    public static final DataType<Integer> INTEGER = new DataType<Integer>("integer", new float[] { 0.5F, 1F, 0F })
+    public static final DataTypeDynamic<Integer> INTEGER = (DataTypeDynamic<Integer>) new DataTypeDynamic<Integer>("integer", new float[] { 0.5F, 1F, 0F }, 1)
     {
-        @Override
-        public boolean acceptStrings()
-        {
-            return true;
-        }
-        
         @Override
         public boolean canParseString(String s)
         {
@@ -81,17 +90,10 @@ public class DataType<A>
         {
             return Integer.valueOf(s);
         }
-    }
-    .setDefaultValue(1).setBlackText();
+    }.setBlackText();
     
-    public static final DataType<Number> NUMBER = new DataType<Number>("number", new float[] { 1F, 1F, 0F })
+    public static final DataTypeDynamic<Number> NUMBER = (DataTypeDynamic<Number>) new DataTypeDynamic<Number>("number", new float[] { 1F, 1F, 0F }, DataType.FLOAT.getDefaultValue())
     {
-        @Override
-        public boolean acceptStrings()
-        {
-            return true;
-        }
-        
         @Override
         public boolean canParseString(String s)
         {
@@ -103,11 +105,10 @@ public class DataType<A>
         {
             return DataType.INTEGER.canParseString(s) ? DataType.INTEGER.stringToValue(s) : DataType.FLOAT.stringToValue(s); // Float can handle both integer and float values.
         }
-    }
-    .setDefaultValue(DataType.FLOAT.getDefaultValue()).setBlackText();
+    }.setBlackText();
     
-    public static final DataType<Boolean> BOOLEAN = new DataType<Boolean>("boolean", new float[] { 1F, 0F, 1F })
-    .addEnum(true).addEnum(false);
+    public static final DataTypeEnum<Boolean> BOOLEAN = new DataTypeEnum<Boolean>("boolean", new float[] { 1F, 0F, 1F })
+    .addEnum(false).addEnum(true);
     
     static
     {
@@ -140,9 +141,14 @@ public class DataType<A>
      */
     protected float[] textColor;
     
+    /**
+     * The default value for unconnected inputs
+     */
+    protected A defaultValue = null;
+    
     public DataType(String id)
     {
-        this(id, new float[] { 0.5F, 0.5F, 0.5F });
+        this(id, DataType.COLOR_DEFAULT_GREY);
     }
     
     public DataType(String id, float[] color)
@@ -228,54 +234,23 @@ public class DataType<A>
         return this.converters.get(from).<A> convert(value);
     }
     
-    /*
-     * --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+    /**
+     * Set the default value. This default value will be used for inputs without connection.
      */
-    
-    /*
-     * The following is used primarily for Guis, but also fields in general. This allows (as example):
-     * - A default value for non-connected inputs to use
-     * - A box to be shown in Gui to either
-     *   - Show an input field to type a value
-     *   - Show a drop down for a value to choose from
-     * 
-     * Dynamic: This means that the values can all be parsed from a String. Eg. Any integer value.
-     * - It requires:
-     *   - #acceptStrings() to return true (override)
-     *   - #setDefaultValue(A) to be set (chain on instantiation)
-     *   - #canParseString(String) to be implemented (override)
-     *   - #stringToValue(String) to be implemented (override)
-     * 
-     * enum: this means you have a set list of possibilities to choose from. Eg. Booleans (either "true" or "false", nothing else).
-     * - It requires:
-     *   - #addEnum(A) to be called for each possibility (chain on instantiation)
-     * 
-     * For any non primitive data type, #valueToString(A) should also be overridden either in the data type class or in the passed generic class (A).
-     * You can choose yourself which of these 2 options fit your data type better. But if there are too many possibilities, then the Dynamic one should be better.
-     * 
-     * This is all not required for a data type anyways. Sometimes it is definitely better NOT to implement this with very advanced types (eg. a list type).
-     */
-    
-    // --- Dynamic & enum start ---
+    public DataType setDefaultValue(A value)
+    {
+        this.defaultValue = value;
+        return this;
+    }
     
     /**
-     * The default value for unconnected inputs
-     */
-    protected A defaultValue = null;
-    
-    /**
-     * List of all possible values this data type can have. Used for enums and eg. booleans.
-     */
-    protected ArrayList<A> enums = null;
-    
-    /**
-     * Returns the default value. If {@link #isEnum()} is <b>true</b> then returns the first enum instead. This default value will be used for inputs without connection.
+     * Returns the default value. This default value will be used for inputs without connection.
      * 
      * @see #setDefaultValue(Object)
      */
     public A getDefaultValue()
     {
-        return this.isEnum() ? this.getDefaultEnum() : this.defaultValue;
+        return this.defaultValue;
     }
     
     /**
@@ -286,33 +261,6 @@ public class DataType<A>
     public String getDefaultValueString()
     {
         return this.valueToString(this.getDefaultValue());
-    }
-    
-    public String valueToString(A value)
-    {
-        return value.toString();
-    }
-    
-    // --- Dynamic & enum end
-    // --- Dynamic start ---
-    
-    /**
-     * If <b>true</b> inputs can be typed on the Gui. It will deliver a box the user can type in. Requires a default value to be displayed first.
-     * 
-     * @see #setDefaultValue(Object)
-     */
-    public boolean acceptStrings()
-    {
-        return false;
-    }
-    
-    /**
-     * Set the default value. If {@link #addEnum(Object)} has been used this method has no effect. This default value will be used for inputs without connection.
-     */
-    public DataType setDefaultValue(A value)
-    {
-        this.defaultValue = value;
-        return this;
     }
     
     /**
@@ -326,83 +274,10 @@ public class DataType<A>
         return this.getDefaultValue() != null;
     }
     
-    public boolean canParseString(String s)
+    public String valueToString(A value)
     {
-        return false;
+        return value.toString();
     }
-    
-    public A stringToValue(String s)
-    {
-        return null;
-    }
-    
-    // --- Dynamic end ---
-    // --- enum start ---
-    
-    /**
-     * Adds a possible value to this data type. Once a single enum has been set, this data type is effectively an enum and should only be represented by values added by this method. On a Gui, this will show a dropdown of possibilities for the user to choose from, instead of a string input.
-     */
-    public DataType addEnum(A value)
-    {
-        if (this.enums == null)
-        {
-            this.enums = new ArrayList<A>();
-        }
-        
-        this.enums.add(value);
-        return this;
-    }
-    
-    /**
-     * Returns <b>true</b> if {@link #addEnum(Object)} has been used.
-     */
-    public boolean isEnum()
-    {
-        return this.enums != null;
-    }
-    
-    /**
-     * Gets the (enum) value at the given index.
-     */
-    public A getEnum(int idx)
-    {
-        return this.enums.get(idx);
-    }
-    
-    /**
-     * {@link #getEnum(int)} at idx 0
-     */
-    public A getDefaultEnum()
-    {
-        return this.getEnum(0);
-    }
-    
-    /**
-     * Get the idx for the given value
-     */
-    public int getEnumIdx(A value)
-    {
-        for (int i = 0; i < this.enums.size(); ++i)
-        {
-            if (this.enums.get(i) == value)
-            {
-                return i;
-            }
-        }
-        
-        return -1;
-    }
-    
-    public int getEnumSize()
-    {
-        return this.enums.size();
-    }
-    
-    // --- enum end ---
-    
-    /*
-     * --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-     */
     
     /**
      * Get the color of this data type, for connections and node field dots.
