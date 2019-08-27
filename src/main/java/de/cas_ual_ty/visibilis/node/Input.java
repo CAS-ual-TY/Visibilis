@@ -62,7 +62,7 @@ public class Input<A> extends NodeField<A>
     @Override
     public A getValue()
     {
-        return this.hasConnections() ? (A) this.connection.getValue() : (this.value != null ? this.value : (this.dataType.hasDefaultValue() ? ((A) this.dataType.getDefaultValue()) : null));
+        return this.hasConnections() ? (A) this.connection.getValue() : this.getSetValue();
     }
     
     @Override
@@ -103,6 +103,27 @@ public class Input<A> extends NodeField<A>
         {
             this.connection = null;
         }
+    }
+    
+    /**
+     * The first one that is true (top to bottom):</br>
+     * If this input has a default value -> this input's default value.</br>
+     * If this input's data type has a default value -> this input's data type's default value.
+     * 
+     * @return The value this node field is currently representing, ignoring connections.
+     * @see #getValue()
+     */
+    public A getSetValue()
+    {
+        return this.value != null ? this.value : (this.dataType.hasDefaultValue() ? ((A) this.dataType.getDefaultValue()) : null);
+    }
+    
+    /**
+     * @return <b>true</b> if this input is representing a fixed, immediate value (and is unconnected).
+     */
+    public boolean hasDisplayValue()
+    {
+        return !this.hasConnections() && this.getSetValue() != null;
     }
     
     /**
