@@ -108,6 +108,99 @@ public class GuiPrint extends GuiScreen
     }
     
     /**
+     * Returns the object the mouse is hovering over, can be a node or a node field
+     */
+    public Object getObjectHovering(int mouseX, int mouseY, int x, int y, int w, int h)
+    {
+        if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
+        {
+            // Inner
+            return this.getObjectHoveringInner(mouseX, mouseY);
+        }
+        else
+        {
+            // Outer
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Returns the object the mouse is hovering over that is inside the inner part
+     */
+    protected Object getObjectHoveringInner(int mouseX, int mouseY)
+    {
+        Node node;
+        float x, y, w, h;
+        
+        // Loop from back to front, as those are on top
+        for (int i = this.getPrint().nodes.size() - 1; i >= 0; --i)
+        {
+            node = this.getPrint().nodes.get(i);
+            
+            // Entire node position and size, zoom and shift accounted for
+            x = this.getNodePosX2(node);
+            y = this.getNodePosY2(node);
+            w = this.guiToPrint(this.util.nodeWidth);
+            h = this.guiToPrint(this.util.getNodeTotalHeight(node));
+            
+            // Check if the mouse is on top of the entire node
+            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
+            {
+                if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, this.guiToPrint(this.util.nodeHeight)))
+                {
+                    // Inside header -> return node itself
+                    
+                    return node;
+                }
+                else
+                {
+                    // Not inside header -> node fields
+                    
+                    int j;
+                    
+                    if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, this.guiToPrint(this.util.fieldWidth), h))
+                    {
+                        // Left side -> inputs
+                        
+                        for (j = 1; j <= node.getInputAmt(); ++j)
+                        {
+                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getPrint().posY + node.posY + this.util.nodeHeight * j), w, this.guiToPrint(this.util.nodeHeight)))
+                            {
+                                // inside this node field -> return it
+                                return node.getInput(j - 1);
+                            }
+                        }
+                        
+                        // No node field found, which means there are more outputs than inputs -> mouse
+                        // is below inputs, so return the node itself
+                        return node;
+                    }
+                    else
+                    {
+                        // Right side -> outputs
+                        
+                        for (j = 1; j <= node.getOutputAmt(); ++j)
+                        {
+                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getPrint().posY + node.posY + this.util.nodeHeight * j), w, this.guiToPrint(this.util.nodeHeight)))
+                            {
+                                // inside this node field -> return it
+                                return node.getOutput(j - 1);
+                            }
+                        }
+                        
+                        // No node field found, which means there are more inputs than outputs -> mouse
+                        // is below outputs, so return the node itself
+                        return node;
+                    }
+                }
+            }
+        }
+        
+        return null;
+    }
+    
+    /**
      * Update the node or node field hovering over or previously clicked on
      */
     public void updateHoveringAndClicked(int mouseX, int mouseY)
@@ -207,7 +300,7 @@ public class GuiPrint extends GuiScreen
                 {
                     NodeField field = (NodeField) obj;
                     
-                    if (this.canClickOnField(field))
+                    if (this.getShouldRenderFieldHover(field))
                     {
                         this.clicked = true;
                         this.mouseClickedField = field;
@@ -359,13 +452,18 @@ public class GuiPrint extends GuiScreen
             }
             if (this.mouseHoveringField != null && node == this.mouseHoveringField.node)
             {
-                if (this.canClickOnField(this.mouseHoveringField))
+                if (this.getShouldRenderFieldHover(this.mouseHoveringField))
                 {
                     // Node field hover rect
                     this.util.drawNodeFieldHover(this.mouseHoveringField, x, y);
                 }
             }
         }
+    }
+    
+    public boolean getShouldRenderFieldHover(NodeField field)
+    {
+        return !this.clicked ? (field.isOutput() || (field.dataType instanceof DataTypeDynamic) || (field.dataType instanceof DataTypeEnum)) : (this.mouseClickedField instanceof Output && NodeField.canConnect(this.mouseClickedField, field));
     }
     
     public void drawInputValue(Input in, int x, int y)
@@ -381,104 +479,6 @@ public class GuiPrint extends GuiScreen
     public void drawEnumInput(Input in, int x, int y)
     {
         
-    }
-    
-    /**
-     * Returns the object the mouse is hovering over, can be a node or a node field
-     */
-    public Object getObjectHovering(int mouseX, int mouseY, int x, int y, int w, int h)
-    {
-        if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
-        {
-            // Inner
-            return this.getObjectHoveringInner(mouseX, mouseY);
-        }
-        else
-        {
-            // Outer
-        }
-        
-        return null;
-    }
-    
-    /**
-     * Returns the object the mouse is hovering over that is inside the inner part
-     */
-    protected Object getObjectHoveringInner(int mouseX, int mouseY)
-    {
-        Node node;
-        float x, y, w, h;
-        
-        // Loop from back to front, as those are on top
-        for (int i = this.getPrint().nodes.size() - 1; i >= 0; --i)
-        {
-            node = this.getPrint().nodes.get(i);
-            
-            // Entire node position and size, zoom and shift accounted for
-            x = this.getNodePosX2(node);
-            y = this.getNodePosY2(node);
-            w = this.guiToPrint(this.util.nodeWidth);
-            h = this.guiToPrint(this.util.getNodeTotalHeight(node));
-            
-            // Check if the mouse is on top of the entire node
-            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
-            {
-                if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, this.guiToPrint(this.util.nodeHeight)))
-                {
-                    // Inside header -> return node itself
-                    
-                    return node;
-                }
-                else
-                {
-                    // Not inside header -> node fields
-                    
-                    int j;
-                    
-                    if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, this.guiToPrint(this.util.fieldWidth), h))
-                    {
-                        // Left side -> inputs
-                        
-                        for (j = 1; j <= node.getInputAmt(); ++j)
-                        {
-                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getPrint().posY + node.posY + this.util.nodeHeight * j), w, this.guiToPrint(this.util.nodeHeight)))
-                            {
-                                // inside this node field -> return it
-                                return node.getInput(j - 1);
-                            }
-                        }
-                        
-                        // No node field found, which means there are more outputs than inputs -> mouse
-                        // is below inputs, so return the node itself
-                        return node;
-                    }
-                    else
-                    {
-                        // Right side -> outputs
-                        
-                        for (j = 1; j <= node.getOutputAmt(); ++j)
-                        {
-                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getPrint().posY + node.posY + this.util.nodeHeight * j), w, this.guiToPrint(this.util.nodeHeight)))
-                            {
-                                // inside this node field -> return it
-                                return node.getOutput(j - 1);
-                            }
-                        }
-                        
-                        // No node field found, which means there are more inputs than outputs -> mouse
-                        // is below outputs, so return the node itself
-                        return node;
-                    }
-                }
-            }
-        }
-        
-        return null;
-    }
-    
-    public boolean canClickOnField(NodeField field)
-    {
-        return !this.clicked ? (field.isOutput() || (field.dataType instanceof DataTypeDynamic) || (field.dataType instanceof DataTypeEnum)) : (this.mouseClickedField instanceof Output && NodeField.canConnect(this.mouseClickedField, field));
     }
     
     public Print getPrint()
