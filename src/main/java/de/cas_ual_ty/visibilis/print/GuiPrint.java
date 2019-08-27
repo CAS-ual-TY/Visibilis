@@ -342,10 +342,10 @@ public class GuiPrint extends GuiScreen
     public void drawInner(int mouseX, int mouseY, float partialTicks)
     {
         this.drawPrint(this.getPrint());
-        this.drawInnerClickedHovering(mouseX, mouseY, partialTicks);
+        this.drawInnerHoveringAndClicked(mouseX, mouseY, partialTicks);
     }
     
-    public void drawInnerClickedHovering(int mouseX, int mouseY, float partialTicks)
+    public void drawInnerHoveringAndClicked(int mouseX, int mouseY, float partialTicks)
     {
         if (this.clicked)
         {
