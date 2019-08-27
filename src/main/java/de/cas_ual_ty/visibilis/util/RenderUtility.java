@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.TextFormatting;
 
 public class RenderUtility
 {
@@ -300,15 +301,7 @@ public class RenderUtility
      */
     public void drawNodeFieldHover(NodeField field, int x, int y)
     {
-        x += this.getFieldOffX(field);
-        y += this.getFieldOffY(field);
-        
-        if(field.isInput() && ((Input)field).hasDisplayValue())
-        {
-            drawHoverRect(x - this.inputValueWidth, y, this.inputValueWidth, this.nodeHeight);
-        }
-        
-        this.drawHoverRect(x, y, this.fieldWidth, this.nodeHeight);
+        this.drawHoverRect(x + this.getFieldOffX(field), y + this.getFieldOffY(field), this.fieldWidth, this.nodeHeight);
     }
     
     /**
@@ -327,17 +320,24 @@ public class RenderUtility
             
             if(in.hasDisplayValue())
             {
-                this.drawInputValue(in, x - this.inputValueWidth, y + this.getFieldOffY(in), true);
+                this.drawInputValue(in, x, y + this.getFieldOffY(in), true);
             }
         }
     }
     public void drawInputValue(Input input, int x, int y, boolean overrideDot)
     {
+        int width = this.inputValueWidth;
+        
         if(overrideDot)
         {
-            RenderUtility.drawRect(x + this.getDotOffX(input) + this.inputValueWidth, y + this.getDotOffY(input), this.nodeFieldDotSize, this.nodeFieldDotSize, this.unneededDot[0], this.unneededDot[1], this.unneededDot[2]);
+            width = this.fieldWidth;
         }
-        this.drawRectWithText(x, y, this.inputValueWidth, this.nodeHeight, 1, input.dataType.getColor(), 2, input.dataType.valueToString(input.getSetValue()), input.dataType.getTextColor());
+        else
+        {
+            x += this.fieldWidth - width;
+        }
+        
+        this.drawRectWithText(x, y, width, this.nodeHeight, 1, input.dataType.getColor(), 2, TextFormatting.UNDERLINE + input.dataType.valueToString(input.getSetValue()), input.dataType.getTextColor());
     }
     
     public void drawRectWithText(int x, int y, int w, int h, int marginRect, float[] colorRect, int marginText, String text, float[] colorText)
