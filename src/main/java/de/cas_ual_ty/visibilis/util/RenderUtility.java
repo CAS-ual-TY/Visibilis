@@ -320,7 +320,9 @@ public class RenderUtility
     public void drawInputValue(Input input, int x, int y, boolean overrideDot)
     {
         if(overrideDot)
+        {
             RenderUtility.drawRect(x + this.getDotOffX(input) + this.inputValueWidth, y + this.getDotOffY(input), this.nodeFieldDotSize, this.nodeFieldDotSize, this.unneededDot[0], this.unneededDot[1], this.unneededDot[2]);
+        }
         this.drawRectWithText(x, y, this.inputValueWidth, this.nodeHeight, 1, input.dataType.getColor(), 2, input.dataType.valueToString(input.getSetValue()), input.dataType.getTextColor());
     }
     
@@ -690,6 +692,11 @@ public class RenderUtility
             
             this.x = l;
             this.y = t;
+        }
+        
+        public boolean isCoordInside(float x, float y)
+        {
+            return RenderUtility.isCoordInsideRect(x, y, this.x, this.y, this.w, this.h);
         }
         
         public static Rectangle fromXYWH(int x, int y, int w, int h)
