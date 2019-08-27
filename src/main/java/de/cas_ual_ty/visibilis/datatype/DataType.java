@@ -107,8 +107,7 @@ public class DataType<A>
         }
     }.setBlackText();
     
-    public static final DataTypeEnum<Boolean> BOOLEAN = new DataTypeEnum<Boolean>("boolean", new float[] { 1F, 0F, 1F })
-    .addEnum(false).addEnum(true);
+    public static final DataTypeEnum<Boolean> BOOLEAN = new DataTypeEnum<Boolean>("boolean", new float[] { 1F, 0F, 1F }).addEnum(false).addEnum(true);
     
     static
     {

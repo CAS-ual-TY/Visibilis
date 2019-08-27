@@ -365,8 +365,8 @@ public class RenderUtility
      */
     public static void drawRectWithText(FontRenderer fontRenderer, int x, int y, int w, int h, float[] colorBackground, int marginRect, float[] colorRect, int marginText, String text, float[] colorText)
     {
-        drawRect(x, y, w, h, colorBackground[0], colorBackground[1], colorBackground[2]);
-        drawRectWithText(fontRenderer, x, y, w, h, marginRect, colorRect, marginText, text, colorText);
+        RenderUtility.drawRect(x, y, w, h, colorBackground[0], colorBackground[1], colorBackground[2]);
+        RenderUtility.drawRectWithText(fontRenderer, x, y, w, h, marginRect, colorRect, marginText, text, colorText);
     }
     
     /**

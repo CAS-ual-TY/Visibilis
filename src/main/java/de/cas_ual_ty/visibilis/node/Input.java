@@ -55,6 +55,7 @@ public class Input<A> extends NodeField<A>
      * If this input is connected -> value of connected output.</br>
      * If this input has a default value -> this input's default value.</br>
      * If this input's data type has a default value -> this input's data type's default value.
+     * 
      * @return The value this node field is currently representing.
      * @see NodeField#getValue()
      */

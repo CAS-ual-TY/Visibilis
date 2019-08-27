@@ -212,7 +212,7 @@ public class GuiPrint extends GuiScreen
                 {
                     NodeField field = (NodeField) obj;
                     
-                    if(this.canClickOnField(field))
+                    if (this.canClickOnField(field))
                     {
                         this.clicked = true;
                         this.mouseClickedField = field;
@@ -230,7 +230,7 @@ public class GuiPrint extends GuiScreen
                 {
                     NodeField field = (NodeField) obj;
                     
-                    if(this.mouseClickedField.isOutput() && field.isInput())
+                    if (this.mouseClickedField.isOutput() && field.isInput())
                     {
                         NodeField.tryConnect((Output) this.mouseClickedField, (Input) field, true);
                     }
@@ -263,9 +263,9 @@ public class GuiPrint extends GuiScreen
             }
             if (this.mouseClickedField != null)
             {
-                if(this.mouseClickedField.isOutput())
+                if (this.mouseClickedField.isOutput())
                 {
-                    //Output
+                    // Output
                     
                     // Where to draw the 1st dot at
                     int dotX = this.getDotPosX(this.mouseClickedField);
@@ -281,16 +281,18 @@ public class GuiPrint extends GuiScreen
                 }
                 else
                 {
-                    //Input
+                    // Input
                 }
             }
         }
-       /* else
-        {
-            // Nothing has been clicked on, render normal hovering rects
-            
-            // Moved to #drawNode
-        }*/
+        /*
+         * else
+         * {
+         * // Nothing has been clicked on, render normal hovering rects
+         * 
+         * // Moved to #drawNode
+         * }
+         */
         
         // --- Hovering/clicked end ---
     }
@@ -335,7 +337,7 @@ public class GuiPrint extends GuiScreen
             }
             if (this.mouseHoveringField != null && node == this.mouseHoveringField.node)
             {
-                if(this.canClickOnField(this.mouseHoveringField))
+                if (this.canClickOnField(this.mouseHoveringField))
                 {
                     // Node field hover rect
                     this.util.drawNodeFieldHover(this.mouseHoveringField, x, y);
@@ -439,7 +441,7 @@ public class GuiPrint extends GuiScreen
     
     public boolean canClickOnField(NodeField field)
     {
-        return !this.clicked ? (field.isOutput() || (field.dataType instanceof DataTypeDynamic) || (field.dataType instanceof DataTypeEnum)) : (this.mouseClickedField instanceof Output && NodeField.canConnect(mouseClickedField, field));
+        return !this.clicked ? (field.isOutput() || (field.dataType instanceof DataTypeDynamic) || (field.dataType instanceof DataTypeEnum)) : (this.mouseClickedField instanceof Output && NodeField.canConnect(this.mouseClickedField, field));
     }
     
     public Print getPrint()
