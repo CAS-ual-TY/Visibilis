@@ -144,7 +144,7 @@ public class DataType<A>
     /**
      * The default value for unconnected inputs
      */
-    protected A defaultValue = null;
+    protected A defaultValue;
     
     public DataType(String id)
     {
@@ -157,6 +157,7 @@ public class DataType<A>
         this.converters = new HashMap<DataType, Converter>();
         this.color = color;
         this.textColor = DataType.COLOR_TEXT_WHITE;
+        this.defaultValue = null;
         
         if (DataType.DATA_TYPES_LIST.containsKey(id))
         {
