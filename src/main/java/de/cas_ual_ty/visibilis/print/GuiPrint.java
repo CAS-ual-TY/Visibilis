@@ -257,7 +257,7 @@ public class GuiPrint extends GuiScreen
                 
                 if (this.mouseHoveringField != null && NodeField.canConnect(this.mouseClickedField, this.mouseHoveringField))
                 {
-                    this.drawHoverRect(this.getNodePosX(this.mouseHoveringField.node) + (this.mouseHoveringField.isInput() ? 0 : this.util.nodeWidth / 2), this.getNodePosY(this.mouseHoveringField.node) + this.util.nodeHeight * (this.mouseHoveringField.id + 1), this.util.nodeWidth / 2, this.util.nodeHeight);
+                    this.drawHoverRect(this.mouseHoveringField.node.posX + (this.mouseHoveringField.isInput() ? 0 : this.util.nodeWidth / 2), this.mouseHoveringField.node.posY + this.util.nodeHeight * (this.mouseHoveringField.id + 1), this.util.nodeWidth / 2, this.util.nodeHeight);
                 }
                 
                 // Node field was clicked on -> Render line from Dot -> Mouse
@@ -287,15 +287,15 @@ public class GuiPrint extends GuiScreen
         // Loop through all nodes. Nodes at the end of the list will be drawn on top.
         for (Node node : print.getNodes())
         {
-            x = this.getNodePosX(node);
-            y = this.getNodePosY(node);
+            x = node.posX;
+            y = node.posY;
             this.drawNode(node, x, y);
         }
         
         for (Node node : print.getNodes())
         {
-            x = this.getNodePosX(node);
-            y = this.getNodePosY(node);
+            x = node.posX;
+            y = node.posY;
             this.util.drawNodeConnections(node, x, y);
         }
     }
@@ -380,7 +380,7 @@ public class GuiPrint extends GuiScreen
                         
                         for (j = 1; j <= node.getInputAmt(); ++j)
                         {
-                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getPrint().posY + this.getNodePosY(node) + this.util.nodeHeight * j), w, this.guiToPrint(this.util.nodeHeight)))
+                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getPrint().posY + node.posY + this.util.nodeHeight * j), w, this.guiToPrint(this.util.nodeHeight)))
                             {
                                 // inside this node field -> return it
                                 return node.getInput(j - 1);
@@ -397,7 +397,7 @@ public class GuiPrint extends GuiScreen
                         
                         for (j = 1; j <= node.getOutputAmt(); ++j)
                         {
-                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getPrint().posY + this.getNodePosY(node) + this.util.nodeHeight * j), w, this.guiToPrint(this.util.nodeHeight)))
+                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getPrint().posY + node.posY + this.util.nodeHeight * j), w, this.guiToPrint(this.util.nodeHeight)))
                             {
                                 // inside this node field -> return it
                                 return node.getOutput(j - 1);
@@ -455,22 +455,6 @@ public class GuiPrint extends GuiScreen
     }
     
     /**
-     * Print posX + Node posX
-     */
-    public int getNodePosX(Node n)
-    {
-        return /* this.getPrint().posX + */n.posX;
-    }
-    
-    /**
-     * Print posY + Node posY
-     */
-    public int getNodePosY(Node n)
-    {
-        return /* .getPrint().posY + */n.posY;
-    }
-    
-    /**
      * (Print posX + Node posX) * zoom
      */
     public float getNodePosX2(Node n)
@@ -491,7 +475,7 @@ public class GuiPrint extends GuiScreen
      */
     public int getDotPosX(NodeField field)
     {
-        return this.getNodePosX(field.node) + this.util.getFieldOffX(field) + this.util.getDotOffX(field);
+        return field.node.posX + this.util.getFieldOffX(field) + this.util.getDotOffX(field);
     }
     
     /**
@@ -499,7 +483,7 @@ public class GuiPrint extends GuiScreen
      */
     public int getDotPosY(NodeField field)
     {
-        return this.getNodePosY(field.node) + this.util.getFieldOffY(field) + this.util.getDotOffY(field);
+        return field.node.posY + this.util.getFieldOffY(field) + this.util.getDotOffY(field);
     }
     
     /**
