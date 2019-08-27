@@ -311,12 +311,18 @@ public class RenderUtility
         RenderUtility.drawRect(x, y, w, h, this.hoverColor[0], this.hoverColor[1], this.hoverColor[2], this.hoverAlpha);
     }
     
-    /**
-     * 
-     * @param input
-     * @param x
-     * @param y
-     */
+    public void drawNodeInputValues(Node node, int x, int y)
+    {
+        for(int i = 0; i < node.getInputAmt(); ++i)
+        {
+            Input in = (Input) node.getInput(i);
+            
+            if(in.hasDisplayValue())
+            {
+                this.drawInputValue(in, x - this.inputValueWidth, y + this.getFieldOffY(in), true);
+            }
+        }
+    }
     public void drawInputValue(Input input, int x, int y, boolean overrideDot)
     {
         if(overrideDot)
