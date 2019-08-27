@@ -328,6 +328,21 @@ public class GuiPrint extends GuiScreen
     {
         this.util.drawNode(node, x, y);
         
+        for(int i = 0; i < node.getInputAmt(); ++i)
+        {
+            Input in = (Input) node.getInput(i);
+            
+            if(in.hasDisplayValue())
+            {
+                this.util.drawInputValue(in, x - this.util.inputValueWidth, y + this.util.getFieldOffY(in), true);
+            }
+        }
+        
+        if(this.mouseClickedField != null && this.mouseClickedField.node == node && this.mouseClickedField.isInput())
+        {
+            // TODO Choices for enum values or dynamic text box
+        }
+        
         if (!this.clicked)
         {
             if (node == this.mouseHoveringNode)
