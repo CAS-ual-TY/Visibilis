@@ -131,8 +131,8 @@ public class GuiPrint extends GuiScreen
     protected Object getHoveringInner(int mouseX, int mouseY)
     {
         Node node;
-        float x, y, w, h; //Rect of node
-        float h2; //Header height
+        float x, y, w, h; // Rect of node
+        float h2; // Header height
         
         // Loop from back to front, as those are on top
         for (int i = this.getPrint().nodes.size() - 1; i >= 0; --i)
@@ -191,9 +191,9 @@ public class GuiPrint extends GuiScreen
                 // No node field found. Now check if it is inside the rect excluding values
                 // Which basically means that it is next to one of the fields, depending on if there are more outputs or inputs
                 
-                if(RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
+                if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
                 {
-//                    return node; // Only return node when hovering above header
+                    // return node; // Only return node when hovering above header
                 }
             }
         }
@@ -289,15 +289,15 @@ public class GuiPrint extends GuiScreen
         {
             Object obj = this.getHovering(mouseX, mouseY);
             
-            if(this.inner.isCoordInside(mouseX, mouseY))
+            if (this.inner.isCoordInside(mouseX, mouseY))
             {
                 if (!this.clicked)
                 {
-                    //Inner: nothing on mouse
+                    // Inner: nothing on mouse
                     
                     if (obj instanceof Node)
                     {
-                        //Attach node to mouse
+                        // Attach node to mouse
                         this.clicked = true;
                         this.mouseClickedNode = (Node) obj;
                     }
@@ -307,7 +307,7 @@ public class GuiPrint extends GuiScreen
                         
                         if (this.getCanClickField(field))
                         {
-                            //Attach field to mouse
+                            // Attach field to mouse
                             this.clicked = true;
                             this.mouseClickedField = field;
                         }
@@ -315,23 +315,23 @@ public class GuiPrint extends GuiScreen
                 }
                 else
                 {
-                    //Inner: something on mouse
+                    // Inner: something on mouse
                     
                     if (this.mouseClickedNode != null)
                     {
-                        //Inner: node on mouse
+                        // Inner: node on mouse
                         
-                        //Set new node position
+                        // Set new node position
                         this.mouseClickedNode.posX = this.mouseXToPrint(mouseX);
                         this.mouseClickedNode.posY = this.mouseYToPrint(mouseY);
                     }
                     if (this.mouseClickedField != null)
                     {
-                        //Inner: field on mouse
+                        // Inner: field on mouse
                         
-                        if(obj instanceof NodeField)
+                        if (obj instanceof NodeField)
                         {
-                            //Inner: field & field interaction
+                            // Inner: field & field interaction
                             
                             NodeField field = (NodeField) obj;
                             

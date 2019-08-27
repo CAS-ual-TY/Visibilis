@@ -314,21 +314,22 @@ public class RenderUtility
     
     public void drawNodeInputValues(Node node, int x, int y)
     {
-        for(int i = 0; i < node.getInputAmt(); ++i)
+        for (int i = 0; i < node.getInputAmt(); ++i)
         {
             Input in = (Input) node.getInput(i);
             
-            if(in.hasDisplayValue())
+            if (in.hasDisplayValue())
             {
                 this.drawInputValue(in, x, y + this.getFieldOffY(in), true);
             }
         }
     }
+    
     public void drawInputValue(Input input, int x, int y, boolean overrideDot)
     {
         int width = this.inputValueWidth;
         
-        if(overrideDot)
+        if (overrideDot)
         {
             width = this.fieldWidth;
         }
