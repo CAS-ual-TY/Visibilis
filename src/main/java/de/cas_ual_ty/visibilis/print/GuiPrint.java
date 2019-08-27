@@ -110,9 +110,9 @@ public class GuiPrint extends GuiScreen
     /**
      * Returns the object the mouse is hovering over, can be a node or a node field
      */
-    public Object getObjectHovering(int mouseX, int mouseY, int x, int y, int w, int h)
+    public Object getObjectHovering(int mouseX, int mouseY)
     {
-        if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
+        if (this.inner.isCoordInside(mouseX, mouseY))
         {
             // Inner
             return this.getObjectHoveringInner(mouseX, mouseY);
@@ -205,7 +205,7 @@ public class GuiPrint extends GuiScreen
      */
     public void updateHoveringAndClicked(int mouseX, int mouseY)
     {
-        Object obj = this.getObjectHovering(mouseX, mouseY, 0, 0, this.width, this.height);
+        Object obj = this.getObjectHovering(mouseX, mouseY);
         
         this.mouseHoveringNode = null;
         this.mouseHoveringField = null;
@@ -286,7 +286,7 @@ public class GuiPrint extends GuiScreen
     {
         if (mouseButton == 0)
         {
-            Object obj = this.getObjectHovering(mouseX, mouseY, 0, 0, this.width, this.height);
+            Object obj = this.getObjectHovering(mouseX, mouseY);
             
             // --- if inside inner ---
             if (!this.clicked)
