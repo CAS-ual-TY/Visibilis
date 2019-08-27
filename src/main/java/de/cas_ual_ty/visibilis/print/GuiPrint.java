@@ -127,11 +127,6 @@ public class GuiPrint extends GuiScreen
         }
     }
     
-    public void updateLineWidth()
-    {
-        this.util.nodeFieldConnectionsWidth = (this.util.nodeFieldDotSize / 2) * this.getPrint().zoom * this.sr.getScaleFactor();
-    }
-    
     @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException
     {
@@ -246,12 +241,19 @@ public class GuiPrint extends GuiScreen
         }
     }
     
+    public void updateLineWidth()
+    {
+        this.util.nodeFieldConnectionsWidth = (this.util.nodeFieldDotSize / 2) * this.getPrint().zoom * this.sr.getScaleFactor();
+    }
+    
     public void drawInner(int mouseX, int mouseY, float partialTicks)
     {
         this.drawPrint(this.getPrint());
-        
-        // --- Draw hovering/clicked start ---
-        
+        this.drawInnerClickedHovering(mouseX, mouseY, partialTicks);
+    }
+    
+    public void drawInnerClickedHovering(int mouseX, int mouseY, float partialTicks)
+    {
         if (this.clicked)
         {
             // Objects that the player clicked on to be outlined
@@ -293,8 +295,6 @@ public class GuiPrint extends GuiScreen
          * // Moved to #drawNode
          * }
          */
-        
-        // --- Hovering/clicked end ---
     }
     
     /**
@@ -334,13 +334,20 @@ public class GuiPrint extends GuiScreen
             
             if(in.hasDisplayValue())
             {
-                this.util.drawInputValue(in, x - this.util.inputValueWidth, y + this.util.getFieldOffY(in), true);
+                this.drawInputValue(in, x, y);
             }
         }
         
         if(this.mouseClickedField != null && this.mouseClickedField.node == node && this.mouseClickedField.isInput())
         {
-            // TODO Choices for enum values or dynamic text box
+            if(this.mouseClickedField.dataType instanceof DataTypeDynamic)
+            {
+                
+            }
+            if(this.mouseClickedField.dataType instanceof DataTypeEnum)
+            {
+                
+            }
         }
         
         if (!this.clicked)
@@ -359,6 +366,21 @@ public class GuiPrint extends GuiScreen
                 }
             }
         }
+    }
+    
+    public void drawInputValue(Input in, int x, int y)
+    {
+        this.util.drawInputValue(in, x - this.util.inputValueWidth, y + this.util.getFieldOffY(in), true);
+    }
+    
+    public void drawDynamicInput(Input in, int x, int y)
+    {
+        
+    }
+    
+    public void drawEnumInput(Input in, int x, int y)
+    {
+        
     }
     
     /**
