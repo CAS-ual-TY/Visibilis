@@ -4,8 +4,12 @@ import java.io.IOException;
 
 import org.lwjgl.input.Keyboard;
 
+import de.cas_ual_ty.visibilis.datatype.DataTypeDynamic;
+import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
+import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
+import de.cas_ual_ty.visibilis.node.Output;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
@@ -206,8 +210,13 @@ public class GuiPrint extends GuiScreen
                 }
                 else if (obj instanceof NodeField)
                 {
-                    this.clicked = true;
-                    this.mouseClickedField = (NodeField) obj;
+                    NodeField field = (NodeField) obj;
+                    
+                    if(this.canClickOnField(field))
+                    {
+                        this.clicked = true;
+                        this.mouseClickedField = field;
+                    }
                 }
             }
             else
@@ -221,7 +230,10 @@ public class GuiPrint extends GuiScreen
                 {
                     NodeField field = (NodeField) obj;
                     
-                    NodeField.tryConnect(this.mouseClickedField, field);
+                    if(this.mouseClickedField.isOutput() && field.isInput())
+                    {
+                        NodeField.tryConnect((Output) this.mouseClickedField, (Input) field, true);
+                    }
                 }
                 
                 this.clicked = false;
@@ -251,27 +263,34 @@ public class GuiPrint extends GuiScreen
             }
             if (this.mouseClickedField != null)
             {
-                // Where to draw the 1st dot at
-                int dotX = this.getDotPosX(this.mouseClickedField);
-                int dotY = this.getDotPosY(this.mouseClickedField);
-                
-                if (this.mouseHoveringField != null && NodeField.canConnect(this.mouseClickedField, this.mouseHoveringField))
+                if(this.mouseClickedField.isOutput())
                 {
-                    this.drawHoverRect(this.mouseHoveringField.node.posX + (this.mouseHoveringField.isInput() ? 0 : this.util.nodeWidth / 2), this.mouseHoveringField.node.posY + this.util.nodeHeight * (this.mouseHoveringField.id + 1), this.util.nodeWidth / 2, this.util.nodeHeight);
+                    //Output
+                    
+                    // Where to draw the 1st dot at
+                    int dotX = this.getDotPosX(this.mouseClickedField);
+                    int dotY = this.getDotPosY(this.mouseClickedField);
+                    
+                    if (this.mouseHoveringField != null && NodeField.canConnect(this.mouseClickedField, this.mouseHoveringField))
+                    {
+                        this.drawHoverRect(this.mouseHoveringField.node.posX + (this.mouseHoveringField.isInput() ? 0 : this.util.nodeWidth / 2), this.mouseHoveringField.node.posY + this.util.nodeHeight * (this.mouseHoveringField.id + 1), this.util.nodeWidth / 2, this.util.nodeHeight);
+                    }
+                    
+                    // Node field was clicked on -> Render line from Dot -> Mouse
+                    RenderUtility.drawGradientLine(dotX + this.util.nodeFieldDotSize / 2, dotY + this.util.nodeFieldDotSize / 2, this.printToGuiRounded(mouseX) - this.getPrint().posX, this.printToGuiRounded(mouseY) - this.getPrint().posY, this.util.getLineWidth(this.mouseClickedField.dataType), this.mouseClickedField.dataType.getColor()[0], this.mouseClickedField.dataType.getColor()[1], this.mouseClickedField.dataType.getColor()[2], this.util.nodeFieldConnectionsAlpha, GuiPrint.nodeFieldDef, GuiPrint.nodeFieldDef, GuiPrint.nodeFieldDef, this.util.nodeFieldConnectionsAlpha);
                 }
-                
-                // Node field was clicked on -> Render line from Dot -> Mouse
-                RenderUtility.drawGradientLine(dotX + this.util.nodeFieldDotSize / 2, dotY + this.util.nodeFieldDotSize / 2, this.printToGuiRounded(mouseX) - this.getPrint().posX, this.printToGuiRounded(mouseY) - this.getPrint().posY, this.util.getLineWidth(this.mouseClickedField.dataType), this.mouseClickedField.dataType.getColor()[0], this.mouseClickedField.dataType.getColor()[1], this.mouseClickedField.dataType.getColor()[2], this.util.nodeFieldConnectionsAlpha, GuiPrint.nodeFieldDef, GuiPrint.nodeFieldDef, GuiPrint.nodeFieldDef, this.util.nodeFieldConnectionsAlpha);
+                else
+                {
+                    //Input
+                }
             }
         }
-        else
+       /* else
         {
             // Nothing has been clicked on, render normal hovering rects
             
-            /*
-             * if (this.mouseHoveringNode != null) // Moved to #drawNode { // Node hover rect this.drawHoverRect(this.getNodePosX(this.mouseHoveringNode), this.getNodePosY(this.mouseHoveringNode), this.util.nodeWidth, this.util.nodeHeight * this.util.getVerticalAmt(this.mouseHoveringNode)); } if (this.mouseHoveringField != null) { // Node field hover rect this.drawHoverRect(this.getNodePosX(this.mouseHoveringField.node) + (this.mouseHoveringField.isInput() ? 0 : this.util.nodeWidth / 2), this.getNodePosY(this.mouseHoveringField.node) + this.util.nodeHeight * (this.mouseHoveringField.id + 1), this.util.nodeWidth / 2, this.util.nodeHeight); }
-             */
-        }
+            // Moved to #drawNode
+        }*/
         
         // --- Hovering/clicked end ---
     }
@@ -316,8 +335,11 @@ public class GuiPrint extends GuiScreen
             }
             if (this.mouseHoveringField != null && node == this.mouseHoveringField.node)
             {
-                // Node field hover rect
-                this.util.drawNodeFieldHover(this.mouseHoveringField, x, y);
+                if(this.canClickOnField(this.mouseHoveringField))
+                {
+                    // Node field hover rect
+                    this.util.drawNodeFieldHover(this.mouseHoveringField, x, y);
+                }
             }
         }
     }
@@ -413,6 +435,11 @@ public class GuiPrint extends GuiScreen
         }
         
         return null;
+    }
+    
+    public boolean canClickOnField(NodeField field)
+    {
+        return !this.clicked ? (field.isOutput() || (field.dataType instanceof DataTypeDynamic) || (field.dataType instanceof DataTypeEnum)) : (this.mouseClickedField instanceof Output && NodeField.canConnect(mouseClickedField, field));
     }
     
     public Print getPrint()
