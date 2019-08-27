@@ -131,7 +131,8 @@ public class GuiPrint extends GuiScreen
     protected Object getHoveringInner(int mouseX, int mouseY)
     {
         Node node;
-        float x, y, w, h;
+        float x, y, w, h; //Rect of node
+        float h2; //Header height
         
         // Loop from back to front, as those are on top
         for (int i = this.getPrint().nodes.size() - 1; i >= 0; --i)
@@ -143,14 +144,14 @@ public class GuiPrint extends GuiScreen
             y = this.getNodePosY2(node);
             w = this.guiToPrint(this.util.nodeWidth);
             h = this.guiToPrint(this.util.getNodeTotalHeight(node));
+            h2 = this.guiToPrint(this.util.nodeHeight);
             
             // Check if the mouse is on top of the entire node
             if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
             {
-                if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, this.guiToPrint(this.util.nodeHeight)))
+                if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h2))
                 {
                     // Inside header -> return node itself
-                    
                     return node;
                 }
                 else
@@ -165,16 +166,12 @@ public class GuiPrint extends GuiScreen
                         
                         for (j = 1; j <= node.getInputAmt(); ++j)
                         {
-                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getPrint().posY + node.posY + this.util.nodeHeight * j), w, this.guiToPrint(this.util.nodeHeight)))
+                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getPrint().posY + node.posY + this.util.nodeHeight * j), w, h2))
                             {
                                 // inside this node field -> return it
                                 return node.getInput(j - 1);
                             }
                         }
-                        
-                        // No node field found, which means there are more outputs than inputs -> mouse
-                        // is below inputs, so return the node itself
-                        return node;
                     }
                     else
                     {
@@ -182,17 +179,21 @@ public class GuiPrint extends GuiScreen
                         
                         for (j = 1; j <= node.getOutputAmt(); ++j)
                         {
-                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getPrint().posY + node.posY + this.util.nodeHeight * j), w, this.guiToPrint(this.util.nodeHeight)))
+                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, this.guiToPrint(this.getPrint().posY + node.posY + this.util.nodeHeight * j), w, h2))
                             {
                                 // inside this node field -> return it
                                 return node.getOutput(j - 1);
                             }
                         }
-                        
-                        // No node field found, which means there are more inputs than outputs -> mouse
-                        // is below outputs, so return the node itself
-                        return node;
                     }
+                }
+                
+                // No node field found. Now check if it is inside the rect excluding values
+                // Which basically means that it is next to one of the fields, depending on if there are more outputs or inputs
+                
+                if(RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
+                {
+//                    return node; // Only return node when hovering above header
                 }
             }
         }
