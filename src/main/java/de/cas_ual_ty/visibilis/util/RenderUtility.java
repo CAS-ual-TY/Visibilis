@@ -300,7 +300,15 @@ public class RenderUtility
      */
     public void drawNodeFieldHover(NodeField field, int x, int y)
     {
-        this.drawHoverRect(x + this.getFieldOffX(field), y + this.getFieldOffY(field), this.fieldWidth, this.nodeHeight);
+        x += this.getFieldOffX(field);
+        y += this.getFieldOffY(field);
+        
+        if(field.isInput() && ((Input)field).hasDisplayValue())
+        {
+            drawHoverRect(x - this.inputValueWidth, y, this.inputValueWidth, this.nodeHeight);
+        }
+        
+        this.drawHoverRect(x, y, this.fieldWidth, this.nodeHeight);
     }
     
     /**
