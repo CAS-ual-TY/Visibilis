@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.lwjgl.opengl.GL11;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
+import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
 import de.cas_ual_ty.visibilis.print.Print;
@@ -57,6 +58,12 @@ public class RenderUtility
     /** Background color of nodes */
     public float[] nodeBackground;
     
+    /** Width of the box in front of inputs with fixed values */
+    public int inputValueWidth;
+    
+    /** Color of a dot if it is unconnected but also has a fixed value */
+    public float[] unneededDot;
+    
     public RenderUtility()
     {
         this.fontRenderer = Minecraft.getMinecraft().fontRenderer;
@@ -69,6 +76,7 @@ public class RenderUtility
         this.hoverAlpha = 0.5F;
         this.nodeBackground = new float[] { 0.125F, 0.125F, 0.125F };
         this.dotOffset = 0;
+        this.unneededDot = new float[] { 0.5F, 0.5F, 0.5F };
         
         this.genVars();
     }
@@ -79,6 +87,7 @@ public class RenderUtility
         this.fieldWidth = this.nodeWidth / 2;
         this.nodeFieldConnectionsWidth = this.nodeFieldDotSize * 2;
         this.nodeTextMargin = (this.nodeHeight - (this.fontRenderer.FONT_HEIGHT)) / 2 + this.fontRenderer.FONT_HEIGHT % 2;
+        this.inputValueWidth = this.fieldWidth - this.nodeHeight;
         
         return this;
     }
@@ -300,6 +309,24 @@ public class RenderUtility
     public void drawHoverRect(int x, int y, int w, int h)
     {
         RenderUtility.drawRect(x, y, w, h, this.hoverColor[0], this.hoverColor[1], this.hoverColor[2], this.hoverAlpha);
+    }
+    
+    /**
+     * 
+     * @param input
+     * @param x
+     * @param y
+     */
+    public void drawInputValue(Input input, int x, int y, boolean overrideDot)
+    {
+        if(overrideDot)
+            RenderUtility.drawRect(x + this.getDotOffX(input) + this.inputValueWidth, y + this.getDotOffY(input), this.nodeFieldDotSize, this.nodeFieldDotSize, this.unneededDot[0], this.unneededDot[1], this.unneededDot[2]);
+        this.drawRectWithText(x, y, this.inputValueWidth, this.nodeHeight, 1, input.dataType.getColor(), 2, input.dataType.valueToString(input.getSetValue()), input.dataType.getTextColor());
+    }
+    
+    public void drawRectWithText(int x, int y, int w, int h, int marginRect, float[] colorRect, int marginText, String text, float[] colorText)
+    {
+        RenderUtility.drawRectWithText(this.fontRenderer, x, y, w, h, this.nodeBackground, marginRect, colorRect, marginText, text, colorText);
     }
     
     /**
