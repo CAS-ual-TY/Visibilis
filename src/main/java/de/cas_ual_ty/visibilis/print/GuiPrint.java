@@ -93,7 +93,7 @@ public class GuiPrint extends GuiScreen
     {
         GlStateManager.disableLighting();
         
-        this.updateHoveringAndClicked(mouseX, mouseY); // Check for all hovering objects already, so it is done only once
+        this.updateHovering(mouseX, mouseY); // Check for all hovering objects already, so it is done only once
         
         RenderUtility.scissorStart(this.sr, this.inner.x, this.inner.y, this.inner.w, this.inner.h);
         RenderUtility.applyZoom(this.getPrint().zoom); // Inside of the matrix since you would otherwise "touch" everything outside of the matrix
@@ -201,9 +201,9 @@ public class GuiPrint extends GuiScreen
     }
     
     /**
-     * Update the node or node field hovering over or previously clicked on
+     * Update the node or node field hovering over
      */
-    public void updateHoveringAndClicked(int mouseX, int mouseY)
+    public void updateHovering(int mouseX, int mouseY)
     {
         Object obj = this.getHovering(mouseX, mouseY);
         
