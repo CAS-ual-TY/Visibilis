@@ -9,7 +9,10 @@ import de.cas_ual_ty.visibilis.datatype.DataType;
 public abstract class NodeField<A>
 {
     /*
-     * Clarifications: "Node": The node of this node field "Parent": The parent node of the node of this field
+     * Clarifications:
+     * 
+     * "Node": The node of this node field
+     * "Parent": The parent node of the node of this field
      */
     
     /**
