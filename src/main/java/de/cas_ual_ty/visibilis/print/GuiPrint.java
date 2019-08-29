@@ -324,8 +324,8 @@ public class GuiPrint extends GuiScreen
                         // Inner: node on mouse
                         
                         // Set new node position
-                        this.mouseClickedNode.posX = this.mouseXToPrint(mouseX);
-                        this.mouseClickedNode.posY = this.mouseYToPrint(mouseY);
+                        this.mouseClickedNode.posX = this.mouseXToPrintRounded(mouseX);
+                        this.mouseClickedNode.posY = this.mouseYToPrintRounded(mouseY);
                     }
                     if (this.mouseClickedField != null)
                     {
@@ -573,19 +573,37 @@ public class GuiPrint extends GuiScreen
     }
     
     /**
+     * Remove zoom factor
+     */
+    public float printToGui(int i)
+    {
+        return ((float)i) / this.getPrint().zoom;
+    }
+    
+    /**
      * Remove zoom factor and round
      */
     public int printToGuiRounded(int i)
     {
-        return Math.round(i / this.getPrint().zoom);
+        return Math.round(this.printToGui(i));
     }
     
-    public int mouseXToPrint(int mouseX)
+    public float mouseXToPrint(int mouseX)
+    {
+        return this.printToGui(mouseX) - this.getPrint().posX;
+    }
+    
+    public float mouseYToPrint(int mouseY)
+    {
+        return this.printToGui(mouseY) - this.getPrint().posY;
+    }
+    
+    public int mouseXToPrintRounded(int mouseX)
     {
         return this.printToGuiRounded(mouseX) - this.getPrint().posX;
     }
     
-    public int mouseYToPrint(int mouseY)
+    public int mouseYToPrintRounded(int mouseY)
     {
         return this.printToGuiRounded(mouseY) - this.getPrint().posY;
     }
