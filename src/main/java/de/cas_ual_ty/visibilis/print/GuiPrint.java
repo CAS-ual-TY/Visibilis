@@ -93,6 +93,8 @@ public class GuiPrint extends GuiScreen
     {
         GlStateManager.disableLighting();
         
+        RenderUtility.drawRect(0, 0, this.sr.getScaledWidth(), this.sr.getScaledHeight(), 0, 0, 0);
+        
         this.updateHovering(mouseX, mouseY); // Check for all hovering objects already, so it is done only once
         
         RenderUtility.scissorStart(this.sr, this.inner.x, this.inner.y, this.inner.w, this.inner.h);
@@ -329,15 +331,55 @@ public class GuiPrint extends GuiScreen
                     {
                         // Inner: field on mouse
                         
-                        if (obj instanceof NodeField)
+                        if(this.mouseClickedField instanceof Input)
                         {
-                            // Inner: field & field interaction
+                            // input on mouse
                             
-                            NodeField field = (NodeField) obj;
+                            Input input = (Input) this.mouseClickedField;
                             
-                            if (this.mouseClickedField.isOutput() && field.isInput())
+                            if(input.hasDisplayValue())
                             {
-                                NodeField.tryConnect((Output) this.mouseClickedField, (Input) field, true);
+                                if(input.dataType instanceof DataTypeEnum)
+                                {
+                                    DataTypeEnum dt = (DataTypeEnum) this.mouseClickedField.dataType;
+                                    
+                                    int x, y, w, h;
+                                    
+                                    w = this.util.inputValueWidth;
+                                    h = this.util.nodeHeight;
+                                    
+                                    x = this.mouseClickedField.node.posX - w;
+                                    y = this.mouseClickedField.node.posY + this.util.getFieldOffY(mouseClickedField);
+                                    
+                                    String s;
+                                    
+                                    for(int i = 0; i < dt.getEnumSize(); ++i)
+                                    {
+                                        y -= i * h;
+                                        
+                                        if(RenderUtility.isCoordInsideRect(this.mouseXToPrint(mouseX), this.mouseYToPrint(mouseY), x, y, w, h))
+                                        {
+                                            input.setValue(dt.getEnum(i));
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // output on mouse
+                            
+                            if (obj instanceof NodeField)
+                            {
+                                // Inner: field & field interaction
+                                
+                                NodeField field = (NodeField) obj;
+                                
+                                if (this.mouseClickedField.isOutput() && field.isInput())
+                                {
+                                    NodeField.tryConnect((Output) this.mouseClickedField, (Input) field, true);
+                                }
                             }
                         }
                     }
@@ -396,6 +438,40 @@ public class GuiPrint extends GuiScreen
                     
                     // Node field was clicked on -> Render line from Dot -> Mouse
                     RenderUtility.drawGradientLine(dotX + this.util.nodeFieldDotSize / 2, dotY + this.util.nodeFieldDotSize / 2, this.printToGuiRounded(mouseX) - this.getPrint().posX, this.printToGuiRounded(mouseY) - this.getPrint().posY, this.util.getLineWidth(this.mouseClickedField.dataType), this.mouseClickedField.dataType.getColor()[0], this.mouseClickedField.dataType.getColor()[1], this.mouseClickedField.dataType.getColor()[2], this.util.nodeFieldConnectionsAlpha, GuiPrint.nodeFieldDef, GuiPrint.nodeFieldDef, GuiPrint.nodeFieldDef, this.util.nodeFieldConnectionsAlpha);
+                }
+                else
+                {
+                    Input input = (Input) this.mouseClickedField;
+                    
+                    if(input.hasDisplayValue())
+                    {
+                        if(input.dataType instanceof DataTypeEnum)
+                        {
+                            DataTypeEnum dt = (DataTypeEnum) this.mouseClickedField.dataType;
+                            
+                            int x, y, w, h;
+                            
+                            w = this.util.inputValueWidth;
+                            h = this.util.nodeHeight;
+                            
+                            x = this.mouseClickedField.node.posX - w;
+                            y = this.mouseClickedField.node.posY + this.util.getFieldOffY(mouseClickedField);
+                            
+                            String s;
+                            
+                            for(int i = 0; i < dt.getEnumSize(); ++i)
+                            {
+                                s = dt.valueToString(dt.getEnum(i));
+                                y -= i * h;
+                                this.util.drawRectWithText(x, y, w, h, dt.getColor(), s, dt.getTextColor());
+                                
+                                if(RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
+                                {
+                                    this.util.drawHoverRect(x, y, w, h);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -473,16 +549,6 @@ public class GuiPrint extends GuiScreen
     public boolean getCanClickField(NodeField field)
     {
         return !this.clicked ? (field.isOutput() || (field.dataType instanceof DataTypeDynamic) || (field.dataType instanceof DataTypeEnum)) : (this.mouseClickedField instanceof Output && NodeField.canConnect(this.mouseClickedField, field));
-    }
-    
-    public void drawDynamicInput(Input in, int x, int y)
-    {
-        
-    }
-    
-    public void drawEnumInput(Input in, int x, int y)
-    {
-        
     }
     
     public Print getPrint()
