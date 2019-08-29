@@ -338,7 +338,12 @@ public class RenderUtility
             x += this.fieldWidth - width;
         }
         
-        this.drawRectWithText(x, y, width, this.nodeHeight, 1, input.dataType.getColor(), 2, TextFormatting.UNDERLINE + input.dataType.valueToString(input.getSetValue()), input.dataType.getTextColor());
+        this.drawRectWithText(x, y, width, this.nodeHeight, input.dataType.getColor(), TextFormatting.UNDERLINE + input.dataType.valueToString(input.getSetValue()), input.dataType.getTextColor());
+    }
+    
+    public void drawRectWithText(int x, int y, int w, int h, float[] colorRect, String text, float[] colorText)
+    {
+        this.drawRectWithText(x, y, w, h, this.nodeRectMargin, colorRect, this.nodeTextMargin, text, colorText);
     }
     
     public void drawRectWithText(int x, int y, int w, int h, int marginRect, float[] colorRect, int marginText, String text, float[] colorText)
