@@ -693,7 +693,7 @@ public class RenderUtility
      */
     public static boolean isCoordInsideRect(float mouseX, float mouseY, float x, float y, float w, float h)
     {
-        return mouseX >= x && mouseX <= x + w && mouseY >= y && mouseY <= y + h;
+        return mouseX >= x && mouseX < x + w && mouseY >= y && mouseY < y + h;
     }
     
     // Maybe temporary, maybe not
