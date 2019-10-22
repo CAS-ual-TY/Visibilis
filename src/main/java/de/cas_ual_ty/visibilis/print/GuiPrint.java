@@ -27,6 +27,7 @@ public class GuiPrint extends GuiScreen
     public IPrintHelper helper;
     
     public RenderUtility.Rectangle inner;
+    public RenderUtility.Rectangle nodeList;
     
     protected Print print;
     
@@ -73,8 +74,11 @@ public class GuiPrint extends GuiScreen
     @Override
     public void initGui()
     {
-        this.inner = RenderUtility.Rectangle.fromXYWH(0, 0, this.width, this.height);
         this.sr = new ScaledResolution(this.mc);
+        
+        this.inner = RenderUtility.Rectangle.fromXYWH(0, 0, this.width - this.util.nodeWidth, this.height);
+        this.nodeList = RenderUtility.Rectangle.fromXYWH(this.sr.getScaledWidth() - this.util.nodeWidth, 0, this.width - this.util.nodeWidth, this.height);
+        
         this.updateLineWidth();
         
         this.helper.onGuiInit(this);
@@ -105,6 +109,9 @@ public class GuiPrint extends GuiScreen
         //Draw black background
         RenderUtility.drawRect(0, 0, this.sr.getScaledWidth(), this.sr.getScaledHeight(), 0, 0, 0);
         
+        this.inner.render(.5f, 0, 0);
+        this.nodeList.render(0, 0, .5f);
+        
         //Check for all hovering objects already, so it is done only once. Nothing is being rendered here
         this.updateHovering(mouseX, mouseY);
         
@@ -119,125 +126,6 @@ public class GuiPrint extends GuiScreen
         super.drawScreen(mouseX, mouseY, partialTicks);
         
         GlStateManager.enableLighting();
-    }
-    
-    /**
-     * Update the node or node field hovering over
-     */
-    public void updateHovering(int mouseX, int mouseY)
-    {
-        Object obj = this.getHovering(mouseX, mouseY);
-        
-        this.mouseHoveringNode = null;
-        this.mouseHoveringField = null;
-        
-        if (obj instanceof Node)
-        {
-            this.mouseHoveringNode = (Node) obj;
-        }
-        else if (obj instanceof NodeField)
-        {
-            this.mouseHoveringField = (NodeField) obj;
-        }
-    }
-    
-    /**
-     * Returns the object the mouse is hovering over, can be a node or a node field
-     */
-    public Object getHovering(int mouseX, int mouseY)
-    {
-        if (this.inner.isCoordInside(mouseX, mouseY))
-        {
-            // Inner
-            return this.getHoveringInner(mouseX, mouseY);
-        }
-        else
-        {
-            // Outer
-        }
-        
-        return null;
-    }
-    
-    /**
-     * Returns the object the mouse is hovering over that is inside the inner part
-     */
-    protected Object getHoveringInner(int mouseX0, int mouseY0)
-    {
-        float mouseX = this.printToGui(mouseX0);
-        float mouseY = this.printToGui(mouseY0);
-        
-        Node node;
-        float x, y, w, h; // Rect of node
-        float h2; // Header height
-        
-        // Loop from back to front, as those are on top
-        for (int i = this.getPrint().nodes.size() - 1; i >= 0; --i)
-        {
-            node = this.getPrint().nodes.get(i);
-            
-            // Entire node position and size, zoom and shift accounted for
-            x = this.getNodePosX2(node);
-            y = this.getNodePosY2(node);
-            w = this.util.nodeWidth;
-            h = this.util.getNodeTotalHeight(node);
-            h2 = this.util.nodeHeight;
-            
-            // Check if the mouse is on top of the entire node
-            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
-            {
-                if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h2))
-                {
-                    // Inside header -> return node itself
-                    return node;
-                }
-                else
-                {
-                    // Not inside header -> node fields
-                    
-                    int j;
-                    
-                    if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, this.util.fieldWidth, h))
-                    {
-                        // Left side -> inputs
-                        
-                        for (j = 1; j <= node.getInputAmt(); ++j)
-                        {
-                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y + this.util.nodeHeight * j, w, h2))
-                            {
-                                // inside this node field -> return it
-                                return node.getInput(j - 1);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        // Right side -> outputs
-                        
-                        for (j = 1; j <= node.getOutputAmt(); ++j)
-                        {
-                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y + this.util.nodeHeight * j, w, h2))
-                            {
-                                // inside this node field -> return it
-                                return node.getOutput(j - 1);
-                            }
-                        }
-                    }
-                }
-                
-                // No node field found. Now check if it is inside the rect excluding values
-                // Which basically means that it is next to one of the fields, depending on if there are more outputs or inputs
-                
-                /*
-                if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
-                {
-                    // return node; // Only return node when hovering above header
-                }
-                */
-            }
-        }
-        
-        return null;
     }
     
     @Override
@@ -464,6 +352,125 @@ public class GuiPrint extends GuiScreen
             
             super.mouseClicked(mouseX, mouseY, mouseButton);
         }
+    }
+    
+    /**
+     * Update the node or node field hovering over
+     */
+    public void updateHovering(int mouseX, int mouseY)
+    {
+        Object obj = this.getHovering(mouseX, mouseY);
+        
+        this.mouseHoveringNode = null;
+        this.mouseHoveringField = null;
+        
+        if (obj instanceof Node)
+        {
+            this.mouseHoveringNode = (Node) obj;
+        }
+        else if (obj instanceof NodeField)
+        {
+            this.mouseHoveringField = (NodeField) obj;
+        }
+    }
+    
+    /**
+     * Returns the object the mouse is hovering over, can be a node or a node field
+     */
+    public Object getHovering(int mouseX, int mouseY)
+    {
+        if (this.inner.isCoordInside(mouseX, mouseY))
+        {
+            // Inner
+            return this.getHoveringInner(mouseX, mouseY);
+        }
+        else
+        {
+            // Outer
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Returns the object the mouse is hovering over that is inside the inner part
+     */
+    protected Object getHoveringInner(int mouseX0, int mouseY0)
+    {
+        float mouseX = this.printToGui(mouseX0);
+        float mouseY = this.printToGui(mouseY0);
+        
+        Node node;
+        float x, y, w, h; // Rect of node
+        float h2; // Header height
+        
+        // Loop from back to front, as those are on top
+        for (int i = this.getPrint().nodes.size() - 1; i >= 0; --i)
+        {
+            node = this.getPrint().nodes.get(i);
+            
+            // Entire node position and size, zoom and shift accounted for
+            x = this.getNodePosX2(node);
+            y = this.getNodePosY2(node);
+            w = this.util.nodeWidth;
+            h = this.util.getNodeTotalHeight(node);
+            h2 = this.util.nodeHeight;
+            
+            // Check if the mouse is on top of the entire node
+            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
+            {
+                if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h2))
+                {
+                    // Inside header -> return node itself
+                    return node;
+                }
+                else
+                {
+                    // Not inside header -> node fields
+                    
+                    int j;
+                    
+                    if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, this.util.fieldWidth, h))
+                    {
+                        // Left side -> inputs
+                        
+                        for (j = 1; j <= node.getInputAmt(); ++j)
+                        {
+                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y + this.util.nodeHeight * j, w, h2))
+                            {
+                                // inside this node field -> return it
+                                return node.getInput(j - 1);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // Right side -> outputs
+                        
+                        for (j = 1; j <= node.getOutputAmt(); ++j)
+                        {
+                            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y + this.util.nodeHeight * j, w, h2))
+                            {
+                                // inside this node field -> return it
+                                return node.getOutput(j - 1);
+                            }
+                        }
+                    }
+                }
+                
+                // No node field found. Now check if it is inside the rect excluding values
+                // Which basically means that it is next to one of the fields, depending on if there are more outputs or inputs
+                
+                /*
+                if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
+                {
+                    // return node; // Only return node when hovering above header
+                }
+                */
+            }
+        }
+        
+        return null;
     }
     
     /**
