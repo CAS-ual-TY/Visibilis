@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import org.lwjgl.input.Keyboard;
 
+import de.cas_ual_ty.visibilis.Visibilis;
+import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.datatype.DataTypeDynamic;
 import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
 import de.cas_ual_ty.visibilis.node.Input;
@@ -11,7 +13,9 @@ import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
 import de.cas_ual_ty.visibilis.node.Output;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 
@@ -47,6 +51,8 @@ public class GuiPrint extends GuiScreen
     
     protected RenderUtility util;
     
+    protected GuiTextField textField;
+    
     public GuiPrint(IPrintHelper helper)
     {
         this(helper, new RenderUtility());
@@ -54,9 +60,12 @@ public class GuiPrint extends GuiScreen
     
     public GuiPrint(IPrintHelper helper, RenderUtility util)
     {
+        super();
         this.helper = helper;
         this.clicked = false;
         this.util = util;
+        this.textField = new GuiTextField(0, Minecraft.getMinecraft().fontRenderer, 0, 0, 0, 0);
+        this.textField.setVisible(false);
         
         this.helper.onGuiOpen(this);
     }
@@ -229,9 +238,10 @@ public class GuiPrint extends GuiScreen
     @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException
     {
-        // if focused on eg. a field where you can input stuff manually
-        // - shift input there
-        // - return
+        if(this.textField.getVisible())
+        {
+            this.textField.textboxKeyTyped(typedChar, keyCode);
+        }
         
         if (keyCode == 1)
         {
@@ -315,6 +325,30 @@ public class GuiPrint extends GuiScreen
                             // Attach field to mouse
                             this.clicked = true;
                             this.mouseClickedField = field;
+                            
+                            if(this.mouseClickedField instanceof Input)
+                            {
+                                Input input = (Input) this.mouseClickedField;
+                                
+                                if(input.hasDisplayValue())
+                                {
+                                    if(input.dataType instanceof DataTypeDynamic)
+                                    {
+                                        DataTypeDynamic dt = (DataTypeDynamic) input.dataType;
+                                        
+                                        this.textField.setVisible(true);
+                                        Visibilis.debug(input.getSetValue() + " " + dt.valueToString(input.getSetValue()));
+                                        this.textField.x = input.node.posX + this.util.getFieldOffX(input);
+                                        this.textField.y = input.node.posY + this.util.getFieldOffY(input);
+                                        this.textField.width = this.util.fieldWidth;
+                                        this.textField.height = this.util.nodeHeight;
+                                        this.textField.setText(dt.valueToString(input.getSetValue()));
+//                                        this.textField.mouseClicked(this.mouseXToPrintRounded(mouseX), this.mouseYToPrintRounded(mouseY), mouseButton);
+                                        this.textField.setFocused(true);
+                                        this.textField.setValidator(dt.getValidator());
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -342,17 +376,28 @@ public class GuiPrint extends GuiScreen
                             
                             if(input.hasDisplayValue())
                             {
+                                if(input.dataType instanceof DataTypeDynamic)
+                                {
+                                    DataTypeDynamic dt = (DataTypeDynamic) input.dataType;
+                                    
+                                    if(dt.canParseString(this.textField.getText()))
+                                    {
+                                        input.setValue(dt.stringToValue(this.textField.getText()));
+                                    }
+                                    
+                                    this.textField.setVisible(false);
+                                }
                                 if(input.dataType instanceof DataTypeEnum)
                                 {
-                                    DataTypeEnum dt = (DataTypeEnum) this.mouseClickedField.dataType;
+                                    DataTypeEnum dt = (DataTypeEnum) input.dataType;
                                     
                                     int x, y, w, h;
                                     
                                     w = this.util.inputValueWidth;
                                     h = this.util.nodeHeight;
                                     
-                                    x = this.mouseClickedField.node.posX - w;
-                                    y = this.mouseClickedField.node.posY + this.util.getFieldOffY(mouseClickedField);
+                                    x = input.node.posX - w;
+                                    y = input.node.posY + this.util.getFieldOffY(input);
                                     
                                     String s;
                                     
@@ -448,6 +493,10 @@ public class GuiPrint extends GuiScreen
                     
                     if(input.hasDisplayValue())
                     {
+                        if(input.dataType instanceof DataTypeDynamic)
+                        {
+                            this.textField.drawTextBox();
+                        }
                         if(input.dataType instanceof DataTypeEnum)
                         {
                             DataTypeEnum dt = (DataTypeEnum) this.mouseClickedField.dataType;
@@ -468,7 +517,7 @@ public class GuiPrint extends GuiScreen
                                 y -= i * h;
                                 this.util.drawRectWithText(x, y, w, h, dt.getColor(), s, dt.getTextColor());
                                 
-                                if(RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
+                                if(RenderUtility.isCoordInsideRect(this.mouseXToPrint(mouseX), this.mouseYToPrint(mouseY), x, y, w, h))
                                 {
                                     this.util.drawHoverRect(x, y, w, h);
                                 }
@@ -593,12 +642,12 @@ public class GuiPrint extends GuiScreen
     
     public float mouseXToPrint(int mouseX)
     {
-        return this.printToGui(mouseX) - this.getPrint().posX;
+        return this.printToGui(mouseX);
     }
     
     public float mouseYToPrint(int mouseY)
     {
-        return this.printToGui(mouseY) - this.getPrint().posY;
+        return this.printToGui(mouseY);
     }
     
     public int mouseXToPrintRounded(int mouseX)

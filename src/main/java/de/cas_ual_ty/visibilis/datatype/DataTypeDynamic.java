@@ -1,5 +1,8 @@
 package de.cas_ual_ty.visibilis.datatype;
 
+import com.google.common.base.Predicate;
+import com.google.common.base.Predicates;
+
 public abstract class DataTypeDynamic<A> extends DataType<A>
 {
     // Default value is required for this type of a data type so it is added to the constructor.
@@ -24,4 +27,12 @@ public abstract class DataTypeDynamic<A> extends DataType<A>
      * Turn a string into a value
      */
     public abstract A stringToValue(String s);
+    
+    /**
+     * Immediate checking of typed values. If this is not overridden, then 'bad' values can be typed in but are thrown out when finished.
+     */
+    public Predicate<String> getValidator()
+    {
+        return Predicates.<String>alwaysTrue();
+    }
 }
