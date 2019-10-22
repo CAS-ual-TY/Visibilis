@@ -3,8 +3,12 @@ package de.cas_ual_ty.visibilis.datatype;
 import com.google.common.base.Predicate;
 import com.google.common.base.Predicates;
 
+import net.minecraft.util.StringUtils;
+
 public abstract class DataTypeDynamic<A> extends DataType<A>
 {
+	protected Predicate<String> validator;
+	
     // Default value is required for this type of a data type so it is added to the constructor.
     
     public DataTypeDynamic(String id, A defaultValue)
@@ -16,6 +20,7 @@ public abstract class DataTypeDynamic<A> extends DataType<A>
     {
         super(id, color);
         this.setDefaultValue(defaultValue);
+        this.validator = this.createValidator();
     }
     
     /**
@@ -29,10 +34,25 @@ public abstract class DataTypeDynamic<A> extends DataType<A>
     public abstract A stringToValue(String s);
     
     /**
-     * Immediate checking of typed values. If this is not overridden, then 'bad' values can be typed in but are thrown out when finished.
+     * Returns a validator used for {@link net.minecraft.client.gui.GuiTextField}.
      */
     public Predicate<String> getValidator()
     {
-        return Predicates.<String>alwaysTrue();
+        return this.validator;
+    }
+    
+    /**
+     * Creates a validator returned in {@link #getValidator()}.
+     */
+    protected Predicate<String> createValidator()
+    {
+        return new Predicate<String>()
+        {
+            @Override
+            public boolean apply(String input)
+            {
+                return StringUtils.isNullOrEmpty(input) || DataTypeDynamic.this.canParseString(input);
+            }
+        };
     }
 }
