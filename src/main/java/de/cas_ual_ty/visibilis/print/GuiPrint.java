@@ -63,6 +63,8 @@ public class GuiPrint extends GuiScreen
         this.helper = helper;
         this.clicked = false;
         this.util = util;
+        
+        //Initialize text field and set it to be invisible
         this.textField = new GuiTextField(0, Minecraft.getMinecraft().fontRenderer, 0, 0, 0, 0);
         this.textField.setVisible(false);
         
@@ -101,10 +103,13 @@ public class GuiPrint extends GuiScreen
     {
         GlStateManager.disableLighting();
         
+        //Draw black background
         RenderUtility.drawRect(0, 0, this.sr.getScaledWidth(), this.sr.getScaledHeight(), 0, 0, 0);
         
-        this.updateHovering(mouseX, mouseY); // Check for all hovering objects already, so it is done only once
+        //Check for all hovering objects already, so it is done only once. Nothing is being rendered here
+        this.updateHovering(mouseX, mouseY);
         
+        //Draw inner
         RenderUtility.scissorStart(this.sr, this.inner.x, this.inner.y, this.inner.w, this.inner.h);
         RenderUtility.applyZoom(this.getPrint().zoom); // Inside of the matrix since you would otherwise "touch" everything outside of the matrix
         GlStateManager.translate(this.getPrint().posX, this.getPrint().posY, 0); // Move everything in the print by the print's position
@@ -115,6 +120,26 @@ public class GuiPrint extends GuiScreen
         super.drawScreen(mouseX, mouseY, partialTicks);
         
         GlStateManager.enableLighting();
+    }
+    
+    /**
+     * Update the node or node field hovering over
+     */
+    public void updateHovering(int mouseX, int mouseY)
+    {
+        Object obj = this.getHovering(mouseX, mouseY);
+        
+        this.mouseHoveringNode = null;
+        this.mouseHoveringField = null;
+        
+        if (obj instanceof Node)
+        {
+            this.mouseHoveringNode = (Node) obj;
+        }
+        else if (obj instanceof NodeField)
+        {
+            this.mouseHoveringField = (NodeField) obj;
+        }
     }
     
     /**
@@ -140,8 +165,8 @@ public class GuiPrint extends GuiScreen
      */
     protected Object getHoveringInner(int mouseX0, int mouseY0)
     {
-        float mouseX = this.mouseXToPrint(mouseX0);
-        float mouseY = this.mouseYToPrint(mouseY0);
+        float mouseX = this.printToGui(mouseX0);
+        float mouseY = this.printToGui(mouseY0);
         
         Node node;
         float x, y, w, h; // Rect of node
@@ -214,39 +239,37 @@ public class GuiPrint extends GuiScreen
         return null;
     }
     
-    /**
-     * Update the node or node field hovering over
-     */
-    public void updateHovering(int mouseX, int mouseY)
-    {
-        Object obj = this.getHovering(mouseX, mouseY);
-        
-        this.mouseHoveringNode = null;
-        this.mouseHoveringField = null;
-        
-        if (obj instanceof Node)
-        {
-            this.mouseHoveringNode = (Node) obj;
-        }
-        else if (obj instanceof NodeField)
-        {
-            this.mouseHoveringField = (NodeField) obj;
-        }
-    }
-    
     @Override
     protected void keyTyped(char typedChar, int keyCode) throws IOException
     {
-        if(this.textField.getVisible())
-        {
-            this.textField.textboxKeyTyped(typedChar, keyCode);
-        }
+        /*
+         * Useful:
+         * https://minecraft.gamepedia.com/Key_codes
+         */
         
-        if (keyCode == 1)
+        if (keyCode == Keyboard.KEY_ESCAPE)
         {
             super.keyTyped(typedChar, keyCode);
             return;
         }
+        
+        if(this.textField.getVisible())
+        {
+            if(keyCode == Keyboard.KEY_RETURN)
+            {
+                // Return clicked, unfocus and apply test
+                this.setUnfocusTextField();
+                return;
+            }
+            else
+            {
+                //If the text field is visible transfer all pressed keys to it.
+                this.textField.textboxKeyTyped(typedChar, keyCode);
+                return;
+            }
+        }
+        
+        //Moving and zooming:
         
         if (keyCode == Keyboard.KEY_W || keyCode == Keyboard.KEY_UP)
         {
@@ -301,52 +324,44 @@ public class GuiPrint extends GuiScreen
     {
         if (mouseButton == 0)
         {
+            // Get whatever the player just clicked on
             Object obj = this.getHovering(mouseX, mouseY);
             
             if (this.inner.isCoordInside(mouseX, mouseY))
             {
+                //We are inside inner, so the clicked on obj is a node or node field
+                
+                // Nothing was clicked on/active before
                 if (!this.clicked)
                 {
-                    // Inner: nothing on mouse
+                    // Inner: nothing on mouse (attached)
                     
+                    // Nothing was clicked on before, but now a node has been clicked on
                     if (obj instanceof Node)
                     {
-                        // Attach node to mouse
+                        // Clicked on a node while nothing is attached to the mouse: Attach the node
                         this.clicked = true;
                         this.mouseClickedNode = (Node) obj;
                     }
+                    // Nothing was clicked on before, but now a node field has been clicked on
                     else if (obj instanceof NodeField)
                     {
                         NodeField field = (NodeField) obj;
                         
+                        // (Hover over method and read:)
                         if (this.getCanClickField(field))
                         {
-                            // Attach field to mouse
+                            // Mark field as clicked on
                             this.clicked = true;
                             this.mouseClickedField = field;
                             
-                            if(this.mouseClickedField instanceof Input)
+                            // Check if it is an input to see if there is direct access to the value
+                            if(this.mouseClickedField.isInput())
                             {
                                 Input input = (Input) this.mouseClickedField;
                                 
-                                if(input.hasDisplayValue())
-                                {
-                                    if(input.dataType instanceof DataTypeDynamic)
-                                    {
-                                        DataTypeDynamic dt = (DataTypeDynamic) input.dataType;
-                                        
-                                        this.textField.setVisible(true);
-                                        Visibilis.debug(input.getSetValue() + " " + dt.valueToString(input.getSetValue()));
-                                        this.textField.x = input.node.posX + this.util.getFieldOffX(input);
-                                        this.textField.y = input.node.posY + this.util.getFieldOffY(input);
-                                        this.textField.width = this.util.fieldWidth;
-                                        this.textField.height = this.util.nodeHeight;
-                                        this.textField.setText(dt.valueToString(input.getSetValue()));
-                                        //                                        this.textField.mouseClicked(this.mouseXToPrintRounded(mouseX), this.mouseYToPrintRounded(mouseY), mouseButton);
-                                        this.textField.setFocused(true);
-                                        this.textField.setValidator(dt.getValidator());
-                                    }
-                                }
+                                // (hover over and read desc:)
+                                this.tryFocusTextField(input);
                             }
                         }
                     }
@@ -363,31 +378,30 @@ public class GuiPrint extends GuiScreen
                         this.mouseClickedNode.posX = this.mouseXToPrintRounded(mouseX);
                         this.mouseClickedNode.posY = this.mouseYToPrintRounded(mouseY);
                     }
-                    if (this.mouseClickedField != null)
+                    else if (this.mouseClickedField != null)
                     {
                         // Inner: field on mouse
                         
                         if(this.mouseClickedField instanceof Input)
                         {
-                            // input on mouse
+                            // Inner: input on mouse
                             
                             Input input = (Input) this.mouseClickedField;
                             
+                            // Input can have an immediate value
                             if(input.hasDisplayValue())
                             {
                                 if(input.dataType instanceof DataTypeDynamic)
                                 {
-                                    DataTypeDynamic dt = (DataTypeDynamic) input.dataType;
+                                    // Dynamic data type
                                     
-                                    if(dt.canParseString(this.textField.getText()))
-                                    {
-                                        input.setValue(dt.stringToValue(this.textField.getText()));
-                                    }
-                                    
-                                    this.textField.setVisible(false);
+                                    // Deselect text field and apply its value
+                                    this.setUnfocusTextField(input);
                                 }
-                                if(input.dataType instanceof DataTypeEnum)
+                                else if(input.dataType instanceof DataTypeEnum)
                                 {
+                                    // Enum data type
+                                    
                                     DataTypeEnum dt = (DataTypeEnum) input.dataType;
                                     
                                     int x, y, w, h;
@@ -398,12 +412,19 @@ public class GuiPrint extends GuiScreen
                                     x = input.node.posX - w;
                                     y = input.node.posY + this.util.getFieldOffY(input);
                                     
+                                    // Convert GUI mouse coords to match print offset and zoom
+                                    float mouseX1 = this.mouseXToPrint(mouseX);
+                                    float mouseY1 = this.mouseYToPrint(mouseY);
+                                    
+                                    // Loop through all enums of the data type
                                     for(int i = 0; i < dt.getEnumSize(); ++i)
                                     {
                                         y -= i * h;
                                         
-                                        if(RenderUtility.isCoordInsideRect(this.mouseXToPrint(mouseX), this.mouseYToPrint(mouseY), x, y, w, h))
+                                        // Check if mouse is on current enum index
+                                        if(RenderUtility.isCoordInsideRect(mouseX1, mouseY1, x, y, w, h))
                                         {
+                                            // Set the input value to clicked enum and break the loop as we are done
                                             input.setValue(dt.getEnum(i));
                                             break;
                                         }
@@ -429,9 +450,13 @@ public class GuiPrint extends GuiScreen
                         }
                     }
                     
-                    this.clicked = false;
-                    this.mouseClickedNode = null;
-                    this.mouseClickedField = null;
+                    // Reminder: we are in inner and something was clicked on before
+                    // So now either nothing was clicked on which results in whatever was clicked on before to be unfocused...
+                    // ... or something was clicked on which results in whatever was clicked on before to be unfocused, as well.
+                    
+                    // (So either way we deselect/unfocus whatever was clicked on before:)
+                    
+                    this.unfocusClicked();
                 }
             }
             
@@ -439,6 +464,98 @@ public class GuiPrint extends GuiScreen
         }
     }
     
+    /**
+     * Set everything to default again. Unclick anything that was clicked on previously.
+     */
+    public void unfocusClicked()
+    {
+        this.clicked = false;
+        this.mouseClickedNode = null;
+        this.mouseClickedField = null;
+    }
+    
+    /**
+     * Safe to use. Check if the input is allowed to hold an immediate value and if it is a dynamic data type.
+     * If yes set focus on the text field and adjust it to this input.
+     * @see #setFocusTextField(Input)
+     */
+    public void tryFocusTextField(Input input)
+    {
+        // Check if this input is allowed to hold an immediate value
+        if(input.hasDisplayValue())
+        {
+            // Check if it is a dynamic data type to activate and adjust the text field
+            // (enum data type needs no further adjusting, it is already being rendered and handled)
+            if(input.dataType instanceof DataTypeDynamic)
+            {
+                this.setFocusTextField(input);
+            }
+        }
+    }
+    
+    /**
+     * Set focus on the text field. Data type of the input <b>must</b> be dynamic so not a safe method.
+     * Use {@link #tryFocusTextField(Input)} instead for safety.
+     */
+    public void setFocusTextField(Input input)
+    {
+        DataTypeDynamic dt = (DataTypeDynamic) input.dataType;
+        
+        // Make it visible
+        this.textField.setVisible(true);
+        
+        // Adjust position to node field accordingly
+        this.textField.x = input.node.posX + this.util.getFieldOffX(input);
+        this.textField.y = input.node.posY + this.util.getFieldOffY(input);
+        
+        // Adjust size to node field accordingly
+        this.textField.width = this.util.fieldWidth;
+        this.textField.height = this.util.nodeHeight;
+        
+        // Set the text to the current immediate value the input is holding
+        this.textField.setText(dt.valueToString(input.getSetValue()));
+        
+        // Set it to be focused, otherwise it does not accept input
+        this.textField.setFocused(true);
+        
+        // Set the string validator for immediate input feedback
+        this.textField.setValidator(dt.getValidator());
+    }
+    
+    /**
+     * {@link #setUnfocusTextField(Input)} but without params. Uses {@link #mouseClickedField} and casts it to call said method.
+     * Then calls {@link #unfocusClicked()} as this method is intended to be used outside the input hover/clicking methods.
+     */
+    public void setUnfocusTextField()
+    {
+        Input input = (Input) this.mouseClickedField;
+        this.setUnfocusTextField(input);
+        this.unfocusClicked();
+    }
+    
+    /**
+     * Unfocus the text field that was focused on and try to apply the written value. Data type of the input <b>must</b> be dynamic so it is unsafe.
+     * @param input
+     * @see #setUnfocusTextField()
+     */
+    // I made this to avoid unnecessary casting at all times
+    public void setUnfocusTextField(Input input)
+    {
+        DataTypeDynamic dt = (DataTypeDynamic) input.dataType;
+        
+        // Can the string in the text box be applied to the input? Is it viable?
+        if(dt.canParseString(this.textField.getText()))
+        {
+            // Parse string and apply the parsed value to the input.
+            input.setValue(dt.stringToValue(this.textField.getText()));
+        }
+        
+        this.textField.setVisible(false);
+    }
+    
+    /**
+     * Update line width according to current print zoom.
+     */
     public void updateLineWidth()
     {
         this.util.nodeFieldConnectionsWidth = (this.util.nodeFieldDotSize / 2) * this.getPrint().zoom * this.sr.getScaleFactor();
@@ -450,17 +567,21 @@ public class GuiPrint extends GuiScreen
         this.drawInnerInteractions(mouseX, mouseY, partialTicks);
     }
     
+    /**
+     * Essentially, this is to draw every interaction last (last = on top).
+     * Including but not excluded to: hovering, connections, enum/dyn data types
+     */
     public void drawInnerInteractions(int mouseX, int mouseY, float partialTicks)
     {
+        // Something was already clicked on before / attached to mouse / focused
         if (this.clicked)
         {
-            // something on mouse
             if (this.mouseClickedNode != null)
             {
                 // node on mouse
                 
                 // Outline clicked on node
-                this.drawOutlineRect(this.printToGuiRounded(mouseX) - this.getPrint().posX, this.printToGuiRounded(mouseY) - this.getPrint().posY, this.util.nodeWidth, this.util.getNodeTotalHeight(this.mouseClickedNode));
+                this.drawOutlineRect(this.mouseXToPrintRounded(mouseX), this.mouseYToPrintRounded(mouseY), this.util.nodeWidth, this.util.getNodeTotalHeight(this.mouseClickedNode));
             }
             if (this.mouseClickedField != null)
             {
@@ -470,7 +591,7 @@ public class GuiPrint extends GuiScreen
                 {
                     // output on mouse
                     
-                    // --- Draw connection line: Dot -> Mouse ---
+                    // Draw connection line: Dot to Mouse
                     
                     // Where to draw the 1st dot at
                     int dotX = this.getDotPosX(this.mouseClickedField);
@@ -481,21 +602,29 @@ public class GuiPrint extends GuiScreen
                         this.drawHoverRect(this.mouseHoveringField.node.posX + (this.mouseHoveringField.isInput() ? 0 : this.util.nodeWidth / 2), this.mouseHoveringField.node.posY + this.util.nodeHeight * (this.mouseHoveringField.id + 1), this.util.nodeWidth / 2, this.util.nodeHeight);
                     }
                     
-                    // Node field was clicked on -> Render line from Dot -> Mouse
-                    RenderUtility.drawGradientLine(dotX + this.util.nodeFieldDotSize / 2, dotY + this.util.nodeFieldDotSize / 2, this.printToGuiRounded(mouseX) - this.getPrint().posX, this.printToGuiRounded(mouseY) - this.getPrint().posY, this.util.getLineWidth(this.mouseClickedField.dataType), this.mouseClickedField.dataType.getColor()[0], this.mouseClickedField.dataType.getColor()[1], this.mouseClickedField.dataType.getColor()[2], this.util.nodeFieldConnectionsAlpha, GuiPrint.nodeFieldDef, GuiPrint.nodeFieldDef, GuiPrint.nodeFieldDef, this.util.nodeFieldConnectionsAlpha);
+                    // Node field was clicked on -> Render line from Dot to Mouse
+                    RenderUtility.drawGradientLine(dotX + this.util.nodeFieldDotSize / 2, dotY + this.util.nodeFieldDotSize / 2, this.mouseXToPrintRounded(mouseX), this.mouseYToPrintRounded(mouseY), this.util.getLineWidth(this.mouseClickedField.dataType), this.mouseClickedField.dataType.getColor()[0], this.mouseClickedField.dataType.getColor()[1], this.mouseClickedField.dataType.getColor()[2], this.util.nodeFieldConnectionsAlpha, GuiPrint.nodeFieldDef, GuiPrint.nodeFieldDef, GuiPrint.nodeFieldDef, this.util.nodeFieldConnectionsAlpha);
                 }
                 else
                 {
+                    //input on mouse
+                    
                     Input input = (Input) this.mouseClickedField;
                     
+                    // Check if clicked input has an immediate value
                     if(input.hasDisplayValue())
                     {
+                        // Enum data type?
                         if(input.dataType instanceof DataTypeDynamic)
                         {
+                            // Draw the text box
                             this.textField.drawTextBox();
                         }
-                        if(input.dataType instanceof DataTypeEnum)
+                        // Dynamic data type?
+                        else if(input.dataType instanceof DataTypeEnum)
                         {
+                            // Draw the enum options
+                            
                             DataTypeEnum dt = (DataTypeEnum) this.mouseClickedField.dataType;
                             
                             int x, y, w, h;
@@ -503,17 +632,24 @@ public class GuiPrint extends GuiScreen
                             w = this.util.inputValueWidth;
                             h = this.util.nodeHeight;
                             
+                            // "- w" because we want to draw these options to the left of the input.
                             x = this.mouseClickedField.node.posX - w;
                             y = this.mouseClickedField.node.posY + this.util.getFieldOffY(this.mouseClickedField);
                             
                             String s;
                             
+                            // Loop through enums of the data type
                             for(int i = 0; i < dt.getEnumSize(); ++i)
                             {
+                                // Get the string representation of the enum
                                 s = dt.valueToString(dt.getEnum(i));
+                                
                                 y -= i * h;
+                                
+                                // Draw the rect with the enum as text
                                 this.util.drawRectWithText(x, y, w, h, dt.getColor(), s, dt.getTextColor());
                                 
+                                // If mouse is hovering over said rect, whiten it
                                 if(RenderUtility.isCoordInsideRect(this.mouseXToPrint(mouseX), this.mouseYToPrint(mouseY), x, y, w, h))
                                 {
                                     this.util.drawHoverRect(x, y, w, h);
@@ -542,7 +678,7 @@ public class GuiPrint extends GuiScreen
         int x;
         int y;
         
-        // Loop through all nodes. Nodes at the end of the list will be drawn on top.
+        // Loop through all nodes. Nodes at the end of the list will be drawn on top, so front to back is fine
         for (Node node : print.getNodes())
         {
             x = node.posX;
@@ -550,6 +686,8 @@ public class GuiPrint extends GuiScreen
             this.drawNode(node, x, y);
         }
         
+        // Loop through all the nodes again, but draw the connections on top now
+        // TODO low: figure out a better way to draw the node connections, right now they are drawn after drawing *all* the nodes.
         for (Node node : print.getNodes())
         {
             x = node.posX;
@@ -569,6 +707,9 @@ public class GuiPrint extends GuiScreen
         this.drawNodeInteractions(node, x, y);
     }
     
+    /**
+     * Draw the node interactions (hovering rect over node or its fields)
+     */
     public void drawNodeInteractions(Node node, int x, int y)
     {
         if (!this.clicked)
@@ -595,9 +736,21 @@ public class GuiPrint extends GuiScreen
         }
     }
     
+    /**
+     * Check if clicks on node fields are currently legal, depending on if something was clicked on before, the kind of  (dyn/enum) data type and if it is an input or output.
+     * Used for hover checks and mouse click checks.
+     */
     public boolean getCanClickField(NodeField field)
     {
-        return !this.clicked ? (field.isOutput() || (field.dataType instanceof DataTypeDynamic) || (field.dataType instanceof DataTypeEnum)) : (this.mouseClickedField instanceof Output && NodeField.canConnect(this.mouseClickedField, field));
+        return !this.clicked
+            ?
+                //Nothing is attached on mouse or previously clicked on
+                //Return true if it is an output or a dynamic data type or an enum data type.
+                (field.isOutput() || (field.dataType instanceof DataTypeDynamic) || (field.dataType instanceof DataTypeEnum))
+            :
+                //Something has been clicked on before
+                //Return true if the clicked on field is an output and the currently attached field can be connected to it.
+                (this.mouseClickedField instanceof Output && NodeField.canConnect(this.mouseClickedField, field));
     }
     
     public Print getPrint()
@@ -637,21 +790,33 @@ public class GuiPrint extends GuiScreen
         return Math.round(this.printToGui(i));
     }
     
+    /**
+     * Remove zoom factor and remove print x offset
+     */
     public float mouseXToPrint(int mouseX)
     {
-        return this.printToGui(mouseX);
+        return this.printToGui(mouseX) - this.getPrint().posX;
     }
     
+    /**
+     * Remove zoom factor and remove print y offset
+     */
     public float mouseYToPrint(int mouseY)
     {
-        return this.printToGui(mouseY);
+        return this.printToGui(mouseY) - this.getPrint().posY;
     }
     
+    /**
+     * Remove zoom factor, round and remove print x offset
+     */
     public int mouseXToPrintRounded(int mouseX)
     {
         return this.printToGuiRounded(mouseX) - this.getPrint().posX;
     }
     
+    /**
+     * Remove zoom factor, round and remove print y offset
+     */
     public int mouseYToPrintRounded(int mouseY)
     {
         return this.printToGuiRounded(mouseY) - this.getPrint().posY;
