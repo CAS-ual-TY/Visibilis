@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class TargetsList extends ArrayList<Target>
 {
-    // TODO Players, Blocks, Entities etc.
+    // TODO MM: Players, Blocks, Entities etc.
     // public ArrayList<Target> getAllPlayers
     
     @Override

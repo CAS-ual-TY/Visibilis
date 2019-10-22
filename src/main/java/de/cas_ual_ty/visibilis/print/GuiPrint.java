@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.lwjgl.input.Keyboard;
 
 import de.cas_ual_ty.visibilis.Visibilis;
-import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.datatype.DataTypeDynamic;
 import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
 import de.cas_ual_ty.visibilis.node.Input;
@@ -343,7 +342,7 @@ public class GuiPrint extends GuiScreen
                                         this.textField.width = this.util.fieldWidth;
                                         this.textField.height = this.util.nodeHeight;
                                         this.textField.setText(dt.valueToString(input.getSetValue()));
-//                                        this.textField.mouseClicked(this.mouseXToPrintRounded(mouseX), this.mouseYToPrintRounded(mouseY), mouseButton);
+                                        //                                        this.textField.mouseClicked(this.mouseXToPrintRounded(mouseX), this.mouseYToPrintRounded(mouseY), mouseButton);
                                         this.textField.setFocused(true);
                                         this.textField.setValidator(dt.getValidator());
                                     }
@@ -398,8 +397,6 @@ public class GuiPrint extends GuiScreen
                                     
                                     x = input.node.posX - w;
                                     y = input.node.posY + this.util.getFieldOffY(input);
-                                    
-                                    String s;
                                     
                                     for(int i = 0; i < dt.getEnumSize(); ++i)
                                     {
@@ -507,7 +504,7 @@ public class GuiPrint extends GuiScreen
                             h = this.util.nodeHeight;
                             
                             x = this.mouseClickedField.node.posX - w;
-                            y = this.mouseClickedField.node.posY + this.util.getFieldOffY(mouseClickedField);
+                            y = this.mouseClickedField.node.posY + this.util.getFieldOffY(this.mouseClickedField);
                             
                             String s;
                             
