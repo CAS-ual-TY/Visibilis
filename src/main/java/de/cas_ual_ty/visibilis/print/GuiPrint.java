@@ -245,6 +245,7 @@ public class GuiPrint extends GuiScreen
         /*
          * Useful:
          * https://minecraft.gamepedia.com/Key_codes
+         * http://legacy.lwjgl.org/javadoc/constant-values.html
          */
         
         if (keyCode == Keyboard.KEY_ESCAPE)
