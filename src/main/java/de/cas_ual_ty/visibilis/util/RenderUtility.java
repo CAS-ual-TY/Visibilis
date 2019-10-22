@@ -701,17 +701,36 @@ public class RenderUtility
     {
         public int l, r, t, b, x, y, w, h;
         
-        private Rectangle(int l, int r, int t, int b, int w, int h)
+        private Rectangle() {}
+        
+        public Rectangle setXYWH(int x, int y, int w, int h)
+        {
+            this.x = x;
+            this.y = y;
+            this.w = w;
+            this.h = h;
+            
+            this.l = x;
+            this.t = y;
+            this.r = x + w;
+            this.b = y + h;
+            
+            return this;
+        }
+        
+        public Rectangle setLRTB(int l, int r, int t, int b)
         {
             this.l = l;
             this.r = r;
             this.t = t;
             this.b = b;
-            this.w = w;
-            this.h = h;
             
             this.x = l;
             this.y = t;
+            this.w = r - l;
+            this.h = b - t;
+            
+            return this;
         }
         
         public boolean isCoordInside(float x, float y)
@@ -719,14 +738,19 @@ public class RenderUtility
             return RenderUtility.isCoordInsideRect(x, y, this.x, this.y, this.w, this.h);
         }
         
+        public void render(float r, float g, float b)
+        {
+            RenderUtility.drawRect(this.x, this.y, this.w, this.h, r, g, b);
+        }
+        
         public static Rectangle fromXYWH(int x, int y, int w, int h)
         {
-            return new Rectangle(x, x + w, y, y + w, w, h);
+            return new Rectangle().setXYWH(x, y, w, h);
         }
         
         public static Rectangle fromLRTB(int l, int r, int t, int b)
         {
-            return new Rectangle(l, r, t, b, r - l, b - t);
+            return new Rectangle().setLRTB(l, r, t, b);
         }
     }
     
