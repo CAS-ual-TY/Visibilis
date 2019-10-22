@@ -229,10 +229,12 @@ public class GuiPrint extends GuiScreen
                 // No node field found. Now check if it is inside the rect excluding values
                 // Which basically means that it is next to one of the fields, depending on if there are more outputs or inputs
                 
+                /*
                 if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
                 {
                     // return node; // Only return node when hovering above header
                 }
+                */
             }
         }
         
