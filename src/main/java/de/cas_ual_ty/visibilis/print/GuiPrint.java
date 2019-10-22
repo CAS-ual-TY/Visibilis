@@ -76,8 +76,8 @@ public class GuiPrint extends GuiScreen
     {
         this.sr = new ScaledResolution(this.mc);
         
-        this.inner = RenderUtility.Rectangle.fromXYWH(0, 0, this.width - this.util.nodeWidth, this.height);
-        this.nodeList = RenderUtility.Rectangle.fromXYWH(this.sr.getScaledWidth() - this.util.nodeWidth, 0, this.width - this.util.nodeWidth, this.height);
+        this.inner = RenderUtility.Rectangle.fromXYWH(0, 0, this.width - this.util.fieldWidth, this.height);
+        this.nodeList = RenderUtility.Rectangle.fromXYWH(this.sr.getScaledWidth() - this.util.fieldWidth, 0, this.util.fieldWidth, this.height);
         
         this.updateLineWidth();
         
@@ -106,21 +106,17 @@ public class GuiPrint extends GuiScreen
     {
         GlStateManager.disableLighting();
         
-        //Draw black background
-        RenderUtility.drawRect(0, 0, this.sr.getScaledWidth(), this.sr.getScaledHeight(), 0, 0, 0);
-        
         this.inner.render(.5f, 0, 0);
-        this.nodeList.render(0, 0, .5f);
+        this.nodeList.render(.5f, .5f, .5f);
         
         //Check for all hovering objects already, so it is done only once. Nothing is being rendered here
         this.updateHovering(mouseX, mouseY);
         
+        //Draw node list
+        this.drawNodeList(mouseX, mouseY, partialTicks);
+        
         //Draw inner
-        RenderUtility.scissorStart(this.sr, this.inner.x, this.inner.y, this.inner.w, this.inner.h);
-        RenderUtility.applyZoom(this.getPrint().zoom); // Inside of the matrix since you would otherwise "touch" everything outside of the matrix
-        GlStateManager.translate(this.getPrint().posX, this.getPrint().posY, 0); // Move everything in the print by the print's position
         this.drawInner(mouseX, mouseY, partialTicks);
-        RenderUtility.scissorEnd();
         
         // Draw buttons and labels
         super.drawScreen(mouseX, mouseY, partialTicks);
@@ -354,6 +350,38 @@ public class GuiPrint extends GuiScreen
         }
     }
     
+    public void drawNodeList(int mouseX, int mouseY, float partialTicks)
+    {
+    	GlStateManager.pushMatrix();
+        GlStateManager.translate(this.nodeList.x, this.nodeList.y, 0); // Move everything in the print by the print's position
+        RenderUtility.applyZoom(0.5F);
+        
+        int x = 0;
+        int y = 0;
+        
+        for(Node node : this.helper.getAvailableNodes(this))
+        {
+            this.util.drawNode(node, x, y);
+            y += this.util.getNodeTotalHeight(node) + 2;
+        }
+        
+        GlStateManager.popMatrix();
+    }
+    
+    public void drawInner(int mouseX, int mouseY, float partialTicks)
+    {
+        GlStateManager.pushMatrix();
+        RenderUtility.scissorStart(this.sr, this.inner.x, this.inner.y, this.inner.w, this.inner.h);
+        RenderUtility.applyZoom(this.getPrint().zoom); // Inside of the matrix since you would otherwise "touch" everything outside of the matrix
+        GlStateManager.translate(this.getPrint().posX, this.getPrint().posY, 0); // Move everything in the print by the print's position
+        
+        this.drawPrint(this.getPrint());
+        this.drawInnerInteractions(mouseX, mouseY, partialTicks);
+        
+        RenderUtility.scissorEnd();
+        GlStateManager.popMatrix();
+    }
+    
     /**
      * Update the node or node field hovering over
      */
@@ -568,12 +596,6 @@ public class GuiPrint extends GuiScreen
     public void updateLineWidth()
     {
         this.util.nodeFieldConnectionsWidth = (this.util.nodeFieldDotSize / 2) * this.getPrint().zoom * this.sr.getScaleFactor();
-    }
-    
-    public void drawInner(int mouseX, int mouseY, float partialTicks)
-    {
-        this.drawPrint(this.getPrint());
-        this.drawInnerInteractions(mouseX, mouseY, partialTicks);
     }
     
     /**

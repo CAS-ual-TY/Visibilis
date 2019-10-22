@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.node.calculate.*;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -24,8 +25,20 @@ public abstract class PrintHelperBase implements IPrintHelper
     @Override
     public ArrayList<Node> getAvailableNodes(GuiPrint gui)
     {
-        // TODO Auto-generated method stub
-        return null;
+        ArrayList<Node> list = new ArrayList<Node>();
+        
+        list.add(new NodeAddition());
+        list.add(new NodeDivision());
+        list.add(new NodeExponentiation());
+        list.add(new NodeLogarithm10());
+        list.add(new NodeLogarithm1p());
+        list.add(new NodeLogarithmE());
+        list.add(new NodeModulo());
+        list.add(new NodeMultiplication());
+        list.add(new NodeRoot());
+        list.add(new NodeSubtraction());
+        
+        return list;
     }
     
     @Override
