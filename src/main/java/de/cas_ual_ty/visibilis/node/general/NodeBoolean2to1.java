@@ -80,4 +80,10 @@ public abstract class NodeBoolean2to1 extends Node
     {
         return DataType.BOOLEAN.getColor();
     }
+    
+    @Override
+    public float[] getTextColor()
+    {
+        return DataType.BOOLEAN.getTextColor();
+    }
 }

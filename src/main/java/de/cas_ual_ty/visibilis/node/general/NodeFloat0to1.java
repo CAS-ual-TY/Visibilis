@@ -49,4 +49,10 @@ public abstract class NodeFloat0to1 extends Node
     {
         return DataType.FLOAT.getColor();
     }
+    
+    @Override
+    public float[] getTextColor()
+    {
+        return DataType.FLOAT.getTextColor();
+    }
 }

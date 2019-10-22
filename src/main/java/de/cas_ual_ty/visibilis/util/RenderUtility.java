@@ -171,7 +171,7 @@ public class RenderUtility
         // Draw the name
         String name = I18n.format(node.getUnlocalizedName());
         name = this.fontRenderer.trimStringToWidth(name, this.nodeWidth - 2 * this.nodeTextMargin); // Trim the name in case it is too big
-        this.fontRenderer.drawString(name, x + this.nodeTextMargin, y + this.nodeTextMargin, 0xFFFFFFFF); // Draw the trimmed name, maybe add shadow?
+        this.fontRenderer.drawString(name, x + this.nodeTextMargin, y + this.nodeTextMargin, RenderUtility.colorToInt(node.getTextColor())); // Draw the trimmed name, maybe add shadow?
     }
     
     /**

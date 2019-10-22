@@ -27,4 +27,10 @@ public abstract class NodeExec extends Node
     {
         return DataType.EXEC.getColor();
     }
+    
+    @Override
+    public float[] getTextColor()
+    {
+        return DataType.EXEC.getTextColor();
+    }
 }

@@ -76,4 +76,10 @@ public abstract class NodeNumber1to1 extends Node
     {
         return DataType.NUMBER.getColor();
     }
+    
+    @Override
+    public float[] getTextColor()
+    {
+        return DataType.NUMBER.getTextColor();
+    }
 }

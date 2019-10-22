@@ -306,6 +306,14 @@ public abstract class Node
     }
     
     /**
+     * Get text color in the header of this node
+     */
+    public float[] getTextColor()
+    {
+        return new float[] { 1F, 1F, 1F };
+    }
+    
+    /**
      * Used for translation. All lower case, '_' can be used. Use {@link VRegistry#getNameForNode(Class)} for a registry name instead.
      * 
      * @return A unique identifier (for translation only)
