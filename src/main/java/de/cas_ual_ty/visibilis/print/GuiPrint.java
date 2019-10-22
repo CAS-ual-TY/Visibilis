@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.lwjgl.input.Keyboard;
 
-import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.datatype.DataTypeDynamic;
 import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
 import de.cas_ual_ty.visibilis.node.Input;
@@ -256,9 +255,9 @@ public class GuiPrint extends GuiScreen
             return;
         }
         
-        if(this.textField.getVisible())
+        if (this.textField.getVisible())
         {
-            if(keyCode == Keyboard.KEY_RETURN)
+            if (keyCode == Keyboard.KEY_RETURN)
             {
                 // Return clicked, unfocus and apply test
                 this.setUnfocusTextField();
@@ -359,7 +358,7 @@ public class GuiPrint extends GuiScreen
                             this.mouseClickedField = field;
                             
                             // Check if it is an input to see if there is direct access to the value
-                            if(this.mouseClickedField.isInput())
+                            if (this.mouseClickedField.isInput())
                             {
                                 Input input = (Input) this.mouseClickedField;
                                 
@@ -385,23 +384,23 @@ public class GuiPrint extends GuiScreen
                     {
                         // Inner: field on mouse
                         
-                        if(this.mouseClickedField instanceof Input)
+                        if (this.mouseClickedField instanceof Input)
                         {
                             // Inner: input on mouse
                             
                             Input input = (Input) this.mouseClickedField;
                             
                             // Input can have an immediate value
-                            if(input.hasDisplayValue())
+                            if (input.hasDisplayValue())
                             {
-                                if(input.dataType instanceof DataTypeDynamic)
+                                if (input.dataType instanceof DataTypeDynamic)
                                 {
                                     // Dynamic data type
                                     
                                     // Deselect text field and apply its value
                                     this.setUnfocusTextField(input);
                                 }
-                                else if(input.dataType instanceof DataTypeEnum)
+                                else if (input.dataType instanceof DataTypeEnum)
                                 {
                                     // Enum data type
                                     
@@ -420,12 +419,12 @@ public class GuiPrint extends GuiScreen
                                     float mouseY1 = this.mouseYToPrint(mouseY);
                                     
                                     // Loop through all enums of the data type
-                                    for(int i = 0; i < dt.getEnumSize(); ++i)
+                                    for (int i = 0; i < dt.getEnumSize(); ++i)
                                     {
                                         y -= i * h;
                                         
                                         // Check if mouse is on current enum index
-                                        if(RenderUtility.isCoordInsideRect(mouseX1, mouseY1, x, y, w, h))
+                                        if (RenderUtility.isCoordInsideRect(mouseX1, mouseY1, x, y, w, h))
                                         {
                                             // Set the input value to clicked enum and break the loop as we are done
                                             input.setValue(dt.getEnum(i));
@@ -485,11 +484,11 @@ public class GuiPrint extends GuiScreen
     public void tryFocusTextField(Input input)
     {
         // Check if this input is allowed to hold an immediate value
-        if(input.hasDisplayValue())
+        if (input.hasDisplayValue())
         {
             // Check if it is a dynamic data type to activate and adjust the text field
             // (enum data type needs no further adjusting, it is already being rendered and handled)
-            if(input.dataType instanceof DataTypeDynamic)
+            if (input.dataType instanceof DataTypeDynamic)
             {
                 this.setFocusTextField(input);
             }
@@ -547,7 +546,7 @@ public class GuiPrint extends GuiScreen
         DataTypeDynamic dt = (DataTypeDynamic) input.dataType;
         
         // Can the string in the text box be applied to the input? Is it viable?
-        if(dt.canParseString(this.textField.getText()))
+        if (dt.canParseString(this.textField.getText()))
         {
             // Parse string and apply the parsed value to the input.
             input.setValue(dt.stringToValue(this.textField.getText()));
@@ -615,16 +614,16 @@ public class GuiPrint extends GuiScreen
                     Input input = (Input) this.mouseClickedField;
                     
                     // Check if clicked input has an immediate value
-                    if(input.hasDisplayValue())
+                    if (input.hasDisplayValue())
                     {
                         // Enum data type?
-                        if(input.dataType instanceof DataTypeDynamic)
+                        if (input.dataType instanceof DataTypeDynamic)
                         {
                             // Draw the text box
                             this.textField.drawTextBox();
                         }
                         // Dynamic data type?
-                        else if(input.dataType instanceof DataTypeEnum)
+                        else if (input.dataType instanceof DataTypeEnum)
                         {
                             // Draw the enum options
                             
@@ -642,7 +641,7 @@ public class GuiPrint extends GuiScreen
                             String s;
                             
                             // Loop through enums of the data type
-                            for(int i = 0; i < dt.getEnumSize(); ++i)
+                            for (int i = 0; i < dt.getEnumSize(); ++i)
                             {
                                 // Get the string representation of the enum
                                 s = dt.valueToString(dt.getEnum(i));
@@ -653,7 +652,7 @@ public class GuiPrint extends GuiScreen
                                 this.util.drawRectWithText(x, y, w, h, dt.getColor(), s, dt.getTextColor());
                                 
                                 // If mouse is hovering over said rect, whiten it
-                                if(RenderUtility.isCoordInsideRect(this.mouseXToPrint(mouseX), this.mouseYToPrint(mouseY), x, y, w, h))
+                                if (RenderUtility.isCoordInsideRect(this.mouseXToPrint(mouseX), this.mouseYToPrint(mouseY), x, y, w, h))
                                 {
                                     this.util.drawHoverRect(x, y, w, h);
                                 }
@@ -746,14 +745,14 @@ public class GuiPrint extends GuiScreen
     public boolean getCanClickField(NodeField field)
     {
         return !this.clicked
-            ?
-                //Nothing is attached on mouse or previously clicked on
-                //Return true if it is an output or a dynamic data type or an enum data type.
-                (field.isOutput() || (field.dataType instanceof DataTypeDynamic) || (field.dataType instanceof DataTypeEnum))
-            :
-                //Something has been clicked on before
-                //Return true if the clicked on field is an output and the currently attached field can be connected to it.
-                (this.mouseClickedField instanceof Output && NodeField.canConnect(this.mouseClickedField, field));
+                        ?
+                        //Nothing is attached on mouse or previously clicked on
+                        //Return true if it is an output or a dynamic data type or an enum data type.
+                        (field.isOutput() || (field.dataType instanceof DataTypeDynamic) || (field.dataType instanceof DataTypeEnum))
+                        :
+                        //Something has been clicked on before
+                        //Return true if the clicked on field is an output and the currently attached field can be connected to it.
+                        (this.mouseClickedField instanceof Output && NodeField.canConnect(this.mouseClickedField, field));
     }
     
     public Print getPrint()
@@ -782,7 +781,7 @@ public class GuiPrint extends GuiScreen
      */
     public float printToGui(int i)
     {
-        return ((float)i) / this.getPrint().zoom;
+        return ((float) i) / this.getPrint().zoom;
     }
     
     /**

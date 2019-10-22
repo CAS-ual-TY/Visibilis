@@ -1,14 +1,13 @@
 package de.cas_ual_ty.visibilis.datatype;
 
 import com.google.common.base.Predicate;
-import com.google.common.base.Predicates;
 
 import net.minecraft.util.StringUtils;
 
 public abstract class DataTypeDynamic<A> extends DataType<A>
 {
-	protected Predicate<String> validator;
-	
+    protected Predicate<String> validator;
+    
     // Default value is required for this type of a data type so it is added to the constructor.
     
     public DataTypeDynamic(String id, A defaultValue)
