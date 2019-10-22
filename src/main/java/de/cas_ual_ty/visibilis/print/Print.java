@@ -30,7 +30,7 @@ public class Print
     /**
      * How much the user currently zoomed in the GUI. Saved so that they start off again where they last left
      */
-    public float zoom = 1F;
+    public float zoom = .5F;
     
     /**
      * All nodes in this print (including events).
