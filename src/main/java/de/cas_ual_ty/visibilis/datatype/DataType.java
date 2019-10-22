@@ -297,21 +297,6 @@ public class DataType<A>
         return this.textColor;
     }
     
-    public int getTextColorInt()
-    {
-        int r = (int) (this.getTextColor()[0] * 255F);
-        int g = (int) (this.getTextColor()[1] * 255F);
-        int b = (int) (this.getTextColor()[2] * 255F);
-        int a = 255;
-        
-        int color = (a << 24);
-        color = color | (r << 16);
-        color = color | (g << 8);
-        color = color | (b);
-        
-        return color;
-    }
-    
     public DataType setTextColor(float[] color)
     {
         this.textColor = color;
