@@ -42,6 +42,11 @@ node.logarithm_1p.name=Logarithm Base x+1
 field.logarithm_1p.out1.name=Logarithm
 field.logarithm_1p.in1.name=Anti-Logarithm
 
+node.modulo.name=Modulo
+field.modulo.out1.name=Residue
+field.modulo.in1.name=Dividend
+field.modulo.in2.name=Modulus
+
 # --- Constants ---
 
 node.e.name=e

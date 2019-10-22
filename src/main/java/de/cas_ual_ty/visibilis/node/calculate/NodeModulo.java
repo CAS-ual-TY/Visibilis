@@ -19,6 +19,6 @@ public class NodeModulo extends NodeNumber2to1
     @Override
     public String getID()
     {
-        return "modulo";
+        return "modulo"; //TODO low: Check lang file for translation of 1st input. Find out actual name of said input
     }
 }
