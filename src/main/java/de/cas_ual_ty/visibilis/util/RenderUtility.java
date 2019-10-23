@@ -701,7 +701,9 @@ public class RenderUtility
     {
         public int l, r, t, b, x, y, w, h;
         
-        private Rectangle() {}
+        private Rectangle()
+        {
+        }
         
         public Rectangle setXYWH(int x, int y, int w, int h)
         {

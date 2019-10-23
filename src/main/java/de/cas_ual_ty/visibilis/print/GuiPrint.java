@@ -352,14 +352,14 @@ public class GuiPrint extends GuiScreen
     
     public void drawNodeList(int mouseX, int mouseY, float partialTicks)
     {
-    	GlStateManager.pushMatrix();
+        GlStateManager.pushMatrix();
         GlStateManager.translate(this.nodeList.x, this.nodeList.y, 0); // Move everything in the print by the print's position
         RenderUtility.applyZoom(0.5F);
         
         int x = 0;
         int y = 0;
         
-        for(Node node : this.helper.getAvailableNodes(this))
+        for (Node node : this.helper.getAvailableNodes(this))
         {
             this.util.drawNode(node, x, y);
             y += this.util.getNodeTotalHeight(node) + 2;
