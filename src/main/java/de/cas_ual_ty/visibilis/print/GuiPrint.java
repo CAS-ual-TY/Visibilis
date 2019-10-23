@@ -237,6 +237,12 @@ public class GuiPrint extends GuiScreen
                         // (Hover over method and read:)
                         if (this.getCanClickField(field))
                         {
+                            // If it is an input an connected, cut the connections, then proceed with eg. showing enums
+                            if(field.isInput() && field.hasConnections())
+                            {
+                                field.cutConnections();
+                            }
+                            
                             // Mark field as clicked on
                             this.clicked = true;
                             this.mouseClickedField = field;
@@ -776,8 +782,8 @@ public class GuiPrint extends GuiScreen
         return !this.clicked
                         ?
                         //Nothing is attached on mouse or previously clicked on
-                        //Return true if it is an output or a dynamic data type or an enum data type.
-                        (field.isOutput() || (field.dataType instanceof DataTypeDynamic) || (field.dataType instanceof DataTypeEnum))
+                        //Return true if it is an output or a dynamic data type or an enum data type OR it is connected
+                        (field.isOutput() || (field.dataType instanceof DataTypeDynamic) || (field.dataType instanceof DataTypeEnum)) || field.hasConnections()
                         :
                         //Something has been clicked on before
                         //Return true if the clicked on field is an output and the currently attached field can be connected to it.
