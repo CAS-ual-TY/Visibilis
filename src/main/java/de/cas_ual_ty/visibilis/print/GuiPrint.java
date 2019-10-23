@@ -351,6 +351,25 @@ public class GuiPrint extends GuiScreen
                     this.unfocusClicked();
                 }
             }
+            else if(this.nodeList.isCoordInside(mouseX, mouseY))
+            {
+                int x = 0;
+                int y = 0;
+                int w = this.util.nodeWidth;
+                int h;
+                
+                for (Node node : this.helper.getAvailableNodes(this))
+                {
+                    h = this.util.getNodeTotalHeight(node);
+                    
+                    if(RenderUtility.isCoordInsideRect(mouseX, mouseY, this.nodeList.x, this.nodeList.y + y / 2, w / 2, h / 2))
+                    {
+                        this.getPrint().addNode(node.setPosition(-this.getPrint().posX, -this.getPrint().posY));
+                    }
+                    
+                    y += h + 2;
+                }
+            }
             
             super.mouseClicked(mouseX, mouseY, mouseButton);
         }
@@ -364,11 +383,21 @@ public class GuiPrint extends GuiScreen
         
         int x = 0;
         int y = 0;
+        int w = this.util.nodeWidth;
+        int h;
         
         for (Node node : this.helper.getAvailableNodes(this))
         {
             this.util.drawNode(node, x, y);
-            y += this.util.getNodeTotalHeight(node) + 2;
+            
+            h = this.util.getNodeTotalHeight(node);
+            
+            if(RenderUtility.isCoordInsideRect(mouseX, mouseY, this.nodeList.x, this.nodeList.y + y / 2, w / 2, h / 2))
+            {
+                this.util.drawHoverRect(x, y, w, h);
+            }
+            
+            y += h + 2;
         }
         
         GlStateManager.popMatrix();
