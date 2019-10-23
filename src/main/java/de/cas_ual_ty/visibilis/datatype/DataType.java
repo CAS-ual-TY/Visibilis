@@ -109,6 +109,22 @@ public class DataType<A>
     
     public static final DataTypeEnum<Boolean> BOOLEAN = new DataTypeEnum<Boolean>("boolean", new float[] { 1F, 0F, 1F }).addEnum(false).addEnum(true);
     
+    public static final DataTypeDynamic<String> STRING = (DataTypeDynamic<String>) new DataTypeDynamic<String>("number", new float[] { 1F, 1F, 1F }, "text")
+    {
+        @Override
+        public boolean canParseString(String s)
+        {
+            return true;
+        }
+        
+        @Override
+        public String stringToValue(String s)
+        {
+            return s;
+        }
+    }.setBlackText();
+
+    
     static
     {
         DataType.NUMBER.registerConverter(DataType.FLOAT, new FloatNumber()); // "But int can be casted to Number! Why not use the generic one?"
