@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.cas_ual_ty.visibilis.Visibilis;
+import de.cas_ual_ty.visibilis.datatype.converter.AnyString;
 import de.cas_ual_ty.visibilis.datatype.converter.FloatNumber;
 import de.cas_ual_ty.visibilis.datatype.converter.IntegerNumber;
 import de.cas_ual_ty.visibilis.datatype.converter.NumberFloat;
@@ -114,7 +115,7 @@ public class DataType<A>
         @Override
         public boolean canParseString(String s)
         {
-            return true;
+            return true; // TODO Maybe not everything should be allowed? eg \". Problems when loading from NBT?
         }
         
         @Override
@@ -134,6 +135,11 @@ public class DataType<A>
         DataType.FLOAT.registerConverter(DataType.NUMBER, new NumberFloat()); // here Number#floatValue() should be used, so not a generic converter
         
         DataType.INTEGER.registerConverter(DataType.NUMBER, new NumberInteger()); // here Number#intValue() should be used, so not a generic converter
+        
+        DataType.STRING.registerConverter(DataType.FLOAT, new AnyString());
+        DataType.STRING.registerConverter(DataType.INTEGER, new AnyString());
+        DataType.STRING.registerConverter(DataType.NUMBER, new AnyString());
+        DataType.STRING.registerConverter(DataType.BOOLEAN, new AnyString());
     }
     
     /**
