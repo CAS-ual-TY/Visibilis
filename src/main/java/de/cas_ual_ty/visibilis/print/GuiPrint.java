@@ -456,10 +456,6 @@ public class GuiPrint extends GuiScreen
         // <=>
         // listOffset < b - y / 2
         
-        System.out.println("--");
-        System.out.println(this.listOffset);
-        System.out.println(botRect);
-        
         if(this.listOffset < botRect) //Bottom of list is below window
         {
             this.listOffset = botRect;

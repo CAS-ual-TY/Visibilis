@@ -48,9 +48,9 @@ public class VNodeTest extends NodeExec
     
     public void debugMessage(Input in)
     {
-        if (in.hasConnections())
+        if (in.hasConnections() || in.hasDisplayValue())
         {
-            Visibilis.debug(in.id + ": " + this.in1.getValue());
+            Visibilis.debug(in.id + ": " + in.getValue());
         }
         else
         {
