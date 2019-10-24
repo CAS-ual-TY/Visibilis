@@ -4,19 +4,6 @@ import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Node;
-import de.cas_ual_ty.visibilis.node.calculate.NodeAddition;
-import de.cas_ual_ty.visibilis.node.calculate.NodeDivision;
-import de.cas_ual_ty.visibilis.node.calculate.NodeExponentiation;
-import de.cas_ual_ty.visibilis.node.calculate.NodeLogarithm10;
-import de.cas_ual_ty.visibilis.node.calculate.NodeLogarithm1p;
-import de.cas_ual_ty.visibilis.node.calculate.NodeLogarithmE;
-import de.cas_ual_ty.visibilis.node.calculate.NodeModulo;
-import de.cas_ual_ty.visibilis.node.calculate.NodeMultiplication;
-import de.cas_ual_ty.visibilis.node.calculate.NodeRoot;
-import de.cas_ual_ty.visibilis.node.calculate.NodeSubtraction;
-import de.cas_ual_ty.visibilis.node.constant.*;
-import de.cas_ual_ty.visibilis.node.function.*;
-import de.cas_ual_ty.visibilis.node.logic.*;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
 import net.minecraft.nbt.NBTTagCompound;
 

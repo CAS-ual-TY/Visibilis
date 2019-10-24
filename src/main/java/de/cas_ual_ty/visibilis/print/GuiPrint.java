@@ -89,9 +89,9 @@ public class GuiPrint extends GuiScreen
         
         this.inner = RenderUtility.Rectangle.fromXYWH(0, 0, this.width - this.util.fieldWidth, this.height);
         this.nodeListSearch = RenderUtility.Rectangle.fromXYWH(this.sr.getScaledWidth() - this.util.fieldWidth, 0, this.util.fieldWidth, this.util.nodeHeight);
-        this.nodeList = RenderUtility.Rectangle.fromXYWH(this.sr.getScaledWidth() - this.util.fieldWidth, nodeListSearch.h, this.util.fieldWidth, this.sr.getScaledHeight() - this.nodeListSearch.h);
+        this.nodeList = RenderUtility.Rectangle.fromXYWH(this.sr.getScaledWidth() - this.util.fieldWidth, this.nodeListSearch.h, this.util.fieldWidth, this.sr.getScaledHeight() - this.nodeListSearch.h);
         
-        this.listSearch = new GuiTextField(1, Minecraft.getMinecraft().fontRenderer, this.nodeListSearch.x + 1, this.nodeListSearch.y + 1, this.nodeListSearch.w - 2, nodeListSearch.h - 2);
+        this.listSearch = new GuiTextField(1, Minecraft.getMinecraft().fontRenderer, this.nodeListSearch.x + 1, this.nodeListSearch.y + 1, this.nodeListSearch.w - 2, this.nodeListSearch.h - 2);
         this.listSearch.setVisible(true);
         this.listSearch.setEnabled(true);
         
@@ -170,7 +170,7 @@ public class GuiPrint extends GuiScreen
                 return;
             }
         }
-        else if(this.listSearch.isFocused())
+        else if (this.listSearch.isFocused())
         {
             if (keyCode == Keyboard.KEY_RETURN)
             {
@@ -235,11 +235,11 @@ public class GuiPrint extends GuiScreen
         }
         if (keyCode == Keyboard.KEY_PRIOR)
         {
-            this.listOffset += scrollSpeedNodeList;
+            this.listOffset += GuiPrint.scrollSpeedNodeList;
         }
         if (keyCode == Keyboard.KEY_NEXT)
         {
-            this.listOffset -= scrollSpeedNodeList;
+            this.listOffset -= GuiPrint.scrollSpeedNodeList;
         }
     }
     
@@ -278,7 +278,7 @@ public class GuiPrint extends GuiScreen
                         if (this.getCanClickField(field))
                         {
                             // If it is an input an connected, cut the connections, then proceed with eg. showing enums
-                            if(field.isInput() && field.hasConnections())
+                            if (field.isInput() && field.hasConnections())
                             {
                                 field.cutConnections();
                             }
@@ -391,9 +391,8 @@ public class GuiPrint extends GuiScreen
                     this.unfocusClicked();
                 }
             }
-            else if(this.nodeList.isCoordInside(mouseX, mouseY))
+            else if (this.nodeList.isCoordInside(mouseX, mouseY))
             {
-                int x = 0;
                 int y = this.listOffset;
                 int w = this.util.nodeWidth;
                 int h;
@@ -402,7 +401,7 @@ public class GuiPrint extends GuiScreen
                 {
                     h = this.util.getNodeTotalHeight(node);
                     
-                    if(RenderUtility.isCoordInsideRect(mouseX, mouseY, this.nodeList.x, this.nodeList.y + y / 2, w / 2, h / 2))
+                    if (RenderUtility.isCoordInsideRect(mouseX, mouseY, this.nodeList.x, this.nodeList.y + y / 2, w / 2, h / 2))
                     {
                         this.getPrint().addNode(node.setPosition(-this.getPrint().posX, -this.getPrint().posY));
                     }
@@ -410,9 +409,9 @@ public class GuiPrint extends GuiScreen
                     y += h + 2;
                 }
             }
-            else if(this.nodeListSearch.isCoordInside(mouseX, mouseY))
+            else if (this.nodeListSearch.isCoordInside(mouseX, mouseY))
             {
-                if(this.listSearch.mouseClicked(mouseX, mouseY, mouseButton))
+                if (this.listSearch.mouseClicked(mouseX, mouseY, mouseButton))
                 {
                     this.listSearch.setFocused(true);
                 }
@@ -440,7 +439,7 @@ public class GuiPrint extends GuiScreen
             
             h = this.util.getNodeTotalHeight(node);
             
-            if(RenderUtility.isCoordInsideRect(mouseX, mouseY, this.nodeList.x, this.nodeList.y + y / 2, w / 2, h / 2))
+            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, this.nodeList.x, this.nodeList.y + y / 2, w / 2, h / 2))
             {
                 this.util.drawHoverRect(x, y, w, h);
             }
@@ -459,11 +458,11 @@ public class GuiPrint extends GuiScreen
         // <=>
         // listOffset < b - y / 2
         
-        if(this.listOffset < botRect) //Bottom of list is below window
+        if (this.listOffset < botRect) //Bottom of list is below window
         {
             this.listOffset = botRect;
         }
-        if(this.listOffset > topRect) //Top of list is above window
+        if (this.listOffset > topRect) //Top of list is above window
         {
             this.listOffset = topRect;
         }
@@ -497,13 +496,13 @@ public class GuiPrint extends GuiScreen
     {
         String text = this.listSearch.getText().trim();
         
-        if(!StringUtils.isNullOrEmpty(text))
+        if (!StringUtils.isNullOrEmpty(text))
         {
             ArrayList<Node> list2 = (ArrayList<Node>) list.clone();
             
-            for(Node node : list2)
+            for (Node node : list2)
             {
-                if(!NodeGroupsHelper.INSTANCE.isTextMatchingNode(node, text))
+                if (!NodeGroupsHelper.INSTANCE.isTextMatchingNode(node, text))
                 {
                     list.remove(node);
                 }

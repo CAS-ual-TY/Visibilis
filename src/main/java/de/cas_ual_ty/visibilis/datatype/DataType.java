@@ -124,7 +124,6 @@ public class DataType<A>
             return s;
         }
     }.setBlackText();
-
     
     static
     {
