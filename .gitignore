@@ -30,3 +30,4 @@ version.properties
 /*.launch
 /out
 eclipse/
+src/main/java/LocMetrics*
