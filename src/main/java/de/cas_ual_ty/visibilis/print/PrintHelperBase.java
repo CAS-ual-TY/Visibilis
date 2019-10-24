@@ -14,6 +14,9 @@ import de.cas_ual_ty.visibilis.node.calculate.NodeModulo;
 import de.cas_ual_ty.visibilis.node.calculate.NodeMultiplication;
 import de.cas_ual_ty.visibilis.node.calculate.NodeRoot;
 import de.cas_ual_ty.visibilis.node.calculate.NodeSubtraction;
+import de.cas_ual_ty.visibilis.node.constant.*;
+import de.cas_ual_ty.visibilis.node.function.*;
+import de.cas_ual_ty.visibilis.node.logic.*;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -34,20 +37,7 @@ public abstract class PrintHelperBase implements IPrintHelper
     @Override
     public ArrayList<Node> getAvailableNodes(GuiPrint gui)
     {
-        ArrayList<Node> list = new ArrayList<Node>();
-        
-        list.add(new NodeAddition());
-        list.add(new NodeDivision());
-        list.add(new NodeExponentiation());
-        list.add(new NodeLogarithm10());
-        list.add(new NodeLogarithm1p());
-        list.add(new NodeLogarithmE());
-        list.add(new NodeModulo());
-        list.add(new NodeMultiplication());
-        list.add(new NodeRoot());
-        list.add(new NodeSubtraction());
-        
-        return list;
+        return null;
     }
     
     @Override

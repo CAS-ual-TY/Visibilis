@@ -24,10 +24,13 @@ public class GuiPrint extends GuiScreen
     
     public static int scrollSpeedInner = 2;
     
+    public static int scrollSpeedNodeList = 24;
+    
     public IPrintHelper helper;
     
     public RenderUtility.Rectangle inner;
     public RenderUtility.Rectangle nodeList;
+    public RenderUtility.Rectangle nodeListSearch;
     
     protected Print print;
     
@@ -50,7 +53,10 @@ public class GuiPrint extends GuiScreen
     
     protected RenderUtility util;
     
-    protected GuiTextField textField;
+    protected GuiTextField fieldInput;
+    
+    protected int listOffset;
+    protected GuiTextField listSearch;
     
     public GuiPrint(IPrintHelper helper)
     {
@@ -64,11 +70,13 @@ public class GuiPrint extends GuiScreen
         this.clicked = false;
         this.util = util;
         
-        //Initialize text field and set it to be invisible
-        this.textField = new GuiTextField(0, Minecraft.getMinecraft().fontRenderer, 0, 0, 0, 0);
-        this.textField.setVisible(false);
+        //Initialize text field and set it to be invisible. Here instead of in #initGui() as position and size are adjusted when activated
+        this.fieldInput = new GuiTextField(0, Minecraft.getMinecraft().fontRenderer, 0, 0, 0, 0);
+        this.fieldInput.setVisible(false);
         
         this.helper.onGuiOpen(this);
+        
+        this.listOffset = 0;
     }
     
     @Override
@@ -77,7 +85,12 @@ public class GuiPrint extends GuiScreen
         this.sr = new ScaledResolution(this.mc);
         
         this.inner = RenderUtility.Rectangle.fromXYWH(0, 0, this.width - this.util.fieldWidth, this.height);
-        this.nodeList = RenderUtility.Rectangle.fromXYWH(this.sr.getScaledWidth() - this.util.fieldWidth, 0, this.util.fieldWidth, this.height);
+        this.nodeListSearch = RenderUtility.Rectangle.fromXYWH(this.sr.getScaledWidth() - this.util.fieldWidth, 0, this.util.fieldWidth, this.util.nodeHeight);
+        this.nodeList = RenderUtility.Rectangle.fromXYWH(this.sr.getScaledWidth() - this.util.fieldWidth, nodeListSearch.h, this.util.fieldWidth, this.sr.getScaledHeight() - this.nodeListSearch.h);
+        
+        this.listSearch = new GuiTextField(1, Minecraft.getMinecraft().fontRenderer, this.nodeListSearch.x + 1, this.nodeListSearch.y + 1, this.nodeListSearch.w - 2, nodeListSearch.h - 2);
+        this.listSearch.setVisible(true);
+        this.listSearch.setEnabled(true);
         
         this.updateLineWidth();
         
@@ -139,7 +152,7 @@ public class GuiPrint extends GuiScreen
             return;
         }
         
-        if (this.textField.getVisible())
+        if (this.fieldInput.getVisible())
         {
             if (keyCode == Keyboard.KEY_RETURN)
             {
@@ -150,7 +163,21 @@ public class GuiPrint extends GuiScreen
             else
             {
                 //If the text field is visible transfer all pressed keys to it.
-                this.textField.textboxKeyTyped(typedChar, keyCode);
+                this.fieldInput.textboxKeyTyped(typedChar, keyCode);
+                return;
+            }
+        }
+        else if(this.listSearch.isFocused())
+        {
+            if (keyCode == Keyboard.KEY_RETURN)
+            {
+                this.listSearch.setFocused(false);
+                return;
+            }
+            else
+            {
+                //If the text field is visible transfer all pressed keys to it.
+                this.listSearch.textboxKeyTyped(typedChar, keyCode);
                 return;
             }
         }
@@ -203,6 +230,14 @@ public class GuiPrint extends GuiScreen
             
             this.updateLineWidth();
         }
+        if (keyCode == Keyboard.KEY_PRIOR)
+        {
+            this.listOffset += scrollSpeedNodeList;
+        }
+        if (keyCode == Keyboard.KEY_NEXT)
+        {
+            this.listOffset -= scrollSpeedNodeList;
+        }
     }
     
     @Override
@@ -210,6 +245,8 @@ public class GuiPrint extends GuiScreen
     {
         if (mouseButton == 0)
         {
+            this.listSearch.setFocused(false);
+            
             // Get whatever the player just clicked on
             Object obj = this.getHovering(mouseX, mouseY);
             
@@ -354,7 +391,7 @@ public class GuiPrint extends GuiScreen
             else if(this.nodeList.isCoordInside(mouseX, mouseY))
             {
                 int x = 0;
-                int y = 0;
+                int y = this.listOffset;
                 int w = this.util.nodeWidth;
                 int h;
                 
@@ -370,6 +407,13 @@ public class GuiPrint extends GuiScreen
                     y += h + 2;
                 }
             }
+            else if(this.nodeListSearch.isCoordInside(mouseX, mouseY))
+            {
+                if(this.listSearch.mouseClicked(mouseX, mouseY, mouseButton))
+                {
+                    this.listSearch.setFocused(true);
+                }
+            }
             
             super.mouseClicked(mouseX, mouseY, mouseButton);
         }
@@ -378,11 +422,12 @@ public class GuiPrint extends GuiScreen
     public void drawNodeList(int mouseX, int mouseY, float partialTicks)
     {
         GlStateManager.pushMatrix();
+        RenderUtility.scissorStart(this.sr, this.nodeList.x, this.nodeList.y, this.nodeList.w, this.nodeList.h);
         GlStateManager.translate(this.nodeList.x, this.nodeList.y, 0); // Move everything in the print by the print's position
         RenderUtility.applyZoom(0.5F);
         
         int x = 0;
-        int y = 0;
+        int y = this.listOffset;
         int w = this.util.nodeWidth;
         int h;
         
@@ -400,7 +445,34 @@ public class GuiPrint extends GuiScreen
             y += h + 2;
         }
         
+        y -= 2 + this.listOffset;
+        
+        int offset = 0;//this.util.nodeHeight;
+        
+        int topRect = this.nodeList.t + offset;
+        int botRect = (this.nodeList.b - y) - offset; //TODO properly fit botRect. Right now you can scroll down until the bottom of the nodes list hits roughly the middle of the screen instead of the bottom - nodeHeight.
+        
+        // listOffset + y / 2 < b
+        // <=>
+        // listOffset < b - y / 2
+        
+        System.out.println("--");
+        System.out.println(this.listOffset);
+        System.out.println(botRect);
+        
+        if(this.listOffset < botRect) //Bottom of list is below window
+        {
+            this.listOffset = botRect;
+        }
+        if(this.listOffset > topRect) //Top of list is above window
+        {
+            this.listOffset = topRect;
+        }
+        
+        RenderUtility.scissorEnd();
         GlStateManager.popMatrix();
+        
+        this.listSearch.drawTextBox();
     }
     
     public void drawInner(int mouseX, int mouseY, float partialTicks)
@@ -574,24 +646,24 @@ public class GuiPrint extends GuiScreen
         DataTypeDynamic dt = (DataTypeDynamic) input.dataType;
         
         // Make it visible
-        this.textField.setVisible(true);
+        this.fieldInput.setVisible(true);
         
         // Adjust position to node field accordingly
-        this.textField.x = input.node.posX + this.util.getFieldOffX(input);
-        this.textField.y = input.node.posY + this.util.getFieldOffY(input);
+        this.fieldInput.x = input.node.posX + this.util.getFieldOffX(input);
+        this.fieldInput.y = input.node.posY + this.util.getFieldOffY(input);
         
         // Adjust size to node field accordingly
-        this.textField.width = this.util.fieldWidth;
-        this.textField.height = this.util.nodeHeight;
+        this.fieldInput.width = this.util.fieldWidth;
+        this.fieldInput.height = this.util.nodeHeight;
         
         // Set the text to the current immediate value the input is holding
-        this.textField.setText(dt.valueToString(input.getSetValue()));
+        this.fieldInput.setText(dt.valueToString(input.getSetValue()));
         
         // Set it to be focused, otherwise it does not accept input
-        this.textField.setFocused(true);
+        this.fieldInput.setFocused(true);
         
         // Set the string validator for immediate input feedback
-        this.textField.setValidator(dt.getValidator());
+        this.fieldInput.setValidator(dt.getValidator());
     }
     
     /**
@@ -616,13 +688,13 @@ public class GuiPrint extends GuiScreen
         DataTypeDynamic dt = (DataTypeDynamic) input.dataType;
         
         // Can the string in the text box be applied to the input? Is it viable?
-        if (dt.canParseString(this.textField.getText()))
+        if (dt.canParseString(this.fieldInput.getText()))
         {
             // Parse string and apply the parsed value to the input.
-            input.setValue(dt.stringToValue(this.textField.getText()));
+            input.setValue(dt.stringToValue(this.fieldInput.getText()));
         }
         
-        this.textField.setVisible(false);
+        this.fieldInput.setVisible(false);
     }
     
     /**
@@ -684,7 +756,7 @@ public class GuiPrint extends GuiScreen
                         if (input.dataType instanceof DataTypeDynamic)
                         {
                             // Draw the text box
-                            this.textField.drawTextBox();
+                            this.fieldInput.drawTextBox();
                         }
                         // Dynamic data type?
                         else if (input.dataType instanceof DataTypeEnum)
