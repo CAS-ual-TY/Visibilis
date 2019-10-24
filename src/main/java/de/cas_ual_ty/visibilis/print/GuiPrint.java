@@ -1,6 +1,7 @@
 package de.cas_ual_ty.visibilis.print;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.lwjgl.input.Keyboard;
 
@@ -9,6 +10,7 @@ import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
+import de.cas_ual_ty.visibilis.node.NodeGroupsHelper;
 import de.cas_ual_ty.visibilis.node.Output;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
 import net.minecraft.client.Minecraft;
@@ -16,6 +18,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.StringUtils;
 
 public class GuiPrint extends GuiScreen
 {
@@ -395,7 +398,7 @@ public class GuiPrint extends GuiScreen
                 int w = this.util.nodeWidth;
                 int h;
                 
-                for (Node node : this.helper.getAvailableNodes(this))
+                for (Node node : this.getAvailableNodesList())
                 {
                     h = this.util.getNodeTotalHeight(node);
                     
@@ -431,7 +434,7 @@ public class GuiPrint extends GuiScreen
         int w = this.util.nodeWidth;
         int h;
         
-        for (Node node : this.helper.getAvailableNodes(this))
+        for (Node node : this.getAvailableNodesList())
         {
             this.util.drawNode(node, x, y);
             
@@ -483,6 +486,31 @@ public class GuiPrint extends GuiScreen
         
         RenderUtility.scissorEnd();
         GlStateManager.popMatrix();
+    }
+    
+    public ArrayList<Node> getAvailableNodesList()
+    {
+        return this.cutNodeListToSearch(this.helper.getAvailableNodes(this));
+    }
+    
+    public ArrayList<Node> cutNodeListToSearch(ArrayList<Node> list)
+    {
+        String text = this.listSearch.getText().trim();
+        
+        if(!StringUtils.isNullOrEmpty(text))
+        {
+            ArrayList<Node> list2 = (ArrayList<Node>) list.clone();
+            
+            for(Node node : list2)
+            {
+                if(!NodeGroupsHelper.INSTANCE.isTextMatchingNode(node, text))
+                {
+                    list.remove(node);
+                }
+            }
+        }
+        
+        return list;
     }
     
     /**

@@ -337,6 +337,14 @@ public abstract class Node
     }
     
     /**
+     * Used for getting the node group (and tags) for this node.
+     */
+    public String getUnlocalizedGroup()
+    {
+        return "node." + this.getID() + ".groups";
+    }
+    
+    /**
      * Used for translating the name of a field of this node.
      */
     public String getFieldUnlocalizedName(NodeField field)
