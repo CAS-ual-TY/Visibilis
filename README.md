@@ -5,8 +5,8 @@
 **LAT**: visibilis, e
 **ENG**: visible, capable of being seen
 
-![Can you solve it? :)](https://i.imgur.com/iXCy9zy.png)
-Can you solve it (this is the current progress)?
+![Ingame screenshot](https://i.imgur.com/FnN87l4.png)
+Current progress (25/10/2019)
 
 
 ## About
