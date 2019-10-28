@@ -91,6 +91,21 @@ node.false.groups=constants;logic_gates
 group.functions.name=Functions
 group.functions.tags=functions;math
 
+node.round.name=Round
+field.round.out1.name=round(x)
+field.round.in1.name=x
+node.round.groups=functions
+
+node.round_up.name=Round Up
+field.round_up.out1.name=ceil(x)
+field.round_up.in1.name=x
+node.round_up.groups=functions
+
+node.round_down.name=Round Down
+field.round_down.out1.name=floor(x)
+field.round_down.in1.name=x
+node.round_down.groups=functions
+
 node.sines.name=Sines
 field.sines.out1.name=sin(x)
 field.sines.in1.name=x
