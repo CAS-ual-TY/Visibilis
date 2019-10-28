@@ -1,6 +1,7 @@
 package de.cas_ual_ty.visibilis.node.logic;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
+import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.Output;
@@ -25,7 +26,7 @@ public class NodeNOT extends Node
     }
     
     @Override
-    public boolean doCalculate()
+    public boolean doCalculate(ExecProvider provider)
     {
         this.value = !this.in1.getValue();
         

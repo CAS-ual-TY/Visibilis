@@ -3,6 +3,7 @@ package de.cas_ual_ty.magicamundi.visibilis.selektor;
 import de.cas_ual_ty.magicamundi.visibilis.MMDataType;
 import de.cas_ual_ty.magicamundi.visibilis.target.TargetsList;
 import de.cas_ual_ty.visibilis.datatype.DataType;
+import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.Output;
 
@@ -32,7 +33,7 @@ public abstract class Selektor extends Node
     }
     
     @Override
-    public boolean doCalculate()
+    public boolean doCalculate(ExecProvider provider)
     {
         this.targetsList.clear();
         return this.findTargets(this.targetsList);

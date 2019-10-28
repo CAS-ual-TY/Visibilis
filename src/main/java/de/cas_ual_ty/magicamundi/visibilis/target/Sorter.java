@@ -2,6 +2,7 @@ package de.cas_ual_ty.magicamundi.visibilis.target;
 
 import de.cas_ual_ty.magicamundi.visibilis.MMDataType;
 import de.cas_ual_ty.visibilis.datatype.DataType;
+import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.NodeExec;
 import de.cas_ual_ty.visibilis.node.Output;
@@ -39,7 +40,7 @@ public abstract class Sorter extends NodeExec
     }
     
     @Override
-    public boolean doCalculate()
+    public boolean doCalculate(ExecProvider provider)
     {
         this.targetsList2.clear();
         this.targetsList1 = this.inTargetsList.getValue().clone();

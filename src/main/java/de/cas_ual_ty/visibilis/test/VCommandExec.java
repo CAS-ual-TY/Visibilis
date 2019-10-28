@@ -74,7 +74,7 @@ public class VCommandExec implements ICommand
             
             if (p != null)
             {
-                p.executeEvent(Visibilis.MOD_ID, "command");
+                p.executeEvent(Visibilis.MOD_ID, "command", player);
                 return true;
             }
         }

@@ -57,7 +57,7 @@ public abstract class Node
      * 
      * @return <b>true</b> if all parent nodes have successfully been calculated, <false> if they could not be calculated.
      */
-    public boolean preCalculate()
+    public boolean preCalculate(ExecProvider provider)
     {
         // If this node has no inputs it also has no parents, so it can be calculated immediately
         // (or if none of the inputs have any connections)
@@ -87,7 +87,7 @@ public abstract class Node
                         if (!field1.node.isCalculated())
                         {
                             // Calculate it, return false if it fails
-                            if (!field1.node.calculate())
+                            if (!field1.node.calculate(provider))
                             {
                                 return false;
                             }
@@ -105,17 +105,17 @@ public abstract class Node
      * 
      * @return <b>true</b> if all nodes have successfully been calculated, <false> if they could not be calculated.
      */
-    public boolean calculate()
+    public boolean calculate(ExecProvider provider)
     {
         // Make sure all parents are calculated
-        if (!this.preCalculate() || !this.hasAllRequiredInputs())
+        if (!this.preCalculate(provider) || !this.hasAllRequiredInputs(provider))
         {
             // Abort if parents could not be calculated
             return false;
         }
         
         // Now try calculate this node
-        return this.doCalculate();
+        return this.doCalculate(provider);
     }
     
     /**
@@ -123,7 +123,7 @@ public abstract class Node
      * 
      * @return <b>true</b> if this node has successfully been calculated, <false> if it could not be calculated.
      */
-    public abstract boolean doCalculate();
+    public abstract boolean doCalculate(ExecProvider provider);
     
     /**
      * See if this node is a dead end with no further connections at the output.
@@ -191,7 +191,7 @@ public abstract class Node
     /**
      * Returns <b>true</b> if all inputs that are required for calculation are connected. Override if there are any optional inputs not required for calculation.
      */
-    public boolean hasAllRequiredInputs()
+    public boolean hasAllRequiredInputs(ExecProvider provider)
     {
         Input field0;
         int i;

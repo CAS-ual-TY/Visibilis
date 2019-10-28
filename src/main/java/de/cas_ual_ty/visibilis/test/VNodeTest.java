@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis.test;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.datatype.DataType;
+import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.NodeExec;
 import de.cas_ual_ty.visibilis.node.Output;
@@ -27,14 +28,14 @@ public class VNodeTest extends NodeExec
     }
     
     @Override
-    public boolean hasAllRequiredInputs()
+    public boolean hasAllRequiredInputs(ExecProvider provider)
     {
         // We dont need any inputs, technically
         return true;
     }
     
     @Override
-    public boolean doCalculate()
+    public boolean doCalculate(ExecProvider provider)
     {
         Visibilis.debug("## " + this.getClass().getSimpleName() + " START");
         

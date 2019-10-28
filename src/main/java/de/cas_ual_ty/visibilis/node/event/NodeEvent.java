@@ -1,6 +1,7 @@
 package de.cas_ual_ty.visibilis.node.event;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
+import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.NodeExec;
 import de.cas_ual_ty.visibilis.node.Output;
 import net.minecraft.nbt.NBTTagCompound;
@@ -41,7 +42,7 @@ public class NodeEvent extends NodeExec
     }
     
     @Override
-    public boolean doCalculate()
+    public boolean doCalculate(ExecProvider provider)
     {
         return true;
     }

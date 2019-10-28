@@ -1,6 +1,7 @@
 package de.cas_ual_ty.visibilis.node.exec;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
+import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.NodeExec;
 import de.cas_ual_ty.visibilis.node.Output;
@@ -40,7 +41,7 @@ public class NodeCondition extends NodeExec
     }
     
     @Override
-    public boolean doCalculate()
+    public boolean doCalculate(ExecProvider provider)
     {
         this.value = this.inBoolean.getValue();
         return true;

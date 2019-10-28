@@ -3,12 +3,14 @@ package de.cas_ual_ty.visibilis.print;
 import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.Visibilis;
+import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeExec;
 import de.cas_ual_ty.visibilis.node.Output;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
+import net.minecraft.command.ICommandSender;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class Print
@@ -121,16 +123,16 @@ public class Print
         return this.nodes;
     }
     
-    public boolean executeEvent(String modId, String eventType)
+    public boolean executeEvent(String modId, String eventType, ICommandSender sender)
     {
-        return this.executeEvent(modId + ":" + eventType);
+        return this.executeEvent(modId + ":" + eventType, sender);
     }
     
     /**
      * @param eventType
      * @return
      */
-    public boolean executeEvent(String eventType)
+    public boolean executeEvent(String eventType, ICommandSender sender)
     {
         NodeEvent event;
         
@@ -141,7 +143,7 @@ public class Print
             
             if (event.eventType.equals(eventType))
             {
-                return this.execute(event);
+                return this.execute(event, new ExecProvider(sender));
             }
         }
         
@@ -155,9 +157,9 @@ public class Print
      *            The node to start the exec chain from.
      * @return <b>true</b> if the given parameter exec node and all child exec nodes could be calculated successfully.
      */
-    public boolean execute(NodeExec node)
+    public boolean execute(NodeExec node, ExecProvider provider)
     {
-        boolean ret = this.exec(node);
+        boolean ret = this.exec(node, provider);
         
         for (Node n : this.nodes)
         {
@@ -174,10 +176,10 @@ public class Print
      *            The node to start the exec chain from.
      * @return <b>true</b> if the given parameter exec node and all child exec nodes could be calculated successfully.
      */
-    protected boolean exec(NodeExec node)
+    protected boolean exec(NodeExec node, ExecProvider provider)
     {
         // If the node can not be calculated, abort
-        if (!node.calculate())
+        if (!node.calculate(provider))
         {
             return false;
         }
@@ -205,7 +207,7 @@ public class Print
                 if (next != null)
                 {
                     // Check the the sub node has been successfully calculated
-                    if (!this.exec(next))
+                    if (!this.exec(next, provider))
                     {
                         // Abort if false
                         return false;
