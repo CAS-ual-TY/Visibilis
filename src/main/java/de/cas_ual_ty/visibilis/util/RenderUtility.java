@@ -376,15 +376,15 @@ public class RenderUtility
         
         ArrayList<String> tagsList = NodeGroupsHelper.INSTANCE.getTagsForNode(node);
         
-        if(tagsList.size() > 0)
+        if (tagsList.size() > 0)
         {
             String tags = "";
             
-            for(i = 0; i < tagsList.size(); ++i)
+            for (i = 0; i < tagsList.size(); ++i)
             {
                 tags += tagsList.get(i);
                 
-                if(i < tagsList.size() - 1)
+                if (i < tagsList.size() - 1)
                 {
                     tags += ", ";
                 }
@@ -395,7 +395,7 @@ public class RenderUtility
         
         String desc = I18n.format(node.getUnlocalizedDesc());
         
-        if(!StringUtils.isNullOrEmpty(desc) && !desc.equals(node.getUnlocalizedDesc()))
+        if (!StringUtils.isNullOrEmpty(desc) && !desc.equals(node.getUnlocalizedDesc()))
         {
             lines.add("");
             lines.add(desc);
@@ -403,22 +403,22 @@ public class RenderUtility
         
         NodeField f;
         
-        if(node.getInputAmt() > 0)
+        if (node.getInputAmt() > 0)
         {
             lines.add("");
             
-            for(i = 0; i < node.getInputAmt(); ++i)
+            for (i = 0; i < node.getInputAmt(); ++i)
             {
                 f = node.getInput(i);
                 lines.add(TextFormatting.GOLD.toString() + I18n.format(f.getUnlocalizedName()) + TextFormatting.RESET + " - " + this.tIn);
             }
         }
         
-        if(node.getOutputAmt() > 0)
+        if (node.getOutputAmt() > 0)
         {
             lines.add("");
             
-            for(i = 0; i < node.getOutputAmt(); ++i)
+            for (i = 0; i < node.getOutputAmt(); ++i)
             {
                 f = node.getOutput(i);
                 lines.add(TextFormatting.DARK_RED.toString() + I18n.format(f.getUnlocalizedName()) + TextFormatting.RESET + " - " + this.tOut);
@@ -436,7 +436,7 @@ public class RenderUtility
         
         String desc = I18n.format(field.getUnlocalizedDesc());
         
-        if(!StringUtils.isNullOrEmpty(desc) && !desc.equals(field.getUnlocalizedDesc()))
+        if (!StringUtils.isNullOrEmpty(desc) && !desc.equals(field.getUnlocalizedDesc()))
         {
             lines.add("");
             lines.add(desc);

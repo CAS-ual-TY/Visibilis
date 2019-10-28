@@ -488,11 +488,15 @@ public class GuiPrint extends GuiScreen
         RenderUtility.scissorEnd();
         GlStateManager.popMatrix();
         
-        if(this.mouseHoveringNode != null)
+        if (this.mouseHoveringNode != null)
+        {
             this.util.drawNodeHoveringText(this, this.mouseHoveringNode, mouseX, mouseY);
+        }
         
-        if(this.mouseHoveringField != null)
+        if (this.mouseHoveringField != null)
+        {
             this.util.drawNodeFieldHoveringText(this, this.mouseHoveringField, mouseX, mouseY);
+        }
         
         GlStateManager.popMatrix();
     }

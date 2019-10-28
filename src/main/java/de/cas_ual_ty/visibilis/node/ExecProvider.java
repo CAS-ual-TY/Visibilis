@@ -13,6 +13,6 @@ public class ExecProvider
     
     public ICommandSender getCommandSender()
     {
-        return commandSender;
+        return this.commandSender;
     }
 }
