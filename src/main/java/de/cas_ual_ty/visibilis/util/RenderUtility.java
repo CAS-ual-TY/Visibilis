@@ -53,6 +53,9 @@ public class RenderUtility
     /** Color of the box when hovering over an object */
     public float[] hoverColor;
     
+    /** Color of the box drawn over an object that is selected */
+    public float[] selectColor;
+    
     /** Transparency of *insert color above* box when hovering over an object */
     public float hoverAlpha;
     
@@ -80,6 +83,7 @@ public class RenderUtility
         this.nodeFieldConnectionsAlpha = 0.5F;
         this.nodeRectMargin = 1;
         this.hoverColor = new float[] { 1F, 1F, 1F };
+        this.selectColor = new float[] { 0F, 0F, 0F };
         this.hoverAlpha = 0.5F;
         this.nodeBackground = new float[] { 0.125F, 0.125F, 0.125F };
         this.dotOffset = 0;
@@ -308,6 +312,14 @@ public class RenderUtility
     }
     
     /**
+     * Draw a rectangle with the color {@link #selectColor} and alpha {@link #hoverAlpha} over the node
+     */
+    public void drawNodeSelect(Node node, int x, int y)
+    {
+        this.drawSelectRect(x, y, this.nodeWidth, this.getNodeTotalHeight(node));
+    }
+    
+    /**
      * Draw a rectangle with the color {@link #hoverColor} and alpha {@link #hoverAlpha} over the node field
      */
     public void drawNodeFieldHover(NodeField field, int x, int y)
@@ -321,6 +333,14 @@ public class RenderUtility
     public void drawHoverRect(int x, int y, int w, int h)
     {
         RenderUtility.drawRect(x, y, w, h, this.hoverColor[0], this.hoverColor[1], this.hoverColor[2], this.hoverAlpha);
+    }
+    
+    /**
+     * Draw a rectangle with the color {@link #selectColor} and alpha {@link #hoverAlpha}
+     */
+    public void drawSelectRect(int x, int y, int w, int h)
+    {
+        RenderUtility.drawRect(x, y, w, h, this.selectColor[0], this.selectColor[1], this.selectColor[2], this.hoverAlpha);
     }
     
     public void drawNodeInputValues(Node node, int x, int y)

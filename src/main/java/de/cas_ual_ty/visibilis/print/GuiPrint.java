@@ -755,6 +755,7 @@ public class GuiPrint extends GuiScreen
             if (this.mouseClickedNode != null)
             {
                 // node on mouse
+                this.util.drawNodeSelect(this.mouseClickedNode, this.mouseClickedNode.posX, this.mouseClickedNode.posY);
                 
                 // Outline clicked on node
                 this.drawOutlineRect(this.mouseXToPrintRounded(mouseX), this.mouseYToPrintRounded(mouseY), this.util.nodeWidth, this.util.getNodeTotalHeight(this.mouseClickedNode));
