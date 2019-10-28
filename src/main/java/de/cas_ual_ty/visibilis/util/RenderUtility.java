@@ -393,9 +393,13 @@ public class RenderUtility
             lines.add(tags);
         }
         
-        lines.add("");
+        String desc = I18n.format(node.getUnlocalizedDesc());
         
-        lines.add(I18n.format(node.getUnlocalizedDesc()));
+        if(!StringUtils.isNullOrEmpty(desc) && !desc.equals(node.getUnlocalizedDesc()))
+        {
+            lines.add("");
+            lines.add(desc);
+        }
         
         NodeField f;
         
@@ -432,7 +436,7 @@ public class RenderUtility
         
         String desc = I18n.format(field.getUnlocalizedDesc());
         
-        if(!StringUtils.isNullOrEmpty(desc))
+        if(!StringUtils.isNullOrEmpty(desc) && !desc.equals(field.getUnlocalizedDesc()))
         {
             lines.add("");
             lines.add(desc);
