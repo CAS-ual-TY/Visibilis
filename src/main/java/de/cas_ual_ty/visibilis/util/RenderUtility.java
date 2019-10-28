@@ -19,6 +19,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.util.StringUtils;
 import net.minecraft.util.text.TextFormatting;
 
 public class RenderUtility
@@ -67,6 +68,9 @@ public class RenderUtility
     /** Color of a dot if it is unconnected but also has a fixed value */
     public float[] unneededDot;
     
+    /** node, output, input, print, as translated string */
+    public String tNode, tOut, tIn, tPrint;
+    
     public RenderUtility()
     {
         this.fontRenderer = Minecraft.getMinecraft().fontRenderer;
@@ -80,6 +84,11 @@ public class RenderUtility
         this.nodeBackground = new float[] { 0.125F, 0.125F, 0.125F };
         this.dotOffset = 0;
         this.unneededDot = new float[] { 0.5F, 0.5F, 0.5F };
+        
+        this.tNode = I18n.format("visibilis.node.name");
+        this.tOut = I18n.format("visibilis.output.name");
+        this.tIn = I18n.format("visibilis.input.name");
+        this.tPrint = I18n.format("visibilis.print.name");
         
         this.genVars();
     }
@@ -361,7 +370,7 @@ public class RenderUtility
     {
         ArrayList<String> lines = new ArrayList<String>();
         
-        lines.add(TextFormatting.BOLD.toString() + I18n.format(node.getUnlocalizedName()));
+        lines.add(TextFormatting.BOLD.toString() + I18n.format(node.getUnlocalizedName()) + TextFormatting.RESET + " - " + this.tNode);
         
         int i;
         
@@ -388,15 +397,16 @@ public class RenderUtility
         
         lines.add(I18n.format(node.getUnlocalizedDesc()));
         
+        NodeField f;
+        
         if(node.getInputAmt() > 0)
         {
             lines.add("");
             
-            Input in;
-            
             for(i = 0; i < node.getInputAmt(); ++i)
             {
-                lines.add(TextFormatting.GOLD.toString() + I18n.format(node.getInput(i).getUnlocalizedName()));
+                f = node.getInput(i);
+                lines.add(TextFormatting.GOLD.toString() + I18n.format(f.getUnlocalizedName()) + TextFormatting.RESET + " - " + this.tIn);
             }
         }
         
@@ -406,11 +416,29 @@ public class RenderUtility
             
             for(i = 0; i < node.getOutputAmt(); ++i)
             {
-                lines.add(TextFormatting.DARK_RED.toString() + I18n.format(node.getOutput(i).getUnlocalizedName()));
+                f = node.getOutput(i);
+                lines.add(TextFormatting.DARK_RED.toString() + I18n.format(f.getUnlocalizedName()) + TextFormatting.RESET + " - " + this.tOut);
             }
             
             gui.drawHoveringText(lines, x, y);
         }
+    }
+    
+    public void drawNodeFieldHoveringText(GuiScreen gui, NodeField field, int x, int y)
+    {
+        ArrayList<String> lines = new ArrayList<String>();
+        
+        lines.add(TextFormatting.BOLD.toString() + (field.isOutput() ? TextFormatting.DARK_RED.toString() : TextFormatting.GOLD.toString()) + I18n.format(field.getUnlocalizedName()) + TextFormatting.RESET + " - " + (field.isOutput() ? this.tOut : this.tIn));
+        
+        String desc = I18n.format(field.getUnlocalizedDesc());
+        
+        if(!StringUtils.isNullOrEmpty(desc))
+        {
+            lines.add("");
+            lines.add(desc);
+        }
+        
+        gui.drawHoveringText(lines, x, y);
     }
     
     public void drawRectWithText(int x, int y, int w, int h, float[] colorRect, String text, float[] colorText)
