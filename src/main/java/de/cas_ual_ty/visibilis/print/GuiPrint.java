@@ -35,8 +35,6 @@ public class GuiPrint extends GuiScreen
     public RenderUtility.Rectangle nodeList;
     public RenderUtility.Rectangle nodeListSearch;
     
-    protected Print print;
-    
     protected ScaledResolution sr;
     
     // --- Mouse hovers/clicks on node or field -> temporarily stored here ---
@@ -268,6 +266,9 @@ public class GuiPrint extends GuiScreen
                         // Clicked on a node while nothing is attached to the mouse: Attach the node
                         this.clicked = true;
                         this.mouseClickedNode = (Node) obj;
+                        
+                        // Add node back to front
+                        this.getPrint().addNode(this.mouseClickedNode);
                     }
                     // Nothing was clicked on before, but now a node field has been clicked on
                     else if (obj instanceof NodeField)
