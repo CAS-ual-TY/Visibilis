@@ -476,6 +476,8 @@ public class GuiPrint extends GuiScreen
     public void drawInner(int mouseX, int mouseY, float partialTicks)
     {
         GlStateManager.pushMatrix();
+        
+        GlStateManager.pushMatrix();
         RenderUtility.scissorStart(this.sr, this.inner.x, this.inner.y, this.inner.w, this.inner.h);
         RenderUtility.applyZoom(this.getPrint().zoom); // Inside of the matrix since you would otherwise "touch" everything outside of the matrix
         GlStateManager.translate(this.getPrint().posX, this.getPrint().posY, 0); // Move everything in the print by the print's position
@@ -484,6 +486,11 @@ public class GuiPrint extends GuiScreen
         this.drawInnerInteractions(mouseX, mouseY, partialTicks);
         
         RenderUtility.scissorEnd();
+        GlStateManager.popMatrix();
+        
+        if(this.mouseHoveringNode != null)
+            this.util.drawNodeHoveringText(this, this.mouseHoveringNode, mouseX, mouseY);
+        
         GlStateManager.popMatrix();
     }
     

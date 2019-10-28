@@ -8,9 +8,11 @@ import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
+import de.cas_ual_ty.visibilis.node.NodeGroupsHelper;
 import de.cas_ual_ty.visibilis.print.Print;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -339,6 +341,76 @@ public class RenderUtility
         }
         
         this.drawRectWithText(x, y, width, this.nodeHeight, input.dataType.getColor(), TextFormatting.UNDERLINE + input.dataType.valueToString(input.getSetValue()), input.dataType.getTextColor());
+    }
+    
+    /**
+     * BOLD + Node-Name
+     * Node-Tags
+     * 
+     * Node-Desc
+     * 
+     * GOLD Input1-Name
+     * GOLD Input2-Name
+     * ...
+     * 
+     * DARK_RED Output1-Name
+     * DARK_RED Output2-Name
+     * ...
+     */
+    public void drawNodeHoveringText(GuiScreen gui, Node node, int x, int y)
+    {
+        ArrayList<String> lines = new ArrayList<String>();
+        
+        lines.add(TextFormatting.BOLD.toString() + I18n.format(node.getUnlocalizedName()));
+        
+        int i;
+        
+        ArrayList<String> tagsList = NodeGroupsHelper.INSTANCE.getTagsForNode(node);
+        
+        if(tagsList.size() > 0)
+        {
+            String tags = "";
+            
+            for(i = 0; i < tagsList.size(); ++i)
+            {
+                tags += tagsList.get(i);
+                
+                if(i < tagsList.size() - 1)
+                {
+                    tags += ", ";
+                }
+            }
+            
+            lines.add(tags);
+        }
+        
+        lines.add("");
+        
+        lines.add(I18n.format(node.getUnlocalizedDesc()));
+        
+        if(node.getInputAmt() > 0)
+        {
+            lines.add("");
+            
+            Input in;
+            
+            for(i = 0; i < node.getInputAmt(); ++i)
+            {
+                lines.add(TextFormatting.GOLD.toString() + I18n.format(node.getInput(i).getUnlocalizedName()));
+            }
+        }
+        
+        if(node.getOutputAmt() > 0)
+        {
+            lines.add("");
+            
+            for(i = 0; i < node.getOutputAmt(); ++i)
+            {
+                lines.add(TextFormatting.DARK_RED.toString() + I18n.format(node.getOutput(i).getUnlocalizedName()));
+            }
+            
+            gui.drawHoveringText(lines, x, y);
+        }
     }
     
     public void drawRectWithText(int x, int y, int w, int h, float[] colorRect, String text, float[] colorText)
