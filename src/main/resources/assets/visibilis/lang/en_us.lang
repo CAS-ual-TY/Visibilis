@@ -122,8 +122,8 @@ field.tangent.in1.name=x
 node.tangent.groups=functions
 
 # --- Logic Gates ---
-groups.logic_gates.name=Logic Gates
-groups.logic_gates.tags=logic;gates;boolean;bit;binary
+group.logic_gates.name=Logic Gates
+group.logic_gates.tags=logic;gates;boolean;bit;binary
 
 node.and.name=AND
 field.and.out1.name=A AND B
