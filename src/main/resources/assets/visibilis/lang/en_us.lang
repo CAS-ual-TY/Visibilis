@@ -1,3 +1,9 @@
+# --- General Translation ---
+visibilis.node.name=Node
+visibilis.output.name=Output
+visibilis.input.name=Input
+visibilis.print.name=Print
+
 # --- Base Groups ---
 group.operators.name=Operators
 group.operators.tags=operators
