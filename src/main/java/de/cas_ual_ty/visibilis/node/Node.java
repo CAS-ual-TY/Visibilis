@@ -215,13 +215,23 @@ public abstract class Node
         return true;
     }
     
+    public int getOutputId(Output out)
+    {
+        return this.outputFields.indexOf(out);
+    }
+    
+    public int getInputId(Input in)
+    {
+        return this.inputFields.indexOf(in);
+    }
+    
     protected int addOutput(Output out)
     {
         if(!this.outputFields.contains(out))
         {
             this.outputFields.add(out);
             
-            return this.outputFields.indexOf(out);
+            return this.getOutputId(out);
         }
         
         return -1;
@@ -233,10 +243,38 @@ public abstract class Node
         {
             this.inputFields.add(in);
             
-            return this.inputFields.indexOf(in);
+            return this.getInputId(in);
         }
         
         return -1;
+    }
+    
+    protected void removeOutput(Output out0)
+    {
+        if(this.outputFields.contains(out0))
+        {
+            out0.cutConnections();
+            this.outputFields.remove(out0);
+            
+            for(Output out : this.outputFields)
+            {
+                out.recalculateId();
+            }
+        }
+    }
+    
+    protected void removeInput(Input in0)
+    {
+        if(this.inputFields.contains(in0))
+        {
+            in0.cutConnections();
+            this.inputFields.remove(in0);
+            
+            for(Input in : this.inputFields)
+            {
+                in.recalculateId();
+            }
+        }
     }
     
     /**
@@ -262,7 +300,7 @@ public abstract class Node
      *            The index of the output node field.
      * @return The node field at the specified index.
      */
-    public NodeField getOutput(int index)
+    public Output getOutput(int index)
     {
         return this.outputFields.get(index);
     }
@@ -274,7 +312,7 @@ public abstract class Node
      *            The index of the input node field.
      * @return The node field at the specified index.
      */
-    public NodeField getInput(int index)
+    public Input getInput(int index)
     {
         return this.inputFields.get(index);
     }
@@ -407,7 +445,7 @@ public abstract class Node
     /**
      * @return {@link #canExpand()} || {@link #canShrink()}
      */
-    public boolean hasBottomRow()
+    public boolean hasFooter()
     {
         return this.canExpand() || this.canShrink();
     }
@@ -429,4 +467,8 @@ public abstract class Node
     {
         return false;
     }
+    
+    public void expand() {}
+    
+    public void shrink() {}
 }

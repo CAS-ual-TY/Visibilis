@@ -67,6 +67,18 @@ public abstract class NodeField<A>
         return !this.isOutput();
     }
     
+    public void recalculateId()
+    {
+        if(this.isOutput())
+        {
+            this.id = this.node.getOutputId((Output) this);
+        }
+        else
+        {
+            this.id = this.node.getInputId((Input) this);
+        }
+    }
+    
     /**
      * @return The index of this node field in either {@link Node#outputFields} or {@link Node#inputFields}
      */
