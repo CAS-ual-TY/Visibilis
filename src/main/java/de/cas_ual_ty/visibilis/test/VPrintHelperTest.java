@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis.test;
 
 import java.util.ArrayList;
 
+import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.calculate.NodeAddition;
 import de.cas_ual_ty.visibilis.node.calculate.NodeDivision;
@@ -13,12 +14,12 @@ import de.cas_ual_ty.visibilis.node.calculate.NodeModulo;
 import de.cas_ual_ty.visibilis.node.calculate.NodeMultiplication;
 import de.cas_ual_ty.visibilis.node.calculate.NodeRoot;
 import de.cas_ual_ty.visibilis.node.calculate.NodeSubtraction;
+import de.cas_ual_ty.visibilis.node.constant.NodeConstBoolean;
 import de.cas_ual_ty.visibilis.node.constant.NodeConstNumber;
 import de.cas_ual_ty.visibilis.node.constant.NodeE;
-import de.cas_ual_ty.visibilis.node.constant.NodeFalse;
 import de.cas_ual_ty.visibilis.node.constant.NodePi;
 import de.cas_ual_ty.visibilis.node.constant.NodeSQRT2;
-import de.cas_ual_ty.visibilis.node.constant.NodeTrue;
+import de.cas_ual_ty.visibilis.node.event.NodeEvent;
 import de.cas_ual_ty.visibilis.node.function.NodeCosines;
 import de.cas_ual_ty.visibilis.node.function.NodeRound;
 import de.cas_ual_ty.visibilis.node.function.NodeRoundDown;
@@ -56,6 +57,9 @@ public class VPrintHelperTest extends PrintHelperItem
     {
         ArrayList<Node> list = new ArrayList<Node>();
         
+        list.add(new NodeEvent(1, Visibilis.MOD_ID, "command"));
+        list.add(new VNodeTest());
+        
         list.add(new NodeAddition());
         list.add(new NodeDivision());
         list.add(new NodeExponentiation());
@@ -71,6 +75,7 @@ public class VPrintHelperTest extends PrintHelperItem
         list.add(new NodePi());
         list.add(new NodeSQRT2());
         list.add(new NodeConstNumber());
+        list.add(new NodeConstBoolean());
         
         list.add(new NodeRound());
         list.add(new NodeRoundUp());
@@ -79,8 +84,6 @@ public class VPrintHelperTest extends PrintHelperItem
         list.add(new NodeCosines());
         list.add(new NodeTangent());
         
-        list.add(new NodeTrue());
-        list.add(new NodeFalse());
         list.add(new NodeAND());
         list.add(new NodeNAND());
         list.add(new NodeNOR());

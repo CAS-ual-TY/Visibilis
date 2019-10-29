@@ -12,12 +12,11 @@ import de.cas_ual_ty.visibilis.node.calculate.NodeModulo;
 import de.cas_ual_ty.visibilis.node.calculate.NodeMultiplication;
 import de.cas_ual_ty.visibilis.node.calculate.NodeRoot;
 import de.cas_ual_ty.visibilis.node.calculate.NodeSubtraction;
+import de.cas_ual_ty.visibilis.node.constant.NodeConstBoolean;
 import de.cas_ual_ty.visibilis.node.constant.NodeConstNumber;
 import de.cas_ual_ty.visibilis.node.constant.NodeE;
-import de.cas_ual_ty.visibilis.node.constant.NodeFalse;
 import de.cas_ual_ty.visibilis.node.constant.NodePi;
 import de.cas_ual_ty.visibilis.node.constant.NodeSQRT2;
-import de.cas_ual_ty.visibilis.node.constant.NodeTrue;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
 import de.cas_ual_ty.visibilis.node.function.NodeCosines;
 import de.cas_ual_ty.visibilis.node.function.NodeRound;
@@ -121,11 +120,10 @@ public class Visibilis
         VRegistry.INSTANCE.registerNode(NodeSubtraction.class, Visibilis.MOD_ID, "subtraction");
         
         VRegistry.INSTANCE.registerNode(NodeE.class, Visibilis.MOD_ID, "e");
-        VRegistry.INSTANCE.registerNode(NodeFalse.class, Visibilis.MOD_ID, "false");
         VRegistry.INSTANCE.registerNode(NodePi.class, Visibilis.MOD_ID, "pi");
         VRegistry.INSTANCE.registerNode(NodeSQRT2.class, Visibilis.MOD_ID, "sqrt2");
-        VRegistry.INSTANCE.registerNode(NodeTrue.class, Visibilis.MOD_ID, "true");
         VRegistry.INSTANCE.registerNode(NodeConstNumber.class, Visibilis.MOD_ID, "const_number");
+        VRegistry.INSTANCE.registerNode(NodeConstBoolean.class, Visibilis.MOD_ID, "const_boolean");
         
         VRegistry.INSTANCE.registerNode(NodeCosines.class, Visibilis.MOD_ID, "cosines");
         VRegistry.INSTANCE.registerNode(NodeRound.class, Visibilis.MOD_ID, "round");
