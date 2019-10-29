@@ -227,7 +227,7 @@ public abstract class Node
     
     protected int addOutput(Output out)
     {
-        if(!this.outputFields.contains(out))
+        if (!this.outputFields.contains(out))
         {
             this.outputFields.add(out);
             
@@ -239,7 +239,7 @@ public abstract class Node
     
     protected int addInput(Input in)
     {
-        if(!this.inputFields.contains(in))
+        if (!this.inputFields.contains(in))
         {
             this.inputFields.add(in);
             
@@ -251,12 +251,12 @@ public abstract class Node
     
     protected void removeOutput(Output out0)
     {
-        if(this.outputFields.contains(out0))
+        if (this.outputFields.contains(out0))
         {
             out0.cutConnections();
             this.outputFields.remove(out0);
             
-            for(Output out : this.outputFields)
+            for (Output out : this.outputFields)
             {
                 out.recalculateId();
             }
@@ -265,12 +265,12 @@ public abstract class Node
     
     protected void removeInput(Input in0)
     {
-        if(this.inputFields.contains(in0))
+        if (this.inputFields.contains(in0))
         {
             in0.cutConnections();
             this.inputFields.remove(in0);
             
-            for(Input in : this.inputFields)
+            for (Input in : this.inputFields)
             {
                 in.recalculateId();
             }
@@ -468,7 +468,11 @@ public abstract class Node
         return false;
     }
     
-    public void expand() {}
+    public void expand()
+    {
+    }
     
-    public void shrink() {}
+    public void shrink()
+    {
+    }
 }

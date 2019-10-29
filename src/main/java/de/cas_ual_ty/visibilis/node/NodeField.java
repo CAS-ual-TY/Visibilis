@@ -69,7 +69,7 @@ public abstract class NodeField<A>
     
     public void recalculateId()
     {
-        if(this.isOutput())
+        if (this.isOutput())
         {
             this.id = this.node.getOutputId((Output) this);
         }

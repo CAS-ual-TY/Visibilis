@@ -9,7 +9,7 @@ public class NodeMultiplication extends NodeNumber2Xto1
     {
         float value = 1;
         
-        for(Number in : inputs)
+        for (Number in : inputs)
         {
             value *= in.floatValue();
         }

@@ -275,7 +275,7 @@ public class Print
      */
     public static Node getNodeForIdx(Print p, int idx)
     {
-        if(idx < p.getNodes().size())
+        if (idx < p.getNodes().size())
         {
             return p.getNodes().get(idx);
         }

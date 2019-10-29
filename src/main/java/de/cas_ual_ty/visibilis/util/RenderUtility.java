@@ -153,7 +153,7 @@ public class RenderUtility
         
         // #SelfExplainingCodeIsAMeme
         this.drawNodeHeader(node, x, y);
-        this.drawNodeFooter(node, x, y + (getVerticalAmt(node) - 1) * this.nodeHeight);
+        this.drawNodeFooter(node, x, y + (RenderUtility.getVerticalAmt(node) - 1) * this.nodeHeight);
         
         // --- Done drawing node, now drawing fields (inputs and outputs) ---
         
@@ -202,19 +202,31 @@ public class RenderUtility
     
     public void drawNodeFooter(Node node, int x, int y)
     {
-        if(node.hasFooter())
+        if (node.hasFooter())
         {
             // TODO remove unnecessary if-s pls. this is just for lazy testing
             
             // Draw action rects
-            if(node.canExpand()) RenderUtility.drawRect(x, y, this.fieldWidth, this.nodeHeight, 1, this.actionColor);
-            if(node.canShrink()) RenderUtility.drawRect(x + this.fieldWidth, y, this.fieldWidth, this.nodeHeight, 1, this.actionColor);
+            if (node.canExpand())
+            {
+                RenderUtility.drawRect(x, y, this.fieldWidth, this.nodeHeight, 1, this.actionColor);
+            }
+            if (node.canShrink())
+            {
+                RenderUtility.drawRect(x + this.fieldWidth, y, this.fieldWidth, this.nodeHeight, 1, this.actionColor);
+            }
             
             int marginText = 2;
             
             // Draw action text
-            if(node.canExpand()) RenderUtility.drawTextCentered(this.fontRenderer, x + marginText, y + marginText, this.fieldWidth, this.tExpand, this.actionColorText);
-            if(node.canShrink()) RenderUtility.drawTextCentered(this.fontRenderer, x + this.fieldWidth + marginText, y + marginText, this.fieldWidth, this.tShrink, this.actionColorText);
+            if (node.canExpand())
+            {
+                RenderUtility.drawTextCentered(this.fontRenderer, x + marginText, y + marginText, this.fieldWidth, this.tExpand, this.actionColorText);
+            }
+            if (node.canShrink())
+            {
+                RenderUtility.drawTextCentered(this.fontRenderer, x + this.fieldWidth + marginText, y + marginText, this.fieldWidth, this.tShrink, this.actionColorText);
+            }
         }
     }
     
@@ -566,7 +578,7 @@ public class RenderUtility
     {
         text = fontRenderer.trimStringToWidth(text, w);
         int wT = fontRenderer.getStringWidth(text);
-        fontRenderer.drawString(text, x + (w - wT) / 2, y, colorToInt(color));
+        fontRenderer.drawString(text, x + (w - wT) / 2, y, RenderUtility.colorToInt(color));
     }
     
     /**

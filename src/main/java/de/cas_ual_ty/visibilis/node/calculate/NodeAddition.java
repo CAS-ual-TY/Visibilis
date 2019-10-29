@@ -9,7 +9,7 @@ public class NodeAddition extends NodeNumber2Xto1
     {
         float value = 0;
         
-        for(Number in : inputs)
+        for (Number in : inputs)
         {
             value += in.floatValue();
         }

@@ -1,7 +1,5 @@
 package de.cas_ual_ty.visibilis.node.general;
 
-import java.util.ArrayList;
-
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.Input;
@@ -38,7 +36,7 @@ public abstract class NodeNumber2Xto1 extends Node
     {
         Number[] inputs = new Number[this.getInputAmt()];
         
-        for(int i = 0; i < inputs.length; ++i)
+        for (int i = 0; i < inputs.length; ++i)
         {
             inputs[i] = (Number) this.getInput(i).getValue();
         }
@@ -127,9 +125,9 @@ public abstract class NodeNumber2Xto1 extends Node
     public void readNodeFromNBT(NBTTagCompound nbt)
     {
         super.readNodeFromNBT(nbt);
-        int expansion = nbt.getInteger(KEY_EXPANSION);
+        int expansion = nbt.getInteger(NodeNumber2Xto1.KEY_EXPANSION);
         
-        for(int i = 0; i < expansion; ++i)
+        for (int i = 0; i < expansion; ++i)
         {
             this.expand();
         }
@@ -139,6 +137,6 @@ public abstract class NodeNumber2Xto1 extends Node
     public void writeNodeToNBT(NBTTagCompound nbt)
     {
         super.writeNodeToNBT(nbt);
-        nbt.setInteger(KEY_EXPANSION, this.expansion);
+        nbt.setInteger(NodeNumber2Xto1.KEY_EXPANSION, this.expansion);
     }
 }
