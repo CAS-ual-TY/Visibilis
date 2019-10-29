@@ -93,6 +93,11 @@ node.false.name=False
 field.false.out1.name=False
 node.false.groups=constants;logic_gates
 
+node.const_number.name=Number Constant
+field.const_number.in1.name=Number
+field.const_number.out1.name=Number
+node.const_number.groups=constants
+
 # --- Functions ---
 group.functions.name=Functions
 group.functions.tags=functions;math
