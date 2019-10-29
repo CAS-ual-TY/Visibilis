@@ -275,12 +275,9 @@ public class Print
      */
     public static Node getNodeForIdx(Print p, int idx)
     {
-        for (int i = 0; i < p.getNodes().size(); ++i)
+        if(idx < p.getNodes().size())
         {
-            if (i == idx)
-            {
-                return p.getNodes().get(i);
-            }
+            return p.getNodes().get(idx);
         }
         
         Visibilis.error("Could not find node for index!");
