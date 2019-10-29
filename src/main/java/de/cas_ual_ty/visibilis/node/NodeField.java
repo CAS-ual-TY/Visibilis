@@ -18,7 +18,7 @@ public abstract class NodeField<A>
     /**
      * The index of this node field in the node.
      */
-    public final int id;
+    private int id;
     
     /**
      * The parent node of this node field.
@@ -35,20 +35,19 @@ public abstract class NodeField<A>
      */
     public final String name;
     
-    public NodeField(int id, Node node, DataType dataType, String name)
+    public NodeField(Node node, DataType dataType, String name)
     {
-        this.id = id;
         this.node = node;
         this.dataType = dataType;
         this.name = name;
         
         if (this.isOutput())
         {
-            this.node.outputFields[this.id] = (Output) this;
+            this.id = this.node.addOutput((Output) this);
         }
         else
         {
-            this.node.inputFields[this.id] = (Input) this;
+            this.id = this.node.addInput((Input) this);
         }
     }
     
@@ -66,6 +65,14 @@ public abstract class NodeField<A>
     public boolean isInput()
     {
         return !this.isOutput();
+    }
+    
+    /**
+     * @return The index of this node field in either {@link Node#outputFields} or {@link Node#inputFields}
+     */
+    public int getId()
+    {
+        return this.id;
     }
     
     /**

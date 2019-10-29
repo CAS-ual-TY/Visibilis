@@ -17,9 +17,9 @@ public abstract class NodeNumber2to1 extends Node
     public NodeNumber2to1(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.out1 = new Output<Number>(0, this, DataType.NUMBER, "out1");
-        this.in1 = new Input<Number>(0, this, DataType.NUMBER, "in1");
-        this.in2 = new Input<Number>(1, this, DataType.NUMBER, "in2");
+        this.out1 = new Output<Number>(this, DataType.NUMBER, "out1");
+        this.in1 = new Input<Number>(this, DataType.NUMBER, "in1");
+        this.in2 = new Input<Number>(this, DataType.NUMBER, "in2");
     }
     
     public NodeNumber2to1()
@@ -68,7 +68,7 @@ public abstract class NodeNumber2to1 extends Node
     @Override
     public <B> B getOutputValue(int index)
     {
-        if (index == this.out1.id)
+        if (index == this.out1.getId())
         {
             return (B) this.value;
         }

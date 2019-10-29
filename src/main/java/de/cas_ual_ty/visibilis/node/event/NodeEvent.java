@@ -21,7 +21,7 @@ public class NodeEvent extends NodeExec
     public NodeEvent(int outputAmt)
     {
         super(outputAmt, 0);
-        this.outExec = new Output(0, this, DataType.EXEC, "exec");
+        this.outExec = new Output(this, DataType.EXEC, "exec");
         this.eventType = null; // Just to make sure it is initialized
     }
     

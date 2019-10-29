@@ -16,9 +16,9 @@ public class VNodeTest extends NodeExec
     public VNodeTest()
     {
         super(0, 3);
-        this.in0 = new Input(0, this, DataType.EXEC, "test");
-        this.in1 = new Input<Boolean>(1, this, DataType.BOOLEAN, "test");
-        this.in2 = new Input<Number>(2, this, DataType.NUMBER, "test");
+        this.in0 = new Input(this, DataType.EXEC, "test");
+        this.in1 = new Input<Boolean>(this, DataType.BOOLEAN, "test");
+        this.in2 = new Input<Number>(this, DataType.NUMBER, "test");
     }
     
     @Override
@@ -51,11 +51,11 @@ public class VNodeTest extends NodeExec
     {
         if (in.hasConnections() || in.hasDisplayValue())
         {
-            Visibilis.debug(in.id + ": " + in.getValue());
+            Visibilis.debug(in.getId() + ": " + in.getValue());
         }
         else
         {
-            Visibilis.debug(in.id + ": " + "404 NO CONNECTIONS");
+            Visibilis.debug(in.getId() + ": " + "404 NO CONNECTIONS");
         }
     }
     

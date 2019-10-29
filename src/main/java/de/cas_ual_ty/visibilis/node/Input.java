@@ -22,9 +22,9 @@ public class Input<A> extends NodeField<A>
     
     protected boolean mustUseConnection;
     
-    public Input(int id, Node node, DataType dataType, String name)
+    public Input(Node node, DataType dataType, String name)
     {
-        super(id, node, dataType, name);
+        super(node, dataType, name);
         this.mustUseConnection = !dataType.hasDefaultValue();
     }
     

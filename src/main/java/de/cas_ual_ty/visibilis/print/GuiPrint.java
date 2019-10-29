@@ -776,7 +776,7 @@ public class GuiPrint extends GuiScreen
                     
                     if (this.mouseHoveringField != null && NodeField.canConnect(this.mouseClickedField, this.mouseHoveringField))
                     {
-                        this.drawHoverRect(this.mouseHoveringField.node.posX + (this.mouseHoveringField.isInput() ? 0 : this.util.nodeWidth / 2), this.mouseHoveringField.node.posY + this.util.nodeHeight * (this.mouseHoveringField.id + 1), this.util.nodeWidth / 2, this.util.nodeHeight);
+                        this.drawHoverRect(this.mouseHoveringField.node.posX + (this.mouseHoveringField.isInput() ? 0 : this.util.nodeWidth / 2), this.mouseHoveringField.node.posY + this.util.nodeHeight * (this.mouseHoveringField.getId() + 1), this.util.nodeWidth / 2, this.util.nodeHeight);
                     }
                     
                     // Node field was clicked on -> Render line from Dot to Mouse

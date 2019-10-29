@@ -21,11 +21,11 @@ public abstract class Sorter extends NodeExec
     public Sorter(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.outExec = new Output(0, this, DataType.EXEC, "exec");
-        this.outTargetsList1 = new Output<TargetsList>(1, this, MMDataType.TARGETS_LIST, "targets_list");
-        this.outTargetsList2 = new Output<TargetsList>(2, this, MMDataType.TARGETS_LIST, "targets_list");
-        this.inExec = new Input(0, this, DataType.EXEC, "exec");
-        this.inTargetsList = new Input<TargetsList>(1, this, MMDataType.TARGETS_LIST, "targets_list");
+        this.outExec = new Output(this, DataType.EXEC, "exec");
+        this.outTargetsList1 = new Output<TargetsList>(this, MMDataType.TARGETS_LIST, "targets_list");
+        this.outTargetsList2 = new Output<TargetsList>(this, MMDataType.TARGETS_LIST, "targets_list");
+        this.inExec = new Input(this, DataType.EXEC, "exec");
+        this.inTargetsList = new Input<TargetsList>(this, MMDataType.TARGETS_LIST, "targets_list");
         this.targetsList2 = new TargetsList();
     }
     
@@ -61,11 +61,11 @@ public abstract class Sorter extends NodeExec
     @Override
     public <B> B getOutputValue(int index)
     {
-        if (index == this.outTargetsList1.id)
+        if (index == this.outTargetsList1.getId())
         {
             return (B) this.targetsList1;
         }
-        else if (index == this.outTargetsList2.id)
+        else if (index == this.outTargetsList2.getId())
         {
             return (B) this.targetsList2;
         }

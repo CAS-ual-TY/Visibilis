@@ -17,8 +17,8 @@ public abstract class Selektor extends Node
     public Selektor(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.outExec = new Output(0, this, DataType.EXEC, "exec");
-        this.outTargetsList = new Output<TargetsList>(1, this, MMDataType.TARGETS_LIST, "targets_list");
+        this.outExec = new Output(this, DataType.EXEC, "exec");
+        this.outTargetsList = new Output<TargetsList>(this, MMDataType.TARGETS_LIST, "targets_list");
         this.targetsList = new TargetsList();
     }
     
@@ -51,7 +51,7 @@ public abstract class Selektor extends Node
     @Override
     public <B> B getOutputValue(int index)
     {
-        if (index == this.outTargetsList.id)
+        if (index == this.outTargetsList.getId())
         {
             return (B) this.targetsList;
         }

@@ -239,9 +239,9 @@ public class NBTUtility
                 {
                     f1 = connections.get(k);
                     array.add(i);
-                    array.add(f.id);
+                    array.add(f.getId());
                     array.add(Print.getIdxForNode(p, f1.node));
-                    array.add(f1.id);
+                    array.add(f1.getId());
                 }
             }
         }

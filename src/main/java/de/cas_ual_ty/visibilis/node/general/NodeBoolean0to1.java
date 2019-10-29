@@ -14,7 +14,7 @@ public abstract class NodeBoolean0to1 extends Node
     public NodeBoolean0to1(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.out1 = new Output<Boolean>(0, this, DataType.BOOLEAN, "out1");
+        this.out1 = new Output<Boolean>(this, DataType.BOOLEAN, "out1");
     }
     
     public NodeBoolean0to1()
@@ -37,7 +37,7 @@ public abstract class NodeBoolean0to1 extends Node
     @Override
     public <B> B getOutputValue(int index)
     {
-        if (index == this.out1.id)
+        if (index == this.out1.getId())
         {
             return (B) (Boolean) this.value;
         }

@@ -18,9 +18,9 @@ public class Output<A> extends NodeField<A>
      */
     protected final ArrayList<Input> connections;
     
-    public Output(int id, Node node, DataType dataType, String name)
+    public Output(Node node, DataType dataType, String name)
     {
-        super(id, node, dataType, name);
+        super(node, dataType, name);
         this.connections = new ArrayList<Input>();
     }
     
@@ -64,7 +64,7 @@ public class Output<A> extends NodeField<A>
     @Override
     public A getValue()
     {
-        return this.node.<A> getOutputValue(this.id);
+        return this.node.<A> getOutputValue(this.getId());
     }
     
     @Override

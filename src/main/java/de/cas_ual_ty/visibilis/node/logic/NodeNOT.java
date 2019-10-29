@@ -16,8 +16,8 @@ public class NodeNOT extends Node
     public NodeNOT(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.out1 = new Output<Boolean>(0, this, DataType.BOOLEAN, "out1");
-        this.in1 = new Input<Boolean>(0, this, DataType.BOOLEAN, "in1");
+        this.out1 = new Output<Boolean>(this, DataType.BOOLEAN, "out1");
+        this.in1 = new Input<Boolean>(this, DataType.BOOLEAN, "in1");
     }
     
     public NodeNOT()
@@ -36,7 +36,7 @@ public class NodeNOT extends Node
     @Override
     public <B> B getOutputValue(int index)
     {
-        if (index == this.out1.id)
+        if (index == this.out1.getId())
         {
             return (B) (Boolean) this.value;
         }

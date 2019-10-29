@@ -18,10 +18,10 @@ public class NodeCondition extends NodeExec
     public NodeCondition(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.outExec1 = new Output(0, this, DataType.EXEC, "exec");
-        this.outExec2 = new Output(1, this, DataType.EXEC, "exec");
-        this.inExec = new Input(0, this, DataType.EXEC, "exec");
-        this.inBoolean = new Input<Boolean>(1, this, DataType.BOOLEAN, "boolean");
+        this.outExec1 = new Output(this, DataType.EXEC, "exec");
+        this.outExec2 = new Output(this, DataType.EXEC, "exec");
+        this.inExec = new Input(this, DataType.EXEC, "exec");
+        this.inBoolean = new Input<Boolean>(this, DataType.BOOLEAN, "boolean");
     }
     
     public NodeCondition(int inputAmt)

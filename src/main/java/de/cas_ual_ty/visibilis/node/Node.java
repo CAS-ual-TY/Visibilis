@@ -1,5 +1,7 @@
 package de.cas_ual_ty.visibilis.node;
 
+import java.util.ArrayList;
+
 import javax.annotation.Nullable;
 
 import de.cas_ual_ty.visibilis.VRegistry;
@@ -20,13 +22,13 @@ public abstract class Node
     
     public int posX, posY;
     
-    protected Output[] outputFields;
-    protected Input[] inputFields;
+    protected ArrayList<Output> outputFields;
+    protected ArrayList<Input> inputFields;
     
     public Node(int outputAmt, int inputAmt)
     {
-        this.outputFields = new Output[outputAmt];
-        this.inputFields = new Input[inputAmt];
+        this.outputFields = new ArrayList<Output>();
+        this.inputFields = new ArrayList<Input>();
         this.setPosition(0, 0); // Just to make sure they are always initialized
     }
     
@@ -213,12 +215,36 @@ public abstract class Node
         return true;
     }
     
+    protected int addOutput(Output out)
+    {
+        if(!this.outputFields.contains(out))
+        {
+            this.outputFields.add(out);
+            
+            return this.outputFields.indexOf(out);
+        }
+        
+        return -1;
+    }
+    
+    protected int addInput(Input in)
+    {
+        if(!this.inputFields.contains(in))
+        {
+            this.inputFields.add(in);
+            
+            return this.inputFields.indexOf(in);
+        }
+        
+        return -1;
+    }
+    
     /**
      * @return The total amount of output node fields.
      */
     public int getOutputAmt()
     {
-        return this.outputFields.length;
+        return this.outputFields.size();
     }
     
     /**
@@ -226,7 +252,7 @@ public abstract class Node
      */
     public int getInputAmt()
     {
-        return this.inputFields.length;
+        return this.inputFields.size();
     }
     
     /**
@@ -238,7 +264,7 @@ public abstract class Node
      */
     public NodeField getOutput(int index)
     {
-        return this.outputFields[index];
+        return this.outputFields.get(index);
     }
     
     /**
@@ -250,7 +276,7 @@ public abstract class Node
      */
     public NodeField getInput(int index)
     {
-        return this.inputFields[index];
+        return this.inputFields.get(index);
     }
     
     // Output.getValue() links to this. So the value must be stored inside the Node, not inside NodeField.

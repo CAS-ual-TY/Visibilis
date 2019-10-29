@@ -291,7 +291,7 @@ public class RenderUtility
         
         // Adjust Y, eg. 1st field might be the 2nd in order, the 2nd field might be the
         // 4th in order
-        offY += (dest.id - field.id) * this.nodeHeight;
+        offY += (dest.getId() - field.getId()) * this.nodeHeight;
         
         // + half size so it starts in the middle
         x1 = dotX;
@@ -488,7 +488,7 @@ public class RenderUtility
      */
     public int getFieldOffY(NodeField field)
     {
-        return this.nodeHeight * (field.id + 1);
+        return this.nodeHeight * (field.getId() + 1);
     }
     
     /**
