@@ -71,8 +71,14 @@ public class RenderUtility
     /** Color of a dot if it is unconnected but also has a fixed value */
     public float[] unneededDot;
     
+    /** Color of the background rect of all actions on a node */
+    public float[] actionColor;
+    
+    /** Color of the text on top of the background rect of all actions on a node */
+    public float[] actionColorText;
+    
     /** node, output, input, print, as translated string */
-    public String tNode, tOut, tIn, tPrint;
+    public String tNode, tOut, tIn, tPrint, tExpand, tShrink;
     
     public RenderUtility()
     {
@@ -88,11 +94,15 @@ public class RenderUtility
         this.nodeBackground = new float[] { 0.125F, 0.125F, 0.125F };
         this.dotOffset = 0;
         this.unneededDot = new float[] { 0.5F, 0.5F, 0.5F };
+        this.actionColor = new float[] { 0.25F, 0.25F, 0.25F };
+        this.actionColorText = new float[] { 1F, 1F, 1F };
         
         this.tNode = I18n.format("visibilis.node.name");
         this.tOut = I18n.format("visibilis.output.name");
         this.tIn = I18n.format("visibilis.input.name");
         this.tPrint = I18n.format("visibilis.print.name");
+        this.tExpand = I18n.format("visibilis.action_expand.name");
+        this.tShrink = I18n.format("visibilis.action_shrink.name");
         
         this.genVars();
     }
@@ -143,6 +153,7 @@ public class RenderUtility
         
         // #SelfExplainingCodeIsAMeme
         this.drawNodeHeader(node, x, y);
+        this.drawNodeFooter(node, x, y + (getVerticalAmt(node) - 1) * this.nodeHeight);
         
         // --- Done drawing node, now drawing fields (inputs and outputs) ---
         
@@ -187,6 +198,24 @@ public class RenderUtility
         String name = I18n.format(node.getUnlocalizedName());
         name = this.fontRenderer.trimStringToWidth(name, this.nodeWidth - 2 * this.nodeTextMargin); // Trim the name in case it is too big
         this.fontRenderer.drawString(name, x + this.nodeTextMargin, y + this.nodeTextMargin, RenderUtility.colorToInt(node.getTextColor())); // Draw the trimmed name, maybe add shadow?
+    }
+    
+    public void drawNodeFooter(Node node, int x, int y)
+    {
+        if(node.hasFooter())
+        {
+            // TODO remove unnecessary if-s pls. this is just for lazy testing
+            
+            // Draw action rects
+            if(node.canExpand()) RenderUtility.drawRect(x, y, this.fieldWidth, this.nodeHeight, 1, this.actionColor);
+            if(node.canShrink()) RenderUtility.drawRect(x + this.fieldWidth, y, this.fieldWidth, this.nodeHeight, 1, this.actionColor);
+            
+            int marginText = 2;
+            
+            // Draw action text
+            if(node.canExpand()) RenderUtility.drawTextCentered(this.fontRenderer, x + marginText, y + marginText, this.fieldWidth, this.tExpand, this.actionColorText);
+            if(node.canShrink()) RenderUtility.drawTextCentered(this.fontRenderer, x + this.fieldWidth + marginText, y + marginText, this.fieldWidth, this.tShrink, this.actionColorText);
+        }
     }
     
     /**
@@ -533,6 +562,13 @@ public class RenderUtility
         return (type == DataType.EXEC ? 2 : 1) * this.nodeFieldConnectionsWidth;
     }
     
+    public static void drawTextCentered(FontRenderer fontRenderer, int x, int y, int w, String text, float color[])
+    {
+        text = fontRenderer.trimStringToWidth(text, w);
+        int wT = fontRenderer.getStringWidth(text);
+        fontRenderer.drawString(text, x + (w - wT) / 2, y, colorToInt(color));
+    }
+    
     /**
      * With background, for without see {@link #drawRectWithText(FontRenderer, int, int, int, int, int, float[], int, String, float[])}
      */
@@ -550,10 +586,17 @@ public class RenderUtility
         // Draw inner colored rectangle
         RenderUtility.drawRect(x + marginRect, y + marginRect, w - 2 * marginRect, h - 2 * marginRect, colorRect[0], colorRect[1], colorRect[2]);
         
-        // Draw name
-        String name = text;
-        name = fontRenderer.trimStringToWidth(name, w - 2 * marginText); // Trim the name in case it is too big
-        fontRenderer.drawString(name, x + marginText, y + marginText, RenderUtility.colorToInt(colorText)); // Draw the trimmed name, maybe add shadow?
+        text = fontRenderer.trimStringToWidth(text, w - 2 * marginText); // Trim the text in case it is too big
+        fontRenderer.drawString(text, x + marginText, y + marginText, RenderUtility.colorToInt(colorText)); // Draw the trimmed text, maybe add shadow?
+    }
+    
+    /**
+     * {@link #drawRect(int, int, int, int, float, float, float)} but with margin
+     */
+    public static void drawRect(int x, int y, int w, int h, int marginRect, float[] colorRect)
+    {
+        // Draw inner colored rectangle
+        RenderUtility.drawRect(x + marginRect, y + marginRect, w - 2 * marginRect, h - 2 * marginRect, colorRect[0], colorRect[1], colorRect[2]);
     }
     
     /**
@@ -565,11 +608,11 @@ public class RenderUtility
     {
         if (node.getInputAmt() > node.getOutputAmt())
         {
-            return node.getInputAmt() + 1;
+            return node.getInputAmt() + 1 + (node.hasFooter() ? 1 : 0);
         }
         else
         {
-            return node.getOutputAmt() + 1;
+            return node.getOutputAmt() + 1 + (node.hasFooter() ? 1 : 0);
         }
     }
     

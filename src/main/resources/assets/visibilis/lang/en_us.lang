@@ -3,6 +3,8 @@ visibilis.node.name=Node
 visibilis.output.name=Output
 visibilis.input.name=Input
 visibilis.print.name=Print
+visibilis.action_expand.name=+
+visibilis.action_shrink.name=-
 
 # --- Base Groups ---
 group.operators.name=Operators
@@ -14,8 +16,7 @@ group.calculation.tags=calculation;math
 
 node.addition.name=Addition
 field.addition.out1.name=Sum
-field.addition.in1.name=Summand
-field.addition.in2.name=Summand
+field.addition.in.name=Summand
 node.addition.groups=calculation;operators
 
 node.subtraction.name=Subtraction
@@ -26,8 +27,7 @@ node.subtraction.groups=calculation;operators
 
 node.multiplication.name=Multiplication
 field.multiplication.out1.name=Product
-field.multiplication.in1.name=Factor
-field.multiplication.in2.name=Factor
+field.multiplication.in.name=Factor
 node.multiplication.groups=calculation;operators
 
 node.division.name=Division

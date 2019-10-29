@@ -45,6 +45,8 @@ public class GuiPrint extends GuiScreen
     
     // The thing currently hovering on (for rendering)
     protected Node mouseHoveringNode;
+    protected Node mouseHoveringNodeES; // In case the shrink/expansion buttons are hovered over TODO getHovering() (and stuff) really needs improvement, maybe an enum. This is just temporarily for testing
+    protected boolean expandShrink;
     protected NodeField mouseHoveringField;
     //
     // true = Mouse clicked and is holding smth
@@ -260,6 +262,18 @@ public class GuiPrint extends GuiScreen
                 {
                     // Inner: nothing on mouse (attached)
                     
+                    // TODO temp, see the variable
+                    if(obj == null && this.mouseHoveringNodeES != null)
+                    {
+                        if(!this.expandShrink)
+                        {
+                            if(this.mouseHoveringNodeES.canExpand()) this.mouseHoveringNodeES.expand();
+                        }
+                        else
+                        {
+                            if(this.mouseHoveringNodeES.canShrink()) this.mouseHoveringNodeES.shrink();
+                        }
+                    }
                     // Nothing was clicked on before, but now a node has been clicked on
                     if (obj instanceof Node)
                     {
@@ -552,6 +566,8 @@ public class GuiPrint extends GuiScreen
      */
     public Object getHovering(int mouseX, int mouseY)
     {
+        this.mouseHoveringNodeES = null; //TODO see variable comment, this is temp
+        
         if (this.inner.isCoordInside(mouseX, mouseY))
         {
             // Inner
@@ -597,9 +613,32 @@ public class GuiPrint extends GuiScreen
                     // Inside header -> return node itself
                     return node;
                 }
+                else if (node.hasFooter() && RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y + h2 * (this.util.getVerticalAmt(node) - 1), w, h2))
+                {
+                    // Left side
+                    if(RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, this.util.fieldWidth, h))
+                    {
+                        if(node.canExpand())
+                        {
+                            this.mouseHoveringNodeES = node;
+                            this.expandShrink = false;
+                            return null;
+                        }
+                    }
+                    // Right Side
+                    else
+                    {
+                        if(node.canShrink())
+                        {
+                            this.mouseHoveringNodeES = node;
+                            this.expandShrink = true;
+                            return null;
+                        }
+                    }
+                }
                 else
                 {
-                    // Not inside header -> node fields
+                    // Not inside header & footer -> node fields
                     
                     int j;
                     
@@ -893,6 +932,19 @@ public class GuiPrint extends GuiScreen
         {
             // nothing on mouse
             
+            if( node == this.mouseHoveringNodeES)
+            {
+                //Expand
+                if(!this.expandShrink)
+                {
+                    this.drawHoverRect(x, y + (this.util.getVerticalAmt(node) - 1) * this.util.nodeHeight, this.util.fieldWidth, this.util.nodeHeight);
+                }
+                //Shrink
+                else
+                {
+                    this.drawHoverRect(x + this.util.fieldWidth, y + (this.util.getVerticalAmt(node) - 1) * this.util.nodeHeight, this.util.fieldWidth, this.util.nodeHeight);
+                }
+            }
             if (node == this.mouseHoveringNode)
             {
                 // node below mouse
