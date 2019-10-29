@@ -403,4 +403,30 @@ public abstract class Node
         nbt.setInteger(Node.KEY_POS_X, this.posX);
         nbt.setInteger(Node.KEY_POS_Y, this.posY);
     }
+    
+    /**
+     * @return {@link #canExpand()} || {@link #canShrink()}
+     */
+    public boolean hasBottomRow()
+    {
+        return this.canExpand() || this.canShrink();
+    }
+    
+    /**
+     * @return <b>true</b> if the player can currently click on a '+' to expand this node from it's current form into something new.
+     * Example: Add more inputs which are factors for a multiplication.
+     */
+    public boolean canExpand()
+    {
+        return false;
+    }
+    
+    /**
+     * @return <b>true</b> if the player can currently click on a '-' to shrink this node from it's current form into something new.
+     * Example: Remove inputs which are factors for a multiplication (in case there are currently 3 or more factors).
+     */
+    public boolean canShrink()
+    {
+        return false;
+    }
 }
