@@ -5,8 +5,8 @@
 **LAT**: visibilis, e
 **ENG**: visible, capable of being seen
 
-![Ingame screenshot](https://i.imgur.com/FnN87l4.png)
-Current progress (25/10/2019)
+![Ingame screenshot](https://i.imgur.com/X2OSSEB.png)
+Current progress (29/10/2019)
 
 
 ## About
@@ -36,6 +36,9 @@ You can customize all of these components using the visual coding interface. Say
 You can also just spam fart noices at every player every second. You can do that... too.
 
 Now this is all the major stuff that needs to be known about this mod. The possibilities of this will be (/are?) endless. There are obviously more minor components and functionalities to this, but I will make a separate repository for this mod whenever I feel like these 2 mods are ready for public release.
+
+#### Programmable Machines - An idea
+Programm your own machines. Kinda like the known Mining Turtles from Computer Craft. But in a more appealing visual programming language instead. Or maybe your own War-Bots? Patrolling Knights?
 
 #### Gamemodes - An idea
 Add elements which can be interacted with in the visual coding interface, to allow the creation and customization of gamemodes. Eg. add some flags or bombs and allow the player to use these things in combination with the coding to create his own gamemodes, like: Search & Destroy (or CS:GO Competitive), Capture the Flag or Flag Conquest, etc..
