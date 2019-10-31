@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.lwjgl.opengl.GL11;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
+import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
@@ -153,7 +154,7 @@ public class RenderUtility
         
         // #SelfExplainingCodeIsAMeme
         this.drawNodeHeader(node, x, y);
-        this.drawNodeFooter(node, x, y + (RenderUtility.getVerticalAmt(node) - 1) * this.nodeHeight);
+        this.drawNodeFooter(node, x, y + (RenderUtility.getVerticalAmtMinusOne(node)) * this.nodeHeight);
         
         // --- Done drawing node, now drawing fields (inputs and outputs) ---
         
@@ -303,6 +304,32 @@ public class RenderUtility
         }
     }
     
+    public void drawInputEnums(NodeField field, int x, int y)
+    {
+        // Draw the enum options
+        
+        DataTypeEnum dt = (DataTypeEnum) field.dataType;
+        
+        int w, h;
+        
+        w = this.inputValueWidth;
+        h = this.nodeHeight;
+        
+        String s;
+        
+        // Loop through enums of the data type
+        for (int i = 0; i < dt.getEnumSize(); ++i)
+        {
+            // Get the string representation of the enum
+            s = dt.valueToString(dt.getEnum(i));
+            
+            y -= i * h;
+            
+            // Draw the rect with the enum as text
+            this.drawRectWithText(x, y, w, h, dt.getColor(), s, dt.getTextColor());
+        }
+    }
+    
     /**
      * Draw a node field's single connection (with gradient according to their data types) starting at the given coordinates (not the node's coordinates!) with dot offset being applied onto them. Alpha is {@link #nodeFieldConnectionsAlpha}.
      */
@@ -366,6 +393,27 @@ public class RenderUtility
     public void drawNodeFieldHover(NodeField field, int x, int y)
     {
         this.drawHoverRect(x + this.getFieldOffX(field), y + this.getFieldOffY(field), this.fieldWidth, this.nodeHeight);
+    }
+    
+    public void drawExpansionHover(Node node, int x, int y)
+    {
+        this.drawHoverRect(x, y + (RenderUtility.getVerticalAmtMinusOne(node)) * this.nodeHeight, this.fieldWidth, this.nodeHeight);
+    }
+    
+    public void drawShrinkHover(Node node, int x, int y)
+    {
+        this.drawHoverRect(x + this.fieldWidth, y + (RenderUtility.getVerticalAmtMinusOne(node)) * this.nodeHeight, this.fieldWidth, this.nodeHeight);
+    }
+    
+    /**
+     * Draw the white border over an object.
+     */
+    public void drawOutlineRect(int x, int y, int w, int h)
+    {
+        RenderUtility.drawRect(x, y, w, 2, 1F, 1F, 1F, this.hoverAlpha); // TOP, x -> x + w
+        RenderUtility.drawRect(x, y + h - 2, w, 2, 1F, 1F, 1F, this.hoverAlpha);// BOT, x -> x + w
+        RenderUtility.drawRect(x, y + 2, 2, h - 4, 1F, 1F, 1F, this.hoverAlpha);// LEFT, y + 2 -> y + h - 2
+        RenderUtility.drawRect(x + w - 2, y + 2, 2, h - 4, 1F, 1F, 1F, this.hoverAlpha);// RIGHT, y + 2 -> y + h - 2
     }
     
     /**
@@ -614,17 +662,22 @@ public class RenderUtility
     /**
      * Since inputs and outputs share a line, only the higher amount of inputs or outputs is often needed.
      * 
-     * @return The amount of inputs or outputs (whatever is higher) + 1 for the header.
+     * @return The amount of inputs or outputs (whatever is higher) + 1 for the header + 1 for the footer.
      */
     public static int getVerticalAmt(Node node)
     {
+        return getVerticalAmtMinusOne(node) + (node.hasFooter() ? 1 : 0);
+    }
+    
+    public static int getVerticalAmtMinusOne(Node node)
+    {
         if (node.getInputAmt() > node.getOutputAmt())
         {
-            return node.getInputAmt() + 1 + (node.hasFooter() ? 1 : 0);
+            return node.getInputAmt() + 1;
         }
         else
         {
-            return node.getOutputAmt() + 1 + (node.hasFooter() ? 1 : 0);
+            return node.getOutputAmt() + 1;
         }
     }
     
