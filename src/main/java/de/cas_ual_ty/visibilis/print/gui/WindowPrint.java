@@ -34,7 +34,7 @@ public class WindowPrint extends WindowBase
     {
         this.updateMouseHoveringObj(mouseX, mouseY);
         
-        if(!this.isHoverViable()) //Throw out the hover obj right away if it is not viable at this state
+        if (!this.isHoverViable()) //Throw out the hover obj right away if it is not viable at this state
         {
             this.hoverObj.nothing();
         }
@@ -61,7 +61,7 @@ public class WindowPrint extends WindowBase
     @Override
     public void guiKeyTyped(char typedChar, int keyCode)
     {
-        if(this.mouseOverDimensions)
+        if (this.mouseOverDimensions)
         {
             if (keyCode == Keyboard.KEY_SPACE || keyCode == Keyboard.KEY_ADD)
             {
@@ -77,19 +77,20 @@ public class WindowPrint extends WindowBase
     @Override
     public void guiMouseClicked(int mouseX, int mouseY, int mouseButton)
     {
-        if(this.mouseOverDimensions)
+        if (this.mouseOverDimensions)
         {
-            if(this.clickedObj.isNothing())
+            if (this.clickedObj.isNothing())
             {
-                if(this.hoverObj.type == MouseInteractionType.NODE_ACTION_EXPAND)
+                if (this.hoverObj.type == MouseInteractionType.NODE_ACTION_EXPAND)
                 {
                     this.hoverObj.node.expand();
                 }
-                else if(this.hoverObj.type == MouseInteractionType.NODE_ACTION_SHRINK)
+                else if (this.hoverObj.type == MouseInteractionType.NODE_ACTION_SHRINK)
                 {
                     this.hoverObj.node.shrink();
                 }
-                else if(this.hoverObj.type == MouseInteractionType.NODE_HEADER || this.hoverObj.type == MouseInteractionType.NODE_FIELD)
+                else if (this.hoverObj.type == MouseInteractionType.NODE_HEADER
+                                || this.hoverObj.type == MouseInteractionType.NODE_FIELD)
                 {
                     this.setHoverToClicked();
                 }
@@ -205,16 +206,11 @@ public class WindowPrint extends WindowBase
                 {
                     DataTypeEnum dt = (DataTypeEnum) input.dataType;
                     
-                    float x3, y3, w3, h3;
+                    float h3;
                     
-                    w3 = this.util.inputValueWidth;
                     h3 = this.util.nodeHeight;
                     
-                    // "- w" because we want to draw these options to the left of the input.
-                    x3 = x - w;
-                    y3 = y + this.util.getFieldOffY(input);
-                    
-                    String s;
+                    y += this.util.getFieldOffY(input);
                     
                     // Loop through enums of the data type
                     for (int j = 0; j < dt.getEnumSize(); ++j)
@@ -286,11 +282,11 @@ public class WindowPrint extends WindowBase
             {
                 this.util.drawShrinkHover(node, x, y);
             }
-            else if(this.hoverObj.type == MouseInteractionType.NODE_HEADER)
+            else if (this.hoverObj.type == MouseInteractionType.NODE_HEADER)
             {
                 this.util.drawNodeHover(node, x, y);
             }
-            else if(this.hoverObj.type == MouseInteractionType.NODE_FIELD)
+            else if (this.hoverObj.type == MouseInteractionType.NODE_FIELD)
             {
                 this.util.drawNodeFieldHover(this.hoverObj.nodeField, x, y);
             }
@@ -366,7 +362,7 @@ public class WindowPrint extends WindowBase
                             // Draw the enum options
                             this.util.drawInputEnums(input, x, y);
                             
-                            if(this.hoverObj.type == MouseInteractionType.INPUT_ENUM)
+                            if (this.hoverObj.type == MouseInteractionType.INPUT_ENUM)
                             {
                                 this.util.drawHoverRect(x, y - h * this.hoverObj.inputEnumId, w, h);
                             }
@@ -379,49 +375,13 @@ public class WindowPrint extends WindowBase
     
     public void drawHoverText(int mouseX, int mouseY)
     {
-        if(this.hoverObj.type == MouseInteractionType.NODE_HEADER)
+        if (this.hoverObj.type == MouseInteractionType.NODE_HEADER)
         {
             this.util.drawNodeHoveringText(this.hoverObj.node, mouseX, mouseY);
         }
-        else if(this.hoverObj.type == MouseInteractionType.NODE_FIELD)
+        else if (this.hoverObj.type == MouseInteractionType.NODE_FIELD)
         {
             this.util.drawNodeFieldHoveringText(this.hoverObj.nodeField, mouseX, mouseY);
-        }
-    }
-    
-    private void drawInputEnums(NodeField field, int mouseX, int mouseY)
-    {
-        // Draw the enum options
-        
-        DataTypeEnum dt = (DataTypeEnum) field.dataType;
-        
-        int x, y, w, h;
-        
-        w = this.util.inputValueWidth;
-        h = this.util.nodeHeight;
-        
-        // "- w" because we want to draw these options to the left of the input.
-        x = field.node.posX - w;
-        y = field.node.posY + this.util.getFieldOffY(field);
-        
-        String s;
-        
-        // Loop through enums of the data type
-        for (int i = 0; i < dt.getEnumSize(); ++i)
-        {
-            // Get the string representation of the enum
-            s = dt.valueToString(dt.getEnum(i));
-            
-            y -= i * h;
-            
-            // Draw the rect with the enum as text
-            this.util.drawRectWithText(x, y, w, h, dt.getColor(), s, dt.getTextColor());
-            
-            // If mouse is hovering over said rect, whiten it
-            if (RenderUtility.isCoordInsideRect(this.mouseXToPrint(mouseX), this.mouseYToPrint(mouseY), x, y, w, h))
-            {
-                this.util.drawHoverRect(x, y, w, h);
-            }
         }
     }
     
@@ -459,16 +419,16 @@ public class WindowPrint extends WindowBase
     
     public boolean isHoverViable()
     {
-        if(this.hoverObj.isNothing())
+        if (this.hoverObj.isNothing())
         {
             return false;
         }
         
-        if(this.clickedObj.isNothing())
+        if (this.clickedObj.isNothing())
         {
-            if(this.hoverObj.type == MouseInteractionType.NODE_FIELD)
+            if (this.hoverObj.type == MouseInteractionType.NODE_FIELD)
             {
-                if(this.hoverObj.nodeField.isOutput())
+                if (this.hoverObj.nodeField.isOutput())
                 {
                     return true;
                 }
@@ -479,11 +439,11 @@ public class WindowPrint extends WindowBase
                     return input.hasDisplayValue() && (input.dataType instanceof DataTypeDynamic || input.dataType instanceof DataTypeEnum);
                 }
             }
-            else if(this.hoverObj.type == MouseInteractionType.NODE_ACTION_EXPAND)
+            else if (this.hoverObj.type == MouseInteractionType.NODE_ACTION_EXPAND)
             {
                 return this.hoverObj.node.canExpand();
             }
-            else if(this.hoverObj.type == MouseInteractionType.NODE_ACTION_SHRINK)
+            else if (this.hoverObj.type == MouseInteractionType.NODE_ACTION_SHRINK)
             {
                 return this.hoverObj.node.canShrink();
             }
@@ -498,7 +458,7 @@ public class WindowPrint extends WindowBase
     
     public boolean isHoverViableClicked()
     {
-        if(this.hoverObj.type == MouseInteractionType.NODE_FIELD)
+        if (this.hoverObj.type == MouseInteractionType.NODE_FIELD)
         {
             return NodeField.canConnect(this.clickedObj.nodeField, this.hoverObj.nodeField);
         }
