@@ -535,7 +535,7 @@ public class RenderUtility
                 lines.add(TextFormatting.DARK_RED.toString() + I18n.format(f.getUnlocalizedName()) + TextFormatting.RESET + " - " + this.tOut);
             }
             
-            gui.drawHoveringText(lines, x, y);
+            this.gui.drawHoveringText(lines, x, y);
         }
     }
     
@@ -553,7 +553,7 @@ public class RenderUtility
             lines.add(desc);
         }
         
-        gui.drawHoveringText(lines, x, y);
+        this.gui.drawHoveringText(lines, x, y);
     }
     
     public void drawRectWithText(int x, int y, int w, int h, float[] colorRect, String text, float[] colorText)
@@ -676,7 +676,7 @@ public class RenderUtility
      */
     public static int getVerticalAmt(Node node)
     {
-        return getVerticalAmtMinusOne(node) + (node.hasFooter() ? 1 : 0);
+        return RenderUtility.getVerticalAmtMinusOne(node) + (node.hasFooter() ? 1 : 0);
     }
     
     public static int getVerticalAmtMinusOne(Node node)

@@ -1,7 +1,5 @@
 package de.cas_ual_ty.visibilis.print.gui;
 
-import java.io.IOException;
-
 import de.cas_ual_ty.visibilis.print.IPrintHelper;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
@@ -29,7 +27,9 @@ public abstract class WindowBase
         this.helper = helper;
     }
     
-    public void deselect() {}
+    public void deselect()
+    {
+    }
     
     public WindowBase setDimensions(Rectangle dimensions)
     {
@@ -42,13 +42,33 @@ public abstract class WindowBase
         this.mouseOverDimensions = this.dimensions.isCoordInside(mouseX, mouseY);
     }
     
-    public void guiInitGui() {}
-    public void guiOnGuiClosed() {}
-    public void guiDrawScreen(int mouseX, int mouseY, float partialTicks) {}
-    public void guiKeyTyped(char typedChar, int keyCode) {}
-    public void guiMouseClicked(int mouseX, int mouseY, int mouseButton) {}
-    public void guiMouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick) {}
-    public void guiMouseReleased(int mouseX, int mouseY, int state) {}
+    public void guiInitGui()
+    {
+    }
+    
+    public void guiOnGuiClosed()
+    {
+    }
+    
+    public void guiDrawScreen(int mouseX, int mouseY, float partialTicks)
+    {
+    }
+    
+    public void guiKeyTyped(char typedChar, int keyCode)
+    {
+    }
+    
+    public void guiMouseClicked(int mouseX, int mouseY, int mouseButton)
+    {
+    }
+    
+    public void guiMouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick)
+    {
+    }
+    
+    public void guiMouseReleased(int mouseX, int mouseY, int state)
+    {
+    }
     
     public Print getPrint()
     {

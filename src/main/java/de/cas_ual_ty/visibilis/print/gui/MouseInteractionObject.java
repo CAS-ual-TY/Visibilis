@@ -3,7 +3,6 @@ package de.cas_ual_ty.visibilis.print.gui;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
-import de.cas_ual_ty.visibilis.print.Print;
 import net.minecraft.client.gui.GuiTextField;
 
 public class MouseInteractionObject
@@ -82,7 +81,7 @@ public class MouseInteractionObject
     public void nodeActionExpand(Node node)
     {
         this.reset();
-        this.node = nodeField.node;
+        this.node = this.nodeField.node;
         this.node = node;
         this.type = MouseInteractionType.NODE_ACTION_EXPAND;
     }
@@ -103,7 +102,7 @@ public class MouseInteractionObject
     
     public void inputEnum(Input input, int enumId)
     {
-        reset();
+        this.reset();
         this.input = input;
         this.inputEnumId = enumId;
     }

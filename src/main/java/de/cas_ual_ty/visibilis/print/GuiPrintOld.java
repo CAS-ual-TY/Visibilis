@@ -528,7 +528,7 @@ public class GuiPrintOld extends GuiScreen
     
     public ArrayList<Node> cutNodeListToSearch(ArrayList<Node> list)
     {
-        if(list == null)
+        if (list == null)
         {
             return new ArrayList<Node>();
         }
