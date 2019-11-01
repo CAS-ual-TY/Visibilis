@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.nbt.NBTTagCompound;
 
 public abstract class PrintHelperBase implements IPrintHelper
@@ -16,30 +17,25 @@ public abstract class PrintHelperBase implements IPrintHelper
     }
     
     @Override
-    public Print getPrint(GuiPrint gui)
+    public Print getPrint(GuiScreen gui)
     {
         return this.print;
     }
     
     @Override
-    public ArrayList<Node> getAvailableNodes(GuiPrint gui)
+    public ArrayList<Node> getAvailableNodes(GuiScreen gui)
     {
         return null;
     }
     
     @Override
-    public void onGuiOpen(GuiPrint gui)
+    public void onGuiOpen(GuiScreen gui)
     {
         this.readFromNBT(this.getNBT());
     }
     
     @Override
-    public void onGuiInit(GuiPrint gui)
-    {
-    }
-    
-    @Override
-    public void onGuiClose(GuiPrint gui)
+    public void onGuiClose(GuiScreen gui)
     {
         this.writeToNBT(this.getNBT());
     }

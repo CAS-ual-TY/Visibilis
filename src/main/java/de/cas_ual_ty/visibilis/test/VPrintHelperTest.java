@@ -33,9 +33,10 @@ import de.cas_ual_ty.visibilis.node.logic.NodeNOT;
 import de.cas_ual_ty.visibilis.node.logic.NodeOR;
 import de.cas_ual_ty.visibilis.node.logic.NodeXNOR;
 import de.cas_ual_ty.visibilis.node.logic.NodeXOR;
-import de.cas_ual_ty.visibilis.print.GuiPrint;
+import de.cas_ual_ty.visibilis.print.GuiPrintOld;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.item.PrintHelperItem;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 
@@ -53,7 +54,7 @@ public class VPrintHelperTest extends PrintHelperItem
     }
     
     @Override
-    public ArrayList<Node> getAvailableNodes(GuiPrint gui)
+    public ArrayList<Node> getAvailableNodes(GuiScreen gui)
     {
         ArrayList<Node> list = new ArrayList<Node>();
         

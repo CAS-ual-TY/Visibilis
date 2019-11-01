@@ -20,6 +20,8 @@ public abstract class WindowBase
     
     public GuiTextField fieldInput;
     
+    public boolean mouseOverDimensions;
+    
     public WindowBase(PrintUILogic guiPrint, RenderUtility util, IPrintHelper helper)
     {
         this.guiPrint = guiPrint;
@@ -35,8 +37,13 @@ public abstract class WindowBase
         return this;
     }
     
-    public void guiInitGui() {}
+    public void updateMouseOverDimensions(int mouseX, int mouseY)
+    {
+        this.mouseOverDimensions = this.dimensions.isCoordInside(mouseX, mouseY);
+    }
     
+    public void guiInitGui() {}
+    public void guiOnGuiClosed() {}
     public void guiDrawScreen(int mouseX, int mouseY, float partialTicks) {}
     public void guiKeyTyped(char typedChar, int keyCode) {}
     public void guiMouseClicked(int mouseX, int mouseY, int mouseButton) {}
@@ -45,7 +52,7 @@ public abstract class WindowBase
     
     public Print getPrint()
     {
-        return this.helper.getPrint(null); //TODO Rewrite
+        return this.helper.getPrint(this.guiPrint.getParentGui()); //TODO Rewrite
     }
     
     public ScaledResolution getSR()

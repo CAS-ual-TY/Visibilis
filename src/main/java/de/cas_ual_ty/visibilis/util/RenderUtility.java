@@ -25,6 +25,7 @@ import net.minecraft.util.text.TextFormatting;
 
 public class RenderUtility
 {
+    public final GuiScreen gui;
     public final FontRenderer fontRenderer;
     
     /** The height of the header or an output/input NOT THE ENTIRE NODE WIDTH AS THEY HAVE DIFFERENT SIZES */
@@ -81,8 +82,9 @@ public class RenderUtility
     /** node, output, input, print, as translated string */
     public String tNode, tOut, tIn, tPrint, tExpand, tShrink;
     
-    public RenderUtility()
+    public RenderUtility(GuiScreen gui)
     {
+        this.gui = gui;
         this.fontRenderer = Minecraft.getMinecraft().fontRenderer;
         
         this.nodeHeight = 12;
@@ -475,7 +477,7 @@ public class RenderUtility
      * DARK_RED Output2-Name
      * ...
      */
-    public void drawNodeHoveringText(GuiScreen gui, Node node, int x, int y)
+    public void drawNodeHoveringText(Node node, int x, int y)
     {
         ArrayList<String> lines = new ArrayList<String>();
         
@@ -537,7 +539,7 @@ public class RenderUtility
         }
     }
     
-    public void drawNodeFieldHoveringText(GuiScreen gui, NodeField field, int x, int y)
+    public void drawNodeFieldHoveringText(NodeField field, int x, int y)
     {
         ArrayList<String> lines = new ArrayList<String>();
         
@@ -620,6 +622,14 @@ public class RenderUtility
     public float getLineWidth(DataType type)
     {
         return (type == DataType.EXEC ? 2 : 1) * this.nodeFieldConnectionsWidth;
+    }
+    
+    /**
+     * Update line width according to current print zoom.
+     */
+    public void updateLineWidth(Print print)
+    {
+        this.nodeFieldConnectionsWidth = (this.nodeFieldDotSize / 2) * print.zoom * new ScaledResolution(Minecraft.getMinecraft()).getScaleFactor();
     }
     
     public static void drawTextCentered(FontRenderer fontRenderer, int x, int y, int w, String text, float color[])

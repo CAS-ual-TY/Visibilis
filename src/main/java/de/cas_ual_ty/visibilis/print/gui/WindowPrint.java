@@ -1,11 +1,13 @@
 package de.cas_ual_ty.visibilis.print.gui;
 
+import org.lwjgl.input.Keyboard;
+
 import de.cas_ual_ty.visibilis.datatype.DataTypeDynamic;
 import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
-import de.cas_ual_ty.visibilis.print.GuiPrint;
+import de.cas_ual_ty.visibilis.print.GuiPrintOld;
 import de.cas_ual_ty.visibilis.print.IPrintHelper;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.gui.MouseInteractionObject.MouseInteractionType;
@@ -54,6 +56,50 @@ public class WindowPrint extends WindowBase
         this.drawHoverText(mouseX, mouseY);
         
         GlStateManager.popMatrix();
+    }
+    
+    @Override
+    public void guiKeyTyped(char typedChar, int keyCode)
+    {
+        if(this.mouseOverDimensions)
+        {
+            if (keyCode == Keyboard.KEY_SPACE || keyCode == Keyboard.KEY_ADD)
+            {
+                this.zoomIn();
+            }
+            else if (keyCode == Keyboard.KEY_LSHIFT || keyCode == Keyboard.KEY_SUBTRACT)
+            {
+                this.zoomOut();
+            }
+        }
+    }
+    
+    @Override
+    public void guiMouseClicked(int mouseX, int mouseY, int mouseButton)
+    {
+        if(this.mouseOverDimensions)
+        {
+            if(this.clickedObj.isNothing())
+            {
+                if(this.hoverObj.type == MouseInteractionType.NODE_ACTION_EXPAND)
+                {
+                    this.hoverObj.node.expand();
+                }
+                else if(this.hoverObj.type == MouseInteractionType.NODE_ACTION_SHRINK)
+                {
+                    this.hoverObj.node.shrink();
+                }
+                else if(this.hoverObj.type == MouseInteractionType.NODE_HEADER || this.hoverObj.type == MouseInteractionType.NODE_FIELD)
+                {
+                    this.setHoverToClicked();
+                }
+            }
+        }
+    }
+    
+    public void setHoverToClicked()
+    {
+        this.clickedObj.inherit(this.hoverObj);
     }
     
     public void updateMouseHoveringObj(int mouseX0, int mouseY0)
@@ -288,7 +334,7 @@ public class WindowPrint extends WindowBase
                     }
                     
                     // Node field was clicked on -> Render line from Dot to Mouse
-                    RenderUtility.drawGradientLine(dotX + this.util.nodeFieldDotSize / 2, dotY + this.util.nodeFieldDotSize / 2, this.mouseXToPrintRounded(mouseX), this.mouseYToPrintRounded(mouseY), this.util.getLineWidth(this.clickedObj.nodeField.dataType), this.clickedObj.nodeField.dataType.getColor()[0], this.clickedObj.nodeField.dataType.getColor()[1], this.clickedObj.nodeField.dataType.getColor()[2], this.util.nodeFieldConnectionsAlpha, GuiPrint.nodeFieldDef, GuiPrint.nodeFieldDef, GuiPrint.nodeFieldDef, this.util.nodeFieldConnectionsAlpha);
+                    RenderUtility.drawGradientLine(dotX + this.util.nodeFieldDotSize / 2, dotY + this.util.nodeFieldDotSize / 2, this.mouseXToPrintRounded(mouseX), this.mouseYToPrintRounded(mouseY), this.util.getLineWidth(this.clickedObj.nodeField.dataType), this.clickedObj.nodeField.dataType.getColor()[0], this.clickedObj.nodeField.dataType.getColor()[1], this.clickedObj.nodeField.dataType.getColor()[2], this.util.nodeFieldConnectionsAlpha, GuiPrintOld.nodeFieldDef, GuiPrintOld.nodeFieldDef, GuiPrintOld.nodeFieldDef, this.util.nodeFieldConnectionsAlpha);
                 }
                 else
                 {
@@ -335,11 +381,11 @@ public class WindowPrint extends WindowBase
     {
         if(this.hoverObj.type == MouseInteractionType.NODE_HEADER)
         {
-            this.util.drawNodeHoveringText(this.guiPrint.getParentGui(), this.hoverObj.node, mouseX, mouseY);
+            this.util.drawNodeHoveringText(this.hoverObj.node, mouseX, mouseY);
         }
         else if(this.hoverObj.type == MouseInteractionType.NODE_FIELD)
         {
-            this.util.drawNodeFieldHoveringText(this.guiPrint.getParentGui(), this.hoverObj.nodeField, mouseX, mouseY);
+            this.util.drawNodeFieldHoveringText(this.hoverObj.nodeField, mouseX, mouseY);
         }
     }
     
@@ -377,6 +423,38 @@ public class WindowPrint extends WindowBase
                 this.util.drawHoverRect(x, y, w, h);
             }
         }
+    }
+    
+    public void zoomIn()
+    {
+        this.getPrint().zoom *= 2;
+        
+        if (this.getPrint().zoom > 2)
+        {
+            this.getPrint().zoom = 2;
+        }
+        else
+        {
+            // TODO low: Adjust print position so that the middle of the screen stays the middle when zooming
+        }
+        
+        this.util.updateLineWidth(this.getPrint());
+    }
+    
+    public void zoomOut()
+    {
+        this.getPrint().zoom *= 0.5F;
+        
+        if (this.getPrint().zoom < 0.125F)
+        {
+            this.getPrint().zoom = 0.125F;
+        }
+        else
+        {
+            // TODO low: Adjust print position so that the middle of the screen stays the middle when zooming
+        }
+        
+        this.util.updateLineWidth(this.getPrint());
     }
     
     public boolean isHoverViable()

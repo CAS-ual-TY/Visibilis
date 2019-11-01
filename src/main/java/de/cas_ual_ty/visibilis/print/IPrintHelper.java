@@ -2,29 +2,28 @@ package de.cas_ual_ty.visibilis.print;
 
 import java.util.ArrayList;
 
+import javax.annotation.Nullable;
+
 import de.cas_ual_ty.visibilis.node.Node;
+import net.minecraft.client.gui.GuiScreen;
 
 public interface IPrintHelper
 {
-    public Print getPrint(GuiPrint gui);
+    public Print getPrint(GuiScreen gui);
     
     /**
      * Get the current available nodes for the side view
      */
-    public ArrayList<Node> getAvailableNodes(GuiPrint gui);
+    @Nullable //TODO maybe dont make this nullable
+    public ArrayList<Node> getAvailableNodes(GuiScreen gui);
     
     /**
-     * Called at the end of {@link GuiPrint#GuiPrint(IGuiPrintHelper)} (constructor)
+     * Called at the end of {@link GuiPrintOld#GuiPrint(IGuiPrintHelper)} (constructor)
      */
-    public void onGuiOpen(GuiPrint gui);
+    public void onGuiOpen(GuiScreen gui);
     
     /**
-     * Called at the end of {@link GuiPrint#initGui()}
+     * Called at the end of {@link GuiPrintOld#onGuiClosed()}
      */
-    public void onGuiInit(GuiPrint gui);
-    
-    /**
-     * Called at the end of {@link GuiPrint#onGuiClosed()}
-     */
-    public void onGuiClose(GuiPrint gui);
+    public void onGuiClose(GuiScreen gui);
 }

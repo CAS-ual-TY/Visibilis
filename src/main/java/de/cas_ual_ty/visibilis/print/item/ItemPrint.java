@@ -1,7 +1,7 @@
 package de.cas_ual_ty.visibilis.print.item;
 
 import de.cas_ual_ty.visibilis.Visibilis;
-import de.cas_ual_ty.visibilis.print.GuiPrint;
+import de.cas_ual_ty.visibilis.print.GuiPrintOld;
 import de.cas_ual_ty.visibilis.print.IPrintHelper;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
@@ -14,7 +14,7 @@ import net.minecraft.util.EnumHand;
 public class ItemPrint extends Item
 {
     /**
-     * Opens the {@link GuiPrint} for the given player
+     * Opens the {@link GuiPrintOld} for the given player
      * 
      * @param player
      *            The player to open the Gui for
@@ -41,7 +41,7 @@ public class ItemPrint extends Item
     }
     
     /**
-     * Returns an instance of {@link IPrintHelper} which is used to open the {@link GuiPrint} in {@link #openGui(EntityPlayer, ItemStack, EnumHand)}
+     * Returns an instance of {@link IPrintHelper} which is used to open the {@link GuiPrintOld} in {@link #openGui(EntityPlayer, ItemStack, EnumHand)}
      */
     public IPrintHelper getHelper(ItemStack itemStack, EnumHand hand)
     {
