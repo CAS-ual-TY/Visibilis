@@ -81,7 +81,6 @@ public class MouseInteractionObject
     public void nodeActionExpand(Node node)
     {
         this.reset();
-        this.node = this.nodeField.node;
         this.node = node;
         this.type = MouseInteractionType.NODE_ACTION_EXPAND;
     }

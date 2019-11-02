@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis.print.gui;
 
 import de.cas_ual_ty.visibilis.print.IPrintHelper;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
+import de.cas_ual_ty.visibilis.util.RenderUtility.Rectangle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
@@ -30,6 +31,7 @@ public class PrintUILogic
     public void guiInitGui()
     {
         this.sr = new ScaledResolution(Minecraft.getMinecraft());
+        this.windowPrint.setDimensions(Rectangle.fromXYWH(0, 0, sr.getScaledWidth(), sr.getScaledHeight()));
         this.windowPrint.guiInitGui();
     }
     
