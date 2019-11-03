@@ -217,8 +217,6 @@ public class WindowPrint extends WindowBase
         //But these options only appear if a node field was already clicked
         if (this.clickedObj.type == MouseInteractionType.INPUT_ENUM)
         {
-            Visibilis.debug("1");
-            
             node = this.clickedObj.node;
             
             if (this.clickedObj.input.dataType instanceof DataTypeEnum)
@@ -235,8 +233,6 @@ public class WindowPrint extends WindowBase
                 
                 y += this.util.getFieldOffY(this.clickedObj.input);
                 
-                Visibilis.debug("2");
-                
                 // Loop through enums of the data type
                 for (int j = 0; j < dt.getEnumSize(); ++j)
                 {
@@ -246,8 +242,6 @@ public class WindowPrint extends WindowBase
                     // If mouse is hovering over said rect, whiten it
                     if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
                     {
-                        Visibilis.debug("3");
-                        
                         this.hoverObj.inputEnumId(this.clickedObj.input, j);
                         return;
                     }
@@ -455,8 +449,6 @@ public class WindowPrint extends WindowBase
             }
             else if (this.clickedObj.type == MouseInteractionType.INPUT_ENUM)
             {
-                Visibilis.debug("9 " + this.hoverObj.type);
-                
                 int x, y, w, h;
                 
                 w = this.util.inputValueWidth;
@@ -471,7 +463,6 @@ public class WindowPrint extends WindowBase
                 
                 if (this.hoverObj.type == MouseInteractionType.INPUT_ENUM_ID)
                 {
-                    Visibilis.debug("10");
                     this.util.drawHoverRect(x, y - h * this.hoverObj.inputEnumId, w, h);
                 }
             }
