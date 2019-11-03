@@ -17,6 +17,9 @@ public class PrintUILogic
     public final RenderUtility util;
     public final IPrintHelper helper;
     
+    public int lastMousePosX;
+    public int lastMousePosY;
+    
     public PrintUILogic(GuiScreen gui, IPrintHelper helper)
     {
         this.gui = gui;
@@ -42,6 +45,7 @@ public class PrintUILogic
     
     public void guiDrawScreen(int mouseX, int mouseY, float partialTicks)
     {
+        this.setLastMousePos(mouseX, mouseY);
         this.windowPrint.updateMouseOverDimensions(mouseX, mouseY);
         this.windowPrint.guiDrawScreen(mouseX, mouseY, partialTicks);
     }
@@ -53,20 +57,29 @@ public class PrintUILogic
     
     public void guiMouseClicked(int mouseX, int mouseY, int mouseButton)
     {
+        this.setLastMousePos(mouseX, mouseY);
         this.windowPrint.guiMouseClicked(mouseX, mouseY, mouseButton);
     }
     
     public void guiMouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick)
     {
+        this.setLastMousePos(mouseX, mouseY);
         this.windowPrint.guiMouseClickMove(mouseX, mouseY, clickedMouseButton, timeSinceLastClick);
     }
     
     public void guiMouseReleased(int mouseX, int mouseY, int state)
     {
+        this.setLastMousePos(mouseX, mouseY);
         this.windowPrint.guiMouseReleased(mouseX, mouseY, state);
     }
     
     // --- END ---
+    
+    public void setLastMousePos(int mouseX, int mouseY)
+    {
+        this.lastMousePosX = mouseX;
+        this.lastMousePosY = mouseY;
+    }
     
     public GuiScreen getParentGui()
     {
