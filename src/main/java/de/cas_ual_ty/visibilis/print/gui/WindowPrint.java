@@ -95,6 +95,18 @@ public class WindowPrint extends WindowBase
                     this.setHoverToClicked();
                 }
             }
+            else
+            {
+                if(this.clickedObj.type == MouseInteractionType.NODE_FIELD && this.hoverObj.type == MouseInteractionType.NODE_FIELD)
+                {
+                    if(NodeField.canConnect(this.clickedObj.nodeField, this.hoverObj.nodeField))
+                    {
+                        NodeField.connect(this.clickedObj.nodeField, this.hoverObj.nodeField);
+                    }
+                }
+                
+                this.clickedObj.nothing();
+            }
         }
     }
     
@@ -105,6 +117,8 @@ public class WindowPrint extends WindowBase
     
     public void updateMouseHoveringObj(int mouseX0, int mouseY0)
     {
+        this.hoverObj.nothing();
+        
         if(!this.dimensions.isCoordInside(mouseX0, mouseY0))
         {
             return;

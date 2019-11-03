@@ -147,6 +147,21 @@ public abstract class NodeField<A>
         return this.node.getFieldUnlocalizedDesc(this);
     }
     
+    public static void connect(NodeField n1, NodeField n2)
+    {
+        if(n1.isOutput() != n2.isOutput())
+        {
+            if(n1.isOutput())
+            {
+                connect((Output) n1, (Input) n2);
+            }
+            else
+            {
+                connect((Output) n2, (Input) n1);
+            }
+        }
+    }
+    
     public static void connect(Output out, Input in)
     {
         // Inputs can only be connected once...
