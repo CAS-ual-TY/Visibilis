@@ -149,15 +149,15 @@ public abstract class NodeField<A>
     
     public static void connect(NodeField n1, NodeField n2)
     {
-        if(n1.isOutput() != n2.isOutput())
+        if (n1.isOutput() != n2.isOutput())
         {
-            if(n1.isOutput())
+            if (n1.isOutput())
             {
-                connect((Output) n1, (Input) n2);
+                NodeField.connect((Output) n1, (Input) n2);
             }
             else
             {
-                connect((Output) n2, (Input) n1);
+                NodeField.connect((Output) n2, (Input) n1);
             }
         }
     }

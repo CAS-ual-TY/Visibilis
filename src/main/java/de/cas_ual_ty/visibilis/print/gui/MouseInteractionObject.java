@@ -80,7 +80,7 @@ public class MouseInteractionObject
     {
         this.reset();
         
-        if(nodeField.isOutput())
+        if (nodeField.isOutput())
         {
             this.output((Output) nodeField);
         }
@@ -99,7 +99,7 @@ public class MouseInteractionObject
     {
         this.reset();
         
-        if(nodeField.isInput())
+        if (nodeField.isInput())
         {
             this.input((Input) nodeField);
         }

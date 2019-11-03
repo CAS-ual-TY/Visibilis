@@ -13,10 +13,8 @@ import de.cas_ual_ty.visibilis.print.IPrintHelper;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.gui.MouseInteractionObject.MouseInteractionType;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
-import de.cas_ual_ty.visibilis.util.RenderUtility.Rectangle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 
 public class WindowPrint extends WindowBase
@@ -137,25 +135,25 @@ public class WindowPrint extends WindowBase
                 {
                     this.setHoverToClicked();
                 }
-                else if(this.hoverObj.type == MouseInteractionType.INPUT)
+                else if (this.hoverObj.type == MouseInteractionType.INPUT)
                 {
                     // Input was clicked
                     
-                    if(this.hoverObj.input.hasConnections())
+                    if (this.hoverObj.input.hasConnections())
                     {
                         // Cut all connections
                         this.hoverObj.input.cutConnections();
                     }
                     
-                    if(this.hoverObj.input.hasDisplayValue())
+                    if (this.hoverObj.input.hasDisplayValue())
                     {
                         // Check if you can put in an immediate value
                         
-                        if(this.hoverObj.input.dataType instanceof DataTypeEnum)
+                        if (this.hoverObj.input.dataType instanceof DataTypeEnum)
                         {
                             this.clickedObj.inputEnum(this.hoverObj.input);
                         }
-                        else if(this.hoverObj.input.dataType instanceof DataTypeDynamic)
+                        else if (this.hoverObj.input.dataType instanceof DataTypeDynamic)
                         {
                             this.clickedObj.inputDynamic(this.hoverObj.input);
                             this.setFocusTextField(this.clickedObj.input);
@@ -167,25 +165,25 @@ public class WindowPrint extends WindowBase
             }
             else
             {
-                if(this.clickedObj.type == MouseInteractionType.OUTPUT && this.hoverObj.type == MouseInteractionType.INPUT)
+                if (this.clickedObj.type == MouseInteractionType.OUTPUT && this.hoverObj.type == MouseInteractionType.INPUT)
                 {
-                    if(NodeField.canConnect(this.clickedObj.nodeField, this.hoverObj.nodeField))
+                    if (NodeField.canConnect(this.clickedObj.nodeField, this.hoverObj.nodeField))
                     {
                         NodeField.connect(this.clickedObj.nodeField, this.hoverObj.nodeField);
                     }
                 }
-                else if(this.clickedObj.type == MouseInteractionType.NODE_HEADER)
+                else if (this.clickedObj.type == MouseInteractionType.NODE_HEADER)
                 {
                     this.clickedObj.node.posX = this.mouseXToPrintRounded(mouseX);
                     this.clickedObj.node.posY = this.mouseYToPrintRounded(mouseY);
                 }
-                else if(this.clickedObj.type == MouseInteractionType.INPUT_DYNAMIC)
+                else if (this.clickedObj.type == MouseInteractionType.INPUT_DYNAMIC)
                 {
                     this.setUnfocusTextField(this.clickedObj.input);
                 }
-                else if(this.clickedObj.type == MouseInteractionType.INPUT_ENUM && this.hoverObj.type == MouseInteractionType.INPUT_ENUM_ID)
+                else if (this.clickedObj.type == MouseInteractionType.INPUT_ENUM && this.hoverObj.type == MouseInteractionType.INPUT_ENUM_ID)
                 {
-                    this.clickedObj.input.setValue(((DataTypeEnum)this.clickedObj.input.dataType).getEnum(this.hoverObj.inputEnumId));
+                    this.clickedObj.input.setValue(((DataTypeEnum) this.clickedObj.input.dataType).getEnum(this.hoverObj.inputEnumId));
                 }
                 
                 this.clickedObj.nothing();
@@ -202,7 +200,7 @@ public class WindowPrint extends WindowBase
     {
         this.hoverObj.nothing();
         
-        if(!this.dimensions.isCoordInside(mouseX0, mouseY0))
+        if (!this.dimensions.isCoordInside(mouseX0, mouseY0))
         {
             return;
         }
@@ -217,13 +215,13 @@ public class WindowPrint extends WindowBase
         
         //Check if it is left of the node, over possible input enums
         //But these options only appear if a node field was already clicked
-        if(this.clickedObj.type == MouseInteractionType.INPUT_ENUM)
+        if (this.clickedObj.type == MouseInteractionType.INPUT_ENUM)
         {
             Visibilis.debug("1");
             
             node = this.clickedObj.node;
             
-            if(this.clickedObj.input.dataType instanceof DataTypeEnum)
+            if (this.clickedObj.input.dataType instanceof DataTypeEnum)
             {
                 x = this.getAbsNodePosX(node) - w;
                 y = this.getAbsNodePosY(node);
@@ -406,9 +404,9 @@ public class WindowPrint extends WindowBase
                 this.util.drawNodeFieldHover(this.hoverObj.nodeField, x, y);
             }
         }
-        else if(node == this.clickedObj.node)
+        else if (node == this.clickedObj.node)
         {
-            if(this.clickedObj.type == MouseInteractionType.NODE_HEADER)
+            if (this.clickedObj.type == MouseInteractionType.NODE_HEADER)
             {
                 this.util.drawNodeSelect(node, node.posX, node.posY);
             }
@@ -450,12 +448,12 @@ public class WindowPrint extends WindowBase
                 // Node field was clicked on -> Render line from Dot to Mouse
                 RenderUtility.drawGradientLine(dotX + this.util.nodeFieldDotSize / 2, dotY + this.util.nodeFieldDotSize / 2, this.mouseXToPrintRounded(mouseX), this.mouseYToPrintRounded(mouseY), this.util.getLineWidth(this.clickedObj.nodeField.dataType), this.clickedObj.nodeField.dataType.getColor()[0], this.clickedObj.nodeField.dataType.getColor()[1], this.clickedObj.nodeField.dataType.getColor()[2], this.util.nodeFieldConnectionsAlpha, GuiPrintOld.nodeFieldDef, GuiPrintOld.nodeFieldDef, GuiPrintOld.nodeFieldDef, this.util.nodeFieldConnectionsAlpha);
             }
-            else if(this.clickedObj.type == MouseInteractionType.INPUT_DYNAMIC)
+            else if (this.clickedObj.type == MouseInteractionType.INPUT_DYNAMIC)
             {
                 // Draw the text box
                 this.fieldInput.drawTextBox();
             }
-            else if(this.clickedObj.type == MouseInteractionType.INPUT_ENUM)
+            else if (this.clickedObj.type == MouseInteractionType.INPUT_ENUM)
             {
                 Visibilis.debug("9 " + this.hoverObj.type);
                 
@@ -531,7 +529,7 @@ public class WindowPrint extends WindowBase
     
     public void setUnfocusTextField(Input input)
     {
-        if(input != null)
+        if (input != null)
         {
             DataTypeDynamic dt = (DataTypeDynamic) input.dataType;
             
@@ -625,7 +623,7 @@ public class WindowPrint extends WindowBase
         {
             return NodeField.canConnect(this.clickedObj.output, this.hoverObj.input);
         }
-        else if(this.clickedObj.type == MouseInteractionType.INPUT_ENUM && this.hoverObj.type == MouseInteractionType.INPUT_ENUM_ID)
+        else if (this.clickedObj.type == MouseInteractionType.INPUT_ENUM && this.hoverObj.type == MouseInteractionType.INPUT_ENUM_ID)
         {
             return true;
         }

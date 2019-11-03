@@ -34,7 +34,7 @@ public class PrintUILogic
     public void guiInitGui()
     {
         this.sr = new ScaledResolution(Minecraft.getMinecraft());
-        this.windowPrint.setDimensions(Rectangle.fromXYWH(0, 0, sr.getScaledWidth(), sr.getScaledHeight()));
+        this.windowPrint.setDimensions(Rectangle.fromXYWH(0, 0, this.sr.getScaledWidth(), this.sr.getScaledHeight()));
         this.windowPrint.guiInitGui();
     }
     
