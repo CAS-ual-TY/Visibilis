@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.print.gui;
+package de.cas_ual_ty.visibilis.print.gui.component;
 
 import org.lwjgl.input.Keyboard;
 
@@ -9,13 +9,14 @@ import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
 import de.cas_ual_ty.visibilis.print.IPrintProvider;
 import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.print.gui.MouseInteractionObject.MouseInteractionType;
+import de.cas_ual_ty.visibilis.print.gui.UiBase;
+import de.cas_ual_ty.visibilis.print.gui.component.MouseInteractionObject.MouseInteractionType;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.GlStateManager;
 
-public class WindowPrint extends WindowBase
+public class ComponentPrint extends Component
 {
     /*
      * Okay, whats the idea here?
@@ -29,7 +30,7 @@ public class WindowPrint extends WindowBase
     
     public final GuiTextField fieldInput;
     
-    public WindowPrint(PrintUILogic guiPrint, RenderUtility util, IPrintProvider helper)
+    public ComponentPrint(UiBase guiPrint, RenderUtility util, IPrintProvider helper)
     {
         super(guiPrint, util, helper);
         

@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.print.gui;
+package de.cas_ual_ty.visibilis.print.gui.component;
 
 import java.util.ArrayList;
 
@@ -7,7 +7,8 @@ import org.lwjgl.input.Keyboard;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeGroupsHelper;
 import de.cas_ual_ty.visibilis.print.IPrintProvider;
-import de.cas_ual_ty.visibilis.print.gui.MouseInteractionObject.MouseInteractionType;
+import de.cas_ual_ty.visibilis.print.gui.UiBase;
+import de.cas_ual_ty.visibilis.print.gui.component.MouseInteractionObject.MouseInteractionType;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
 import de.cas_ual_ty.visibilis.util.RenderUtility.Rectangle;
 import net.minecraft.client.Minecraft;
@@ -15,7 +16,7 @@ import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.StringUtils;
 
-public class WindowNodeList extends WindowBase
+public class ComponentNodeList extends Component
 {
     public Rectangle listRect;
     
@@ -23,7 +24,7 @@ public class WindowNodeList extends WindowBase
     public int listOffset;
     public GuiTextField searchInput;
     
-    public WindowNodeList(PrintUILogic guiPrint, RenderUtility util, IPrintProvider helper)
+    public ComponentNodeList(UiBase guiPrint, RenderUtility util, IPrintProvider helper)
     {
         super(guiPrint, util, helper);
         

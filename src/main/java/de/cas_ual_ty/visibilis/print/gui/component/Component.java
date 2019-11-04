@@ -1,23 +1,24 @@
-package de.cas_ual_ty.visibilis.print.gui;
+package de.cas_ual_ty.visibilis.print.gui.component;
 
 import de.cas_ual_ty.visibilis.print.IPrintProvider;
 import de.cas_ual_ty.visibilis.print.Print;
+import de.cas_ual_ty.visibilis.print.gui.UiBase;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
 import de.cas_ual_ty.visibilis.util.RenderUtility.Rectangle;
 import net.minecraft.client.gui.ScaledResolution;
 
-public abstract class WindowBase
+public abstract class Component
 {
     public final MouseInteractionObject hoverObj = new MouseInteractionObject();
     
-    public PrintUILogic guiPrint;
+    public UiBase guiPrint;
     public RenderUtility util;
     public IPrintProvider helper;
     public Rectangle dimensions;
     
     public boolean mouseOverDimensions;
     
-    public WindowBase(PrintUILogic guiPrint, RenderUtility util, IPrintProvider helper)
+    public Component(UiBase guiPrint, RenderUtility util, IPrintProvider helper)
     {
         this.guiPrint = guiPrint;
         this.util = util;
@@ -28,7 +29,7 @@ public abstract class WindowBase
     {
     }
     
-    public WindowBase setDimensions(Rectangle dimensions)
+    public Component setDimensions(Rectangle dimensions)
     {
         this.dimensions = dimensions;
         return this;

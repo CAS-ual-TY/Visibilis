@@ -1,8 +1,8 @@
-package de.cas_ual_ty.visibilis.print;
+package de.cas_ual_ty.visibilis.print.gui;
 
 import java.io.IOException;
 
-import de.cas_ual_ty.visibilis.print.gui.PrintUILogic;
+import de.cas_ual_ty.visibilis.print.IPrintProvider;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
@@ -10,13 +10,13 @@ import net.minecraft.inventory.Container;
 public abstract class GuiContainerPrint extends GuiContainer
 {
     public IPrintProvider helper;
-    public PrintUILogic uiLogic;
+    public UiBase uiLogic;
     
     public GuiContainerPrint(Container container, IPrintProvider helper)
     {
         super(container);
         this.helper = helper;
-        this.uiLogic = new PrintUILogic(this, this.helper);
+        this.uiLogic = new UiBase(this, this.helper);
         
         this.helper.onGuiOpen(this);
     }

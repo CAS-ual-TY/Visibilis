@@ -1,19 +1,21 @@
 package de.cas_ual_ty.visibilis.print.gui;
 
 import de.cas_ual_ty.visibilis.print.IPrintProvider;
+import de.cas_ual_ty.visibilis.print.gui.component.ComponentNodeList;
+import de.cas_ual_ty.visibilis.print.gui.component.ComponentPrint;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
 import de.cas_ual_ty.visibilis.util.RenderUtility.Rectangle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 
-public class PrintUILogic
+public class UiBase
 {
     protected GuiScreen gui;
     public ScaledResolution sr;
     
-    public WindowPrint windowPrint;
-    public WindowNodeList windowNodeList;
+    public ComponentPrint windowPrint;
+    public ComponentNodeList windowNodeList;
     
     public final RenderUtility util;
     public final IPrintProvider helper;
@@ -21,14 +23,14 @@ public class PrintUILogic
     public int lastMousePosX;
     public int lastMousePosY;
     
-    public PrintUILogic(GuiScreen gui, IPrintProvider helper)
+    public UiBase(GuiScreen gui, IPrintProvider helper)
     {
         this.gui = gui;
         this.util = new RenderUtility(this.gui);
         this.helper = helper;
         
-        this.windowPrint = new WindowPrint(this, this.util, this.helper);
-        this.windowNodeList = new WindowNodeList(this, this.util, this.helper);
+        this.windowPrint = new ComponentPrint(this, this.util, this.helper);
+        this.windowNodeList = new ComponentNodeList(this, this.util, this.helper);
     }
     
     // All the following functions MUST be invoked by the GuiScreen in order to make this work

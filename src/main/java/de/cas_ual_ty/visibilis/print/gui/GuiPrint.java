@@ -1,19 +1,19 @@
-package de.cas_ual_ty.visibilis.print;
+package de.cas_ual_ty.visibilis.print.gui;
 
 import java.io.IOException;
 
-import de.cas_ual_ty.visibilis.print.gui.PrintUILogic;
+import de.cas_ual_ty.visibilis.print.IPrintProvider;
 import net.minecraft.client.gui.GuiScreen;
 
 public class GuiPrint extends GuiScreen
 {
     public IPrintProvider helper;
-    public PrintUILogic uiLogic;
+    public UiBase uiLogic;
     
     public GuiPrint(IPrintProvider helper)
     {
         this.helper = helper;
-        this.uiLogic = new PrintUILogic(this, this.helper);
+        this.uiLogic = new UiBase(this, this.helper);
         
         this.helper.onGuiOpen(this);
     }
