@@ -49,6 +49,8 @@ public class ComponentNodeList extends Component
         this.dimensions.render(0.375F, 0.375F, 0.375F);
         
         this.hoverObj.nothing();
+        boolean mouseOnTextField = RenderUtility.isCoordInsideRect(mouseX, mouseY, this.searchInput.x - 1, this.searchInput.y - 1, this.searchInput.width + 2, this.searchInput.height + 2);
+        boolean mouseOnList = !mouseOnTextField && this.listRect.isCoordInside(mouseX, mouseY);
         
         GlStateManager.pushMatrix();
         RenderUtility.scissorStart(this.guiPrint.getScaledResolution(), this.listRect.x, this.listRect.y, this.listRect.w, this.listRect.h);
@@ -66,7 +68,7 @@ public class ComponentNodeList extends Component
             
             h = this.util.getNodeTotalHeight(node);
             
-            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, this.dimensions.x, this.dimensions.y + y / 2, w / 2, h / 2))
+            if (mouseOnList && RenderUtility.isCoordInsideRect(mouseX, mouseY, this.dimensions.x, this.dimensions.y + y / 2, w / 2, h / 2))
             {
                 this.hoverObj.node(node);
                 this.util.drawHoverRect(x, y, w, h);
@@ -79,8 +81,8 @@ public class ComponentNodeList extends Component
         
         int offset = 0;//this.util.nodeHeight;
         
-        int topRect = this.dimensions.t + offset;
-        int botRect = (this.dimensions.b - y) - offset; //TODO properly fit botRect. Right now you can scroll down until the bottom of the nodes list hits roughly the middle of the screen instead of the bottom - nodeHeight.
+        int topRect = this.listRect.t + offset;
+        int botRect = (this.listRect.b - y) - offset; //TODO properly fit botRect. Right now you can scroll down until the bottom of the nodes list hits roughly the middle of the screen instead of the bottom - nodeHeight.
         
         // listOffset + y / 2 < b
         // <=>
@@ -98,7 +100,7 @@ public class ComponentNodeList extends Component
         RenderUtility.scissorEnd();
         GlStateManager.popMatrix();
         
-        if (RenderUtility.isCoordInsideRect(mouseX, mouseY, this.searchInput.x, this.searchInput.y, this.searchInput.width, this.searchInput.height))
+        if (mouseOnTextField)
         {
             this.hoverObj.textField(this.searchInput);
         }
