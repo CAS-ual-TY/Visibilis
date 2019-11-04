@@ -1,7 +1,6 @@
 package de.cas_ual_ty.visibilis.print.item;
 
 import de.cas_ual_ty.visibilis.Visibilis;
-import de.cas_ual_ty.visibilis.print.GuiPrintOld;
 import de.cas_ual_ty.visibilis.print.IPrintHelper;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.util.NBTUtility;

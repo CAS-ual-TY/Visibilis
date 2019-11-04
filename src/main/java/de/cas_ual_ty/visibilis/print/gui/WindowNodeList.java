@@ -4,11 +4,8 @@ import java.util.ArrayList;
 
 import org.lwjgl.input.Keyboard;
 
-import de.cas_ual_ty.visibilis.datatype.DataTypeDynamic;
-import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeGroupsHelper;
-import de.cas_ual_ty.visibilis.print.GuiPrintOld;
 import de.cas_ual_ty.visibilis.print.IPrintHelper;
 import de.cas_ual_ty.visibilis.print.gui.MouseInteractionObject.MouseInteractionType;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
@@ -100,7 +97,7 @@ public class WindowNodeList extends WindowBase
         RenderUtility.scissorEnd();
         GlStateManager.popMatrix();
         
-        if(RenderUtility.isCoordInsideRect(mouseX, mouseY, this.searchInput.x, this.searchInput.y, this.searchInput.width, this.searchInput.height))
+        if (RenderUtility.isCoordInsideRect(mouseX, mouseY, this.searchInput.x, this.searchInput.y, this.searchInput.width, this.searchInput.height))
         {
             this.hoverObj.textField(this.searchInput);
         }
@@ -111,7 +108,7 @@ public class WindowNodeList extends WindowBase
     @Override
     public void guiPostDrawScreen(int mouseX, int mouseY, float partialTicks)
     {
-        if(this.hoverObj.type == MouseInteractionType.NODE)
+        if (this.hoverObj.type == MouseInteractionType.NODE)
         {
             this.util.drawNodeHoveringText(this.hoverObj.node, mouseX, mouseY);
         }
@@ -148,16 +145,16 @@ public class WindowNodeList extends WindowBase
     @Override
     public void guiMouseClicked(int mouseX, int mouseY, int mouseButton)
     {
-        if(mouseButton == 0)
+        if (mouseButton == 0)
         {
-            if(this.hoverObj.type == MouseInteractionType.NODE)
+            if (this.hoverObj.type == MouseInteractionType.NODE)
             {
                 this.getPrint().addNode(this.hoverObj.node.setPosition(-this.getPrint().posX, -this.getPrint().posY));
             }
             
-            if(this.hoverObj.type == MouseInteractionType.TEXT_FIELD)
+            if (this.hoverObj.type == MouseInteractionType.TEXT_FIELD)
             {
-                if(this.searchInput.isFocused())
+                if (this.searchInput.isFocused())
                 {
                     this.searchInput.mouseClicked(mouseX, mouseY, mouseButton);
                 }

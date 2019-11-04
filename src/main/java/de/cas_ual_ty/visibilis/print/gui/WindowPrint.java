@@ -2,13 +2,11 @@ package de.cas_ual_ty.visibilis.print.gui;
 
 import org.lwjgl.input.Keyboard;
 
-import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.datatype.DataTypeDynamic;
 import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
-import de.cas_ual_ty.visibilis.print.GuiPrintOld;
 import de.cas_ual_ty.visibilis.print.IPrintHelper;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.gui.MouseInteractionObject.MouseInteractionType;
@@ -100,7 +98,7 @@ public class WindowPrint extends WindowBase
         
         if (this.mouseOverDimensions)
         {
-            if(keyCode == Keyboard.KEY_SPACE)
+            if (keyCode == Keyboard.KEY_SPACE)
             {
                 this.getPrint().posX = 0;
                 this.getPrint().posY = 0;
@@ -115,19 +113,19 @@ public class WindowPrint extends WindowBase
             }
             if (keyCode == Keyboard.KEY_W || keyCode == Keyboard.KEY_UP)
             {
-                this.getPrint().posY -= 8 * GuiPrintOld.scrollSpeedInner / this.getPrint().zoom;
+                this.getPrint().posY -= 8 * 2 / this.getPrint().zoom;
             }
             if (keyCode == Keyboard.KEY_S || keyCode == Keyboard.KEY_DOWN)
             {
-                this.getPrint().posY += 8 * GuiPrintOld.scrollSpeedInner / this.getPrint().zoom;
+                this.getPrint().posY += 8 * 2 / this.getPrint().zoom;
             }
             if (keyCode == Keyboard.KEY_A || keyCode == Keyboard.KEY_LEFT)
             {
-                this.getPrint().posX -= 8 * GuiPrintOld.scrollSpeedInner / this.getPrint().zoom;
+                this.getPrint().posX -= 8 * 2 / this.getPrint().zoom;
             }
             if (keyCode == Keyboard.KEY_D || keyCode == Keyboard.KEY_RIGHT)
             {
-                this.getPrint().posX += 8 * GuiPrintOld.scrollSpeedInner / this.getPrint().zoom;
+                this.getPrint().posX += 8 * 2 / this.getPrint().zoom;
             }
         }
     }
@@ -137,7 +135,7 @@ public class WindowPrint extends WindowBase
     {
         if (this.mouseOverDimensions)
         {
-            if(mouseButton == 0)
+            if (mouseButton == 0)
             {
                 if (this.clickedObj.isNothing())
                 {
@@ -198,7 +196,7 @@ public class WindowPrint extends WindowBase
                     }
                     else if (this.clickedObj.type == MouseInteractionType.INPUT_DYNAMIC)
                     {
-                        if(this.clickedObj.nodeField == this.hoverObj.nodeField)
+                        if (this.clickedObj.nodeField == this.hoverObj.nodeField)
                         {
                             this.fieldInput.mouseClicked(this.mouseXToPrintRounded(mouseX), this.mouseYToPrintRounded(mouseY), mouseButton);
                             return;
@@ -648,7 +646,7 @@ public class WindowPrint extends WindowBase
         {
             return true;
         }
-        else if(this.clickedObj.type == MouseInteractionType.INPUT_DYNAMIC)
+        else if (this.clickedObj.type == MouseInteractionType.INPUT_DYNAMIC)
         {
             return this.clickedObj.nodeField == this.hoverObj.nodeField;
         }

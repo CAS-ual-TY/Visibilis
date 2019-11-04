@@ -4,7 +4,6 @@ import de.cas_ual_ty.visibilis.print.IPrintHelper;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
 import de.cas_ual_ty.visibilis.util.RenderUtility.Rectangle;
-import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.ScaledResolution;
 
 public abstract class WindowBase

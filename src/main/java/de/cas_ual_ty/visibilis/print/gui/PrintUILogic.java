@@ -67,12 +67,12 @@ public class PrintUILogic
     
     public void guiKeyTyped(char typedChar, int keyCode)
     {
-        if(this.windowPrint.isolateInput())
+        if (this.windowPrint.isolateInput())
         {
             this.windowPrint.guiKeyTyped(typedChar, keyCode);
             return;
         }
-        else if(this.windowNodeList.isolateInput())
+        else if (this.windowNodeList.isolateInput())
         {
             this.windowNodeList.guiKeyTyped(typedChar, keyCode);
             return;
