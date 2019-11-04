@@ -30,6 +30,9 @@ public class ComponentPrint extends Component
     
     public final GuiTextField fieldInput;
     
+    public int tmpOffX;
+    public int tmpOffY;
+    
     public ComponentPrint(UiBase guiPrint, RenderUtility util, IPrintProvider helper)
     {
         super(guiPrint, util, helper);
@@ -148,8 +151,13 @@ public class ComponentPrint extends Component
                     {
                         this.hoverObj.node.shrink();
                     }
-                    else if (this.hoverObj.type == MouseInteractionType.NODE_HEADER
-                                    || this.hoverObj.type == MouseInteractionType.OUTPUT)
+                    else if (this.hoverObj.type == MouseInteractionType.NODE_HEADER)
+                    {
+                        this.tmpOffX = this.mouseXToPrintRounded(mouseX) - this.hoverObj.node.posX;// - this.getPrint().posX;
+                        this.tmpOffY = this.mouseYToPrintRounded(mouseY) - this.hoverObj.node.posY;// - this.getPrint().posY;
+                        this.setHoverToClicked();
+                    }
+                    else if (this.hoverObj.type == MouseInteractionType.OUTPUT)
                     {
                         this.setHoverToClicked();
                     }
@@ -219,6 +227,25 @@ public class ComponentPrint extends Component
     }
     
     @Override
+    public void guiMouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick)
+    {
+        if(this.clickedObj.type == MouseInteractionType.NODE_HEADER)
+        {
+            this.clickedObj.node.posX = this.mouseXToPrintRounded(mouseX) - this.tmpOffX;
+            this.clickedObj.node.posY = this.mouseYToPrintRounded(mouseY) - this.tmpOffY;
+        }
+    }
+    
+    @Override
+    public void guiMouseReleased(int mouseX, int mouseY, int state)
+    {
+        if(this.clickedObj.type == MouseInteractionType.NODE_HEADER)
+        {
+            this.clickedObj.nothing();
+        }
+    }
+    
+    @Override
     public boolean isolateInput()
     {
         return this.fieldInput.getVisible();
@@ -238,8 +265,10 @@ public class ComponentPrint extends Component
             return;
         }
         
-        float mouseX = this.printToGui(mouseX0);
-        float mouseY = this.printToGui(mouseY0);
+//        float mouseX = this.printToGui(mouseX0);
+//        float mouseY = this.printToGui(mouseY0);
+        float mouseX = this.mouseXToPrint(mouseX0);
+        float mouseY = this.mouseYToPrint(mouseY0);
         
         Node node;
         float x, y, w, h; // Rect of node
@@ -290,8 +319,10 @@ public class ComponentPrint extends Component
             node = this.getPrint().getNodes().get(i);
             
             // Entire node position and size, zoom and shift accounted for
-            x = this.getAbsNodePosX(node);
-            y = this.getAbsNodePosY(node);
+//            x = this.getAbsNodePosX(node);
+//            y = this.getAbsNodePosY(node);
+            x = node.posX;
+            y = node.posY;
             h = this.util.getNodeTotalHeight(node);
             h2 = this.util.nodeHeight;
             
@@ -431,13 +462,6 @@ public class ComponentPrint extends Component
                 this.util.drawNodeFieldHover(this.hoverObj.nodeField, x, y);
             }
         }
-        else if (node == this.clickedObj.node)
-        {
-            if (this.clickedObj.type == MouseInteractionType.NODE_HEADER)
-            {
-                this.util.drawNodeSelect(node, node.posX, node.posY);
-            }
-        }
     }
     
     /**
@@ -449,15 +473,7 @@ public class ComponentPrint extends Component
         // Something was already clicked on before / attached to mouse / focused
         if (!this.clickedObj.isNothing())
         {
-            if (this.clickedObj.type == MouseInteractionType.NODE_HEADER)
-            {
-                // node on mouse
-                this.util.drawNodeSelect(this.clickedObj.node, this.clickedObj.node.posX, this.clickedObj.node.posY);
-                
-                // Outline clicked on node
-                this.util.drawOutlineRect(this.mouseXToPrintRounded(mouseX), this.mouseYToPrintRounded(mouseY), this.util.nodeWidth, this.util.getNodeTotalHeight(this.clickedObj.node));
-            }
-            else if (this.clickedObj.type == MouseInteractionType.OUTPUT)
+            if (this.clickedObj.type == MouseInteractionType.OUTPUT)
             {
                 // output on mouse
                 
