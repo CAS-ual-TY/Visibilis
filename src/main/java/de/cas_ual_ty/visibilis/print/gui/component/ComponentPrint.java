@@ -229,7 +229,7 @@ public class ComponentPrint extends Component
     @Override
     public void guiMouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick)
     {
-        if(this.clickedObj.type == MouseInteractionType.NODE_HEADER)
+        if (this.clickedObj.type == MouseInteractionType.NODE_HEADER)
         {
             this.clickedObj.node.posX = this.mouseXToPrintRounded(mouseX) - this.tmpOffX;
             this.clickedObj.node.posY = this.mouseYToPrintRounded(mouseY) - this.tmpOffY;
@@ -239,7 +239,7 @@ public class ComponentPrint extends Component
     @Override
     public void guiMouseReleased(int mouseX, int mouseY, int state)
     {
-        if(this.clickedObj.type == MouseInteractionType.NODE_HEADER)
+        if (this.clickedObj.type == MouseInteractionType.NODE_HEADER)
         {
             this.clickedObj.nothing();
         }
@@ -265,8 +265,8 @@ public class ComponentPrint extends Component
             return;
         }
         
-//        float mouseX = this.printToGui(mouseX0);
-//        float mouseY = this.printToGui(mouseY0);
+        //        float mouseX = this.printToGui(mouseX0);
+        //        float mouseY = this.printToGui(mouseY0);
         float mouseX = this.mouseXToPrint(mouseX0);
         float mouseY = this.mouseYToPrint(mouseY0);
         
@@ -319,8 +319,8 @@ public class ComponentPrint extends Component
             node = this.getPrint().getNodes().get(i);
             
             // Entire node position and size, zoom and shift accounted for
-//            x = this.getAbsNodePosX(node);
-//            y = this.getAbsNodePosY(node);
+            //            x = this.getAbsNodePosX(node);
+            //            y = this.getAbsNodePosY(node);
             x = node.posX;
             y = node.posY;
             h = this.util.getNodeTotalHeight(node);

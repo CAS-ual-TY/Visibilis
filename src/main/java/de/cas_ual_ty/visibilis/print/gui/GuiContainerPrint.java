@@ -3,7 +3,6 @@ package de.cas_ual_ty.visibilis.print.gui;
 import java.io.IOException;
 
 import de.cas_ual_ty.visibilis.print.IPrintProvider;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;
 
