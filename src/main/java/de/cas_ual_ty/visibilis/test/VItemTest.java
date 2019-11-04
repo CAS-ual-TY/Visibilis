@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.test;
 
-import de.cas_ual_ty.visibilis.print.IPrintHelper;
+import de.cas_ual_ty.visibilis.print.IPrintProvider;
 import de.cas_ual_ty.visibilis.print.item.ItemPrint;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,7 +29,7 @@ public class VItemTest extends ItemPrint
     }
     
     @Override
-    public IPrintHelper getHelper(ItemStack itemStack, EnumHand hand)
+    public IPrintProvider getHelper(ItemStack itemStack, EnumHand hand)
     {
         return new VPrintHelperTest(itemStack, hand);
     }

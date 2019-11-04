@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.print.gui;
 
-import de.cas_ual_ty.visibilis.print.IPrintHelper;
+import de.cas_ual_ty.visibilis.print.IPrintProvider;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
 import de.cas_ual_ty.visibilis.util.RenderUtility.Rectangle;
@@ -12,12 +12,12 @@ public abstract class WindowBase
     
     public PrintUILogic guiPrint;
     public RenderUtility util;
-    public IPrintHelper helper;
+    public IPrintProvider helper;
     public Rectangle dimensions;
     
     public boolean mouseOverDimensions;
     
-    public WindowBase(PrintUILogic guiPrint, RenderUtility util, IPrintHelper helper)
+    public WindowBase(PrintUILogic guiPrint, RenderUtility util, IPrintProvider helper)
     {
         this.guiPrint = guiPrint;
         this.util = util;

@@ -7,10 +7,10 @@ import net.minecraft.client.gui.GuiScreen;
 
 public class GuiPrint extends GuiScreen
 {
-    public IPrintHelper helper;
+    public IPrintProvider helper;
     public PrintUILogic uiLogic;
     
-    public GuiPrint(IPrintHelper helper)
+    public GuiPrint(IPrintProvider helper)
     {
         this.helper = helper;
         this.uiLogic = new PrintUILogic(this, this.helper);

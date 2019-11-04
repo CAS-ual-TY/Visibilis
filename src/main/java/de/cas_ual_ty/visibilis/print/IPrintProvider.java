@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 import de.cas_ual_ty.visibilis.node.Node;
 import net.minecraft.client.gui.GuiScreen;
 
-public interface IPrintHelper
+public interface IPrintProvider
 {
     public Print getPrint(GuiScreen gui);
     

@@ -8,7 +8,7 @@ import de.cas_ual_ty.visibilis.util.NBTUtility;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.nbt.NBTTagCompound;
 
-public abstract class PrintHelperBase implements IPrintHelper
+public abstract class PrintHelperBase implements IPrintProvider
 {
     public Print print;
     

@@ -2,7 +2,7 @@ package de.cas_ual_ty.visibilis.proxy;
 
 import de.cas_ual_ty.visibilis.handler.VEventHandlerClient;
 import de.cas_ual_ty.visibilis.print.GuiPrint;
-import de.cas_ual_ty.visibilis.print.IPrintHelper;
+import de.cas_ual_ty.visibilis.print.IPrintProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 
@@ -23,7 +23,7 @@ public class VProxyClient implements IVSidedProxy
     }
     
     @Override
-    public void openGuiPrint(IPrintHelper helper)
+    public void openGuiPrint(IPrintProvider helper)
     {
         //        Minecraft.getMinecraft().displayGuiScreen(new GuiPrintOld(helper));
         Minecraft.getMinecraft().displayGuiScreen(new GuiPrint(helper));

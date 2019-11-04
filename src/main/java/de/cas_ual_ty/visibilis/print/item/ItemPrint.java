@@ -1,7 +1,7 @@
 package de.cas_ual_ty.visibilis.print.item;
 
 import de.cas_ual_ty.visibilis.Visibilis;
-import de.cas_ual_ty.visibilis.print.IPrintHelper;
+import de.cas_ual_ty.visibilis.print.IPrintProvider;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
 import net.minecraft.entity.player.EntityPlayer;
@@ -40,9 +40,9 @@ public class ItemPrint extends Item
     }
     
     /**
-     * Returns an instance of {@link IPrintHelper} which is used to open the {@link GuiPrintOld} in {@link #openGui(EntityPlayer, ItemStack, EnumHand)}
+     * Returns an instance of {@link IPrintProvider} which is used to open the {@link GuiPrintOld} in {@link #openGui(EntityPlayer, ItemStack, EnumHand)}
      */
-    public IPrintHelper getHelper(ItemStack itemStack, EnumHand hand)
+    public IPrintProvider getHelper(ItemStack itemStack, EnumHand hand)
     {
         return new PrintHelperItem(itemStack, hand);
     }

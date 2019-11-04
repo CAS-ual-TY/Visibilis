@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.print.gui;
 
-import de.cas_ual_ty.visibilis.print.IPrintHelper;
+import de.cas_ual_ty.visibilis.print.IPrintProvider;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
 import de.cas_ual_ty.visibilis.util.RenderUtility.Rectangle;
 import net.minecraft.client.Minecraft;
@@ -16,12 +16,12 @@ public class PrintUILogic
     public WindowNodeList windowNodeList;
     
     public final RenderUtility util;
-    public final IPrintHelper helper;
+    public final IPrintProvider helper;
     
     public int lastMousePosX;
     public int lastMousePosY;
     
-    public PrintUILogic(GuiScreen gui, IPrintHelper helper)
+    public PrintUILogic(GuiScreen gui, IPrintProvider helper)
     {
         this.gui = gui;
         this.util = new RenderUtility(this.gui);

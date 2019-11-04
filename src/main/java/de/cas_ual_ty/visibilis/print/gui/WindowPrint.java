@@ -7,7 +7,7 @@ import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
-import de.cas_ual_ty.visibilis.print.IPrintHelper;
+import de.cas_ual_ty.visibilis.print.IPrintProvider;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.gui.MouseInteractionObject.MouseInteractionType;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
@@ -29,7 +29,7 @@ public class WindowPrint extends WindowBase
     
     public final GuiTextField fieldInput;
     
-    public WindowPrint(PrintUILogic guiPrint, RenderUtility util, IPrintHelper helper)
+    public WindowPrint(PrintUILogic guiPrint, RenderUtility util, IPrintProvider helper)
     {
         super(guiPrint, util, helper);
         

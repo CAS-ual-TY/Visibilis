@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.proxy;
 
-import de.cas_ual_ty.visibilis.print.IPrintHelper;
+import de.cas_ual_ty.visibilis.print.IPrintProvider;
 
 public interface IVSidedProxy
 {
@@ -16,7 +16,7 @@ public interface IVSidedProxy
     {
     }
     
-    public default void openGuiPrint(IPrintHelper helper)
+    public default void openGuiPrint(IPrintProvider helper)
     {
     }
 }

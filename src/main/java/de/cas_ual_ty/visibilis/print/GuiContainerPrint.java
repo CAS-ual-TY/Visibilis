@@ -9,10 +9,10 @@ import net.minecraft.inventory.Container;
 
 public abstract class GuiContainerPrint extends GuiContainer
 {
-    public IPrintHelper helper;
+    public IPrintProvider helper;
     public PrintUILogic uiLogic;
     
-    public GuiContainerPrint(Container container, IPrintHelper helper)
+    public GuiContainerPrint(Container container, IPrintProvider helper)
     {
         super(container);
         this.helper = helper;

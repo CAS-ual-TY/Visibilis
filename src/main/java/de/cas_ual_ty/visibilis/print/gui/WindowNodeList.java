@@ -6,7 +6,7 @@ import org.lwjgl.input.Keyboard;
 
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeGroupsHelper;
-import de.cas_ual_ty.visibilis.print.IPrintHelper;
+import de.cas_ual_ty.visibilis.print.IPrintProvider;
 import de.cas_ual_ty.visibilis.print.gui.MouseInteractionObject.MouseInteractionType;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
 import de.cas_ual_ty.visibilis.util.RenderUtility.Rectangle;
@@ -23,7 +23,7 @@ public class WindowNodeList extends WindowBase
     public int listOffset;
     public GuiTextField searchInput;
     
-    public WindowNodeList(PrintUILogic guiPrint, RenderUtility util, IPrintHelper helper)
+    public WindowNodeList(PrintUILogic guiPrint, RenderUtility util, IPrintProvider helper)
     {
         super(guiPrint, util, helper);
         
