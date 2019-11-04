@@ -29,25 +29,36 @@ public class WindowPrint extends WindowBase
     
     public final MouseInteractionObject clickedObj = new MouseInteractionObject();
     
+    public final GuiTextField fieldInput;
+    
     public WindowPrint(PrintUILogic guiPrint, RenderUtility util, IPrintHelper helper)
     {
         super(guiPrint, util, helper);
         
         this.fieldInput = new GuiTextField(0, this.util.fontRenderer, 0, 0, 0, 0);
         this.fieldInput.setVisible(false);
+        this.fieldInput.setFocused(false);
+        this.fieldInput.setCanLoseFocus(false);
+    }
+    
+    @Override
+    public void guiInitGui()
+    {
+        this.util.updateLineWidth(this.getPrint());
     }
     
     @Override
     public void guiDrawScreen(int mouseX, int mouseY, float partialTicks)
     {
+        this.dimensions.render(0.5F, 0.25F, 0.25F);
+        Minecraft.getMinecraft().fontRenderer.drawString(this.getPrint().zoom + "", 1, 1, 0xFFFFFF);
+        
         this.updateMouseHoveringObj(mouseX, mouseY);
         
         if (!this.isHoverViable()) //Throw out the hover obj right away if it is not viable at this state
         {
             this.hoverObj.nothing();
         }
-        
-        GlStateManager.pushMatrix();
         
         GlStateManager.pushMatrix();
         RenderUtility.scissorStart(this.getSR(), this.dimensions.x, this.dimensions.y, this.dimensions.w, this.dimensions.h);
@@ -59,12 +70,13 @@ public class WindowPrint extends WindowBase
         
         RenderUtility.scissorEnd();
         GlStateManager.popMatrix();
-        
+    }
+    
+    @Override
+    public void guiPostDrawScreen(int mouseX, int mouseY, float partialTicks)
+    {
         // Draw outside of zoom, shift and scissor
         this.drawHoverText(mouseX, mouseY);
-        Minecraft.getMinecraft().fontRenderer.drawString(this.getPrint().zoom + "", 1, 1, 0xFFFFFF);
-        
-        GlStateManager.popMatrix();
     }
     
     @Override
@@ -88,11 +100,16 @@ public class WindowPrint extends WindowBase
         
         if (this.mouseOverDimensions)
         {
-            if (keyCode == Keyboard.KEY_SPACE || keyCode == Keyboard.KEY_ADD)
+            if(keyCode == Keyboard.KEY_SPACE)
+            {
+                this.getPrint().posX = 0;
+                this.getPrint().posY = 0;
+            }
+            else if (keyCode == Keyboard.KEY_ADD)
             {
                 this.zoomIn(this.guiPrint.lastMousePosX, this.guiPrint.lastMousePosY);
             }
-            else if (keyCode == Keyboard.KEY_LSHIFT || keyCode == Keyboard.KEY_SUBTRACT)
+            else if (keyCode == Keyboard.KEY_SUBTRACT)
             {
                 this.zoomOut(this.guiPrint.lastMousePosX, this.guiPrint.lastMousePosY);
             }
@@ -120,75 +137,92 @@ public class WindowPrint extends WindowBase
     {
         if (this.mouseOverDimensions)
         {
-            if (this.clickedObj.isNothing())
+            if(mouseButton == 0)
             {
-                if (this.hoverObj.type == MouseInteractionType.NODE_ACTION_EXPAND)
+                if (this.clickedObj.isNothing())
                 {
-                    this.hoverObj.node.expand();
-                }
-                else if (this.hoverObj.type == MouseInteractionType.NODE_ACTION_SHRINK)
-                {
-                    this.hoverObj.node.shrink();
-                }
-                else if (this.hoverObj.type == MouseInteractionType.NODE_HEADER
-                                || this.hoverObj.type == MouseInteractionType.OUTPUT)
-                {
-                    this.setHoverToClicked();
-                }
-                else if (this.hoverObj.type == MouseInteractionType.INPUT)
-                {
-                    // Input was clicked
-                    
-                    if (this.hoverObj.input.hasConnections())
+                    if (this.hoverObj.type == MouseInteractionType.NODE_ACTION_EXPAND)
                     {
-                        // Cut all connections
-                        this.hoverObj.input.cutConnections();
+                        this.hoverObj.node.expand();
                     }
-                    
-                    if (this.hoverObj.input.hasDisplayValue())
+                    else if (this.hoverObj.type == MouseInteractionType.NODE_ACTION_SHRINK)
                     {
-                        // Check if you can put in an immediate value
+                        this.hoverObj.node.shrink();
+                    }
+                    else if (this.hoverObj.type == MouseInteractionType.NODE_HEADER
+                                    || this.hoverObj.type == MouseInteractionType.OUTPUT)
+                    {
+                        this.setHoverToClicked();
+                    }
+                    else if (this.hoverObj.type == MouseInteractionType.INPUT)
+                    {
+                        // Input was clicked
                         
-                        if (this.hoverObj.input.dataType instanceof DataTypeEnum)
+                        if (this.hoverObj.input.hasConnections())
                         {
-                            this.clickedObj.inputEnum(this.hoverObj.input);
+                            // Cut all connections
+                            this.hoverObj.input.cutConnections();
                         }
-                        else if (this.hoverObj.input.dataType instanceof DataTypeDynamic)
+                        
+                        if (this.hoverObj.input.hasDisplayValue())
                         {
-                            this.clickedObj.inputDynamic(this.hoverObj.input);
-                            this.setFocusTextField(this.clickedObj.input);
+                            // Check if you can put in an immediate value
+                            
+                            if (this.hoverObj.input.dataType instanceof DataTypeEnum)
+                            {
+                                this.clickedObj.inputEnum(this.hoverObj.input);
+                            }
+                            else if (this.hoverObj.input.dataType instanceof DataTypeDynamic)
+                            {
+                                this.clickedObj.inputDynamic(this.hoverObj.input);
+                                this.setFocusTextField(this.clickedObj.input);
+                            }
                         }
+                        
+                        this.hoverObj.nothing();
+                    }
+                }
+                else
+                {
+                    if (this.clickedObj.type == MouseInteractionType.OUTPUT && this.hoverObj.type == MouseInteractionType.INPUT)
+                    {
+                        if (NodeField.canConnect(this.clickedObj.nodeField, this.hoverObj.nodeField))
+                        {
+                            NodeField.connect(this.clickedObj.nodeField, this.hoverObj.nodeField);
+                        }
+                    }
+                    else if (this.clickedObj.type == MouseInteractionType.NODE_HEADER)
+                    {
+                        this.clickedObj.node.posX = this.mouseXToPrintRounded(mouseX);
+                        this.clickedObj.node.posY = this.mouseYToPrintRounded(mouseY);
+                    }
+                    else if (this.clickedObj.type == MouseInteractionType.INPUT_DYNAMIC)
+                    {
+                        if(this.clickedObj.nodeField == this.hoverObj.nodeField)
+                        {
+                            this.fieldInput.mouseClicked(this.mouseXToPrintRounded(mouseX), this.mouseYToPrintRounded(mouseY), mouseButton);
+                            return;
+                        }
+                        else
+                        {
+                            this.setUnfocusTextField(this.clickedObj.input);
+                        }
+                    }
+                    else if (this.clickedObj.type == MouseInteractionType.INPUT_ENUM && this.hoverObj.type == MouseInteractionType.INPUT_ENUM_ID)
+                    {
+                        this.clickedObj.input.setValue(((DataTypeEnum) this.clickedObj.input.dataType).getEnum(this.hoverObj.inputEnumId));
                     }
                     
-                    this.hoverObj.nothing();
+                    this.clickedObj.nothing();
                 }
-            }
-            else
-            {
-                if (this.clickedObj.type == MouseInteractionType.OUTPUT && this.hoverObj.type == MouseInteractionType.INPUT)
-                {
-                    if (NodeField.canConnect(this.clickedObj.nodeField, this.hoverObj.nodeField))
-                    {
-                        NodeField.connect(this.clickedObj.nodeField, this.hoverObj.nodeField);
-                    }
-                }
-                else if (this.clickedObj.type == MouseInteractionType.NODE_HEADER)
-                {
-                    this.clickedObj.node.posX = this.mouseXToPrintRounded(mouseX);
-                    this.clickedObj.node.posY = this.mouseYToPrintRounded(mouseY);
-                }
-                else if (this.clickedObj.type == MouseInteractionType.INPUT_DYNAMIC)
-                {
-                    this.setUnfocusTextField(this.clickedObj.input);
-                }
-                else if (this.clickedObj.type == MouseInteractionType.INPUT_ENUM && this.hoverObj.type == MouseInteractionType.INPUT_ENUM_ID)
-                {
-                    this.clickedObj.input.setValue(((DataTypeEnum) this.clickedObj.input.dataType).getEnum(this.hoverObj.inputEnumId));
-                }
-                
-                this.clickedObj.nothing();
             }
         }
+    }
+    
+    @Override
+    public boolean isolateInput()
+    {
+        return this.fieldInput.getVisible();
     }
     
     public void setHoverToClicked()
@@ -434,11 +468,6 @@ public class WindowPrint extends WindowBase
                 int dotX = this.getDotPosX(this.clickedObj.nodeField);
                 int dotY = this.getDotPosY(this.clickedObj.nodeField);
                 
-                if (this.hoverObj.type == MouseInteractionType.INPUT)
-                {
-                    this.util.drawNodeFieldHover(this.hoverObj.nodeField, this.hoverObj.node.posX, this.hoverObj.node.posY);
-                }
-                
                 // Node field was clicked on -> Render line from Dot to Mouse
                 RenderUtility.drawGradientLine(dotX + this.util.nodeFieldDotSize / 2, dotY + this.util.nodeFieldDotSize / 2, this.mouseXToPrintRounded(mouseX), this.mouseYToPrintRounded(mouseY), this.util.getLineWidth(this.clickedObj.nodeField.dataType), this.clickedObj.nodeField.dataType.getColor()[0], this.clickedObj.nodeField.dataType.getColor()[1], this.clickedObj.nodeField.dataType.getColor()[2], this.util.nodeFieldConnectionsAlpha, this.clickedObj.nodeField.dataType.getColor()[0], this.clickedObj.nodeField.dataType.getColor()[1], this.clickedObj.nodeField.dataType.getColor()[2], this.util.nodeFieldConnectionsAlpha);
             }
@@ -533,6 +562,7 @@ public class WindowPrint extends WindowBase
         }
         
         this.fieldInput.setVisible(false);
+        this.fieldInput.setFocused(false);
         this.clickedObj.nothing();
     }
     
@@ -602,7 +632,7 @@ public class WindowPrint extends WindowBase
         }
         else
         {
-            // Something is clicked on, and somthing is hovered over
+            // Something is clicked on, and something is hovered over
             
             return this.isHoverViableClicked();
         }
@@ -617,6 +647,10 @@ public class WindowPrint extends WindowBase
         else if (this.clickedObj.type == MouseInteractionType.INPUT_ENUM && this.hoverObj.type == MouseInteractionType.INPUT_ENUM_ID)
         {
             return true;
+        }
+        else if(this.clickedObj.type == MouseInteractionType.INPUT_DYNAMIC)
+        {
+            return this.clickedObj.nodeField == this.hoverObj.nodeField;
         }
         
         return false;

@@ -150,7 +150,7 @@ public class Visibilis
     /**
      * For modding environment only
      */
-    public static void debug(String s)
+    public static void debug(Object s)
     {
         System.out.println("------------------------ " + s);
     }

@@ -16,8 +16,6 @@ public abstract class WindowBase
     public IPrintHelper helper;
     public Rectangle dimensions;
     
-    public GuiTextField fieldInput;
-    
     public boolean mouseOverDimensions;
     
     public WindowBase(PrintUILogic guiPrint, RenderUtility util, IPrintHelper helper)
@@ -54,6 +52,10 @@ public abstract class WindowBase
     {
     }
     
+    public void guiPostDrawScreen(int mouseX, int mouseY, float partialTicks)
+    {
+    }
+    
     public void guiKeyTyped(char typedChar, int keyCode)
     {
     }
@@ -68,6 +70,11 @@ public abstract class WindowBase
     
     public void guiMouseReleased(int mouseX, int mouseY, int state)
     {
+    }
+    
+    public boolean isolateInput()
+    {
+        return false;
     }
     
     public Print getPrint()
