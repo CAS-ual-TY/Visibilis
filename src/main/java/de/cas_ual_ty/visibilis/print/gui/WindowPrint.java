@@ -393,7 +393,7 @@ public class WindowPrint extends WindowBase
             {
                 this.util.drawNodeHover(node, x, y);
             }
-            else if (this.hoverObj.nodeField != null)
+            else if (this.hoverObj.type == MouseInteractionType.OUTPUT || this.hoverObj.type == MouseInteractionType.INPUT)
             {
                 this.util.drawNodeFieldHover(this.hoverObj.nodeField, x, y);
             }
@@ -440,7 +440,7 @@ public class WindowPrint extends WindowBase
                 }
                 
                 // Node field was clicked on -> Render line from Dot to Mouse
-                RenderUtility.drawGradientLine(dotX + this.util.nodeFieldDotSize / 2, dotY + this.util.nodeFieldDotSize / 2, this.mouseXToPrintRounded(mouseX), this.mouseYToPrintRounded(mouseY), this.util.getLineWidth(this.clickedObj.nodeField.dataType), this.clickedObj.nodeField.dataType.getColor()[0], this.clickedObj.nodeField.dataType.getColor()[1], this.clickedObj.nodeField.dataType.getColor()[2], this.util.nodeFieldConnectionsAlpha, GuiPrintOld.nodeFieldDef, GuiPrintOld.nodeFieldDef, GuiPrintOld.nodeFieldDef, this.util.nodeFieldConnectionsAlpha);
+                RenderUtility.drawGradientLine(dotX + this.util.nodeFieldDotSize / 2, dotY + this.util.nodeFieldDotSize / 2, this.mouseXToPrintRounded(mouseX), this.mouseYToPrintRounded(mouseY), this.util.getLineWidth(this.clickedObj.nodeField.dataType), this.clickedObj.nodeField.dataType.getColor()[0], this.clickedObj.nodeField.dataType.getColor()[1], this.clickedObj.nodeField.dataType.getColor()[2], this.util.nodeFieldConnectionsAlpha, this.clickedObj.nodeField.dataType.getColor()[0], this.clickedObj.nodeField.dataType.getColor()[1], this.clickedObj.nodeField.dataType.getColor()[2], this.util.nodeFieldConnectionsAlpha);
             }
             else if (this.clickedObj.type == MouseInteractionType.INPUT_DYNAMIC)
             {
