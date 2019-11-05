@@ -954,10 +954,7 @@ public class RenderUtility
             this.w = w;
             this.h = h;
             
-            this.l = x;
-            this.t = y;
-            this.r = x + w;
-            this.b = y + h;
+            this.updateLRTB();
             
             return this;
         }
@@ -969,12 +966,25 @@ public class RenderUtility
             this.t = t;
             this.b = b;
             
-            this.x = l;
-            this.y = t;
-            this.w = r - l;
-            this.h = b - t;
+            this.updateXYWH();
             
             return this;
+        }
+        
+        public void updateLRTB()
+        {
+            this.l = this.x;
+            this.t = this.y;
+            this.r = this.x + this.w;
+            this.b = this.y + this.h;
+        }
+        
+        public void updateXYWH()
+        {
+            this.x = this.l;
+            this.y = this.t;
+            this.w = this.r - this.l;
+            this.h = this.b - this.t;
         }
         
         public boolean isCoordInside(float x, float y)
