@@ -19,6 +19,7 @@ import net.minecraft.util.StringUtils;
 public class ComponentNodeList extends Component
 {
     public Rectangle listRect;
+    public Rectangle inputRect;
     
     public float zoom;
     public int listOffset;
@@ -34,52 +35,61 @@ public class ComponentNodeList extends Component
         this.searchInput.setVisible(true);
         this.searchInput.setEnabled(true);
         this.listRect = Rectangle.fromXYWH(0, 0, 0, 0);
+        this.inputRect = Rectangle.fromXYWH(0, 0, 0, 0);
     }
     
     @Override
     public void guiInitGui()
     {
-        this.updateTextFieldSize();
+        this.updateInputRect();
         this.updateListRect();
+        this.updateTextFieldSize();
     }
     
     @Override
     public void guiDrawScreen(int mouseX, int mouseY, float partialTicks)
     {
+        // Background
         this.dimensions.render(0.375F, 0.375F, 0.375F);
         
+        // Reset hoverObj, then check if the mouse is over smth
         this.hoverObj.nothing();
-        boolean mouseOnTextField = RenderUtility.isCoordInsideRect(mouseX, mouseY, this.searchInput.x - 1, this.searchInput.y - 1, this.searchInput.width + 2, this.searchInput.height + 2);
+        boolean mouseOnTextField = this.inputRect.isCoordInside(mouseX, mouseY);
         boolean mouseOnList = !mouseOnTextField && this.listRect.isCoordInside(mouseX, mouseY);
         
         GlStateManager.pushMatrix();
-        RenderUtility.scissorStart(this.guiPrint.getScaledResolution(), this.listRect.x, this.listRect.y, this.listRect.w, this.listRect.h);
-        GlStateManager.translate(this.dimensions.x, this.dimensions.y, 0); // Move everything in the print by the print's position
-        RenderUtility.applyZoom(0.5F);
+//        RenderUtility.scissorStart(this.guiPrint.getScaledResolution(), this.listRect.x, this.listRect.y, this.listRect.w, this.listRect.h);
+        RenderUtility.applyZoom(0.5F); // TODO maybe make this dynamic
         
         int x = 0;
-        int y = this.listOffset;
+        int y = this.listOffset; // We start at the offset
         int w = this.util.nodeWidth;
         int h;
         
+        // Draw all the nodes in the list
         for (Node node : this.getAvailableNodesList())
         {
             this.util.drawNode(node, x, y);
             
-            h = this.util.getNodeTotalHeight(node);
+            h = this.util.getNodeTotalHeight(node); //height of the entire node
             
+            // If the mouse is on a node:
+            // - update hoverObj
+            // - Immediately render hover rect
             if (mouseOnList && RenderUtility.isCoordInsideRect(mouseX, mouseY, this.dimensions.x, this.dimensions.y + y / 2, w / 2, h / 2))
             {
                 this.hoverObj.node(node);
                 this.util.drawHoverRect(x, y, w, h);
             }
             
+            // Now add the height of the node to the next node's position. +2 so there is a small margin between nodes
             y += h + 2;
         }
         
+        // Remove the margin off of the last node again
         y -= 2 + this.listOffset;
         
-        int offset = 0;//this.util.nodeHeight;
+        int offset = this.inputRect.b;
         
         int topRect = this.listRect.t + offset;
         int botRect = (this.listRect.b - y) - offset; //TODO properly fit botRect. Right now you can scroll down until the bottom of the nodes list hits roughly the middle of the screen instead of the bottom - nodeHeight.
@@ -97,11 +107,12 @@ public class ComponentNodeList extends Component
             this.listOffset = topRect;
         }
         
-        RenderUtility.scissorEnd();
+//        RenderUtility.scissorEnd();
         GlStateManager.popMatrix();
         
         if (mouseOnTextField)
         {
+            // This overrides any nodes the mouse might be on
             this.hoverObj.textField(this.searchInput);
         }
         
@@ -155,6 +166,7 @@ public class ComponentNodeList extends Component
                 this.getPrint().addNode(this.hoverObj.node.setPosition(-this.getPrint().posX, -this.getPrint().posY));
             }
             
+            // If you had the text field selected and click on it again, dont deselect it
             if (this.hoverObj.type == MouseInteractionType.TEXT_FIELD)
             {
                 if (this.searchInput.isFocused())
@@ -194,6 +206,11 @@ public class ComponentNodeList extends Component
         return this.cutNodeListToSearch(this.helper.getAvailableNodes(this.guiPrint.getParentGui()));
     }
     
+    /**
+     * Remove all nodes that have no tags matching the current search text box in any way
+     * @param list The nodes list
+     * @return The nodes list containing only nodes matching the current search criteria
+     */
     public ArrayList<Node> cutNodeListToSearch(ArrayList<Node> list)
     {
         if (list == null)
@@ -226,23 +243,32 @@ public class ComponentNodeList extends Component
     
     public void setFocusTextField()
     {
-        // Set it to be focused, otherwise it does not accept input
         this.searchInput.setFocused(true);
     }
     
-    public void updateTextFieldSize()
+    public void updateInputRect()
     {
-        this.searchInput.x = this.dimensions.x + 1;
-        this.searchInput.y = this.dimensions.y + 1;
-        this.searchInput.width = this.dimensions.w - 2;
-        this.searchInput.height = this.util.nodeHeight - 2;
+        this.inputRect.x = this.dimensions.x;
+        this.inputRect.w = this.dimensions.w;
+        this.inputRect.y = 0;
+        this.inputRect.h = this.util.nodeHeight;
+        this.inputRect.updateLRTB();
     }
     
     public void updateListRect()
     {
         this.listRect.x = this.dimensions.x;
         this.listRect.w = this.dimensions.w;
-        this.listRect.y = this.searchInput.height;
+        this.listRect.y = this.inputRect.h;
         this.listRect.h = this.dimensions.h - this.listRect.y;
+        this.listRect.updateLRTB();
+    }
+    
+    public void updateTextFieldSize()
+    {
+        this.searchInput.x = this.inputRect.x + 1;
+        this.searchInput.y = this.inputRect.y + 1;
+        this.searchInput.width = this.inputRect.w - 2;
+        this.searchInput.height = this.inputRect.h - 2;
     }
 }
