@@ -49,6 +49,8 @@ public class ComponentNodeList extends Component
     @Override
     public void guiDrawScreen(int mouseX, int mouseY, float partialTicks)
     {
+        float zoom = 0.5F;
+        
         // Background
         this.dimensions.render(0.375F, 0.375F, 0.375F);
         
@@ -58,11 +60,14 @@ public class ComponentNodeList extends Component
         boolean mouseOnList = !mouseOnTextField && this.listRect.isCoordInside(mouseX, mouseY);
         
         GlStateManager.pushMatrix();
+        GlStateManager.translate(this.dimensions.x, this.dimensions.y, 0);
         //        RenderUtility.scissorStart(this.guiPrint.getScaledResolution(), this.listRect.x, this.listRect.y, this.listRect.w, this.listRect.h);
-        RenderUtility.applyZoom(0.5F); // TODO maybe make this dynamic
+        RenderUtility.applyZoom(zoom); // TODO maybe make this dynamic
+        
+        int margin = 2;
         
         int x = 0;
-        int y = this.listOffset; // We start at the offset
+        int y = (int) (this.listOffset + this.listRect.y / zoom + margin); // We start at the offset
         int w = this.util.nodeWidth;
         int h;
         
@@ -76,18 +81,18 @@ public class ComponentNodeList extends Component
             // If the mouse is on a node:
             // - update hoverObj
             // - Immediately render hover rect
-            if (mouseOnList && RenderUtility.isCoordInsideRect(mouseX, mouseY, this.dimensions.x, this.dimensions.y + y / 2, w / 2, h / 2))
+            if (mouseOnList && RenderUtility.isCoordInsideRect(mouseX, mouseY, this.dimensions.x, this.dimensions.y + y * zoom, w * zoom, h * zoom))
             {
                 this.hoverObj.node(node);
                 this.util.drawHoverRect(x, y, w, h);
             }
             
             // Now add the height of the node to the next node's position. +2 so there is a small margin between nodes
-            y += h + 2;
+            y += h + margin;
         }
         
         // Remove the margin off of the last node again
-        y -= 2 + this.listOffset;
+        y -= margin + this.listOffset;
         
         int offset = this.inputRect.b;
         
