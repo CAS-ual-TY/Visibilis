@@ -6,7 +6,6 @@ import de.cas_ual_ty.visibilis.print.gui.component.ComponentPrint;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
 import de.cas_ual_ty.visibilis.util.RenderUtility.Rectangle;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 

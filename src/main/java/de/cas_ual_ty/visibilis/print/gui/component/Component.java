@@ -5,7 +5,6 @@ import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.gui.UiBase;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
 import de.cas_ual_ty.visibilis.util.RenderUtility.Rectangle;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.ScaledResolution;
 
 public abstract class Component

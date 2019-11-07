@@ -58,7 +58,7 @@ public class ComponentNodeList extends Component
         boolean mouseOnList = !mouseOnTextField && this.listRect.isCoordInside(mouseX, mouseY);
         
         GlStateManager.pushMatrix();
-//        RenderUtility.scissorStart(this.guiPrint.getScaledResolution(), this.listRect.x, this.listRect.y, this.listRect.w, this.listRect.h);
+        //        RenderUtility.scissorStart(this.guiPrint.getScaledResolution(), this.listRect.x, this.listRect.y, this.listRect.w, this.listRect.h);
         RenderUtility.applyZoom(0.5F); // TODO maybe make this dynamic
         
         int x = 0;
@@ -107,7 +107,7 @@ public class ComponentNodeList extends Component
             this.listOffset = topRect;
         }
         
-//        RenderUtility.scissorEnd();
+        //        RenderUtility.scissorEnd();
         GlStateManager.popMatrix();
         
         if (mouseOnTextField)
