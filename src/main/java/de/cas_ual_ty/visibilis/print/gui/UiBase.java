@@ -58,6 +58,7 @@ public class UiBase
     public void guiOnGuiClosed()
     {
         this.windowPrint.guiOnGuiClosed();
+        this.windowNodeList.guiOnGuiClosed();
     }
     
     /**
