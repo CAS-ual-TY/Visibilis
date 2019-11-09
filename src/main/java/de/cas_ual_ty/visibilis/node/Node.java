@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import javax.annotation.Nullable;
 
 import de.cas_ual_ty.visibilis.VRegistry;
+import de.cas_ual_ty.visibilis.datatype.DataTypeDynamic;
+import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -19,6 +21,7 @@ public abstract class Node
     // NBT Keys
     public static final String KEY_POS_X = "posX";
     public static final String KEY_POS_Y = "posY";
+    public static final String KEY_DATA = "data_in_";
     
     public int posX, posY;
     
@@ -431,6 +434,28 @@ public abstract class Node
     {
         this.posX = nbt.getInteger(Node.KEY_POS_X);
         this.posY = nbt.getInteger(Node.KEY_POS_Y);
+        
+        Input in;
+        DataTypeEnum dt1;
+        DataTypeDynamic dt2;
+        for(int i = 0; i < this.getInputAmt(); ++i)
+        {
+        	in = this.getInput(i);
+        	
+        	if(in.hasDisplayValue())
+        	{
+        		if(in.dataType instanceof DataTypeEnum)
+        		{
+        			dt1 = (DataTypeEnum) in.dataType;
+        			in.setValue(dt1.getEnum(nbt.getInteger(KEY_DATA + i)));
+        		}
+        		else if(in.dataType instanceof DataTypeDynamic)
+        		{
+        			dt2 = (DataTypeDynamic) in.dataType;
+        			in.setValue(dt2.valueToString(nbt.getString(KEY_DATA + i)));
+        		}
+        	}
+        }
     }
     
     /**
@@ -440,6 +465,28 @@ public abstract class Node
     {
         nbt.setInteger(Node.KEY_POS_X, this.posX);
         nbt.setInteger(Node.KEY_POS_Y, this.posY);
+        
+        Input in;
+        DataTypeEnum dt1;
+        DataTypeDynamic dt2;
+        for(int i = 0; i < this.getInputAmt(); ++i)
+        {
+        	in = this.getInput(i);
+        	
+        	if(in.hasDisplayValue())
+        	{
+        		if(in.dataType instanceof DataTypeEnum)
+        		{
+        			dt1 = (DataTypeEnum) in.dataType;
+        			nbt.setInteger(KEY_DATA + i, dt1.getEnumIdx(in.getSetValue()));
+        		}
+        		else if(in.dataType instanceof DataTypeDynamic)
+        		{
+        			dt2 = (DataTypeDynamic) in.dataType;
+        			nbt.setString(KEY_DATA + i, dt2.valueToString(in.getSetValue()));
+        		}
+        	}
+        }
     }
     
     /**

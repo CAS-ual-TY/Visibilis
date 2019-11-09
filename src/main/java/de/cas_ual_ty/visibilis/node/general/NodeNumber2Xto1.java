@@ -124,19 +124,21 @@ public abstract class NodeNumber2Xto1 extends Node
     @Override
     public void readNodeFromNBT(NBTTagCompound nbt)
     {
-        super.readNodeFromNBT(nbt);
         int expansion = nbt.getInteger(NodeNumber2Xto1.KEY_EXPANSION);
         
         for (int i = 0; i < expansion; ++i)
         {
             this.expand();
         }
+        
+        super.readNodeFromNBT(nbt);
     }
     
     @Override
     public void writeNodeToNBT(NBTTagCompound nbt)
     {
-        super.writeNodeToNBT(nbt);
         nbt.setInteger(NodeNumber2Xto1.KEY_EXPANSION, this.expansion);
+        
+        super.writeNodeToNBT(nbt);
     }
 }
