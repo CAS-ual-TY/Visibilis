@@ -35,13 +35,13 @@ import de.cas_ual_ty.visibilis.node.logic.NodeXNOR;
 import de.cas_ual_ty.visibilis.node.logic.NodeXOR;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.item.PrintHelperItem;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 
 public class VPrintHelperTest extends PrintHelperItem
 {
-    public VPrintHelperTest(ItemStack itemStack, EnumHand hand)
+    public VPrintHelperTest(ItemStack itemStack, Hand hand)
     {
         super(itemStack, hand);
     }
@@ -53,9 +53,9 @@ public class VPrintHelperTest extends PrintHelperItem
     }
     
     @Override
-    public ArrayList<Node> getAvailableNodes(GuiScreen gui)
+    public ArrayList<Node> getAvailableNodes(Screen gui)
     {
-        ArrayList<Node> list = new ArrayList<Node>();
+        ArrayList<Node> list = new ArrayList<>();
         
         list.add(new NodeEvent(1, Visibilis.MOD_ID, "command"));
         list.add(new VNodeTest());

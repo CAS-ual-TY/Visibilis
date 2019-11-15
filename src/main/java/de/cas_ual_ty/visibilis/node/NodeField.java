@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.annotation.Nullable;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
+import net.minecraft.nbt.CompoundNBT;
 
 public abstract class NodeField<A>
 {
@@ -145,6 +146,22 @@ public abstract class NodeField<A>
     public String getUnlocalizedDesc()
     {
         return this.node.getFieldUnlocalizedDesc(this);
+    }
+    
+    /**
+     * When set to true, {@link #readFromNBT(CompoundNBT)} and {@link #writeToNBT(CompoundNBT)} will be called
+     */
+    public boolean useNBT()
+    {
+        return false;
+    }
+    
+    public void readFromNBT(CompoundNBT nbt)
+    {
+    }
+    
+    public void writeToNBT(CompoundNBT nbt)
+    {
     }
     
     public static void connect(NodeField n1, NodeField n2)

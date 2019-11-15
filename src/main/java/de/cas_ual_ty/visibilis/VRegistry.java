@@ -15,7 +15,7 @@ public class VRegistry
     
     public VRegistry()
     {
-        this.mapNodes = new HashMap<String, Class<? extends Node>>();
+        this.mapNodes = new HashMap<>();
     }
     
     // --- NODES START ---

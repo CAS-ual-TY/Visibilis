@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraftforge.common.util.Constants.NBT;
 
 public abstract class PrintHelperBase implements IPrintProvider
 {
@@ -17,33 +19,33 @@ public abstract class PrintHelperBase implements IPrintProvider
     }
     
     @Override
-    public Print getPrint(GuiScreen gui)
+    public Print getPrint(Screen gui)
     {
         return this.print;
     }
     
     @Override
-    public ArrayList<Node> getAvailableNodes(GuiScreen gui)
+    public ArrayList<Node> getAvailableNodes(Screen gui)
     {
         return null;
     }
     
     @Override
-    public void onGuiOpen(GuiScreen gui)
+    public void onGuiOpen(Screen gui)
     {
         this.readFromNBT(this.getNBT());
     }
     
     @Override
-    public void onGuiClose(GuiScreen gui)
+    public void onGuiClose(Screen gui)
     {
         this.writeToNBT(this.getNBT());
     }
     
     /**
-     * Get the tag to save/write the print from/to. No need to make a sub compound, since this is done in {@link #readFromNBT(NBTTagCompound)} and {@link #writeToNBT(NBTTagCompound)} already
+     * Get the tag to save/write the print from/to. No need to make a sub compound, since this is done in {@link #readFromNBT(CompoundNBT)} and {@link #writeToNBT(CompoundNBT)} already
      */
-    public abstract NBTTagCompound getNBT();
+    public abstract CompoundNBT getNBT();
     
     /**
      * Create a new print in case the NBT does not contain data
@@ -53,26 +55,69 @@ public abstract class PrintHelperBase implements IPrintProvider
     /**
      * Called after the nbt has been written to.
      */
-    public void synchToServer(NBTTagCompound nbt)
+    public void synchToServer(CompoundNBT nbt)
     {
     }
     
-    public void readFromNBT(NBTTagCompound nbt0)
+    public void readFromNBT(CompoundNBT nbt0)
     {
-        if (!nbt0.hasKey(Visibilis.MOD_ID))
+        if (!nbt0.contains(Visibilis.MOD_ID))
         {
             this.print = this.createNewPrint();
             return;
         }
         
-        NBTTagCompound nbt = nbt0.getCompoundTag(Visibilis.MOD_ID);
+        CompoundNBT nbt = nbt0.getCompound(Visibilis.MOD_ID);
         this.print = NBTUtility.loadPrintFromNBT(nbt);
     }
     
-    public void writeToNBT(NBTTagCompound nbt0)
+    public void writeToNBT(CompoundNBT nbt0)
     {
-        NBTTagCompound nbt = NBTUtility.savePrintToNBT(this.print);
-        nbt0.setTag(Visibilis.MOD_ID, nbt);
+        CompoundNBT nbt = NBTUtility.savePrintToNBT(this.print);
+        nbt0.put(Visibilis.MOD_ID, nbt);
+        
         this.synchToServer(nbt0);
+    }
+    
+    public static void recPrintTree(CompoundNBT nbt)
+    {
+        PrintHelperBase.recPrintTree(0, nbt);
+    }
+    
+    public static void recPrintTree(int indent, CompoundNBT nbt)
+    {
+        for (String key : nbt.keySet())
+        {
+            Visibilis.debug(PrintHelperBase.indent(indent) + key);
+            
+            if (nbt.get(key) instanceof ListNBT)
+            {
+                PrintHelperBase.recPrintList(indent + 1, nbt.getList(key, NBT.TAG_COMPOUND));
+            }
+            else if (nbt.get(key) instanceof CompoundNBT)
+            {
+                PrintHelperBase.recPrintTree(indent + 1, nbt.getCompound(key));
+            }
+        }
+    }
+    
+    public static void recPrintList(int indent, ListNBT nbt0)
+    {
+        for (int i = 0; i < nbt0.size(); ++i)
+        {
+            PrintHelperBase.recPrintTree(indent + 1, nbt0.getCompound(i));
+        }
+    }
+    
+    public static String indent(int amt)
+    {
+        String s = "";
+        
+        for (; amt > 0; --amt)
+        {
+            s += "  ";
+        }
+        
+        return s;
     }
 }

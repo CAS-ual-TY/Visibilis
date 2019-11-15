@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.lwjgl.opengl.GL11;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
 import de.cas_ual_ty.visibilis.node.Input;
@@ -11,12 +13,11 @@ import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
 import de.cas_ual_ty.visibilis.node.NodeGroupsHelper;
 import de.cas_ual_ty.visibilis.print.Print;
+import net.minecraft.client.MainWindow;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
@@ -25,7 +26,7 @@ import net.minecraft.util.text.TextFormatting;
 
 public class RenderUtility
 {
-    public final GuiScreen gui;
+    public final Screen gui;
     public final FontRenderer fontRenderer;
     
     /** The height of the header or an output/input NOT THE ENTIRE NODE WIDTH AS THEY HAVE DIFFERENT SIZES */
@@ -82,10 +83,10 @@ public class RenderUtility
     /** node, output, input, print, as translated string */
     public String tNode, tOut, tIn, tPrint, tExpand, tShrink;
     
-    public RenderUtility(GuiScreen gui)
+    public RenderUtility(Screen gui)
     {
         this.gui = gui;
-        this.fontRenderer = Minecraft.getMinecraft().fontRenderer;
+        this.fontRenderer = Minecraft.getInstance().fontRenderer;
         
         this.nodeHeight = 12;
         this.nodeFieldDotSize = 4;
@@ -479,7 +480,7 @@ public class RenderUtility
      */
     public void drawNodeHoveringText(Node node, int x, int y)
     {
-        ArrayList<String> lines = new ArrayList<String>();
+        ArrayList<String> lines = new ArrayList<>();
         
         lines.add(TextFormatting.BOLD.toString() + I18n.format(node.getUnlocalizedName()) + TextFormatting.RESET + " - " + this.tNode);
         
@@ -535,13 +536,13 @@ public class RenderUtility
                 lines.add(TextFormatting.DARK_RED.toString() + I18n.format(f.getUnlocalizedName()) + TextFormatting.RESET + " - " + this.tOut);
             }
             
-            this.gui.drawHoveringText(lines, x, y);
+            this.gui.renderTooltip(lines, x, y);
         }
     }
     
     public void drawNodeFieldHoveringText(NodeField field, int x, int y)
     {
-        ArrayList<String> lines = new ArrayList<String>();
+        ArrayList<String> lines = new ArrayList<>();
         
         lines.add(TextFormatting.BOLD.toString() + (field.isOutput() ? TextFormatting.DARK_RED.toString() : TextFormatting.GOLD.toString()) + I18n.format(field.getUnlocalizedName()) + TextFormatting.RESET + " - " + (field.isOutput() ? this.tOut : this.tIn));
         
@@ -553,7 +554,7 @@ public class RenderUtility
             lines.add(desc);
         }
         
-        this.gui.drawHoveringText(lines, x, y);
+        this.gui.renderTooltip(lines, x, y);
     }
     
     public void drawRectWithText(int x, int y, int w, int h, float[] colorRect, String text, float[] colorText)
@@ -629,7 +630,7 @@ public class RenderUtility
      */
     public void updateLineWidth(Print print)
     {
-        this.nodeFieldConnectionsWidth = (this.nodeFieldDotSize / 2) * print.zoom * new ScaledResolution(Minecraft.getMinecraft()).getScaleFactor();
+        this.nodeFieldConnectionsWidth = (float) ((this.nodeFieldDotSize / 2) * print.zoom * Minecraft.getInstance().mainWindow.getGuiScaleFactor());
     }
     
     public static void drawTextCentered(FontRenderer fontRenderer, int x, int y, int w, String text, float color[])
@@ -721,13 +722,13 @@ public class RenderUtility
      * @param h
      *            Height of the rectangle.
      */
-    public static void scissorStart(ScaledResolution sr, int x, int y, int w, int h)
+    public static void scissorStart(MainWindow sr, int x, int y, int w, int h)
     {
         GlStateManager.pushMatrix();
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
         // * scaleFactor due to the automatic resizing depending on window size (or the GUI size settings)
         // All the derparoundery with the Y position because Minecraft 0,0 is at the top left, but lwjgl 0,0 is at the bottom left
-        GL11.glScissor(x * sr.getScaleFactor(), (sr.getScaledHeight() - y - h) * sr.getScaleFactor(), w * sr.getScaleFactor(), h * sr.getScaleFactor());
+        GL11.glScissor((int) (x * sr.getGuiScaleFactor()), (int) ((sr.getScaledHeight() - y - h) * sr.getGuiScaleFactor()), (int) (w * sr.getGuiScaleFactor()), (int) (h * sr.getGuiScaleFactor()));
     }
     
     /**
@@ -744,7 +745,7 @@ public class RenderUtility
      */
     public static void applyZoom(float zoom)
     {
-        GlStateManager.scale(zoom, zoom, 1); // Apply zoom, 2x zoom means 2x size of prints, so this is fine
+        GlStateManager.scalef(zoom, zoom, 1); // Apply zoom, 2x zoom means 2x size of prints, so this is fine
     }
     
     /**
@@ -760,20 +761,20 @@ public class RenderUtility
      */
     public static void drawLine(int x1, int y1, int x2, int y2, float lineWidth, float r, float g, float b, float a)
     {
-        GlStateManager.glLineWidth(lineWidth);
+        GlStateManager.lineWidth(lineWidth);
         
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         
         // Prep time
         GlStateManager.enableBlend(); // We do need blending
-        GlStateManager.disableTexture2D(); // We dont need textures
+        GlStateManager.disableTexture(); // We dont need textures
         
         // Make sure alpha is working
-        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         
         // Set the color!
-        GlStateManager.color(r, g, b, a);
+        GlStateManager.color4f(r, g, b, a);
         
         // Start drawing
         bufferbuilder.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
@@ -786,7 +787,7 @@ public class RenderUtility
         tessellator.draw();
         
         // Cleanup time
-        GlStateManager.enableTexture2D(); // Turn textures back on
+        GlStateManager.enableTexture(); // Turn textures back on
         GlStateManager.disableBlend(); // Turn blending uhh... back off?
     }
     
@@ -803,17 +804,17 @@ public class RenderUtility
      */
     public static void drawGradientLine(int x1, int y1, int x2, int y2, float lineWidth, float r1, float g1, float b1, float a1, float r2, float g2, float b2, float a2)
     {
-        GlStateManager.glLineWidth(lineWidth);
+        GlStateManager.lineWidth(lineWidth);
         
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
         
         GlStateManager.enableBlend();
-        GlStateManager.disableTexture2D();
+        GlStateManager.disableTexture();
         
-        GlStateManager.disableAlpha();
+        GlStateManager.disableAlphaTest();
         
-        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         
         GlStateManager.shadeModel(GL11.GL_SMOOTH);
         
@@ -826,9 +827,9 @@ public class RenderUtility
         
         GlStateManager.shadeModel(GL11.GL_FLAT);
         
-        GlStateManager.enableAlpha();
+        GlStateManager.enableAlphaTest();
         
-        GlStateManager.enableTexture2D();
+        GlStateManager.enableTexture();
         GlStateManager.disableBlend();
     }
     
@@ -853,13 +854,13 @@ public class RenderUtility
         
         // Prep time
         GlStateManager.enableBlend(); // We do need blending
-        GlStateManager.disableTexture2D(); // We dont need textures
+        GlStateManager.disableTexture(); // We dont need textures
         
         // Make sure alpha is working
-        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         
         // Set the color!
-        GlStateManager.color(r, g, b, a);
+        GlStateManager.color4f(r, g, b, a);
         
         // Start drawing
         bufferbuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
@@ -874,7 +875,7 @@ public class RenderUtility
         tessellator.draw();
         
         // Cleanup time
-        GlStateManager.enableTexture2D(); // Turn textures back on
+        GlStateManager.enableTexture(); // Turn textures back on
         GlStateManager.disableBlend(); // Turn blending uhh... back off?
     }
     
@@ -899,13 +900,13 @@ public class RenderUtility
         
         // Prep time
         GlStateManager.enableBlend(); // We do need blending
-        GlStateManager.disableTexture2D(); // We dont need textures
+        GlStateManager.disableTexture(); // We dont need textures
         
         // Make sure alpha is working
-        GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         
         // Set the color!
-        GlStateManager.color(r, g, b, a);
+        GlStateManager.color4f(r, g, b, a);
         
         // Start drawing
         bufferbuilder.begin(GL11.GL_QUAD_STRIP, DefaultVertexFormats.POSITION);
@@ -926,14 +927,14 @@ public class RenderUtility
         tessellator.draw();
         
         // Cleanup time
-        GlStateManager.enableTexture2D(); // Turn textures back on
+        GlStateManager.enableTexture(); // Turn textures back on
         GlStateManager.disableBlend(); // Turn blending uhh... back off?
     }
     
     /**
      * Check if the given mouse coordinates are inside given rectangle
      */
-    public static boolean isCoordInsideRect(float mouseX, float mouseY, float x, float y, float w, float h)
+    public static boolean isCoordInsideRect(double mouseX, double mouseY, double x, double y, double w, double h)
     {
         return mouseX >= x && mouseX < x + w && mouseY >= y && mouseY < y + h;
     }

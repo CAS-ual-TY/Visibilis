@@ -22,10 +22,10 @@ public abstract class Sorter extends NodeExec
     {
         super(outputAmt, inputAmt);
         this.outExec = new Output(this, DataType.EXEC, "exec");
-        this.outTargetsList1 = new Output<TargetsList>(this, MMDataType.TARGETS_LIST, "targets_list");
-        this.outTargetsList2 = new Output<TargetsList>(this, MMDataType.TARGETS_LIST, "targets_list");
+        this.outTargetsList1 = new Output<>(this, MMDataType.TARGETS_LIST, "targets_list");
+        this.outTargetsList2 = new Output<>(this, MMDataType.TARGETS_LIST, "targets_list");
         this.inExec = new Input(this, DataType.EXEC, "exec");
-        this.inTargetsList = new Input<TargetsList>(this, MMDataType.TARGETS_LIST, "targets_list");
+        this.inTargetsList = new Input<>(this, MMDataType.TARGETS_LIST, "targets_list");
         this.targetsList2 = new TargetsList();
     }
     

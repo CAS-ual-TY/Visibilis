@@ -10,11 +10,11 @@ public class NodeGroupsHelper
 {
     public static final NodeGroupsHelper INSTANCE = new NodeGroupsHelper();
     
-    private HashMap<Class, ArrayList<String>> nodeToTags = new HashMap<Class, ArrayList<String>>();
+    private HashMap<Class, ArrayList<String>> nodeToTags = new HashMap<>();
     
-    private HashMap<Class, String[]> nodeToGroups = new HashMap<Class, String[]>();
-    private HashMap<String, String> groupToName = new HashMap<String, String>();
-    private HashMap<String, String[]> groupToTags = new HashMap<String, String[]>();
+    private HashMap<Class, String[]> nodeToGroups = new HashMap<>();
+    private HashMap<String, String> groupToName = new HashMap<>();
+    private HashMap<String, String[]> groupToTags = new HashMap<>();
     
     public boolean isTextMatchingNode(Node node, String text)
     {
@@ -56,7 +56,7 @@ public class NodeGroupsHelper
     
     private ArrayList<String> createTagsForNode(Node node)
     {
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<>();
         
         String[] groups = this.getGroupsForNode(node);
         String groupId;

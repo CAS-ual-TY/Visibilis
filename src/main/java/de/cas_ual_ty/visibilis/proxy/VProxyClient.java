@@ -4,6 +4,7 @@ import de.cas_ual_ty.visibilis.handler.VEventHandlerClient;
 import de.cas_ual_ty.visibilis.print.IPrintProvider;
 import de.cas_ual_ty.visibilis.print.gui.GuiPrint;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 
 public class VProxyClient implements IVSidedProxy
@@ -26,6 +27,6 @@ public class VProxyClient implements IVSidedProxy
     public void openGuiPrint(IPrintProvider helper)
     {
         //        Minecraft.getMinecraft().displayGuiScreen(new GuiPrintOld(helper));
-        Minecraft.getMinecraft().displayGuiScreen(new GuiPrint(helper));
+        Minecraft.getInstance().displayGuiScreen(new GuiPrint(new StringTextComponent("Print"), helper));
     }
 }

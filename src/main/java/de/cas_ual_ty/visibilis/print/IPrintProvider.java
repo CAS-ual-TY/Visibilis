@@ -5,25 +5,25 @@ import java.util.ArrayList;
 import javax.annotation.Nullable;
 
 import de.cas_ual_ty.visibilis.node.Node;
-import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.screen.Screen;
 
 public interface IPrintProvider
 {
-    public Print getPrint(GuiScreen gui);
+    public Print getPrint(Screen gui);
     
     /**
      * Get the current available nodes for the side view
      */
     @Nullable //TODO maybe dont make this nullable
-    public ArrayList<Node> getAvailableNodes(GuiScreen gui);
+    public ArrayList<Node> getAvailableNodes(Screen gui);
     
     /**
      * Called at the end of {@link GuiPrintOld#GuiPrint(IGuiPrintHelper)} (constructor)
      */
-    public void onGuiOpen(GuiScreen gui);
+    public void onGuiOpen(Screen gui);
     
     /**
      * Called at the end of {@link GuiPrintOld#onGuiClosed()}
      */
-    public void onGuiClose(GuiScreen gui);
+    public void onGuiClose(Screen gui);
 }

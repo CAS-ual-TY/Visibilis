@@ -1,38 +1,50 @@
 package de.cas_ual_ty.visibilis.print.item;
 
-import io.netty.buffer.ByteBuf;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumHand;
-import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
+import java.util.function.Supplier;
 
-public class MessageItem implements IMessage
+import de.cas_ual_ty.visibilis.print.PrintHelperBase;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.Hand;
+import net.minecraftforge.fml.network.NetworkEvent;
+
+public class MessageItem
 {
-    public NBTTagCompound nbt;
-    public EnumHand hand;
+    public CompoundNBT nbt;
+    public Hand hand;
     
-    public MessageItem(ItemStack itemStack, EnumHand hand)
+    public MessageItem(ItemStack itemStack, Hand hand)
     {
-        this.nbt = itemStack.getTagCompound();
+        this(itemStack.getTag(), hand);
+    }
+    
+    public MessageItem(CompoundNBT nbt, Hand hand)
+    {
+        this.nbt = nbt;
         this.hand = hand;
     }
     
-    public MessageItem()
+    public static void encode(MessageItem msg, PacketBuffer buf)
     {
+        buf.writeBoolean(msg.hand == Hand.MAIN_HAND ? true : false);
+        buf.writeCompoundTag(msg.nbt);
     }
     
-    @Override
-    public void fromBytes(ByteBuf buf)
+    public static MessageItem decode(PacketBuffer buf)
     {
-        this.hand = buf.readBoolean() ? EnumHand.MAIN_HAND : EnumHand.OFF_HAND;
-        this.nbt = ByteBufUtils.readTag(buf);
+        Hand hand = buf.readBoolean() ? Hand.MAIN_HAND : Hand.OFF_HAND;
+        CompoundNBT nbt = buf.readCompoundTag();
+        return new MessageItem(nbt, hand);
     }
     
-    @Override
-    public void toBytes(ByteBuf buf)
+    public static void handle(MessageItem msg, Supplier<NetworkEvent.Context> ctx)
     {
-        buf.writeBoolean(this.hand == EnumHand.MAIN_HAND ? true : false);
-        ByteBufUtils.writeTag(buf, this.nbt);
+        ItemStack itemStack = ctx.get().getSender().getHeldItem(msg.hand);
+        itemStack.setTag(msg.nbt);
+        
+        // TODO validate! fire event?
+        
+        PrintHelperBase.recPrintTree(msg.nbt);
     }
 }

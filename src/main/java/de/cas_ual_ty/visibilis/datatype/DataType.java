@@ -18,7 +18,7 @@ public class DataType<A>
     
     public static final float[] COLOR_DEFAULT_GREY = new float[] { 0.5F, 0.5F, 0.5F };
     
-    public static final Map<String, DataType> DATA_TYPES_LIST = new HashMap<String, DataType>();
+    public static final Map<String, DataType> DATA_TYPES_LIST = new HashMap<>();
     
     /*
      * Explanation for all this overriding:
@@ -174,7 +174,7 @@ public class DataType<A>
     public DataType(String id, float[] color)
     {
         this.id = id;
-        this.converters = new HashMap<DataType, Converter>();
+        this.converters = new HashMap<>();
         this.color = color;
         this.textColor = DataType.COLOR_TEXT_WHITE;
         this.defaultValue = null;

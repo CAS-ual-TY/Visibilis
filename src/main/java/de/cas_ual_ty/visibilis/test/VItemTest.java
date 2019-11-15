@@ -2,34 +2,33 @@ package de.cas_ual_ty.visibilis.test;
 
 import de.cas_ual_ty.visibilis.print.IPrintProvider;
 import de.cas_ual_ty.visibilis.print.item.ItemPrint;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 public class VItemTest extends ItemPrint
 {
-    public VItemTest()
+    public VItemTest(Properties properties)
     {
-        this.setCreativeTab(CreativeTabs.COMBAT);
+        super(properties);
     }
     
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
     {
         if (this.openGui(playerIn, handIn))
         {
-            return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
+            return new ActionResult<>(ActionResultType.SUCCESS, playerIn.getHeldItem(handIn));
         }
         
-        return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
+        return new ActionResult<>(ActionResultType.PASS, playerIn.getHeldItem(handIn));
     }
     
     @Override
-    public IPrintProvider getHelper(ItemStack itemStack, EnumHand hand)
+    public IPrintProvider getHelper(ItemStack itemStack, Hand hand)
     {
         return new VPrintHelperTest(itemStack, hand);
     }

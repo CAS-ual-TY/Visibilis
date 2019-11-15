@@ -17,7 +17,7 @@ public class DataTypeEnum<A> extends DataType<A>
     public DataTypeEnum(String id, float[] color)
     {
         super(id, color);
-        this.enums = new ArrayList<A>();
+        this.enums = new ArrayList<>();
     }
     
     @Override

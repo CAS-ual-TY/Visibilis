@@ -19,7 +19,7 @@ public abstract class Effect extends NodeExec
         super(outputAmt, inputAmt);
         this.outExec = new Output(this, DataType.EXEC, "exec");
         this.inExec = new Input(this, DataType.EXEC, "exec");
-        this.inTargetsList = new Input<TargetsList>(this, MMDataType.TARGETS_LIST, "targets_list");
+        this.inTargetsList = new Input<>(this, MMDataType.TARGETS_LIST, "targets_list");
     }
     
     public Effect(int inputAmt)

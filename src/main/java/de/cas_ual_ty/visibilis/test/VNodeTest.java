@@ -17,8 +17,8 @@ public class VNodeTest extends NodeExec
     {
         super(0, 3);
         this.in0 = new Input(this, DataType.EXEC, "test");
-        this.in1 = new Input<Boolean>(this, DataType.BOOLEAN, "test");
-        this.in2 = new Input<Number>(this, DataType.NUMBER, "test");
+        this.in1 = new Input<>(this, DataType.BOOLEAN, "test");
+        this.in2 = new Input<>(this, DataType.NUMBER, "test");
     }
     
     @Override

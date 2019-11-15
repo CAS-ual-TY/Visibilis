@@ -3,6 +3,9 @@ package de.cas_ual_ty.visibilis.node;
 import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
+import de.cas_ual_ty.visibilis.datatype.DataTypeDynamic;
+import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
+import net.minecraft.nbt.CompoundNBT;
 
 public class Input<A> extends NodeField<A>
 {
@@ -12,6 +15,9 @@ public class Input<A> extends NodeField<A>
      * "Node": The node of this node field
      * "Parent": The parent node of the node of this field
      */
+    
+    public static final String KEY_DATA_ENUM = "dataId";
+    public static final String KEY_DATA_DYNAMIC = "dataString";
     
     /**
      * The output this is connected to.
@@ -80,7 +86,7 @@ public class Input<A> extends NodeField<A>
     @Override
     public ArrayList<NodeField> getConnectionsList()
     {
-        ArrayList<NodeField> list = new ArrayList<NodeField>();
+        ArrayList<NodeField> list = new ArrayList<>();
         
         if (this.hasConnections())
         {
@@ -148,5 +154,45 @@ public class Input<A> extends NodeField<A>
     {
         this.mustUseConnection = true;
         return this;
+    }
+    
+    @Override
+    public boolean useNBT()
+    {
+        return this.hasDisplayValue() && (this.dataType instanceof DataTypeEnum || this.dataType instanceof DataTypeDynamic);
+    }
+    
+    @Override
+    public void writeToNBT(CompoundNBT nbt)
+    {
+        if (this.dataType instanceof DataTypeEnum)
+        {
+            DataTypeEnum dt = (DataTypeEnum) this.dataType;
+            nbt.putInt(Input.KEY_DATA_ENUM, dt.getEnumIdx(this.getSetValue()));
+        }
+        else if (this.dataType instanceof DataTypeDynamic)
+        {
+            DataTypeDynamic dt = (DataTypeDynamic) this.dataType;
+            nbt.putString(Input.KEY_DATA_DYNAMIC, dt.valueToString(this.getSetValue()));
+        }
+        
+        super.readFromNBT(nbt);
+    }
+    
+    @Override
+    public void readFromNBT(CompoundNBT nbt)
+    {
+        if (this.dataType instanceof DataTypeEnum)
+        {
+            DataTypeEnum dt = (DataTypeEnum) this.dataType;
+            this.setValue((A) dt.getEnum(nbt.getInt(Input.KEY_DATA_ENUM)));
+        }
+        else if (this.dataType instanceof DataTypeDynamic)
+        {
+            DataTypeDynamic dt = (DataTypeDynamic) this.dataType;
+            this.setValue((A) dt.valueToString(nbt.getString(Input.KEY_DATA_DYNAMIC)));
+        }
+        
+        super.writeToNBT(nbt);
     }
 }

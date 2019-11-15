@@ -4,14 +4,25 @@ import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.print.IPrintProvider;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumHand;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Hand;
 
 public class ItemPrint extends Item
 {
+    public ItemPrint(Properties properties)
+    {
+        super(properties);
+    }
+    
+    @Override
+    public boolean updateItemStackNBT(CompoundNBT nbt)
+    {
+        return true;
+    }
+    
     /**
      * Opens the {@link GuiPrintOld} for the given player
      * 
@@ -23,7 +34,7 @@ public class ItemPrint extends Item
      *            The hand the given itemStack is in
      * @return <b>true</b> if the Gui was opened
      */
-    public boolean openGui(EntityPlayer player, ItemStack itemStack, EnumHand hand)
+    public boolean openGui(PlayerEntity player, ItemStack itemStack, Hand hand)
     {
         if (player.world.isRemote)
         {
@@ -34,7 +45,7 @@ public class ItemPrint extends Item
         return false;
     }
     
-    public boolean openGui(EntityPlayer player, EnumHand hand)
+    public boolean openGui(PlayerEntity player, Hand hand)
     {
         return this.openGui(player, player.getHeldItem(hand), hand);
     }
@@ -42,20 +53,20 @@ public class ItemPrint extends Item
     /**
      * Returns an instance of {@link IPrintProvider} which is used to open the {@link GuiPrintOld} in {@link #openGui(EntityPlayer, ItemStack, EnumHand)}
      */
-    public IPrintProvider getHelper(ItemStack itemStack, EnumHand hand)
+    public IPrintProvider getHelper(ItemStack itemStack, Hand hand)
     {
         return new PrintHelperItem(itemStack, hand);
     }
     
     public Print getPrint(ItemStack itemStack)
     {
-        if (itemStack.hasTagCompound())
+        if (itemStack.hasTag())
         {
-            NBTTagCompound nbt0 = itemStack.getTagCompound();
+            CompoundNBT nbt0 = itemStack.getTag();
             
-            if (nbt0.hasKey(Visibilis.MOD_ID))
+            if (nbt0.hasUniqueId(Visibilis.MOD_ID))
             {
-                NBTTagCompound nbt = nbt0.getCompoundTag(Visibilis.MOD_ID);
+                CompoundNBT nbt = nbt0.getCompound(Visibilis.MOD_ID);
                 return NBTUtility.loadPrintFromNBT(nbt);
             }
         }

@@ -7,9 +7,9 @@ import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
 import de.cas_ual_ty.visibilis.print.Print;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagIntArray;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.IntArrayNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraftforge.common.util.Constants;
 
 public class NBTUtility
@@ -32,7 +32,7 @@ public class NBTUtility
     /**
      * Creates and loads a new {@link Print} instance from the given NBT tag, including all its nodes and connections
      */
-    public static Print loadPrintFromNBT(NBTTagCompound nbt)
+    public static Print loadPrintFromNBT(CompoundNBT nbt)
     {
         Print p = new Print();
         NBTUtility.readPrintFromNBT(p, nbt);
@@ -43,9 +43,9 @@ public class NBTUtility
     /**
      * Creates a new {@link Print} with the given Print instance saved onto it, including all its nodes an connections
      */
-    public static NBTTagCompound savePrintToNBT(Print p)
+    public static CompoundNBT savePrintToNBT(Print p)
     {
-        NBTTagCompound nbt = new NBTTagCompound();
+        CompoundNBT nbt = new CompoundNBT();
         NBTUtility.writePrintToNBT(p, nbt);
         
         return nbt;
@@ -54,35 +54,35 @@ public class NBTUtility
     /**
      * Reads a {@link Print} instance's data from the given NBT, excluding nodes and connections
      */
-    public static void readPrintFromNBT(Print p, NBTTagCompound nbt)
+    public static void readPrintFromNBT(Print p, CompoundNBT nbt)
     {
-        NBTTagCompound nbt1 = nbt.getCompoundTag(NBTUtility.KEY_PRINT);
+        CompoundNBT nbt1 = nbt.getCompound(NBTUtility.KEY_PRINT);
         p.readFromNBT(nbt1);
     }
     
     /**
      * Writes a {@link Print} instance's data to the given NBT, excluding nodes and connections
      */
-    public static void writePrintToNBT(Print p, NBTTagCompound nbt)
+    public static void writePrintToNBT(Print p, CompoundNBT nbt)
     {
-        NBTTagCompound nbt1 = new NBTTagCompound();
+        CompoundNBT nbt1 = new CompoundNBT();
         p.writeToNBT(nbt1);
-        nbt.setTag(NBTUtility.KEY_PRINT, nbt1);
+        nbt.put(NBTUtility.KEY_PRINT, nbt1);
     }
     
     /**
      * Reads a {@link Print} instance's node list from the given NBT, excluding connections
      */
-    public static void readPrintNodesFromNBT(Print p, NBTTagCompound nbt)
+    public static void readPrintNodesFromNBT(Print p, CompoundNBT nbt)
     {
-        NBTTagList nbtlist = nbt.getTagList(NBTUtility.KEY_PRINT_NODES, Constants.NBT.TAG_COMPOUND);
+        ListNBT nbtlist = nbt.getList(NBTUtility.KEY_PRINT_NODES, Constants.NBT.TAG_COMPOUND);
         
-        NBTTagCompound nbt1;
+        CompoundNBT nbt1;
         Node n;
         
-        for (int i = 0; i < nbtlist.tagCount(); ++i)
+        for (int i = 0; i < nbtlist.size(); ++i)
         {
-            nbt1 = nbtlist.getCompoundTagAt(i);
+            nbt1 = nbtlist.getCompound(i);
             
             n = NBTUtility.loadNodeFromNBT(nbt1);
             
@@ -100,11 +100,11 @@ public class NBTUtility
     /**
      * Writes a {@link Print} instance's node list to the given NBT, excluding connections
      */
-    public static void writePrintNodesToNBT(Print p, NBTTagCompound nbt)
+    public static void writePrintNodesToNBT(Print p, CompoundNBT nbt)
     {
-        NBTTagList nbtlist = new NBTTagList();
+        ListNBT nbtlist = new ListNBT();
         
-        NBTTagCompound nbt1;
+        CompoundNBT nbt1;
         Node n;
         
         for (int i = 0; i < p.getNodes().size(); ++i)
@@ -115,7 +115,7 @@ public class NBTUtility
             
             if (nbt1 != null)
             {
-                nbtlist.appendTag(nbt1);
+                nbtlist.add(nbt1);
             }
             else
             {
@@ -123,13 +123,13 @@ public class NBTUtility
             }
         }
         
-        nbt.setTag(NBTUtility.KEY_PRINT_NODES, nbtlist);
+        nbt.put(NBTUtility.KEY_PRINT_NODES, nbtlist);
     }
     
     /**
      * Creates and loads a new {@link Node} instance from the given NBT tag, excluding all its connections
      */
-    public static Node loadNodeFromNBT(NBTTagCompound nbt)
+    public static Node loadNodeFromNBT(CompoundNBT nbt)
     {
         Node n;
         
@@ -150,9 +150,9 @@ public class NBTUtility
     /**
      * Creates a new NBT with the given {@link Node} instance saved onto it, excluding all its connections
      */
-    public static NBTTagCompound saveNodeToNBT(Node n)
+    public static CompoundNBT saveNodeToNBT(Node n)
     {
-        NBTTagCompound nbt = new NBTTagCompound();
+        CompoundNBT nbt = new CompoundNBT();
         
         String name = VRegistry.INSTANCE.getNameForNode(n);
         
@@ -161,7 +161,7 @@ public class NBTUtility
             return null;
         }
         
-        nbt.setString(NBTUtility.KEY_NODE, name);
+        nbt.putString(NBTUtility.KEY_NODE, name);
         
         NBTUtility.writeNodeToNBT(n, nbt);
         
@@ -171,7 +171,7 @@ public class NBTUtility
     /**
      * Reads a {@link Node} instance's data from the given NBT, excluding connections
      */
-    public static void readNodeFromNBT(Node n, NBTTagCompound nbt)
+    public static void readNodeFromNBT(Node n, CompoundNBT nbt)
     {
         n.readNodeFromNBT(nbt);
     }
@@ -179,7 +179,7 @@ public class NBTUtility
     /**
      * Writes a {@link Node} instance's data to the given NBT, excluding connections
      */
-    public static void writeNodeToNBT(Node n, NBTTagCompound nbt)
+    public static void writeNodeToNBT(Node n, CompoundNBT nbt)
     {
         n.writeNodeToNBT(nbt);
     }
@@ -187,7 +187,7 @@ public class NBTUtility
     /**
      * Reads all connections of this {@link Print} instance's node list from the NBT
      */
-    public static void readPrintConnectionsFromNBT(Print p, NBTTagCompound nbt)
+    public static void readPrintConnectionsFromNBT(Print p, CompoundNBT nbt)
     {
         int[] array = nbt.getIntArray(NBTUtility.KEY_PRINT_CONNECTIONS);
         
@@ -213,9 +213,9 @@ public class NBTUtility
     /**
      * Writes all connections of this {@link Print} instance's node list to the NBT
      */
-    public static void writePrintConnectionsToNBT(Print p, NBTTagCompound nbt)
+    public static void writePrintConnectionsToNBT(Print p, CompoundNBT nbt)
     {
-        ArrayList<Integer> array = new ArrayList<Integer>();
+        ArrayList<Integer> array = new ArrayList<>();
         
         int i;
         int j;
@@ -245,7 +245,6 @@ public class NBTUtility
                 }
             }
         }
-        
-        nbt.setTag(NBTUtility.KEY_PRINT_CONNECTIONS, new NBTTagIntArray(array));
+        nbt.put(NBTUtility.KEY_PRINT_CONNECTIONS, new IntArrayNBT(array));
     }
 }

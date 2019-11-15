@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import javax.annotation.Nullable;
 
 import de.cas_ual_ty.visibilis.VRegistry;
-import de.cas_ual_ty.visibilis.datatype.DataTypeDynamic;
-import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 
 public abstract class Node
 {
@@ -21,7 +19,8 @@ public abstract class Node
     // NBT Keys
     public static final String KEY_POS_X = "posX";
     public static final String KEY_POS_Y = "posY";
-    public static final String KEY_DATA = "data_in_";
+    public static final String KEY_DATA_OUT = "data_out_";
+    public static final String KEY_DATA_IN = "data_in_";
     
     public int posX, posY;
     
@@ -30,8 +29,8 @@ public abstract class Node
     
     public Node(int outputAmt, int inputAmt)
     {
-        this.outputFields = new ArrayList<Output>();
-        this.inputFields = new ArrayList<Input>();
+        this.outputFields = new ArrayList<>();
+        this.inputFields = new ArrayList<>();
         this.setPosition(0, 0); // Just to make sure they are always initialized
     }
     
@@ -430,62 +429,60 @@ public abstract class Node
     /**
      * Read from NBT. Does not load everything, see {@link NBTUtility#readNodeFromNBT(Node, NBTTagCompound)} for a proper method
      */
-    public void readNodeFromNBT(NBTTagCompound nbt)
+    public void readNodeFromNBT(CompoundNBT nbt0)
     {
-        this.posX = nbt.getInteger(Node.KEY_POS_X);
-        this.posY = nbt.getInteger(Node.KEY_POS_Y);
+        this.posX = nbt0.getInt(Node.KEY_POS_X);
+        this.posY = nbt0.getInt(Node.KEY_POS_Y);
         
-        Input in;
-        DataTypeEnum dt1;
-        DataTypeDynamic dt2;
-        for(int i = 0; i < this.getInputAmt(); ++i)
+        CompoundNBT nbt;
+        
+        for (NodeField f : this.outputFields)
         {
-        	in = this.getInput(i);
-        	
-        	if(in.hasDisplayValue())
-        	{
-        		if(in.dataType instanceof DataTypeEnum)
-        		{
-        			dt1 = (DataTypeEnum) in.dataType;
-        			in.setValue(dt1.getEnum(nbt.getInteger(KEY_DATA + i)));
-        		}
-        		else if(in.dataType instanceof DataTypeDynamic)
-        		{
-        			dt2 = (DataTypeDynamic) in.dataType;
-        			in.setValue(dt2.valueToString(nbt.getString(KEY_DATA + i)));
-        		}
-        	}
+            if (f.useNBT())
+            {
+                nbt = nbt0.getCompound(Node.KEY_DATA_OUT + f.getId());
+                f.readFromNBT(nbt);
+            }
+        }
+        
+        for (NodeField f : this.inputFields)
+        {
+            if (f.useNBT())
+            {
+                nbt = nbt0.getCompound(Node.KEY_DATA_IN + f.getId());
+                f.readFromNBT(nbt);
+            }
         }
     }
     
     /**
      * Write to NBT. Does not write everything, see {@link NBTUtility#writeNodeToNBT(Node, NBTTagCompound)} for a proper method
      */
-    public void writeNodeToNBT(NBTTagCompound nbt)
+    public void writeNodeToNBT(CompoundNBT nbt0)
     {
-        nbt.setInteger(Node.KEY_POS_X, this.posX);
-        nbt.setInteger(Node.KEY_POS_Y, this.posY);
+        nbt0.putInt(Node.KEY_POS_X, this.posX);
+        nbt0.putInt(Node.KEY_POS_Y, this.posY);
         
-        Input in;
-        DataTypeEnum dt1;
-        DataTypeDynamic dt2;
-        for(int i = 0; i < this.getInputAmt(); ++i)
+        CompoundNBT nbt;
+        
+        for (NodeField f : this.outputFields)
         {
-        	in = this.getInput(i);
-        	
-        	if(in.hasDisplayValue())
-        	{
-        		if(in.dataType instanceof DataTypeEnum)
-        		{
-        			dt1 = (DataTypeEnum) in.dataType;
-        			nbt.setInteger(KEY_DATA + i, dt1.getEnumIdx(in.getSetValue()));
-        		}
-        		else if(in.dataType instanceof DataTypeDynamic)
-        		{
-        			dt2 = (DataTypeDynamic) in.dataType;
-        			nbt.setString(KEY_DATA + i, dt2.valueToString(in.getSetValue()));
-        		}
-        	}
+            if (f.useNBT())
+            {
+                nbt = new CompoundNBT();
+                f.writeToNBT(nbt);
+                nbt0.put(Node.KEY_DATA_OUT + f.getId(), nbt);
+            }
+        }
+        
+        for (NodeField f : this.inputFields)
+        {
+            if (f.useNBT())
+            {
+                nbt = new CompoundNBT();
+                f.writeToNBT(nbt);
+                nbt0.put(Node.KEY_DATA_IN + f.getId(), nbt);
+            }
         }
     }
     

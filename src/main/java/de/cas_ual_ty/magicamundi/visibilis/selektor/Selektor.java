@@ -18,7 +18,7 @@ public abstract class Selektor extends Node
     {
         super(outputAmt, inputAmt);
         this.outExec = new Output(this, DataType.EXEC, "exec");
-        this.outTargetsList = new Output<TargetsList>(this, MMDataType.TARGETS_LIST, "targets_list");
+        this.outTargetsList = new Output<>(this, MMDataType.TARGETS_LIST, "targets_list");
         this.targetsList = new TargetsList();
     }
     

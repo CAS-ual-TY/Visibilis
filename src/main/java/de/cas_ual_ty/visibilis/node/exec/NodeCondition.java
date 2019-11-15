@@ -21,7 +21,7 @@ public class NodeCondition extends NodeExec
         this.outExec1 = new Output(this, DataType.EXEC, "exec");
         this.outExec2 = new Output(this, DataType.EXEC, "exec");
         this.inExec = new Input(this, DataType.EXEC, "exec");
-        this.inBoolean = new Input<Boolean>(this, DataType.BOOLEAN, "boolean");
+        this.inBoolean = new Input<>(this, DataType.BOOLEAN, "boolean");
     }
     
     public NodeCondition(int inputAmt)

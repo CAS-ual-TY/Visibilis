@@ -21,7 +21,7 @@ public class Output<A> extends NodeField<A>
     public Output(Node node, DataType dataType, String name)
     {
         super(node, dataType, name);
-        this.connections = new ArrayList<Input>();
+        this.connections = new ArrayList<>();
     }
     
     /**
@@ -82,7 +82,7 @@ public class Output<A> extends NodeField<A>
     @Override
     public ArrayList<NodeField> getConnectionsList()
     {
-        ArrayList<NodeField> list = new ArrayList<NodeField>();
+        ArrayList<NodeField> list = new ArrayList<>();
         
         if (this.hasConnections())
         {

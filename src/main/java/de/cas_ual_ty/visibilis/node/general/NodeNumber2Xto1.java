@@ -5,7 +5,7 @@ import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.Output;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 
 public abstract class NodeNumber2Xto1 extends Node
 {
@@ -19,7 +19,7 @@ public abstract class NodeNumber2Xto1 extends Node
     public NodeNumber2Xto1(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.out1 = new Output<Number>(this, DataType.NUMBER, "out1");
+        this.out1 = new Output<>(this, DataType.NUMBER, "out1");
         new Input<Number>(this, DataType.NUMBER, "in");
         new Input<Number>(this, DataType.NUMBER, "in");
         
@@ -122,23 +122,21 @@ public abstract class NodeNumber2Xto1 extends Node
     }
     
     @Override
-    public void readNodeFromNBT(NBTTagCompound nbt)
+    public void readNodeFromNBT(CompoundNBT nbt)
     {
-        int expansion = nbt.getInteger(NodeNumber2Xto1.KEY_EXPANSION);
+        super.readNodeFromNBT(nbt);
+        int expansion = nbt.getInt(NodeNumber2Xto1.KEY_EXPANSION);
         
         for (int i = 0; i < expansion; ++i)
         {
             this.expand();
         }
-        
-        super.readNodeFromNBT(nbt);
     }
     
     @Override
-    public void writeNodeToNBT(NBTTagCompound nbt)
+    public void writeNodeToNBT(CompoundNBT nbt)
     {
-        nbt.setInteger(NodeNumber2Xto1.KEY_EXPANSION, this.expansion);
-        
         super.writeNodeToNBT(nbt);
+        nbt.putInt(NodeNumber2Xto1.KEY_EXPANSION, this.expansion);
     }
 }

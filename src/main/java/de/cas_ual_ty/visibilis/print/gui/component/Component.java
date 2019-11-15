@@ -5,9 +5,10 @@ import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.gui.UiBase;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
 import de.cas_ual_ty.visibilis.util.RenderUtility.Rectangle;
-import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.MainWindow;
+import net.minecraft.client.gui.IGuiEventListener;
 
-public abstract class Component
+public abstract class Component implements IGuiEventListener
 {
     public final MouseInteractionObject hoverObj = new MouseInteractionObject();
     
@@ -25,6 +26,8 @@ public abstract class Component
         this.guiPrint = guiPrint;
         this.util = util;
         this.helper = helper;
+        
+        this.guiPrint.children.add(this);
     }
     
     // --- START ---
@@ -50,17 +53,15 @@ public abstract class Component
         return false;
     }
     
-    // --- Methods called from UiBase, called from GuiScreen ---
-    
     /**
-     * Called from {@link UiBase#guiInitGui()}
+     * Called from {@link UiBase#guiInit()}
      */
     public void guiInitGui()
     {
     }
     
     /**
-     * Called from {@link UiBase#guiOnGuiClosed()}
+     * Called from {@link UiBase#guiOnClose()}
      */
     public void guiOnGuiClosed()
     {
@@ -69,46 +70,23 @@ public abstract class Component
     /**
      * Called from {@link UiBase#guiDrawScreen(int, int, float)}
      */
-    public void guiDrawScreen(int mouseX, int mouseY, float partialTicks)
+    public void guiRender(int mouseX, int mouseY, float partialTicks)
     {
     }
     
     /**
      * Called from {@link UiBase#guiDrawScreen(int, int, float)}
      */
-    public void guiPostDrawScreen(int mouseX, int mouseY, float partialTicks)
+    public void guiPostRender(int mouseX, int mouseY, float partialTicks)
     {
     }
     
     /**
-     * Called from {@link UiBase#guiKeyTyped(char, int)}
+     * Called from {@link UiBase#guiTick()}
      */
-    public void guiKeyTyped(char typedChar, int keyCode)
+    public void guiTick()
     {
     }
-    
-    /**
-     * Called from {@link UiBase#guiMouseClicked(int, int, int)}
-     */
-    public void guiMouseClicked(int mouseX, int mouseY, int mouseButton)
-    {
-    }
-    
-    /**
-     * Called from {@link UiBase#guiMouseClickMove(int, int, int, long)}
-     */
-    public void guiMouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick)
-    {
-    }
-    
-    /**
-     * Called from {@link UiBase#guiMouseReleased(int, int, int)}
-     */
-    public void guiMouseReleased(int mouseX, int mouseY, int state)
-    {
-    }
-    
-    // --- END ---
     
     //Helper method
     public Print getPrint()
@@ -120,8 +98,56 @@ public abstract class Component
     /**
      * @return {@link UiBase#getScaledResolution()}
      */
-    public ScaledResolution getSR()
+    public MainWindow getSR()
     {
         return this.guiPrint.getScaledResolution();
+    }
+    
+    @Override
+    public void mouseMoved(double mouseX, double mouseY)
+    {
+        
+    }
+    
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int modifiers)
+    {
+        return false;
+    }
+    
+    @Override
+    public boolean mouseReleased(double mouseX, double mouseY, int modifiers)
+    {
+        return false;
+    }
+    
+    @Override
+    public boolean mouseDragged(double mouseX, double mouseY, int modifiers, double deltaX, double deltaY)
+    {
+        return false;
+    }
+    
+    @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double amountScrolled)
+    {
+        return false;
+    }
+    
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers)
+    {
+        return false;
+    }
+    
+    @Override
+    public boolean keyReleased(int keyCode, int scanCode, int modifiers)
+    {
+        return false;
+    }
+    
+    @Override
+    public boolean charTyped(char typedChar, int keyCode)
+    {
+        return false;
     }
 }

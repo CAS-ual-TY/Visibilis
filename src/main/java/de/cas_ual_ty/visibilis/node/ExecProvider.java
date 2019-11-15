@@ -1,17 +1,17 @@
 package de.cas_ual_ty.visibilis.node;
 
-import net.minecraft.command.ICommandSender;
+import net.minecraft.command.CommandSource;
 
 public class ExecProvider
 {
-    protected ICommandSender commandSender;
+    protected CommandSource commandSender;
     
-    public ExecProvider(ICommandSender commandSender)
+    public ExecProvider(CommandSource commandSender)
     {
         this.commandSender = commandSender;
     }
     
-    public ICommandSender getCommandSender()
+    public CommandSource getCommandSender()
     {
         return this.commandSender;
     }

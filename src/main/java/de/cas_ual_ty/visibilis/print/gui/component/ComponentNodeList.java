@@ -2,7 +2,9 @@ package de.cas_ual_ty.visibilis.print.gui.component;
 
 import java.util.ArrayList;
 
-import org.lwjgl.input.Keyboard;
+import org.lwjgl.glfw.GLFW;
+
+import com.mojang.blaze3d.platform.GlStateManager;
 
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeGroupsHelper;
@@ -11,9 +13,7 @@ import de.cas_ual_ty.visibilis.print.gui.UiBase;
 import de.cas_ual_ty.visibilis.print.gui.component.MouseInteractionObject.MouseInteractionType;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
 import de.cas_ual_ty.visibilis.util.RenderUtility.Rectangle;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.util.StringUtils;
 
 public class ComponentNodeList extends Component
@@ -23,7 +23,12 @@ public class ComponentNodeList extends Component
     
     public float zoom;
     public int listOffset;
-    public GuiTextField searchInput;
+    public TextFieldWidget searchInput;
+    
+    public boolean isSearchFieldFocused;
+    
+    public int keyPressed = -1;
+    public int keyPressedDelay = 0;
     
     public ComponentNodeList(UiBase guiPrint, RenderUtility util, IPrintProvider helper)
     {
@@ -31,11 +36,12 @@ public class ComponentNodeList extends Component
         
         this.zoom = 0.5F;
         this.listOffset = 0;
-        this.searchInput = new GuiTextField(1, Minecraft.getMinecraft().fontRenderer, 0, 0, 0, 0);
+        this.searchInput = new TextFieldWidget(this.util.fontRenderer, 0, 0, 0, 0, "");
         this.searchInput.setVisible(true);
         this.searchInput.setEnabled(true);
         this.listRect = Rectangle.fromXYWH(0, 0, 0, 0);
         this.inputRect = Rectangle.fromXYWH(0, 0, 0, 0);
+        this.isSearchFieldFocused = false;
     }
     
     @Override
@@ -47,7 +53,7 @@ public class ComponentNodeList extends Component
     }
     
     @Override
-    public void guiDrawScreen(int mouseX, int mouseY, float partialTicks)
+    public void guiRender(int mouseX, int mouseY, float partialTicks)
     {
         float zoom = 0.5F;
         
@@ -60,9 +66,9 @@ public class ComponentNodeList extends Component
         boolean mouseOnList = !mouseOnTextField && this.listRect.isCoordInside(mouseX, mouseY);
         
         GlStateManager.pushMatrix();
-        GlStateManager.translate(this.dimensions.x, this.dimensions.y, 0);
+        GlStateManager.translatef(this.dimensions.x, this.dimensions.y, 0);
         //        RenderUtility.scissorStart(this.guiPrint.getScaledResolution(), this.listRect.x, this.listRect.y, this.listRect.w, this.listRect.h);
-        RenderUtility.applyZoom(zoom); // TODO maybe make this dynamic
+        RenderUtility.applyZoom(zoom); // TODO low: maybe make this dynamic
         
         int margin = 2;
         
@@ -121,11 +127,11 @@ public class ComponentNodeList extends Component
             this.hoverObj.textField(this.searchInput);
         }
         
-        this.searchInput.drawTextBox();
+        this.searchInput.render(mouseX, mouseY, partialTicks);
     }
     
     @Override
-    public void guiPostDrawScreen(int mouseX, int mouseY, float partialTicks)
+    public void guiPostRender(int mouseX, int mouseY, float partialTicks)
     {
         if (this.hoverObj.type == MouseInteractionType.NODE)
         {
@@ -134,37 +140,29 @@ public class ComponentNodeList extends Component
     }
     
     @Override
-    public void guiKeyTyped(char typedChar, int keyCode)
+    public void guiTick()
     {
-        if (this.searchInput.isFocused())
+        if (!this.updateKeyPressedDelay())
         {
-            if (keyCode == Keyboard.KEY_RETURN)
-            {
-                this.searchInput.setFocused(false);
-                return;
-            }
-            else
-            {
-                //If the text field is visible transfer all pressed keys to it.
-                this.searchInput.textboxKeyTyped(typedChar, keyCode);
-                return;
-            }
+            return;
         }
         
-        if (keyCode == Keyboard.KEY_PRIOR)
+        if (this.keyPressed == GLFW.GLFW_KEY_PAGE_UP)
         {
             this.scrollUp();
         }
-        else if (keyCode == Keyboard.KEY_NEXT)
+        else if (this.keyPressed == GLFW.GLFW_KEY_PAGE_DOWN)
         {
             this.scrollDown();
         }
+        
+        super.guiTick();
     }
     
     @Override
-    public void guiMouseClicked(int mouseX, int mouseY, int mouseButton)
+    public boolean mouseClicked(double mouseX, double mouseY, int modifiers)
     {
-        if (mouseButton == 0)
+        if (modifiers == 0)
         {
             if (this.hoverObj.type == MouseInteractionType.NODE)
             {
@@ -176,11 +174,12 @@ public class ComponentNodeList extends Component
             {
                 if (this.searchInput.isFocused())
                 {
-                    this.searchInput.mouseClicked(mouseX, mouseY, mouseButton);
+                    return this.searchInput.mouseClicked(mouseX, mouseY, modifiers);
                 }
                 else
                 {
                     this.setFocusTextField();
+                    return true;
                 }
             }
             else
@@ -188,6 +187,75 @@ public class ComponentNodeList extends Component
                 this.setUnfocusTextField();
             }
         }
+        
+        return super.mouseClicked(mouseX, mouseY, modifiers);
+    }
+    
+    @Override
+    public boolean charTyped(char typedChar, int keyCode)
+    {
+        if (this.searchInput.isFocused())
+        {
+            if (keyCode == GLFW.GLFW_KEY_ENTER)
+            {
+                this.setUnfocusTextField();
+                return true;
+            }
+            else
+            {
+                //If the text field is visible transfer all pressed keys to it.
+                this.searchInput.charTyped(typedChar, keyCode);
+                return true;
+            }
+        }
+        
+        return super.charTyped(typedChar, keyCode);
+    }
+    
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers)
+    {
+        if (this.searchInput.isFocused())
+        {
+            if (keyCode == GLFW.GLFW_KEY_ENTER)
+            {
+                this.setUnfocusTextField();
+                return true;
+            }
+            else
+            {
+                //If the text field is visible transfer all pressed keys to it.
+                this.searchInput.keyPressed(keyCode, scanCode, modifiers);
+                return true;
+            }
+        }
+        
+        this.updateKeyPressed(keyCode, 0);
+        
+        return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+    
+    @Override
+    public boolean keyReleased(int keyCode, int scanCode, int modifiers)
+    {
+        this.updateKeyPressed(-1, 0);
+        
+        if (this.searchInput.isFocused())
+        {
+            if (keyCode == GLFW.GLFW_KEY_ENTER)
+            {
+                this.setUnfocusTextField();
+                return true;
+            }
+            else
+            {
+                //If the text field is visible transfer all pressed keys to it.
+                this.searchInput.keyReleased(keyCode, scanCode, modifiers);
+                return true;
+            }
+        }
+        
+        return super.keyReleased(keyCode, scanCode, modifiers);
     }
     
     @Override
@@ -206,6 +274,22 @@ public class ComponentNodeList extends Component
         this.listOffset -= this.util.nodeHeight * 2;
     }
     
+    public void updateKeyPressed(int keyCode, int delay)
+    {
+        this.keyPressed = keyCode;
+        this.keyPressedDelay = delay;
+    }
+    
+    public boolean updateKeyPressedDelay()
+    {
+        boolean ret = --this.keyPressedDelay <= 0;
+        if (ret)
+        {
+            this.keyPressedDelay = 3;
+        }
+        return ret;
+    }
+    
     public ArrayList<Node> getAvailableNodesList()
     {
         return this.cutNodeListToSearch(this.helper.getAvailableNodes(this.guiPrint.getParentGui()));
@@ -220,7 +304,7 @@ public class ComponentNodeList extends Component
     {
         if (list == null)
         {
-            return new ArrayList<Node>();
+            return new ArrayList<>();
         }
         
         String text = this.searchInput.getText().trim();
@@ -243,12 +327,12 @@ public class ComponentNodeList extends Component
     
     public void setUnfocusTextField()
     {
-        this.searchInput.setFocused(false);
+        this.searchInput.setFocused2(false);
     }
     
     public void setFocusTextField()
     {
-        this.searchInput.setFocused(true);
+        this.searchInput.setFocused2(true);
     }
     
     public void updateInputRect()
@@ -273,7 +357,7 @@ public class ComponentNodeList extends Component
     {
         this.searchInput.x = this.inputRect.x + 1;
         this.searchInput.y = this.inputRect.y + 1;
-        this.searchInput.width = this.inputRect.w - 2;
-        this.searchInput.height = this.inputRect.h - 2;
+        this.searchInput.setWidth(this.inputRect.w - 2);
+        this.searchInput.setHeight(this.inputRect.h - 2);
     }
 }

@@ -1,70 +1,42 @@
 package de.cas_ual_ty.visibilis.test;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.mojang.brigadier.CommandDispatcher;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.print.Print;
-import net.minecraft.command.CommandException;
-import net.minecraft.command.ICommand;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.command.CommandSource;
+import net.minecraft.command.Commands;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.Hand;
 
-public class VCommandExec implements ICommand
+public class VCommandExec
 {
-    public final ArrayList<String> aliases;
-    
-    public VCommandExec()
+    public static void register(CommandDispatcher<CommandSource> dispatcher)
     {
-        this.aliases = new ArrayList<String>();
-        this.aliases.add("exec");
-        this.aliases.add("execute");
-        this.aliases.add("visibilis");
+        dispatcher.register(Commands.literal("vexec").requires((arg1) -> {
+            return arg1.getServer().isSinglePlayer() || arg1.hasPermissionLevel(2);
+        }).executes((arg2) -> {
+            CommandSource source = arg2.getSource();
+            VCommandExec.execute(source);
+            return 0;
+        }));
     }
     
-    @Override
-    public int compareTo(ICommand com)
+    public static void execute(CommandSource sender)
     {
-        return 0;
-    }
-    
-    @Override
-    public String getName()
-    {
-        return "exec";
-    }
-    
-    @Override
-    public String getUsage(ICommandSender sender)
-    {
-        return "exec";
-    }
-    
-    @Override
-    public List<String> getAliases()
-    {
-        return this.aliases;
-    }
-    
-    @Override
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException
-    {
-        if (!sender.getEntityWorld().isRemote && sender.getCommandSenderEntity() instanceof EntityPlayer)
+        if (!sender.getWorld().isRemote && sender.getEntity() instanceof PlayerEntity)
         {
-            EntityPlayer player = (EntityPlayer) sender.getCommandSenderEntity();
+            PlayerEntity player = (PlayerEntity) sender.getEntity();
             
-            if (!this.executeFor(player, EnumHand.MAIN_HAND))
+            if (!VCommandExec.executeFor(sender, player, Hand.MAIN_HAND))
             {
-                this.executeFor(player, EnumHand.OFF_HAND);
+                VCommandExec.executeFor(sender, player, Hand.OFF_HAND);
             }
         }
     }
     
-    public boolean executeFor(EntityPlayer player, EnumHand hand)
+    public static boolean executeFor(CommandSource sender, PlayerEntity player, Hand hand)
     {
         ItemStack itemStack = player.getHeldItem(hand);
         
@@ -74,29 +46,11 @@ public class VCommandExec implements ICommand
             
             if (p != null)
             {
-                p.executeEvent(Visibilis.MOD_ID, "command", player);
+                p.executeEvent(Visibilis.MOD_ID, "command", sender);
                 return true;
             }
         }
         
-        return false;
-    }
-    
-    @Override
-    public boolean checkPermission(MinecraftServer server, ICommandSender sender)
-    {
-        return true;
-    }
-    
-    @Override
-    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos targetPos)
-    {
-        return null;
-    }
-    
-    @Override
-    public boolean isUsernameIndex(String[] args, int index)
-    {
         return false;
     }
 }

@@ -1,6 +1,8 @@
 package de.cas_ual_ty.visibilis.print.gui.component;
 
-import org.lwjgl.input.Keyboard;
+import org.lwjgl.glfw.GLFW;
+
+import com.mojang.blaze3d.platform.GlStateManager;
 
 import de.cas_ual_ty.visibilis.datatype.DataTypeDynamic;
 import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
@@ -13,8 +15,7 @@ import de.cas_ual_ty.visibilis.print.gui.UiBase;
 import de.cas_ual_ty.visibilis.print.gui.component.MouseInteractionObject.MouseInteractionType;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.widget.TextFieldWidget;
 
 public class ComponentPrint extends Component
 {
@@ -28,18 +29,21 @@ public class ComponentPrint extends Component
     
     public final MouseInteractionObject clickedObj = new MouseInteractionObject();
     
-    public final GuiTextField fieldInput;
+    public final TextFieldWidget fieldInput;
     
     public int tmpOffX;
     public int tmpOffY;
+    
+    public int keyPressed = -1;
+    public int keyPressedDelay = 0;
     
     public ComponentPrint(UiBase guiPrint, RenderUtility util, IPrintProvider helper)
     {
         super(guiPrint, util, helper);
         
-        this.fieldInput = new GuiTextField(0, this.util.fontRenderer, 0, 0, 0, 0);
+        this.fieldInput = new TextFieldWidget(this.util.fontRenderer, 0, 0, 0, 0, "");
         this.fieldInput.setVisible(false);
-        this.fieldInput.setFocused(false);
+        this.fieldInput.setFocused2(false);
         this.fieldInput.setCanLoseFocus(false);
     }
     
@@ -50,11 +54,11 @@ public class ComponentPrint extends Component
     }
     
     @Override
-    public void guiDrawScreen(int mouseX, int mouseY, float partialTicks)
+    public void guiRender(int mouseX, int mouseY, float partialTicks)
     {
         // Background & show zoom on top left
         this.dimensions.render(0.5F, 0.25F, 0.25F);
-        Minecraft.getMinecraft().fontRenderer.drawString(this.getPrint().zoom + "x", 1, 1, 0xFFFFFF);
+        Minecraft.getInstance().fontRenderer.drawString(this.getPrint().zoom + "x", 1, 1, 0xFFFFFF);
         
         // Check what the mouse is over and properly hold it in hoverObj
         this.updateMouseHoveringObj(mouseX, mouseY);
@@ -69,7 +73,7 @@ public class ComponentPrint extends Component
         GlStateManager.pushMatrix();
         RenderUtility.scissorStart(this.getSR(), this.dimensions.x, this.dimensions.y, this.dimensions.w, this.dimensions.h);
         RenderUtility.applyZoom(this.getPrint().zoom); // Inside of the matrix since you would otherwise "touch" everything outside of the matrix
-        GlStateManager.translate(this.getPrint().posX, this.getPrint().posY, 0); // Move everything in the print by the print's position
+        GlStateManager.translatef(this.getPrint().posX, this.getPrint().posY, 0); // Move everything in the print by the print's position
         
         // Draw the Print: All nodes, fields, connections
         this.drawPrint(this.getPrint());
@@ -82,78 +86,90 @@ public class ComponentPrint extends Component
     }
     
     @Override
-    public void guiPostDrawScreen(int mouseX, int mouseY, float partialTicks)
+    public void guiPostRender(int mouseX, int mouseY, float partialTicks)
     {
         // Draw outside of zoom, shift and scissor
         this.drawHoverText(mouseX, mouseY);
     }
     
     @Override
-    public void guiKeyTyped(char typedChar, int keyCode)
+    public void guiTick()
     {
-        if (this.fieldInput.getVisible())
-        {
-            if (keyCode == Keyboard.KEY_RETURN)
-            {
-                // Return clicked, unfocus and apply test
-                this.setUnfocusTextField(this.clickedObj.input);
-                return;
-            }
-            else
-            {
-                //If the text field is visible transfer all pressed keys to it.
-                this.fieldInput.textboxKeyTyped(typedChar, keyCode);
-                return;
-            }
-        }
-        
         if (this.mouseOverDimensions)
         {
+            if (!this.updateKeyPressedDelay())
+            {
+                return;
+            }
+            
             // Reset position to 0
-            if (keyCode == Keyboard.KEY_SPACE)
+            if (this.keyPressed == GLFW.GLFW_KEY_SPACE)
             {
                 this.getPrint().posX = 0;
                 this.getPrint().posY = 0;
             }
             // zoom in
-            else if (keyCode == Keyboard.KEY_ADD)
+            else if (this.keyPressed == GLFW.GLFW_KEY_KP_ADD)
             {
                 this.zoomIn(this.guiPrint.lastMousePosX, this.guiPrint.lastMousePosY);
             }
             // zoom out
-            else if (keyCode == Keyboard.KEY_SUBTRACT)
+            else if (this.keyPressed == GLFW.GLFW_KEY_KP_SUBTRACT)
             {
                 this.zoomOut(this.guiPrint.lastMousePosX, this.guiPrint.lastMousePosY);
             }
             // move print up
-            if (keyCode == Keyboard.KEY_W || keyCode == Keyboard.KEY_UP)
+            if (this.keyPressed == GLFW.GLFW_KEY_W || this.keyPressed == GLFW.GLFW_KEY_UP)
             {
                 this.getPrint().posY -= 8 * 2 / this.getPrint().zoom;
             }
             // move print down
-            if (keyCode == Keyboard.KEY_S || keyCode == Keyboard.KEY_DOWN)
+            if (this.keyPressed == GLFW.GLFW_KEY_S || this.keyPressed == GLFW.GLFW_KEY_DOWN)
             {
                 this.getPrint().posY += 8 * 2 / this.getPrint().zoom;
             }
             // move print left
-            if (keyCode == Keyboard.KEY_A || keyCode == Keyboard.KEY_LEFT)
+            if (this.keyPressed == GLFW.GLFW_KEY_A || this.keyPressed == GLFW.GLFW_KEY_LEFT)
             {
                 this.getPrint().posX -= 8 * 2 / this.getPrint().zoom;
             }
             // move print right
-            if (keyCode == Keyboard.KEY_D || keyCode == Keyboard.KEY_RIGHT)
+            if (this.keyPressed == GLFW.GLFW_KEY_D || this.keyPressed == GLFW.GLFW_KEY_RIGHT)
             {
                 this.getPrint().posX += 8 * 2 / this.getPrint().zoom;
             }
         }
+        super.guiTick();
     }
     
     @Override
-    public void guiMouseClicked(int mouseX, int mouseY, int mouseButton)
+    public boolean charTyped(char typedChar, int keyCode)
+    {
+        if (this.fieldInput.getVisible())
+        {
+            if (keyCode == GLFW.GLFW_KEY_ENTER)
+            {
+                // Return clicked, unfocus and apply test
+                this.setUnfocusTextField(this.clickedObj.input);
+                return true;
+            }
+            else
+            {
+                //If the text field is visible transfer all pressed keys to it.
+                this.fieldInput.charTyped(typedChar, keyCode);
+                return true;
+            }
+        }
+        
+        return super.charTyped(typedChar, keyCode);
+    }
+    
+    @Override
+    public boolean mouseClicked(double mouseX, double mouseY, int modifiers)
     {
         if (this.mouseOverDimensions)
         {
-            if (mouseButton == 0)
+            if (modifiers == 0)
             {
                 if (this.clickedObj.isNothing())
                 {
@@ -162,10 +178,12 @@ public class ComponentPrint extends Component
                     if (this.hoverObj.type == MouseInteractionType.NODE_ACTION_EXPAND)
                     {
                         this.hoverObj.node.expand();
+                        return true;
                     }
                     else if (this.hoverObj.type == MouseInteractionType.NODE_ACTION_SHRINK)
                     {
                         this.hoverObj.node.shrink();
+                        return true;
                     }
                     // User clicked on the header. This might be initiation of a click move.
                     else if (this.hoverObj.type == MouseInteractionType.NODE_HEADER)
@@ -174,10 +192,12 @@ public class ComponentPrint extends Component
                         this.tmpOffX = this.mouseXToPrintRounded(mouseX) - this.hoverObj.node.posX;// - this.getPrint().posX;
                         this.tmpOffY = this.mouseYToPrintRounded(mouseY) - this.hoverObj.node.posY;// - this.getPrint().posY;
                         this.setHoverToClicked();
+                        return true;
                     }
                     else if (this.hoverObj.type == MouseInteractionType.OUTPUT)
                     {
                         this.setHoverToClicked();
+                        return true;
                     }
                     else if (this.hoverObj.type == MouseInteractionType.INPUT)
                     {
@@ -207,6 +227,8 @@ public class ComponentPrint extends Component
                         }
                         
                         this.hoverObj.nothing(); // Dont know why I put this, maybe unnecessary idk
+                        
+                        return true;
                     }
                 }
                 else
@@ -220,22 +242,17 @@ public class ComponentPrint extends Component
                         if (NodeField.canConnect(this.clickedObj.nodeField, this.hoverObj.nodeField))
                         {
                             NodeField.connect(this.clickedObj.nodeField, this.hoverObj.nodeField);
+                            return true;
                         }
                     }
-                    /*
-                    else if (this.clickedObj.type == MouseInteractionType.NODE_HEADER)
-                    {
-                        this.clickedObj.node.posX = this.mouseXToPrintRounded(mouseX);
-                        this.clickedObj.node.posY = this.mouseYToPrintRounded(mouseY);
-                    }*/
                     // Dynamic input was selected before (text field focused)
                     else if (this.clickedObj.type == MouseInteractionType.INPUT_DYNAMIC)
                     {
                         // If you click on the same input again, do not deselect (return) and transfer the interaction to the fieldInput itself
                         if (this.clickedObj.nodeField == this.hoverObj.nodeField)
                         {
-                            this.fieldInput.mouseClicked(this.mouseXToPrintRounded(mouseX), this.mouseYToPrintRounded(mouseY), mouseButton);
-                            return;
+                            this.fieldInput.mouseClicked(this.mouseXToPrintRounded(mouseX), this.mouseYToPrintRounded(mouseY), modifiers);
+                            return true;
                         }
                         // You clicked on something different => deselect input
                         else
@@ -248,6 +265,7 @@ public class ComponentPrint extends Component
                     else if (this.clickedObj.type == MouseInteractionType.INPUT_ENUM && this.hoverObj.type == MouseInteractionType.INPUT_ENUM_ID)
                     {
                         this.clickedObj.input.setValue(((DataTypeEnum) this.clickedObj.input.dataType).getEnum(this.hoverObj.inputEnumId));
+                        return true;
                     }
                     
                     // Deselect whatever you had selected before (a premature return statement stops this from happening)
@@ -255,10 +273,12 @@ public class ComponentPrint extends Component
                 }
             }
         }
+        
+        return super.mouseClicked(mouseX, mouseY, modifiers);
     }
     
     @Override
-    public void guiMouseClickMove(int mouseX, int mouseY, int clickedMouseButton, long timeSinceLastClick)
+    public boolean mouseDragged(double mouseX, double mouseY, int modifiers, double deltaX, double deltaY)
     {
         // Clicked obj is the header, now the user drags
         // => move the node. Keep offset that was set before
@@ -266,17 +286,71 @@ public class ComponentPrint extends Component
         {
             this.clickedObj.node.posX = this.mouseXToPrintRounded(mouseX) - this.tmpOffX;
             this.clickedObj.node.posY = this.mouseYToPrintRounded(mouseY) - this.tmpOffY;
+            return true;
         }
+        
+        return super.mouseDragged(mouseX, mouseY, modifiers, deltaX, deltaY);
     }
     
     @Override
-    public void guiMouseReleased(int mouseX, int mouseY, int state)
+    public boolean mouseReleased(double mouseX, double mouseY, int modifiers)
     {
         // Clicked obj is the header, since the action requires you to drag deselect it immediately on release
         if (this.clickedObj.type == MouseInteractionType.NODE_HEADER)
         {
             this.clickedObj.nothing();
+            return true;
         }
+        
+        return super.mouseReleased(mouseX, mouseY, modifiers);
+    }
+    
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers)
+    {
+        if (this.fieldInput.getVisible())
+        {
+            if (keyCode == GLFW.GLFW_KEY_ENTER)
+            {
+                // Return clicked, unfocus and apply test
+                this.setUnfocusTextField(this.clickedObj.input);
+                return true;
+            }
+            else
+            {
+                //If the text field is visible transfer all pressed keys to it.
+                this.fieldInput.keyPressed(keyCode, scanCode, modifiers);
+                return true;
+            }
+        }
+        
+        this.updateKeyPressed(keyCode, 0);
+        
+        return super.keyPressed(keyCode, scanCode, modifiers);
+    }
+    
+    @Override
+    public boolean keyReleased(int keyCode, int scanCode, int modifiers)
+    {
+        this.updateKeyPressed(-1, 0);
+        
+        if (this.fieldInput.getVisible())
+        {
+            if (keyCode == GLFW.GLFW_KEY_ENTER)
+            {
+                // Return clicked, unfocus and apply test
+                this.setUnfocusTextField(this.clickedObj.input);
+                return true;
+            }
+            else
+            {
+                //If the text field is visible transfer all pressed keys to it.
+                this.fieldInput.keyReleased(keyCode, scanCode, modifiers);
+                return true;
+            }
+        }
+        
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
     
     @Override
@@ -290,6 +364,22 @@ public class ComponentPrint extends Component
         this.clickedObj.inherit(this.hoverObj);
     }
     
+    public void updateKeyPressed(int keyCode, int delay)
+    {
+        this.keyPressed = keyCode;
+        this.keyPressedDelay = delay;
+    }
+    
+    public boolean updateKeyPressedDelay()
+    {
+        boolean ret = --this.keyPressedDelay <= 0;
+        if (ret)
+        {
+            this.keyPressedDelay = 3;
+        }
+        return ret;
+    }
+    
     public void updateMouseHoveringObj(int mouseX0, int mouseY0)
     {
         this.hoverObj.nothing();
@@ -301,8 +391,8 @@ public class ComponentPrint extends Component
         }
         
         // Adjust mouse to print position and zoom
-        float mouseX = this.mouseXToPrint(mouseX0);
-        float mouseY = this.mouseYToPrint(mouseY0);
+        double mouseX = this.mouseXToPrint(mouseX0);
+        double mouseY = this.mouseYToPrint(mouseY0);
         
         Node node;
         float x, y, w, h; // Rect of node
@@ -526,7 +616,7 @@ public class ComponentPrint extends Component
             else if (this.clickedObj.type == MouseInteractionType.INPUT_DYNAMIC)
             {
                 // Draw the text box
-                this.fieldInput.drawTextBox();
+                this.fieldInput.render(mouseX, mouseY, partialTicks);
             }
             else if (this.clickedObj.type == MouseInteractionType.INPUT_ENUM)
             {
@@ -562,7 +652,7 @@ public class ComponentPrint extends Component
         }
     }
     
-    public void zoomIn(int mouseX, int mouseY)
+    public void zoomIn(double mouseX, double mouseY)
     {
         this.getPrint().zoom *= 2;
         
@@ -579,7 +669,7 @@ public class ComponentPrint extends Component
         this.util.updateLineWidth(this.getPrint());
     }
     
-    public void zoomOut(int mouseX, int mouseY)
+    public void zoomOut(double mouseX, double mouseY)
     {
         this.getPrint().zoom *= 0.5F;
         
@@ -612,7 +702,7 @@ public class ComponentPrint extends Component
         }
         
         this.fieldInput.setVisible(false);
-        this.fieldInput.setFocused(false);
+        this.fieldInput.setFocused2(false);
         this.clickedObj.nothing();
     }
     
@@ -628,14 +718,14 @@ public class ComponentPrint extends Component
         this.fieldInput.y = input.node.posY + this.util.getFieldOffY(input);
         
         // Adjust size to node field accordingly
-        this.fieldInput.width = this.util.fieldWidth;
-        this.fieldInput.height = this.util.nodeHeight;
+        this.fieldInput.setWidth(this.util.fieldWidth);
+        this.fieldInput.setHeight(this.util.nodeHeight);
         
         // Set the text to the current immediate value the input is holding
         this.fieldInput.setText(dt.valueToString(input.getSetValue()));
         
         // Set it to be focused, otherwise it does not accept input
-        this.fieldInput.setFocused(true);
+        this.fieldInput.setFocused2(true);
         
         // Set the string validator for immediate input feedback
         this.fieldInput.setValidator(dt.getValidator());
@@ -712,17 +802,17 @@ public class ComponentPrint extends Component
     /**
      * Remove zoom factor
      */
-    public float printToGui(int i)
+    public double printToGui(double i)
     {
-        return ((float) i) / this.getPrint().zoom;
+        return i / this.getPrint().zoom;
     }
     
     /**
      * Remove zoom factor and round
      */
-    public int printToGuiRounded(int i)
+    public int printToGuiRounded(double i)
     {
-        return Math.round(this.printToGui(i));
+        return (int) Math.round(this.printToGui(i));
     }
     
     /**
@@ -744,7 +834,7 @@ public class ComponentPrint extends Component
     /**
      * Remove zoom factor and remove print x offset
      */
-    public float mouseXToPrint(int mouseX)
+    public double mouseXToPrint(double mouseX)
     {
         return this.printToGui(mouseX) - this.getPrint().posX;
     }
@@ -752,7 +842,7 @@ public class ComponentPrint extends Component
     /**
      * Remove zoom factor and remove print y offset
      */
-    public float mouseYToPrint(int mouseY)
+    public double mouseYToPrint(double mouseY)
     {
         return this.printToGui(mouseY) - this.getPrint().posY;
     }
@@ -760,7 +850,7 @@ public class ComponentPrint extends Component
     /**
      * Remove zoom factor, round and remove print x offset
      */
-    public int mouseXToPrintRounded(int mouseX)
+    public int mouseXToPrintRounded(double mouseX)
     {
         return this.printToGuiRounded(mouseX) - this.getPrint().posX;
     }
@@ -768,7 +858,7 @@ public class ComponentPrint extends Component
     /**
      * Remove zoom factor, round and remove print y offset
      */
-    public int mouseYToPrintRounded(int mouseY)
+    public int mouseYToPrintRounded(double mouseY)
     {
         return this.printToGuiRounded(mouseY) - this.getPrint().posY;
     }

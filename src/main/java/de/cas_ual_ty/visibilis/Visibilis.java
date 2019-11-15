@@ -1,7 +1,6 @@
 package de.cas_ual_ty.visibilis;
 
 import de.cas_ual_ty.visibilis.handler.VEventHandler;
-import de.cas_ual_ty.visibilis.handler.VGuiHandler;
 import de.cas_ual_ty.visibilis.node.calculate.NodeAddition;
 import de.cas_ual_ty.visibilis.node.calculate.NodeDivision;
 import de.cas_ual_ty.visibilis.node.calculate.NodeExponentiation;
@@ -31,76 +30,67 @@ import de.cas_ual_ty.visibilis.node.logic.NodeNOT;
 import de.cas_ual_ty.visibilis.node.logic.NodeOR;
 import de.cas_ual_ty.visibilis.node.logic.NodeXNOR;
 import de.cas_ual_ty.visibilis.node.logic.NodeXOR;
-import de.cas_ual_ty.visibilis.print.item.MessageHandlerItem;
 import de.cas_ual_ty.visibilis.print.item.MessageItem;
 import de.cas_ual_ty.visibilis.proxy.IVSidedProxy;
 import de.cas_ual_ty.visibilis.test.VCommandExec;
 import de.cas_ual_ty.visibilis.test.VItemTest;
 import de.cas_ual_ty.visibilis.test.VNodeTest;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.Mod.Instance;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.network.NetworkRegistry;
+import net.minecraftforge.fml.network.simple.SimpleChannel;
 
-@Mod(modid = Visibilis.MOD_ID, name = Visibilis.MOD_NAME, version = Visibilis.MOD_VERSION)
+@Mod(Visibilis.MOD_ID)
 public class Visibilis
 {
     public static final String MOD_ID = "visibilis";
-    public static final String MOD_NAME = "Visibilis";
-    public static final String MOD_VERSION = "1.0.0.0";
+    public static final String PROTOCOL_VERSION = "1";
     
-    // @GameRegistry.ObjectHolder(MOD_ID + ":" + "test")
-    public static VItemTest itemTest = (VItemTest) new VItemTest().setUnlocalizedName(Visibilis.MOD_ID + ":" + "test").setRegistryName(Visibilis.MOD_ID + ":" + "test");
+    public static VItemTest itemTest = (VItemTest) new VItemTest(new Item.Properties().group(ItemGroup.COMBAT).maxStackSize(1)).setRegistryName(Visibilis.MOD_ID + ":" + "test");
     
-    @Instance
     public static Visibilis instance;
     
-    @SidedProxy(modId = Visibilis.MOD_ID, clientSide = "de.cas_ual_ty.visibilis.proxy.VProxyClient", serverSide = "de.cas_ual_ty.visibilis.proxy.VProxyServer")
-    public static IVSidedProxy proxy;
+    public static IVSidedProxy proxy = (IVSidedProxy) DistExecutor.runForDist(() -> de.cas_ual_ty.visibilis.proxy.VProxyClient::new, () -> de.cas_ual_ty.visibilis.proxy.VProxyServer::new);
     
     public static VEventHandler eventHandler;
-    public static VGuiHandler guiHandler;
-    public static SimpleNetworkWrapper channel;
     
-    @EventHandler
-    public void preInit(FMLPreInitializationEvent event)
+    public static SimpleChannel channel;
+    
+    public Visibilis()
     {
-        Visibilis.proxy.preInit();
+        Visibilis.instance = this;
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
+        //        FMLJavaModLoadingContext.get().getModEventBus().addListener(Visibilis.Registries::registerItems);
     }
     
-    @EventHandler
-    public void init(FMLInitializationEvent event)
+    public void init(FMLCommonSetupEvent event)
     {
+        Visibilis.proxy.preInit();
+        
         MinecraftForge.EVENT_BUS.register((Visibilis.eventHandler = new VEventHandler()));
-        NetworkRegistry.INSTANCE.registerGuiHandler(Visibilis.instance, (Visibilis.guiHandler = new VGuiHandler()));
-        Visibilis.channel = NetworkRegistry.INSTANCE.newSimpleChannel(Visibilis.MOD_ID);
-        Visibilis.channel.registerMessage(MessageHandlerItem.class, MessageItem.class, 0, Side.SERVER);
+        Visibilis.channel = NetworkRegistry.newSimpleChannel(new ResourceLocation("mymodid", "main"),
+                        () -> Visibilis.PROTOCOL_VERSION,
+                        Visibilis.PROTOCOL_VERSION::equals,
+                        Visibilis.PROTOCOL_VERSION::equals);
+        Visibilis.channel.registerMessage(0, MessageItem.class, MessageItem::encode, MessageItem::decode, MessageItem::handle);
         
         this.registerNodes();
     }
     
-    @EventHandler
-    public void postInit(FMLPostInitializationEvent event)
-    {
-        
-    }
-    
-    @EventHandler
     public void serverStarting(FMLServerStartingEvent event)
     {
-        event.registerServerCommand(new VCommandExec());
+        VCommandExec.register(event.getCommandDispatcher());
     }
     
     public void registerNodes()
@@ -155,7 +145,7 @@ public class Visibilis
         System.out.println("------------------------ " + s);
     }
     
-    @EventBusSubscriber(modid = Visibilis.MOD_ID)
+    @EventBusSubscriber(modid = Visibilis.MOD_ID, bus = Bus.MOD)
     public static class Registries
     {
         @SubscribeEvent

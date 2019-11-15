@@ -4,7 +4,7 @@ import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
 import de.cas_ual_ty.visibilis.node.Output;
-import net.minecraft.client.gui.GuiTextField;
+import net.minecraft.client.gui.widget.TextFieldWidget;
 
 public class MouseInteractionObject
 {
@@ -18,7 +18,7 @@ public class MouseInteractionObject
     public NodeField nodeField;
     public Output output;
     public Input input;
-    public GuiTextField textField;
+    public TextFieldWidget textField;
     public int inputEnumId;
     
     public MouseInteractionObject()
@@ -128,7 +128,7 @@ public class MouseInteractionObject
         this.type = MouseInteractionType.NODE_ACTION_SHRINK;
     }
     
-    public void textField(GuiTextField textField)
+    public void textField(TextFieldWidget textField)
     {
         this.reset();
         this.textField = textField;

@@ -16,8 +16,8 @@ public class NodeIntegerToFloat extends Node
     public NodeIntegerToFloat(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.out1 = new Output<Integer>(this, DataType.INTEGER, "integer");
-        this.in1 = new Input<Float>(this, DataType.FLOAT, "float");
+        this.out1 = new Output<>(this, DataType.INTEGER, "integer");
+        this.in1 = new Input<>(this, DataType.FLOAT, "float");
     }
     
     @Override

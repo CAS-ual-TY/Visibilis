@@ -10,8 +10,8 @@ import de.cas_ual_ty.visibilis.node.NodeExec;
 import de.cas_ual_ty.visibilis.node.Output;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.command.CommandSource;
+import net.minecraft.nbt.CompoundNBT;
 
 public class Print
 {
@@ -37,12 +37,12 @@ public class Print
     /**
      * All nodes in this print (including events).
      */
-    protected final ArrayList<Node> nodes = new ArrayList<Node>();
+    protected final ArrayList<Node> nodes = new ArrayList<>();
     
     /**
      * All event nodes in this print
      */
-    protected final ArrayList<NodeEvent> events = new ArrayList<NodeEvent>();
+    protected final ArrayList<NodeEvent> events = new ArrayList<>();
     
     public Print()
     {
@@ -123,7 +123,7 @@ public class Print
         return this.nodes;
     }
     
-    public boolean executeEvent(String modId, String eventType, ICommandSender sender)
+    public boolean executeEvent(String modId, String eventType, CommandSource sender)
     {
         return this.executeEvent(modId + ":" + eventType, sender);
     }
@@ -132,7 +132,7 @@ public class Print
      * @param eventType
      * @return
      */
-    public boolean executeEvent(String eventType, ICommandSender sender)
+    public boolean executeEvent(String eventType, CommandSource sender)
     {
         NodeEvent event;
         
@@ -225,10 +225,10 @@ public class Print
     /**
      * Read from NBT.
      */
-    public void readFromNBT(NBTTagCompound nbt)
+    public void readFromNBT(CompoundNBT nbt)
     {
-        this.posX = nbt.getInteger(Print.KEY_POS_X);
-        this.posY = nbt.getInteger(Print.KEY_POS_Y);
+        this.posX = nbt.getInt(Print.KEY_POS_X);
+        this.posY = nbt.getInt(Print.KEY_POS_Y);
         this.zoom = nbt.getFloat(Print.KEY_ZOOM);
         
         NBTUtility.readPrintNodesFromNBT(this, nbt);
@@ -238,11 +238,11 @@ public class Print
     /**
      * Write to NBT.
      */
-    public void writeToNBT(NBTTagCompound nbt)
+    public void writeToNBT(CompoundNBT nbt)
     {
-        nbt.setInteger(Print.KEY_POS_X, this.posX);
-        nbt.setInteger(Print.KEY_POS_Y, this.posY);
-        nbt.setFloat(Print.KEY_ZOOM, this.zoom);
+        nbt.putInt(Print.KEY_POS_X, this.posX);
+        nbt.putInt(Print.KEY_POS_Y, this.posY);
+        nbt.putFloat(Print.KEY_ZOOM, this.zoom);
         
         NBTUtility.writePrintNodesToNBT(this, nbt);
         NBTUtility.writePrintConnectionsToNBT(this, nbt);

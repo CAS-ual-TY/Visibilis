@@ -4,7 +4,7 @@ import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.NodeExec;
 import de.cas_ual_ty.visibilis.node.Output;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.CompoundNBT;
 
 public class NodeEvent extends NodeExec
 {
@@ -76,7 +76,7 @@ public class NodeEvent extends NodeExec
     }
     
     @Override
-    public void readNodeFromNBT(NBTTagCompound nbt)
+    public void readNodeFromNBT(CompoundNBT nbt)
     {
         super.readNodeFromNBT(nbt);
         
@@ -84,10 +84,10 @@ public class NodeEvent extends NodeExec
     }
     
     @Override
-    public void writeNodeToNBT(NBTTagCompound nbt)
+    public void writeNodeToNBT(CompoundNBT nbt)
     {
         super.writeNodeToNBT(nbt);
         
-        nbt.setString(NodeEvent.KEY_EVENT_TYPE, this.getEventType());
+        nbt.putString(NodeEvent.KEY_EVENT_TYPE, this.getEventType());
     }
 }
