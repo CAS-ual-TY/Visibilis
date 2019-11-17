@@ -121,47 +121,55 @@ public abstract class NodeNumber2Xto1 extends Node
     @Override
     public NodeAction[] getActions()
     {
-        if(canShrink() && canExpand())
+        if (this.canShrink() && this.canExpand())
         {
             return new NodeAction[] {
-                            new NodeAction(this, NodeAction.LANG_EXPAND) {
+                            new NodeAction(this, NodeAction.LANG_EXPAND)
+                            {
                                 @Override
                                 public boolean clicked()
                                 {
                                     NodeNumber2Xto1.this.expand();
                                     return true;
-                                }},
-                            new NodeAction(this, NodeAction.LANG_SHRINK) {
-                                    @Override
-                                    public boolean clicked()
-                                    {
-                                        NodeNumber2Xto1.this.shrink();
-                                        return true;
-                                    }}
-            };
-        }
-        else if(canExpand())
-        {
-            return new NodeAction[] {
-                            new NodeAction(this, NodeAction.LANG_EXPAND) {
-                                @Override
-                                public boolean clicked()
-                                {
-                                    NodeNumber2Xto1.this.expand();
-                                    return true;
-                                }}
-            };
-        }
-        else if(canShrink())
-        {
-            return new NodeAction[] {
-                            new NodeAction(this, NodeAction.LANG_SHRINK) {
+                                }
+                            },
+                            new NodeAction(this, NodeAction.LANG_SHRINK)
+                            {
                                 @Override
                                 public boolean clicked()
                                 {
                                     NodeNumber2Xto1.this.shrink();
                                     return true;
-                                }}
+                                }
+                            }
+            };
+        }
+        else if (this.canExpand())
+        {
+            return new NodeAction[] {
+                            new NodeAction(this, NodeAction.LANG_EXPAND)
+                            {
+                                @Override
+                                public boolean clicked()
+                                {
+                                    NodeNumber2Xto1.this.expand();
+                                    return true;
+                                }
+                            }
+            };
+        }
+        else if (this.canShrink())
+        {
+            return new NodeAction[] {
+                            new NodeAction(this, NodeAction.LANG_SHRINK)
+                            {
+                                @Override
+                                public boolean clicked()
+                                {
+                                    NodeNumber2Xto1.this.shrink();
+                                    return true;
+                                }
+                            }
             };
         }
         else

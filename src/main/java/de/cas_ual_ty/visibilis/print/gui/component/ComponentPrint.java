@@ -94,7 +94,7 @@ public class ComponentPrint extends Component
     @Override
     public void guiPostRender(int mouseX, int mouseY, float partialTicks)
     {
-        if(this.rightClickMenu != null)
+        if (this.rightClickMenu != null)
         {
             this.rightClickMenu.guiRender(mouseX, mouseY, partialTicks);
         }
@@ -180,7 +180,7 @@ public class ComponentPrint extends Component
         {
             if (modifiers == 0)
             {
-                if(this.rightClickMenu != null)
+                if (this.rightClickMenu != null)
                 {
                     this.rightClickMenu.mouseClicked(mouseX, mouseY, modifiers);
                     this.rightClickMenu = null;
@@ -276,12 +276,12 @@ public class ComponentPrint extends Component
                     this.clickedObj.nothing();
                 }
             }
-            else if(modifiers == 1)
+            else if (modifiers == 1)
             {
-                if(this.hoverObj.type == MouseInteractionType.NODE_HEADER && this.hoverObj.node.hasActions())
+                if (this.hoverObj.type == MouseInteractionType.NODE_HEADER && this.hoverObj.node.hasActions())
                 {
                     this.clickedObj.nothing();
-                    this.rightClickMenu = new NodeActionWidget(this, (int)Math.round(mouseX), (int)Math.round(mouseY), this.dimensions, this.hoverObj.node.getActions());
+                    this.rightClickMenu = new NodeActionWidget(this, (int) Math.round(mouseX), (int) Math.round(mouseY), this.dimensions, this.hoverObj.node.getActions());
                 }
             }
         }
@@ -403,7 +403,7 @@ public class ComponentPrint extends Component
             return;
         }
         
-        if(this.rightClickMenu != null)
+        if (this.rightClickMenu != null)
         {
             return;
         }
