@@ -29,7 +29,7 @@ public class RenderUtility
     public final Screen gui;
     public final FontRenderer fontRenderer;
     
-    /** The height of the header or an output/input NOT THE ENTIRE NODE WIDTH AS THEY HAVE DIFFERENT SIZES */
+    /** The height of the header or an output/input NOT THE ENTIRE NODE HEIGHT AS THEY HAVE DIFFERENT SIZES */
     public int nodeHeight;
     
     /** The entire node width */
