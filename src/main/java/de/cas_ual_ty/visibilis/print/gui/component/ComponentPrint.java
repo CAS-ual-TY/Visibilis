@@ -12,7 +12,9 @@ import de.cas_ual_ty.visibilis.node.NodeField;
 import de.cas_ual_ty.visibilis.print.IPrintProvider;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.gui.UiBase;
-import de.cas_ual_ty.visibilis.print.gui.component.MouseInteractionObject.MouseInteractionType;
+import de.cas_ual_ty.visibilis.print.gui.util.MouseInteractionObject;
+import de.cas_ual_ty.visibilis.print.gui.util.MouseInteractionObject.MouseInteractionType;
+import de.cas_ual_ty.visibilis.print.gui.util.NodeActionWidget;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -37,6 +39,8 @@ public class ComponentPrint extends Component
     public int keyPressed = -1;
     public int keyPressedDelay = 0;
     
+    public NodeActionWidget rightClickMenu;
+    
     public ComponentPrint(UiBase guiPrint, RenderUtility util, IPrintProvider helper)
     {
         super(guiPrint, util, helper);
@@ -45,6 +49,7 @@ public class ComponentPrint extends Component
         this.fieldInput.setVisible(false);
         this.fieldInput.setFocused2(false);
         this.fieldInput.setCanLoseFocus(false);
+        this.rightClickMenu = null;
     }
     
     @Override
@@ -85,10 +90,14 @@ public class ComponentPrint extends Component
         GlStateManager.popMatrix();
     }
     
+    // Draw outside of zoom, shift and scissor
     @Override
     public void guiPostRender(int mouseX, int mouseY, float partialTicks)
     {
-        // Draw outside of zoom, shift and scissor
+        if(this.rightClickMenu != null)
+        {
+            this.rightClickMenu.guiRender(mouseX, mouseY, partialTicks);
+        }
         this.drawHoverText(mouseX, mouseY);
     }
     
@@ -171,22 +180,17 @@ public class ComponentPrint extends Component
         {
             if (modifiers == 0)
             {
-                if (this.clickedObj.isNothing())
+                if(this.rightClickMenu != null)
+                {
+                    this.rightClickMenu.mouseClicked(mouseX, mouseY, modifiers);
+                    this.rightClickMenu = null;
+                }
+                else if (this.clickedObj.isNothing())
                 {
                     // Nothing was selected before, now user clicks on something hovered over
                     
-                    if (this.hoverObj.type == MouseInteractionType.NODE_ACTION_EXPAND)
-                    {
-                        this.hoverObj.node.expand();
-                        return true;
-                    }
-                    else if (this.hoverObj.type == MouseInteractionType.NODE_ACTION_SHRINK)
-                    {
-                        this.hoverObj.node.shrink();
-                        return true;
-                    }
                     // User clicked on the header. This might be initiation of a click move.
-                    else if (this.hoverObj.type == MouseInteractionType.NODE_HEADER)
+                    if (this.hoverObj.type == MouseInteractionType.NODE_HEADER)
                     {
                         // Save off set of the mouse and the top left corner of the header (= the print position)
                         this.tmpOffX = this.mouseXToPrintRounded(mouseX) - this.hoverObj.node.posX;// - this.getPrint().posX;
@@ -270,6 +274,14 @@ public class ComponentPrint extends Component
                     
                     // Deselect whatever you had selected before (a premature return statement stops this from happening)
                     this.clickedObj.nothing();
+                }
+            }
+            else if(modifiers == 1)
+            {
+                if(this.hoverObj.type == MouseInteractionType.NODE_HEADER && this.hoverObj.node.hasActions())
+                {
+                    this.clickedObj.nothing();
+                    this.rightClickMenu = new NodeActionWidget(this, (int)Math.round(mouseX), (int)Math.round(mouseY), this.dimensions, this.hoverObj.node.getActions());
                 }
             }
         }
@@ -387,6 +399,12 @@ public class ComponentPrint extends Component
         // If the mouse is not inside the dimensions, there is nothing to hover over
         if (!this.dimensions.isCoordInside(mouseX0, mouseY0))
         {
+            this.rightClickMenu = null;
+            return;
+        }
+        
+        if(this.rightClickMenu != null)
+        {
             return;
         }
         
@@ -462,27 +480,6 @@ public class ComponentPrint extends Component
                     
                     this.hoverObj.nodeHeader(node);
                     return;
-                }
-                else if (node.hasFooter() && RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y + h2 * (RenderUtility.getVerticalAmt(node) - 1), w, h2))
-                {
-                    // Left side
-                    if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, this.util.fieldWidth, h))
-                    {
-                        if (node.canExpand())
-                        {
-                            this.hoverObj.nodeActionExpand(node);
-                            return;
-                        }
-                    }
-                    // Right Side
-                    else
-                    {
-                        if (node.canShrink())
-                        {
-                            this.hoverObj.nodeActionShrink(node);
-                            return;
-                        }
-                    }
                 }
                 else
                 {
@@ -757,14 +754,6 @@ public class ComponentPrint extends Component
                 // - has connections (to disconnect)
                 // - has an immediate value (and it can actually be put in - the data type is properly representable in this gui)
                 return this.hoverObj.input.hasConnections() || (this.hoverObj.input.hasDisplayValue() && (this.hoverObj.input.dataType instanceof DataTypeDynamic || this.hoverObj.input.dataType instanceof DataTypeEnum));
-            }
-            else if (this.hoverObj.type == MouseInteractionType.NODE_ACTION_EXPAND)
-            {
-                return this.hoverObj.node.canExpand();
-            }
-            else if (this.hoverObj.type == MouseInteractionType.NODE_ACTION_SHRINK)
-            {
-                return this.hoverObj.node.canShrink();
             }
             
             // If nothing of the above is the case, then simply return true...

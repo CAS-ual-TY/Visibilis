@@ -4,6 +4,7 @@ import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.node.NodeAction;
 import de.cas_ual_ty.visibilis.node.Output;
 import net.minecraft.nbt.CompoundNBT;
 
@@ -95,30 +96,78 @@ public abstract class NodeNumber2Xto1 extends Node
         return DataType.NUMBER.getTextColor();
     }
     
-    @Override
     public boolean canExpand()
     {
         return true;
     }
     
-    @Override
     public boolean canShrink()
     {
         return this.expansion > 0;
     }
     
-    @Override
     public void expand()
     {
         new Input<Number>(this, DataType.NUMBER, "in");
         ++this.expansion;
     }
     
-    @Override
     public void shrink()
     {
         this.removeInput((Input) this.getInput(this.getInputAmt() - 1));
         --this.expansion;
+    }
+    
+    @Override
+    public NodeAction[] getActions()
+    {
+        if(canShrink() && canExpand())
+        {
+            return new NodeAction[] {
+                            new NodeAction(this, NodeAction.LANG_EXPAND) {
+                                @Override
+                                public boolean clicked()
+                                {
+                                    NodeNumber2Xto1.this.expand();
+                                    return true;
+                                }},
+                            new NodeAction(this, NodeAction.LANG_SHRINK) {
+                                    @Override
+                                    public boolean clicked()
+                                    {
+                                        NodeNumber2Xto1.this.shrink();
+                                        return true;
+                                    }}
+            };
+        }
+        else if(canExpand())
+        {
+            return new NodeAction[] {
+                            new NodeAction(this, NodeAction.LANG_EXPAND) {
+                                @Override
+                                public boolean clicked()
+                                {
+                                    NodeNumber2Xto1.this.expand();
+                                    return true;
+                                }}
+            };
+        }
+        else if(canShrink())
+        {
+            return new NodeAction[] {
+                            new NodeAction(this, NodeAction.LANG_SHRINK) {
+                                @Override
+                                public boolean clicked()
+                                {
+                                    NodeNumber2Xto1.this.shrink();
+                                    return true;
+                                }}
+            };
+        }
+        else
+        {
+            return null;
+        }
     }
     
     @Override

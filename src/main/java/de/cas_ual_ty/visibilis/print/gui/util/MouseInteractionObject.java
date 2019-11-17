@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.print.gui.component;
+package de.cas_ual_ty.visibilis.print.gui.util;
 
 import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;

@@ -157,7 +157,6 @@ public class RenderUtility
         
         // #SelfExplainingCodeIsAMeme
         this.drawNodeHeader(node, x, y);
-        this.drawNodeFooter(node, x, y + (RenderUtility.getVerticalAmtMinusOne(node)) * this.nodeHeight);
         
         // --- Done drawing node, now drawing fields (inputs and outputs) ---
         
@@ -202,36 +201,6 @@ public class RenderUtility
         String name = I18n.format(node.getUnlocalizedName());
         name = this.fontRenderer.trimStringToWidth(name, this.nodeWidth - 2 * this.nodeTextMargin); // Trim the name in case it is too big
         this.fontRenderer.drawString(name, x + this.nodeTextMargin, y + this.nodeTextMargin, RenderUtility.colorToInt(node.getTextColor())); // Draw the trimmed name, maybe add shadow?
-    }
-    
-    public void drawNodeFooter(Node node, int x, int y)
-    {
-        if (node.hasFooter())
-        {
-            // TODO remove unnecessary if-s pls. this is just for lazy testing
-            
-            // Draw action rects
-            if (node.canExpand())
-            {
-                RenderUtility.drawRect(x, y, this.fieldWidth, this.nodeHeight, 1, this.actionColor);
-            }
-            if (node.canShrink())
-            {
-                RenderUtility.drawRect(x + this.fieldWidth, y, this.fieldWidth, this.nodeHeight, 1, this.actionColor);
-            }
-            
-            int marginText = 2;
-            
-            // Draw action text
-            if (node.canExpand())
-            {
-                RenderUtility.drawTextCentered(this.fontRenderer, x + marginText, y + marginText, this.fieldWidth, this.tExpand, this.actionColorText);
-            }
-            if (node.canShrink())
-            {
-                RenderUtility.drawTextCentered(this.fontRenderer, x + this.fieldWidth + marginText, y + marginText, this.fieldWidth, this.tShrink, this.actionColorText);
-            }
-        }
     }
     
     /**
@@ -677,7 +646,7 @@ public class RenderUtility
      */
     public static int getVerticalAmt(Node node)
     {
-        return RenderUtility.getVerticalAmtMinusOne(node) + (node.hasFooter() ? 1 : 0);
+        return RenderUtility.getVerticalAmtMinusOne(node);
     }
     
     public static int getVerticalAmtMinusOne(Node node)

@@ -10,7 +10,7 @@ import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeGroupsHelper;
 import de.cas_ual_ty.visibilis.print.IPrintProvider;
 import de.cas_ual_ty.visibilis.print.gui.UiBase;
-import de.cas_ual_ty.visibilis.print.gui.component.MouseInteractionObject.MouseInteractionType;
+import de.cas_ual_ty.visibilis.print.gui.util.MouseInteractionObject.MouseInteractionType;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
 import de.cas_ual_ty.visibilis.util.RenderUtility.Rectangle;
 import net.minecraft.client.gui.widget.TextFieldWidget;

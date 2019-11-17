@@ -487,36 +487,18 @@ public abstract class Node
     }
     
     /**
-     * @return {@link #canExpand()} || {@link #canShrink()}
+     * Can you right click this node?
      */
-    public boolean hasFooter()
+    public boolean hasActions()
     {
-        return this.canExpand() || this.canShrink();
+        return this.getActions() != null;
     }
     
     /**
-     * @return <b>true</b> if the player can currently click on a '+' to expand this node from it's current form into something new.
-     * Example: Add more inputs which are factors for a multiplication.
+     * Things you can do when right clicking this node. See {@link NodeAction#NodeAction(String)}
      */
-    public boolean canExpand()
+    public NodeAction[] getActions()
     {
-        return false;
-    }
-    
-    /**
-     * @return <b>true</b> if the player can currently click on a '-' to shrink this node from it's current form into something new.
-     * Example: Remove inputs which are factors for a multiplication (in case there are currently 3 or more factors).
-     */
-    public boolean canShrink()
-    {
-        return false;
-    }
-    
-    public void expand()
-    {
-    }
-    
-    public void shrink()
-    {
+        return null;
     }
 }

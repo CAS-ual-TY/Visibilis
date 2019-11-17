@@ -3,6 +3,7 @@ package de.cas_ual_ty.visibilis.print.gui.component;
 import de.cas_ual_ty.visibilis.print.IPrintProvider;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.gui.UiBase;
+import de.cas_ual_ty.visibilis.print.gui.util.MouseInteractionObject;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
 import de.cas_ual_ty.visibilis.util.RenderUtility.Rectangle;
 import net.minecraft.client.MainWindow;

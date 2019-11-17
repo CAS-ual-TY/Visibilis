@@ -7,8 +7,8 @@
     "visibilis.output": "Output",
     "visibilis.input": "Input",
     "visibilis.print": "Print",
-    "visibilis.action_expand": "+",
-    "visibilis.action_shrink": "-",
+    "visibilis.action.expand": "Expand",
+    "visibilis.action.shrink": "Shrink",
 
     "_comment": "--- Base Groups ---",
     "group.operators": "Operators",
