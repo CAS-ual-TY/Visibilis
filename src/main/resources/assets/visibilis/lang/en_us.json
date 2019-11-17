@@ -1,4 +1,7 @@
-{
+﻿{
+    "_comment": "--- Testing ---",
+	"item.visibilis.test": "Test Item",
+
     "_comment": "--- General Translation ---",
     "visibilis.node": "Node",
     "visibilis.output": "Output",

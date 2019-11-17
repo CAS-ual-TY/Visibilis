@@ -101,12 +101,12 @@ public class RenderUtility
         this.actionColor = new float[] { 0.25F, 0.25F, 0.25F };
         this.actionColorText = new float[] { 1F, 1F, 1F };
         
-        this.tNode = I18n.format("visibilis.node.name");
-        this.tOut = I18n.format("visibilis.output.name");
-        this.tIn = I18n.format("visibilis.input.name");
-        this.tPrint = I18n.format("visibilis.print.name");
-        this.tExpand = I18n.format("visibilis.action_expand.name");
-        this.tShrink = I18n.format("visibilis.action_shrink.name");
+        this.tNode = I18n.format("visibilis.node");
+        this.tOut = I18n.format("visibilis.output");
+        this.tIn = I18n.format("visibilis.input");
+        this.tPrint = I18n.format("visibilis.print");
+        this.tExpand = I18n.format("visibilis.action_expand");
+        this.tShrink = I18n.format("visibilis.action_shrink");
         
         this.genVars();
     }

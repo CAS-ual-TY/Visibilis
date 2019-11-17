@@ -391,7 +391,7 @@ public abstract class Node
      */
     public String getUnlocalizedName()
     {
-        return "node." + this.getID() + ".name";
+        return "node." + this.getID();// + ".name";
     }
     
     /**
@@ -415,7 +415,7 @@ public abstract class Node
      */
     public String getFieldUnlocalizedName(NodeField field)
     {
-        return "field." + this.getID() + "." + field.name + ".name";
+        return "field." + this.getID() + "." + field.name;// + ".name";
     }
     
     /**
