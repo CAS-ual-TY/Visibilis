@@ -71,7 +71,6 @@ public class Visibilis
     {
         Visibilis.instance = this;
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
-        //        FMLJavaModLoadingContext.get().getModEventBus().addListener(Visibilis.Registries::registerItems);
     }
     
     public void init(FMLCommonSetupEvent event)
@@ -79,7 +78,7 @@ public class Visibilis
         Visibilis.proxy.preInit();
         
         MinecraftForge.EVENT_BUS.register((Visibilis.eventHandler = new VEventHandler()));
-        Visibilis.channel = NetworkRegistry.newSimpleChannel(new ResourceLocation("mymodid", "main"),
+        Visibilis.channel = NetworkRegistry.newSimpleChannel(new ResourceLocation(Visibilis.MOD_ID, "main"),
                         () -> Visibilis.PROTOCOL_VERSION,
                         Visibilis.PROTOCOL_VERSION::equals,
                         Visibilis.PROTOCOL_VERSION::equals);
