@@ -37,7 +37,7 @@ public interface IPrintProvider
     {
         ArrayList<NodeAction> list = node.getActions();
         
-        if(this.canDeleteNode(gui, node))
+        if (this.canDeleteNode(gui, node))
         {
             list.add(new NodeAction(node, NodeAction.LANG_DELETE)
             {

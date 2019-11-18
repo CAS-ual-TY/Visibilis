@@ -102,17 +102,17 @@ public class Input<A> extends NodeField<A>
         this.connection = null;
         
         // Connection is cut, reset value
-        if(this.value != null)
+        if (this.value != null)
         {
             this.value = null; //Just to be sure
             
-            if(this.dataType instanceof DataTypeDynamic)
+            if (this.dataType instanceof DataTypeDynamic)
             {
-                ((DataTypeDynamic)this.dataType).getDefaultValue();
+                ((DataTypeDynamic) this.dataType).getDefaultValue();
             }
-            else if(this.dataType instanceof DataTypeEnum)
+            else if (this.dataType instanceof DataTypeEnum)
             {
-                ((DataTypeEnum)this.dataType).getDefaultEnum();
+                ((DataTypeEnum) this.dataType).getDefaultEnum();
             }
         }
     }
