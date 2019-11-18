@@ -497,8 +497,8 @@ public abstract class Node
     /**
      * Things you can do when right clicking this node. See {@link NodeAction#NodeAction(String)}
      */
-    public NodeAction[] getActions()
+    public ArrayList<NodeAction> getActions()
     {
-        return null;
+        return new ArrayList<NodeAction>();
     }
 }

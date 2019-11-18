@@ -281,7 +281,7 @@ public class ComponentPrint extends Component
                 if (this.hoverObj.type == MouseInteractionType.NODE_HEADER && this.hoverObj.node.hasActions())
                 {
                     this.clickedObj.nothing();
-                    this.rightClickMenu = new NodeActionWidget(this, (int) Math.round(mouseX), (int) Math.round(mouseY), this.dimensions, this.hoverObj.node.getActions());
+                    this.rightClickMenu = new NodeActionWidget(this, (int) Math.round(mouseX), (int) Math.round(mouseY), this.dimensions, this.helper.getActionsForNode(this.guiPrint.getParentGui(), this.hoverObj.node));
                 }
             }
         }

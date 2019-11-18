@@ -1,5 +1,7 @@
 package de.cas_ual_ty.visibilis.print.gui.util;
 
+import java.util.ArrayList;
+
 import de.cas_ual_ty.visibilis.node.NodeAction;
 import de.cas_ual_ty.visibilis.print.gui.component.Component;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
@@ -10,13 +12,13 @@ import net.minecraft.client.resources.I18n;
 public class NodeActionWidget implements IGuiEventListener
 {
     public final Component component;
-    public final NodeAction[] actions;
+    public final ArrayList<NodeAction> actions;
     
     public Rectangle dimensions;
     
     public NodeAction hoverObj;
     
-    public NodeActionWidget(Component component, int mouseX, int mouseY, Rectangle dimensionsIn, NodeAction... actions)
+    public NodeActionWidget(Component component, int mouseX, int mouseY, Rectangle dimensionsIn, ArrayList<NodeAction> actions)
     {
         this.component = component;
         this.actions = actions;
@@ -28,7 +30,7 @@ public class NodeActionWidget implements IGuiEventListener
     public void createDimensions(int mouseX, int mouseY, Rectangle dimensionsIn)
     {
         int w = this.component.guiPrint.util.nodeWidth;
-        int h = this.component.guiPrint.util.nodeHeight * this.actions.length;
+        int h = this.component.guiPrint.util.nodeHeight * this.actions.size();
         
         Rectangle dim = Rectangle.fromXYWH(mouseX - w, mouseY - h, w, h);
         
@@ -74,9 +76,9 @@ public class NodeActionWidget implements IGuiEventListener
         
         int marginText = 2;
         
-        for (int i = 0; i < this.actions.length; ++i)
+        for (int i = 0; i < this.actions.size(); ++i)
         {
-            action = this.actions[i];
+            action = this.actions.get(i);
             RenderUtility.drawRect(x, y, w, h, 1, this.component.util.actionColor);
             RenderUtility.drawTextCentered(this.component.util.fontRenderer, x, y + marginText, this.dimensions.w + marginText, I18n.format(action.text), this.component.util.actionColorText);
             

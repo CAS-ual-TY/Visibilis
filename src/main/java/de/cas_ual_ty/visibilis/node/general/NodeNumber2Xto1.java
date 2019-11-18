@@ -1,5 +1,7 @@
 package de.cas_ual_ty.visibilis.node.general;
 
+import java.util.ArrayList;
+
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.Input;
@@ -119,63 +121,47 @@ public abstract class NodeNumber2Xto1 extends Node
     }
     
     @Override
-    public NodeAction[] getActions()
+    public ArrayList<NodeAction> getActions()
     {
-        if (this.canShrink() && this.canExpand())
+        ArrayList<NodeAction> list = super.getActions();
+        
+        if (this.canExpand())
         {
-            return new NodeAction[] {
-                            new NodeAction(this, NodeAction.LANG_EXPAND)
-                            {
-                                @Override
-                                public boolean clicked()
-                                {
-                                    NodeNumber2Xto1.this.expand();
-                                    return true;
-                                }
-                            },
-                            new NodeAction(this, NodeAction.LANG_SHRINK)
-                            {
-                                @Override
-                                public boolean clicked()
-                                {
-                                    NodeNumber2Xto1.this.shrink();
-                                    return true;
-                                }
-                            }
-            };
+            list.add(this.createActionExpand());
         }
-        else if (this.canExpand())
+        
+        if (this.canShrink())
         {
-            return new NodeAction[] {
-                            new NodeAction(this, NodeAction.LANG_EXPAND)
-                            {
-                                @Override
-                                public boolean clicked()
-                                {
-                                    NodeNumber2Xto1.this.expand();
-                                    return true;
-                                }
-                            }
-            };
+            list.add(this.createActionShrink());
         }
-        else if (this.canShrink())
+        
+        return list;
+    }
+    
+    public NodeAction createActionExpand()
+    {
+        return new NodeAction(this, NodeAction.LANG_EXPAND)
         {
-            return new NodeAction[] {
-                            new NodeAction(this, NodeAction.LANG_SHRINK)
-                            {
-                                @Override
-                                public boolean clicked()
-                                {
-                                    NodeNumber2Xto1.this.shrink();
-                                    return true;
-                                }
-                            }
-            };
-        }
-        else
+            @Override
+            public boolean clicked()
+            {
+                NodeNumber2Xto1.this.expand();
+                return true;
+            }
+        };
+    }
+    
+    public NodeAction createActionShrink()
+    {
+        return new NodeAction(this, NodeAction.LANG_SHRINK)
         {
-            return null;
-        }
+            @Override
+            public boolean clicked()
+            {
+                NodeNumber2Xto1.this.shrink();
+                return true;
+            }
+        };
     }
     
     @Override

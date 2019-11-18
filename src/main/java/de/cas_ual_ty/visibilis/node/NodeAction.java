@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis.node;
 
 public abstract class NodeAction
 {
+    public static final String LANG_DELETE = "visibilis.action.delete";
     public static final String LANG_EXPAND = "visibilis.action.expand";
     public static final String LANG_SHRINK = "visibilis.action.shrink";
     
