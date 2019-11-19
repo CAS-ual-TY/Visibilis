@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import javax.annotation.Nullable;
 
 import de.cas_ual_ty.visibilis.VRegistry;
+import de.cas_ual_ty.visibilis.node.field.Input;
+import de.cas_ual_ty.visibilis.node.field.NodeField;
+import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
 import net.minecraft.nbt.CompoundNBT;
 
@@ -227,7 +230,7 @@ public abstract class Node
         return this.inputFields.indexOf(in);
     }
     
-    protected int addOutput(Output out)
+    public int addOutput(Output out)
     {
         if (!this.outputFields.contains(out))
         {
@@ -239,7 +242,7 @@ public abstract class Node
         return -1;
     }
     
-    protected int addInput(Input in)
+    public int addInput(Input in)
     {
         if (!this.inputFields.contains(in))
         {
@@ -251,7 +254,7 @@ public abstract class Node
         return -1;
     }
     
-    protected void removeOutput(Output out0)
+    public void removeOutput(Output out0)
     {
         if (this.outputFields.contains(out0))
         {
@@ -265,7 +268,7 @@ public abstract class Node
         }
     }
     
-    protected void removeInput(Input in0)
+    public void removeInput(Input in0)
     {
         if (this.inputFields.contains(in0))
         {

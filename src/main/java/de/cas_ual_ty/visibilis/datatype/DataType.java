@@ -9,7 +9,7 @@ import de.cas_ual_ty.visibilis.datatype.converter.FloatNumber;
 import de.cas_ual_ty.visibilis.datatype.converter.IntegerNumber;
 import de.cas_ual_ty.visibilis.datatype.converter.NumberFloat;
 import de.cas_ual_ty.visibilis.datatype.converter.NumberInteger;
-import de.cas_ual_ty.visibilis.node.NodeField;
+import de.cas_ual_ty.visibilis.node.field.NodeField;
 
 public class DataType<A>
 {

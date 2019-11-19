@@ -3,7 +3,7 @@ package de.cas_ual_ty.visibilis.node.general;
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.Node;
-import de.cas_ual_ty.visibilis.node.Output;
+import de.cas_ual_ty.visibilis.node.field.Output;
 
 public abstract class NodeBoolean0to1 extends Node
 {

@@ -3,6 +3,7 @@ package de.cas_ual_ty.visibilis.node;
 import javax.annotation.Nullable;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
+import de.cas_ual_ty.visibilis.node.field.Output;
 
 public abstract class NodeExec extends Node
 {

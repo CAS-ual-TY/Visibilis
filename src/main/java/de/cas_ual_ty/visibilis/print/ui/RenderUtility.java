@@ -8,10 +8,10 @@ import com.mojang.blaze3d.platform.GlStateManager;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
-import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
-import de.cas_ual_ty.visibilis.node.NodeField;
 import de.cas_ual_ty.visibilis.node.NodeGroupsHelper;
+import de.cas_ual_ty.visibilis.node.field.Input;
+import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.print.Print;
 import net.minecraft.client.MainWindow;
 import net.minecraft.client.Minecraft;

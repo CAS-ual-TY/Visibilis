@@ -1,10 +1,11 @@
-package de.cas_ual_ty.visibilis.node;
+package de.cas_ual_ty.visibilis.node.field;
 
 import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.datatype.DataTypeDynamic;
 import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
+import de.cas_ual_ty.visibilis.node.Node;
 import net.minecraft.nbt.CompoundNBT;
 
 public class Input<A> extends NodeField<A>

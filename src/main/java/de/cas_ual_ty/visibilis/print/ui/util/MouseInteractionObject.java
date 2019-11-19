@@ -1,9 +1,9 @@
 package de.cas_ual_ty.visibilis.print.ui.util;
 
-import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
-import de.cas_ual_ty.visibilis.node.NodeField;
-import de.cas_ual_ty.visibilis.node.Output;
+import de.cas_ual_ty.visibilis.node.field.Input;
+import de.cas_ual_ty.visibilis.node.field.NodeField;
+import de.cas_ual_ty.visibilis.node.field.Output;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 
 public class MouseInteractionObject

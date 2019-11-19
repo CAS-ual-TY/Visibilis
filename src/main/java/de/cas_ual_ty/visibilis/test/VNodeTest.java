@@ -3,9 +3,9 @@ package de.cas_ual_ty.visibilis.test;
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
-import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.NodeExec;
-import de.cas_ual_ty.visibilis.node.Output;
+import de.cas_ual_ty.visibilis.node.field.Input;
+import de.cas_ual_ty.visibilis.node.field.Output;
 
 public class VNodeTest extends NodeExec
 {

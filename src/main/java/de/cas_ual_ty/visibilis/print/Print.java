@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
-import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeExec;
-import de.cas_ual_ty.visibilis.node.Output;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
+import de.cas_ual_ty.visibilis.node.field.Input;
+import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
 import net.minecraft.command.CommandSource;
 import net.minecraft.nbt.CompoundNBT;
@@ -16,7 +16,7 @@ import net.minecraft.nbt.CompoundNBT;
 public class Print
 {
     /*
-     * Explanation: The Print type is just my own take and implementation of all the Nodes. Technically, you can make your own implementation. But this one comes in with a Gui, full NBT saving/loading, Execution, Synching, and an Item. But, your choice :P
+     * Explanation: The Print type is just my own take and implementation of all the Nodes.
      */
     
     // NBT Keys

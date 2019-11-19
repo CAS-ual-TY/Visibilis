@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
-import de.cas_ual_ty.visibilis.node.Input;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeAction;
-import de.cas_ual_ty.visibilis.node.Output;
+import de.cas_ual_ty.visibilis.node.field.Input;
+import de.cas_ual_ty.visibilis.node.field.Output;
 import net.minecraft.nbt.CompoundNBT;
 
 public abstract class NodeNumber2Xto1 extends Node
