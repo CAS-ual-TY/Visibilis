@@ -2,12 +2,11 @@ package de.cas_ual_ty.visibilis.print.ui;
 
 import java.util.ArrayList;
 
-import de.cas_ual_ty.visibilis.print.IPrintProvider;
+import de.cas_ual_ty.visibilis.print.impl.IPrintProvider;
+import de.cas_ual_ty.visibilis.print.ui.RenderUtility.Rectangle;
 import de.cas_ual_ty.visibilis.print.ui.component.Component;
 import de.cas_ual_ty.visibilis.print.ui.component.ComponentNodeList;
 import de.cas_ual_ty.visibilis.print.ui.component.ComponentPrint;
-import de.cas_ual_ty.visibilis.util.RenderUtility;
-import de.cas_ual_ty.visibilis.util.RenderUtility.Rectangle;
 import net.minecraft.client.MainWindow;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.IGuiEventListener;
@@ -20,7 +19,7 @@ public class UiBase implements IGuiEventListener
     protected Screen gui;
     
     public final RenderUtility util;
-    public final IPrintProvider helper;
+    public final IPrintProvider provider;
     
     // Helper fields
     public double lastMousePosX;
@@ -29,17 +28,27 @@ public class UiBase implements IGuiEventListener
     public ComponentPrint windowPrint;
     public ComponentNodeList windowNodeList;
     
-    public UiBase(Screen gui, IPrintProvider helper)
+    public UiBase(Screen gui, IPrintProvider provider)
     {
         this.children = new ArrayList<>();
         
         this.gui = gui;
         
         this.util = new RenderUtility(this.gui);
-        this.helper = helper;
+        this.provider = provider;
         
-        this.windowPrint = new ComponentPrint(this, this.util, this.helper);
-        this.windowNodeList = new ComponentNodeList(this, this.util, this.helper);
+        this.windowPrint = this.createCPrint();
+        this.windowNodeList = this.createCNodeList();
+    }
+    
+    public ComponentPrint createCPrint()
+    {
+        return new ComponentPrint(this, this.util, this.provider);
+    }
+    
+    public ComponentNodeList createCNodeList()
+    {
+        return new ComponentNodeList(this, this.util, this.provider);
     }
     
     // All the following functions MUST be invoked by the GuiScreen in order to make this work

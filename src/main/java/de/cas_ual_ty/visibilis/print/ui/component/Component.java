@@ -1,13 +1,14 @@
 package de.cas_ual_ty.visibilis.print.ui.component;
 
-import de.cas_ual_ty.visibilis.print.IPrintProvider;
 import de.cas_ual_ty.visibilis.print.Print;
+import de.cas_ual_ty.visibilis.print.impl.IPrintProvider;
+import de.cas_ual_ty.visibilis.print.ui.RenderUtility;
+import de.cas_ual_ty.visibilis.print.ui.RenderUtility.Rectangle;
 import de.cas_ual_ty.visibilis.print.ui.UiBase;
 import de.cas_ual_ty.visibilis.print.ui.util.MouseInteractionObject;
-import de.cas_ual_ty.visibilis.util.RenderUtility;
-import de.cas_ual_ty.visibilis.util.RenderUtility.Rectangle;
 import net.minecraft.client.MainWindow;
 import net.minecraft.client.gui.IGuiEventListener;
+import net.minecraft.client.gui.screen.Screen;
 
 public abstract class Component implements IGuiEventListener
 {
@@ -15,7 +16,7 @@ public abstract class Component implements IGuiEventListener
     
     public UiBase guiPrint;
     public RenderUtility util;
-    public IPrintProvider helper;
+    public IPrintProvider provider;
     
     /** Dimensions (Rectangle) of this window component. Controlled by the parent UiBase instance */
     public Rectangle dimensions;
@@ -26,7 +27,7 @@ public abstract class Component implements IGuiEventListener
     {
         this.guiPrint = guiPrint;
         this.util = util;
-        this.helper = helper;
+        this.provider = helper;
         
         this.guiPrint.children.add(this);
     }
@@ -92,7 +93,7 @@ public abstract class Component implements IGuiEventListener
     //Helper method
     public Print getPrint()
     {
-        return this.helper.getPrint(this.guiPrint.getParentGui());
+        return this.provider.getPrint(this.getParentGui());
     }
     
     //Helper method
@@ -102,6 +103,11 @@ public abstract class Component implements IGuiEventListener
     public MainWindow getSR()
     {
         return this.guiPrint.getScaledResolution();
+    }
+    
+    public Screen getParentGui()
+    {
+        return this.guiPrint.getParentGui();
     }
     
     @Override

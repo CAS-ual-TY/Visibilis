@@ -1,18 +1,19 @@
-package de.cas_ual_ty.visibilis.print;
+package de.cas_ual_ty.visibilis.print.impl;
 
 import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.nbt.CompoundNBT;
 
-public abstract class PrintHelperBase implements IPrintProvider
+public abstract class PrintProviderBase implements IPrintProvider
 {
     public Print print;
     
-    public PrintHelperBase()
+    public PrintProviderBase()
     {
     }
     
@@ -25,7 +26,7 @@ public abstract class PrintHelperBase implements IPrintProvider
     @Override
     public ArrayList<Node> getAvailableNodes(Screen gui)
     {
-        return null;
+        return new ArrayList<Node>();
     }
     
     @Override

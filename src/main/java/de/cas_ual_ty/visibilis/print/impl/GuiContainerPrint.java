@@ -1,8 +1,6 @@
 package de.cas_ual_ty.visibilis.print.impl;
 
-import de.cas_ual_ty.visibilis.print.IPrintProvider;
 import de.cas_ual_ty.visibilis.print.ui.UiBase;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -10,23 +8,16 @@ import net.minecraft.util.text.ITextComponent;
 
 public abstract class GuiContainerPrint extends ContainerScreen
 {
-    public IPrintProvider helper;
+    public final IPrintProvider provider;
     public UiBase uiLogic;
     
-    public GuiContainerPrint(Container container, PlayerInventory inventory, ITextComponent title, IPrintProvider helper)
+    public GuiContainerPrint(Container container, PlayerInventory inventory, ITextComponent title, IPrintProvider provider)
     {
         super(container, inventory, title);
-        this.helper = helper;
-        this.uiLogic = new UiBase(this, this.helper);
+        this.provider = provider;
+        this.uiLogic = new UiBase(this, this.provider);
         
-        this.helper.onGuiOpen(this);
-    }
-    
-    @Override
-    public void init(Minecraft p_init_1_, int p_init_2_, int p_init_3_)
-    {
-        // TODO Auto-generated method stub
-        super.init(p_init_1_, p_init_2_, p_init_3_);
+        this.provider.onGuiOpen(this);
     }
     
     @Override
@@ -40,7 +31,7 @@ public abstract class GuiContainerPrint extends ContainerScreen
     public void onClose()
     {
         this.uiLogic.guiOnClose();
-        this.helper.onGuiClose(this);
+        this.provider.onGuiClose(this);
         super.onClose();
     }
     

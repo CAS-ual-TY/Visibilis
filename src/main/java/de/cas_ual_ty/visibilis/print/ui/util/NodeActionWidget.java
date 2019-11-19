@@ -3,9 +3,9 @@ package de.cas_ual_ty.visibilis.print.ui.util;
 import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.node.NodeAction;
+import de.cas_ual_ty.visibilis.print.ui.RenderUtility;
+import de.cas_ual_ty.visibilis.print.ui.RenderUtility.Rectangle;
 import de.cas_ual_ty.visibilis.print.ui.component.Component;
-import de.cas_ual_ty.visibilis.util.RenderUtility;
-import de.cas_ual_ty.visibilis.util.RenderUtility.Rectangle;
 import net.minecraft.client.gui.IGuiEventListener;
 import net.minecraft.client.resources.I18n;
 

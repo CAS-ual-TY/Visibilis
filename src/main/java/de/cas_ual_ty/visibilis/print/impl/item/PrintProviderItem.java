@@ -2,17 +2,17 @@ package de.cas_ual_ty.visibilis.print.impl.item;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.print.PrintHelperBase;
+import de.cas_ual_ty.visibilis.print.impl.PrintProviderBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Hand;
 
-public class PrintHelperItem extends PrintHelperBase
+public class PrintProviderItem extends PrintProviderBase
 {
     public ItemStack itemStack;
     public Hand hand;
     
-    public PrintHelperItem(ItemStack itemStack, Hand hand)
+    public PrintProviderItem(ItemStack itemStack, Hand hand)
     {
         if (!itemStack.hasTag())
         {

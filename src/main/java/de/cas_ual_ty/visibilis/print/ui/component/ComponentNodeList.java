@@ -8,11 +8,11 @@ import com.mojang.blaze3d.platform.GlStateManager;
 
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeGroupsHelper;
-import de.cas_ual_ty.visibilis.print.IPrintProvider;
+import de.cas_ual_ty.visibilis.print.impl.IPrintProvider;
+import de.cas_ual_ty.visibilis.print.ui.RenderUtility;
+import de.cas_ual_ty.visibilis.print.ui.RenderUtility.Rectangle;
 import de.cas_ual_ty.visibilis.print.ui.UiBase;
-import de.cas_ual_ty.visibilis.print.ui.util.MouseInteractionObject.MouseInteractionType;
-import de.cas_ual_ty.visibilis.util.RenderUtility;
-import de.cas_ual_ty.visibilis.util.RenderUtility.Rectangle;
+import de.cas_ual_ty.visibilis.print.ui.util.MouseInteractionObject.EnumMouseInteractionType;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.util.StringUtils;
 
@@ -30,9 +30,9 @@ public class ComponentNodeList extends Component
     public int keyPressed = -1;
     public int keyPressedDelay = 0;
     
-    public ComponentNodeList(UiBase guiPrint, RenderUtility util, IPrintProvider helper)
+    public ComponentNodeList(UiBase guiPrint, RenderUtility util, IPrintProvider provider)
     {
-        super(guiPrint, util, helper);
+        super(guiPrint, util, provider);
         
         this.zoom = 0.5F;
         this.listOffset = 0;
@@ -133,7 +133,7 @@ public class ComponentNodeList extends Component
     @Override
     public void guiPostRender(int mouseX, int mouseY, float partialTicks)
     {
-        if (this.hoverObj.type == MouseInteractionType.NODE)
+        if (this.hoverObj.type == EnumMouseInteractionType.NODE)
         {
             this.util.drawNodeHoveringText(this.hoverObj.node, mouseX, mouseY);
         }
@@ -164,13 +164,13 @@ public class ComponentNodeList extends Component
     {
         if (modifiers == 0)
         {
-            if (this.hoverObj.type == MouseInteractionType.NODE)
+            if (this.hoverObj.type == EnumMouseInteractionType.NODE)
             {
                 this.getPrint().addNode(this.hoverObj.node.setPosition(-this.getPrint().posX, -this.getPrint().posY));
             }
             
             // If you had the text field selected and click on it again, dont deselect it
-            if (this.hoverObj.type == MouseInteractionType.TEXT_FIELD)
+            if (this.hoverObj.type == EnumMouseInteractionType.TEXT_FIELD)
             {
                 if (this.searchInput.isFocused())
                 {
@@ -292,7 +292,7 @@ public class ComponentNodeList extends Component
     
     public ArrayList<Node> getAvailableNodesList()
     {
-        return this.cutNodeListToSearch(this.helper.getAvailableNodes(this.guiPrint.getParentGui()));
+        return this.cutNodeListToSearch(this.provider.getAvailableNodes(this.getParentGui()));
     }
     
     /**

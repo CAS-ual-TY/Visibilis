@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.util;
+package de.cas_ual_ty.visibilis.print.ui;
 
 import java.util.ArrayList;
 

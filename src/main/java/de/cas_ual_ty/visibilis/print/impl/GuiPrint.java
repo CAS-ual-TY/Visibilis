@@ -1,22 +1,21 @@
 package de.cas_ual_ty.visibilis.print.impl;
 
-import de.cas_ual_ty.visibilis.print.IPrintProvider;
 import de.cas_ual_ty.visibilis.print.ui.UiBase;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.text.ITextComponent;
 
 public class GuiPrint extends Screen
 {
-    public IPrintProvider helper;
+    public final IPrintProvider provider;
     public UiBase uiLogic;
     
-    public GuiPrint(ITextComponent title, IPrintProvider helper)
+    public GuiPrint(ITextComponent title, IPrintProvider provider)
     {
         super(title);
-        this.helper = helper;
-        this.uiLogic = new UiBase(this, this.helper);
+        this.provider = provider;
+        this.uiLogic = new UiBase(this, this.provider);
         
-        this.helper.onGuiOpen(this);
+        this.provider.onGuiOpen(this);
     }
     
     @Override
@@ -30,7 +29,7 @@ public class GuiPrint extends Screen
     public void onClose()
     {
         this.uiLogic.guiOnClose();
-        this.helper.onGuiClose(this);
+        this.provider.onGuiClose(this);
         super.onClose();
     }
     
