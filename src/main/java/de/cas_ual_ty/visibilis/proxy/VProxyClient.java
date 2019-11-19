@@ -2,7 +2,7 @@ package de.cas_ual_ty.visibilis.proxy;
 
 import de.cas_ual_ty.visibilis.handler.VEventHandlerClient;
 import de.cas_ual_ty.visibilis.print.IPrintProvider;
-import de.cas_ual_ty.visibilis.print.gui.GuiPrint;
+import de.cas_ual_ty.visibilis.print.impl.GuiPrint;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.MinecraftForge;
