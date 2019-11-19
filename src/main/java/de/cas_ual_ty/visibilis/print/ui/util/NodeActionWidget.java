@@ -29,8 +29,8 @@ public class NodeActionWidget implements IGuiEventListener
     
     public void createDimensions(int mouseX, int mouseY, Rectangle dimensionsIn)
     {
-        int w = this.component.guiPrint.util.nodeWidth;
-        int h = this.component.guiPrint.util.nodeHeight * this.actions.size();
+        int w = this.component.uiBase.util.nodeWidth;
+        int h = this.component.uiBase.util.nodeHeight * this.actions.size();
         
         Rectangle dim = Rectangle.fromXYWH(mouseX - w, mouseY - h, w, h);
         
@@ -66,26 +66,26 @@ public class NodeActionWidget implements IGuiEventListener
     public void guiRender(int mouseX, int mouseY, float partialTicks)
     {
         this.hoverObj = null;
-        this.dimensions.render(this.component.util.nodeBackground[0], this.component.util.nodeBackground[1], this.component.util.nodeBackground[2]);
+        this.dimensions.render(this.component.getUtil().nodeBackground[0], this.component.getUtil().nodeBackground[1], this.component.getUtil().nodeBackground[2]);
         
         NodeAction action;
         int x = this.dimensions.x;
         int y = this.dimensions.y;
         int w = this.dimensions.w;
-        int h = this.component.util.nodeHeight;
+        int h = this.component.getUtil().nodeHeight;
         
         int marginText = 2;
         
         for (int i = 0; i < this.actions.size(); ++i)
         {
             action = this.actions.get(i);
-            RenderUtility.drawRect(x, y, w, h, 1, this.component.util.actionColor);
-            RenderUtility.drawTextCentered(this.component.util.fontRenderer, x, y + marginText, this.dimensions.w + marginText, I18n.format(action.text), this.component.util.actionColorText);
+            RenderUtility.drawRect(x, y, w, h, 1, this.component.getUtil().actionColor);
+            RenderUtility.drawTextCentered(this.component.getUtil().fontRenderer, x, y + marginText, this.dimensions.w + marginText, I18n.format(action.text), this.component.getUtil().actionColorText);
             
             if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
             {
                 this.hoverObj = action;
-                this.component.util.drawHoverRect(x, y, w, h);
+                this.component.getUtil().drawHoverRect(x, y, w, h);
             }
             
             y += h;

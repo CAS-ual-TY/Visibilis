@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import de.cas_ual_ty.visibilis.print.impl.PrintProvider;
 import de.cas_ual_ty.visibilis.print.ui.RenderUtility.Rectangle;
 import de.cas_ual_ty.visibilis.print.ui.component.Component;
+import de.cas_ual_ty.visibilis.print.ui.component.ComponentHeader;
 import de.cas_ual_ty.visibilis.print.ui.component.ComponentNodeList;
 import de.cas_ual_ty.visibilis.print.ui.component.ComponentPrint;
 import net.minecraft.client.MainWindow;
@@ -27,6 +28,7 @@ public class UiBase implements IGuiEventListener
     
     public ComponentPrint windowPrint;
     public ComponentNodeList windowNodeList;
+    public ComponentHeader windowHeader;
     
     public UiBase(Screen gui, PrintProvider provider)
     {
@@ -39,16 +41,22 @@ public class UiBase implements IGuiEventListener
         
         this.windowPrint = this.createCPrint();
         this.windowNodeList = this.createCNodeList();
+        this.windowHeader = this.createCHeader();
     }
     
     public ComponentPrint createCPrint()
     {
-        return new ComponentPrint(this, this.util, this.provider);
+        return new ComponentPrint(this);
     }
     
     public ComponentNodeList createCNodeList()
     {
-        return new ComponentNodeList(this, this.util, this.provider);
+        return new ComponentNodeList(this);
+    }
+    
+    public ComponentHeader createCHeader()
+    {
+        return new ComponentHeader(this);
     }
     
     // All the following functions MUST be invoked by the GuiScreen in order to make this work
@@ -116,6 +124,7 @@ public class UiBase implements IGuiEventListener
         
         this.windowPrint.setDimensions(Rectangle.fromXYWH(0, h, this.getScaledResolution().getScaledWidth() - w, this.getScaledResolution().getScaledHeight() - h));
         this.windowNodeList.setDimensions(Rectangle.fromXYWH(this.getScaledResolution().getScaledWidth() - w, 0, w, this.getScaledResolution().getScaledHeight()));
+        this.windowHeader.setDimensions(Rectangle.fromXYWH(0, 0, this.windowPrint.dimensions.w, h));
     }
     
     /**

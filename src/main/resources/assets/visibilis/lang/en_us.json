@@ -7,6 +7,8 @@
     "visibilis.output": "Output",
     "visibilis.input": "Input",
     "visibilis.print": "Print",
+	"visibilis.undo": "Undo",
+	"visibilis.redo": "Redo",
     "visibilis.action.delete": "Delete",
     "visibilis.action.expand": "Expand",
     "visibilis.action.shrink": "Shrink",

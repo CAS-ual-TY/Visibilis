@@ -8,7 +8,6 @@ import com.mojang.blaze3d.platform.GlStateManager;
 
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeGroupsHelper;
-import de.cas_ual_ty.visibilis.print.impl.PrintProvider;
 import de.cas_ual_ty.visibilis.print.ui.RenderUtility;
 import de.cas_ual_ty.visibilis.print.ui.RenderUtility.Rectangle;
 import de.cas_ual_ty.visibilis.print.ui.UiBase;
@@ -30,13 +29,13 @@ public class ComponentNodeList extends Component
     public int keyPressed = -1;
     public int keyPressedDelay = 0;
     
-    public ComponentNodeList(UiBase guiPrint, RenderUtility util, PrintProvider provider)
+    public ComponentNodeList(UiBase uiBase)
     {
-        super(guiPrint, util, provider);
+        super(uiBase);
         
         this.zoom = 0.5F;
         this.listOffset = 0;
-        this.searchInput = new TextFieldWidget(this.util.fontRenderer, 0, 0, 0, 0, "");
+        this.searchInput = new TextFieldWidget(this.getUtil().fontRenderer, 0, 0, 0, 0, "");
         this.searchInput.setVisible(true);
         this.searchInput.setEnabled(true);
         this.listRect = Rectangle.fromXYWH(0, 0, 0, 0);
@@ -74,15 +73,15 @@ public class ComponentNodeList extends Component
         
         int x = 0;
         int y = (int) (this.listOffset + this.listRect.y / zoom + margin); // We start at the offset
-        int w = this.util.nodeWidth;
+        int w = this.getUtil().nodeWidth;
         int h;
         
         // Draw all the nodes in the list
         for (Node node : this.getAvailableNodesList())
         {
-            this.util.drawNode(node, x, y);
+            this.getUtil().drawNode(node, x, y);
             
-            h = this.util.getNodeTotalHeight(node); //height of the entire node
+            h = this.getUtil().getNodeTotalHeight(node); //height of the entire node
             
             // If the mouse is on a node:
             // - update hoverObj
@@ -90,7 +89,7 @@ public class ComponentNodeList extends Component
             if (mouseOnList && RenderUtility.isCoordInsideRect(mouseX, mouseY, this.dimensions.x, this.dimensions.y + y * zoom, w * zoom, h * zoom))
             {
                 this.hoverObj.node(node);
-                this.util.drawHoverRect(x, y, w, h);
+                this.getUtil().drawHoverRect(x, y, w, h);
             }
             
             // Now add the height of the node to the next node's position. +2 so there is a small margin between nodes
@@ -135,7 +134,7 @@ public class ComponentNodeList extends Component
     {
         if (this.hoverObj.type == EnumMouseInteractionType.NODE)
         {
-            this.util.drawNodeHoveringText(this.hoverObj.node, mouseX, mouseY);
+            this.getUtil().drawNodeHoveringText(this.hoverObj.node, mouseX, mouseY);
         }
     }
     
@@ -167,6 +166,7 @@ public class ComponentNodeList extends Component
             if (this.hoverObj.type == EnumMouseInteractionType.NODE)
             {
                 this.getPrint().addNode(this.hoverObj.node.setPosition(-this.getPrint().posX, -this.getPrint().posY));
+                this.getProvider().saveChange(); // TODO Make new node be put in the middle, instead of top left (top left is under the header)
             }
             
             // If you had the text field selected and click on it again, dont deselect it
@@ -266,12 +266,12 @@ public class ComponentNodeList extends Component
     
     public void scrollUp()
     {
-        this.listOffset += this.util.nodeHeight * 2;
+        this.listOffset += this.getUtil().nodeHeight * 2;
     }
     
     public void scrollDown()
     {
-        this.listOffset -= this.util.nodeHeight * 2;
+        this.listOffset -= this.getUtil().nodeHeight * 2;
     }
     
     public void updateKeyPressed(int keyCode, int delay)
@@ -292,7 +292,7 @@ public class ComponentNodeList extends Component
     
     public ArrayList<Node> getAvailableNodesList()
     {
-        return this.cutNodeListToSearch(this.provider.getAvailableNodes());
+        return this.cutNodeListToSearch(this.getProvider().getAvailableNodes());
     }
     
     /**
@@ -341,7 +341,7 @@ public class ComponentNodeList extends Component
         this.inputRect.x = this.dimensions.x;
         this.inputRect.w = this.dimensions.w;
         this.inputRect.y = 0;
-        this.inputRect.h = this.util.nodeHeight;
+        this.inputRect.h = this.getUtil().nodeHeight;
         this.inputRect.updateLRTB();
     }
     

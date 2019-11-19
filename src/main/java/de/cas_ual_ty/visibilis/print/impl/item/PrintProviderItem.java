@@ -47,34 +47,4 @@ public class PrintProviderItem extends PrintProviderNBT
     {
         super.writeToNBT(nbt0);
     }
-    
-    @Override
-    public void saveChange()
-    {
-        
-    }
-    
-    @Override
-    public void undo()
-    {
-        
-    }
-    
-    @Override
-    public void redo()
-    {
-        
-    }
-    
-    @Override
-    public boolean canUndo()
-    {
-        return false;
-    }
-    
-    @Override
-    public boolean canRedo()
-    {
-        return false;
-    }
 }

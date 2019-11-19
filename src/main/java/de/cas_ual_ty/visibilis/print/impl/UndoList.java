@@ -23,6 +23,10 @@ public class UndoList
         this(25);
     }
     
+    /*
+     * Why this weird implementation with all this -1 everywhere?
+     */
+    
     public UndoList saveChange(Print print)
     {
         return this.add(print.clone());
@@ -32,7 +36,7 @@ public class UndoList
     {
         if (this.canRedo())
         {
-            this.list.subList(++this.index, this.list.size()).clear();
+            this.list.subList(this.index, this.list.size()).clear();
         }
         else
         {
@@ -55,27 +59,41 @@ public class UndoList
     
     public boolean canUndo()
     {
-        return this.index > 0;
+        return this.index - 1 > 0;
     }
     
     public boolean canRedo()
     {
-        return this.index < this.list.size() - 1;
+        return this.index < this.list.size() - 2;
     }
     
     public Print undo()
     {
-        return this.list.get(--this.index);
+        --this.index;
+        
+        if (this.index == this.list.size() - 2)
+        {
+            --this.index;
+        }
+        
+        return this.list.get(this.index);
     }
     
     public Print redo()
     {
-        return this.list.get(++this.index);
+        ++this.index;
+        
+        if (this.index == this.list.size() - 2)
+        {
+            ++this.index;
+        }
+        
+        return this.list.get(this.index);
     }
     
     public void cutToMax()
     {
-        while (this.list.size() > this.max)
+        while (this.list.size() > this.max + 1)
         {
             this.list.removeFirst();
         }
@@ -84,5 +102,10 @@ public class UndoList
     public int getIndex()
     {
         return this.index;
+    }
+    
+    public int getSize()
+    {
+        return this.list.size() - 1;
     }
 }

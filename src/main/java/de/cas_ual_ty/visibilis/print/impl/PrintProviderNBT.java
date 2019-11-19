@@ -63,6 +63,7 @@ public abstract class PrintProviderNBT extends PrintProvider
         }
         
         this.undoList.add(print);
+        this.saveChange();
     }
     
     public void writeToNBT(CompoundNBT nbt0)

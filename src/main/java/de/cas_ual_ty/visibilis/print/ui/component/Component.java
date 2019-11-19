@@ -14,22 +14,18 @@ public abstract class Component implements IGuiEventListener
 {
     public final MouseInteractionObject hoverObj = new MouseInteractionObject();
     
-    public UiBase guiPrint;
-    public RenderUtility util;
-    public PrintProvider provider;
+    public final UiBase uiBase;
     
     /** Dimensions (Rectangle) of this window component. Controlled by the parent UiBase instance */
     public Rectangle dimensions;
     
     public boolean mouseOverDimensions;
     
-    public Component(UiBase guiPrint, RenderUtility util, PrintProvider helper)
+    public Component(UiBase uiBase)
     {
-        this.guiPrint = guiPrint;
-        this.util = util;
-        this.provider = helper;
+        this.uiBase = uiBase;
         
-        this.guiPrint.children.add(this);
+        this.uiBase.children.add(this);
     }
     
     // --- START ---
@@ -93,7 +89,7 @@ public abstract class Component implements IGuiEventListener
     //Helper method
     public Print getPrint()
     {
-        return this.provider.getPrint();
+        return this.getProvider().getPrint();
     }
     
     //Helper method
@@ -102,12 +98,12 @@ public abstract class Component implements IGuiEventListener
      */
     public MainWindow getSR()
     {
-        return this.guiPrint.getScaledResolution();
+        return this.uiBase.getScaledResolution();
     }
     
     public Screen getParentGui()
     {
-        return this.guiPrint.getParentGui();
+        return this.uiBase.getParentGui();
     }
     
     @Override
@@ -156,5 +152,15 @@ public abstract class Component implements IGuiEventListener
     public boolean charTyped(char typedChar, int keyCode)
     {
         return false;
+    }
+    
+    public RenderUtility getUtil()
+    {
+        return this.uiBase.util;
+    }
+    
+    public PrintProvider getProvider()
+    {
+        return this.uiBase.provider;
     }
 }
