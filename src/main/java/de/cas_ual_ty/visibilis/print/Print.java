@@ -284,4 +284,13 @@ public class Print
         
         return null;
     }
+    
+    /**
+     * Returns a print clone, including all Nodes cloned.
+     */
+    public Print clone()
+    {
+        //Yes very lazy I know :P But atleast we have a solution for now
+        return NBTUtility.loadPrintFromNBT(NBTUtility.savePrintToNBT(this));
+    }
 }
