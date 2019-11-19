@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.print.item;
+package de.cas_ual_ty.visibilis.print.impl.item;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.print.Print;

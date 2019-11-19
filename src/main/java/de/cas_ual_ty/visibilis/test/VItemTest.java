@@ -1,7 +1,7 @@
 package de.cas_ual_ty.visibilis.test;
 
 import de.cas_ual_ty.visibilis.print.IPrintProvider;
-import de.cas_ual_ty.visibilis.print.item.ItemPrint;
+import de.cas_ual_ty.visibilis.print.impl.item.ItemPrint;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;

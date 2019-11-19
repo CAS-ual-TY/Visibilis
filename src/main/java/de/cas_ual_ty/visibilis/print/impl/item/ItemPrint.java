@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.print.item;
+package de.cas_ual_ty.visibilis.print.impl.item;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.print.IPrintProvider;
@@ -24,7 +24,7 @@ public class ItemPrint extends Item
     }
     
     /**
-     * Opens the {@link GuiPrintOld} for the given player
+     * Opens the {@link GuiPrint} for the given player
      * 
      * @param player
      *            The player to open the Gui for
@@ -51,7 +51,7 @@ public class ItemPrint extends Item
     }
     
     /**
-     * Returns an instance of {@link IPrintProvider} which is used to open the {@link GuiPrintOld} in {@link #openGui(EntityPlayer, ItemStack, EnumHand)}
+     * Returns an instance of {@link IPrintProvider} which is used to open the {@link GuiPrint} in {@link #openGui(PlayerEntity, ItemStack, Hand)}
      */
     public IPrintProvider getHelper(ItemStack itemStack, Hand hand)
     {

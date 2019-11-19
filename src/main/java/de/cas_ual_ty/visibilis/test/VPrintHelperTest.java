@@ -34,7 +34,7 @@ import de.cas_ual_ty.visibilis.node.logic.NodeOR;
 import de.cas_ual_ty.visibilis.node.logic.NodeXNOR;
 import de.cas_ual_ty.visibilis.node.logic.NodeXOR;
 import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.print.item.PrintHelperItem;
+import de.cas_ual_ty.visibilis.print.impl.item.PrintHelperItem;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
