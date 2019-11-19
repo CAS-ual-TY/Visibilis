@@ -59,9 +59,7 @@ public class UiBase implements IGuiEventListener
      */
     public void guiInit()
     {
-        int w = (int) (this.util.nodeWidth * this.windowNodeList.zoom);
-        this.windowPrint.setDimensions(Rectangle.fromXYWH(0, 0, this.getScaledResolution().getScaledWidth() - w, this.getScaledResolution().getScaledHeight()));
-        this.windowNodeList.setDimensions(Rectangle.fromXYWH(this.getScaledResolution().getScaledWidth() - w, 0, w, this.getScaledResolution().getScaledHeight()));
+        this.initComponentDimensions();
         
         for (Component c : this.children)
         {
@@ -109,6 +107,15 @@ public class UiBase implements IGuiEventListener
         {
             c.guiTick();
         }
+    }
+    
+    public void initComponentDimensions()
+    {
+        int w = (int) (this.util.nodeWidth * this.windowNodeList.zoom);
+        int h = 20;
+        
+        this.windowPrint.setDimensions(Rectangle.fromXYWH(0, h, this.getScaledResolution().getScaledWidth() - w, this.getScaledResolution().getScaledHeight() - h));
+        this.windowNodeList.setDimensions(Rectangle.fromXYWH(this.getScaledResolution().getScaledWidth() - w, 0, w, this.getScaledResolution().getScaledHeight()));
     }
     
     /**
