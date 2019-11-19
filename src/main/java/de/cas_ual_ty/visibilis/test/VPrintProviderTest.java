@@ -35,7 +35,6 @@ import de.cas_ual_ty.visibilis.node.logic.NodeXNOR;
 import de.cas_ual_ty.visibilis.node.logic.NodeXOR;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.impl.item.PrintProviderItem;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 
@@ -53,9 +52,9 @@ public class VPrintProviderTest extends PrintProviderItem
     }
     
     @Override
-    public ArrayList<Node> getAvailableNodes(Screen gui)
+    public ArrayList<Node> getAvailableNodes()
     {
-        ArrayList<Node> list = super.getAvailableNodes(gui);
+        ArrayList<Node> list = super.getAvailableNodes();
         
         list.add(new NodeEvent(Visibilis.MOD_ID, "command"));
         list.add(new VNodeTest());

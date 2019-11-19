@@ -10,7 +10,7 @@ import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.print.impl.IPrintProvider;
+import de.cas_ual_ty.visibilis.print.impl.PrintProvider;
 import de.cas_ual_ty.visibilis.print.ui.RenderUtility;
 import de.cas_ual_ty.visibilis.print.ui.UiBase;
 import de.cas_ual_ty.visibilis.print.ui.util.MouseInteractionObject;
@@ -41,7 +41,7 @@ public class ComponentPrint extends Component
     
     public NodeActionWidget rightClickMenu;
     
-    public ComponentPrint(UiBase guiPrint, RenderUtility util, IPrintProvider provider)
+    public ComponentPrint(UiBase guiPrint, RenderUtility util, PrintProvider provider)
     {
         super(guiPrint, util, provider);
         
@@ -281,7 +281,7 @@ public class ComponentPrint extends Component
                 if (this.hoverObj.type == EnumMouseInteractionType.NODE_HEADER && this.hoverObj.node.hasActions())
                 {
                     this.clickedObj.nothing();
-                    this.rightClickMenu = new NodeActionWidget(this, (int) Math.round(mouseX), (int) Math.round(mouseY), this.dimensions, this.provider.getActionsForNode(this.getParentGui(), this.hoverObj.node));
+                    this.rightClickMenu = new NodeActionWidget(this, (int) Math.round(mouseX), (int) Math.round(mouseY), this.dimensions, this.provider.getActionsForNode(this.hoverObj.node));
                 }
             }
         }

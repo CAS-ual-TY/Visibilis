@@ -2,7 +2,7 @@ package de.cas_ual_ty.visibilis.print.ui;
 
 import java.util.ArrayList;
 
-import de.cas_ual_ty.visibilis.print.impl.IPrintProvider;
+import de.cas_ual_ty.visibilis.print.impl.PrintProvider;
 import de.cas_ual_ty.visibilis.print.ui.RenderUtility.Rectangle;
 import de.cas_ual_ty.visibilis.print.ui.component.Component;
 import de.cas_ual_ty.visibilis.print.ui.component.ComponentNodeList;
@@ -19,7 +19,7 @@ public class UiBase implements IGuiEventListener
     protected Screen gui;
     
     public final RenderUtility util;
-    public final IPrintProvider provider;
+    public final PrintProvider provider;
     
     // Helper fields
     public double lastMousePosX;
@@ -28,7 +28,7 @@ public class UiBase implements IGuiEventListener
     public ComponentPrint windowPrint;
     public ComponentNodeList windowNodeList;
     
-    public UiBase(Screen gui, IPrintProvider provider)
+    public UiBase(Screen gui, PrintProvider provider)
     {
         this.children = new ArrayList<>();
         

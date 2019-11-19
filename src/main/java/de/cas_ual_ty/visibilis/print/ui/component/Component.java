@@ -1,7 +1,7 @@
 package de.cas_ual_ty.visibilis.print.ui.component;
 
 import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.print.impl.IPrintProvider;
+import de.cas_ual_ty.visibilis.print.impl.PrintProvider;
 import de.cas_ual_ty.visibilis.print.ui.RenderUtility;
 import de.cas_ual_ty.visibilis.print.ui.RenderUtility.Rectangle;
 import de.cas_ual_ty.visibilis.print.ui.UiBase;
@@ -16,14 +16,14 @@ public abstract class Component implements IGuiEventListener
     
     public UiBase guiPrint;
     public RenderUtility util;
-    public IPrintProvider provider;
+    public PrintProvider provider;
     
     /** Dimensions (Rectangle) of this window component. Controlled by the parent UiBase instance */
     public Rectangle dimensions;
     
     public boolean mouseOverDimensions;
     
-    public Component(UiBase guiPrint, RenderUtility util, IPrintProvider helper)
+    public Component(UiBase guiPrint, RenderUtility util, PrintProvider helper)
     {
         this.guiPrint = guiPrint;
         this.util = util;
@@ -93,7 +93,7 @@ public abstract class Component implements IGuiEventListener
     //Helper method
     public Print getPrint()
     {
-        return this.provider.getPrint(this.getParentGui());
+        return this.provider.getPrint();
     }
     
     //Helper method

@@ -8,7 +8,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeGroupsHelper;
-import de.cas_ual_ty.visibilis.print.impl.IPrintProvider;
+import de.cas_ual_ty.visibilis.print.impl.PrintProvider;
 import de.cas_ual_ty.visibilis.print.ui.RenderUtility;
 import de.cas_ual_ty.visibilis.print.ui.RenderUtility.Rectangle;
 import de.cas_ual_ty.visibilis.print.ui.UiBase;
@@ -30,7 +30,7 @@ public class ComponentNodeList extends Component
     public int keyPressed = -1;
     public int keyPressedDelay = 0;
     
-    public ComponentNodeList(UiBase guiPrint, RenderUtility util, IPrintProvider provider)
+    public ComponentNodeList(UiBase guiPrint, RenderUtility util, PrintProvider provider)
     {
         super(guiPrint, util, provider);
         
@@ -292,7 +292,7 @@ public class ComponentNodeList extends Component
     
     public ArrayList<Node> getAvailableNodesList()
     {
-        return this.cutNodeListToSearch(this.provider.getAvailableNodes(this.getParentGui()));
+        return this.cutNodeListToSearch(this.provider.getAvailableNodes());
     }
     
     /**

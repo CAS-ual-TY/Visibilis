@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.test;
 
-import de.cas_ual_ty.visibilis.print.impl.IPrintProvider;
+import de.cas_ual_ty.visibilis.print.impl.PrintProvider;
 import de.cas_ual_ty.visibilis.print.impl.item.ItemPrint;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -28,7 +28,7 @@ public class VItemTest extends ItemPrint
     }
     
     @Override
-    public IPrintProvider getHelper(ItemStack itemStack, Hand hand)
+    public PrintProvider getHelper(ItemStack itemStack, Hand hand)
     {
         return new VPrintProviderTest(itemStack, hand);
     }

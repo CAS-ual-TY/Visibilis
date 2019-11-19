@@ -8,16 +8,16 @@ import net.minecraft.util.text.ITextComponent;
 
 public abstract class GuiContainerPrint extends ContainerScreen
 {
-    public final IPrintProvider provider;
+    public final PrintProvider provider;
     public UiBase uiLogic;
     
-    public GuiContainerPrint(Container container, PlayerInventory inventory, ITextComponent title, IPrintProvider provider)
+    public GuiContainerPrint(Container container, PlayerInventory inventory, ITextComponent title, PrintProvider provider)
     {
         super(container, inventory, title);
         this.provider = provider;
         this.uiLogic = new UiBase(this, this.provider);
         
-        this.provider.onGuiOpen(this);
+        this.provider.onGuiOpen();
     }
     
     @Override
@@ -31,7 +31,7 @@ public abstract class GuiContainerPrint extends ContainerScreen
     public void onClose()
     {
         this.uiLogic.guiOnClose();
-        this.provider.onGuiClose(this);
+        this.provider.onGuiClose();
         super.onClose();
     }
     

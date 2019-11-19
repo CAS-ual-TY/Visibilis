@@ -6,16 +6,16 @@ import net.minecraft.util.text.ITextComponent;
 
 public class GuiPrint extends Screen
 {
-    public final IPrintProvider provider;
+    public final PrintProvider provider;
     public UiBase uiLogic;
     
-    public GuiPrint(ITextComponent title, IPrintProvider provider)
+    public GuiPrint(ITextComponent title, PrintProvider provider)
     {
         super(title);
         this.provider = provider;
         this.uiLogic = new UiBase(this, this.provider);
         
-        this.provider.onGuiOpen(this);
+        this.provider.onGuiOpen();
     }
     
     @Override
@@ -29,7 +29,7 @@ public class GuiPrint extends Screen
     public void onClose()
     {
         this.uiLogic.guiOnClose();
-        this.provider.onGuiClose(this);
+        this.provider.onGuiClose();
         super.onClose();
     }
     

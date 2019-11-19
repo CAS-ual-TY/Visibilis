@@ -6,37 +6,29 @@ import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.nbt.CompoundNBT;
 
-public abstract class PrintProviderBase implements IPrintProvider
+public abstract class PrintProviderNBT extends PrintProvider
 {
-    public Print print;
-    
-    public PrintProviderBase()
+    public PrintProviderNBT()
     {
+        super();
     }
     
     @Override
-    public Print getPrint(Screen gui)
-    {
-        return this.print;
-    }
-    
-    @Override
-    public ArrayList<Node> getAvailableNodes(Screen gui)
+    public ArrayList<Node> getAvailableNodes()
     {
         return new ArrayList<Node>();
     }
     
     @Override
-    public void onGuiOpen(Screen gui)
+    public void onGuiOpen()
     {
         this.readFromNBT(this.getNBT());
     }
     
     @Override
-    public void onGuiClose(Screen gui)
+    public void onGuiClose()
     {
         this.writeToNBT(this.getNBT());
     }
@@ -54,25 +46,28 @@ public abstract class PrintProviderBase implements IPrintProvider
     /**
      * Called after the nbt has been written to.
      */
-    public void synchToServer(CompoundNBT nbt)
-    {
-    }
+    public abstract void synchToServer(CompoundNBT nbt);
     
     public void readFromNBT(CompoundNBT nbt0)
     {
+        Print print;
+        
         if (!nbt0.contains(Visibilis.MOD_ID))
         {
-            this.print = this.createNewPrint();
-            return;
+            print = this.createNewPrint();
+        }
+        else
+        {
+            CompoundNBT nbt = nbt0.getCompound(Visibilis.MOD_ID);
+            print = NBTUtility.loadPrintFromNBT(nbt);
         }
         
-        CompoundNBT nbt = nbt0.getCompound(Visibilis.MOD_ID);
-        this.print = NBTUtility.loadPrintFromNBT(nbt);
+        this.undoList.add(print);
     }
     
     public void writeToNBT(CompoundNBT nbt0)
     {
-        CompoundNBT nbt = NBTUtility.savePrintToNBT(this.print);
+        CompoundNBT nbt = NBTUtility.savePrintToNBT(this.getPrint());
         nbt0.put(Visibilis.MOD_ID, nbt);
         
         this.synchToServer(nbt0);
