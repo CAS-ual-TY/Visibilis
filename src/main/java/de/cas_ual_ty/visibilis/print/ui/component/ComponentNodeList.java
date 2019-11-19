@@ -333,6 +333,7 @@ public class ComponentNodeList extends Component
     public void setFocusTextField()
     {
         this.searchInput.setFocused2(true);
+        this.listOffset = 0;
     }
     
     public void updateInputRect()
