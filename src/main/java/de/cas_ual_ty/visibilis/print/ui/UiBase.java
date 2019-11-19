@@ -1,11 +1,11 @@
-package de.cas_ual_ty.visibilis.print.gui;
+package de.cas_ual_ty.visibilis.print.ui;
 
 import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.print.IPrintProvider;
-import de.cas_ual_ty.visibilis.print.gui.component.Component;
-import de.cas_ual_ty.visibilis.print.gui.component.ComponentNodeList;
-import de.cas_ual_ty.visibilis.print.gui.component.ComponentPrint;
+import de.cas_ual_ty.visibilis.print.ui.component.Component;
+import de.cas_ual_ty.visibilis.print.ui.component.ComponentNodeList;
+import de.cas_ual_ty.visibilis.print.ui.component.ComponentPrint;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
 import de.cas_ual_ty.visibilis.util.RenderUtility.Rectangle;
 import net.minecraft.client.MainWindow;

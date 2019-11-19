@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.print.gui.component;
+package de.cas_ual_ty.visibilis.print.ui.component;
 
 import java.util.ArrayList;
 
@@ -9,8 +9,8 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeGroupsHelper;
 import de.cas_ual_ty.visibilis.print.IPrintProvider;
-import de.cas_ual_ty.visibilis.print.gui.UiBase;
-import de.cas_ual_ty.visibilis.print.gui.util.MouseInteractionObject.MouseInteractionType;
+import de.cas_ual_ty.visibilis.print.ui.UiBase;
+import de.cas_ual_ty.visibilis.print.ui.util.MouseInteractionObject.MouseInteractionType;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
 import de.cas_ual_ty.visibilis.util.RenderUtility.Rectangle;
 import net.minecraft.client.gui.widget.TextFieldWidget;

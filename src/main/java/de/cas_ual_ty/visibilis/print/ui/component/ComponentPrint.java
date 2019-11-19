@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.print.gui.component;
+package de.cas_ual_ty.visibilis.print.ui.component;
 
 import org.lwjgl.glfw.GLFW;
 
@@ -11,10 +11,10 @@ import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeField;
 import de.cas_ual_ty.visibilis.print.IPrintProvider;
 import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.print.gui.UiBase;
-import de.cas_ual_ty.visibilis.print.gui.util.MouseInteractionObject;
-import de.cas_ual_ty.visibilis.print.gui.util.MouseInteractionObject.MouseInteractionType;
-import de.cas_ual_ty.visibilis.print.gui.util.NodeActionWidget;
+import de.cas_ual_ty.visibilis.print.ui.UiBase;
+import de.cas_ual_ty.visibilis.print.ui.util.MouseInteractionObject;
+import de.cas_ual_ty.visibilis.print.ui.util.MouseInteractionObject.MouseInteractionType;
+import de.cas_ual_ty.visibilis.print.ui.util.NodeActionWidget;
 import de.cas_ual_ty.visibilis.util.RenderUtility;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.TextFieldWidget;

@@ -1,6 +1,7 @@
 package de.cas_ual_ty.visibilis.print.gui;
 
 import de.cas_ual_ty.visibilis.print.IPrintProvider;
+import de.cas_ual_ty.visibilis.print.ui.UiBase;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.text.ITextComponent;
 
