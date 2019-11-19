@@ -2,7 +2,7 @@ package de.cas_ual_ty.visibilis.print.impl.item;
 
 import java.util.function.Supplier;
 
-import de.cas_ual_ty.visibilis.print.PrintHelperBase;
+import de.cas_ual_ty.visibilis.util.NBTUtility;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
@@ -45,6 +45,6 @@ public class MessageItem
         
         // TODO validate! fire event?
         
-        PrintHelperBase.recPrintTree(msg.nbt);
+        NBTUtility.printTree(msg.nbt);
     }
 }

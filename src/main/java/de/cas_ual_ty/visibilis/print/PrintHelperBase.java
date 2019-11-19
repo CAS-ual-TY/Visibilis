@@ -7,8 +7,6 @@ import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraftforge.common.util.Constants.NBT;
 
 public abstract class PrintHelperBase implements IPrintProvider
 {
@@ -77,47 +75,5 @@ public abstract class PrintHelperBase implements IPrintProvider
         nbt0.put(Visibilis.MOD_ID, nbt);
         
         this.synchToServer(nbt0);
-    }
-    
-    public static void recPrintTree(CompoundNBT nbt)
-    {
-        PrintHelperBase.recPrintTree(0, nbt);
-    }
-    
-    public static void recPrintTree(int indent, CompoundNBT nbt)
-    {
-        for (String key : nbt.keySet())
-        {
-            Visibilis.debug(PrintHelperBase.indent(indent) + key);
-            
-            if (nbt.get(key) instanceof ListNBT)
-            {
-                PrintHelperBase.recPrintList(indent + 1, nbt.getList(key, NBT.TAG_COMPOUND));
-            }
-            else if (nbt.get(key) instanceof CompoundNBT)
-            {
-                PrintHelperBase.recPrintTree(indent + 1, nbt.getCompound(key));
-            }
-        }
-    }
-    
-    public static void recPrintList(int indent, ListNBT nbt0)
-    {
-        for (int i = 0; i < nbt0.size(); ++i)
-        {
-            PrintHelperBase.recPrintTree(indent + 1, nbt0.getCompound(i));
-        }
-    }
-    
-    public static String indent(int amt)
-    {
-        String s = "";
-        
-        for (; amt > 0; --amt)
-        {
-            s += "  ";
-        }
-        
-        return s;
     }
 }

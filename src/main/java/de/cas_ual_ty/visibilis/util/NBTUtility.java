@@ -11,6 +11,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.IntArrayNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraftforge.common.util.Constants;
+import net.minecraftforge.common.util.Constants.NBT;
 
 public class NBTUtility
 {
@@ -246,5 +247,47 @@ public class NBTUtility
             }
         }
         nbt.put(NBTUtility.KEY_PRINT_CONNECTIONS, new IntArrayNBT(array));
+    }
+    
+    public static void printTree(CompoundNBT nbt)
+    {
+        NBTUtility.recPrintTree(0, nbt);
+    }
+    
+    private static void recPrintTree(int indent, CompoundNBT nbt)
+    {
+        for (String key : nbt.keySet())
+        {
+            Visibilis.debug(NBTUtility.indent(indent) + key);
+            
+            if (nbt.get(key) instanceof ListNBT)
+            {
+                NBTUtility.recPrintList(indent + 1, nbt.getList(key, NBT.TAG_COMPOUND));
+            }
+            else if (nbt.get(key) instanceof CompoundNBT)
+            {
+                NBTUtility.recPrintTree(indent + 1, nbt.getCompound(key));
+            }
+        }
+    }
+    
+    private static void recPrintList(int indent, ListNBT nbt0)
+    {
+        for (int i = 0; i < nbt0.size(); ++i)
+        {
+            NBTUtility.recPrintTree(indent + 1, nbt0.getCompound(i));
+        }
+    }
+    
+    private static String indent(int amt)
+    {
+        String s = "";
+        
+        for (; amt > 0; --amt)
+        {
+            s += "  ";
+        }
+        
+        return s;
     }
 }
