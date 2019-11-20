@@ -1,19 +1,13 @@
 package de.cas_ual_ty.visibilis.node.general;
 
-import java.util.ArrayList;
-
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
-import de.cas_ual_ty.visibilis.node.Node;
-import de.cas_ual_ty.visibilis.node.NodeAction;
+import de.cas_ual_ty.visibilis.node.NodeExpandable;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
-import net.minecraft.nbt.CompoundNBT;
 
-public abstract class NodeNumber2Xto1 extends Node
+public abstract class NodeNumber2Xto1 extends NodeExpandable
 {
-    public static final String KEY_EXPANSION = "expansion_status";
-    
     public final Output<Number> out1;
     
     public int expansion;
@@ -98,88 +92,29 @@ public abstract class NodeNumber2Xto1 extends Node
         return DataType.NUMBER.getTextColor();
     }
     
+    @Override
     public boolean canExpand()
     {
         return true;
     }
     
+    @Override
     public boolean canShrink()
     {
         return this.expansion > 0;
     }
     
+    @Override
     public void expand()
     {
         new Input<Number>(this, DataType.NUMBER, "in");
         ++this.expansion;
     }
     
+    @Override
     public void shrink()
     {
         this.removeInput((Input) this.getInput(this.getInputAmt() - 1));
         --this.expansion;
-    }
-    
-    @Override
-    public ArrayList<NodeAction> getActions()
-    {
-        ArrayList<NodeAction> list = super.getActions();
-        
-        if (this.canExpand())
-        {
-            list.add(this.createActionExpand());
-        }
-        
-        if (this.canShrink())
-        {
-            list.add(this.createActionShrink());
-        }
-        
-        return list;
-    }
-    
-    public NodeAction createActionExpand()
-    {
-        return new NodeAction(this, NodeAction.LANG_EXPAND)
-        {
-            @Override
-            public boolean clicked()
-            {
-                NodeNumber2Xto1.this.expand();
-                return true;
-            }
-        };
-    }
-    
-    public NodeAction createActionShrink()
-    {
-        return new NodeAction(this, NodeAction.LANG_SHRINK)
-        {
-            @Override
-            public boolean clicked()
-            {
-                NodeNumber2Xto1.this.shrink();
-                return true;
-            }
-        };
-    }
-    
-    @Override
-    public void readNodeFromNBT(CompoundNBT nbt)
-    {
-        super.readNodeFromNBT(nbt);
-        int expansion = nbt.getInt(NodeNumber2Xto1.KEY_EXPANSION);
-        
-        for (int i = 0; i < expansion; ++i)
-        {
-            this.expand();
-        }
-    }
-    
-    @Override
-    public void writeNodeToNBT(CompoundNBT nbt)
-    {
-        super.writeNodeToNBT(nbt);
-        nbt.putInt(NodeNumber2Xto1.KEY_EXPANSION, this.expansion);
     }
 }
