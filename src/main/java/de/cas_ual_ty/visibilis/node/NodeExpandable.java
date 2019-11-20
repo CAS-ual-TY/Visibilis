@@ -16,9 +16,24 @@ public abstract class NodeExpandable extends Node
         this.expansion = 0;
     }
     
+    public void actionExpand()
+    {
+        ++this.expansion;
+        this.expand();
+    }
+    
+    public void actionShrink()
+    {
+        --this.expansion;
+        this.shrink();
+    }
+    
     public abstract boolean canExpand();
     
-    public abstract boolean canShrink();
+    public boolean canShrink()
+    {
+        return this.expansion > 0;
+    }
     
     public abstract void expand();
     
@@ -49,7 +64,7 @@ public abstract class NodeExpandable extends Node
             @Override
             public boolean clicked()
             {
-                NodeExpandable.this.expand();
+                NodeExpandable.this.actionExpand();
                 return true;
             }
         };
@@ -62,7 +77,7 @@ public abstract class NodeExpandable extends Node
             @Override
             public boolean clicked()
             {
-                NodeExpandable.this.shrink();
+                NodeExpandable.this.actionShrink();
                 return true;
             }
         };

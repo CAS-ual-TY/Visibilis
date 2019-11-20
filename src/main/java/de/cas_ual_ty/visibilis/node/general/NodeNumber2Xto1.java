@@ -99,22 +99,14 @@ public abstract class NodeNumber2Xto1 extends NodeExpandable
     }
     
     @Override
-    public boolean canShrink()
-    {
-        return this.expansion > 0;
-    }
-    
-    @Override
     public void expand()
     {
         new Input<Number>(this, DataType.NUMBER, "in");
-        ++this.expansion;
     }
     
     @Override
     public void shrink()
     {
         this.removeInput((Input) this.getInput(this.getInputAmt() - 1));
-        --this.expansion;
     }
 }
