@@ -180,4 +180,20 @@
     "field.xor.in1": "A",
     "field.xor.in2": "B",
     "node.xor.groups": "logic_gates;operators"
+
+    "_comment": "--- Exec Nodes ---",
+    "group.exec": "Exec",
+    "group.exec.tags": "order;execution",
+
+    "node.branch": "Branch",
+    "field.branch.out1": "(O) A",
+    "field.branch.out2": "(O) NOT A",
+    "field.branch.in1": "(I)",
+    "field.branch.in2": "A",
+    "node.branch.groups": "exec",
+
+    "node.merge": "Merge",
+    "field.merge.out1": "(O)",
+    "field.merge.in": "I",
+    "node.merge.groups": "exec",
 }
