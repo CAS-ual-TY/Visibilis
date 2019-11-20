@@ -6,7 +6,7 @@ import de.cas_ual_ty.visibilis.node.NodeExec;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 
-public class NodeCondition extends NodeExec
+public class NodeBranch extends NodeExec
 {
     public final Output outExec1;
     public final Output outExec2;
@@ -15,7 +15,7 @@ public class NodeCondition extends NodeExec
     
     public boolean value;
     
-    public NodeCondition(int outputAmt, int inputAmt)
+    public NodeBranch(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
         this.outExec1 = new Output(this, DataType.EXEC, "exec");
@@ -24,12 +24,12 @@ public class NodeCondition extends NodeExec
         this.inBoolean = new Input<>(this, DataType.BOOLEAN, "boolean");
     }
     
-    public NodeCondition(int inputAmt)
+    public NodeBranch(int inputAmt)
     {
         this(2, inputAmt);
     }
     
-    public NodeCondition()
+    public NodeBranch()
     {
         this(2);
     }
@@ -56,6 +56,6 @@ public class NodeCondition extends NodeExec
     @Override
     public String getID()
     {
-        return "condition";
+        return "branch";
     }
 }
