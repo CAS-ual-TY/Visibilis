@@ -2,11 +2,12 @@ package de.cas_ual_ty.visibilis.node.exec;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
-import de.cas_ual_ty.visibilis.node.NodeExec;
+import de.cas_ual_ty.visibilis.node.INodeExec;
+import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 
-public class NodeBranch extends NodeExec
+public class NodeBranch extends Node implements INodeExec
 {
     public final Output outExec1;
     public final Output outExec2;

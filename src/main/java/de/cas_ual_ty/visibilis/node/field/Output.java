@@ -3,8 +3,8 @@ package de.cas_ual_ty.visibilis.node.field;
 import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
+import de.cas_ual_ty.visibilis.node.INodeExec;
 import de.cas_ual_ty.visibilis.node.Node;
-import de.cas_ual_ty.visibilis.node.NodeExec;
 
 public class Output<A> extends NodeField<A>
 {
@@ -45,7 +45,7 @@ public class Output<A> extends NodeField<A>
                 if (this.dataType == DataType.EXEC)
                 {
                     // Just to be sure. This is only false if someone accidentally added an exec node field to a non exec node
-                    if (field.node instanceof NodeExec)
+                    if (field.node instanceof INodeExec)
                     {
                         this.connections.clear();
                         this.connections.add((Input) field);

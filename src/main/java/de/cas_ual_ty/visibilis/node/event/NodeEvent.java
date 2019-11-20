@@ -2,11 +2,12 @@ package de.cas_ual_ty.visibilis.node.event;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
-import de.cas_ual_ty.visibilis.node.NodeExec;
+import de.cas_ual_ty.visibilis.node.INodeExec;
+import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import net.minecraft.nbt.CompoundNBT;
 
-public class NodeEvent extends NodeExec
+public class NodeEvent extends Node implements INodeExec
 {
     // NBT Keys
     public static final String KEY_EVENT_TYPE = "eventType";

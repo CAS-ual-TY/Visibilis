@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
+import de.cas_ual_ty.visibilis.node.INodeExec;
 import de.cas_ual_ty.visibilis.node.Node;
-import de.cas_ual_ty.visibilis.node.NodeExec;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
@@ -157,7 +157,7 @@ public class Print
      *            The node to start the exec chain from.
      * @return <b>true</b> if the given parameter exec node and all child exec nodes could be calculated successfully.
      */
-    public boolean execute(NodeExec node, ExecProvider provider)
+    public boolean execute(INodeExec node, ExecProvider provider)
     {
         boolean ret = this.exec(node, provider);
         
@@ -176,17 +176,17 @@ public class Print
      *            The node to start the exec chain from.
      * @return <b>true</b> if the given parameter exec node and all child exec nodes could be calculated successfully.
      */
-    protected boolean exec(NodeExec node, ExecProvider provider)
+    protected boolean exec(INodeExec node, ExecProvider provider)
     {
         // If the node can not be calculated, abort
-        if (!node.calculate(provider))
+        if (!node.toNode().calculate(provider))
         {
             return false;
         }
         
         Output out;
         Input in;
-        NodeExec next;
+        INodeExec next;
         int i = 0;
         
         /*
@@ -202,7 +202,7 @@ public class Print
             if (in != null)
             {
                 // Get the node of the input
-                next = (NodeExec) in.node;
+                next = (INodeExec) in.node;
                 
                 if (next != null)
                 {
