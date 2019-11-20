@@ -32,7 +32,7 @@ public class NodeMerge extends NodeExpandable implements INodeExec
     @Override
     public Output getOutExec(int index)
     {
-        return this.outExec1;
+        return index == 0 ? this.outExec1 : null;
     }
     
     @Override
