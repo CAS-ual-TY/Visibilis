@@ -19,10 +19,10 @@ public class NodeBranch extends Node implements INodeExec
     public NodeBranch(int outputAmt, int inputAmt)
     {
         super(outputAmt, inputAmt);
-        this.outExec1 = new Output(this, DataType.EXEC, "exec");
-        this.outExec2 = new Output(this, DataType.EXEC, "exec");
-        this.inExec = new Input(this, DataType.EXEC, "exec");
-        this.inBoolean = new Input<>(this, DataType.BOOLEAN, "boolean");
+        this.outExec1 = new Output(this, DataType.EXEC, "out1");
+        this.outExec2 = new Output(this, DataType.EXEC, "out2");
+        this.inExec = new Input(this, DataType.EXEC, "in1");
+        this.inBoolean = new Input<>(this, DataType.BOOLEAN, "in2");
     }
     
     public NodeBranch(int inputAmt)
