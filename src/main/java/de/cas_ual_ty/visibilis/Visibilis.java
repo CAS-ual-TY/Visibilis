@@ -18,6 +18,7 @@ import de.cas_ual_ty.visibilis.node.constant.NodePi;
 import de.cas_ual_ty.visibilis.node.constant.NodeSQRT2;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
 import de.cas_ual_ty.visibilis.node.exec.NodeBranch;
+import de.cas_ual_ty.visibilis.node.exec.NodeMerge;
 import de.cas_ual_ty.visibilis.node.function.NodeCosines;
 import de.cas_ual_ty.visibilis.node.function.NodeRound;
 import de.cas_ual_ty.visibilis.node.function.NodeRoundDown;
@@ -131,6 +132,7 @@ public class Visibilis
         VRegistry.INSTANCE.registerNode(NodeXOR.class, Visibilis.MOD_ID, "xor");
         
         VRegistry.INSTANCE.registerNode(NodeBranch.class, Visibilis.MOD_ID, "branch");
+        VRegistry.INSTANCE.registerNode(NodeMerge.class, Visibilis.MOD_ID, "merge");
     }
     
     // TODO low: Some nice logging here please
