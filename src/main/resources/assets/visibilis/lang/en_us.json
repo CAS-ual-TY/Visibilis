@@ -204,4 +204,11 @@
     "field.for.in1": "I",
     "field.for.in2": "Length",
     "node.for.groups": "exec",
+
+    "node.while": "While Loop",
+    "field.while.out1": "(O): A",
+    "field.while.out2": "(O): NOT A",
+    "field.while.in1": "I",
+    "field.while.in2": "A",
+    "node.while.groups": "exec",
 }

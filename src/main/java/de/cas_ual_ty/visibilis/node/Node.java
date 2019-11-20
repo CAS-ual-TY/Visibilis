@@ -504,4 +504,23 @@ public abstract class Node
     {
         return new ArrayList<NodeAction>();
     }
+    
+    public void triggerRecalculation(Input input)
+    {
+        if (input.hasConnections())
+        {
+            this.triggerRecalculation(input.getConnection().node);
+        }
+    }
+    
+    public void triggerRecalculation(Node node)
+    {
+        if (node != null)
+        {
+            for (int i = 0; i < node.getInputAmt(); ++i)
+            {
+                this.triggerRecalculation(node.getInput(i));
+            }
+        }
+    }
 }

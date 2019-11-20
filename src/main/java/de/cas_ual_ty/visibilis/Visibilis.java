@@ -20,6 +20,7 @@ import de.cas_ual_ty.visibilis.node.event.NodeEvent;
 import de.cas_ual_ty.visibilis.node.exec.NodeBranch;
 import de.cas_ual_ty.visibilis.node.exec.NodeFor;
 import de.cas_ual_ty.visibilis.node.exec.NodeMerge;
+import de.cas_ual_ty.visibilis.node.exec.NodeWhile;
 import de.cas_ual_ty.visibilis.node.function.NodeCosines;
 import de.cas_ual_ty.visibilis.node.function.NodeRound;
 import de.cas_ual_ty.visibilis.node.function.NodeRoundDown;
@@ -135,6 +136,7 @@ public class Visibilis
         VRegistry.INSTANCE.registerNode(NodeBranch.class, Visibilis.MOD_ID, "branch");
         VRegistry.INSTANCE.registerNode(NodeMerge.class, Visibilis.MOD_ID, "merge");
         VRegistry.INSTANCE.registerNode(NodeFor.class, Visibilis.MOD_ID, "for");
+        VRegistry.INSTANCE.registerNode(NodeWhile.class, Visibilis.MOD_ID, "while");
     }
     
     // TODO low: Some nice logging here please
