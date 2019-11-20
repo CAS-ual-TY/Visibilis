@@ -196,4 +196,12 @@
     "field.merge.out1": "(O)",
     "field.merge.in": "I",
     "node.merge.groups": "exec",
+
+    "node.for": "For Loop",
+    "field.for.out1": "(O): Index < Length",
+    "field.for.out2": "Index",
+    "field.for.out3": "(O): Index == Length",
+    "field.for.in1": "I",
+    "field.for.in2": "Length",
+    "node.for.groups": "exec",
 }
