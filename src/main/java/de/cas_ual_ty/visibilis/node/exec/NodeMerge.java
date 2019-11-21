@@ -11,7 +11,7 @@ public class NodeMerge extends NodeExpandable implements INodeExec
 {
     public final Output outExec1;
     
-    public NodeMerge(int outputAmt, int inputAmt)
+    public NodeMerge()
     {
         super();
         this.outExec1 = new Output(this, DataType.EXEC, "out1");
