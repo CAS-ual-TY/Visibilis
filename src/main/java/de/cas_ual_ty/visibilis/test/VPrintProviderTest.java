@@ -20,6 +20,10 @@ import de.cas_ual_ty.visibilis.node.constant.NodeE;
 import de.cas_ual_ty.visibilis.node.constant.NodePi;
 import de.cas_ual_ty.visibilis.node.constant.NodeSQRT2;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
+import de.cas_ual_ty.visibilis.node.exec.NodeBranch;
+import de.cas_ual_ty.visibilis.node.exec.NodeFor;
+import de.cas_ual_ty.visibilis.node.exec.NodeMerge;
+import de.cas_ual_ty.visibilis.node.exec.NodeWhile;
 import de.cas_ual_ty.visibilis.node.function.NodeCosines;
 import de.cas_ual_ty.visibilis.node.function.NodeRound;
 import de.cas_ual_ty.visibilis.node.function.NodeRoundDown;
@@ -90,6 +94,11 @@ public class VPrintProviderTest extends PrintProviderItem
         list.add(new NodeOR());
         list.add(new NodeXNOR());
         list.add(new NodeXOR());
+        
+        list.add(new NodeBranch());
+        list.add(new NodeMerge());
+        list.add(new NodeFor());
+        list.add(new NodeWhile());
         
         return list;
     }
