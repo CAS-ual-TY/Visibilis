@@ -18,24 +18,14 @@ public class NodeFor extends Node implements INodeExec
     public int length;
     public int value;
     
-    public NodeFor(int outputAmt, int inputAmt)
+    public NodeFor()
     {
-        super(outputAmt, inputAmt);
+        super();
         this.outExec1 = new Output(this, DataType.EXEC, "out1");
         this.outIndex2 = new Output(this, DataType.INTEGER, "out2");
         this.outExec3 = new Output(this, DataType.EXEC, "out3");
         this.inExec = new Input(this, DataType.EXEC, "in1");
         this.inLength = new Input<>(this, DataType.INTEGER, "in2");
-    }
-    
-    public NodeFor(int inputAmt)
-    {
-        this(2, inputAmt);
-    }
-    
-    public NodeFor()
-    {
-        this(2);
     }
     
     @Override

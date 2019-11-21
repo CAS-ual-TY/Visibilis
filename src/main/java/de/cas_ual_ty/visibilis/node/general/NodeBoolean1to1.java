@@ -13,16 +13,11 @@ public abstract class NodeBoolean1to1 extends Node
     
     public boolean value;
     
-    public NodeBoolean1to1(int outputAmt, int inputAmt)
-    {
-        super(outputAmt, inputAmt);
-        this.out1 = new Output<>(this, DataType.BOOLEAN, "out1");
-        this.in1 = new Input<>(this, DataType.BOOLEAN, "in1");
-    }
-    
     public NodeBoolean1to1()
     {
-        this(1, 1);
+        super();
+        this.out1 = new Output<>(this, DataType.BOOLEAN, "out1");
+        this.in1 = new Input<>(this, DataType.BOOLEAN, "in1");
     }
     
     @Override

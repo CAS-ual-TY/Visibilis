@@ -17,24 +17,14 @@ public class NodeWhile extends Node implements INodeExec
     public boolean condition;
     public boolean exec2;
     
-    public NodeWhile(int outputAmt, int inputAmt)
+    public NodeWhile()
     {
-        super(outputAmt, inputAmt);
+        super();
         this.outExec1 = new Output(this, DataType.EXEC, "out1");
         this.outExec2 = new Output(this, DataType.EXEC, "out3");
         this.inExec = new Input(this, DataType.EXEC, "in1");
         this.inCondition = new Input<>(this, DataType.BOOLEAN, "in2");
         this.exec2 = false;
-    }
-    
-    public NodeWhile(int inputAmt)
-    {
-        this(2, inputAmt);
-    }
-    
-    public NodeWhile()
-    {
-        this(2);
     }
     
     @Override

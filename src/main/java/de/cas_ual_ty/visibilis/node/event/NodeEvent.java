@@ -19,27 +19,17 @@ public class NodeEvent extends Node implements INodeExec
      */
     public String eventType;
     
-    public NodeEvent(int outputAmt)
+    public NodeEvent()
     {
-        super(outputAmt, 0);
+        super();
         this.outExec = new Output(this, DataType.EXEC, "exec");
         this.eventType = null; // Just to make sure it is initialized
     }
     
-    public NodeEvent()
-    {
-        this(1);
-    }
-    
-    public NodeEvent(int outputAmt, String modId, String eventType)
-    {
-        this(outputAmt);
-        this.eventType = modId + ":" + eventType;
-    }
-    
     public NodeEvent(String modId, String eventType)
     {
-        this(1, modId, eventType);
+        this();
+        this.eventType = modId + ":" + eventType;
     }
     
     @Override

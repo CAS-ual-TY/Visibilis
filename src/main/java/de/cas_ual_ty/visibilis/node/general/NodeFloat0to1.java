@@ -11,15 +11,10 @@ public abstract class NodeFloat0to1 extends Node
     
     public float value;
     
-    public NodeFloat0to1(int outputAmt, int inputAmt)
-    {
-        super(outputAmt, inputAmt);
-        this.out1 = new Output<>(this, DataType.FLOAT, "out1");
-    }
-    
     public NodeFloat0to1()
     {
-        this(1, 0);
+        super();
+        this.out1 = new Output<>(this, DataType.FLOAT, "out1");
     }
     
     @Override

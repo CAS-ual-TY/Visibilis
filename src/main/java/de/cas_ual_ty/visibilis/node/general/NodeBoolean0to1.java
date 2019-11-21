@@ -11,15 +11,10 @@ public abstract class NodeBoolean0to1 extends Node
     
     public boolean value;
     
-    public NodeBoolean0to1(int outputAmt, int inputAmt)
-    {
-        super(outputAmt, inputAmt);
-        this.out1 = new Output<>(this, DataType.BOOLEAN, "out1");
-    }
-    
     public NodeBoolean0to1()
     {
-        this(1, 0);
+        super();
+        this.out1 = new Output<>(this, DataType.BOOLEAN, "out1");
     }
     
     @Override

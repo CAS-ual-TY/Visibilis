@@ -10,9 +10,9 @@ public abstract class NodeExpandable extends Node
     
     public int expansion;
     
-    public NodeExpandable(int outputAmt, int inputAmt)
+    public NodeExpandable()
     {
-        super(outputAmt, inputAmt);
+        super();
         this.expansion = 0;
     }
     

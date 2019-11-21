@@ -14,22 +14,12 @@ public abstract class Selektor extends Node
     
     public final TargetsList targetsList;
     
-    public Selektor(int outputAmt, int inputAmt)
+    public Selektor()
     {
-        super(outputAmt, inputAmt);
+        super();
         this.outExec = new Output(this, DataType.EXEC, "exec");
         this.outTargetsList = new Output<>(this, MMDataType.TARGETS_LIST, "targets_list");
         this.targetsList = new TargetsList();
-    }
-    
-    public Selektor(int outputAmt)
-    {
-        this(outputAmt, 0);
-    }
-    
-    public Selektor()
-    {
-        this(1);
     }
     
     @Override

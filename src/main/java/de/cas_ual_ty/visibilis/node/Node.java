@@ -30,7 +30,7 @@ public abstract class Node
     protected ArrayList<Output> outputFields;
     protected ArrayList<Input> inputFields;
     
-    public Node(int outputAmt, int inputAmt)
+    public Node()
     {
         this.outputFields = new ArrayList<>();
         this.inputFields = new ArrayList<>();

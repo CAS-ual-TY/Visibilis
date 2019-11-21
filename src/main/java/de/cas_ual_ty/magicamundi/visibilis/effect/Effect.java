@@ -15,22 +15,12 @@ public abstract class Effect extends Node implements INodeExec
     public final Input inExec;
     public final Input<TargetsList> inTargetsList;
     
-    public Effect(int outputAmt, int inputAmt)
+    public Effect()
     {
-        super(outputAmt, inputAmt);
+        super();
         this.outExec = new Output(this, DataType.EXEC, "exec");
         this.inExec = new Input(this, DataType.EXEC, "exec");
         this.inTargetsList = new Input<>(this, MMDataType.TARGETS_LIST, "targets_list");
-    }
-    
-    public Effect(int inputAmt)
-    {
-        this(1, inputAmt);
-    }
-    
-    public Effect()
-    {
-        this(2);
     }
     
     @Override

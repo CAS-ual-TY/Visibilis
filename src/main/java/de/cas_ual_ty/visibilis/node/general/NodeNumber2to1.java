@@ -14,17 +14,12 @@ public abstract class NodeNumber2to1 extends Node
     
     public Number value;
     
-    public NodeNumber2to1(int outputAmt, int inputAmt)
+    public NodeNumber2to1()
     {
-        super(outputAmt, inputAmt);
+        super();
         this.out1 = new Output<>(this, DataType.NUMBER, "out1");
         this.in1 = new Input<>(this, DataType.NUMBER, "in1");
         this.in2 = new Input<>(this, DataType.NUMBER, "in2");
-    }
-    
-    public NodeNumber2to1()
-    {
-        this(1, 2);
     }
     
     @Override

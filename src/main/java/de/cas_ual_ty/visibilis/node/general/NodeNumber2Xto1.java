@@ -13,19 +13,14 @@ public abstract class NodeNumber2Xto1 extends NodeExpandable
     public int expansion;
     public Number value;
     
-    public NodeNumber2Xto1(int outputAmt, int inputAmt)
+    public NodeNumber2Xto1()
     {
-        super(outputAmt, inputAmt);
+        super();
         this.out1 = new Output<>(this, DataType.NUMBER, "out1");
         new Input<Number>(this, DataType.NUMBER, "in");
         new Input<Number>(this, DataType.NUMBER, "in");
         
         this.expansion = 0;
-    }
-    
-    public NodeNumber2Xto1()
-    {
-        this(1, 2);
     }
     
     @Override

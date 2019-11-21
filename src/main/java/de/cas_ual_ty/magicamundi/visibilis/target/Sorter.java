@@ -19,25 +19,15 @@ public abstract class Sorter extends Node implements INodeExec
     public TargetsList targetsList1;
     public final TargetsList targetsList2;
     
-    public Sorter(int outputAmt, int inputAmt)
+    public Sorter()
     {
-        super(outputAmt, inputAmt);
+        super();
         this.outExec = new Output(this, DataType.EXEC, "exec");
         this.outTargetsList1 = new Output<>(this, MMDataType.TARGETS_LIST, "targets_list");
         this.outTargetsList2 = new Output<>(this, MMDataType.TARGETS_LIST, "targets_list");
         this.inExec = new Input(this, DataType.EXEC, "exec");
         this.inTargetsList = new Input<>(this, MMDataType.TARGETS_LIST, "targets_list");
         this.targetsList2 = new TargetsList();
-    }
-    
-    public Sorter(int inputAmt)
-    {
-        this(3, inputAmt);
-    }
-    
-    public Sorter()
-    {
-        this(2);
     }
     
     @Override
