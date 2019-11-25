@@ -179,7 +179,7 @@
     "field.xor.out1": "A XOR B",
     "field.xor.in1": "A",
     "field.xor.in2": "B",
-    "node.xor.groups": "logic_gates;operators"
+    "node.xor.groups": "logic_gates;operators",
 
     "_comment": "--- Exec Nodes ---",
     "group.exec": "Exec",
@@ -210,5 +210,5 @@
     "field.while.out2": "(O): NOT A",
     "field.while.in1": "I",
     "field.while.in2": "A",
-    "node.while.groups": "exec",
+    "node.while.groups": "exec"
 }
