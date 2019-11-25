@@ -25,6 +25,9 @@ public abstract class Node
     public static final String KEY_DATA_OUT = "data_out_";
     public static final String KEY_DATA_IN = "data_in_";
     
+    public static final float[] COLOR_DEFAULT = new float[] { 0.5F, 0.5F, 0.5F };
+    public static final float[] COLOR_TEXT_DEFAULT = new float[] { 1F, 1F, 1F };
+    
     public int posX, posY;
     
     protected ArrayList<Output> outputFields;
@@ -371,7 +374,7 @@ public abstract class Node
      */
     public float[] getColor()
     {
-        return new float[] { 0.5F, 0.5F, 0.5F };
+        return this instanceof INodeExec ? INodeExec.getColor() : COLOR_DEFAULT;
     }
     
     /**
@@ -379,7 +382,7 @@ public abstract class Node
      */
     public float[] getTextColor()
     {
-        return new float[] { 1F, 1F, 1F };
+        return this instanceof INodeExec ? INodeExec.getTextColor() : COLOR_TEXT_DEFAULT;
     }
     
     /**

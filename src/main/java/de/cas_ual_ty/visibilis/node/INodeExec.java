@@ -19,18 +19,18 @@ public interface INodeExec
     @Nullable
     public Output getOutExec(int index);
     
-    public default float[] getColor()
+    public default Node toNode()
+    {
+        return (Node) this;
+    }
+    
+    public static float[] getColor()
     {
         return DataType.EXEC.getColor();
     }
     
-    public default float[] getTextColor()
+    public static float[] getTextColor()
     {
         return DataType.EXEC.getTextColor();
-    }
-    
-    public default Node toNode()
-    {
-        return (Node) this;
     }
 }
