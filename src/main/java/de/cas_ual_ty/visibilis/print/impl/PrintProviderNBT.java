@@ -62,8 +62,7 @@ public abstract class PrintProviderNBT extends PrintProvider
             print = NBTUtility.loadPrintFromNBT(nbt);
         }
         
-        this.undoList.add(print);
-        this.saveChange();
+        this.undoList.setFirst(print);
     }
     
     public void writeToNBT(CompoundNBT nbt0)

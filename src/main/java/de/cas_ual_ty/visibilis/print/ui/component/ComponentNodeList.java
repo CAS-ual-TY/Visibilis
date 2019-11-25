@@ -165,8 +165,8 @@ public class ComponentNodeList extends Component
         {
             if (this.hoverObj.type == EnumMouseInteractionType.NODE)
             {
-                this.getPrint().addNode(this.hoverObj.node.setPosition(-this.getPrint().posX, -this.getPrint().posY));
                 this.getProvider().saveChange(); // TODO Make new node be put in the middle, instead of top left (top left is under the header)
+                this.getPrint().addNode(this.hoverObj.node.setPosition(-this.getPrint().posX, -this.getPrint().posY));
             }
             
             // If you had the text field selected and click on it again, dont deselect it

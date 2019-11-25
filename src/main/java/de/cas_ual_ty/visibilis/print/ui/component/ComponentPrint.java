@@ -157,9 +157,9 @@ public class ComponentPrint extends Component
         {
             if (keyCode == GLFW.GLFW_KEY_ENTER)
             {
+                this.getProvider().saveChange();
                 // Return clicked, unfocus and apply test
                 this.setUnfocusTextField(this.clickedObj.input);
-                this.getProvider().saveChange();
                 return true;
             }
             else
@@ -182,9 +182,9 @@ public class ComponentPrint extends Component
             {
                 if (this.rightClickMenu != null)
                 {
+                    this.getProvider().saveChange();
                     this.rightClickMenu.mouseClicked(mouseX, mouseY, modifiers);
                     this.rightClickMenu = null;
-                    this.getProvider().saveChange();
                 }
                 else if (this.clickedObj.isNothing())
                 {
@@ -193,6 +193,7 @@ public class ComponentPrint extends Component
                     // User clicked on the header. This might be initiation of a click move.
                     if (this.hoverObj.type == EnumMouseInteractionType.NODE_HEADER)
                     {
+                        this.getProvider().saveChange();
                         // Save off set of the mouse and the top left corner of the header (= the print position)
                         this.tmpOffX = this.mouseXToPrintRounded(mouseX) - this.hoverObj.node.posX;// - this.getPrint().posX;
                         this.tmpOffY = this.mouseYToPrintRounded(mouseY) - this.hoverObj.node.posY;// - this.getPrint().posY;
@@ -210,9 +211,9 @@ public class ComponentPrint extends Component
                         
                         if (this.hoverObj.input.hasConnections())
                         {
+                            this.getProvider().saveChange();
                             // Cut all connections
                             this.hoverObj.input.cutConnections();
-                            this.getProvider().saveChange();
                         }
                         
                         if (this.hoverObj.input.hasDisplayValue())
@@ -247,8 +248,8 @@ public class ComponentPrint extends Component
                     {
                         if (NodeField.canConnect(this.clickedObj.nodeField, this.hoverObj.nodeField))
                         {
-                            NodeField.connect(this.clickedObj.nodeField, this.hoverObj.nodeField);
                             this.getProvider().saveChange();
+                            NodeField.connect(this.clickedObj.nodeField, this.hoverObj.nodeField);
                             return true;
                         }
                     }
@@ -264,16 +265,16 @@ public class ComponentPrint extends Component
                         // You clicked on something different => deselect input
                         else
                         {
-                            this.setUnfocusTextField(this.clickedObj.input);
                             this.getProvider().saveChange();
+                            this.setUnfocusTextField(this.clickedObj.input);
                         }
                     }
                     // Enum input was selected before, hoverObj CAN ONLY be one of the enum values (or nothing).
                     // If it is not nothing, set the enum value
                     else if (this.clickedObj.type == EnumMouseInteractionType.INPUT_ENUM && this.hoverObj.type == EnumMouseInteractionType.INPUT_ENUM_ID)
                     {
-                        this.clickedObj.input.setValue(((DataTypeEnum) this.clickedObj.input.dataType).getEnum(this.hoverObj.inputEnumId));
                         this.getProvider().saveChange();
+                        this.clickedObj.input.setValue(((DataTypeEnum) this.clickedObj.input.dataType).getEnum(this.hoverObj.inputEnumId));
                     }
                     
                     // Deselect whatever you had selected before (a premature return statement stops this from happening)
@@ -315,7 +316,6 @@ public class ComponentPrint extends Component
         if (this.clickedObj.type == EnumMouseInteractionType.NODE_HEADER)
         {
             this.clickedObj.nothing();
-            this.getProvider().saveChange();
             return true;
         }
         
@@ -329,9 +329,9 @@ public class ComponentPrint extends Component
         {
             if (keyCode == GLFW.GLFW_KEY_ENTER)
             {
+                this.getProvider().saveChange();
                 // Return clicked, unfocus and apply test
                 this.setUnfocusTextField(this.clickedObj.input);
-                this.getProvider().saveChange();
                 return true;
             }
             else
@@ -356,9 +356,9 @@ public class ComponentPrint extends Component
         {
             if (keyCode == GLFW.GLFW_KEY_ENTER)
             {
+                this.getProvider().saveChange();
                 // Return clicked, unfocus and apply test
                 this.setUnfocusTextField(this.clickedObj.input);
-                this.getProvider().saveChange();
                 return true;
             }
             else
