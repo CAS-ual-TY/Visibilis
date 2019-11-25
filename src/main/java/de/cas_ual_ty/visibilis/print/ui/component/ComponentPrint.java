@@ -577,15 +577,7 @@ public class ComponentPrint extends Component
     {
         if (node == this.hoverObj.node)
         {
-            if (this.hoverObj.type == EnumMouseInteractionType.NODE_ACTION_EXPAND)
-            {
-                this.getUtil().drawExpansionHover(node, x, y);
-            }
-            else if (this.hoverObj.type == EnumMouseInteractionType.NODE_ACTION_SHRINK)
-            {
-                this.getUtil().drawShrinkHover(node, x, y);
-            }
-            else if (this.hoverObj.type == EnumMouseInteractionType.NODE_HEADER)
+            if (this.hoverObj.type == EnumMouseInteractionType.NODE_HEADER)
             {
                 this.getUtil().drawNodeHover(node, x, y);
             }

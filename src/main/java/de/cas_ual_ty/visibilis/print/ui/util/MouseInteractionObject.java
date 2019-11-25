@@ -114,20 +114,6 @@ public class MouseInteractionObject
         this.type = EnumMouseInteractionType.INPUT;
     }
     
-    public void nodeActionExpand(Node node)
-    {
-        this.reset();
-        this.node = node;
-        this.type = EnumMouseInteractionType.NODE_ACTION_EXPAND;
-    }
-    
-    public void nodeActionShrink(Node node)
-    {
-        this.reset();
-        this.node = node;
-        this.type = EnumMouseInteractionType.NODE_ACTION_SHRINK;
-    }
-    
     public void textField(TextFieldWidget textField)
     {
         this.reset();
@@ -165,6 +151,6 @@ public class MouseInteractionObject
     
     public static enum EnumMouseInteractionType
     {
-        NOTHING, NODE, NODE_HEADER, INPUT, OUTPUT, NODE_ACTION_EXPAND, NODE_ACTION_SHRINK, TEXT_FIELD, INPUT_ENUM, INPUT_DYNAMIC, INPUT_ENUM_ID
+        NOTHING, NODE, NODE_HEADER, INPUT, OUTPUT, TEXT_FIELD, INPUT_ENUM, INPUT_DYNAMIC, INPUT_ENUM_ID
     }
 }
