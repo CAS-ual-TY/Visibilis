@@ -374,7 +374,7 @@ public abstract class Node
      */
     public float[] getColor()
     {
-        return this instanceof INodeExec ? INodeExec.getColor() : COLOR_DEFAULT;
+        return this instanceof INodeExec ? INodeExec.getColor() : Node.COLOR_DEFAULT;
     }
     
     /**
@@ -382,7 +382,7 @@ public abstract class Node
      */
     public float[] getTextColor()
     {
-        return this instanceof INodeExec ? INodeExec.getTextColor() : COLOR_TEXT_DEFAULT;
+        return this instanceof INodeExec ? INodeExec.getTextColor() : Node.COLOR_TEXT_DEFAULT;
     }
     
     /**
