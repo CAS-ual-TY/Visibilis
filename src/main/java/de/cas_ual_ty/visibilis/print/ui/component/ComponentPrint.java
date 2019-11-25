@@ -273,7 +273,6 @@ public class ComponentPrint extends Component
                     {
                         this.clickedObj.input.setValue(((DataTypeEnum) this.clickedObj.input.dataType).getEnum(this.hoverObj.inputEnumId));
                         this.getProvider().saveChange();
-                        return true;
                     }
                     
                     // Deselect whatever you had selected before (a premature return statement stops this from happening)
@@ -422,7 +421,7 @@ public class ComponentPrint extends Component
         Node node;
         float x, y, w, h; // Rect of node
         
-        w = this.getUtil().nodeWidth;
+        w = this.getUtil().inputValueWidth;
         
         //Check if it is left of the node, over possible input enums
         //But these options only appear if a node field was already clicked
@@ -432,8 +431,8 @@ public class ComponentPrint extends Component
             
             if (this.clickedObj.input.dataType instanceof DataTypeEnum)
             {
-                x = this.getAbsNodePosX(node) - w;
-                y = this.getAbsNodePosY(node);
+                x = node.posX - w;
+                y = node.posY;
                 h = this.getUtil().getNodeTotalHeight(node);
                 
                 DataTypeEnum dt = (DataTypeEnum) this.clickedObj.input.dataType;
@@ -465,6 +464,7 @@ public class ComponentPrint extends Component
             // This makes the code more extendable as you can now have more possible interactions by only overriding isHoverViable()
         }
         
+        w = this.getUtil().nodeWidth;
         float h2; // Header height
         
         // Loop from back to front, as those are on top
