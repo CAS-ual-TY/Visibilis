@@ -184,6 +184,7 @@ public class ComponentPrint extends Component
                 {
                     this.rightClickMenu.mouseClicked(mouseX, mouseY, modifiers);
                     this.rightClickMenu = null;
+                    this.getProvider().saveChange();
                 }
                 else if (this.clickedObj.isNothing())
                 {

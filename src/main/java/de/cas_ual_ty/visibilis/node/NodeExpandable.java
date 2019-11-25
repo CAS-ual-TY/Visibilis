@@ -91,7 +91,7 @@ public abstract class NodeExpandable extends Node
         
         for (int i = 0; i < expansion; ++i)
         {
-            this.expand();
+            this.actionExpand();
         }
     }
     
