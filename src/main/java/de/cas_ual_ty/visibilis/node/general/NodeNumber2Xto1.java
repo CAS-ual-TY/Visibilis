@@ -88,12 +88,6 @@ public abstract class NodeNumber2Xto1 extends NodeExpandable
     }
     
     @Override
-    public boolean canExpand()
-    {
-        return true;
-    }
-    
-    @Override
     public void expand()
     {
         new Input<Number>(this, DataType.NUMBER, "in");

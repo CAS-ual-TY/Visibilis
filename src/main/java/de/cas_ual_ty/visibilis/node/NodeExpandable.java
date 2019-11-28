@@ -28,7 +28,10 @@ public abstract class NodeExpandable extends Node
         this.shrink();
     }
     
-    public abstract boolean canExpand();
+    public boolean canExpand()
+    {
+        return true;
+    }
     
     public boolean canShrink()
     {
