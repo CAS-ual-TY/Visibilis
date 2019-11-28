@@ -18,6 +18,12 @@ public class NodeAddition extends NodeNumber2Xto1
     }
     
     @Override
+    protected Number calculate(Number in1, Number in2)
+    {
+        return in1.floatValue() + in2.floatValue();
+    }
+    
+    @Override
     public String getID()
     {
         return "addition";

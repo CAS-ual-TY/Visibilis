@@ -2,16 +2,17 @@ package de.cas_ual_ty.visibilis.node.general;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
-import de.cas_ual_ty.visibilis.node.NodeExpandable;
+import de.cas_ual_ty.visibilis.node.NodeParallelizable;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 
-public abstract class NodeNumber2Xto1 extends NodeExpandable
+public abstract class NodeNumber2Xto1 extends NodeParallelizable
 {
     public final Output<Number> out1;
     
     public int expansion;
     public Number value;
+    public Number[] values;
     
     public NodeNumber2Xto1()
     {
@@ -33,18 +34,38 @@ public abstract class NodeNumber2Xto1 extends NodeExpandable
             inputs[i] = (Number) this.getInput(i).getValue();
         }
         
-        if (!this.canCalculate(inputs))
+        if(!this.parallelized)
         {
-            return false;
+            if (!this.canCalculate(inputs))
+            {
+                return false;
+            }
+            
+            this.value = this.calculate(inputs);
         }
-        
-        this.value = this.calculate(inputs);
+        else
+        {
+            Number n = inputs[this.getOutputAmt()];
+            this.values = new Number[this.getOutputAmt()];
+            
+            for(int i = 0; i < this.getOutputAmt(); ++i)
+            {
+                if(!this.canCalculate(inputs[i], n))
+                {
+                    return false;
+                }
+                else
+                {
+                    this.values[i] = this.calculate(inputs[i], n);
+                }
+            }
+        }
         
         return true;
     }
     
     /**
-     * Can this node calculate or are there going to be errors (example: 1 / 0)?
+     * Can this node calculate in unparallelized status or are there going to be errors (example: 1 / 0)?
      * 
      * @param inputs
      *            All inputs
@@ -56,13 +77,34 @@ public abstract class NodeNumber2Xto1 extends NodeExpandable
     }
     
     /**
-     * Calculate the result using the 2 input numbers.
+     * Can this node calculate in parallelized status or are there going to be errors (example: 1 / 0)?
+     * 
+     * @param in1 The parallel number.
+     * @param in2 The number to calculate with.
+     * @return <b>true</b> if this node can calculate.
+     */
+    protected boolean canCalculate(Number in1, Number in2)
+    {
+        return true;
+    }
+    
+    /**
+     * Calculate the result using the input numbers when in unparallelized status.
      * 
      * @param inputs
      *            All inputs
      * @return The result.
      */
     protected abstract Number calculate(Number[] inputs);
+    
+    /**
+     * Calculate the result using the input numbers when in parallelized status.
+     * 
+     * @param in1 The parallel number.
+     * @param in2 The number to calculate with.
+     * @return The result.
+     */
+    protected abstract Number calculate(Number in1, Number in2);
     
     @Override
     public <B> B getOutputValue(int index)
@@ -91,11 +133,39 @@ public abstract class NodeNumber2Xto1 extends NodeExpandable
     public void expand()
     {
         new Input<Number>(this, DataType.NUMBER, "in");
+        
+        if(this.parallelized)
+        {
+            new Output<Number>(this, DataType.NUMBER, "out");
+        }
     }
     
     @Override
     public void shrink()
     {
         this.removeInput((Input) this.getInput(this.getInputAmt() - 1));
+        
+        if(this.parallelized)
+        {
+            this.removeOutput(this.getOutput(this.getOutputAmt() - 1));
+        }
+    }
+    
+    @Override
+    public void parallelize()
+    {
+        for(int i = this.getOutputAmt(); i < this.getInputAmt(); ++i)
+        {
+            new Output<Number>(this, DataType.NUMBER, "out");
+        }
+    }
+    
+    @Override
+    public void unparallelize()
+    {
+        for(int i = this.getOutputAmt() - 1; i > 0; --i)
+        {
+            this.removeOutput(this.getOutput(i));
+        }
     }
 }
