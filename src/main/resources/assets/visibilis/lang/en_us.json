@@ -12,6 +12,8 @@
     "visibilis.action.delete": "Delete",
     "visibilis.action.expand": "Expand",
     "visibilis.action.shrink": "Shrink",
+    "visibilis.action.parallelize": "Parallelize",
+    "visibilis.action.unparallelize": "De-Parallelize",
 
     "_comment": "--- Base Groups ---",
     "group.operators": "Operators",
@@ -23,7 +25,7 @@
 
     "node.addition": "Addition",
     "field.addition.out1": "Sum",
-    "field.addition.in": "Summand",
+    "field.addition.in1": "Summand",
     "node.addition.groups": "calculation;operators",
 
     "node.subtraction": "Subtraction",
@@ -34,7 +36,7 @@
 
     "node.multiplication": "Multiplication",
     "field.multiplication.out1": "Product",
-    "field.multiplication.in": "Factor",
+    "field.multiplication.in1": "Factor",
     "node.multiplication.groups": "calculation;operators",
 
     "node.division": "Division",
@@ -194,7 +196,7 @@
 
     "node.merge": "Merge",
     "field.merge.out1": "(O)",
-    "field.merge.in": "(I)",
+    "field.merge.in1": "(I)",
     "node.merge.groups": "exec",
 
     "node.for": "For Loop",
