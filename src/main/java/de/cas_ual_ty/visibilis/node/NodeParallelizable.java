@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis.node;
 
 import java.util.ArrayList;
 
+import de.cas_ual_ty.visibilis.node.field.NodeField;
 import net.minecraft.nbt.CompoundNBT;
 
 public abstract class NodeParallelizable extends NodeExpandable
@@ -102,5 +103,11 @@ public abstract class NodeParallelizable extends NodeExpandable
     {
         super.writeNodeToNBT(nbt);
         nbt.putBoolean(NodeParallelizable.KEY_PARALLELIZATION, this.parallelized);
+    }
+    
+    @Override
+    public String getFieldName(NodeField field)
+    {
+        return super.getFieldName(field) + (this.parallelized ? (field.getId() != this.getOutputAmt() ? " " + (field.getId() + 1) : "") : "");
     }
 }
