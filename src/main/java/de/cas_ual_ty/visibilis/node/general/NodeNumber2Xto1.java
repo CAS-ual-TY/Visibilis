@@ -34,7 +34,7 @@ public abstract class NodeNumber2Xto1 extends NodeParallelizable
             inputs[i] = (Number) this.getInput(i).getValue();
         }
         
-        if(!this.parallelized)
+        if (!this.parallelized)
         {
             if (!this.canCalculate(inputs))
             {
@@ -48,9 +48,9 @@ public abstract class NodeNumber2Xto1 extends NodeParallelizable
             Number n = inputs[this.getOutputAmt()];
             this.values = new Number[this.getOutputAmt()];
             
-            for(int i = 0; i < this.getOutputAmt(); ++i)
+            for (int i = 0; i < this.getOutputAmt(); ++i)
             {
-                if(!this.canCalculate(inputs[i], n))
+                if (!this.canCalculate(inputs[i], n))
                 {
                     return false;
                 }
@@ -134,7 +134,7 @@ public abstract class NodeNumber2Xto1 extends NodeParallelizable
     {
         new Input<Number>(this, DataType.NUMBER, "in");
         
-        if(this.parallelized)
+        if (this.parallelized)
         {
             new Output<Number>(this, DataType.NUMBER, "out");
         }
@@ -145,7 +145,7 @@ public abstract class NodeNumber2Xto1 extends NodeParallelizable
     {
         this.removeInput((Input) this.getInput(this.getInputAmt() - 1));
         
-        if(this.parallelized)
+        if (this.parallelized)
         {
             this.removeOutput(this.getOutput(this.getOutputAmt() - 1));
         }
@@ -154,7 +154,7 @@ public abstract class NodeNumber2Xto1 extends NodeParallelizable
     @Override
     public void parallelize()
     {
-        for(int i = this.getOutputAmt(); i < this.getInputAmt(); ++i)
+        for (int i = this.getOutputAmt(); i < this.getInputAmt(); ++i)
         {
             new Output<Number>(this, DataType.NUMBER, "out");
         }
@@ -163,7 +163,7 @@ public abstract class NodeNumber2Xto1 extends NodeParallelizable
     @Override
     public void unparallelize()
     {
-        for(int i = this.getOutputAmt() - 1; i > 0; --i)
+        for (int i = this.getOutputAmt() - 1; i > 0; --i)
         {
             this.removeOutput(this.getOutput(i));
         }

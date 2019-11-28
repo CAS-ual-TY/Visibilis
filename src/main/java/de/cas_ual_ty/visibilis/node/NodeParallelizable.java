@@ -28,6 +28,7 @@ public abstract class NodeParallelizable extends NodeExpandable
     }
     
     public abstract void parallelize();
+    
     public abstract void unparallelize();
     
     public boolean canParallelize()
@@ -43,14 +44,14 @@ public abstract class NodeParallelizable extends NodeExpandable
     @Override
     public ArrayList<NodeAction> getActions()
     {
-        ArrayList<NodeAction> list =  super.getActions();
+        ArrayList<NodeAction> list = super.getActions();
         
-        if(this.canParallelize())
+        if (this.canParallelize())
         {
             list.add(this.createActionParallelize());
         }
         
-        if(this.canUnparallelize())
+        if (this.canUnparallelize())
         {
             list.add(this.createActionUnparallelize());
         }
@@ -88,9 +89,9 @@ public abstract class NodeParallelizable extends NodeExpandable
     public void readNodeFromNBT(CompoundNBT nbt)
     {
         super.readNodeFromNBT(nbt);
-        boolean parallelized = nbt.getBoolean(KEY_PARALLELIZATION);
+        boolean parallelized = nbt.getBoolean(NodeParallelizable.KEY_PARALLELIZATION);
         
-        if(parallelized)
+        if (parallelized)
         {
             this.actionParallelize();
         }
@@ -100,6 +101,6 @@ public abstract class NodeParallelizable extends NodeExpandable
     public void writeNodeToNBT(CompoundNBT nbt)
     {
         super.writeNodeToNBT(nbt);
-        nbt.putBoolean(KEY_PARALLELIZATION, this.parallelized);
+        nbt.putBoolean(NodeParallelizable.KEY_PARALLELIZATION, this.parallelized);
     }
 }
