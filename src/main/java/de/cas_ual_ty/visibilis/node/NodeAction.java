@@ -5,6 +5,8 @@ public abstract class NodeAction
     public static final String LANG_DELETE = "visibilis.action.delete";
     public static final String LANG_EXPAND = "visibilis.action.expand";
     public static final String LANG_SHRINK = "visibilis.action.shrink";
+    public static final String LANG_PARALLELIZE = "visibilis.action.parallelize";
+    public static final String LANG_UNPARALLELIZE = "visibilis.action.unparallelize";
     
     public final Node node;
     public final String text;
