@@ -64,4 +64,11 @@ public class NodeWhile extends Node implements INodeExec
     {
         return "while";
     }
+    
+    @Override
+    public void resetValues()
+    {
+        super.resetValues();
+        this.exec2 = false;
+    }
 }
