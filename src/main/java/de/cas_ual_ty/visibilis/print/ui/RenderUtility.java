@@ -198,7 +198,7 @@ public class RenderUtility
         RenderUtility.drawRect(x + this.nodeRectMargin, y + this.nodeRectMargin, this.nodeWidth - 2 * this.nodeRectMargin, this.nodeHeight - 2 * this.nodeRectMargin, node.getColor()[0], node.getColor()[1], node.getColor()[2]);
         
         // Draw the name
-        String name = I18n.format(node.getUnlocalizedName());
+        String name = node.getName();
         name = this.fontRenderer.trimStringToWidth(name, this.nodeWidth - 2 * this.nodeTextMargin); // Trim the name in case it is too big
         this.fontRenderer.drawString(name, x + this.nodeTextMargin, y + this.nodeTextMargin, RenderUtility.colorToInt(node.getTextColor())); // Draw the trimmed name, maybe add shadow?
     }
@@ -233,7 +233,7 @@ public class RenderUtility
         this.drawNodeFieldDot(field, dotX, dotY);
         
         // Draw name
-        String name = I18n.format(field.getUnlocalizedName());
+        String name = field.getName();
         name = this.fontRenderer.trimStringToWidth(name, nameW - 2 * this.nodeTextMargin); // Trim the name in case it is too big
         this.fontRenderer.drawString(name, nameX + this.nodeTextMargin, nameY + this.nodeTextMargin, RenderUtility.colorToInt(field.dataType.getTextColor())); // Draw the trimmed name, maybe add shadow?
     }
@@ -451,7 +451,7 @@ public class RenderUtility
     {
         ArrayList<String> lines = new ArrayList<>();
         
-        lines.add(TextFormatting.BOLD.toString() + I18n.format(node.getUnlocalizedName()) + TextFormatting.RESET + " - " + this.tNode);
+        lines.add(TextFormatting.BOLD.toString() + node.getName() + TextFormatting.RESET + " - " + this.tNode);
         
         int i;
         
@@ -474,7 +474,7 @@ public class RenderUtility
             lines.add(tags);
         }
         
-        String desc = I18n.format(node.getUnlocalizedDesc());
+        String desc = node.getDesc();
         
         if (!StringUtils.isNullOrEmpty(desc) && !desc.equals(node.getUnlocalizedDesc()))
         {
@@ -491,7 +491,7 @@ public class RenderUtility
             for (i = 0; i < node.getInputAmt(); ++i)
             {
                 f = node.getInput(i);
-                lines.add(TextFormatting.GOLD.toString() + I18n.format(f.getUnlocalizedName()) + TextFormatting.RESET + " - " + this.tIn);
+                lines.add(TextFormatting.GOLD.toString() + f.getName() + TextFormatting.RESET + " - " + this.tIn);
             }
         }
         
@@ -502,7 +502,7 @@ public class RenderUtility
             for (i = 0; i < node.getOutputAmt(); ++i)
             {
                 f = node.getOutput(i);
-                lines.add(TextFormatting.DARK_RED.toString() + I18n.format(f.getUnlocalizedName()) + TextFormatting.RESET + " - " + this.tOut);
+                lines.add(TextFormatting.DARK_RED.toString() + f.getName() + TextFormatting.RESET + " - " + this.tOut);
             }
             
             this.gui.renderTooltip(lines, x, y);
@@ -513,9 +513,9 @@ public class RenderUtility
     {
         ArrayList<String> lines = new ArrayList<>();
         
-        lines.add(TextFormatting.BOLD.toString() + (field.isOutput() ? TextFormatting.DARK_RED.toString() : TextFormatting.GOLD.toString()) + I18n.format(field.getUnlocalizedName()) + TextFormatting.RESET + " - " + (field.isOutput() ? this.tOut : this.tIn));
+        lines.add(TextFormatting.BOLD.toString() + (field.isOutput() ? TextFormatting.DARK_RED.toString() : TextFormatting.GOLD.toString()) + field.getName() + TextFormatting.RESET + " - " + (field.isOutput() ? this.tOut : this.tIn));
         
-        String desc = I18n.format(field.getUnlocalizedDesc());
+        String desc = field.getDesc();
         
         if (!StringUtils.isNullOrEmpty(desc) && !desc.equals(field.getUnlocalizedDesc()))
         {

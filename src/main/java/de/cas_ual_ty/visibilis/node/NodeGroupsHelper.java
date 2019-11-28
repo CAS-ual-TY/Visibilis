@@ -88,7 +88,7 @@ public class NodeGroupsHelper
             list.add(tag);
         }
         
-        tag = I18n.format(node.getUnlocalizedName()).trim().toLowerCase();
+        tag = node.getName().trim().toLowerCase();
         if (!list.contains(tag))
         {
             list.add(tag);
@@ -116,7 +116,7 @@ public class NodeGroupsHelper
     
     private static String[] createGroupsForNode(Node node)
     {
-        return I18n.format(node.getUnlocalizedGroup()).trim().split(";");
+        return node.getGroup().trim().split(";");
     }
     
     public String[] getTagsForGroup(String groupId)

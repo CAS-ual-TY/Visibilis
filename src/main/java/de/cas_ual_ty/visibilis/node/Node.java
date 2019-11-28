@@ -9,6 +9,7 @@ import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.CompoundNBT;
 
 public abstract class Node
@@ -430,6 +431,31 @@ public abstract class Node
     public String getFieldUnlocalizedDesc(NodeField field)
     {
         return "field." + this.getID() + "." + field.name + ".desc";
+    }
+    
+    public String getName()
+    {
+        return I18n.format(this.getUnlocalizedName());
+    }
+    
+    public String getDesc()
+    {
+        return I18n.format(this.getUnlocalizedDesc());
+    }
+    
+    public String getGroup()
+    {
+        return I18n.format(this.getUnlocalizedGroup());
+    }
+    
+    public String getFieldName(NodeField field)
+    {
+        return I18n.format(this.getFieldUnlocalizedName(field));
+    }
+    
+    public String getFieldDesc(NodeField field)
+    {
+        return I18n.format(this.getFieldUnlocalizedDesc(field));
     }
     
     /**

@@ -150,6 +150,22 @@ public abstract class NodeField<A>
     }
     
     /**
+     * @see de.cas_ual_ty.visibilis.node.Node#getFieldName(NodeField)
+     */
+    public String getName()
+    {
+        return this.node.getFieldName(this);
+    }
+    
+    /**
+     * @see de.cas_ual_ty.visibilis.node.Node#getFieldDesc(NodeField)
+     */
+    public String getDesc()
+    {
+        return this.node.getFieldDesc(this);
+    }
+    
+    /**
      * When set to true, {@link #readFromNBT(CompoundNBT)} and {@link #writeToNBT(CompoundNBT)} will be called
      */
     public boolean useNBT()
