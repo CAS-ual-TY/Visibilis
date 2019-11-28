@@ -9,6 +9,7 @@ import net.minecraft.command.Commands;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
+import net.minecraft.util.text.StringTextComponent;
 
 public class VCommandExec
 {
@@ -25,12 +26,18 @@ public class VCommandExec
     
     public static void execute(CommandSource sender)
     {
+        sender.sendFeedback(new StringTextComponent("0"), true);
+        
         if (!sender.getWorld().isRemote && sender.getEntity() instanceof PlayerEntity)
         {
+            sender.sendFeedback(new StringTextComponent("1"), true);
+            
             PlayerEntity player = (PlayerEntity) sender.getEntity();
             
             if (!VCommandExec.executeFor(sender, player, Hand.MAIN_HAND))
             {
+                sender.sendFeedback(new StringTextComponent("2"), true);
+                
                 VCommandExec.executeFor(sender, player, Hand.OFF_HAND);
             }
         }
