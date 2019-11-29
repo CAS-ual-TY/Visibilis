@@ -1,6 +1,5 @@
 package de.cas_ual_ty.visibilis;
 
-import de.cas_ual_ty.visibilis.handler.VEventHandler;
 import de.cas_ual_ty.visibilis.node.calculate.NodeAddition;
 import de.cas_ual_ty.visibilis.node.calculate.NodeDivision;
 import de.cas_ual_ty.visibilis.node.calculate.NodeExponentiation;
@@ -67,8 +66,6 @@ public class Visibilis
     
     public static IVSidedProxy proxy = (IVSidedProxy) DistExecutor.runForDist(() -> de.cas_ual_ty.visibilis.proxy.VProxyClient::new, () -> de.cas_ual_ty.visibilis.proxy.VProxyServer::new);
     
-    public static VEventHandler eventHandler;
-    
     public static SimpleChannel channel;
     
     public Visibilis()
@@ -82,7 +79,6 @@ public class Visibilis
     {
         Visibilis.proxy.preInit();
         
-        MinecraftForge.EVENT_BUS.register((Visibilis.eventHandler = new VEventHandler()));
         Visibilis.channel = NetworkRegistry.newSimpleChannel(new ResourceLocation(Visibilis.MOD_ID, "main"),
                         () -> Visibilis.PROTOCOL_VERSION,
                         Visibilis.PROTOCOL_VERSION::equals,
