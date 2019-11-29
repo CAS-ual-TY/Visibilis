@@ -52,9 +52,14 @@ public class DataType<A>
         @Override
         public boolean canParseString(String s)
         {
+            if (s.equals("-"))
+            {
+                return true;
+            }
+            
             try
             {
-                Float.valueOf(s);
+                this.stringToValue(s);
                 return true;
             }
             catch (NumberFormatException e)
@@ -66,7 +71,11 @@ public class DataType<A>
         @Override
         public Float stringToValue(String s)
         {
-            return Float.valueOf(s);
+            if (s.equals("-"))
+            {
+                return 0F;
+            }
+            return Float.parseFloat(s);
         }
     }.setBlackText();
     
@@ -75,9 +84,14 @@ public class DataType<A>
         @Override
         public boolean canParseString(String s)
         {
+            if (s.equals("-"))
+            {
+                return true;
+            }
+            
             try
             {
-                Integer.valueOf(s);
+                this.stringToValue(s);
                 return true;
             }
             catch (NumberFormatException e)
@@ -89,7 +103,11 @@ public class DataType<A>
         @Override
         public Integer stringToValue(String s)
         {
-            return Integer.valueOf(s);
+            if (s.equals("-"))
+            {
+                return 0;
+            }
+            return Integer.parseInt(s);
         }
     }.setBlackText();
     
@@ -104,7 +122,7 @@ public class DataType<A>
         @Override
         public Number stringToValue(String s)
         {
-            return DataType.INTEGER.canParseString(s) ? DataType.INTEGER.stringToValue(s) : DataType.FLOAT.stringToValue(s); // Float can handle both integer and float values.
+            return DataType.FLOAT.stringToValue(s); // Float can handle both integer and float values.
         }
     }.setBlackText();
     
