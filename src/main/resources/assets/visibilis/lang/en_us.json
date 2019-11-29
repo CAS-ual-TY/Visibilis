@@ -1,8 +1,23 @@
 ﻿{
-    "_comment": "--- Testing ---",
-	"item.visibilis.test": "Test Item",
-
-    "_comment": "--- General Translation ---",
+    "_comment0.1": "--- Testing START ---",
+    "item.visibilis.test": "Test Item",
+    
+    "node.event.visibilis:command": "vexec",
+    "field.event.visibilis:command.out1": "(O)",
+    "node.event.visibilis:command.groups": "test",
+    
+    "node.vtest": "vtest",
+    "field.vtest.in1": "(I)",
+    "field.vtest.in2": "Boolean",
+    "field.vtest.in3": "Number",
+    "node.vtest.groups": "test",
+    
+    "group.test": "Test",
+    "group.test.tags": "test;testing",
+    
+    "_comment0.2": "--- Testing END ---",
+    
+    "_comment1": "--- General Translation ---",
     "visibilis.node": "Node",
     "visibilis.output": "Output",
     "visibilis.input": "Input",
@@ -14,191 +29,191 @@
     "visibilis.action.shrink": "Shrink",
     "visibilis.action.parallelize": "Parallelize",
     "visibilis.action.unparallelize": "De-Parallelize",
-
-    "_comment": "--- Base Groups ---",
+    
+    "_comment2": "--- Base Groups ---",
     "group.operators": "Operators",
     "group.operators.tags": "operators",
-
-    "_comment": "--- Calculation ---",
+    
+    "_comment3": "--- Calculation ---",
     "group.calculation": "Calculation",
     "group.calculation.tags": "calculation;math",
-
+    
     "node.addition": "Addition",
     "field.addition.out1": "Sum",
     "field.addition.in1": "Summand",
     "node.addition.groups": "calculation;operators",
-
+    
     "node.subtraction": "Subtraction",
     "field.subtraction.out1": "Difference",
     "field.subtraction.in1": "Minuend",
     "field.subtraction.in2": "Subtrahend",
     "node.subtraction.groups": "calculation;operators",
-
+    
     "node.multiplication": "Multiplication",
     "field.multiplication.out1": "Product",
     "field.multiplication.in1": "Factor",
     "node.multiplication.groups": "calculation;operators",
-
+    
     "node.division": "Division",
     "field.division.out1": "Quotient",
     "field.division.in1": "Dividend",
     "field.division.in2": "Divisor",
     "node.division.groups": "calculation;operators",
-
+    
     "node.exponentiation": "Exponentiation",
     "field.exponentiation.out1": "Power",
     "field.exponentiation.in1": "Base",
     "field.exponentiation.in2": "Exponent",
     "node.exponentiation.groups": "calculation;operators",
-
+    
     "node.root": "Nth Root",
     "field.root.out1": "Root",
     "field.root.in1": "Radicand",
     "field.root.in2": "Degree",
     "node.root.groups": "calculation;operators",
-
+    
     "node.logarithm_10": "Logarithm Base 10",
     "field.logarithm_10.out1": "Logarithm",
     "field.logarithm_10.in1": "Anti-Logarithm",
     "node.logarithm_10.groups": "calculation;operators",
-
+    
     "node.logarithm_e": "Logarithm Base e",
     "field.logarithm_e.out1": "Logarithm",
     "field.logarithm_e.in1": "Anti-Logarithm",
     "node.logarithm_e.groups": "calculation;operators",
-
+    
     "node.logarithm_1p": "Logarithm Base x+1",
     "field.logarithm_1p.out1": "Logarithm",
     "field.logarithm_1p.in1": "Anti-Logarithm",
     "node.logarithm_1p.groups": "calculation;operators",
-
+    
     "node.modulo": "Modulo",
     "field.modulo.out1": "Residue",
     "field.modulo.in1": "Dividend",
     "field.modulo.in2": "Modulus",
     "node.modulo.groups": "calculation;operators",
-
-    "_comment": "--- Constants ---",
+    
+    "_comment4": "--- Constants ---",
     "group.constants": "Constants",
     "group.constants.tags": "constants;math",
-
+    
     "node.e": "e",
     "field.e.out1": "e",
     "node.e.groups": "constants",
-
+    
     "node.pi": "Pi",
     "field.pi.out1": "Pi",
     "node.pi.groups": "constants",
-
+    
     "node.sqrt_2": "Square Root of 2",
     "field.sqrt_2.out1": "SQRT 2",
     "node.sqrt_2.groups": "constants",
-
+    
     "node.const_number": "Number Constant",
     "field.const_number.in1": "Number",
     "field.const_number.out1": "Number",
     "node.const_number.groups": "constants",
-
+    
     "node.const_boolean": "Boolean Constant",
     "field.const_boolean.in1": "Boolean",
     "field.const_boolean.out1": "Boolean",
     "node.const_boolean.groups": "constants;logic_gates",
-
-    "_comment": "--- Functions ---",
+    
+    "_comment5": "--- Functions ---",
     "group.functions": "Functions",
     "group.functions.tags": "functions;math",
-
+    
     "node.round": "Round",
     "field.round.out1": "round(x)",
     "field.round.in1": "x",
     "node.round.groups": "functions",
-
+    
     "node.round_up": "Round Up",
     "field.round_up.out1": "ceil(x)",
     "field.round_up.in1": "x",
     "node.round_up.groups": "functions",
-
+    
     "node.round_down": "Round Down",
     "field.round_down.out1": "floor(x)",
     "field.round_down.in1": "x",
     "node.round_down.groups": "functions",
-
+    
     "node.sines": "Sines",
     "field.sines.out1": "sin(x)",
     "field.sines.in1": "x",
     "node.sines.groups": "functions",
-
+    
     "node.cosines": "Cosines",
     "field.cosines.out1": "cos(x)",
     "field.cosines.in1": "x",
     "node.cosines.groups": "functions",
-
+    
     "node.tangent": "Tangent",
     "field.tangent.out1": "tan(x)",
     "field.tangent.in1": "x",
     "node.tangent.groups": "functions",
-
-    "_comment": "--- Logic Gates ---",
+    
+    "_comment6": "--- Logic Gates ---",
     "group.logic_gates": "Logic Gates",
     "group.logic_gates.tags": "logic;gates;boolean;bit;binary",
-
+    
     "node.and": "AND",
     "field.and.out1": "A AND B",
     "field.and.in1": "A",
     "field.and.in2": "B",
     "node.and.groups": "logic_gates;operators",
-
+    
     "node.nand": "NAND",
     "field.nand.out1": "A NAND B",
     "field.nand.in1": "A",
     "field.nand.in2": "B",
     "node.nand.groups": "logic_gates;operators",
-
+    
     "node.nor": "NOR",
     "field.nor.out1": "A NOR B",
     "field.nor.in1": "A",
     "field.nor.in2": "B",
     "node.nor.groups": "logic_gates;operators",
-
+    
     "node.not": "NOT",
     "field.not.out1": "NOT A",
     "field.not.in1": "A",
     "node.not.groups": "logic_gates;operators",
-
+    
     "node.or": "OR",
     "field.or.out1": "A OR B",
     "field.or.in1": "A",
     "field.or.in2": "B",
     "node.or.groups": "logic_gates;operators",
-
+    
     "node.xnor": "XNOR",
     "field.xnor.out1": "A XNOR B",
     "field.xnor.in1": "A",
     "field.xnor.in2": "B",
     "node.xnor.groups": "logic_gates;operators",
-
+    
     "node.xor": "XOR",
     "field.xor.out1": "A XOR B",
     "field.xor.in1": "A",
     "field.xor.in2": "B",
     "node.xor.groups": "logic_gates;operators",
-
-    "_comment": "--- Exec Nodes ---",
+    
+    "_comment7": "--- Exec Nodes ---",
     "group.exec": "Exec",
     "group.exec.tags": "order;execution",
-
+    
     "node.branch": "Branch",
     "field.branch.out1": "(O) A",
     "field.branch.out2": "(O) NOT A",
     "field.branch.in1": "(I)",
     "field.branch.in2": "A",
     "node.branch.groups": "exec",
-
+    
     "node.merge": "Merge",
     "field.merge.out1": "(O)",
     "field.merge.in1": "(I)",
     "node.merge.groups": "exec",
-
+    
     "node.for": "For Loop",
     "field.for.out1": "(O) Index < Length",
     "field.for.out2": "Index",
@@ -206,7 +221,7 @@
     "field.for.in1": "(I)",
     "field.for.in2": "Length",
     "node.for.groups": "exec",
-
+    
     "node.while": "While Loop",
     "field.while.out1": "(O) A",
     "field.while.out2": "(O) NOT A",

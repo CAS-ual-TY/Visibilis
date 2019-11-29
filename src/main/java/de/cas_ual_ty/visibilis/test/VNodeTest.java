@@ -10,16 +10,16 @@ import de.cas_ual_ty.visibilis.node.field.Output;
 
 public class VNodeTest extends Node implements INodeExec
 {
-    public Input in0;
-    public Input<Boolean> in1;
-    public Input<Number> in2;
+    public Input in1;
+    public Input<Boolean> in2;
+    public Input<Number> in3;
     
     public VNodeTest()
     {
         super();
-        this.in0 = new Input(this, DataType.EXEC, "test");
-        this.in1 = new Input<>(this, DataType.BOOLEAN, "test");
-        this.in2 = new Input<>(this, DataType.NUMBER, "test");
+        this.in1 = new Input(this, DataType.EXEC, "in1");
+        this.in2 = new Input<>(this, DataType.BOOLEAN, "in2");
+        this.in3 = new Input<>(this, DataType.NUMBER, "in3");
     }
     
     @Override
@@ -40,8 +40,8 @@ public class VNodeTest extends Node implements INodeExec
     {
         Visibilis.debug("## " + this.getClass().getSimpleName() + " START");
         
-        this.debugMessage(this.in1);
         this.debugMessage(this.in2);
+        this.debugMessage(this.in3);
         
         Visibilis.debug("## " + this.getClass().getSimpleName() + " END");
         
@@ -69,12 +69,6 @@ public class VNodeTest extends Node implements INodeExec
     @Override
     public String getID()
     {
-        return "test";
-    }
-    
-    @Override
-    public String getUnlocalizedName()
-    {
-        return "test";
+        return "vtest";
     }
 }

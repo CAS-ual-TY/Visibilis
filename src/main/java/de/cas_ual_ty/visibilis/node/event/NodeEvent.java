@@ -22,7 +22,7 @@ public class NodeEvent extends Node implements INodeExec
     public NodeEvent()
     {
         super();
-        this.outExec = new Output(this, DataType.EXEC, "exec");
+        this.outExec = new Output(this, DataType.EXEC, "out1");
         this.eventType = null; // Just to make sure it is initialized
     }
     
@@ -63,7 +63,7 @@ public class NodeEvent extends Node implements INodeExec
     @Override
     public String getID()
     {
-        return "event_" + this.getEventType();
+        return "event." + this.getEventType();
     }
     
     @Override

@@ -151,7 +151,7 @@ public class NodeGroupsHelper
     
     private static String groupToNameKey(String groupId)
     {
-        return I18n.format("group." + groupId + ".name");
+        return I18n.format("group." + groupId);
     }
     
     private static String groupToTagsKey(String groupId)
