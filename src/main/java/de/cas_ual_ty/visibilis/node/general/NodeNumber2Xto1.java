@@ -132,23 +132,34 @@ public abstract class NodeNumber2Xto1 extends NodeParallelizable
     @Override
     public void expand()
     {
-        new Input<Number>(this, DataType.NUMBER, "in1");
-        
         if (this.parallelized)
         {
+            Input in = this.inputFields.remove(this.inputFields.size() - 1);
+            
+            new Input<Number>(this, DataType.NUMBER, "in1");
             new Output<Number>(this, DataType.NUMBER, "out1");
-            //TODO keep last in as last
+            
+            this.inputFields.add(in);
+            in.recalculateId();
+        }
+        else
+        {
+            new Input<Number>(this, DataType.NUMBER, "in1");
         }
     }
     
     @Override
     public void shrink()
     {
-        this.removeInput((Input) this.getInput(this.getInputAmt() - 1));
-        
         if (this.parallelized)
         {
-            this.removeOutput(this.getOutput(this.getOutputAmt() - 2));
+            this.removeInput((Input) this.getInput(this.getInputAmt() - 2));
+            this.removeOutput(this.getOutput(this.getOutputAmt() - 1));
+            this.getInput(this.getInputAmt() - 1).recalculateId();
+        }
+        else
+        {
+            this.removeInput((Input) this.getInput(this.getInputAmt() - 1));
         }
     }
     
@@ -157,7 +168,7 @@ public abstract class NodeNumber2Xto1 extends NodeParallelizable
     {
         for (int i = this.getOutputAmt(); i < this.getInputAmt() - 1; ++i)
         {
-            new Output<Number>(this, DataType.NUMBER, "out");
+            new Output<Number>(this, DataType.NUMBER, "out1");
         }
     }
     
