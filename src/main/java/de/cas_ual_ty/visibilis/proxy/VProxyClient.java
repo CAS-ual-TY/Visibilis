@@ -8,17 +8,6 @@ import net.minecraft.util.text.StringTextComponent;
 public class VProxyClient implements IVSidedProxy
 {
     @Override
-    public void preInit()
-    {
-        
-    }
-    
-    @Override
-    public void init()
-    {
-    }
-    
-    @Override
     public void openGuiPrint(PrintProvider helper)
     {
         //        Minecraft.getMinecraft().displayGuiScreen(new GuiPrintOld(helper));

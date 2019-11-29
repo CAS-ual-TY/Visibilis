@@ -77,8 +77,6 @@ public class Visibilis
     
     public void init(FMLCommonSetupEvent event)
     {
-        Visibilis.proxy.preInit();
-        
         Visibilis.channel = NetworkRegistry.newSimpleChannel(new ResourceLocation(Visibilis.MOD_ID, "main"),
                         () -> Visibilis.PROTOCOL_VERSION,
                         Visibilis.PROTOCOL_VERSION::equals,
