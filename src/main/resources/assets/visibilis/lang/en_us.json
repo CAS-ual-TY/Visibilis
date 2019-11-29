@@ -7,6 +7,7 @@
     "node.event.visibilis:command.groups": "test",
     
     "node.vtest": "vtest",
+    "field.vtest.out1": "(O)",
     "field.vtest.in1": "(I)",
     "field.vtest.in2": "Boolean",
     "field.vtest.in3": "Number",
