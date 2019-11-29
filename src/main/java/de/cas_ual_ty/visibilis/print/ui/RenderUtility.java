@@ -504,9 +504,9 @@ public class RenderUtility
                 f = node.getOutput(i);
                 lines.add(TextFormatting.DARK_RED.toString() + f.getName() + TextFormatting.RESET + " - " + this.tOut);
             }
-            
-            this.gui.renderTooltip(lines, x, y);
         }
+        
+        this.gui.renderTooltip(lines, x, y);
     }
     
     public void drawNodeFieldHoveringText(NodeField field, int x, int y)
