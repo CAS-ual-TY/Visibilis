@@ -59,19 +59,18 @@ public class ItemPrint extends Item
         return new PrintProviderItem(itemStack, hand);
     }
     
-    public Print getPrint(ItemStack itemStack)
+    public Print getPrint(ItemStack itemStack, Hand hand)
     {
-        if (itemStack.hasTag())
-        {
-            CompoundNBT nbt0 = itemStack.getTag();
-            
-            if (nbt0.hasUniqueId(Visibilis.MOD_ID))
-            {
-                CompoundNBT nbt = nbt0.getCompound(Visibilis.MOD_ID);
-                return NBTUtility.loadPrintFromNBT(nbt);
-            }
-        }
+        CompoundNBT nbt0 = itemStack.getOrCreateTag();
         
-        return null;
+        if (!nbt0.contains(Visibilis.MOD_ID))
+        {
+            return null;
+        }
+        else
+        {
+            CompoundNBT nbt = nbt0.getCompound(Visibilis.MOD_ID);
+            return NBTUtility.loadPrintFromNBT(nbt);
+        }
     }
 }

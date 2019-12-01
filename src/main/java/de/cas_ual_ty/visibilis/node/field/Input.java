@@ -206,7 +206,7 @@ public class Input<A> extends NodeField<A>
         else if (this.dataType instanceof DataTypeDynamic)
         {
             DataTypeDynamic dt = (DataTypeDynamic) this.dataType;
-            this.setValue((A) dt.valueToString(nbt.getString(Input.KEY_DATA_DYNAMIC)));
+            this.setValue((A) dt.stringToValue(nbt.getString(Input.KEY_DATA_DYNAMIC)));
         }
         
         super.writeToNBT(nbt);

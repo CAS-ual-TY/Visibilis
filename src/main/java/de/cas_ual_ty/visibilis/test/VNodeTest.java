@@ -41,12 +41,8 @@ public class VNodeTest extends Node implements INodeExec
     @Override
     public boolean doCalculate(ExecProvider provider)
     {
-        Visibilis.debug("## " + this.getClass().getSimpleName() + " START");
-        
         this.debugMessage(provider, this.in2);
         this.debugMessage(provider, this.in3);
-        
-        Visibilis.debug("## " + this.getClass().getSimpleName() + " END");
         
         return true;
     }

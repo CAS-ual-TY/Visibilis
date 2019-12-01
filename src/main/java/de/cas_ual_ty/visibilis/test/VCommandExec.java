@@ -9,6 +9,7 @@ import net.minecraft.command.Commands;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
+import net.minecraft.util.text.StringTextComponent;
 
 public class VCommandExec
 {
@@ -29,9 +30,17 @@ public class VCommandExec
         {
             PlayerEntity player = (PlayerEntity) sender.getEntity();
             
-            if (!VCommandExec.executeFor(sender, player, Hand.MAIN_HAND))
+            try
             {
-                VCommandExec.executeFor(sender, player, Hand.OFF_HAND);
+                if (!VCommandExec.executeFor(sender, player, Hand.MAIN_HAND))
+                {
+                    VCommandExec.executeFor(sender, player, Hand.OFF_HAND);
+                }
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                throw e;
             }
         }
     }
@@ -40,13 +49,15 @@ public class VCommandExec
     {
         ItemStack itemStack = player.getHeldItem(hand);
         
-        if (itemStack.getItem() == Visibilis.itemTest)
+        if (!itemStack.isEmpty() && itemStack.getItem() == Visibilis.itemTest)
         {
-            Print p = Visibilis.itemTest.getPrint(itemStack);
+            Print p = Visibilis.itemTest.getPrint(itemStack, hand);
             
             if (p != null)
             {
+                sender.sendFeedback(new StringTextComponent("Debug START"), true);
                 p.executeEvent(Visibilis.MOD_ID, "command", sender);
+                sender.sendFeedback(new StringTextComponent("Debug END"), true);
                 return true;
             }
         }

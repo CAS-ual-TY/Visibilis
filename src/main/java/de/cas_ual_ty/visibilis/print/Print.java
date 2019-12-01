@@ -196,6 +196,12 @@ public class Print
         // Loop through all outputs of the exec type
         while ((out = node.getOutExec(i)) != null)
         {
+            if (!out.hasConnections())
+            {
+                ++i;
+                continue;
+            }
+            
             // Get the connected input of the next node
             in = (Input) out.getConnections().get(0);
             

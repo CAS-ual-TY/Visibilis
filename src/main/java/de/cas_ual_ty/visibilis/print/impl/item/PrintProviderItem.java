@@ -15,10 +15,6 @@ public class PrintProviderItem extends PrintProviderNBT
     public PrintProviderItem(ItemStack itemStack, Hand hand)
     {
         super();
-        if (!itemStack.hasTag())
-        {
-            itemStack.setTag(new CompoundNBT());
-        }
         
         this.itemStack = itemStack;
         this.hand = hand;
@@ -40,11 +36,5 @@ public class PrintProviderItem extends PrintProviderNBT
     public void synchToServer(CompoundNBT nbt)
     {
         Visibilis.channel.sendToServer(new MessageItem(this.itemStack, this.hand));
-    }
-    
-    @Override
-    public void writeToNBT(CompoundNBT nbt0)
-    {
-        super.writeToNBT(nbt0);
     }
 }

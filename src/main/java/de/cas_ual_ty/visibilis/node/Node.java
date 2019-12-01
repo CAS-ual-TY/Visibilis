@@ -467,20 +467,23 @@ public abstract class Node
         this.posY = nbt0.getInt(Node.KEY_POS_Y);
         
         CompoundNBT nbt;
+        NodeField f;
         
-        for (NodeField f : this.outputFields)
+        for (int i = 0; i < this.getOutputAmt(); ++i)
         {
-            if (f.useNBT())
+            if (nbt0.contains(Node.KEY_DATA_OUT + i))
             {
+                f = this.getOutput(i);
                 nbt = nbt0.getCompound(Node.KEY_DATA_OUT + f.getId());
                 f.readFromNBT(nbt);
             }
         }
         
-        for (NodeField f : this.inputFields)
+        for (int i = 0; i < this.getInputAmt(); ++i)
         {
-            if (f.useNBT())
+            if (nbt0.contains(Node.KEY_DATA_IN + i))
             {
+                f = this.getInput(i);
                 nbt = nbt0.getCompound(Node.KEY_DATA_IN + f.getId());
                 f.readFromNBT(nbt);
             }
