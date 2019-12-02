@@ -5,19 +5,18 @@ import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.impl.PrintProviderNBT;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Hand;
 
 public class PrintProviderItem extends PrintProviderNBT
 {
     public ItemStack itemStack;
-    public Hand hand;
+    public int slot;
     
-    public PrintProviderItem(ItemStack itemStack, Hand hand)
+    public PrintProviderItem(ItemStack itemStack, int slot)
     {
         super();
         
         this.itemStack = itemStack;
-        this.hand = hand;
+        this.slot = slot;
     }
     
     @Override
@@ -35,6 +34,6 @@ public class PrintProviderItem extends PrintProviderNBT
     @Override
     public void synchToServer(CompoundNBT nbt)
     {
-        Visibilis.channel.sendToServer(new MessageItem(this.itemStack, this.hand));
+        Visibilis.channel.sendToServer(new MessageItem(this.slot, this.itemStack));
     }
 }

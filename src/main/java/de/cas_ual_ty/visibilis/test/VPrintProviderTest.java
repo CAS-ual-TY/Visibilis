@@ -40,13 +40,12 @@ import de.cas_ual_ty.visibilis.node.logic.NodeXOR;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.impl.item.PrintProviderItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
 
 public class VPrintProviderTest extends PrintProviderItem
 {
-    public VPrintProviderTest(ItemStack itemStack, Hand hand)
+    public VPrintProviderTest(ItemStack itemStack, int slot)
     {
-        super(itemStack, hand);
+        super(itemStack, slot);
     }
     
     @Override

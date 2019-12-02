@@ -2,49 +2,51 @@ package de.cas_ual_ty.visibilis.print.impl.item;
 
 import java.util.function.Supplier;
 
+import de.cas_ual_ty.visibilis.event.ItemPrintValidationEvent;
+import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.Hand;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 public class MessageItem
 {
-    public CompoundNBT nbt;
-    public Hand hand;
+    public final int slot;
+    public final CompoundNBT nbt;
     
-    public MessageItem(ItemStack itemStack, Hand hand)
+    public MessageItem(int slot, ItemStack itemStack)
     {
-        this(itemStack.getTag(), hand);
+        this(slot, NBTUtility.savePrintToNBT(((ItemPrint) itemStack.getItem()).getPrint(itemStack)));
     }
     
-    public MessageItem(CompoundNBT nbt, Hand hand)
+    public MessageItem(int slot, CompoundNBT nbt)
     {
         this.nbt = nbt;
-        this.hand = hand;
+        this.slot = slot;
     }
     
     public static void encode(MessageItem msg, PacketBuffer buf)
     {
-        buf.writeBoolean(msg.hand == Hand.MAIN_HAND ? true : false);
+        buf.writeInt(msg.slot);
         buf.writeCompoundTag(msg.nbt);
     }
     
     public static MessageItem decode(PacketBuffer buf)
     {
-        Hand hand = buf.readBoolean() ? Hand.MAIN_HAND : Hand.OFF_HAND;
-        CompoundNBT nbt = buf.readCompoundTag();
-        return new MessageItem(nbt, hand);
+        return new MessageItem(buf.readInt(), buf.readCompoundTag());
     }
     
     public static void handle(MessageItem msg, Supplier<NetworkEvent.Context> ctx)
     {
-        ItemStack itemStack = ctx.get().getSender().getHeldItem(msg.hand);
-        itemStack.setTag(msg.nbt);
+        ItemStack itemStack = ctx.get().getSender().inventory.getStackInSlot(msg.slot);
+        ItemPrint item = (ItemPrint) itemStack.getItem(); //TODO change to print capability
+        Print print = NBTUtility.loadPrintFromNBT(msg.nbt);
         
-        // TODO validate! fire event?
-        
-        NBTUtility.printTree(msg.nbt);
+        if (!MinecraftForge.EVENT_BUS.post(new ItemPrintValidationEvent(print)))
+        {
+            item.setPrintTag(itemStack, msg.nbt);
+        }
     }
 }

@@ -6,6 +6,7 @@ import de.cas_ual_ty.visibilis.print.impl.GuiPrint;
 import de.cas_ual_ty.visibilis.print.impl.PrintProvider;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -39,7 +40,7 @@ public class ItemPrint extends Item
     {
         if (player.world.isRemote)
         {
-            Visibilis.proxy.openGuiPrint(this.getHelper(itemStack, hand));
+            Visibilis.proxy.openGuiPrint(this.getHelper(itemStack, hand == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND.getSlotIndex() : EquipmentSlotType.OFFHAND.getSlotIndex()));
             return true;
         }
         
@@ -54,12 +55,12 @@ public class ItemPrint extends Item
     /**
      * Returns an instance of {@link PrintProvider} which is used to open the {@link de.cas_ual_ty.visibilis.print.impl.GuiPrint} in {@link #openGui(PlayerEntity, ItemStack, Hand)}
      */
-    public PrintProvider getHelper(ItemStack itemStack, Hand hand)
+    public PrintProvider getHelper(ItemStack itemStack, int slot)
     {
-        return new PrintProviderItem(itemStack, hand);
+        return new PrintProviderItem(itemStack, slot);
     }
     
-    public Print getPrint(ItemStack itemStack, Hand hand)
+    public Print getPrint(ItemStack itemStack)
     {
         CompoundNBT nbt0 = itemStack.getOrCreateTag();
         
@@ -72,5 +73,16 @@ public class ItemPrint extends Item
             CompoundNBT nbt = nbt0.getCompound(Visibilis.MOD_ID);
             return NBTUtility.loadPrintFromNBT(nbt);
         }
+    }
+    
+    public void setPrint(ItemStack itemStack, Print print)
+    {
+        this.setPrintTag(itemStack, NBTUtility.savePrintToNBT(print));
+    }
+    
+    public void setPrintTag(ItemStack itemStack, CompoundNBT nbt)
+    {
+        CompoundNBT nbt0 = itemStack.getOrCreateTag();
+        nbt0.put(Visibilis.MOD_ID, nbt);
     }
 }

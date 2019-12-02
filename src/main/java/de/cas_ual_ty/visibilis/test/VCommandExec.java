@@ -4,11 +4,12 @@ import com.mojang.brigadier.CommandDispatcher;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.print.Print;
+import de.cas_ual_ty.visibilis.print.impl.item.ItemPrint;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Hand;
 import net.minecraft.util.text.StringTextComponent;
 
 public class VCommandExec
@@ -32,10 +33,8 @@ public class VCommandExec
             
             try
             {
-                if (!VCommandExec.executeFor(sender, player, Hand.MAIN_HAND))
-                {
-                    VCommandExec.executeFor(sender, player, Hand.OFF_HAND);
-                }
+                VCommandExec.executeFor(sender, player, EquipmentSlotType.MAINHAND.getSlotIndex());
+                VCommandExec.executeFor(sender, player, EquipmentSlotType.OFFHAND.getSlotIndex());
             }
             catch (Exception e)
             {
@@ -45,13 +44,14 @@ public class VCommandExec
         }
     }
     
-    public static boolean executeFor(CommandSource sender, PlayerEntity player, Hand hand)
+    public static boolean executeFor(CommandSource sender, PlayerEntity player, int slot)
     {
-        ItemStack itemStack = player.getHeldItem(hand);
+        ItemStack itemStack = player.inventory.getStackInSlot(slot);
         
-        if (!itemStack.isEmpty() && itemStack.getItem() == Visibilis.itemTest)
+        if (!itemStack.isEmpty() && itemStack.getItem() instanceof ItemPrint)
         {
-            Print p = Visibilis.itemTest.getPrint(itemStack, hand);
+            ItemPrint item = (ItemPrint) itemStack.getItem();
+            Print p = item.getPrint(itemStack);
             
             if (p != null)
             {
