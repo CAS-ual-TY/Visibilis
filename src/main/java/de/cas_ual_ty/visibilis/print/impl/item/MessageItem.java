@@ -44,7 +44,7 @@ public class MessageItem
         ItemPrint item = (ItemPrint) itemStack.getItem(); //TODO change to print capability
         Print print = NBTUtility.loadPrintFromNBT(msg.nbt);
         
-        if (!MinecraftForge.EVENT_BUS.post(new ItemPrintValidationEvent(print)))
+        if (!MinecraftForge.EVENT_BUS.post(new ItemPrintValidationEvent(itemStack, print)))
         {
             item.setPrintTag(itemStack, msg.nbt);
         }
