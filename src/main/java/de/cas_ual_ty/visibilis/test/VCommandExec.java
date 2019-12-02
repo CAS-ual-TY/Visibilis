@@ -3,6 +3,7 @@ package de.cas_ual_ty.visibilis.test;
 import com.mojang.brigadier.CommandDispatcher;
 
 import de.cas_ual_ty.visibilis.Visibilis;
+import de.cas_ual_ty.visibilis.event.ExecCommandEvent;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.impl.item.ItemPrint;
 import net.minecraft.command.CommandSource;
@@ -11,6 +12,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraftforge.common.MinecraftForge;
 
 public class VCommandExec
 {
@@ -27,20 +29,9 @@ public class VCommandExec
     
     public static void execute(CommandSource sender)
     {
-        if (!sender.getWorld().isRemote && sender.getEntity() instanceof PlayerEntity)
+        if (!sender.getWorld().isRemote)
         {
-            PlayerEntity player = (PlayerEntity) sender.getEntity();
-            
-            try
-            {
-                VCommandExec.executeFor(sender, player, EquipmentSlotType.MAINHAND.getSlotIndex());
-                VCommandExec.executeFor(sender, player, EquipmentSlotType.OFFHAND.getSlotIndex());
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-                throw e;
-            }
+            MinecraftForge.EVENT_BUS.post(new ExecCommandEvent(sender));
         }
     }
     
@@ -53,15 +44,32 @@ public class VCommandExec
             ItemPrint item = (ItemPrint) itemStack.getItem();
             Print p = item.getPrint(itemStack);
             
-            if (p != null)
-            {
-                sender.sendFeedback(new StringTextComponent("Debug START"), true);
-                p.executeEvent(Visibilis.MOD_ID, "command", sender);
-                sender.sendFeedback(new StringTextComponent("Debug END"), true);
-                return true;
-            }
+            return VCommandExec.executeFor(sender, p);
         }
         
         return false;
+    }
+    
+    public static boolean executeFor(CommandSource sender, Print p)
+    {
+        if (p != null)
+        {
+            sender.sendFeedback(new StringTextComponent("Debug START"), true);
+            p.executeEvent(Visibilis.MOD_ID, "command", sender);
+            sender.sendFeedback(new StringTextComponent("Debug END"), true);
+            return true;
+        }
+        
+        return false;
+    }
+    
+    public static void execCommand(ExecCommandEvent event)
+    {
+        if (event.source.getEntity() instanceof PlayerEntity)
+        {
+            PlayerEntity player = (PlayerEntity) event.source.getEntity();
+            VCommandExec.executeFor(event.source, player, EquipmentSlotType.MAINHAND.getSlotIndex());
+            VCommandExec.executeFor(event.source, player, EquipmentSlotType.OFFHAND.getSlotIndex());
+        }
     }
 }

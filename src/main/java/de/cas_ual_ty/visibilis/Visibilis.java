@@ -73,6 +73,7 @@ public class Visibilis
         Visibilis.instance = this;
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
         MinecraftForge.EVENT_BUS.addListener(this::serverStarting);
+        MinecraftForge.EVENT_BUS.addListener(VCommandExec::execCommand);
     }
     
     public void init(FMLCommonSetupEvent event)
