@@ -105,7 +105,7 @@ public abstract class NodeNumber2to1PX extends NodeParallelizable
     @Override
     public <B> B getOutputValue(int index)
     {
-        if(this.parallelized)
+        if (this.parallelized)
         {
             if (index == this.out1.getId())
             {
@@ -114,7 +114,7 @@ public abstract class NodeNumber2to1PX extends NodeParallelizable
         }
         else
         {
-            if(index >= 0 && index < this.values.length)
+            if (index >= 0 && index < this.values.length)
             {
                 return (B) this.values[index];
             }
