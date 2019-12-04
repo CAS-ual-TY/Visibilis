@@ -11,7 +11,6 @@ import net.minecraft.command.Commands;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 
 public class VCommandExec
@@ -54,9 +53,7 @@ public class VCommandExec
     {
         if (p != null)
         {
-            sender.sendFeedback(new StringTextComponent("Debug START"), true);
             p.executeEvent(Visibilis.MOD_ID, "command", sender);
-            sender.sendFeedback(new StringTextComponent("Debug END"), true);
             return true;
         }
         
