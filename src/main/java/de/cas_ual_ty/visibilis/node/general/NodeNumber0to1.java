@@ -5,16 +5,16 @@ import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.field.Output;
 
-public abstract class NodeFloat0to1 extends Node
+public abstract class NodeNumber0to1 extends Node
 {
     public final Output<Float> out1;
     
     public float value;
     
-    public NodeFloat0to1()
+    public NodeNumber0to1()
     {
         super();
-        this.out1 = new Output<>(this, DataType.FLOAT, "out1");
+        this.out1 = new Output<>(this, DataType.NUMBER, "out1");
     }
     
     @Override
@@ -43,12 +43,12 @@ public abstract class NodeFloat0to1 extends Node
     @Override
     public float[] getColor()
     {
-        return DataType.FLOAT.getColor();
+        return DataType.NUMBER.getColor();
     }
     
     @Override
     public float[] getTextColor()
     {
-        return DataType.FLOAT.getTextColor();
+        return DataType.NUMBER.getTextColor();
     }
 }

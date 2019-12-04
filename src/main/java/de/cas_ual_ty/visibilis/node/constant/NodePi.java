@@ -1,8 +1,8 @@
 package de.cas_ual_ty.visibilis.node.constant;
 
-import de.cas_ual_ty.visibilis.node.general.NodeFloat0to1;
+import de.cas_ual_ty.visibilis.node.general.NodeNumber0to1;
 
-public class NodePi extends NodeFloat0to1
+public class NodePi extends NodeNumber0to1
 {
     public NodePi()
     {

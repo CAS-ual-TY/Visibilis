@@ -5,9 +5,7 @@ import java.util.Map;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.datatype.converter.AnyString;
-import de.cas_ual_ty.visibilis.datatype.converter.FloatNumber;
 import de.cas_ual_ty.visibilis.datatype.converter.IntegerNumber;
-import de.cas_ual_ty.visibilis.datatype.converter.NumberFloat;
 import de.cas_ual_ty.visibilis.datatype.converter.NumberInteger;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
 
@@ -47,38 +45,6 @@ public class DataType<A>
     
     public static final DataType EXEC = new DataType("exec", new float[] { 1F, 0F, 0F });
     
-    public static final DataTypeDynamic<Float> FLOAT = (DataTypeDynamic<Float>) new DataTypeDynamic<Float>("float", new float[] { 1F, 0.5F, 0F }, 1F)
-    {
-        @Override
-        public boolean canParseString(String s)
-        {
-            if (s.equals("-"))
-            {
-                return true;
-            }
-            
-            try
-            {
-                this.stringToValue(s);
-                return true;
-            }
-            catch (NumberFormatException e)
-            {
-                return false;
-            }
-        }
-        
-        @Override
-        public Float stringToValue(String s)
-        {
-            if (s.equals("-"))
-            {
-                return 0F;
-            }
-            return Float.parseFloat(s);
-        }
-    }.setBlackText();
-    
     public static final DataTypeDynamic<Integer> INTEGER = (DataTypeDynamic<Integer>) new DataTypeDynamic<Integer>("integer", new float[] { 0.5F, 1F, 0F }, 1)
     {
         @Override
@@ -111,18 +77,35 @@ public class DataType<A>
         }
     }.setBlackText();
     
-    public static final DataTypeDynamic<Number> NUMBER = (DataTypeDynamic<Number>) new DataTypeDynamic<Number>("number", new float[] { 1F, 1F, 0F }, DataType.FLOAT.getDefaultValue())
+    public static final DataTypeDynamic<Number> NUMBER = (DataTypeDynamic<Number>) new DataTypeDynamic<Number>("number", new float[] { 1F, 1F, 0F }, 1.0F)
     {
         @Override
         public boolean canParseString(String s)
         {
-            return DataType.FLOAT.canParseString(s); // Float can handle both integer and float values.
+            if (s.equals("-"))
+            {
+                return true;
+            }
+            
+            try
+            {
+                this.stringToValue(s);
+                return true;
+            }
+            catch (NumberFormatException e)
+            {
+                return false;
+            }
         }
         
         @Override
         public Number stringToValue(String s)
         {
-            return DataType.FLOAT.stringToValue(s); // Float can handle both integer and float values.
+            if (s.equals("-"))
+            {
+                return 0F;
+            }
+            return Float.parseFloat(s);
         }
     }.setBlackText();
     
@@ -145,15 +128,10 @@ public class DataType<A>
     
     static
     {
-        DataType.NUMBER.registerConverter(DataType.FLOAT, new FloatNumber()); // "But int can be casted to Number! Why not use the generic one?"
-        DataType.NUMBER.registerConverter(DataType.INTEGER, new IntegerNumber()); // - Well, yes. But only the Integer type, not the "small" int. As I dont know how this will be used in the future, I rather add this in.
-        
-        DataType.FLOAT.registerGenericConverter(DataType.INTEGER); // int can be casted to float, so generic converter
-        DataType.FLOAT.registerConverter(DataType.NUMBER, new NumberFloat()); // here Number#floatValue() should be used, so not a generic converter
+        DataType.NUMBER.registerConverter(DataType.INTEGER, new IntegerNumber()); // As I dont know how this will be used in the future, I rather add this in.
         
         DataType.INTEGER.registerConverter(DataType.NUMBER, new NumberInteger()); // here Number#intValue() should be used, so not a generic converter
         
-        DataType.STRING.registerConverter(DataType.FLOAT, new AnyString());
         DataType.STRING.registerConverter(DataType.INTEGER, new AnyString());
         DataType.STRING.registerConverter(DataType.NUMBER, new AnyString());
         DataType.STRING.registerConverter(DataType.BOOLEAN, new AnyString());
