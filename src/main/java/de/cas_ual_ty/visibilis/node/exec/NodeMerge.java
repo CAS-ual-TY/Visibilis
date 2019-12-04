@@ -3,9 +3,9 @@ package de.cas_ual_ty.visibilis.node.exec;
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.INodeExec;
-import de.cas_ual_ty.visibilis.node.NodeExpandable;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
+import de.cas_ual_ty.visibilis.node.general.NodeExpandable;
 
 public class NodeMerge extends NodeExpandable implements INodeExec
 {

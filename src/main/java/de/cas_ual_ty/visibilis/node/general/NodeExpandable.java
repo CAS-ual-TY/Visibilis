@@ -1,7 +1,9 @@
-package de.cas_ual_ty.visibilis.node;
+package de.cas_ual_ty.visibilis.node.general;
 
 import java.util.ArrayList;
 
+import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.node.NodeAction;
 import net.minecraft.nbt.CompoundNBT;
 
 public abstract class NodeExpandable extends Node
