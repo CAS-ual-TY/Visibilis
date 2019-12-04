@@ -42,15 +42,6 @@ public abstract class NodeField<A>
         this.node = node;
         this.dataType = dataType;
         this.name = name;
-        
-        if (this.isOutput())
-        {
-            this.id = this.node.addOutput((Output) this);
-        }
-        else
-        {
-            this.id = this.node.addInput((Input) this);
-        }
     }
     
     /**

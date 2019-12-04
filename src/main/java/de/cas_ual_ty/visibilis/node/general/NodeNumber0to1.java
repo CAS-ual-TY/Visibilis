@@ -14,7 +14,7 @@ public abstract class NodeNumber0to1 extends Node
     public NodeNumber0to1()
     {
         super();
-        this.out1 = new Output<>(this, DataType.NUMBER, "out1");
+        this.addOutput(this.out1 = new Output<>(this, DataType.NUMBER, "out1"));
     }
     
     @Override

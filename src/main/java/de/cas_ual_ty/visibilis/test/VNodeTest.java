@@ -19,10 +19,10 @@ public class VNodeTest extends Node implements INodeExec
     public VNodeTest()
     {
         super();
-        this.out1 = new Output(this, DataType.EXEC, "out1");
-        this.in1 = new Input(this, DataType.EXEC, "in1");
-        this.in2 = new Input<>(this, DataType.BOOLEAN, "in2");
-        this.in3 = new Input<>(this, DataType.NUMBER, "in3");
+        this.addOutput(this.out1 = new Output(this, DataType.EXEC, "out1"));
+        this.addInput(this.in1 = new Input(this, DataType.EXEC, "in1"));
+        this.addInput(this.in2 = new Input<>(this, DataType.BOOLEAN, "in2"));
+        this.addInput(this.in3 = new Input<>(this, DataType.NUMBER, "in3"));
     }
     
     @Override

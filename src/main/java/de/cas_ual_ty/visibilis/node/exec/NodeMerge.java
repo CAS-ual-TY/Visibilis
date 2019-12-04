@@ -14,9 +14,9 @@ public class NodeMerge extends NodeExpandable implements INodeExec
     public NodeMerge()
     {
         super();
-        this.outExec1 = new Output(this, DataType.EXEC, "out1");
-        new Input(this, DataType.EXEC, "in1");
-        new Input(this, DataType.EXEC, "in1");
+        this.addOutput(this.outExec1 = new Output(this, DataType.EXEC, "out1"));
+        this.addInput(new Input(this, DataType.EXEC, "in1"));
+        this.addInput(new Input(this, DataType.EXEC, "in1"));
     }
     
     @Override
@@ -52,7 +52,7 @@ public class NodeMerge extends NodeExpandable implements INodeExec
     @Override
     public void expand()
     {
-        new Input<>(this, DataType.EXEC, "in1");
+        this.addInput(new Input<>(this, DataType.EXEC, "in1"));
     }
     
     @Override

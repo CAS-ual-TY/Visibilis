@@ -20,10 +20,10 @@ public class NodeWhile extends Node implements INodeExec
     public NodeWhile()
     {
         super();
-        this.outExec1 = new Output(this, DataType.EXEC, "out1");
-        this.outExec2 = new Output(this, DataType.EXEC, "out2");
-        this.inExec = new Input(this, DataType.EXEC, "in1");
-        this.inCondition = new Input<>(this, DataType.BOOLEAN, "in2");
+        this.addOutput(this.outExec1 = new Output(this, DataType.EXEC, "out1"));
+        this.addOutput(this.outExec2 = new Output(this, DataType.EXEC, "out2"));
+        this.addInput(this.inExec = new Input(this, DataType.EXEC, "in1"));
+        this.addInput(this.inCondition = new Input<>(this, DataType.BOOLEAN, "in2"));
         this.exec2 = false;
     }
     

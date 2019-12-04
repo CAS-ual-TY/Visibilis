@@ -22,7 +22,7 @@ public class NodeEvent extends Node implements INodeExec
     public NodeEvent()
     {
         super();
-        this.outExec = new Output(this, DataType.EXEC, "out1");
+        this.addOutput(this.outExec = new Output(this, DataType.EXEC, "out1"));
         this.eventType = null; // Just to make sure it is initialized
     }
     

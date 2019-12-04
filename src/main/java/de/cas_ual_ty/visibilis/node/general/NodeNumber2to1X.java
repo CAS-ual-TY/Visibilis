@@ -14,9 +14,9 @@ public abstract class NodeNumber2to1X extends NodeExpandable
     public NodeNumber2to1X()
     {
         super();
-        this.out1 = new Output<>(this, DataType.NUMBER, "out1");
-        new Input<Number>(this, DataType.NUMBER, "in1");
-        new Input<Number>(this, DataType.NUMBER, "in1");
+        this.addOutput(this.out1 = new Output<>(this, DataType.NUMBER, "out1"));
+        this.addInput(new Input<Number>(this, DataType.NUMBER, "in1"));
+        this.addInput(new Input<Number>(this, DataType.NUMBER, "in1"));
     }
     
     @Override
@@ -86,7 +86,7 @@ public abstract class NodeNumber2to1X extends NodeExpandable
     @Override
     public void expand()
     {
-        new Input<Number>(this, DataType.NUMBER, "in1");
+        this.addInput(new Input<Number>(this, DataType.NUMBER, "in1"));
     }
     
     @Override

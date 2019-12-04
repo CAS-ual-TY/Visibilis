@@ -17,9 +17,9 @@ public abstract class NodeBoolean2to1 extends Node
     public NodeBoolean2to1()
     {
         super();
-        this.out1 = new Output<>(this, DataType.BOOLEAN, "out1");
-        this.in1 = new Input<>(this, DataType.BOOLEAN, "in1");
-        this.in2 = new Input<>(this, DataType.BOOLEAN, "in2");
+        this.addOutput(this.out1 = new Output<>(this, DataType.BOOLEAN, "out1"));
+        this.addInput(this.in1 = new Input<>(this, DataType.BOOLEAN, "in1"));
+        this.addInput(this.in2 = new Input<>(this, DataType.BOOLEAN, "in2"));
     }
     
     @Override

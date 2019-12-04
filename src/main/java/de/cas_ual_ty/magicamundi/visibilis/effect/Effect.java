@@ -18,9 +18,9 @@ public abstract class Effect extends Node implements INodeExec
     public Effect()
     {
         super();
-        this.outExec = new Output(this, DataType.EXEC, "exec");
-        this.inExec = new Input(this, DataType.EXEC, "exec");
-        this.inTargetsList = new Input<>(this, MMDataType.TARGETS_LIST, "targets_list");
+        this.addOutput(this.outExec = new Output(this, DataType.EXEC, "exec"));
+        this.addInput(this.inExec = new Input(this, DataType.EXEC, "exec"));
+        this.addInput(this.inTargetsList = new Input<>(this, MMDataType.TARGETS_LIST, "targets_list"));
     }
     
     @Override
