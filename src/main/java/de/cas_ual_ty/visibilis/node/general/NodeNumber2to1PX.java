@@ -5,7 +5,7 @@ import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 
-public abstract class NodeNumber2Xto1 extends NodeParallelizable
+public abstract class NodeNumber2to1PX extends NodeParallelizable
 {
     public final Output<Number> out1;
     
@@ -13,7 +13,7 @@ public abstract class NodeNumber2Xto1 extends NodeParallelizable
     public Number value;
     public Number[] values;
     
-    public NodeNumber2Xto1()
+    public NodeNumber2to1PX()
     {
         super();
         this.out1 = new Output<>(this, DataType.NUMBER, "out1");
