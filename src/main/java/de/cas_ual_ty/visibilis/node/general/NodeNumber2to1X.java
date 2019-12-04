@@ -9,7 +9,6 @@ public abstract class NodeNumber2to1X extends NodeExpandable
 {
     public final Output<Number> out1;
     
-    public int expansion;
     public Number value;
     
     public NodeNumber2to1X()
@@ -18,8 +17,6 @@ public abstract class NodeNumber2to1X extends NodeExpandable
         this.out1 = new Output<>(this, DataType.NUMBER, "out1");
         new Input<Number>(this, DataType.NUMBER, "in1");
         new Input<Number>(this, DataType.NUMBER, "in1");
-        
-        this.expansion = 0;
     }
     
     @Override

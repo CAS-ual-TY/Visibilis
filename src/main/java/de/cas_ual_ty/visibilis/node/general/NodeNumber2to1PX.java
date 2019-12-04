@@ -9,7 +9,6 @@ public abstract class NodeNumber2to1PX extends NodeParallelizable
 {
     public final Output<Number> out1;
     
-    public int expansion;
     public Number value;
     public Number[] values;
     
@@ -19,8 +18,6 @@ public abstract class NodeNumber2to1PX extends NodeParallelizable
         this.out1 = new Output<>(this, DataType.NUMBER, "out1");
         new Input<Number>(this, DataType.NUMBER, "in1");
         new Input<Number>(this, DataType.NUMBER, "in1");
-        
-        this.expansion = 0;
     }
     
     @Override
@@ -108,9 +105,19 @@ public abstract class NodeNumber2to1PX extends NodeParallelizable
     @Override
     public <B> B getOutputValue(int index)
     {
-        if (index == this.out1.getId())
+        if(this.parallelized)
         {
-            return (B) this.value;
+            if (index == this.out1.getId())
+            {
+                return (B) this.value;
+            }
+        }
+        else
+        {
+            if(index >= 0 && index < this.values.length)
+            {
+                return (B) this.values[index];
+            }
         }
         
         return null;
