@@ -33,6 +33,11 @@ public abstract class PrintProvider
     public abstract ArrayList<Node> getAvailableNodes();
     
     /**
+     * Called when the gui is opened (beginning of constructor {@link Screen#Screen(ITextComponent)})
+     */
+    public abstract void init();
+    
+    /**
      * Called when the gui is opened (end of constructor {@link Screen#Screen(ITextComponent)})
      */
     public abstract void onGuiOpen();

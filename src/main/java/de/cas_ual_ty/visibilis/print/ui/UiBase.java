@@ -1,7 +1,9 @@
 package de.cas_ual_ty.visibilis.print.ui;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
+import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.print.impl.PrintProvider;
 import de.cas_ual_ty.visibilis.print.ui.RenderUtility.Rectangle;
 import de.cas_ual_ty.visibilis.print.ui.component.Component;
@@ -19,6 +21,8 @@ public class UiBase implements IGuiEventListener
     
     protected Screen gui;
     
+    protected Consumer<Node> addToPrint;
+    
     public final RenderUtility util;
     public final PrintProvider provider;
     
@@ -32,6 +36,8 @@ public class UiBase implements IGuiEventListener
     
     public UiBase(Screen gui, PrintProvider provider)
     {
+        this.addToPrint = provider.getPrint()::addNode;
+        
         this.children = new ArrayList<>();
         
         this.gui = gui;
@@ -273,5 +279,16 @@ public class UiBase implements IGuiEventListener
         this.windowNodeList.charTyped(typedChar, keyCode);
         
         return false;
+    }
+    
+    public UiBase setAddToPrint(Consumer<Node> addToPrint)
+    {
+        this.addToPrint = addToPrint;
+        return this;
+    }
+    
+    public void addNodeToPrint(Node n)
+    {
+        this.addToPrint.accept(n);
     }
 }

@@ -49,6 +49,8 @@ public class ComponentPrint extends Component
         this.fieldInput.setFocused2(false);
         this.fieldInput.setCanLoseFocus(false);
         this.rightClickMenu = null;
+        
+        this.uiBase.setAddToPrint(this::addNodeToPrint);
     }
     
     @Override
@@ -866,5 +868,10 @@ public class ComponentPrint extends Component
     public int getDotPosY(NodeField field)
     {
         return field.node.posY + this.getUtil().getFieldOffY(field) + this.getUtil().getDotOffY(field);
+    }
+    
+    public void addNodeToPrint(Node n)
+    {
+        this.getProvider().getPrint().addNode(n.setPosition(-this.getPrint().posX + (int) ((this.dimensions.w * 0.5F + this.dimensions.x) / this.getPrint().zoom), -this.getPrint().posY + (int) ((this.dimensions.h * 0.5F + this.dimensions.y) / this.getPrint().zoom)));
     }
 }

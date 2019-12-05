@@ -13,8 +13,8 @@ public class GuiPrint extends Screen
     {
         super(title);
         this.provider = provider;
+        this.provider.init();
         this.uiLogic = new UiBase(this, this.provider);
-        
         this.provider.onGuiOpen();
     }
     

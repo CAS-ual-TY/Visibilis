@@ -22,9 +22,15 @@ public abstract class PrintProviderNBT extends PrintProvider
     }
     
     @Override
-    public void onGuiOpen()
+    public void init()
     {
         this.readFromNBT(this.getNBT());
+    }
+    
+    @Override
+    public void onGuiOpen()
+    {
+        
     }
     
     @Override
