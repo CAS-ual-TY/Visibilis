@@ -3,6 +3,7 @@ package de.cas_ual_ty.visibilis.node.general;
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.field.Input;
+import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.node.field.Output;
 
 public abstract class NodeNumber1to1P extends NodeExpandable
@@ -100,5 +101,11 @@ public abstract class NodeNumber1to1P extends NodeExpandable
     {
         this.removeInput(this.getInput(this.getInputAmt() - 1));
         this.removeOutput(this.getOutput(this.getOutputAmt() - 1));
+    }
+    
+    @Override
+    public String getFieldName(NodeField field)
+    {
+        return super.getFieldName(field) + " " + (field.getId() + 1);
     }
 }
