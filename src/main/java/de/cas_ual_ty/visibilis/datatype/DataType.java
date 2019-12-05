@@ -8,6 +8,7 @@ import de.cas_ual_ty.visibilis.datatype.converter.AnyString;
 import de.cas_ual_ty.visibilis.datatype.converter.IntegerNumber;
 import de.cas_ual_ty.visibilis.datatype.converter.NumberInteger;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
+import net.minecraft.nbt.CompoundNBT;
 
 public class DataType<A>
 {
@@ -17,6 +18,8 @@ public class DataType<A>
     public static final float[] COLOR_DEFAULT_GREY = new float[] { 0.5F, 0.5F, 0.5F };
     
     public static final Map<String, DataType> DATA_TYPES_LIST = new HashMap<>();
+    
+    public static final String KEY_DATA = "data";
     
     /*
      * Explanation for all this overriding:
@@ -75,6 +78,20 @@ public class DataType<A>
             }
             return Integer.parseInt(s);
         }
+        
+        @Override
+        public Integer loadFromNBT(CompoundNBT nbt)
+        {
+            return nbt.getInt(DataType.KEY_DATA);
+        }
+        
+        @Override
+        public CompoundNBT saveToNBT(Integer data)
+        {
+            CompoundNBT nbt = new CompoundNBT();
+            nbt.putInt(DataType.KEY_DATA, data.intValue());
+            return nbt;
+        }
     }.setBlackText();
     
     public static final DataTypeDynamic<Number> NUMBER = (DataTypeDynamic<Number>) new DataTypeDynamic<Number>("number", new float[] { 1F, 1F, 0F }, 1.0F)
@@ -107,6 +124,20 @@ public class DataType<A>
             }
             return Float.parseFloat(s);
         }
+        
+        @Override
+        public Number loadFromNBT(CompoundNBT nbt)
+        {
+            return nbt.getFloat(DataType.KEY_DATA);
+        }
+        
+        @Override
+        public CompoundNBT saveToNBT(Number data)
+        {
+            CompoundNBT nbt = new CompoundNBT();
+            nbt.putFloat(DataType.KEY_DATA, data.floatValue());
+            return nbt;
+        }
     }.setBlackText();
     
     public static final DataTypeEnum<Boolean> BOOLEAN = new DataTypeEnum<Boolean>("boolean", new float[] { 1F, 0F, 1F }).addEnum(false).addEnum(true);
@@ -123,6 +154,20 @@ public class DataType<A>
         public String stringToValue(String s)
         {
             return s;
+        }
+        
+        @Override
+        public String loadFromNBT(CompoundNBT nbt)
+        {
+            return nbt.getString(DataType.KEY_DATA);
+        }
+        
+        @Override
+        public CompoundNBT saveToNBT(String data)
+        {
+            CompoundNBT nbt = new CompoundNBT();
+            nbt.putString(DataType.KEY_DATA, data);
+            return nbt;
         }
     }.setBlackText();
     

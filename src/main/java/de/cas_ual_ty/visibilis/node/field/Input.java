@@ -18,7 +18,7 @@ public class Input<A> extends NodeField<A>
      */
     
     public static final String KEY_DATA_ENUM = "dataId";
-    public static final String KEY_DATA_DYNAMIC = "dataString";
+    public static final String KEY_DATA_DYNAMIC = "data";
     
     /**
      * The output this is connected to.
@@ -188,8 +188,12 @@ public class Input<A> extends NodeField<A>
         }
         else if (this.dataType instanceof DataTypeDynamic)
         {
-            DataTypeDynamic dt = (DataTypeDynamic) this.dataType;
-            nbt.putString(Input.KEY_DATA_DYNAMIC, dt.valueToString(this.getSetValue()));
+            DataTypeDynamic<A> dt = (DataTypeDynamic) this.dataType;
+            CompoundNBT data = dt.saveToNBT(this.getSetValue());
+            if (data != null)
+            {
+                nbt.put(Input.KEY_DATA_DYNAMIC, data);
+            }
         }
         
         super.readFromNBT(nbt);
@@ -205,8 +209,12 @@ public class Input<A> extends NodeField<A>
         }
         else if (this.dataType instanceof DataTypeDynamic)
         {
-            DataTypeDynamic dt = (DataTypeDynamic) this.dataType;
-            this.setValue((A) dt.stringToValue(nbt.getString(Input.KEY_DATA_DYNAMIC)));
+            DataTypeDynamic<A> dt = (DataTypeDynamic) this.dataType;
+            if (nbt.contains(Input.KEY_DATA_DYNAMIC))
+            {
+                CompoundNBT data = nbt.getCompound(Input.KEY_DATA_DYNAMIC);
+                this.setValue(dt.loadFromNBT(data));
+            }
         }
         
         super.writeToNBT(nbt);

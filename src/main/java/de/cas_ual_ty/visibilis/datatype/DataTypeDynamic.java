@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis.datatype;
 
 import com.google.common.base.Predicate;
 
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.StringUtils;
 
 public abstract class DataTypeDynamic<A> extends DataType<A>
@@ -53,5 +54,15 @@ public abstract class DataTypeDynamic<A> extends DataType<A>
                 return StringUtils.isNullOrEmpty(input) || DataTypeDynamic.this.canParseString(input);
             }
         };
+    }
+    
+    public A loadFromNBT(CompoundNBT nbt)
+    {
+        return null;
+    }
+    
+    public CompoundNBT saveToNBT(A data)
+    {
+        return null;
     }
 }
