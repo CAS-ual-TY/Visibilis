@@ -17,7 +17,7 @@ public abstract class NodeNumber2to1PX extends NodeParallelizable
         super();
         this.addOutput(this.out1 = new Output<>(this, DataType.NUMBER, "out1"));
         this.addInput(new Input<Number>(this, DataType.NUMBER, "in1"));
-        this.addInput(new Input<Number>(this, DataType.NUMBER, "in1"));
+        this.addInput(new Input<Number>(this, DataType.NUMBER, "in2"));
     }
     
     @Override

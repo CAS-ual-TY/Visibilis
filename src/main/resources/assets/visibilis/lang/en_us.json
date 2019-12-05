@@ -42,6 +42,7 @@
     "node.addition": "Addition",
     "field.addition.out1": "Sum",
     "field.addition.in1": "Summand",
+    "field.addition.in2": "Summand",
     "node.addition.groups": "calculation;operators",
     
     "node.subtraction": "Subtraction",
@@ -53,6 +54,7 @@
     "node.multiplication": "Multiplication",
     "field.multiplication.out1": "Product",
     "field.multiplication.in1": "Factor",
+    "field.multiplication.in2": "Factor",
     "node.multiplication.groups": "calculation;operators",
     
     "node.division": "Division",
