@@ -1,8 +1,8 @@
 package de.cas_ual_ty.visibilis.node.calculate;
 
-import de.cas_ual_ty.visibilis.node.general.NodeNumber2to1;
+import de.cas_ual_ty.visibilis.node.general.NodeNumber2to1P;
 
-public class NodeModulo extends NodeNumber2to1
+public class NodeModulo extends NodeNumber2to1P
 {
     @Override
     protected boolean canCalculate(Number in1, Number in2)

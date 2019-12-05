@@ -1,20 +1,13 @@
 package de.cas_ual_ty.visibilis.node.calculate;
 
-import de.cas_ual_ty.visibilis.node.general.NodeNumber2to1PX;
+import de.cas_ual_ty.visibilis.node.general.NodeNumber2to1P;
 
-public class NodeDivision extends NodeNumber2to1PX
+public class NodeDivision extends NodeNumber2to1P
 {
     @Override
-    protected Number calculate(Number[] inputs)
+    protected boolean canCalculate(Number in1, Number in2)
     {
-        float value = inputs[0].floatValue();
-        
-        for (Number in : inputs)
-        {
-            value /= in.floatValue();
-        }
-        
-        return value;
+        return in2.floatValue() != 0;
     }
     
     @Override
