@@ -92,6 +92,6 @@ public abstract class NodeNumber2to1X extends NodeExpandable
     @Override
     public void shrink()
     {
-        this.removeInput((Input) this.getInput(this.getInputAmt() - 1));
+        this.removeInput(this.getInput(this.getInputAmt() - 1));
     }
 }

@@ -159,13 +159,13 @@ public abstract class NodeNumber2to1PX extends NodeParallelizable
     {
         if (this.parallelized)
         {
-            this.removeInput((Input) this.getInput(this.getInputAmt() - 2));
+            this.removeInput(this.getInput(this.getInputAmt() - 2));
             this.removeOutput(this.getOutput(this.getOutputAmt() - 1));
             this.getInput(this.getInputAmt() - 1).recalculateId();
         }
         else
         {
-            this.removeInput((Input) this.getInput(this.getInputAmt() - 1));
+            this.removeInput(this.getInput(this.getInputAmt() - 1));
         }
     }
     
