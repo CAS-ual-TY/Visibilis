@@ -1,14 +1,9 @@
 package de.cas_ual_ty.visibilis.node.function;
 
-import de.cas_ual_ty.visibilis.node.general.NodeNumber1to1;
+import de.cas_ual_ty.visibilis.node.general.NodeNumber1to1P;
 
-public class NodeCosines extends NodeNumber1to1
+public class NodeCosines extends NodeNumber1to1P
 {
-    public NodeCosines()
-    {
-        super();
-    }
-    
     @Override
     protected Number calculate(Number in1)
     {
