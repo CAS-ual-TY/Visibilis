@@ -239,6 +239,7 @@ public abstract class Node
         if (!this.outputFields.contains(out))
         {
             this.outputFields.add(out);
+            out.recalculateId();
             
             return this.getOutputId(out);
         }
@@ -251,6 +252,7 @@ public abstract class Node
         if (!this.inputFields.contains(in))
         {
             this.inputFields.add(in);
+            in.recalculateId();
             
             return this.getInputId(in);
         }
