@@ -16,7 +16,10 @@ public class ComponentHeader extends Component
     {
         super(guiPrint);
         
-        this.undo = new AbstractButton(0, 0, 19, 19, "<")
+        int w = 19 * 3;
+        int h = 19;
+        
+        this.undo = new AbstractButton(0, 0, w, h, I18n.format(ComponentHeader.LANG_UNDO))
         {
             @Override
             public void onPress()
@@ -25,7 +28,7 @@ public class ComponentHeader extends Component
             }
         };
         
-        this.redo = new AbstractButton(0 + 19, 0, 19, 19, ">")
+        this.redo = new AbstractButton(0 + w, 0, w, h, I18n.format(ComponentHeader.LANG_REDO))
         {
             @Override
             public void onPress()
