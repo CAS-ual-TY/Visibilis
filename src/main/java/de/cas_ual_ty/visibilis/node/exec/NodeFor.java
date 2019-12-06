@@ -32,7 +32,7 @@ public class NodeFor extends Node implements INodeExec
     public Output getOutExec(int index)
     {
         this.value = index;
-        return index == this.length ? this.outIndex2 : (index < this.length ? this.outExec1 : null);
+        return index == this.length ? this.outExec3 : (index < this.length ? this.outExec1 : null);
     }
     
     @Override
@@ -45,7 +45,7 @@ public class NodeFor extends Node implements INodeExec
     @Override
     public <B> B getOutputValue(int index)
     {
-        return index == 2 ? (B) (Integer) this.value : null;
+        return index == 1 ? (B) (Integer) this.value : null;
     }
     
     @Override
