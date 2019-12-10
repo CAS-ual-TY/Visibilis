@@ -230,5 +230,11 @@
     "field.while.out2": "(O) NOT A",
     "field.while.in1": "(I)",
     "field.while.in2": "A",
-    "node.while.groups": "exec"
+    "node.while.groups": "exec",
+    
+    "_comment8": "--- Compare ---",
+    "node.equals": "Equals",
+    "field.node.out1": "A == B",
+    "field.node.in1": "A",
+    "field.node.in2": "B"
 }

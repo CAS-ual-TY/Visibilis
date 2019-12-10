@@ -10,6 +10,7 @@ import de.cas_ual_ty.visibilis.node.calculate.NodeModulo;
 import de.cas_ual_ty.visibilis.node.calculate.NodeMultiplication;
 import de.cas_ual_ty.visibilis.node.calculate.NodeRoot;
 import de.cas_ual_ty.visibilis.node.calculate.NodeSubtraction;
+import de.cas_ual_ty.visibilis.node.compare.NodeEquals;
 import de.cas_ual_ty.visibilis.node.constant.NodeConstBoolean;
 import de.cas_ual_ty.visibilis.node.constant.NodeConstNumber;
 import de.cas_ual_ty.visibilis.node.constant.NodeE;
@@ -133,6 +134,8 @@ public class Visibilis
         VRegistry.INSTANCE.registerNode(NodeMerge.class, Visibilis.MOD_ID, "merge");
         VRegistry.INSTANCE.registerNode(NodeFor.class, Visibilis.MOD_ID, "for");
         VRegistry.INSTANCE.registerNode(NodeWhile.class, Visibilis.MOD_ID, "while");
+        
+        VRegistry.INSTANCE.registerNode(NodeEquals.class, Visibilis.MOD_ID, "equals");
     }
     
     // TODO low: Some nice logging here please

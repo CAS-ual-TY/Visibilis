@@ -14,6 +14,7 @@ import de.cas_ual_ty.visibilis.node.calculate.NodeModulo;
 import de.cas_ual_ty.visibilis.node.calculate.NodeMultiplication;
 import de.cas_ual_ty.visibilis.node.calculate.NodeRoot;
 import de.cas_ual_ty.visibilis.node.calculate.NodeSubtraction;
+import de.cas_ual_ty.visibilis.node.compare.NodeEquals;
 import de.cas_ual_ty.visibilis.node.constant.NodeConstBoolean;
 import de.cas_ual_ty.visibilis.node.constant.NodeConstNumber;
 import de.cas_ual_ty.visibilis.node.constant.NodeE;
@@ -98,6 +99,8 @@ public class VPrintProviderTest extends PrintProviderItem
         list.add(new NodeMerge());
         list.add(new NodeFor());
         list.add(new NodeWhile());
+        
+        list.add(new NodeEquals());
         
         return list;
     }
