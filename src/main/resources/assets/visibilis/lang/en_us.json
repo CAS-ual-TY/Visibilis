@@ -234,7 +234,7 @@
     
     "_comment8": "--- Compare ---",
     "node.equals": "Equals",
-    "field.node.out1": "A == B",
-    "field.node.in1": "A",
-    "field.node.in2": "B"
+    "field.equals.out1": "A == B",
+    "field.equals.in1": "A",
+    "field.equals.in2": "B"
 }
