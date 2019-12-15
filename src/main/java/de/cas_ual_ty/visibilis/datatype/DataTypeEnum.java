@@ -21,6 +21,12 @@ public class DataTypeEnum<A> extends DataType<A>
     }
     
     @Override
+    public boolean equals(A obj1, A obj2)
+    {
+        return this.getEnumIdx(obj1) == this.getEnumIdx(obj2);
+    }
+    
+    @Override
     public DataType setDefaultValue(A value)
     {
         if (!this.enums.contains(value))
