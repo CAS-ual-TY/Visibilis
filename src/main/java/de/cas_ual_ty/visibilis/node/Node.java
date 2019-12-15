@@ -39,6 +39,12 @@ public abstract class Node
         this.outputFields = new ArrayList<>();
         this.inputFields = new ArrayList<>();
         this.setPosition(0, 0); // Just to make sure they are always initialized
+        this.init();
+    }
+    
+    public void init()
+    {
+        
     }
     
     public Node setPosition(int x, int y)
