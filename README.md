@@ -5,8 +5,8 @@
 **LAT**: visibilis, e
 **ENG**: visible, capable of being seen
 
-![Ingame screenshot](https://i.imgur.com/Ps8O4ZO.png)
-Current progress (29/10/2019)
+![Ingame screenshot](https://i.imgur.com/PRWxaij.png)
+Current progress (15/12/2019)
 
 
 ## About
