@@ -50,6 +50,7 @@ public class DataType<A>
     
     public static final DataTypeDynamic<Integer> INTEGER = (DataTypeDynamic<Integer>) new DataTypeDynamic<Integer>("integer", new float[] { 0.5F, 1F, 0F }, 1)
     {
+        @Override
         public boolean equals(Integer obj1, Integer obj2)
         {
             return obj1.intValue() == obj2.intValue();
@@ -101,6 +102,7 @@ public class DataType<A>
     
     public static final DataTypeDynamic<Number> NUMBER = (DataTypeDynamic<Number>) new DataTypeDynamic<Number>("number", new float[] { 1F, 1F, 0F }, 1.0F)
     {
+        @Override
         public boolean equals(Number obj1, Number obj2)
         {
             return obj1.floatValue() == obj2.floatValue();
@@ -152,6 +154,7 @@ public class DataType<A>
     
     public static final DataTypeEnum<Boolean> BOOLEAN = new DataTypeEnum<Boolean>("boolean", new float[] { 1F, 0F, 1F })
     {
+        @Override
         public boolean equals(Boolean obj1, Boolean obj2)
         {
             return obj1.booleanValue() == obj2.booleanValue();

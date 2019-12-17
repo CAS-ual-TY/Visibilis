@@ -4,10 +4,16 @@ import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeAction;
+import de.cas_ual_ty.visibilis.node.field.Input;
 import net.minecraft.nbt.CompoundNBT;
 
 public abstract class NodeExpandable extends Node
 {
+    /*
+     * When expanding, only Inputs are added or removed.
+     * All Inputs affect all Outputs.
+     */
+    
     public static final String KEY_EXPANSION = "expansion_status";
     
     public int expansion;
@@ -17,6 +23,8 @@ public abstract class NodeExpandable extends Node
         super();
         this.expansion = 0;
     }
+    
+    public abstract Input createDynamicInput();
     
     public void actionExpand()
     {
@@ -40,9 +48,15 @@ public abstract class NodeExpandable extends Node
         return this.expansion > 0;
     }
     
-    public abstract void expand();
+    public void expand()
+    {
+        this.addInput(this.createDynamicInput());
+    }
     
-    public abstract void shrink();
+    public void shrink()
+    {
+        this.removeInput(this.getInput(this.getInputAmt() - 1));
+    }
     
     @Override
     public ArrayList<NodeAction> getActions()

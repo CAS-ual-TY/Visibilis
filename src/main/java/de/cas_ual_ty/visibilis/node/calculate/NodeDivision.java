@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.calculate;
 
-import de.cas_ual_ty.visibilis.node.general.NodeNumber2to1P;
+import de.cas_ual_ty.visibilis.node.general.number.NodeNumber2to1P;
 
 public class NodeDivision extends NodeNumber2to1P
 {

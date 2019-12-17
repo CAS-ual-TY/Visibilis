@@ -1,23 +1,15 @@
-package de.cas_ual_ty.visibilis.node.general;
+package de.cas_ual_ty.visibilis.node.general.number;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.field.Input;
-import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.node.field.Output;
 
-public abstract class NodeNumber2to1P extends NodeExpandable
+public abstract class NodeNumber2to1P extends NodeParallelNumber
 {
-    public final Output<Number> out1;
-    
-    public Number value;
-    public Number[] values;
-    
     public NodeNumber2to1P()
     {
         super();
-        this.addOutput(this.out1 = new Output<>(this, DataType.NUMBER, "out1"));
-        this.addInput(new Input<Number>(this, DataType.NUMBER, "in1"));
         this.addInput(new Input<Number>(this, DataType.NUMBER, "in2"));
     }
     
@@ -31,19 +23,17 @@ public abstract class NodeNumber2to1P extends NodeExpandable
             inputs[i] = (Number) this.getInput(i).getValue();
         }
         
-        Number n = inputs[this.getOutputAmt()];
-        this.values = new Number[this.getOutputAmt()];
+        Number n = inputs[this.getInputAmt() - 1];
+        this.values = new Number[this.getInputAmt() - 1];
         
-        for (int i = 0; i < this.getOutputAmt(); ++i)
+        for (int i = 0; i < this.getInputAmt() - 1; ++i)
         {
             if (!this.canCalculate(inputs[i], n))
             {
                 return false;
             }
-            else
-            {
-                this.values[i] = this.calculate(inputs[i], n);
-            }
+            
+            this.values[i] = this.calculate(inputs[i], n);
         }
         
         return true;
@@ -62,36 +52,13 @@ public abstract class NodeNumber2to1P extends NodeExpandable
     }
     
     /**
-     * Calculate the result using the input numbers when in parallelized status.
+     * Calculate the result using the input numbers.
      * 
      * @param in1 The parallel number.
      * @param in2 The number to calculate with.
      * @return The result.
      */
     protected abstract Number calculate(Number in1, Number in2);
-    
-    @Override
-    public <B> B getOutputValue(int index)
-    {
-        if (index == this.out1.getId())
-        {
-            return (B) this.value;
-        }
-        
-        return null;
-    }
-    
-    @Override
-    public float[] getColor()
-    {
-        return DataType.NUMBER.getColor();
-    }
-    
-    @Override
-    public float[] getTextColor()
-    {
-        return DataType.NUMBER.getTextColor();
-    }
     
     @Override
     public void expand()
@@ -111,11 +78,5 @@ public abstract class NodeNumber2to1P extends NodeExpandable
         this.removeInput(this.getInput(this.getInputAmt() - 2));
         this.removeOutput(this.getOutput(this.getOutputAmt() - 1));
         this.getInput(this.getInputAmt() - 1).recalculateId();
-    }
-    
-    @Override
-    public String getFieldName(NodeField field)
-    {
-        return super.getFieldName(field) + (field.getId() != this.getOutputAmt() ? " " + (field.getId() + 1) : "");
     }
 }

@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.calculate;
 
-import de.cas_ual_ty.visibilis.node.general.NodeNumber2to1PX;
+import de.cas_ual_ty.visibilis.node.general.number.NodeNumber2to1PX;
 
 public class NodeMultiplication extends NodeNumber2to1PX
 {

@@ -1,22 +1,15 @@
-package de.cas_ual_ty.visibilis.node.general;
+package de.cas_ual_ty.visibilis.node.general.number;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 
-public abstract class NodeNumber2to1PX extends NodeParallelizable
+public abstract class NodeNumber2to1PX extends NodeParallelizableNumber
 {
-    public final Output<Number> out1;
-    
-    public Number value;
-    public Number[] values;
-    
     public NodeNumber2to1PX()
     {
         super();
-        this.addOutput(this.out1 = new Output<>(this, DataType.NUMBER, "out1"));
-        this.addInput(new Input<Number>(this, DataType.NUMBER, "in1"));
         this.addInput(new Input<Number>(this, DataType.NUMBER, "in2"));
     }
     
@@ -41,19 +34,17 @@ public abstract class NodeNumber2to1PX extends NodeParallelizable
         }
         else
         {
-            Number n = inputs[this.getOutputAmt()];
-            this.values = new Number[this.getOutputAmt()];
+            Number n = inputs[this.getInputAmt() - 1];
+            this.values = new Number[this.getInputAmt() - 1];
             
-            for (int i = 0; i < this.getOutputAmt(); ++i)
+            for (int i = 0; i < this.getInputAmt() - 1; ++i)
             {
                 if (!this.canCalculate(inputs[i], n))
                 {
                     return false;
                 }
-                else
-                {
-                    this.values[i] = this.calculate(inputs[i], n);
-                }
+                
+                this.values[i] = this.calculate(inputs[i], n);
             }
         }
         
@@ -103,39 +94,6 @@ public abstract class NodeNumber2to1PX extends NodeParallelizable
     protected abstract Number calculate(Number in1, Number in2);
     
     @Override
-    public <B> B getOutputValue(int index)
-    {
-        if (this.parallelized)
-        {
-            if (index == this.out1.getId())
-            {
-                return (B) this.value;
-            }
-        }
-        else
-        {
-            if (index >= 0 && index < this.values.length)
-            {
-                return (B) this.values[index];
-            }
-        }
-        
-        return null;
-    }
-    
-    @Override
-    public float[] getColor()
-    {
-        return DataType.NUMBER.getColor();
-    }
-    
-    @Override
-    public float[] getTextColor()
-    {
-        return DataType.NUMBER.getTextColor();
-    }
-    
-    @Override
     public void expand()
     {
         if (this.parallelized)
@@ -174,7 +132,7 @@ public abstract class NodeNumber2to1PX extends NodeParallelizable
     {
         for (int i = this.getOutputAmt(); i < this.getInputAmt() - 1; ++i)
         {
-            this.addOutput(new Output<Number>(this, DataType.NUMBER, "out1"));
+            this.addOutput(this.createDynamicOutput());
         }
     }
     

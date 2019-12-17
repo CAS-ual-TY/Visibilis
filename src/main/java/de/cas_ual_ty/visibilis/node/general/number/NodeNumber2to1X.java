@@ -1,21 +1,14 @@
-package de.cas_ual_ty.visibilis.node.general;
+package de.cas_ual_ty.visibilis.node.general.number;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.field.Input;
-import de.cas_ual_ty.visibilis.node.field.Output;
 
-public abstract class NodeNumber2to1X extends NodeExpandable
+public abstract class NodeNumber2to1X extends NodeExpandableNumber
 {
-    public final Output<Number> out1;
-    
-    public Number value;
-    
     public NodeNumber2to1X()
     {
         super();
-        this.addOutput(this.out1 = new Output<>(this, DataType.NUMBER, "out1"));
-        this.addInput(new Input<Number>(this, DataType.NUMBER, "in1"));
         this.addInput(new Input<Number>(this, DataType.NUMBER, "in2"));
     }
     
@@ -59,39 +52,4 @@ public abstract class NodeNumber2to1X extends NodeExpandable
      * @return The result.
      */
     protected abstract Number calculate(Number[] inputs);
-    
-    @Override
-    public <B> B getOutputValue(int index)
-    {
-        if (index == this.out1.getId())
-        {
-            return (B) this.value;
-        }
-        
-        return null;
-    }
-    
-    @Override
-    public float[] getColor()
-    {
-        return DataType.NUMBER.getColor();
-    }
-    
-    @Override
-    public float[] getTextColor()
-    {
-        return DataType.NUMBER.getTextColor();
-    }
-    
-    @Override
-    public void expand()
-    {
-        this.addInput(new Input<Number>(this, DataType.NUMBER, "in1"));
-    }
-    
-    @Override
-    public void shrink()
-    {
-        this.removeInput(this.getInput(this.getInputAmt() - 1));
-    }
 }

@@ -2,35 +2,61 @@ package de.cas_ual_ty.visibilis.node.general;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
-import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 
-public abstract class NodeNumber1to1 extends Node
+public abstract class NodeNumber1to1 extends NodeParallel
 {
-    public final Output<Number> out1;
-    public final Input<Number> in1;
-    
-    public Number value;
+    public Number[] values;
     
     public NodeNumber1to1()
     {
         super();
-        this.addOutput(this.out1 = new Output<>(this, DataType.NUMBER, "out1"));
-        this.addInput(this.in1 = new Input<>(this, DataType.NUMBER, "in1"));
+    }
+    
+    @Override
+    public Output createDynamicOutput()
+    {
+        return new Output<Number>(this, DataType.NUMBER, "out1");
+    }
+    
+    @Override
+    public Input createDynamicInput()
+    {
+        return new Input<Number>(this, DataType.NUMBER, "in1");
     }
     
     @Override
     public boolean doCalculate(ExecProvider provider)
     {
-        if (!this.canCalculate(this.in1.getValue()))
+        Number in;
+        
+        for (int i = 0; i < this.expansion; ++i)
         {
-            return false;
+            in = (Number) this.getInput(i).getValue();
+            
+            if (!this.canCalculate(in))
+            {
+                return false;
+            }
+            else
+            {
+                this.values[i] = this.calculate(in);
+            }
         }
         
-        this.value = this.calculate(this.in1.getValue());
-        
         return true;
+    }
+    
+    @Override
+    public <B> B getOutputValue(int index)
+    {
+        if (index >= 0 && index < this.expansion)
+        {
+            return (B) this.values[index];
+        }
+        
+        return null;
     }
     
     /**
@@ -55,27 +81,4 @@ public abstract class NodeNumber1to1 extends Node
      * @return The result.
      */
     protected abstract Number calculate(Number in1);
-    
-    @Override
-    public <B> B getOutputValue(int index)
-    {
-        if (index == this.out1.getId())
-        {
-            return (B) this.value;
-        }
-        
-        return null;
-    }
-    
-    @Override
-    public float[] getColor()
-    {
-        return DataType.NUMBER.getColor();
-    }
-    
-    @Override
-    public float[] getTextColor()
-    {
-        return DataType.NUMBER.getTextColor();
-    }
 }

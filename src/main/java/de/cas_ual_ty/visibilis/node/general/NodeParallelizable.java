@@ -2,8 +2,10 @@ package de.cas_ual_ty.visibilis.node.general;
 
 import java.util.ArrayList;
 
+import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.NodeAction;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
+import de.cas_ual_ty.visibilis.node.field.Output;
 import net.minecraft.nbt.CompoundNBT;
 
 public abstract class NodeParallelizable extends NodeExpandable
@@ -17,6 +19,8 @@ public abstract class NodeParallelizable extends NodeExpandable
         this.parallelized = false;
     }
     
+    public abstract Output createDynamicOutput();
+    
     public void actionParallelize()
     {
         this.parallelized = true;
@@ -29,9 +33,43 @@ public abstract class NodeParallelizable extends NodeExpandable
         this.unparallelize();
     }
     
-    public abstract void parallelize();
+    @Override
+    public void expand()
+    {
+        if (this.parallelized)
+        {
+            this.addOutput(new Output<Number>(this, DataType.NUMBER, "out1"));
+        }
+        
+        super.expand();
+    }
     
-    public abstract void unparallelize();
+    @Override
+    public void shrink()
+    {
+        if (this.parallelized)
+        {
+            this.removeOutput(this.getOutput(this.getOutputAmt() - 1));
+        }
+        
+        super.shrink();
+    }
+    
+    public void parallelize()
+    {
+        for (int i = this.getOutputAmt(); i < this.getInputAmt(); ++i)
+        {
+            this.addOutput(this.createDynamicOutput());
+        }
+    }
+    
+    public void unparallelize()
+    {
+        for (int i = this.getOutputAmt() - 1; i > 0; --i)
+        {
+            this.removeOutput(this.getOutput(i));
+        }
+    }
     
     public boolean canParallelize()
     {

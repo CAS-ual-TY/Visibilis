@@ -236,7 +236,7 @@ public abstract class Node
     
     public int addOutput(Output out)
     {
-        if (!this.outputFields.contains(out))
+        if (out != null && !this.outputFields.contains(out))
         {
             this.outputFields.add(out);
             out.recalculateId();
@@ -249,7 +249,7 @@ public abstract class Node
     
     public int addInput(Input in)
     {
-        if (!this.inputFields.contains(in))
+        if (in != null && !this.inputFields.contains(in))
         {
             this.inputFields.add(in);
             in.recalculateId();
