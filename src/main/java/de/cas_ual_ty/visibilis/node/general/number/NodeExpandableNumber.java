@@ -3,9 +3,9 @@ package de.cas_ual_ty.visibilis.node.general.number;
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
-import de.cas_ual_ty.visibilis.node.general.NodeExpandable;
+import de.cas_ual_ty.visibilis.node.general.NodeX;
 
-public abstract class NodeExpandableNumber extends NodeExpandable
+public abstract class NodeExpandableNumber extends NodeX
 {
     public Number value;
     

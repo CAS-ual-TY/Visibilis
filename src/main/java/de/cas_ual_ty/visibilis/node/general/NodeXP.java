@@ -8,12 +8,20 @@ import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import net.minecraft.nbt.CompoundNBT;
 
-public abstract class NodeParallelizable extends NodeExpandable
+public abstract class NodeXP extends NodeX
 {
+    /*
+     * This node can be in normal or parallel mode.
+     * When expanding, either only Inputs are added (normal), or Outputs as well (parallel).
+     * In parallel mode, Inputs affect only a single Output dedicated only to them;
+     * in normal mode, all Inputs affect all Outputs.
+     * You can always switch between normal and parallel mode.
+     */
+    
     public static final String KEY_PARALLELIZATION = "parallelization_status";
     public boolean parallelized;
     
-    public NodeParallelizable()
+    public NodeXP()
     {
         super();
         this.parallelized = false;
@@ -106,7 +114,7 @@ public abstract class NodeParallelizable extends NodeExpandable
             @Override
             public boolean clicked()
             {
-                NodeParallelizable.this.actionParallelize();
+                NodeXP.this.actionParallelize();
                 return true;
             }
         };
@@ -119,7 +127,7 @@ public abstract class NodeParallelizable extends NodeExpandable
             @Override
             public boolean clicked()
             {
-                NodeParallelizable.this.actionUnparallelize();
+                NodeXP.this.actionUnparallelize();
                 return true;
             }
         };
@@ -129,7 +137,7 @@ public abstract class NodeParallelizable extends NodeExpandable
     public void readNodeFromNBT(CompoundNBT nbt)
     {
         super.readNodeFromNBT(nbt);
-        boolean parallelized = nbt.getBoolean(NodeParallelizable.KEY_PARALLELIZATION);
+        boolean parallelized = nbt.getBoolean(NodeXP.KEY_PARALLELIZATION);
         
         if (parallelized)
         {
@@ -141,7 +149,7 @@ public abstract class NodeParallelizable extends NodeExpandable
     public void writeNodeToNBT(CompoundNBT nbt)
     {
         super.writeNodeToNBT(nbt);
-        nbt.putBoolean(NodeParallelizable.KEY_PARALLELIZATION, this.parallelized);
+        nbt.putBoolean(NodeXP.KEY_PARALLELIZATION, this.parallelized);
     }
     
     @Override

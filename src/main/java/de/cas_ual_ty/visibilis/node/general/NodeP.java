@@ -3,17 +3,17 @@ package de.cas_ual_ty.visibilis.node.general;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.node.field.Output;
 
-public abstract class NodeParallel extends NodeExpandable
+public abstract class NodeP extends NodeX
 {
     /*
      * When expanding, both Outputs and Inputs are added or removed.
-     * Some Inputs affect only a single Output dedicated only to them.
+     * Inputs affect only a single Output dedicated only to them.
      * The other Inputs affect all Outputs.
      */
     
     public Number[] values;
     
-    public NodeParallel()
+    public NodeP()
     {
         super();
     }

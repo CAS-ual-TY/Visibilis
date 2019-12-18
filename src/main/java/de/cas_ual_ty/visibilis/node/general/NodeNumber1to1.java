@@ -5,7 +5,7 @@ import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 
-public abstract class NodeNumber1to1 extends NodeParallel
+public abstract class NodeNumber1to1 extends NodeP
 {
     public Number[] values;
     

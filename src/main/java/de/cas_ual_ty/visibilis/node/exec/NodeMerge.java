@@ -5,9 +5,9 @@ import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.INodeExec;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
-import de.cas_ual_ty.visibilis.node.general.NodeExpandable;
+import de.cas_ual_ty.visibilis.node.general.NodeX;
 
-public class NodeMerge extends NodeExpandable implements INodeExec
+public class NodeMerge extends NodeX implements INodeExec
 {
     public final Output outExec1;
     

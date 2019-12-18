@@ -7,7 +7,7 @@ import de.cas_ual_ty.visibilis.node.NodeAction;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import net.minecraft.nbt.CompoundNBT;
 
-public abstract class NodeExpandable extends Node
+public abstract class NodeX extends Node
 {
     /*
      * When expanding, only Inputs are added or removed.
@@ -18,7 +18,7 @@ public abstract class NodeExpandable extends Node
     
     public int expansion;
     
-    public NodeExpandable()
+    public NodeX()
     {
         super();
         this.expansion = 0;
@@ -83,7 +83,7 @@ public abstract class NodeExpandable extends Node
             @Override
             public boolean clicked()
             {
-                NodeExpandable.this.actionExpand();
+                NodeX.this.actionExpand();
                 return true;
             }
         };
@@ -96,7 +96,7 @@ public abstract class NodeExpandable extends Node
             @Override
             public boolean clicked()
             {
-                NodeExpandable.this.actionShrink();
+                NodeX.this.actionShrink();
                 return true;
             }
         };
@@ -106,7 +106,7 @@ public abstract class NodeExpandable extends Node
     public void readNodeFromNBT(CompoundNBT nbt)
     {
         super.readNodeFromNBT(nbt);
-        int expansion = nbt.getInt(NodeExpandable.KEY_EXPANSION);
+        int expansion = nbt.getInt(NodeX.KEY_EXPANSION);
         
         for (int i = 0; i < expansion; ++i)
         {
@@ -118,6 +118,6 @@ public abstract class NodeExpandable extends Node
     public void writeNodeToNBT(CompoundNBT nbt)
     {
         super.writeNodeToNBT(nbt);
-        nbt.putInt(NodeExpandable.KEY_EXPANSION, this.expansion);
+        nbt.putInt(NodeX.KEY_EXPANSION, this.expansion);
     }
 }

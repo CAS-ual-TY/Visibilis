@@ -3,9 +3,9 @@ package de.cas_ual_ty.visibilis.node.general.number;
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
-import de.cas_ual_ty.visibilis.node.general.NodeParallel;
+import de.cas_ual_ty.visibilis.node.general.NodeP;
 
-public abstract class NodeParallelNumber extends NodeParallel
+public abstract class NodeParallelNumber extends NodeP
 {
     public Number[] values;
     
