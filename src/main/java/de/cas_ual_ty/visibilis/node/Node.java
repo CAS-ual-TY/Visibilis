@@ -236,10 +236,19 @@ public abstract class Node
     
     public int addOutput(Output out)
     {
+        return this.addOutput(out, this.getOutputAmt());
+    }
+    
+    public int addOutput(Output out, int index)
+    {
         if (out != null && !this.outputFields.contains(out))
         {
-            this.outputFields.add(out);
-            out.recalculateId();
+            this.outputFields.add(index, out);
+            
+            for(int i = index; i < this.getOutputAmt(); ++i)
+            {
+                this.getOutput(i).recalculateId();
+            }
             
             return this.getOutputId(out);
         }
@@ -249,10 +258,19 @@ public abstract class Node
     
     public int addInput(Input in)
     {
+        return this.addInput(in, this.getInputAmt());
+    }
+    
+    public int addInput(Input in, int index)
+    {
         if (in != null && !this.inputFields.contains(in))
         {
-            this.inputFields.add(in);
-            in.recalculateId();
+            this.inputFields.add(index, in);
+            
+            for(int i = index; i < this.getInputAmt(); ++i)
+            {
+                this.getInput(i).recalculateId();
+            }
             
             return this.getInputId(in);
         }
