@@ -50,12 +50,17 @@ public abstract class NodeX extends Node
     
     public void expand()
     {
-        this.addInput(this.createDynamicInput());
+        this.addInput(this.createDynamicInput(), this.getInputAmt() - this.getExtraInAmt());
     }
     
     public void shrink()
     {
-        this.removeInput(this.getInput(this.getInputAmt() - 1));
+        this.removeInput(this.getInputAmt() - 1 - this.getExtraInAmt());
+    }
+    
+    public int getExtraInAmt()
+    {
+        return 0;
     }
     
     @Override

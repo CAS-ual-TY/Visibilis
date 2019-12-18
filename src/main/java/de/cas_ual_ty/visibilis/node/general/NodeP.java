@@ -21,14 +21,14 @@ public abstract class NodeP extends NodeX
     @Override
     public void expand()
     {
-        this.addOutput(this.createDynamicOutput());
+        this.addOutput(this.createDynamicOutput(), this.getOutputAmt());
         super.expand();
     }
     
     @Override
     public void shrink()
     {
-        this.removeOutput(this.getOutput(this.getOutputAmt() - 1));
+        this.removeOutput(this.getOutputAmt() - 1);
         super.shrink();
     }
     

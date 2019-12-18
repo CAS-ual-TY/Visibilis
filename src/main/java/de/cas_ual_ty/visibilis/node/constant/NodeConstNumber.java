@@ -1,8 +1,8 @@
 package de.cas_ual_ty.visibilis.node.constant;
 
-import de.cas_ual_ty.visibilis.node.general.number.NodeNumber1to1P;
+import de.cas_ual_ty.visibilis.node.general.number.NodeNumberP1;
 
-public class NodeConstNumber extends NodeNumber1to1P
+public class NodeConstNumber extends NodeNumberP1
 {
     @Override
     protected Number calculate(Number in1)

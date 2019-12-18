@@ -245,7 +245,7 @@ public abstract class Node
         {
             this.outputFields.add(index, out);
             
-            for(int i = index; i < this.getOutputAmt(); ++i)
+            for (int i = index; i < this.getOutputAmt(); ++i)
             {
                 this.getOutput(i).recalculateId();
             }
@@ -267,7 +267,7 @@ public abstract class Node
         {
             this.inputFields.add(index, in);
             
-            for(int i = index; i < this.getInputAmt(); ++i)
+            for (int i = index; i < this.getInputAmt(); ++i)
             {
                 this.getInput(i).recalculateId();
             }
@@ -296,7 +296,7 @@ public abstract class Node
     {
         this.outputFields.remove(index);
         
-        for(int i = index; i < this.getOutputAmt(); ++i)
+        for (int i = index; i < this.getOutputAmt(); ++i)
         {
             this.getOutput(i).recalculateId();
         }
@@ -320,7 +320,7 @@ public abstract class Node
     {
         this.inputFields.remove(index);
         
-        for(int i = index; i < this.getInputAmt(); ++i)
+        for (int i = index; i < this.getInputAmt(); ++i)
         {
             this.getInput(i).recalculateId();
         }

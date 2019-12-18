@@ -1,15 +1,12 @@
 package de.cas_ual_ty.visibilis.node.general.number;
 
-import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
-import de.cas_ual_ty.visibilis.node.field.Input;
 
-public abstract class NodeNumber2to1X extends NodeExpandableNumber
+public abstract class NodeNumberP1 extends NodeNumberP
 {
-    public NodeNumber2to1X()
+    public NodeNumberP1()
     {
         super();
-        this.addInput(new Input<Number>(this, DataType.NUMBER, "in2"));
     }
     
     @Override
@@ -22,12 +19,19 @@ public abstract class NodeNumber2to1X extends NodeExpandableNumber
             inputs[i] = (Number) this.getInput(i).getValue();
         }
         
-        if (!this.canCalculate(inputs))
-        {
-            return false;
-        }
+        this.values = new Number[this.getOutputAmt()];
         
-        this.value = this.calculate(inputs);
+        for (int i = 0; i < this.getOutputAmt(); ++i)
+        {
+            if (!this.canCalculate(inputs[i]))
+            {
+                return false;
+            }
+            else
+            {
+                this.values[i] = this.calculate(inputs[i]);
+            }
+        }
         
         return true;
     }
@@ -35,11 +39,10 @@ public abstract class NodeNumber2to1X extends NodeExpandableNumber
     /**
      * Can this node calculate or are there going to be errors (example: 1 / 0)?
      * 
-     * @param inputs
-     *            All inputs
+     * @param in1 The parallel number.
      * @return <b>true</b> if this node can calculate.
      */
-    protected boolean canCalculate(Number[] inputs)
+    protected boolean canCalculate(Number in1)
     {
         return true;
     }
@@ -47,9 +50,8 @@ public abstract class NodeNumber2to1X extends NodeExpandableNumber
     /**
      * Calculate the result using the input numbers.
      * 
-     * @param inputs
-     *            All inputs
+     * @param in1 The parallel number.
      * @return The result.
      */
-    protected abstract Number calculate(Number[] inputs);
+    protected abstract Number calculate(Number in1);
 }

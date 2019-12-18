@@ -2,7 +2,6 @@ package de.cas_ual_ty.visibilis.node.general;
 
 import java.util.ArrayList;
 
-import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.NodeAction;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.node.field.Output;
@@ -47,7 +46,7 @@ public abstract class NodeXP extends NodeX
     {
         if (this.parallelized)
         {
-            this.addOutput(new Output<Number>(this, DataType.NUMBER, "out1"));
+            this.addOutput(this.createDynamicOutput());
         }
         
         super.expand();
@@ -58,7 +57,7 @@ public abstract class NodeXP extends NodeX
     {
         if (this.parallelized)
         {
-            this.removeOutput(this.getOutput(this.getOutputAmt() - 1));
+            this.removeOutput(this.getOutputAmt() - 1);
         }
         
         super.shrink();
@@ -66,7 +65,7 @@ public abstract class NodeXP extends NodeX
     
     public void parallelize()
     {
-        for (int i = this.getOutputAmt(); i < this.getInputAmt(); ++i)
+        for (int i = this.getOutputAmt(); i < this.getInputAmt() - this.getExtraInAmt(); ++i)
         {
             this.addOutput(this.createDynamicOutput());
         }

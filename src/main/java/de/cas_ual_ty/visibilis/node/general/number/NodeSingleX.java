@@ -5,21 +5,24 @@ import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.node.general.NodeX;
 
-public abstract class NodeExpandableNumber extends NodeX
+public abstract class NodeSingleX<A> extends NodeX
 {
-    public Number value;
+    public A value;
     
-    public NodeExpandableNumber()
+    public NodeSingleX()
     {
         super();
-        this.addOutput(new Output<Number>(this, DataType.NUMBER, "out1"));
-        this.addInput(this.createDynamicInput());
+        this.addOutput(new Output<A>(this, this.getDataType(), "out1"));
+        this.addInput(new Input<A>(this, this.getDataType(), "in1"));
+        this.addInput(new Input<A>(this, this.getDataType(), "in1"));
     }
+    
+    public abstract DataType getDataType();
     
     @Override
     public Input createDynamicInput()
     {
-        return new Input<Number>(this, DataType.NUMBER, "in1");
+        return new Input<A>(this, this.getDataType(), "in1");
     }
     
     @Override
@@ -36,12 +39,12 @@ public abstract class NodeExpandableNumber extends NodeX
     @Override
     public float[] getColor()
     {
-        return DataType.NUMBER.getColor();
+        return this.getDataType().getColor();
     }
     
     @Override
     public float[] getTextColor()
     {
-        return DataType.NUMBER.getTextColor();
+        return this.getDataType().getTextColor();
     }
 }
