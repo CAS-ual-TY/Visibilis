@@ -17,7 +17,7 @@ public abstract class Node
     /*
      * Some explanations: The word "calculate" is described to calculate all output values of this node (output field nodes). The values are then stored so that multiple child nodes can get them without the need to calculate more than once. Once all nodes have been calculated, they will be "reset", meaning that the "isCalculated()" state will be false again, triggering recalculation on next call (and possibly other things).
      * 
-     * Empty constructor needed for instantiation of nodes. outAmt and inAmt should be hardcoded inside that constructor
+     * Empty constructor needed for instantiation of nodes.
      */
     
     // NBT Keys
@@ -292,6 +292,16 @@ public abstract class Node
         }
     }
     
+    public void removeOutput(int index)
+    {
+        this.outputFields.remove(index);
+        
+        for(int i = index; i < this.getOutputAmt(); ++i)
+        {
+            this.getOutput(i).recalculateId();
+        }
+    }
+    
     public void removeInput(Input in0)
     {
         if (this.inputFields.contains(in0))
@@ -303,6 +313,16 @@ public abstract class Node
             {
                 in.recalculateId();
             }
+        }
+    }
+    
+    public void removeInput(int index)
+    {
+        this.inputFields.remove(index);
+        
+        for(int i = index; i < this.getInputAmt(); ++i)
+        {
+            this.getInput(i).recalculateId();
         }
     }
     
