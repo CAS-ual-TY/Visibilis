@@ -19,6 +19,7 @@ public abstract class NodeXP extends NodeX
      */
     
     public static final String KEY_PARALLELIZATION = "parallelization_status";
+    
     public boolean parallelized;
     
     public NodeXP()

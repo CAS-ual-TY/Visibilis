@@ -11,8 +11,6 @@ public abstract class NodeP extends NodeX
      * The other Inputs affect all Outputs.
      */
     
-    public Number[] values;
-    
     public NodeP()
     {
         super();
