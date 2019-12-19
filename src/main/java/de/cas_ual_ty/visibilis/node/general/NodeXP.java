@@ -3,7 +3,6 @@ package de.cas_ual_ty.visibilis.node.general;
 import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.node.NodeAction;
-import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import net.minecraft.nbt.CompoundNBT;
 
