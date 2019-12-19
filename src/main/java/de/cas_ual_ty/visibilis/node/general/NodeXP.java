@@ -151,10 +151,4 @@ public abstract class NodeXP extends NodeX
         super.writeNodeToNBT(nbt);
         nbt.putBoolean(NodeXP.KEY_PARALLELIZATION, this.parallelized);
     }
-    
-    @Override
-    public String getFieldName(NodeField field)
-    {
-        return super.getFieldName(field) + (field.isOutput() || (field.isInput() && field.getId() < (this.getInputAmt() - this.getExtraInAmt())) ? " " + (field.getId() + 1) : "");
-    }
 }
