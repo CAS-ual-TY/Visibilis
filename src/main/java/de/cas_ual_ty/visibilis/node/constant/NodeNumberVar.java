@@ -2,7 +2,7 @@ package de.cas_ual_ty.visibilis.node.constant;
 
 import de.cas_ual_ty.visibilis.node.general.number.NodeNumberP1;
 
-public class NodeConstNumber extends NodeNumberP1
+public class NodeNumberVar extends NodeNumberP1
 {
     @Override
     protected Number calculate(Number in1)

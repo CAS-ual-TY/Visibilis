@@ -9,7 +9,7 @@ public abstract class NodeNumberX2 extends NodeNumberX
     public NodeNumberX2()
     {
         super();
-        this.addInput(new Input<Number>(this, DataType.NUMBER, "in2"));
+        this.addInput(new Input<Boolean>(this, DataType.NUMBER, "in2"));
     }
     
     @Override

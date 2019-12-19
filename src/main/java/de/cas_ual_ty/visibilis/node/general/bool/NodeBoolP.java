@@ -1,11 +1,11 @@
-package de.cas_ual_ty.visibilis.node.general.number;
+package de.cas_ual_ty.visibilis.node.general.bool;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.general.NodeSingleP;
 
-public abstract class NodeNumberP extends NodeSingleP<Number>
+public abstract class NodeBoolP extends NodeSingleP<Boolean>
 {
-    public NodeNumberP()
+    public NodeBoolP()
     {
         super();
     }
@@ -13,6 +13,6 @@ public abstract class NodeNumberP extends NodeSingleP<Number>
     @Override
     public DataType getDataType()
     {
-        return DataType.NUMBER;
+        return DataType.BOOLEAN;
     }
 }

@@ -1,8 +1,8 @@
 package de.cas_ual_ty.visibilis.node.constant;
 
-import de.cas_ual_ty.visibilis.node.general.NodeNumber0to1;
+import de.cas_ual_ty.visibilis.node.general.number.NodeNumberC;
 
-public class NodePi extends NodeNumber0to1
+public class NodePi extends NodeNumberC
 {
     public NodePi()
     {
@@ -10,9 +10,9 @@ public class NodePi extends NodeNumber0to1
     }
     
     @Override
-    protected float getValue()
+    protected Number getValue(int index)
     {
-        return (float) Math.PI;
+        return Math.PI;
     }
     
     @Override

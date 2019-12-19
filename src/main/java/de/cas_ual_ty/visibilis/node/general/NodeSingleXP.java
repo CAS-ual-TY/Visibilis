@@ -1,9 +1,8 @@
-package de.cas_ual_ty.visibilis.node.general.number;
+package de.cas_ual_ty.visibilis.node.general;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
-import de.cas_ual_ty.visibilis.node.general.NodeXP;
 
 public abstract class NodeSingleXP<A> extends NodeXP
 {

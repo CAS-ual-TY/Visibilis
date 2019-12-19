@@ -1,11 +1,11 @@
-package de.cas_ual_ty.visibilis.node.general.number;
+package de.cas_ual_ty.visibilis.node.general.bool;
 
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.field.Input;
 
-public abstract class NodeNumberP2 extends NodeNumberP
+public abstract class NodeBoolP2 extends NodeBoolP
 {
-    public NodeNumberP2()
+    public NodeBoolP2()
     {
         super();
         this.addInput(new Input<Boolean>(this, this.getDataType(), "in2"));
@@ -14,15 +14,15 @@ public abstract class NodeNumberP2 extends NodeNumberP
     @Override
     public boolean doCalculate(ExecProvider provider)
     {
-        Number[] inputs = new Number[this.getInputAmt()];
+        Boolean[] inputs = new Boolean[this.getInputAmt()];
         
         for (int i = 0; i < inputs.length; ++i)
         {
-            inputs[i] = (Number) this.getInput(i).getValue();
+            inputs[i] = (Boolean) this.getInput(i).getValue();
         }
         
-        Number n = inputs[this.getInputAmt() - 1];
-        this.values = new Number[this.getInputAmt() - 1];
+        Boolean n = inputs[this.getInputAmt() - 1];
+        this.values = new Boolean[this.getInputAmt() - 1];
         
         for (int i = 0; i < this.getInputAmt() - 1; ++i)
         {
@@ -44,7 +44,7 @@ public abstract class NodeNumberP2 extends NodeNumberP
      * @param in2 The number to calculate with.
      * @return <b>true</b> if this node can calculate.
      */
-    protected boolean canCalculate(Number in1, Number in2)
+    protected boolean canCalculate(Boolean in1, Boolean in2)
     {
         return true;
     }
@@ -56,7 +56,7 @@ public abstract class NodeNumberP2 extends NodeNumberP
      * @param in2 The number to calculate with.
      * @return The result.
      */
-    protected abstract Number calculate(Number in1, Number in2);
+    protected abstract Boolean calculate(Boolean in1, Boolean in2);
     
     @Override
     public int getExtraInAmt()

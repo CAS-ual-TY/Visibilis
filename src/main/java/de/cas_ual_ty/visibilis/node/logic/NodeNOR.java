@@ -1,8 +1,8 @@
 package de.cas_ual_ty.visibilis.node.logic;
 
-import de.cas_ual_ty.visibilis.node.general.NodeBoolean2to1;
+import de.cas_ual_ty.visibilis.node.general.bool.NodeBoolP2;
 
-public class NodeNOR extends NodeBoolean2to1
+public class NodeNOR extends NodeBoolP2
 {
     public NodeNOR()
     {
@@ -10,9 +10,9 @@ public class NodeNOR extends NodeBoolean2to1
     }
     
     @Override
-    protected boolean calculate(boolean in1, boolean in2)
+    protected Boolean calculate(Boolean in1, Boolean in2)
     {
-        return !in1 && !in2;
+        return !(in1 || in2);
     }
     
     @Override
