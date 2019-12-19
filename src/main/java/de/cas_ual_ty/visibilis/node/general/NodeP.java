@@ -35,6 +35,6 @@ public abstract class NodeP extends NodeX
     @Override
     public String getFieldName(NodeField field)
     {
-        return super.getFieldName(field) + " " + (field.getId() + 1);
+        return super.getFieldName(field) + (field.isOutput() || (field.isInput() && field.getId() < (this.getInputAmt() - this.getExtraInAmt())) ? " " + (field.getId() + 1) : "");
     }
 }
