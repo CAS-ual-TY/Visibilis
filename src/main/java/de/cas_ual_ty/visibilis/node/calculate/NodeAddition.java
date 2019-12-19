@@ -1,8 +1,8 @@
 package de.cas_ual_ty.visibilis.node.calculate;
 
-import de.cas_ual_ty.visibilis.node.general.number.NodeNumberPX2;
+import de.cas_ual_ty.visibilis.node.general.number.NodeNumberXP2;
 
-public class NodeAddition extends NodeNumberPX2
+public class NodeAddition extends NodeNumberXP2
 {
     @Override
     protected Number calculate(Number[] inputs)

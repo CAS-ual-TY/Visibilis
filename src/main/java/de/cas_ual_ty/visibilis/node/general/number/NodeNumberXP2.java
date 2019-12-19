@@ -4,9 +4,9 @@ import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.field.Input;
 
-public abstract class NodeNumberPX2 extends NodeNumberXP
+public abstract class NodeNumberXP2 extends NodeNumberXP
 {
-    public NodeNumberPX2()
+    public NodeNumberXP2()
     {
         super();
         this.addInput(new Input<Number>(this, DataType.NUMBER, "in2"));
