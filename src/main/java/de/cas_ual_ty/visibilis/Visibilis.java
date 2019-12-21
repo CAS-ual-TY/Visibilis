@@ -11,7 +11,7 @@ import de.cas_ual_ty.visibilis.node.calculate.NodeModulo;
 import de.cas_ual_ty.visibilis.node.calculate.NodeMultiplication;
 import de.cas_ual_ty.visibilis.node.calculate.NodeRoot;
 import de.cas_ual_ty.visibilis.node.calculate.NodeSubtraction;
-import de.cas_ual_ty.visibilis.node.compare.NodeEquals;
+import de.cas_ual_ty.visibilis.node.compare.NodeNumberCompare;
 import de.cas_ual_ty.visibilis.node.constant.NodeBoolVar;
 import de.cas_ual_ty.visibilis.node.constant.NodeE;
 import de.cas_ual_ty.visibilis.node.constant.NodeNumberVar;
@@ -136,7 +136,7 @@ public class Visibilis
         VRegistry.INSTANCE.registerNode(NodeFor.class, Visibilis.MOD_ID, "for");
         VRegistry.INSTANCE.registerNode(NodeWhile.class, Visibilis.MOD_ID, "while");
         
-        VRegistry.INSTANCE.registerNode(NodeEquals.class, Visibilis.MOD_ID, "equals");
+        VRegistry.INSTANCE.registerNode(NodeNumberCompare.class, Visibilis.MOD_ID, "equals");
         
         VRegistry.INSTANCE.registerNode(NodeConcatenation.class, Visibilis.MOD_ID, "concatenation");
     }

@@ -32,7 +32,7 @@ public abstract class NodeSingleP<A> extends NodeP
     @Override
     public <B> B getOutputValue(int index)
     {
-        if (index >= 0 && index < this.expansion)
+        if (index >= 0 && index < this.values.length)
         {
             return (B) this.values[index];
         }
