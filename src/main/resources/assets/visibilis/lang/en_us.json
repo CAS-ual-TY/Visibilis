@@ -238,8 +238,12 @@
     "node.while.groups": "exec",
     
     "_comment8": "--- Compare ---",
+    "group.compare": "Exec",
+    "group.compare.tags": "order;compare",
+    
     "node.equals": "Equals",
     "field.equals.out1": "A == B",
     "field.equals.in1": "A",
-    "field.equals.in2": "B"
+    "field.equals.in2": "B",
+    "node.equals.group": "compare"
 }
