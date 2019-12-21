@@ -1,6 +1,7 @@
 package de.cas_ual_ty.visibilis;
 
 import de.cas_ual_ty.visibilis.node.calculate.NodeAddition;
+import de.cas_ual_ty.visibilis.node.calculate.NodeConcatenation;
 import de.cas_ual_ty.visibilis.node.calculate.NodeDivision;
 import de.cas_ual_ty.visibilis.node.calculate.NodeExponentiation;
 import de.cas_ual_ty.visibilis.node.calculate.NodeLogarithm10;
@@ -136,6 +137,8 @@ public class Visibilis
         VRegistry.INSTANCE.registerNode(NodeWhile.class, Visibilis.MOD_ID, "while");
         
         VRegistry.INSTANCE.registerNode(NodeEquals.class, Visibilis.MOD_ID, "equals");
+        
+        VRegistry.INSTANCE.registerNode(NodeConcatenation.class, Visibilis.MOD_ID, "concatenation");
     }
     
     // TODO low: Some nice logging here please

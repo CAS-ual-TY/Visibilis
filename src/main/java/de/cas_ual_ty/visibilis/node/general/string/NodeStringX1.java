@@ -1,24 +1,23 @@
-package de.cas_ual_ty.visibilis.node.general.number;
+package de.cas_ual_ty.visibilis.node.general.string;
 
 import de.cas_ual_ty.visibilis.node.ExecProvider;
-import de.cas_ual_ty.visibilis.node.field.Input;
 
-public abstract class NodeNumberX2 extends NodeNumberX
+public abstract class NodeStringX1 extends NodeStringX
 {
-    public NodeNumberX2()
+    public NodeStringX1()
     {
         super();
-        this.addInput(new Input<Number>(this, this.getDataType(), "in2"));
+        this.expand();
     }
     
     @Override
     public boolean doCalculate(ExecProvider provider)
     {
-        Number[] inputs = new Number[this.getInputAmt()];
+        String[] inputs = new String[this.getInputAmt()];
         
         for (int i = 0; i < inputs.length; ++i)
         {
-            inputs[i] = (Number) this.getInput(i).getValue();
+            inputs[i] = (String) this.getInput(i).getValue();
         }
         
         if (!this.canCalculate(inputs))
@@ -38,7 +37,7 @@ public abstract class NodeNumberX2 extends NodeNumberX
      *            All inputs
      * @return <b>true</b> if this node can calculate.
      */
-    protected boolean canCalculate(Number[] inputs)
+    protected boolean canCalculate(String[] inputs)
     {
         return true;
     }
@@ -50,7 +49,7 @@ public abstract class NodeNumberX2 extends NodeNumberX
      *            All inputs
      * @return The result.
      */
-    protected abstract Number calculate(Number[] inputs);
+    protected abstract String calculate(String[] inputs);
     
     @Override
     public int getExtraInAmt()

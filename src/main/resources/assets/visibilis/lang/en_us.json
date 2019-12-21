@@ -1,4 +1,4 @@
-﻿{
+{
     "_comment0.1": "--- Testing START ---",
     "item.visibilis.test": "Test Item",
     
@@ -95,6 +95,11 @@
     "field.modulo.in1": "Dividend",
     "field.modulo.in2": "Modulus",
     "node.modulo.groups": "calculation;operators",
+    
+    "node.concatenation": "Concatenation",
+    "field.concatenation.out1": "String",
+    "field.concatenation.in1": "String",
+    "node.concatenation.groups": "calculation;operators",
     
     "_comment4": "--- Constants ---",
     "group.constants": "Constants",
