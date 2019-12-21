@@ -1,12 +1,12 @@
-package de.cas_ual_ty.visibilis.node.general.bool;
+package de.cas_ual_ty.visibilis.node.base.number;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
-import de.cas_ual_ty.visibilis.node.general.NodeSingleC;
+import de.cas_ual_ty.visibilis.node.base.NodeSingleC;
 
-public abstract class NodeBoolC extends NodeSingleC<Boolean>
+public abstract class NodeNumberC extends NodeSingleC<Number>
 {
-    public NodeBoolC()
+    public NodeNumberC()
     {
         super();
     }
@@ -14,7 +14,7 @@ public abstract class NodeBoolC extends NodeSingleC<Boolean>
     @Override
     public boolean doCalculate(ExecProvider provider)
     {
-        this.values = new Boolean[this.getOutputAmt()];
+        this.values = new Number[this.getOutputAmt()];
         
         for (int i = 0; i < this.getOutputAmt(); ++i)
         {
@@ -26,11 +26,11 @@ public abstract class NodeBoolC extends NodeSingleC<Boolean>
     /**
      * @return The constant value.
      */
-    protected abstract Boolean getValue(int index);
+    protected abstract Number getValue(int index);
     
     @Override
     public DataType getDataType()
     {
-        return DataType.BOOLEAN;
+        return DataType.NUMBER;
     }
 }

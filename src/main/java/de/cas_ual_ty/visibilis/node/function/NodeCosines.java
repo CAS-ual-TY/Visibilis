@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.function;
 
-import de.cas_ual_ty.visibilis.node.general.number.NodeNumberP1;
+import de.cas_ual_ty.visibilis.node.base.number.NodeNumberP1;
 
 public class NodeCosines extends NodeNumberP1
 {

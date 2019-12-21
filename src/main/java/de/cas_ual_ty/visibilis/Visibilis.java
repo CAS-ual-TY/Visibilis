@@ -28,6 +28,7 @@ import de.cas_ual_ty.visibilis.node.function.NodeRoundDown;
 import de.cas_ual_ty.visibilis.node.function.NodeRoundUp;
 import de.cas_ual_ty.visibilis.node.function.NodeSines;
 import de.cas_ual_ty.visibilis.node.function.NodeTangent;
+import de.cas_ual_ty.visibilis.node.general.NodePrint;
 import de.cas_ual_ty.visibilis.node.logic.NodeAND;
 import de.cas_ual_ty.visibilis.node.logic.NodeNAND;
 import de.cas_ual_ty.visibilis.node.logic.NodeNOR;
@@ -109,6 +110,7 @@ public class Visibilis
         VRegistry.INSTANCE.registerNode(NodeMultiplication.class, Visibilis.MOD_ID, "multiplication");
         VRegistry.INSTANCE.registerNode(NodeRoot.class, Visibilis.MOD_ID, "root");
         VRegistry.INSTANCE.registerNode(NodeSubtraction.class, Visibilis.MOD_ID, "subtraction");
+        VRegistry.INSTANCE.registerNode(NodeConcatenation.class, Visibilis.MOD_ID, "concatenation");
         
         VRegistry.INSTANCE.registerNode(NodeE.class, Visibilis.MOD_ID, "e");
         VRegistry.INSTANCE.registerNode(NodePi.class, Visibilis.MOD_ID, "pi");
@@ -138,7 +140,7 @@ public class Visibilis
         
         VRegistry.INSTANCE.registerNode(NodeNumberCompare.class, Visibilis.MOD_ID, "equals");
         
-        VRegistry.INSTANCE.registerNode(NodeConcatenation.class, Visibilis.MOD_ID, "concatenation");
+        VRegistry.INSTANCE.registerNode(NodePrint.class, Visibilis.MOD_ID, "print");
     }
     
     // TODO low: Some nice logging here please

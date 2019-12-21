@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.calculate;
 
-import de.cas_ual_ty.visibilis.node.general.number.NodeNumberXP2;
+import de.cas_ual_ty.visibilis.node.base.number.NodeNumberXP2;
 
 public class NodeAddition extends NodeNumberXP2
 {

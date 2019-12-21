@@ -1,12 +1,14 @@
-package de.cas_ual_ty.visibilis.node.general.number;
+package de.cas_ual_ty.visibilis.node.base.number;
 
 import de.cas_ual_ty.visibilis.node.ExecProvider;
+import de.cas_ual_ty.visibilis.node.field.Input;
 
-public abstract class NodeNumberP1 extends NodeNumberP
+public abstract class NodeNumberX2 extends NodeNumberX
 {
-    public NodeNumberP1()
+    public NodeNumberX2()
     {
         super();
+        this.addInput(new Input<Number>(this, this.getDataType(), "in2"));
     }
     
     @Override
@@ -19,19 +21,12 @@ public abstract class NodeNumberP1 extends NodeNumberP
             inputs[i] = (Number) this.getInput(i).getValue();
         }
         
-        this.values = new Number[this.getOutputAmt()];
-        
-        for (int i = 0; i < this.getOutputAmt(); ++i)
+        if (!this.canCalculate(inputs))
         {
-            if (!this.canCalculate(inputs[i]))
-            {
-                return false;
-            }
-            else
-            {
-                this.values[i] = this.calculate(inputs[i]);
-            }
+            return false;
         }
+        
+        this.value = this.calculate(inputs);
         
         return true;
     }
@@ -39,10 +34,11 @@ public abstract class NodeNumberP1 extends NodeNumberP
     /**
      * Can this node calculate or are there going to be errors (example: 1 / 0)?
      * 
-     * @param in1 The parallel number.
+     * @param inputs
+     *            All inputs
      * @return <b>true</b> if this node can calculate.
      */
-    protected boolean canCalculate(Number in1)
+    protected boolean canCalculate(Number[] inputs)
     {
         return true;
     }
@@ -50,8 +46,15 @@ public abstract class NodeNumberP1 extends NodeNumberP
     /**
      * Calculate the result using the input numbers.
      * 
-     * @param in1 The parallel number.
+     * @param inputs
+     *            All inputs
      * @return The result.
      */
-    protected abstract Number calculate(Number in1);
+    protected abstract Number calculate(Number[] inputs);
+    
+    @Override
+    public int getExtraInAmt()
+    {
+        return 1;
+    }
 }

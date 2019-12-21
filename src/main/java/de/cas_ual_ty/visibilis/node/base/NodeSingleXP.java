@@ -1,17 +1,19 @@
-package de.cas_ual_ty.visibilis.node.general;
+package de.cas_ual_ty.visibilis.node.base;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 
-public abstract class NodeSingleC<A> extends NodeP
+public abstract class NodeSingleXP<A> extends NodeXP
 {
+    public A value;
     public A[] values;
     
-    public NodeSingleC()
+    public NodeSingleXP()
     {
         super();
         this.addOutput(new Output<A>(this, this.getDataType(), "out1"));
+        this.addInput(new Input<A>(this, this.getDataType(), "in1"));
     }
     
     public abstract DataType getDataType();
@@ -25,25 +27,17 @@ public abstract class NodeSingleC<A> extends NodeP
     @Override
     public Input createDynamicInput()
     {
-        return null;
-    }
-    
-    @Override
-    public void expand()
-    {
-        this.addOutput(this.createDynamicOutput(), this.getOutputAmt());
-    }
-    
-    @Override
-    public void shrink()
-    {
-        this.removeOutput(this.getOutputAmt() - 1);
+        return new Input<A>(this, this.getDataType(), "in1");
     }
     
     @Override
     public <B> B getOutputValue(int index)
     {
-        if (index >= 0 && index < this.expansion)
+        if (!this.parallelized && index == 0)
+        {
+            return (B) this.value;
+        }
+        else if (this.parallelized && index >= 0 && index < this.values.length)
         {
             return (B) this.values[index];
         }

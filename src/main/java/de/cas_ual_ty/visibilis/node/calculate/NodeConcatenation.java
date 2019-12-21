@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.calculate;
 
-import de.cas_ual_ty.visibilis.node.general.string.NodeStringXP2;
+import de.cas_ual_ty.visibilis.node.base.string.NodeStringXP2;
 
 public class NodeConcatenation extends NodeStringXP2
 {

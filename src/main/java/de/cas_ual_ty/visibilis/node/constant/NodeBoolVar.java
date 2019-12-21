@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.constant;
 
-import de.cas_ual_ty.visibilis.node.general.bool.NodeBoolP1;
+import de.cas_ual_ty.visibilis.node.base.bool.NodeBoolP1;
 
 public class NodeBoolVar extends NodeBoolP1
 {

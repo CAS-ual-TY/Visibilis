@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.constant;
 
-import de.cas_ual_ty.visibilis.node.general.number.NodeNumberC;
+import de.cas_ual_ty.visibilis.node.base.number.NodeNumberC;
 
 public class NodeE extends NodeNumberC
 {

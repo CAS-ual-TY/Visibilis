@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.logic;
 
-import de.cas_ual_ty.visibilis.node.general.bool.NodeBoolP2;
+import de.cas_ual_ty.visibilis.node.base.bool.NodeBoolP2;
 
 public class NodeNOR extends NodeBoolP2
 {

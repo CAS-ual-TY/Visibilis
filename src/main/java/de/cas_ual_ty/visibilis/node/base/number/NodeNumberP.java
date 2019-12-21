@@ -1,7 +1,7 @@
-package de.cas_ual_ty.visibilis.node.general.number;
+package de.cas_ual_ty.visibilis.node.base.number;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.node.general.NodeSingleP;
+import de.cas_ual_ty.visibilis.node.base.NodeSingleP;
 
 public abstract class NodeNumberP extends NodeSingleP<Number>
 {

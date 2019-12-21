@@ -1,7 +1,7 @@
 package de.cas_ual_ty.visibilis.node.compare;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.node.general.NodeCompare;
+import de.cas_ual_ty.visibilis.node.base.NodeCompare;
 
 public class NodeNumberCompare extends NodeCompare<Number>
 {

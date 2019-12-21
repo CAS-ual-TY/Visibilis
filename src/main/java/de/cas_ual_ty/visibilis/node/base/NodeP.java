@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.node.general;
+package de.cas_ual_ty.visibilis.node.base;
 
 import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.node.field.Output;

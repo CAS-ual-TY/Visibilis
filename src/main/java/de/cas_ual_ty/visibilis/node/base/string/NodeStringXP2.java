@@ -1,24 +1,24 @@
-package de.cas_ual_ty.visibilis.node.general.bool;
+package de.cas_ual_ty.visibilis.node.base.string;
 
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.field.Input;
 
-public abstract class NodeBoolXP2 extends NodeBoolXP
+public abstract class NodeStringXP2 extends NodeStringXP
 {
-    public NodeBoolXP2()
+    public NodeStringXP2()
     {
         super();
-        this.addInput(new Input<Number>(this, this.getDataType(), "in2"));
+        this.addInput(new Input<String>(this, this.getDataType(), "in2"));
     }
     
     @Override
     public boolean doCalculate(ExecProvider provider)
     {
-        Boolean[] inputs = new Boolean[this.getInputAmt()];
+        String[] inputs = new String[this.getInputAmt()];
         
         for (int i = 0; i < inputs.length; ++i)
         {
-            inputs[i] = (Boolean) this.getInput(i).getValue();
+            inputs[i] = this.getInput(i).getValue().toString();
         }
         
         if (!this.parallelized)
@@ -32,8 +32,8 @@ public abstract class NodeBoolXP2 extends NodeBoolXP
         }
         else
         {
-            Boolean n = inputs[this.getInputAmt() - 1];
-            this.values = new Boolean[this.getInputAmt() - 1];
+            String n = inputs[this.getInputAmt() - 1];
+            this.values = new String[this.getInputAmt() - 1];
             
             for (int i = 0; i < this.getInputAmt() - 1; ++i)
             {
@@ -56,7 +56,7 @@ public abstract class NodeBoolXP2 extends NodeBoolXP
      *            All inputs
      * @return <b>true</b> if this node can calculate.
      */
-    protected boolean canCalculate(Boolean[] inputs)
+    protected boolean canCalculate(String[] inputs)
     {
         return true;
     }
@@ -68,7 +68,7 @@ public abstract class NodeBoolXP2 extends NodeBoolXP
      * @param in2 The number to calculate with.
      * @return <b>true</b> if this node can calculate.
      */
-    protected boolean canCalculate(Boolean in1, Boolean in2)
+    protected boolean canCalculate(String in1, String in2)
     {
         return true;
     }
@@ -80,7 +80,7 @@ public abstract class NodeBoolXP2 extends NodeBoolXP
      *            All inputs
      * @return The result.
      */
-    protected abstract Boolean calculate(Boolean[] inputs);
+    protected abstract String calculate(String[] inputs);
     
     /**
      * Calculate the result using the input numbers when in parallelized status.
@@ -89,7 +89,7 @@ public abstract class NodeBoolXP2 extends NodeBoolXP
      * @param in2 The number to calculate with.
      * @return The result.
      */
-    protected abstract Boolean calculate(Boolean in1, Boolean in2);
+    protected abstract String calculate(String in1, String in2);
     
     @Override
     public int getExtraInAmt()
