@@ -8,7 +8,7 @@ public abstract class NodeNumberP2 extends NodeNumberP
     public NodeNumberP2()
     {
         super();
-        this.addInput(new Input<Boolean>(this, this.getDataType(), "in2"));
+        this.addInput(new Input<Number>(this, this.getDataType(), "in2"));
     }
     
     @Override
