@@ -2,7 +2,7 @@ package de.cas_ual_ty.visibilis.util;
 
 import java.util.ArrayList;
 
-import de.cas_ual_ty.visibilis.VRegistry;
+import de.cas_ual_ty.visibilis.NodesRegistry;
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
@@ -136,7 +136,7 @@ public class NBTUtility
         
         String id = nbt.getString(NBTUtility.KEY_NODE);
         
-        n = VRegistry.INSTANCE.instantiateNode(id);
+        n = NodesRegistry.INSTANCE.instantiateNode(id);
         
         if (n == null)
         {
@@ -155,7 +155,7 @@ public class NBTUtility
     {
         CompoundNBT nbt = new CompoundNBT();
         
-        String name = VRegistry.INSTANCE.getNameForNode(n);
+        String name = NodesRegistry.INSTANCE.getNameForNode(n);
         
         if (name == null)
         {

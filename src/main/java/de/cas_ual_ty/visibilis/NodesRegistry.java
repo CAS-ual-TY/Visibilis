@@ -7,13 +7,13 @@ import de.cas_ual_ty.visibilis.node.Node;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.GameData;
 
-public class VRegistry
+public class NodesRegistry
 {
-    public static final VRegistry INSTANCE = new VRegistry();
+    public static final NodesRegistry INSTANCE = new NodesRegistry();
     
     private final HashMap<String, Class<? extends Node>> mapNodes;
     
-    public VRegistry()
+    public NodesRegistry()
     {
         this.mapNodes = new HashMap<>();
     }
@@ -34,7 +34,7 @@ public class VRegistry
     {
         modIdName = GameData.checkPrefix(modIdName, false).toString();
         
-        if (VRegistry.hasEmptyConstructor(c))
+        if (NodesRegistry.hasEmptyConstructor(c))
         {
             this.mapNodes.put(modIdName, c);
         }

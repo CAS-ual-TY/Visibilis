@@ -97,50 +97,50 @@ public class Visibilis
     
     public void registerNodes()
     {
-        VRegistry.INSTANCE.registerNode(NodeEvent.class, Visibilis.MOD_ID, "event");
-        VRegistry.INSTANCE.registerNode(VNodeTest.class, Visibilis.MOD_ID, "test");
+        NodesRegistry.INSTANCE.registerNode(NodeEvent.class, Visibilis.MOD_ID, "event");
+        NodesRegistry.INSTANCE.registerNode(VNodeTest.class, Visibilis.MOD_ID, "test");
         
-        VRegistry.INSTANCE.registerNode(NodeAddition.class, Visibilis.MOD_ID, "addition");
-        VRegistry.INSTANCE.registerNode(NodeDivision.class, Visibilis.MOD_ID, "division");
-        VRegistry.INSTANCE.registerNode(NodeExponentiation.class, Visibilis.MOD_ID, "exponentiation");
-        VRegistry.INSTANCE.registerNode(NodeLogarithm10.class, Visibilis.MOD_ID, "logarithm_10");
-        VRegistry.INSTANCE.registerNode(NodeLogarithm1p.class, Visibilis.MOD_ID, "logarithm_1p");
-        VRegistry.INSTANCE.registerNode(NodeLogarithmE.class, Visibilis.MOD_ID, "logarithm_e");
-        VRegistry.INSTANCE.registerNode(NodeModulo.class, Visibilis.MOD_ID, "modulo");
-        VRegistry.INSTANCE.registerNode(NodeMultiplication.class, Visibilis.MOD_ID, "multiplication");
-        VRegistry.INSTANCE.registerNode(NodeRoot.class, Visibilis.MOD_ID, "root");
-        VRegistry.INSTANCE.registerNode(NodeSubtraction.class, Visibilis.MOD_ID, "subtraction");
-        VRegistry.INSTANCE.registerNode(NodeConcatenation.class, Visibilis.MOD_ID, "concatenation");
+        NodesRegistry.INSTANCE.registerNode(NodeAddition.class, Visibilis.MOD_ID, "addition");
+        NodesRegistry.INSTANCE.registerNode(NodeDivision.class, Visibilis.MOD_ID, "division");
+        NodesRegistry.INSTANCE.registerNode(NodeExponentiation.class, Visibilis.MOD_ID, "exponentiation");
+        NodesRegistry.INSTANCE.registerNode(NodeLogarithm10.class, Visibilis.MOD_ID, "logarithm_10");
+        NodesRegistry.INSTANCE.registerNode(NodeLogarithm1p.class, Visibilis.MOD_ID, "logarithm_1p");
+        NodesRegistry.INSTANCE.registerNode(NodeLogarithmE.class, Visibilis.MOD_ID, "logarithm_e");
+        NodesRegistry.INSTANCE.registerNode(NodeModulo.class, Visibilis.MOD_ID, "modulo");
+        NodesRegistry.INSTANCE.registerNode(NodeMultiplication.class, Visibilis.MOD_ID, "multiplication");
+        NodesRegistry.INSTANCE.registerNode(NodeRoot.class, Visibilis.MOD_ID, "root");
+        NodesRegistry.INSTANCE.registerNode(NodeSubtraction.class, Visibilis.MOD_ID, "subtraction");
+        NodesRegistry.INSTANCE.registerNode(NodeConcatenation.class, Visibilis.MOD_ID, "concatenation");
         
-        VRegistry.INSTANCE.registerNode(NodeE.class, Visibilis.MOD_ID, "e");
-        VRegistry.INSTANCE.registerNode(NodePi.class, Visibilis.MOD_ID, "pi");
-        VRegistry.INSTANCE.registerNode(NodeSQRT2.class, Visibilis.MOD_ID, "sqrt2");
-        VRegistry.INSTANCE.registerNode(NodeNumberVar.class, Visibilis.MOD_ID, "const_number");
-        VRegistry.INSTANCE.registerNode(NodeBoolVar.class, Visibilis.MOD_ID, "const_boolean");
+        NodesRegistry.INSTANCE.registerNode(NodeE.class, Visibilis.MOD_ID, "e");
+        NodesRegistry.INSTANCE.registerNode(NodePi.class, Visibilis.MOD_ID, "pi");
+        NodesRegistry.INSTANCE.registerNode(NodeSQRT2.class, Visibilis.MOD_ID, "sqrt2");
+        NodesRegistry.INSTANCE.registerNode(NodeNumberVar.class, Visibilis.MOD_ID, "const_number");
+        NodesRegistry.INSTANCE.registerNode(NodeBoolVar.class, Visibilis.MOD_ID, "const_boolean");
         
-        VRegistry.INSTANCE.registerNode(NodeCosines.class, Visibilis.MOD_ID, "cosines");
-        VRegistry.INSTANCE.registerNode(NodeRound.class, Visibilis.MOD_ID, "round");
-        VRegistry.INSTANCE.registerNode(NodeRoundDown.class, Visibilis.MOD_ID, "round_down");
-        VRegistry.INSTANCE.registerNode(NodeRoundUp.class, Visibilis.MOD_ID, "round_up");
-        VRegistry.INSTANCE.registerNode(NodeSines.class, Visibilis.MOD_ID, "sines");
-        VRegistry.INSTANCE.registerNode(NodeTangent.class, Visibilis.MOD_ID, "tangent");
+        NodesRegistry.INSTANCE.registerNode(NodeCosines.class, Visibilis.MOD_ID, "cosines");
+        NodesRegistry.INSTANCE.registerNode(NodeRound.class, Visibilis.MOD_ID, "round");
+        NodesRegistry.INSTANCE.registerNode(NodeRoundDown.class, Visibilis.MOD_ID, "round_down");
+        NodesRegistry.INSTANCE.registerNode(NodeRoundUp.class, Visibilis.MOD_ID, "round_up");
+        NodesRegistry.INSTANCE.registerNode(NodeSines.class, Visibilis.MOD_ID, "sines");
+        NodesRegistry.INSTANCE.registerNode(NodeTangent.class, Visibilis.MOD_ID, "tangent");
         
-        VRegistry.INSTANCE.registerNode(NodeAND.class, Visibilis.MOD_ID, "and");
-        VRegistry.INSTANCE.registerNode(NodeNAND.class, Visibilis.MOD_ID, "nand");
-        VRegistry.INSTANCE.registerNode(NodeNOR.class, Visibilis.MOD_ID, "nor");
-        VRegistry.INSTANCE.registerNode(NodeNOT.class, Visibilis.MOD_ID, "not");
-        VRegistry.INSTANCE.registerNode(NodeOR.class, Visibilis.MOD_ID, "or");
-        VRegistry.INSTANCE.registerNode(NodeXNOR.class, Visibilis.MOD_ID, "xnor");
-        VRegistry.INSTANCE.registerNode(NodeXOR.class, Visibilis.MOD_ID, "xor");
+        NodesRegistry.INSTANCE.registerNode(NodeAND.class, Visibilis.MOD_ID, "and");
+        NodesRegistry.INSTANCE.registerNode(NodeNAND.class, Visibilis.MOD_ID, "nand");
+        NodesRegistry.INSTANCE.registerNode(NodeNOR.class, Visibilis.MOD_ID, "nor");
+        NodesRegistry.INSTANCE.registerNode(NodeNOT.class, Visibilis.MOD_ID, "not");
+        NodesRegistry.INSTANCE.registerNode(NodeOR.class, Visibilis.MOD_ID, "or");
+        NodesRegistry.INSTANCE.registerNode(NodeXNOR.class, Visibilis.MOD_ID, "xnor");
+        NodesRegistry.INSTANCE.registerNode(NodeXOR.class, Visibilis.MOD_ID, "xor");
         
-        VRegistry.INSTANCE.registerNode(NodeBranch.class, Visibilis.MOD_ID, "branch");
-        VRegistry.INSTANCE.registerNode(NodeMerge.class, Visibilis.MOD_ID, "merge");
-        VRegistry.INSTANCE.registerNode(NodeFor.class, Visibilis.MOD_ID, "for");
-        VRegistry.INSTANCE.registerNode(NodeWhile.class, Visibilis.MOD_ID, "while");
+        NodesRegistry.INSTANCE.registerNode(NodeBranch.class, Visibilis.MOD_ID, "branch");
+        NodesRegistry.INSTANCE.registerNode(NodeMerge.class, Visibilis.MOD_ID, "merge");
+        NodesRegistry.INSTANCE.registerNode(NodeFor.class, Visibilis.MOD_ID, "for");
+        NodesRegistry.INSTANCE.registerNode(NodeWhile.class, Visibilis.MOD_ID, "while");
         
-        VRegistry.INSTANCE.registerNode(NodeNumberCompare.class, Visibilis.MOD_ID, "equals");
+        NodesRegistry.INSTANCE.registerNode(NodeNumberCompare.class, Visibilis.MOD_ID, "equals");
         
-        VRegistry.INSTANCE.registerNode(NodePrint.class, Visibilis.MOD_ID, "print");
+        NodesRegistry.INSTANCE.registerNode(NodePrint.class, Visibilis.MOD_ID, "print");
     }
     
     // TODO low: Some nice logging here please

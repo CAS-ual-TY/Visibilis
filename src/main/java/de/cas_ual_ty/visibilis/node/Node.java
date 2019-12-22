@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import javax.annotation.Nullable;
 
-import de.cas_ual_ty.visibilis.VRegistry;
+import de.cas_ual_ty.visibilis.NodesRegistry;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.node.field.Output;
@@ -427,7 +427,7 @@ public abstract class Node
     }
     
     /**
-     * Used for translation. All lower case, '_' can be used. Use {@link VRegistry#getNameForNode(Class)} for a registry name instead.
+     * Used for translation. All lower case, '_' can be used. Use {@link NodesRegistry#getNameForNode(Class)} for a registry name instead.
      * 
      * @return A unique identifier (for translation only)
      */
