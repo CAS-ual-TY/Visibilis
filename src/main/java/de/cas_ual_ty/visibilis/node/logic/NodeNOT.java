@@ -1,8 +1,8 @@
 package de.cas_ual_ty.visibilis.node.logic;
 
-import de.cas_ual_ty.visibilis.node.base.bool.NodeBoolP1;
+import de.cas_ual_ty.visibilis.node.base.bool.NodeBoolP;
 
-public class NodeNOT extends NodeBoolP1
+public class NodeNOT extends NodeBoolP
 {
     @Override
     protected Boolean calculate(Boolean in1)

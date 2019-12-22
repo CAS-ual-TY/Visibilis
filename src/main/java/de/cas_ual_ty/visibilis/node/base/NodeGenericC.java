@@ -1,38 +1,35 @@
 package de.cas_ual_ty.visibilis.node.base;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
+import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 
-public abstract class NodeSingleX<A> extends NodeX
+public abstract class NodeGenericC<A> extends de.cas_ual_ty.visibilis.node.Node
 {
-    public A value;
+    public Output<A> out1;
+    public Input<A> in1;
     
-    public NodeSingleX()
+    public NodeGenericC()
     {
         super();
-        this.addOutput(new Output<A>(this, this.getDataType(), "out1"));
-        this.addInput(new Input<A>(this, this.getDataType(), "in1"));
-        this.addInput(new Input<A>(this, this.getDataType(), "in1"));
+        this.addOutput(this.out1 = new Output<A>(this, this.getDataType(), "out1"));
     }
     
     public abstract DataType getDataType();
     
+    protected abstract A getConstant();
+    
     @Override
-    public Input createDynamicInput()
+    public boolean doCalculate(ExecProvider provider)
     {
-        return new Input<A>(this, this.getDataType(), "in1");
+        return true;
     }
     
     @Override
     public <B> B getOutputValue(int index)
     {
-        if (index == 0)
-        {
-            return (B) this.value;
-        }
-        
-        return null;
+        return index == 0 ? (B) this.getConstant() : null;
     }
     
     @Override

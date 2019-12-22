@@ -1,8 +1,8 @@
 package de.cas_ual_ty.visibilis.node.function;
 
-import de.cas_ual_ty.visibilis.node.base.number.NodeNumberP1;
+import de.cas_ual_ty.visibilis.node.base.number.NodeNumberP;
 
-public class NodeTangent extends NodeNumberP1
+public class NodeTangent extends NodeNumberP
 {
     @Override
     protected Number calculate(Number in1)

@@ -1,9 +1,8 @@
 package de.cas_ual_ty.visibilis.node.compare;
 
-import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.node.base.NodeCompare;
+import de.cas_ual_ty.visibilis.node.base.number.NodeNumberE;
 
-public class NodeNumberCompare extends NodeCompare<Number>
+public class NodeNumberCompare extends NodeNumberE
 {
     public NodeNumberCompare()
     {
@@ -11,20 +10,14 @@ public class NodeNumberCompare extends NodeCompare<Number>
     }
     
     @Override
-    public DataType getDataType()
+    protected Boolean compare(Number input, Number in2)
     {
-        return DataType.NUMBER;
-    }
-    
-    @Override
-    protected Boolean calculate(Number in1, Number in2)
-    {
-        return in1.floatValue() == in2.floatValue();
+        return input.floatValue() == in2.floatValue();
     }
     
     @Override
     public String getID()
     {
-        return "Equals";
+        return "equals";
     }
 }

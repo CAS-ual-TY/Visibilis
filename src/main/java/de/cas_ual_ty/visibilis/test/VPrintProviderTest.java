@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.node.base.bool.NodeBoolV;
+import de.cas_ual_ty.visibilis.node.base.number.NodeNumberV;
 import de.cas_ual_ty.visibilis.node.calculate.NodeAddition;
 import de.cas_ual_ty.visibilis.node.calculate.NodeConcatenation;
 import de.cas_ual_ty.visibilis.node.calculate.NodeDivision;
@@ -16,9 +18,7 @@ import de.cas_ual_ty.visibilis.node.calculate.NodeMultiplication;
 import de.cas_ual_ty.visibilis.node.calculate.NodeRoot;
 import de.cas_ual_ty.visibilis.node.calculate.NodeSubtraction;
 import de.cas_ual_ty.visibilis.node.compare.NodeNumberCompare;
-import de.cas_ual_ty.visibilis.node.constant.NodeBoolVar;
 import de.cas_ual_ty.visibilis.node.constant.NodeE;
-import de.cas_ual_ty.visibilis.node.constant.NodeNumberVar;
 import de.cas_ual_ty.visibilis.node.constant.NodePi;
 import de.cas_ual_ty.visibilis.node.constant.NodeSQRT2;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
@@ -80,8 +80,8 @@ public class VPrintProviderTest extends PrintProviderItem
         list.add(new NodeE());
         list.add(new NodePi());
         list.add(new NodeSQRT2());
-        list.add(new NodeNumberVar());
-        list.add(new NodeBoolVar());
+        list.add(new NodeNumberV());
+        list.add(new NodeBoolV());
         
         list.add(new NodeRound());
         list.add(new NodeRoundUp());

@@ -1,37 +1,31 @@
 package de.cas_ual_ty.visibilis.node.exec;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.INodeExec;
-import de.cas_ual_ty.visibilis.node.base.NodeX;
-import de.cas_ual_ty.visibilis.node.field.Input;
+import de.cas_ual_ty.visibilis.node.base.NodeGenericX;
 import de.cas_ual_ty.visibilis.node.field.Output;
 
-public class NodeMerge extends NodeX implements INodeExec
+public class NodeMerge extends NodeGenericX implements INodeExec
 {
-    public final Output outExec1;
-    
     public NodeMerge()
     {
         super();
-        this.addOutput(this.outExec1 = new Output(this, DataType.EXEC, "out1"));
-        this.addInput(new Input(this, DataType.EXEC, "in1"));
     }
     
     @Override
     public Output getOutExec(int index)
     {
-        return index == 0 ? this.outExec1 : null;
+        return index == 0 ? this.out1 : null;
     }
     
     @Override
-    public boolean doCalculate(ExecProvider provider)
+    public DataType getDataType()
     {
-        return true;
+        return DataType.EXEC;
     }
     
     @Override
-    public <B> B getOutputValue(int index)
+    protected Object calculate(Object[] inputs)
     {
         return null;
     }
@@ -40,11 +34,5 @@ public class NodeMerge extends NodeX implements INodeExec
     public String getID()
     {
         return "merge";
-    }
-    
-    @Override
-    public Input createDynamicInput()
-    {
-        return new Input(this, DataType.EXEC, "in1");
     }
 }

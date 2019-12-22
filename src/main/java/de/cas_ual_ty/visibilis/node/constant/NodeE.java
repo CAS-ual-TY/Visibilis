@@ -10,7 +10,7 @@ public class NodeE extends NodeNumberC
     }
     
     @Override
-    protected Number getValue(int index)
+    protected Number getConstant()
     {
         return Math.E;
     }

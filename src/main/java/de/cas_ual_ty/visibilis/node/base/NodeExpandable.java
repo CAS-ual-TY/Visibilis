@@ -4,10 +4,9 @@ import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeAction;
-import de.cas_ual_ty.visibilis.node.field.Input;
 import net.minecraft.nbt.CompoundNBT;
 
-public abstract class NodeX extends Node
+public abstract class NodeExpandable extends Node
 {
     /*
      * When expanding, only Inputs are added or removed.
@@ -18,13 +17,11 @@ public abstract class NodeX extends Node
     
     public int expansion;
     
-    public NodeX()
+    public NodeExpandable()
     {
         super();
         this.expansion = 0;
     }
-    
-    public abstract Input createDynamicInput();
     
     public void actionExpand()
     {
@@ -48,20 +45,9 @@ public abstract class NodeX extends Node
         return this.expansion > 0;
     }
     
-    public void expand()
-    {
-        this.addInput(this.createDynamicInput(), this.getInputAmt() - this.getExtraInAmt());
-    }
+    public abstract void expand();
     
-    public void shrink()
-    {
-        this.removeInput(this.getInputAmt() - 1 - this.getExtraInAmt());
-    }
-    
-    public int getExtraInAmt()
-    {
-        return 0;
-    }
+    public abstract void shrink();
     
     @Override
     public ArrayList<NodeAction> getActions()
@@ -88,7 +74,7 @@ public abstract class NodeX extends Node
             @Override
             public boolean clicked()
             {
-                NodeX.this.actionExpand();
+                NodeExpandable.this.actionExpand();
                 return true;
             }
         };
@@ -101,7 +87,7 @@ public abstract class NodeX extends Node
             @Override
             public boolean clicked()
             {
-                NodeX.this.actionShrink();
+                NodeExpandable.this.actionShrink();
                 return true;
             }
         };
@@ -111,7 +97,7 @@ public abstract class NodeX extends Node
     public void readNodeFromNBT(CompoundNBT nbt)
     {
         super.readNodeFromNBT(nbt);
-        int expansion = nbt.getInt(NodeX.KEY_EXPANSION);
+        int expansion = nbt.getInt(NodeExpandable.KEY_EXPANSION);
         
         for (int i = 0; i < expansion; ++i)
         {
@@ -123,6 +109,6 @@ public abstract class NodeX extends Node
     public void writeNodeToNBT(CompoundNBT nbt)
     {
         super.writeNodeToNBT(nbt);
-        nbt.putInt(NodeX.KEY_EXPANSION, this.expansion);
+        nbt.putInt(NodeExpandable.KEY_EXPANSION, this.expansion);
     }
 }

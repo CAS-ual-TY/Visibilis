@@ -3,10 +3,9 @@ package de.cas_ual_ty.visibilis.node.base;
 import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.node.NodeAction;
-import de.cas_ual_ty.visibilis.node.field.Output;
 import net.minecraft.nbt.CompoundNBT;
 
-public abstract class NodeXP extends NodeX
+public abstract class NodeParallelizable extends NodeExpandable
 {
     /*
      * This node can be in normal or parallel mode.
@@ -20,13 +19,11 @@ public abstract class NodeXP extends NodeX
     
     public boolean parallelized;
     
-    public NodeXP()
+    public NodeParallelizable()
     {
         super();
         this.parallelized = false;
     }
-    
-    public abstract Output createDynamicOutput();
     
     public void actionParallelize()
     {
@@ -40,43 +37,9 @@ public abstract class NodeXP extends NodeX
         this.unparallelize();
     }
     
-    @Override
-    public void expand()
-    {
-        if (this.parallelized)
-        {
-            this.addOutput(this.createDynamicOutput());
-        }
-        
-        super.expand();
-    }
+    public abstract void parallelize();
     
-    @Override
-    public void shrink()
-    {
-        if (this.parallelized)
-        {
-            this.removeOutput(this.getOutputAmt() - 1);
-        }
-        
-        super.shrink();
-    }
-    
-    public void parallelize()
-    {
-        for (int i = this.getOutputAmt(); i < this.getInputAmt() - this.getExtraInAmt(); ++i)
-        {
-            this.addOutput(this.createDynamicOutput());
-        }
-    }
-    
-    public void unparallelize()
-    {
-        for (int i = this.getOutputAmt() - 1; i > 0; --i)
-        {
-            this.removeOutput(this.getOutput(i));
-        }
-    }
+    public abstract void unparallelize();
     
     public boolean canParallelize()
     {
@@ -113,7 +76,7 @@ public abstract class NodeXP extends NodeX
             @Override
             public boolean clicked()
             {
-                NodeXP.this.actionParallelize();
+                NodeParallelizable.this.actionParallelize();
                 return true;
             }
         };
@@ -126,7 +89,7 @@ public abstract class NodeXP extends NodeX
             @Override
             public boolean clicked()
             {
-                NodeXP.this.actionUnparallelize();
+                NodeParallelizable.this.actionUnparallelize();
                 return true;
             }
         };
@@ -136,7 +99,7 @@ public abstract class NodeXP extends NodeX
     public void readNodeFromNBT(CompoundNBT nbt)
     {
         super.readNodeFromNBT(nbt);
-        boolean parallelized = nbt.getBoolean(NodeXP.KEY_PARALLELIZATION);
+        boolean parallelized = nbt.getBoolean(NodeParallelizable.KEY_PARALLELIZATION);
         
         if (parallelized)
         {
@@ -148,6 +111,6 @@ public abstract class NodeXP extends NodeX
     public void writeNodeToNBT(CompoundNBT nbt)
     {
         super.writeNodeToNBT(nbt);
-        nbt.putBoolean(NodeXP.KEY_PARALLELIZATION, this.parallelized);
+        nbt.putBoolean(NodeParallelizable.KEY_PARALLELIZATION, this.parallelized);
     }
 }

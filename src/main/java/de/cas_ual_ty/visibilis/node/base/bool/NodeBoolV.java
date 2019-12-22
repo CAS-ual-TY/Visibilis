@@ -1,11 +1,11 @@
 package de.cas_ual_ty.visibilis.node.base.bool;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.node.base.NodeSingleXP;
+import de.cas_ual_ty.visibilis.node.base.NodeGenericV;
 
-public abstract class NodeBoolXP extends NodeSingleXP<Boolean>
+public class NodeBoolV extends NodeGenericV<Boolean>
 {
-    public NodeBoolXP()
+    public NodeBoolV()
     {
         super();
     }
@@ -14,5 +14,11 @@ public abstract class NodeBoolXP extends NodeSingleXP<Boolean>
     public DataType getDataType()
     {
         return DataType.BOOLEAN;
+    }
+    
+    @Override
+    public String getID()
+    {
+        return "const_boolean";
     }
 }

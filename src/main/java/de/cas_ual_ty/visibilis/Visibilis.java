@@ -1,5 +1,7 @@
 package de.cas_ual_ty.visibilis;
 
+import de.cas_ual_ty.visibilis.node.base.bool.NodeBoolV;
+import de.cas_ual_ty.visibilis.node.base.number.NodeNumberV;
 import de.cas_ual_ty.visibilis.node.calculate.NodeAddition;
 import de.cas_ual_ty.visibilis.node.calculate.NodeConcatenation;
 import de.cas_ual_ty.visibilis.node.calculate.NodeDivision;
@@ -12,9 +14,7 @@ import de.cas_ual_ty.visibilis.node.calculate.NodeMultiplication;
 import de.cas_ual_ty.visibilis.node.calculate.NodeRoot;
 import de.cas_ual_ty.visibilis.node.calculate.NodeSubtraction;
 import de.cas_ual_ty.visibilis.node.compare.NodeNumberCompare;
-import de.cas_ual_ty.visibilis.node.constant.NodeBoolVar;
 import de.cas_ual_ty.visibilis.node.constant.NodeE;
-import de.cas_ual_ty.visibilis.node.constant.NodeNumberVar;
 import de.cas_ual_ty.visibilis.node.constant.NodePi;
 import de.cas_ual_ty.visibilis.node.constant.NodeSQRT2;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
@@ -115,8 +115,8 @@ public class Visibilis
         NodesRegistry.INSTANCE.registerNode(NodeE.class, Visibilis.MOD_ID, "e");
         NodesRegistry.INSTANCE.registerNode(NodePi.class, Visibilis.MOD_ID, "pi");
         NodesRegistry.INSTANCE.registerNode(NodeSQRT2.class, Visibilis.MOD_ID, "sqrt2");
-        NodesRegistry.INSTANCE.registerNode(NodeNumberVar.class, Visibilis.MOD_ID, "const_number");
-        NodesRegistry.INSTANCE.registerNode(NodeBoolVar.class, Visibilis.MOD_ID, "const_boolean");
+        NodesRegistry.INSTANCE.registerNode(NodeNumberV.class, Visibilis.MOD_ID, "const_number");
+        NodesRegistry.INSTANCE.registerNode(NodeBoolV.class, Visibilis.MOD_ID, "const_boolean");
         
         NodesRegistry.INSTANCE.registerNode(NodeCosines.class, Visibilis.MOD_ID, "cosines");
         NodesRegistry.INSTANCE.registerNode(NodeRound.class, Visibilis.MOD_ID, "round");

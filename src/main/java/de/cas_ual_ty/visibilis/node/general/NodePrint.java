@@ -1,14 +1,12 @@
 package de.cas_ual_ty.visibilis.node.general;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.INodeExec;
-import de.cas_ual_ty.visibilis.node.base.NodeX;
+import de.cas_ual_ty.visibilis.node.base.string.NodeStringXP2;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
-import net.minecraft.util.text.StringTextComponent;
 
-public class NodePrint extends NodeX implements INodeExec
+public class NodePrint extends NodeStringXP2 implements INodeExec
 {
     public Output out1;
     public Input in1;
@@ -18,9 +16,16 @@ public class NodePrint extends NodeX implements INodeExec
     public NodePrint()
     {
         super();
-        this.addOutput(this.out1 = new Output(this, DataType.EXEC, "out1"));
-        this.addInput(this.in1 = new Input(this, DataType.EXEC, "in1"));
-        this.addInput(this.createDynamicInput());
+        this.out1 = new Output(this, DataType.EXEC, "out1");
+        this.in1 = new Input(this, DataType.EXEC, "in2");
+    }
+    
+    @Override
+    public void createBaseFields()
+    {
+        this.addOutput(this.out1);
+        this.addInput(this.in1);
+        super.createBaseFields();
     }
     
     @Override
@@ -30,32 +35,22 @@ public class NodePrint extends NodeX implements INodeExec
     }
     
     @Override
-    public boolean hasAllRequiredInputs(ExecProvider provider)
+    protected String calculate(String input, String in2)
     {
-        return true;
+        return input + in2;
     }
     
     @Override
-    public boolean doCalculate(ExecProvider provider)
+    protected String calculate(String[] inputs)
     {
-        for(int i = 1; i < this.getInputAmt(); ++i)
+        String s = "";
+        
+        for (String in : inputs)
         {
-            provider.getCommandSender().sendFeedback(new StringTextComponent(this.getInput(i).getValue().toString()), false);
+            s += in;
         }
         
-        return true;
-    }
-    
-    @Override
-    public Input createDynamicInput()
-    {
-        return new Input<String>(this, DataType.STRING, "in2");
-    }
-    
-    @Override
-    public <B> B getOutputValue(int index)
-    {
-        return index > 0 && index <= this.values.length ? (B) this.values[index - 1] : null;
+        return s;
     }
     
     @Override

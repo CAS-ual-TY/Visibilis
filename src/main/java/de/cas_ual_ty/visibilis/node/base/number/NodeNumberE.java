@@ -1,11 +1,11 @@
 package de.cas_ual_ty.visibilis.node.base.number;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.node.base.NodeSingleXP;
+import de.cas_ual_ty.visibilis.node.base.NodeGenericE;
 
-public abstract class NodeNumberXP extends NodeSingleXP<Number>
+public abstract class NodeNumberE extends NodeGenericE<Number>
 {
-    public NodeNumberXP()
+    public NodeNumberE()
     {
         super();
     }
@@ -15,4 +15,7 @@ public abstract class NodeNumberXP extends NodeSingleXP<Number>
     {
         return DataType.NUMBER;
     }
+    
+    @Override
+    protected abstract Boolean compare(Number input, Number in2);
 }

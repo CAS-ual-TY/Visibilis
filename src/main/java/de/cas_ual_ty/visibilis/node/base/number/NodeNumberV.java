@@ -1,11 +1,11 @@
 package de.cas_ual_ty.visibilis.node.base.number;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.node.base.NodeGenericC;
+import de.cas_ual_ty.visibilis.node.base.NodeGenericV;
 
-public abstract class NodeNumberC extends NodeGenericC<Number>
+public class NodeNumberV extends NodeGenericV<Number>
 {
-    public NodeNumberC()
+    public NodeNumberV()
     {
         super();
     }
@@ -17,5 +17,8 @@ public abstract class NodeNumberC extends NodeGenericC<Number>
     }
     
     @Override
-    protected abstract Number getConstant();
+    public String getID()
+    {
+        return "const_number";
+    }
 }

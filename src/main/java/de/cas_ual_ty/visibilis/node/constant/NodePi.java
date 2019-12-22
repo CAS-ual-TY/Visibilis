@@ -10,7 +10,7 @@ public class NodePi extends NodeNumberC
     }
     
     @Override
-    protected Number getValue(int index)
+    protected Number getConstant()
     {
         return Math.PI;
     }

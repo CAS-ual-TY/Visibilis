@@ -1,9 +1,9 @@
 package de.cas_ual_ty.visibilis.node.base.string;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.node.base.NodeSingleX;
+import de.cas_ual_ty.visibilis.node.base.NodeGenericX;
 
-public abstract class NodeStringX extends NodeSingleX<String>
+public abstract class NodeStringX extends NodeGenericX<String>
 {
     public NodeStringX()
     {

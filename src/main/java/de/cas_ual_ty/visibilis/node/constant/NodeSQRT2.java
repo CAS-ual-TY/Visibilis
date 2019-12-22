@@ -11,7 +11,7 @@ public class NodeSQRT2 extends NodeNumberC
     }
     
     @Override
-    protected Number getValue(int index)
+    protected Number getConstant()
     {
         return MathHelper.SQRT_2;
     }
