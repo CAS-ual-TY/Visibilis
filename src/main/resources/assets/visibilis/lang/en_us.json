@@ -6,15 +6,13 @@
     "field.event.visibilis:command.out1": "(O)",
     "node.event.visibilis:command.groups": "test",
     
-    "node.vtest": "vtest",
-    "field.vtest.out1": "(O)",
-    "field.vtest.in1": "(I)",
-    "field.vtest.in2": "Boolean",
-    "field.vtest.in3": "Number",
-    "node.vtest.groups": "test",
+    "node.vprintdebug": "vtest",
+    "field.vprintdebug.out1": "(O)",
+    "field.vprintdebug.in1": "(I)",
+    "node.vprintdebug.groups": "test",
     
     "group.test": "Test",
-    "group.test.tags": "test;testing",
+    "group.test.tags": "test;testing;debug",
     
     "_comment0.2": "--- Testing END ---",
     

@@ -40,7 +40,7 @@ import de.cas_ual_ty.visibilis.print.item.MessageItem;
 import de.cas_ual_ty.visibilis.proxy.IVSidedProxy;
 import de.cas_ual_ty.visibilis.test.VCommandExec;
 import de.cas_ual_ty.visibilis.test.VItemTest;
-import de.cas_ual_ty.visibilis.test.VNodeTest;
+import de.cas_ual_ty.visibilis.test.VNodePrintDebug;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
@@ -98,7 +98,7 @@ public class Visibilis
     public void registerNodes()
     {
         NodesRegistry.INSTANCE.registerNode(NodeEvent.class, Visibilis.MOD_ID, "event");
-        NodesRegistry.INSTANCE.registerNode(VNodeTest.class, Visibilis.MOD_ID, "test");
+        NodesRegistry.INSTANCE.registerNode(VNodePrintDebug.class, Visibilis.MOD_ID, "test");
         
         NodesRegistry.INSTANCE.registerNode(NodeAddition.class, Visibilis.MOD_ID, "addition");
         NodesRegistry.INSTANCE.registerNode(NodeDivision.class, Visibilis.MOD_ID, "division");

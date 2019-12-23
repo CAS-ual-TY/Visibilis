@@ -63,7 +63,7 @@ public class VPrintProviderTest extends PrintProviderItem
         ArrayList<Node> list = super.getAvailableNodes();
         
         list.add(new NodeEvent(Visibilis.MOD_ID, "command"));
-        list.add(new VNodeTest());
+        list.add(new VNodePrintDebug());
         
         list.add(new NodeAddition());
         list.add(new NodeDivision());
