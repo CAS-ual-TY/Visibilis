@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Node;
-import de.cas_ual_ty.visibilis.node.base.bool.NodeBoolV;
+import de.cas_ual_ty.visibilis.node.base.dtboolean.NodeBooleanV;
 import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatV;
 import de.cas_ual_ty.visibilis.node.calculate.NodeAddition;
 import de.cas_ual_ty.visibilis.node.calculate.NodeConcatenation;
@@ -81,7 +81,7 @@ public class VPrintProviderTest extends PrintProviderItem
         list.add(new NodePi());
         list.add(new NodeSQRT2());
         list.add(new NodeFloatV());
-        list.add(new NodeBoolV());
+        list.add(new NodeBooleanV());
         
         list.add(new NodeRound());
         list.add(new NodeRoundUp());

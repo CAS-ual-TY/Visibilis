@@ -1,11 +1,11 @@
-package de.cas_ual_ty.visibilis.node.base.bool;
+package de.cas_ual_ty.visibilis.node.base.dtboolean;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.base.NodeGenericP;
 
-public abstract class NodeBoolP extends NodeGenericP<Boolean>
+public abstract class NodeBooleanP extends NodeGenericP<Boolean>
 {
-    public NodeBoolP()
+    public NodeBooleanP()
     {
         super();
     }

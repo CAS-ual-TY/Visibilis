@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis;
 
-import de.cas_ual_ty.visibilis.node.base.bool.NodeBoolV;
+import de.cas_ual_ty.visibilis.node.base.dtboolean.NodeBooleanV;
 import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatV;
 import de.cas_ual_ty.visibilis.node.calculate.NodeAddition;
 import de.cas_ual_ty.visibilis.node.calculate.NodeConcatenation;
@@ -116,7 +116,7 @@ public class Visibilis
         NodesRegistry.INSTANCE.registerNode(NodePi.class, Visibilis.MOD_ID, "pi");
         NodesRegistry.INSTANCE.registerNode(NodeSQRT2.class, Visibilis.MOD_ID, "sqrt2");
         NodesRegistry.INSTANCE.registerNode(NodeFloatV.class, Visibilis.MOD_ID, "const_Float");
-        NodesRegistry.INSTANCE.registerNode(NodeBoolV.class, Visibilis.MOD_ID, "const_boolean");
+        NodesRegistry.INSTANCE.registerNode(NodeBooleanV.class, Visibilis.MOD_ID, "const_boolean");
         
         NodesRegistry.INSTANCE.registerNode(NodeCosines.class, Visibilis.MOD_ID, "cosines");
         NodesRegistry.INSTANCE.registerNode(NodeRound.class, Visibilis.MOD_ID, "round");

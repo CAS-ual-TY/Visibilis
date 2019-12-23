@@ -2,7 +2,7 @@ package de.cas_ual_ty.visibilis.node.general;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.INodeExec;
-import de.cas_ual_ty.visibilis.node.base.string.NodeStringXP2;
+import de.cas_ual_ty.visibilis.node.base.dtstring.NodeStringXP2;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 

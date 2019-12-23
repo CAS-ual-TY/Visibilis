@@ -1,11 +1,11 @@
-package de.cas_ual_ty.visibilis.node.base.bool;
+package de.cas_ual_ty.visibilis.node.base.dtboolean;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.node.base.NodeGenericXP2;
+import de.cas_ual_ty.visibilis.node.base.NodeGenericP2;
 
-public abstract class NodeBoolXP2 extends NodeGenericXP2<Boolean>
+public abstract class NodeBooleanP2 extends NodeGenericP2<Boolean>
 {
-    public NodeBoolXP2()
+    public NodeBooleanP2()
     {
         super();
     }
@@ -24,13 +24,4 @@ public abstract class NodeBoolXP2 extends NodeGenericXP2<Boolean>
     
     @Override
     protected abstract Boolean calculate(Boolean input, Boolean in2);
-    
-    @Override
-    protected boolean canCalculate(Boolean[] inputs)
-    {
-        return super.canCalculate(inputs);
-    }
-    
-    @Override
-    protected abstract Boolean calculate(Boolean[] inputs);
 }

@@ -1,11 +1,11 @@
-package de.cas_ual_ty.visibilis.node.base.bool;
+package de.cas_ual_ty.visibilis.node.base.dtboolean;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.base.NodeGenericV;
 
-public class NodeBoolV extends NodeGenericV<Boolean>
+public class NodeBooleanV extends NodeGenericV<Boolean>
 {
-    public NodeBoolV()
+    public NodeBooleanV()
     {
         super();
     }

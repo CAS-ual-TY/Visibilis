@@ -1,8 +1,8 @@
 package de.cas_ual_ty.visibilis.node.logic;
 
-import de.cas_ual_ty.visibilis.node.base.bool.NodeBoolP2;
+import de.cas_ual_ty.visibilis.node.base.dtboolean.NodeBooleanP2;
 
-public class NodeXOR extends NodeBoolP2
+public class NodeXOR extends NodeBooleanP2
 {
     public NodeXOR()
     {
