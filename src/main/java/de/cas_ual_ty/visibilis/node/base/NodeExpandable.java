@@ -96,19 +96,21 @@ public abstract class NodeExpandable extends Node
     @Override
     public void readNodeFromNBT(CompoundNBT nbt)
     {
-        super.readNodeFromNBT(nbt);
         int expansion = nbt.getInt(NodeExpandable.KEY_EXPANSION);
         
         for (int i = 0; i < expansion; ++i)
         {
             this.actionExpand();
         }
+        
+        super.readNodeFromNBT(nbt);
     }
     
     @Override
     public void writeNodeToNBT(CompoundNBT nbt)
     {
-        super.writeNodeToNBT(nbt);
         nbt.putInt(NodeExpandable.KEY_EXPANSION, this.expansion);
+        
+        super.writeNodeToNBT(nbt);
     }
 }
