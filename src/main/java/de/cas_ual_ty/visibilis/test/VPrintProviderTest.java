@@ -41,7 +41,7 @@ import de.cas_ual_ty.visibilis.node.logic.NodeOR;
 import de.cas_ual_ty.visibilis.node.logic.NodeXNOR;
 import de.cas_ual_ty.visibilis.node.logic.NodeXOR;
 import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.print.impl.item.PrintProviderItem;
+import de.cas_ual_ty.visibilis.print.item.PrintProviderItem;
 import net.minecraft.item.ItemStack;
 
 public class VPrintProviderTest extends PrintProviderItem

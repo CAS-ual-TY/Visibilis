@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.print.impl;
+package de.cas_ual_ty.visibilis.print;
 
 import de.cas_ual_ty.visibilis.print.ui.UiBase;
 import net.minecraft.client.gui.screen.Screen;

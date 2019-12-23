@@ -5,7 +5,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.event.ExecCommandEvent;
 import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.print.impl.item.ItemPrint;
+import de.cas_ual_ty.visibilis.print.item.ItemPrint;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.PlayerEntity;

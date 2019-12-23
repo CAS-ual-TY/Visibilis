@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.print.impl.item;
+package de.cas_ual_ty.visibilis.print.item;
 
 import java.util.function.Supplier;
 

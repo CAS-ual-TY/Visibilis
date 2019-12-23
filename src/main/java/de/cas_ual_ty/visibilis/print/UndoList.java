@@ -1,8 +1,6 @@
-package de.cas_ual_ty.visibilis.print.impl;
+package de.cas_ual_ty.visibilis.print;
 
 import java.util.LinkedList;
-
-import de.cas_ual_ty.visibilis.print.Print;
 
 public class UndoList
 {

@@ -1,9 +1,9 @@
-package de.cas_ual_ty.visibilis.print.impl.item;
+package de.cas_ual_ty.visibilis.print.item;
 
 import de.cas_ual_ty.visibilis.Visibilis;
+import de.cas_ual_ty.visibilis.print.GuiPrint;
 import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.print.impl.GuiPrint;
-import de.cas_ual_ty.visibilis.print.impl.PrintProvider;
+import de.cas_ual_ty.visibilis.print.PrintProvider;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -53,7 +53,7 @@ public class ItemPrint extends Item
     }
     
     /**
-     * Returns an instance of {@link PrintProvider} which is used to open the {@link de.cas_ual_ty.visibilis.print.impl.GuiPrint} in {@link #openGui(PlayerEntity, ItemStack, Hand)}
+     * Returns an instance of {@link PrintProvider} which is used to open the {@link de.cas_ual_ty.visibilis.print.GuiPrint} in {@link #openGui(PlayerEntity, ItemStack, Hand)}
      */
     public PrintProvider getHelper(ItemStack itemStack, int slot)
     {

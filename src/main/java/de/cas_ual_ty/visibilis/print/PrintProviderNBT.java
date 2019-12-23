@@ -1,10 +1,9 @@
-package de.cas_ual_ty.visibilis.print.impl;
+package de.cas_ual_ty.visibilis.print;
 
 import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Node;
-import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
 import net.minecraft.nbt.CompoundNBT;
 

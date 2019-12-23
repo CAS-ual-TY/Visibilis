@@ -1,8 +1,8 @@
-package de.cas_ual_ty.visibilis.print.impl.item;
+package de.cas_ual_ty.visibilis.print.item;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.print.impl.PrintProviderNBT;
+import de.cas_ual_ty.visibilis.print.PrintProviderNBT;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 

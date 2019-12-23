@@ -1,7 +1,7 @@
 package de.cas_ual_ty.visibilis.proxy;
 
-import de.cas_ual_ty.visibilis.print.impl.GuiPrint;
-import de.cas_ual_ty.visibilis.print.impl.PrintProvider;
+import de.cas_ual_ty.visibilis.print.GuiPrint;
+import de.cas_ual_ty.visibilis.print.PrintProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.StringTextComponent;
 
