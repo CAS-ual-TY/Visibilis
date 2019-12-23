@@ -7,6 +7,6 @@ public class IntegerFloat extends Converter
     @Override
     public <A> A convert(Object value)
     {
-        return (A) (Integer) ((Integer) value).intValue();
+        return (A) (Float) ((Integer) value).floatValue();
     }
 }
