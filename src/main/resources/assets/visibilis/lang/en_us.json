@@ -245,7 +245,7 @@
     "field.equals.out1": "A == B",
     "field.equals.in1": "A",
     "field.equals.in2": "B",
-    "node.equals.group": "compare",
+    "node.equals.groups": "compare",
     
     "_comment9": "--- Other ---",
     "group.other": "Other",
@@ -255,5 +255,5 @@
     "field.print.out1": "(O)",
     "field.print.in1": "Line",
     "field.print.in2": "(I)",
-    "node.print.group": "other"
+    "node.print.groups": "other"
 }
