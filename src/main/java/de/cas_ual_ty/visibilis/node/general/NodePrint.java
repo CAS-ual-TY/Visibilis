@@ -1,12 +1,14 @@
 package de.cas_ual_ty.visibilis.node.general;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
+import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.INodeExec;
-import de.cas_ual_ty.visibilis.node.base.dtstring.NodeStringXP2;
+import de.cas_ual_ty.visibilis.node.base.NodeExpandable;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
+import net.minecraft.util.text.StringTextComponent;
 
-public class NodePrint extends NodeStringXP2 implements INodeExec
+public class NodePrint extends NodeExpandable implements INodeExec
 {
     public Output out1;
     public Input in1;
@@ -16,16 +18,9 @@ public class NodePrint extends NodeStringXP2 implements INodeExec
     public NodePrint()
     {
         super();
-        this.out1 = new Output(this, DataType.EXEC, "out1");
-        this.in1 = new Input(this, DataType.EXEC, "in2");
-    }
-    
-    @Override
-    public void createBaseFields()
-    {
-        this.addOutput(this.out1);
-        this.addInput(this.in1);
-        super.createBaseFields();
+        this.addOutput(this.out1 = new Output(this, DataType.EXEC, "out1"));
+        this.addInput(this.in1 = new Input(this, DataType.EXEC, "in1"));
+        this.expand();
     }
     
     @Override
@@ -35,22 +30,48 @@ public class NodePrint extends NodeStringXP2 implements INodeExec
     }
     
     @Override
-    protected String calculate(String input, String in2)
+    public boolean doCalculate(ExecProvider provider)
     {
-        return input + in2;
+        String s;
+        
+        for(int i = 1; i < this.getInputAmt(); ++i)
+        {
+            s = (String) this.getInput(i).getValue();
+            
+            provider.getCommandSender().sendFeedback(new StringTextComponent(s), true);
+        }
+        
+        return true;
     }
     
     @Override
-    protected String calculate(String[] inputs)
+    public <B> B getOutputValue(int index)
     {
-        String s = "";
-        
-        for (String in : inputs)
-        {
-            s += in;
-        }
-        
-        return s;
+        return null;
+    }
+    
+    @Override
+    public void expand()
+    {
+        this.addInput(new Input<String>(this, DataType.STRING, "in2"));
+    }
+    
+    @Override
+    public void shrink()
+    {
+        this.removeInput(this.getInputAmt() - 1);
+    }
+    
+    @Override
+    public float[] getColor()
+    {
+        return DataType.STRING.getColor();
+    }
+    
+    @Override
+    public float[] getTextColor()
+    {
+        return DataType.STRING.getTextColor();
     }
     
     @Override
