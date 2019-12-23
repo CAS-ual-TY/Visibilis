@@ -69,7 +69,12 @@ public class Input<A> extends NodeField<A>
     @Override
     public A getValue()
     {
-        return this.hasConnections() ? (A) this.connection.getValue() : this.getSetValue();
+        return this.hasConnections() ? (A) this.getConvertedValue() : this.getSetValue();
+    }
+    
+    public A getConvertedValue()
+    {
+        return this.connection.dataType == this.dataType ? (A) this.connection.getValue() : (A) this.dataType.convert(this.connection);
     }
     
     @Override
