@@ -1,15 +1,15 @@
-package de.cas_ual_ty.visibilis.node.base.generic2;
+package de.cas_ual_ty.visibilis.node.base.bigeneric;
 
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.field.Input;
 
-public abstract class NodeGeneric2P2<A, C> extends NodeGeneric2P<A, C>
+public abstract class NodeBiGenericP2<A, C> extends NodeBiGenericP<A, C>
 {
     public Input<A> in2;
     
     private A tempIn2;
     
-    public NodeGeneric2P2()
+    public NodeBiGenericP2()
     {
         super();
     }

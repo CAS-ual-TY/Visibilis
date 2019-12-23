@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.node.base.generic2;
+package de.cas_ual_ty.visibilis.node.base.bigeneric;
 
 import java.util.LinkedList;
 
@@ -9,7 +9,7 @@ import de.cas_ual_ty.visibilis.node.base.NodeParallelizable;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 
-public abstract class NodeGeneric2XP2<A, C> extends NodeParallelizable
+public abstract class NodeBiGenericXP2<A, C> extends NodeParallelizable
 {
     public LinkedList<Output<C>> expansionOutputs;
     public LinkedList<Input<A>> expansionInputs;
@@ -22,7 +22,7 @@ public abstract class NodeGeneric2XP2<A, C> extends NodeParallelizable
     protected int inAmt;
     protected int outAmt;
     
-    public NodeGeneric2XP2()
+    public NodeBiGenericXP2()
     {
         super();
         this.expansionOutputs = new LinkedList<Output<C>>();

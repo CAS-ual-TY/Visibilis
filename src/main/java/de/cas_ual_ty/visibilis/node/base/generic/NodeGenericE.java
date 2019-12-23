@@ -1,9 +1,9 @@
 package de.cas_ual_ty.visibilis.node.base.generic;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.node.base.generic2.NodeGeneric2P2;
+import de.cas_ual_ty.visibilis.node.base.bigeneric.NodeBiGenericP2;
 
-public abstract class NodeGenericE<A> extends NodeGeneric2P2<A, Boolean>
+public abstract class NodeGenericE<A> extends NodeBiGenericP2<A, Boolean>
 {
     public NodeGenericE()
     {
