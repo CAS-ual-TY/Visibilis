@@ -1,17 +1,17 @@
 package de.cas_ual_ty.visibilis.node.calculate;
 
-import de.cas_ual_ty.visibilis.node.base.number.NodeNumberP2;
+import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatP2;
 
-public class NodeModulo extends NodeNumberP2
+public class NodeModulo extends NodeFloatP2
 {
     @Override
-    protected boolean canCalculate(Number in1, Number in2)
+    protected boolean canCalculate(Float in1, Float in2)
     {
         return in2.floatValue() != 0;
     }
     
     @Override
-    protected Number calculate(Number in1, Number in2)
+    protected Float calculate(Float in1, Float in2)
     {
         return in1.floatValue() % in2.floatValue();
     }

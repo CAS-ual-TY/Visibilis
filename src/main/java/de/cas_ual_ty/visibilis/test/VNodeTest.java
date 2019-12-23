@@ -14,7 +14,7 @@ public class VNodeTest extends Node implements INodeExec
     public Output out1;
     public Input in1;
     public Input<Boolean> in2;
-    public Input<Number> in3;
+    public Input<Float> in3;
     
     public VNodeTest()
     {
@@ -22,7 +22,7 @@ public class VNodeTest extends Node implements INodeExec
         this.addOutput(this.out1 = new Output(this, DataType.EXEC, "out1"));
         this.addInput(this.in1 = new Input(this, DataType.EXEC, "in1"));
         this.addInput(this.in2 = new Input<>(this, DataType.BOOLEAN, "in2"));
-        this.addInput(this.in3 = new Input<>(this, DataType.NUMBER, "in3"));
+        this.addInput(this.in3 = new Input<>(this, DataType.FLOAT, "in3"));
     }
     
     @Override

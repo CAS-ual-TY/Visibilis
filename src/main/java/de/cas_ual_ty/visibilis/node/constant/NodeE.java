@@ -1,8 +1,8 @@
 package de.cas_ual_ty.visibilis.node.constant;
 
-import de.cas_ual_ty.visibilis.node.base.number.NodeNumberC;
+import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatC;
 
-public class NodeE extends NodeNumberC
+public class NodeE extends NodeFloatC
 {
     public NodeE()
     {
@@ -10,9 +10,9 @@ public class NodeE extends NodeNumberC
     }
     
     @Override
-    protected Number getConstant()
+    protected Float getConstant()
     {
-        return Math.E;
+        return (float) Math.E;
     }
     
     @Override

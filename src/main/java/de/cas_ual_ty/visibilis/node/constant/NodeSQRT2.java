@@ -1,9 +1,9 @@
 package de.cas_ual_ty.visibilis.node.constant;
 
-import de.cas_ual_ty.visibilis.node.base.number.NodeNumberC;
+import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatC;
 import net.minecraft.util.math.MathHelper;
 
-public class NodeSQRT2 extends NodeNumberC
+public class NodeSQRT2 extends NodeFloatC
 {
     public NodeSQRT2()
     {
@@ -11,7 +11,7 @@ public class NodeSQRT2 extends NodeNumberC
     }
     
     @Override
-    protected Number getConstant()
+    protected Float getConstant()
     {
         return MathHelper.SQRT_2;
     }

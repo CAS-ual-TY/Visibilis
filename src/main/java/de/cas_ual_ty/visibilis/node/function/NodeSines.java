@@ -1,11 +1,11 @@
 package de.cas_ual_ty.visibilis.node.function;
 
-import de.cas_ual_ty.visibilis.node.base.number.NodeNumberP;
+import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatP;
 
-public class NodeSines extends NodeNumberP
+public class NodeSines extends NodeFloatP
 {
     @Override
-    protected Number calculate(Number in1)
+    protected Float calculate(Float in1)
     {
         return (float) Math.sin(in1.floatValue());
     }

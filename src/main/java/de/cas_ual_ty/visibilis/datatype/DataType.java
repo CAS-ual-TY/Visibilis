@@ -5,8 +5,8 @@ import java.util.Map;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.datatype.converter.AnyString;
-import de.cas_ual_ty.visibilis.datatype.converter.IntegerNumber;
-import de.cas_ual_ty.visibilis.datatype.converter.NumberInteger;
+import de.cas_ual_ty.visibilis.datatype.converter.FloatInteger;
+import de.cas_ual_ty.visibilis.datatype.converter.IntegerFloat;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
 import net.minecraft.nbt.CompoundNBT;
 
@@ -100,10 +100,10 @@ public class DataType<A>
         }
     }.setBlackText();
     
-    public static final DataTypeDynamic<Number> NUMBER = (DataTypeDynamic<Number>) new DataTypeDynamic<Number>("number", new float[] { 1F, 1F, 0F }, 1.0F)
+    public static final DataTypeDynamic<Float> FLOAT = (DataTypeDynamic<Float>) new DataTypeDynamic<Float>("float", new float[] { 1F, 1F, 0F }, 1.0F)
     {
         @Override
-        public boolean equals(Number obj1, Number obj2)
+        public boolean equals(Float obj1, Float obj2)
         {
             return obj1.floatValue() == obj2.floatValue();
         }
@@ -128,7 +128,7 @@ public class DataType<A>
         }
         
         @Override
-        public Number stringToValue(String s)
+        public Float stringToValue(String s)
         {
             if (s.equals("-"))
             {
@@ -138,13 +138,13 @@ public class DataType<A>
         }
         
         @Override
-        public Number loadFromNBT(CompoundNBT nbt)
+        public Float loadFromNBT(CompoundNBT nbt)
         {
             return nbt.getFloat(DataType.KEY_DATA);
         }
         
         @Override
-        public CompoundNBT saveToNBT(Number data)
+        public CompoundNBT saveToNBT(Float data)
         {
             CompoundNBT nbt = new CompoundNBT();
             nbt.putFloat(DataType.KEY_DATA, data.floatValue());
@@ -161,7 +161,7 @@ public class DataType<A>
         }
     }.addEnum(false).addEnum(true);
     
-    public static final DataTypeDynamic<String> STRING = (DataTypeDynamic<String>) new DataTypeDynamic<String>("number", new float[] { 1F, 1F, 1F }, "text")
+    public static final DataTypeDynamic<String> STRING = (DataTypeDynamic<String>) new DataTypeDynamic<String>("string", new float[] { 1F, 1F, 1F }, "text")
     {
         @Override
         public boolean canParseString(String s)
@@ -192,12 +192,12 @@ public class DataType<A>
     
     static
     {
-        DataType.NUMBER.registerConverter(DataType.INTEGER, new IntegerNumber()); // As I dont know how this will be used in the future, I rather add this in.
+        DataType.FLOAT.registerConverter(DataType.INTEGER, new IntegerFloat()); // As I dont know how this will be used in the future, I rather add this in.
         
-        DataType.INTEGER.registerConverter(DataType.NUMBER, new NumberInteger()); // here Number#intValue() should be used, so not a generic converter
+        DataType.INTEGER.registerConverter(DataType.FLOAT, new FloatInteger());
         
         DataType.STRING.registerConverter(DataType.INTEGER, new AnyString());
-        DataType.STRING.registerConverter(DataType.NUMBER, new AnyString());
+        DataType.STRING.registerConverter(DataType.FLOAT, new AnyString());
         DataType.STRING.registerConverter(DataType.BOOLEAN, new AnyString());
     }
     

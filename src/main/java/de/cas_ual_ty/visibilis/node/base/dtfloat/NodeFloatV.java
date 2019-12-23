@@ -1,11 +1,11 @@
-package de.cas_ual_ty.visibilis.node.base.number;
+package de.cas_ual_ty.visibilis.node.base.dtfloat;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.base.NodeGenericV;
 
-public class NodeNumberV extends NodeGenericV<Number>
+public class NodeFloatV extends NodeGenericV<Float>
 {
-    public NodeNumberV()
+    public NodeFloatV()
     {
         super();
     }
@@ -13,12 +13,12 @@ public class NodeNumberV extends NodeGenericV<Number>
     @Override
     public DataType getDataType()
     {
-        return DataType.NUMBER;
+        return DataType.FLOAT;
     }
     
     @Override
     public String getID()
     {
-        return "const_number";
+        return "const_float";
     }
 }

@@ -1,11 +1,11 @@
 package de.cas_ual_ty.visibilis.node.calculate;
 
-import de.cas_ual_ty.visibilis.node.base.number.NodeNumberP2;
+import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatP2;
 
-public class NodeExponentiation extends NodeNumberP2
+public class NodeExponentiation extends NodeFloatP2
 {
     @Override
-    protected Number calculate(Number in1, Number in2)
+    protected Float calculate(Float in1, Float in2)
     {
         return (float) Math.pow(in1.floatValue(), in2.floatValue());
     }

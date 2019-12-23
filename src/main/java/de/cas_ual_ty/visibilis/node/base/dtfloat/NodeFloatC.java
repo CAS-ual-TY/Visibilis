@@ -1,11 +1,11 @@
-package de.cas_ual_ty.visibilis.node.base.number;
+package de.cas_ual_ty.visibilis.node.base.dtfloat;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.base.NodeGenericC;
 
-public abstract class NodeNumberC extends NodeGenericC<Number>
+public abstract class NodeFloatC extends NodeGenericC<Float>
 {
-    public NodeNumberC()
+    public NodeFloatC()
     {
         super();
     }
@@ -13,9 +13,9 @@ public abstract class NodeNumberC extends NodeGenericC<Number>
     @Override
     public DataType getDataType()
     {
-        return DataType.NUMBER;
+        return DataType.FLOAT;
     }
     
     @Override
-    protected abstract Number getConstant();
+    protected abstract Float getConstant();
 }

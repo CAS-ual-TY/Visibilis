@@ -1,18 +1,13 @@
 package de.cas_ual_ty.visibilis.node.function;
 
-import de.cas_ual_ty.visibilis.node.base.number.NodeNumberP;
+import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatP;
 
-public class NodeRound extends NodeNumberP
+public class NodeRound extends NodeFloatP
 {
     @Override
-    protected Number calculate(Number in1)
+    protected Float calculate(Float in1)
     {
-        if (in1 instanceof Integer)
-        {
-            return in1.intValue(); // Dont round if already int
-        }
-        
-        return Math.round(in1.floatValue());
+        return (float) Math.round(in1.floatValue());
     }
     
     @Override

@@ -1,11 +1,11 @@
-package de.cas_ual_ty.visibilis.node.base.number;
+package de.cas_ual_ty.visibilis.node.base.dtfloat;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.base.NodeGenericX;
 
-public abstract class NodeNumberX extends NodeGenericX<Number>
+public abstract class NodeFloatX extends NodeGenericX<Float>
 {
-    public NodeNumberX()
+    public NodeFloatX()
     {
         super();
     }
@@ -13,15 +13,15 @@ public abstract class NodeNumberX extends NodeGenericX<Number>
     @Override
     public DataType getDataType()
     {
-        return DataType.NUMBER;
+        return DataType.FLOAT;
     }
     
     @Override
-    protected boolean canCalculate(Number[] inputs)
+    protected boolean canCalculate(Float[] inputs)
     {
         return super.canCalculate(inputs);
     }
     
     @Override
-    protected abstract Number calculate(Number[] inputs);
+    protected abstract Float calculate(Float[] inputs);
 }

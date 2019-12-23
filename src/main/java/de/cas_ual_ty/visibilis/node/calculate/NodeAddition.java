@@ -1,15 +1,15 @@
 package de.cas_ual_ty.visibilis.node.calculate;
 
-import de.cas_ual_ty.visibilis.node.base.number.NodeNumberXP2;
+import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatXP2;
 
-public class NodeAddition extends NodeNumberXP2
+public class NodeAddition extends NodeFloatXP2
 {
     @Override
-    protected Number calculate(Number[] inputs)
+    protected Float calculate(Float[] inputs)
     {
         float value = 0;
         
-        for (Number in : inputs)
+        for (Float in : inputs)
         {
             value += in.floatValue();
         }
@@ -18,7 +18,7 @@ public class NodeAddition extends NodeNumberXP2
     }
     
     @Override
-    protected Number calculate(Number in1, Number in2)
+    protected Float calculate(Float in1, Float in2)
     {
         return in1.floatValue() + in2.floatValue();
     }

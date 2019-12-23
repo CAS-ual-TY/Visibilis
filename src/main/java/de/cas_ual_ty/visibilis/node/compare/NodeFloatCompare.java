@@ -1,16 +1,16 @@
 package de.cas_ual_ty.visibilis.node.compare;
 
-import de.cas_ual_ty.visibilis.node.base.number.NodeNumberE;
+import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatE;
 
-public class NodeNumberCompare extends NodeNumberE
+public class NodeFloatCompare extends NodeFloatE
 {
-    public NodeNumberCompare()
+    public NodeFloatCompare()
     {
         super();
     }
     
     @Override
-    protected Boolean compare(Number input, Number in2)
+    protected Boolean compare(Float input, Float in2)
     {
         return input.floatValue() == in2.floatValue();
     }
