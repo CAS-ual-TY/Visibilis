@@ -2,10 +2,11 @@ package de.cas_ual_ty.visibilis.node.base.generic;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
+import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 
-public abstract class NodeGenericC<A> extends de.cas_ual_ty.visibilis.node.Node
+public abstract class NodeGenericC<A> extends Node
 {
     public Output<A> out1;
     public Input<A> in1;
