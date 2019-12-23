@@ -2,7 +2,6 @@ package de.cas_ual_ty.visibilis.node.base.bigeneric;
 
 import java.util.LinkedList;
 
-import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.base.NodeParallelizable;
@@ -106,38 +105,22 @@ public abstract class NodeBiGenericXP2<A, C> extends NodeParallelizable
     @Override
     public void parallelize()
     {
-        Visibilis.debug("parallelize");
-        Visibilis.debug("I:" + this.getInputAmt() + " | O:" + this.getOutputAmt());
-        Visibilis.debug("eI:" + this.expansionInputs.size() + " | eO:" + this.expansionOutputs.size());
-        
         this.expansionInputs.removeLast();
         for (int i = 1; i < this.expansionInputs.size(); ++i)
         {
             this.addDynamicOutput(this.createDynamicOutput());
         }
-        
-        Visibilis.debug("I:" + this.getInputAmt() + " | O:" + this.getOutputAmt());
-        Visibilis.debug("eI:" + this.expansionInputs.size() + " | eO:" + this.expansionOutputs.size());
-        Visibilis.debug("---");
     }
     
     @Override
     public void unparallelize()
     {
-        Visibilis.debug("unparallelize");
-        Visibilis.debug("I:" + this.getInputAmt() + " | O:" + this.getOutputAmt());
-        Visibilis.debug("eI:" + this.expansionInputs.size() + " | eO:" + this.expansionOutputs.size());
-        
         int size = this.expansionOutputs.size();
         for (int i = 1; i < size; ++i)
         {
             this.removeOutput(this.expansionOutputs.removeLast().getId());
         }
         this.expansionInputs.addLast(this.in2);
-        
-        Visibilis.debug("I:" + this.getInputAmt() + " | O:" + this.getOutputAmt());
-        Visibilis.debug("eI:" + this.expansionInputs.size() + " | eO:" + this.expansionOutputs.size());
-        Visibilis.debug("---");
     }
     
     @Override
