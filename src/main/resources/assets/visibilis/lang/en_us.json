@@ -6,7 +6,7 @@
     "field.event.visibilis:command.out1": "(O)",
     "node.event.visibilis:command.groups": "test",
     
-    "node.vprintdebug": "vtest",
+    "node.vprintdebug": "vprintdebug",
     "field.vprintdebug.out1": "(O)",
     "field.vprintdebug.in1": "(I)",
     "node.vprintdebug.groups": "test",
