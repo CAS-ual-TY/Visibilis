@@ -3,13 +3,13 @@ package de.cas_ual_ty.visibilis.node.base.generic2;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.field.Input;
 
-public abstract class NodeGenericP2<A, C> extends NodeGeneric2P<A, C>
+public abstract class NodeGeneric2P2<A, C> extends NodeGeneric2P<A, C>
 {
     public Input<A> in2;
     
     private A tempIn2;
     
-    public NodeGenericP2()
+    public NodeGeneric2P2()
     {
         super();
     }
