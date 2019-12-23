@@ -67,7 +67,7 @@ public class ComponentNodeList extends Component
         GlStateManager.pushMatrix();
         GlStateManager.translatef(this.dimensions.x, this.dimensions.y, 0);
         //        RenderUtility.scissorStart(this.guiPrint.getScaledResolution(), this.listRect.x, this.listRect.y, this.listRect.w, this.listRect.h);
-        RenderUtility.applyZoom(zoom); // TODO low: maybe make this dynamic
+        RenderUtility.applyZoom(zoom);
         
         int margin = 2;
         
@@ -165,7 +165,7 @@ public class ComponentNodeList extends Component
         {
             if (this.hoverObj.type == EnumMouseInteractionType.NODE)
             {
-                this.getProvider().saveChange(); // TODO Make new node be put in the middle, instead of top left (top left is under the header)
+                this.getProvider().saveChange();
                 this.uiBase.addNodeToPrint(this.hoverObj.node.setPosition(-this.getPrint().posX, -this.getPrint().posY));
             }
             
