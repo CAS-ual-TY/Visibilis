@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.node.base;
+package de.cas_ual_ty.visibilis.node.base.generic;
 
 public abstract class NodeGenericV<A> extends NodeGenericP<A>
 {

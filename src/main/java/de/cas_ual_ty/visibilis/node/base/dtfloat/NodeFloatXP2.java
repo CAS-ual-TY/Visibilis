@@ -1,7 +1,7 @@
 package de.cas_ual_ty.visibilis.node.base.dtfloat;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.node.base.NodeGenericXP2;
+import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericXP2;
 
 public abstract class NodeFloatXP2 extends NodeGenericXP2<Float>
 {

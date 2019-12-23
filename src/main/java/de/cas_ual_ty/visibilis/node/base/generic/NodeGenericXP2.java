@@ -1,10 +1,11 @@
-package de.cas_ual_ty.visibilis.node.base;
+package de.cas_ual_ty.visibilis.node.base.generic;
 
 import java.util.LinkedList;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
+import de.cas_ual_ty.visibilis.node.base.NodeParallelizable;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 

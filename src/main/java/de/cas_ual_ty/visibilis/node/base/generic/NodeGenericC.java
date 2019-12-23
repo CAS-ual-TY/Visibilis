@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.node.base;
+package de.cas_ual_ty.visibilis.node.base.generic;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;

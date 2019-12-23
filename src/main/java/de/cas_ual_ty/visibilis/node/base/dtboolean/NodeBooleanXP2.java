@@ -1,7 +1,7 @@
 package de.cas_ual_ty.visibilis.node.base.dtboolean;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.node.base.NodeGenericXP2;
+import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericXP2;
 
 public abstract class NodeBooleanXP2 extends NodeGenericXP2<Boolean>
 {

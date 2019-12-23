@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.node.base;
+package de.cas_ual_ty.visibilis.node.base.generic;
 
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.field.Input;

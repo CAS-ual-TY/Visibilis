@@ -2,7 +2,7 @@ package de.cas_ual_ty.visibilis.node.exec;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.INodeExec;
-import de.cas_ual_ty.visibilis.node.base.NodeGenericX;
+import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericX;
 import de.cas_ual_ty.visibilis.node.field.Output;
 
 public class NodeMerge extends NodeGenericX implements INodeExec
