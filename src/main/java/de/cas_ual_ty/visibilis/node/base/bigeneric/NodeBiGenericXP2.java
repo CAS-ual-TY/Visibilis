@@ -64,15 +64,7 @@ public abstract class NodeBiGenericXP2<A, C> extends NodeParallelizable
     public void addDynamicInput(Input in)
     {
         this.addInput(in, this.getInputAmt() - this.inAmt);
-        
-        if (this.parallelized)
-        {
-            this.expansionInputs.addLast(in);
-        }
-        else
-        {
-            this.expansionInputs.add(this.getInputAmt() - 1, in);
-        }
+        this.expansionInputs.addLast(in);
     }
     
     public Input createDynamicInput()

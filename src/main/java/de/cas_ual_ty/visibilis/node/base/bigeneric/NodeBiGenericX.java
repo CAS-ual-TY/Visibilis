@@ -47,6 +47,7 @@ public abstract class NodeBiGenericX<A, C> extends NodeExpandable
     public void addDynamicInput(Input in)
     {
         this.addInput(in, this.getInputAmt() - this.inAmt);
+        this.expansionInputs.addLast(in);
     }
     
     public Input createDynamicInput()
@@ -57,9 +58,7 @@ public abstract class NodeBiGenericX<A, C> extends NodeExpandable
     @Override
     public void expand()
     {
-        Input<A> input = this.createDynamicInput();
-        this.addDynamicInput(input);
-        this.expansionInputs.addLast(input);
+        this.addDynamicInput(this.createDynamicInput());
     }
     
     @Override
