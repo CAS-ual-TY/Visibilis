@@ -115,7 +115,7 @@ public class Visibilis
         NodesRegistry.INSTANCE.registerNode(NodeE.class, Visibilis.MOD_ID, "e");
         NodesRegistry.INSTANCE.registerNode(NodePi.class, Visibilis.MOD_ID, "pi");
         NodesRegistry.INSTANCE.registerNode(NodeSQRT2.class, Visibilis.MOD_ID, "sqrt2");
-        NodesRegistry.INSTANCE.registerNode(NodeFloatV.class, Visibilis.MOD_ID, "const_Float");
+        NodesRegistry.INSTANCE.registerNode(NodeFloatV.class, Visibilis.MOD_ID, "const_float");
         NodesRegistry.INSTANCE.registerNode(NodeBooleanV.class, Visibilis.MOD_ID, "const_boolean");
         
         NodesRegistry.INSTANCE.registerNode(NodeCosines.class, Visibilis.MOD_ID, "cosines");
