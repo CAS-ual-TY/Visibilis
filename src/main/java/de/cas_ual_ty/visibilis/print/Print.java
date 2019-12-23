@@ -159,6 +159,8 @@ public class Print
      */
     public boolean execute(INodeExec node, ExecProvider provider)
     {
+        provider.setPrint(this);
+        
         boolean ret = this.exec(node, provider);
         
         for (Node n : this.nodes)
