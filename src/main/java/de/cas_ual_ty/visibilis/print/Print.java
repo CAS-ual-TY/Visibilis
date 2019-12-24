@@ -3,6 +3,7 @@ package de.cas_ual_ty.visibilis.print;
 import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.Visibilis;
+import de.cas_ual_ty.visibilis.config.VConfiguration;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.INodeExec;
 import de.cas_ual_ty.visibilis.node.Node;
@@ -159,6 +160,11 @@ public class Print
      */
     public boolean execute(INodeExec node, ExecProvider provider)
     {
+        if(VConfiguration.shutdown)
+        {
+            return false;
+        }
+        
         provider.setPrint(this);
         
         boolean ret = this.exec(node, provider);
