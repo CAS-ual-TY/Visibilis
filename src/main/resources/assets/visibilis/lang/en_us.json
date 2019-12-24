@@ -260,7 +260,7 @@
     
     "node.print": "Print Out",
     "field.print.out1": "(O)",
-    "field.print.in1": "Line",
-    "field.print.in2": "(I)",
+    "field.print.in1": "(I)",
+    "field.print.in2": "Line",
     "node.print.groups": "other"
 }
