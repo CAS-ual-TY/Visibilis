@@ -44,6 +44,7 @@ import de.cas_ual_ty.visibilis.proxy.IVSidedProxy;
 import de.cas_ual_ty.visibilis.test.VCommandExec;
 import de.cas_ual_ty.visibilis.test.VItemTest;
 import de.cas_ual_ty.visibilis.test.VNodePrintDebug;
+import de.cas_ual_ty.visibilis.util.VCommandShutdown;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
@@ -102,6 +103,7 @@ public class Visibilis
     public void serverStarting(FMLServerStartingEvent event)
     {
         VCommandExec.register(event.getCommandDispatcher());
+        VCommandShutdown.register(event.getCommandDispatcher());
     }
     
     public void registerNodes()
