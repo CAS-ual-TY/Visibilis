@@ -160,7 +160,7 @@ public class Print
      */
     public boolean execute(INodeExec node, ExecProvider provider)
     {
-        if(VConfiguration.shutdown)
+        if (VConfiguration.shutdown)
         {
             return false;
         }

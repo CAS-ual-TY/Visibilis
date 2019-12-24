@@ -1,10 +1,10 @@
 package de.cas_ual_ty.visibilis.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.Builder;
 
 public class VConfigClient
 {
-    public VConfigClient(final ForgeConfigSpec.Builder builder)
+    public VConfigClient(Builder builder)
     {
         builder.push("client");
         

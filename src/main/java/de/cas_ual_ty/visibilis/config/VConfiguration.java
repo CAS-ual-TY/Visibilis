@@ -3,6 +3,7 @@ package de.cas_ual_ty.visibilis.config;
 import org.apache.commons.lang3.tuple.Pair;
 
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.Builder;;
 
 public class VConfiguration
 {
@@ -16,11 +17,11 @@ public class VConfiguration
     
     static
     {
-        Pair<VConfigClient, ForgeConfigSpec> client = new ForgeConfigSpec.Builder().configure(VConfigClient::new);
+        Pair<VConfigClient, ForgeConfigSpec> client = new Builder().configure(VConfigClient::new);
         CLIENT = client.getLeft();
         CLIENT_SPEC = client.getRight();
         
-        Pair<VConfigCommon, ForgeConfigSpec> common = new ForgeConfigSpec.Builder().configure(VConfigCommon::new);
+        Pair<VConfigCommon, ForgeConfigSpec> common = new Builder().configure(VConfigCommon::new);
         COMMON = common.getLeft();
         COMMON_SPEC = common.getRight();
     }
