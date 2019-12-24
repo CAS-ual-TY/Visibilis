@@ -290,5 +290,6 @@ public class UiBase implements IGuiEventListener
     public void addNodeToPrint(Node n)
     {
         this.addToPrint.accept(n);
+        this.provider.onNodeAdded(n);
     }
 }

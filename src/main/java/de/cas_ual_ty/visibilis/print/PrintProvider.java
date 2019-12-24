@@ -32,6 +32,22 @@ public abstract class PrintProvider
     public abstract ArrayList<Node> getAvailableNodes();
     
     /**
+     * Called when a node from {@link #getAvailableNodes()} is added to the print
+     * @param node The newly added node
+     */
+    public void onNodeAdded(Node node)
+    {
+    }
+    
+    /**
+     * Called when a node is removed from the print
+     * @param node The removed node
+     */
+    public void onNodeRemoved(Node node)
+    {
+    }
+    
+    /**
      * Called when the gui is opened (beginning of constructor {@link Screen#Screen(ITextComponent)})
      */
     public abstract void init();
@@ -72,6 +88,7 @@ public abstract class PrintProvider
                 public boolean clicked()
                 {
                     PrintProvider.this.getPrint().removeNode(this.node);
+                    PrintProvider.this.onNodeRemoved(this.node);
                     return true;
                 }
             });

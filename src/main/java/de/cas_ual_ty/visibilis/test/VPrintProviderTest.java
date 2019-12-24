@@ -47,9 +47,13 @@ import net.minecraft.item.ItemStack;
 
 public class VPrintProviderTest extends PrintProviderItem
 {
+    protected ArrayList<Node> list;
+    
     public VPrintProviderTest(ItemStack itemStack, int slot)
     {
         super(itemStack, slot);
+        this.list = new ArrayList<Node>();
+        VPrintProviderTest.addAllNodesToList(this.list);
     }
     
     @Override
@@ -61,8 +65,29 @@ public class VPrintProviderTest extends PrintProviderItem
     @Override
     public ArrayList<Node> getAvailableNodes()
     {
-        ArrayList<Node> list = super.getAvailableNodes();
-        
+        return this.list;
+    }
+    
+    @Override
+    public void onNodeAdded(Node node)
+    {
+        if (!(node instanceof NodeEvent))
+        {
+            this.list.add(node.clone());
+        }
+    }
+    
+    @Override
+    public void onNodeRemoved(Node node)
+    {
+        if (node instanceof NodeEvent)
+        {
+            this.list.add(node);
+        }
+    }
+    
+    public static void addAllNodesToList(ArrayList<Node> list)
+    {
         list.add(new NodeEvent(Visibilis.MOD_ID, "command"));
         list.add(new VNodePrintDebug());
         
@@ -108,7 +133,5 @@ public class VPrintProviderTest extends PrintProviderItem
         list.add(new NodeFloatToInteger());
         
         list.add(new NodePrint());
-        
-        return list;
     }
 }
