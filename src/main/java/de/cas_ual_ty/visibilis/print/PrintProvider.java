@@ -83,7 +83,6 @@ public abstract class PrintProvider
         {
             list.add(new NodeAction(node, NodeAction.LANG_DELETE)
             {
-                
                 @Override
                 public boolean clicked()
                 {
