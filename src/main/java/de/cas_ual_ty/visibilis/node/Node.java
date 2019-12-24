@@ -595,4 +595,14 @@ public abstract class Node
             }
         }
     }
+    
+    /**
+     * Returns a node clone. It is Disconnected.
+     */
+    @Override
+    public Node clone()
+    {
+        //Yes very lazy I know :P But atleast we have a solution for now
+        return NBTUtility.loadNodeFromNBT(NBTUtility.saveNodeToNBT(this));
+    }
 }
