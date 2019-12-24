@@ -115,10 +115,10 @@
     "field.sqrt_2.out1": "SQRT 2",
     "node.sqrt_2.groups": "constants",
     
-    "node.const_number": "Number Constant",
-    "field.const_number.in1": "Number",
-    "field.const_number.out1": "Number",
-    "node.const_number.groups": "constants",
+    "node.const_float": "Float Constant",
+    "field.const_float.in1": "Float",
+    "field.const_float.out1": "Float",
+    "node.const_float.groups": "constants",
     
     "node.const_boolean": "Boolean Constant",
     "field.const_boolean.in1": "Boolean",
