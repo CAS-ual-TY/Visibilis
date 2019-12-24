@@ -1,5 +1,8 @@
 package de.cas_ual_ty.visibilis;
 
+import net.minecraftforge.fml.config.ModConfig;
+import de.cas_ual_ty.visibilis.config.VConfigHelper;
+import de.cas_ual_ty.visibilis.config.VConfiguration;
 import de.cas_ual_ty.visibilis.node.base.dtboolean.NodeBooleanV;
 import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatV;
 import de.cas_ual_ty.visibilis.node.calculate.NodeAddition;
@@ -49,6 +52,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -78,6 +82,10 @@ public class Visibilis
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
         MinecraftForge.EVENT_BUS.addListener(this::serverStarting);
         MinecraftForge.EVENT_BUS.addListener(VCommandExec::execCommand);
+        
+        ModLoadingContext mld = ModLoadingContext.get();
+        mld.registerConfig(ModConfig.Type.CLIENT, VConfiguration.CLIENT_SPEC);
+        mld.registerConfig(ModConfig.Type.COMMON, VConfiguration.COMMON_SPEC);
     }
     
     public void init(FMLCommonSetupEvent event)
@@ -166,6 +174,12 @@ public class Visibilis
         public static void registerItems(RegistryEvent.Register<Item> event)
         {
             event.getRegistry().register(Visibilis.itemTest);
+        }
+        
+        @SubscribeEvent
+        public static void onModConfigEvent(ModConfig.ModConfigEvent event)
+        {
+            VConfigHelper.bake(event.getConfig());
         }
     }
 }
