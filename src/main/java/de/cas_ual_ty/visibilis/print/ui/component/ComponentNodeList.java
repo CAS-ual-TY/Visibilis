@@ -292,7 +292,7 @@ public class ComponentNodeList extends Component
     
     public ArrayList<Node> getAvailableNodesList()
     {
-        return this.cutNodeListToSearch(this.getProvider().getAvailableNodes());
+        return this.cutNodeListToSearch((ArrayList<Node>) this.getProvider().getAvailableNodes().clone());
     }
     
     /**
