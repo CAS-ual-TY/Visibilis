@@ -71,10 +71,18 @@ public class VPrintProviderTest extends PrintProviderItem
     @Override
     public void onNodeAdded(Node node)
     {
-        if (!(node instanceof NodeEvent))
+        if (node instanceof NodeEvent)
         {
-            this.list.add(node.clone());
+            this.list.remove(node);
         }
+        else
+        {
+            int index = this.list.indexOf(node);
+            this.list.remove(index);
+            this.list.add(index, node.clone());
+        }
+        
+        super.onNodeAdded(node);
     }
     
     @Override
@@ -84,6 +92,8 @@ public class VPrintProviderTest extends PrintProviderItem
         {
             this.list.add(node);
         }
+        
+        super.onNodeRemoved(node);
     }
     
     public static void addAllNodesToList(ArrayList<Node> list)
