@@ -245,7 +245,16 @@
     "field.equals.in2": "B",
     "node.equals.groups": "compare",
     
-    "_comment9": "--- Other ---",
+    "_comment9": "--- Cast ---",
+    "group.cast": "Cast",
+    "group.cast.tags": "cast;convert",
+    
+    "node.cast_integer": "Integer Cast",
+    "field.cast_integer.out1": "Float",
+    "field.cast_integer.in1": "Integer",
+    "node.cast_integer.groups": "cast;operators",
+    
+    "_comment10": "--- Other ---",
     "group.other": "Other",
     "group.other.tags": "other",
     

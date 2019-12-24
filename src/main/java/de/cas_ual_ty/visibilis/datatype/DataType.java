@@ -5,7 +5,6 @@ import java.util.Map;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.datatype.converter.AnyString;
-import de.cas_ual_ty.visibilis.datatype.converter.FloatInteger;
 import de.cas_ual_ty.visibilis.datatype.converter.IntegerFloat;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
 import net.minecraft.nbt.CompoundNBT;
@@ -193,8 +192,6 @@ public class DataType<A>
     static
     {
         DataType.FLOAT.registerConverter(DataType.INTEGER, new IntegerFloat()); // As I dont know how this will be used in the future, I rather add this in.
-        
-        DataType.INTEGER.registerConverter(DataType.FLOAT, new FloatInteger());
         
         DataType.STRING.registerConverter(DataType.INTEGER, new AnyString());
         DataType.STRING.registerConverter(DataType.FLOAT, new AnyString());

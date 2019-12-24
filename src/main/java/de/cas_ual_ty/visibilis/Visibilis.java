@@ -13,6 +13,7 @@ import de.cas_ual_ty.visibilis.node.calculate.NodeModulo;
 import de.cas_ual_ty.visibilis.node.calculate.NodeMultiplication;
 import de.cas_ual_ty.visibilis.node.calculate.NodeRoot;
 import de.cas_ual_ty.visibilis.node.calculate.NodeSubtraction;
+import de.cas_ual_ty.visibilis.node.cast.NodeFloatToInteger;
 import de.cas_ual_ty.visibilis.node.compare.NodeFloatCompare;
 import de.cas_ual_ty.visibilis.node.constant.NodeE;
 import de.cas_ual_ty.visibilis.node.constant.NodePi;
@@ -139,6 +140,7 @@ public class Visibilis
         NodesRegistry.INSTANCE.registerNode(NodeWhile.class, Visibilis.MOD_ID, "while");
         
         NodesRegistry.INSTANCE.registerNode(NodeFloatCompare.class, Visibilis.MOD_ID, "equals");
+        NodesRegistry.INSTANCE.registerNode(NodeFloatToInteger.class, Visibilis.MOD_ID, "cast_float_to_integer");
         
         NodesRegistry.INSTANCE.registerNode(NodePrint.class, Visibilis.MOD_ID, "print");
     }
