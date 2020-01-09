@@ -6,12 +6,12 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.util.text.ITextComponent;
 
-public abstract class GuiContainerPrint extends ContainerScreen
+public abstract class GuiContainerPrint<A extends Container> extends ContainerScreen<A>
 {
     public final PrintProvider provider;
     public UiBase uiLogic;
     
-    public GuiContainerPrint(Container container, PlayerInventory inventory, ITextComponent title, PrintProvider provider)
+    public GuiContainerPrint(A container, PlayerInventory inventory, ITextComponent title, PrintProvider provider)
     {
         super(container, inventory, title);
         this.provider = provider;

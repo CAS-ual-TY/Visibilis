@@ -11,7 +11,7 @@ public abstract class NodeStringXP2 extends NodeGenericXP2<String>
     }
     
     @Override
-    public DataType getDataType()
+    public DataType<String> getDataType()
     {
         return DataType.STRING;
     }

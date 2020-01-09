@@ -7,21 +7,22 @@ import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.base.NodeExpandable;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
+import de.cas_ual_ty.visibilis.util.VUtility;
 
-public abstract class NodeBiGenericX<A, C> extends NodeExpandable
+public abstract class NodeBiGenericX<I, O> extends NodeExpandable
 {
-    public LinkedList<Input<A>> expansionInputs;
+    public LinkedList<Input<I>> expansionInputs;
     
-    public Output<C> out1;
+    public Output<O> out1;
     
-    public C value;
+    public O value;
     
     protected int inAmt;
     
     public NodeBiGenericX()
     {
         super();
-        this.expansionInputs = new LinkedList<Input<A>>();
+        this.expansionInputs = new LinkedList<Input<I>>();
         this.createBaseFields();
     }
     
@@ -32,7 +33,7 @@ public abstract class NodeBiGenericX<A, C> extends NodeExpandable
     
     public void createBaseFields()
     {
-        this.addOutput(this.out1 = new Output<C>(this, this.getOutDataType(), "out1"));
+        this.addOutput(this.out1 = new Output<O>(this, this.getOutDataType(), "out1"));
         
         this.countBaseFields();
         
@@ -40,19 +41,19 @@ public abstract class NodeBiGenericX<A, C> extends NodeExpandable
         this.expand();
     }
     
-    public abstract DataType getOutDataType();
+    public abstract DataType<O> getOutDataType();
     
-    public abstract DataType getInDataType();
+    public abstract DataType<I> getInDataType();
     
-    public void addDynamicInput(Input in)
+    public void addDynamicInput(Input<I> in)
     {
         this.addInput(in, this.getInputAmt() - this.inAmt);
         this.expansionInputs.addLast(in);
     }
     
-    public Input createDynamicInput()
+    public Input<I> createDynamicInput()
     {
-        return new Input<A>(this, this.getInDataType(), "in1");
+        return new Input<I>(this, this.getInDataType(), "in1");
     }
     
     @Override
@@ -70,10 +71,10 @@ public abstract class NodeBiGenericX<A, C> extends NodeExpandable
     @Override
     public boolean doCalculate(ExecProvider provider)
     {
-        A[] inputs = (A[]) new Object[this.expansionInputs.size()];
+        I[] inputs = VUtility.createGenericArray(this.expansionInputs.size());
         
         int i = 0;
-        for (Input<A> input : this.expansionInputs)
+        for (Input<I> input : this.expansionInputs)
         {
             inputs[i++] = input.getValue();
         }
@@ -88,19 +89,19 @@ public abstract class NodeBiGenericX<A, C> extends NodeExpandable
         return true;
     }
     
-    protected boolean canCalculate(A[] inputs)
+    protected boolean canCalculate(I[] inputs)
     {
         return true;
     }
     
-    protected abstract C calculate(A[] inputs);
+    protected abstract O calculate(I[] inputs);
     
     @Override
-    public <B> B getOutputValue(int index)
+    public O getOutputValue(int index)
     {
         if (index == this.out1.getId())
         {
-            return (B) this.value;
+            return this.value;
         }
         
         return null;

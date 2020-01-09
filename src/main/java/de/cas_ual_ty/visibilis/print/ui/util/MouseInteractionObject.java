@@ -15,9 +15,9 @@ public class MouseInteractionObject
     public EnumMouseInteractionType type;
     
     public Node node;
-    public NodeField nodeField;
-    public Output output;
-    public Input input;
+    public NodeField<?> nodeField;
+    public Output<?> output;
+    public Input<?> input;
     public TextFieldWidget textField;
     public int inputEnumId;
     
@@ -76,17 +76,17 @@ public class MouseInteractionObject
         this.type = EnumMouseInteractionType.NODE_HEADER;
     }
     
-    public void output(NodeField nodeField)
+    public void output(NodeField<?> nodeField)
     {
         this.reset();
         
         if (nodeField.isOutput())
         {
-            this.output((Output) nodeField);
+            this.output((Output<?>) nodeField);
         }
     }
     
-    public void output(Output output)
+    public void output(Output<?> output)
     {
         this.reset();
         this.node = output.node;
@@ -95,17 +95,17 @@ public class MouseInteractionObject
         this.type = EnumMouseInteractionType.OUTPUT;
     }
     
-    public void input(NodeField nodeField)
+    public void input(NodeField<?> nodeField)
     {
         this.reset();
         
         if (nodeField.isInput())
         {
-            this.input((Input) nodeField);
+            this.input((Input<?>) nodeField);
         }
     }
     
-    public void input(Input input)
+    public void input(Input<?> input)
     {
         this.reset();
         this.node = input.node;
@@ -121,7 +121,7 @@ public class MouseInteractionObject
         this.type = EnumMouseInteractionType.TEXT_FIELD;
     }
     
-    public void inputEnum(Input input)
+    public void inputEnum(Input<?> input)
     {
         this.reset();
         this.node = input.node;
@@ -130,7 +130,7 @@ public class MouseInteractionObject
         this.type = EnumMouseInteractionType.INPUT_ENUM;
     }
     
-    public void inputDynamic(Input input)
+    public void inputDynamic(Input<?> input)
     {
         this.reset();
         this.node = input.node;
@@ -139,7 +139,7 @@ public class MouseInteractionObject
         this.type = EnumMouseInteractionType.INPUT_DYNAMIC;
     }
     
-    public void inputEnumId(Input input, int enumId)
+    public void inputEnumId(Input<?> input, int enumId)
     {
         this.reset();
         this.node = input.node;

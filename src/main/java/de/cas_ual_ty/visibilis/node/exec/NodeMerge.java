@@ -13,13 +13,13 @@ public class NodeMerge extends NodeGenericX implements INodeExec
     }
     
     @Override
-    public Output getOutExec(int index)
+    public Output<?> getOutExec(int index)
     {
         return index == 0 ? this.out1 : null;
     }
     
     @Override
-    public DataType getDataType()
+    public DataType<?> getDataType()
     {
         return DataType.EXEC;
     }

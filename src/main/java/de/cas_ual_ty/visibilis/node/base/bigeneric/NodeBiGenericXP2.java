@@ -7,16 +7,17 @@ import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.base.NodeParallelizable;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
+import de.cas_ual_ty.visibilis.util.VUtility;
 
-public abstract class NodeBiGenericXP2<A, C> extends NodeParallelizable
+public abstract class NodeBiGenericXP2<I, O> extends NodeParallelizable
 {
-    public LinkedList<Output<C>> expansionOutputs;
-    public LinkedList<Input<A>> expansionInputs;
+    public LinkedList<Output<O>> expansionOutputs;
+    public LinkedList<Input<I>> expansionInputs;
     
-    public Input<A> in2;
+    public Input<I> in2;
     
-    public C value;
-    public C[] values;
+    public O value;
+    public O[] values;
     
     protected int inAmt;
     protected int outAmt;
@@ -24,8 +25,8 @@ public abstract class NodeBiGenericXP2<A, C> extends NodeParallelizable
     public NodeBiGenericXP2()
     {
         super();
-        this.expansionOutputs = new LinkedList<Output<C>>();
-        this.expansionInputs = new LinkedList<Input<A>>();
+        this.expansionOutputs = new LinkedList<Output<O>>();
+        this.expansionInputs = new LinkedList<Input<I>>();
         this.createBaseFields();
     }
     
@@ -46,30 +47,30 @@ public abstract class NodeBiGenericXP2<A, C> extends NodeParallelizable
         this.expand();
     }
     
-    public abstract DataType getOutDataType();
+    public abstract DataType<O> getOutDataType();
     
-    public abstract DataType getInDataType();
+    public abstract DataType<I> getInDataType();
     
-    public void addDynamicOutput(Output out)
+    public void addDynamicOutput(Output<O> out)
     {
         this.addOutput(out, this.getOutputAmt() - this.outAmt);
         this.expansionOutputs.addLast(out);
     }
     
-    public Output createDynamicOutput()
+    public Output<O> createDynamicOutput()
     {
-        return new Output<C>(this, this.getOutDataType(), "out1");
+        return new Output<O>(this, this.getOutDataType(), "out1");
     }
     
-    public void addDynamicInput(Input in)
+    public void addDynamicInput(Input<I> in)
     {
         this.addInput(in, this.getInputAmt() - this.inAmt);
         this.expansionInputs.addLast(in);
     }
     
-    public Input createDynamicInput()
+    public Input<I> createDynamicInput()
     {
-        return new Input<A>(this, this.getInDataType(), "in1");
+        return new Input<I>(this, this.getInDataType(), "in1");
     }
     
     @Override
@@ -118,19 +119,19 @@ public abstract class NodeBiGenericXP2<A, C> extends NodeParallelizable
     @Override
     public boolean doCalculate(ExecProvider provider)
     {
-        A[] inputs = (A[]) new Object[this.expansionInputs.size()];
+        I[] inputs = VUtility.createGenericArray(this.expansionInputs.size());
         
         if (this.parallelized)
         {
-            A in2 = this.in2.getValue();
+            I in2 = this.in2.getValue();
             
             int i = 0;
-            for (Input<A> input : this.expansionInputs)
+            for (Input<I> input : this.expansionInputs)
             {
                 inputs[i++] = input.getValue();
             }
             
-            for (A a : inputs)
+            for (I a : inputs)
             {
                 if (!this.canCalculate(a, in2))
                 {
@@ -138,10 +139,10 @@ public abstract class NodeBiGenericXP2<A, C> extends NodeParallelizable
                 }
             }
             
-            this.values = (C[]) new Object[this.expansionOutputs.size()];
+            this.values = VUtility.createGenericArray(this.expansionOutputs.size());
             
             i = 0;
-            for (A a : inputs)
+            for (I a : inputs)
             {
                 this.values[i++] = this.calculate(a, in2);
             }
@@ -149,7 +150,7 @@ public abstract class NodeBiGenericXP2<A, C> extends NodeParallelizable
         else
         {
             int i = 0;
-            for (Input<A> input : this.expansionInputs)
+            for (Input<I> input : this.expansionInputs)
             {
                 inputs[i++] = input.getValue();
             }
@@ -165,31 +166,31 @@ public abstract class NodeBiGenericXP2<A, C> extends NodeParallelizable
         return true;
     }
     
-    protected boolean canCalculate(A input, A in2) // Injective (Parallel)
+    protected boolean canCalculate(I input, I in2) // Injective (Parallel)
     {
         return true;
     }
     
-    protected abstract C calculate(A input, A in2); // Injective (Parallel)
+    protected abstract O calculate(I input, I in2); // Injective (Parallel)
     
-    protected boolean canCalculate(A[] inputs) // Not Injective
+    protected boolean canCalculate(I[] inputs) // Not Injective
     {
         return true;
     }
     
-    protected abstract C calculate(A[] inputs); // Not Injective
+    protected abstract O calculate(I[] inputs); // Not Injective
     
     @Override
-    public <B> B getOutputValue(int index)
+    public O getOutputValue(int index)
     {
         if (this.parallelized)
         {
             int i = 0;
-            for (Output<C> output : this.expansionOutputs)
+            for (Output<O> output : this.expansionOutputs)
             {
                 if (output.getId() == index)
                 {
-                    return (B) this.values[i];
+                    return this.values[i];
                 }
                 
                 ++i;
@@ -199,7 +200,7 @@ public abstract class NodeBiGenericXP2<A, C> extends NodeParallelizable
         {
             if (this.expansionOutputs.getFirst().getId() == index)
             {
-                return (B) this.value;
+                return this.value;
             }
         }
         

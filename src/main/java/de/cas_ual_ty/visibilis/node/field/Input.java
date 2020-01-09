@@ -23,13 +23,13 @@ public class Input<A> extends NodeField<A>
     /**
      * The output this is connected to.
      */
-    protected Output connection;
+    protected Output<?> connection;
     
     protected A value = null;
     
     protected boolean mustUseConnection;
     
-    public Input(Node node, DataType dataType, String name)
+    public Input(Node node, DataType<A> dataType, String name)
     {
         super(node, dataType, name);
         this.mustUseConnection = !dataType.hasDefaultValue();
@@ -38,17 +38,17 @@ public class Input<A> extends NodeField<A>
     /**
      * @return The output this is connected to (or null).
      */
-    public Output getConnection()
+    public Output<?> getConnection()
     {
         return this.connection;
     }
     
     @Override
-    protected boolean setConnectionTo(NodeField field)
+    protected boolean setConnectionTo(NodeField<?> field)
     {
         if (field instanceof Output)
         {
-            Output output = (Output) field;
+            Output<?> output = (Output<?>) field;
             
             this.connection = output;
             return true;
@@ -74,7 +74,7 @@ public class Input<A> extends NodeField<A>
     
     public A getConvertedValue()
     {
-        return this.connection.dataType == this.dataType ? (A) this.connection.getValue() : (A) this.dataType.convert(this.connection);
+        return this.dataType.convert(this.connection);
     }
     
     @Override
@@ -90,9 +90,9 @@ public class Input<A> extends NodeField<A>
     }
     
     @Override
-    public ArrayList<NodeField> getConnectionsList()
+    public ArrayList<NodeField<?>> getConnectionsList()
     {
-        ArrayList<NodeField> list = new ArrayList<>();
+        ArrayList<NodeField<?>> list = new ArrayList<>();
         
         if (this.hasConnections())
         {
@@ -114,17 +114,17 @@ public class Input<A> extends NodeField<A>
             
             if (this.dataType instanceof DataTypeDynamic)
             {
-                ((DataTypeDynamic) this.dataType).getDefaultValue();
+                ((DataTypeDynamic<A>) this.dataType).getDefaultValue();
             }
             else if (this.dataType instanceof DataTypeEnum)
             {
-                ((DataTypeEnum) this.dataType).getDefaultEnum();
+                ((DataTypeEnum<A>) this.dataType).getDefaultEnum();
             }
         }
     }
     
     @Override
-    public void removeConnectionOneSided(NodeField field)
+    public void removeConnectionOneSided(NodeField<?> field)
     {
         if (this.connection == field)
         {
@@ -156,7 +156,7 @@ public class Input<A> extends NodeField<A>
     /**
      * Set the value that is used if {@link #hasConnections()} is <b>false</b>
      */
-    public Input setValue(A value)
+    public Input<A> setValue(A value)
     {
         this.value = value;
         return this;
@@ -171,7 +171,7 @@ public class Input<A> extends NodeField<A>
      * By calling this, {@link #getValue()} will only return a value from the connection.
      * A connection is required for this input.
      */
-    public Input setMustUseConnection()
+    public Input<A> setMustUseConnection()
     {
         this.mustUseConnection = true;
         return this;
@@ -188,12 +188,12 @@ public class Input<A> extends NodeField<A>
     {
         if (this.dataType instanceof DataTypeEnum)
         {
-            DataTypeEnum dt = (DataTypeEnum) this.dataType;
+            DataTypeEnum<A> dt = (DataTypeEnum<A>) this.dataType;
             nbt.putInt(Input.KEY_DATA_ENUM, dt.getEnumIdx(this.getSetValue()));
         }
         else if (this.dataType instanceof DataTypeDynamic)
         {
-            DataTypeDynamic<A> dt = (DataTypeDynamic) this.dataType;
+            DataTypeDynamic<A> dt = (DataTypeDynamic<A>) this.dataType;
             CompoundNBT data = dt.saveToNBT(this.getSetValue());
             if (data != null)
             {
@@ -209,12 +209,12 @@ public class Input<A> extends NodeField<A>
     {
         if (this.dataType instanceof DataTypeEnum)
         {
-            DataTypeEnum dt = (DataTypeEnum) this.dataType;
-            this.setValue((A) dt.getEnum(nbt.getInt(Input.KEY_DATA_ENUM)));
+            DataTypeEnum<A> dt = (DataTypeEnum<A>) this.dataType;
+            this.setValue(dt.getEnum(nbt.getInt(Input.KEY_DATA_ENUM)));
         }
         else if (this.dataType instanceof DataTypeDynamic)
         {
-            DataTypeDynamic<A> dt = (DataTypeDynamic) this.dataType;
+            DataTypeDynamic<A> dt = (DataTypeDynamic<A>) this.dataType;
             if (nbt.contains(Input.KEY_DATA_DYNAMIC))
             {
                 CompoundNBT data = nbt.getCompound(Input.KEY_DATA_DYNAMIC);

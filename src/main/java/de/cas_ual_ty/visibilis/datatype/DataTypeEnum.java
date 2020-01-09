@@ -2,6 +2,8 @@ package de.cas_ual_ty.visibilis.datatype;
 
 import java.util.ArrayList;
 
+import de.cas_ual_ty.visibilis.node.field.Input;
+
 public class DataTypeEnum<A> extends DataType<A>
 {
     /**
@@ -27,7 +29,7 @@ public class DataTypeEnum<A> extends DataType<A>
     }
     
     @Override
-    public DataType setDefaultValue(A value)
+    public DataType<A> setDefaultValue(A value)
     {
         if (!this.enums.contains(value))
         {
@@ -51,7 +53,7 @@ public class DataTypeEnum<A> extends DataType<A>
     /**
      * Adds a possible value to this data type.
      */
-    public DataTypeEnum addEnum(A value)
+    public DataTypeEnum<A> addEnum(A value)
     {
         this.enums.add(value);
         return this;
@@ -92,5 +94,10 @@ public class DataTypeEnum<A> extends DataType<A>
     public int getEnumSize()
     {
         return this.enums.size();
+    }
+    
+    public static <A> void setEnum(Input<A> input, int _enum)
+    {
+        input.setValue(((DataTypeEnum<A>)input.dataType).getEnum(_enum));
     }
 }

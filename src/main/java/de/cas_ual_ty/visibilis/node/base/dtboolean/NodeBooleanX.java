@@ -11,7 +11,7 @@ public abstract class NodeBooleanX extends NodeGenericX<Boolean>
     }
     
     @Override
-    public DataType getDataType()
+    public DataType<Boolean> getDataType()
     {
         return DataType.BOOLEAN;
     }

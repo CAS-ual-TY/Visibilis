@@ -18,9 +18,9 @@ public class Output<A> extends NodeField<A>
     /**
      * All inputs this is connected to.
      */
-    protected final ArrayList<Input> connections;
+    protected final ArrayList<Input<?>> connections;
     
-    public Output(Node node, DataType dataType, String name)
+    public Output(Node node, DataType<A> dataType, String name)
     {
         super(node, dataType, name);
         this.connections = new ArrayList<>();
@@ -29,13 +29,13 @@ public class Output<A> extends NodeField<A>
     /**
      * @return The list of all connections.
      */
-    public ArrayList<Input> getConnections()
+    public ArrayList<Input<?>> getConnections()
     {
         return this.connections;
     }
     
     @Override
-    protected boolean setConnectionTo(NodeField field)
+    protected boolean setConnectionTo(NodeField<?> field)
     {
         if (field instanceof Input)
         {
@@ -48,12 +48,12 @@ public class Output<A> extends NodeField<A>
                     if (field.node instanceof INodeExec)
                     {
                         this.connections.clear();
-                        this.connections.add((Input) field);
+                        this.connections.add((Input<?>) field);
                     }
                 }
                 else
                 {
-                    this.connections.add((Input) field);
+                    this.connections.add((Input<?>) field);
                 }
             }
             
@@ -82,13 +82,13 @@ public class Output<A> extends NodeField<A>
     }
     
     @Override
-    public ArrayList<NodeField> getConnectionsList()
+    public ArrayList<NodeField<?>> getConnectionsList()
     {
-        ArrayList<NodeField> list = new ArrayList<>();
+        ArrayList<NodeField<?>> list = new ArrayList<>();
         
         if (this.hasConnections())
         {
-            for (Input input : this.connections)
+            for (Input<?> input : this.connections)
             {
                 list.add(input);
             }
@@ -104,7 +104,7 @@ public class Output<A> extends NodeField<A>
     }
     
     @Override
-    public void removeConnectionOneSided(NodeField field)
+    public void removeConnectionOneSided(NodeField<?> field)
     {
         this.connections.remove(field);
     }

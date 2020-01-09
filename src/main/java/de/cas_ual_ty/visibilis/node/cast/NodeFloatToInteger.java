@@ -11,13 +11,13 @@ public class NodeFloatToInteger extends NodeBiGenericP<Float, Integer>
     }
     
     @Override
-    public DataType getOutDataType()
+    public DataType<Integer> getOutDataType()
     {
         return DataType.INTEGER;
     }
     
     @Override
-    public DataType getInDataType()
+    public DataType<Float> getInDataType()
     {
         return DataType.FLOAT;
     }

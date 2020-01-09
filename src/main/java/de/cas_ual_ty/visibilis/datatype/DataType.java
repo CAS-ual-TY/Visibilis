@@ -16,7 +16,7 @@ public class DataType<A>
     
     public static final float[] COLOR_DEFAULT_GREY = new float[] { 0.5F, 0.5F, 0.5F };
     
-    public static final Map<String, DataType> DATA_TYPES_LIST = new HashMap<>();
+    public static final Map<String, DataType<?>> DATA_TYPES_LIST = new HashMap<>();
     
     public static final String KEY_DATA = "data";
     
@@ -45,6 +45,7 @@ public class DataType<A>
      * This is all not required for a data type anyways. Sometimes it is definitely better NOT to implement this with very advanced types (eg. a list type).
      */
     
+    @SuppressWarnings("rawtypes")
     public static final DataType EXEC = new DataType("exec", new float[] { 1F, 0F, 0F });
     
     public static final DataTypeDynamic<Integer> INTEGER = (DataTypeDynamic<Integer>) new DataTypeDynamic<Integer>("integer", new float[] { 0.5F, 1F, 0F }, 1)
@@ -201,7 +202,7 @@ public class DataType<A>
     /**
      * All registered converters
      */
-    protected HashMap<DataType, Converter> converters;
+    protected HashMap<DataType<?>, Converter> converters;
     
     /**
      * Unique id. Used for translation
@@ -258,7 +259,7 @@ public class DataType<A>
      *            The converter to set how data is converted
      * @return This for chaining
      */
-    public /* final */ DataType registerConverter(DataType from, Converter converter)
+    public /* final */ DataType<A> registerConverter(DataType<?> from, Converter converter)
     {
         if (this == DataType.EXEC || from == DataType.EXEC)
         {
@@ -280,7 +281,7 @@ public class DataType<A>
      *            The converter to set how data is converted
      * @return This for chaining
      */
-    public /* final */ DataType registerGenericConverter(DataType from)
+    public /* final */ DataType<A> registerGenericConverter(DataType<?> from)
     {
         if (this == DataType.EXEC || from == DataType.EXEC)
         {
@@ -296,7 +297,7 @@ public class DataType<A>
     /**
      * @return <b>true</b> if any data of the given data type can be converted to this data type
      */
-    public boolean canConvert(DataType from)
+    public boolean canConvert(DataType<?> from)
     {
         return from == this || this.converters.containsKey(from);
     }
@@ -304,7 +305,7 @@ public class DataType<A>
     /**
      * Converts the value of this node field to this data type; {@link #canConvert(DataType)} for the node field's data type must be true otherwise NullPointer is thrown.
      */
-    public A convert(NodeField from)
+    public A convert(NodeField<?> from)
     {
         return this.convert(from.dataType, from.getValue());
     }
@@ -312,7 +313,7 @@ public class DataType<A>
     /**
      * Converts the value which represents the given data type to this data type; {@link #canConvert(DataType)} for the given data type must be true otherwise NullPointer is thrown.
      */
-    public A convert(DataType from, Object value)
+    public A convert(DataType<?> from, Object value)
     {
         return this.converters.get(from).<A> convert(value);
     }
@@ -320,7 +321,7 @@ public class DataType<A>
     /**
      * Set the default value. This default value will be used for inputs without connection.
      */
-    public DataType setDefaultValue(A value)
+    public DataType<A> setDefaultValue(A value)
     {
         this.defaultValue = value;
         return this;
@@ -380,13 +381,13 @@ public class DataType<A>
         return this.textColor;
     }
     
-    public DataType setTextColor(float[] color)
+    public DataType<A> setTextColor(float[] color)
     {
         this.textColor = color;
         return this;
     }
     
-    public DataType setBlackText()
+    public DataType<A> setBlackText()
     {
         return this.setTextColor(DataType.COLOR_TEXT_BLACK);
     }

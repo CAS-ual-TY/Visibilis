@@ -11,7 +11,7 @@ public class NodeFloatV extends NodeGenericV<Float>
     }
     
     @Override
-    public DataType getDataType()
+    public DataType<Float> getDataType()
     {
         return DataType.FLOAT;
     }

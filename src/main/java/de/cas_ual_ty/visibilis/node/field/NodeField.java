@@ -8,7 +8,7 @@ import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.Node;
 import net.minecraft.nbt.CompoundNBT;
 
-public abstract class NodeField<A>
+public abstract class NodeField<Z>
 {
     /*
      * Clarifications:
@@ -30,14 +30,14 @@ public abstract class NodeField<A>
     /**
      * The data type of this node field.
      */
-    public final DataType dataType;
+    public final DataType<Z> dataType;
     
     /**
      * The name of this node field (before translation).
      */
     public final String name;
     
-    public NodeField(Node node, DataType dataType, String name)
+    public NodeField(Node node, DataType<Z> dataType, String name)
     {
         this.node = node;
         this.dataType = dataType;
@@ -51,7 +51,7 @@ public abstract class NodeField<A>
      *            The other node field.
      * @return <b>true</b>, if this node field has been connected to the other node field (or the connection was already present).
      */
-    protected abstract boolean setConnectionTo(NodeField field);
+    protected abstract boolean setConnectionTo(NodeField<?> field);
     
     public abstract boolean isOutput();
     
@@ -64,11 +64,11 @@ public abstract class NodeField<A>
     {
         if (this.isOutput())
         {
-            this.id = this.node.getOutputId((Output) this);
+            this.id = this.node.getOutputId((Output<Z>) this);
         }
         else
         {
-            this.id = this.node.getInputId((Input) this);
+            this.id = this.node.getInputId((Input<Z>) this);
         }
     }
     
@@ -84,7 +84,7 @@ public abstract class NodeField<A>
      * @return The value this node field is currently representing.
      */
     @Nullable
-    public abstract A getValue();
+    public abstract Z getValue();
     
     /**
      * @return <b>true</b> if this node is connected to another node (or multiple).
@@ -96,7 +96,7 @@ public abstract class NodeField<A>
      * 
      * @return A list of all node fields this is node field is connected to.
      */
-    public abstract ArrayList<NodeField> getConnectionsList();
+    public abstract ArrayList<NodeField<?>> getConnectionsList();
     
     /**
      * Cut all connections to other fields (but not their connections to this field).
@@ -109,14 +109,14 @@ public abstract class NodeField<A>
      * @param field
      *            The node field to cut the connection from.
      */
-    public abstract void removeConnectionOneSided(NodeField field);
+    public abstract void removeConnectionOneSided(NodeField<?> field);
     
     /**
      * Cut all connections to other fields, and their connections to this field.
      */
     public void cutConnections()
     {
-        for (NodeField field : this.getConnectionsList())
+        for (NodeField<?> field : this.getConnectionsList())
         {
             field.removeConnectionOneSided(this);
         }
@@ -172,22 +172,22 @@ public abstract class NodeField<A>
     {
     }
     
-    public static void connect(NodeField n1, NodeField n2)
+    public static void connect(NodeField<?> n1, NodeField<?> n2)
     {
         if (n1.isOutput() != n2.isOutput())
         {
             if (n1.isOutput())
             {
-                NodeField.connect((Output) n1, (Input) n2);
+                NodeField.connect((Output<?>) n1, (Input<?>) n2);
             }
             else
             {
-                NodeField.connect((Output) n2, (Input) n1);
+                NodeField.connect((Output<?>) n2, (Input<?>) n1);
             }
         }
     }
     
-    public static void connect(Output out, Input in)
+    public static void connect(Output<?> out, Input<?> in)
     {
         // Inputs can only be connected once...
         if (in.connection != null && in.connection != out)
@@ -203,9 +203,9 @@ public abstract class NodeField<A>
     /**
      * Returns false if both are Inputs/Outputs, otherwise returns {@link #canConnect(Output, Input, boolean)} ignoring present connections (on true).
      */
-    public static boolean canConnect(NodeField n1, NodeField n2)
+    public static boolean canConnect(NodeField<?> n1, NodeField<?> n2)
     {
-        return (n1.isOutput() != n2.isOutput()) && (n1.isOutput() ? NodeField.canConnect((Output) n1, (Input) n2, true) : NodeField.canConnect((Output) n2, (Input) n1, true));
+        return (n1.isOutput() != n2.isOutput()) && (n1.isOutput() ? NodeField.canConnect((Output<?>) n1, (Input<?>) n2, true) : NodeField.canConnect((Output<?>) n2, (Input<?>) n1, true));
     }
     
     /**
@@ -214,26 +214,26 @@ public abstract class NodeField<A>
      * @param ignorePresentConnection
      *            If <b>false</b> then it will immediately return <b>false</b> if the Input already has a connection, if <b>true</b> then it will ignore a present connection of the input
      */
-    public static boolean canConnect(Output out, Input in, boolean ignorePresentConnection)
+    public static boolean canConnect(Output<?> out, Input<?> in, boolean ignorePresentConnection)
     {
         return out.node != in.node & in.dataType.canConvert(out.dataType) && (!ignorePresentConnection ? (in.connection == null) : true);
     }
     
-    public static boolean tryConnect(NodeField n1, NodeField n2)
+    public static boolean tryConnect(NodeField<?> n1, NodeField<?> n2)
     {
         if (n1 instanceof Output && n2 instanceof Input)
         {
-            return NodeField.tryConnect((Output) n1, (Input) n2, true);
+            return NodeField.tryConnect((Output<?>) n1, (Input<?>) n2, true);
         }
         else if (n2 instanceof Output && n1 instanceof Input)
         {
-            return NodeField.tryConnect((Output) n2, (Input) n1, true);
+            return NodeField.tryConnect((Output<?>) n2, (Input<?>) n1, true);
         }
         
         return false;
     }
     
-    public static boolean tryConnect(Output out, Input in, boolean ignorePresentConnection)
+    public static boolean tryConnect(Output<?> out, Input<?> in, boolean ignorePresentConnection)
     {
         if (NodeField.canConnect(out, in))
         {

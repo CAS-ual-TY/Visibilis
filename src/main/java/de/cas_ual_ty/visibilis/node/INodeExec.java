@@ -17,7 +17,7 @@ public interface INodeExec
      * @return The next node in execution order. <b>null</b> if there are no more sub nodes.
      */
     @Nullable
-    public Output getOutExec(int index);
+    public Output<?> getOutExec(int index);
     
     public default Node toNode()
     {

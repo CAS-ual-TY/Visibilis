@@ -7,13 +7,14 @@ import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.base.NodeExpandable;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
+import de.cas_ual_ty.visibilis.util.VUtility;
 
-public abstract class NodeBiGenericP<A, C> extends NodeExpandable
+public abstract class NodeBiGenericP<I, O> extends NodeExpandable
 {
-    public LinkedList<Output<C>> expansionOutputs;
-    public LinkedList<Input<A>> expansionInputs;
+    public LinkedList<Output<O>> expansionOutputs;
+    public LinkedList<Input<I>> expansionInputs;
     
-    public C[] values;
+    public O[] values;
     
     protected int inAmt;
     protected int outAmt;
@@ -21,8 +22,8 @@ public abstract class NodeBiGenericP<A, C> extends NodeExpandable
     public NodeBiGenericP()
     {
         super();
-        this.expansionOutputs = new LinkedList<Output<C>>();
-        this.expansionInputs = new LinkedList<Input<A>>();
+        this.expansionOutputs = new LinkedList<Output<O>>();
+        this.expansionInputs = new LinkedList<Input<I>>();
         this.createBaseFields();
     }
     
@@ -39,30 +40,30 @@ public abstract class NodeBiGenericP<A, C> extends NodeExpandable
         this.expand();
     }
     
-    public abstract DataType getOutDataType();
+    public abstract DataType<O> getOutDataType();
     
-    public abstract DataType getInDataType();
+    public abstract DataType<I> getInDataType();
     
-    public void addDynamicOutput(Output out)
+    public void addDynamicOutput(Output<O> out)
     {
         this.addOutput(out, this.getOutputAmt() - this.outAmt);
         this.expansionOutputs.addLast(out);
     }
     
-    public Output createDynamicOutput()
+    public Output<O> createDynamicOutput()
     {
-        return new Output<C>(this, this.getOutDataType(), "out1");
+        return new Output<O>(this, this.getOutDataType(), "out1");
     }
     
-    public void addDynamicInput(Input in)
+    public void addDynamicInput(Input<I> in)
     {
         this.addInput(in, this.getInputAmt() - this.inAmt);
         this.expansionInputs.addLast(in);
     }
     
-    public Input createDynamicInput()
+    public Input<I> createDynamicInput()
     {
-        return new Input<A>(this, this.getInDataType(), "in1");
+        return new Input<I>(this, this.getInDataType(), "in1");
     }
     
     @Override
@@ -82,15 +83,15 @@ public abstract class NodeBiGenericP<A, C> extends NodeExpandable
     @Override
     public boolean doCalculate(ExecProvider provider)
     {
-        A[] inputs = (A[]) new Object[this.expansionInputs.size()];
+        I[] inputs = VUtility.createGenericArray(this.expansionInputs.size());
         
         int i = 0;
-        for (Input<A> input : this.expansionInputs)
+        for (Input<I> input : this.expansionInputs)
         {
             inputs[i++] = input.getValue();
         }
         
-        for (A a : inputs)
+        for (I a : inputs)
         {
             if (!this.canCalculate(a))
             {
@@ -98,10 +99,10 @@ public abstract class NodeBiGenericP<A, C> extends NodeExpandable
             }
         }
         
-        this.values = (C[]) new Object[this.expansionOutputs.size()];
+        this.values = VUtility.createGenericArray(this.expansionOutputs.size());
         
         i = 0;
-        for (A a : inputs)
+        for (I a : inputs)
         {
             this.values[i++] = this.calculate(a);
         }
@@ -109,22 +110,22 @@ public abstract class NodeBiGenericP<A, C> extends NodeExpandable
         return true;
     }
     
-    protected boolean canCalculate(A input)
+    protected boolean canCalculate(I input)
     {
         return true;
     }
     
-    protected abstract C calculate(A input);
+    protected abstract O calculate(I input);
     
     @Override
-    public <B> B getOutputValue(int index)
+    public O getOutputValue(int index)
     {
         int i = 0;
-        for (Output<C> output : this.expansionOutputs)
+        for (Output<O> output : this.expansionOutputs)
         {
             if (output.getId() == index)
             {
-                return (B) this.values[i];
+                return this.values[i];
             }
             
             ++i;

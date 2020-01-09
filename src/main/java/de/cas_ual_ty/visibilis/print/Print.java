@@ -192,8 +192,8 @@ public class Print
             return false;
         }
         
-        Output out;
-        Input in;
+        Output<?> out;
+        Input<?> in;
         INodeExec next;
         int i = 0;
         
@@ -211,7 +211,7 @@ public class Print
             }
             
             // Get the connected input of the next node
-            in = (Input) out.getConnections().get(0);
+            in = (Input<?>) out.getConnections().get(0);
             
             if (in != null)
             {

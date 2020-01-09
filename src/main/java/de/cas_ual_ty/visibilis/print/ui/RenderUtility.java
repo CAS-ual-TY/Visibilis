@@ -161,7 +161,7 @@ public class RenderUtility
         // --- Done drawing node, now drawing fields (inputs and outputs) ---
         
         int i;
-        NodeField field;
+        NodeField<?> field;
         
         // Draw inputs, i + 1 to draw below header
         for (i = 0; i < node.getInputAmt(); ++i)
@@ -206,7 +206,7 @@ public class RenderUtility
     /**
      * Draw a node field (colored dot, rectangle and name) at the given coordinates (not the node's coordinates!). Total width is {@link #nodeWidth}, total height is {@link #nodeHeight}. Dot width and height are {@link #nodeFieldDotSize}.
      */
-    public void drawNodeField(NodeField field, int x, int y)
+    public void drawNodeField(NodeField<?> field, int x, int y)
     {
         // Where to draw the dot
         int dotX = this.getDotOffX(field) + x;
@@ -241,7 +241,7 @@ public class RenderUtility
     /**
      * Draw a node field dot (colored dot) at the given coordinates (not the node's coordinates!). Dot width and height are {@link #nodeFieldDotSize}.
      */
-    public void drawNodeFieldDot(NodeField field, int x, int y)
+    public void drawNodeFieldDot(NodeField<?> field, int x, int y)
     {
         RenderUtility.drawRect(x, y, this.nodeFieldDotSize, this.nodeFieldDotSize, field.dataType.getColor()[0], field.dataType.getColor()[1], field.dataType.getColor()[2]);
     }
@@ -251,7 +251,7 @@ public class RenderUtility
      */
     public void drawNodeConnections(Node node, int x, int y)
     {
-        NodeField field;
+        NodeField<?> field;
         
         // Draw output -> input connections, not the other way around, so its not done twice
         for (int i = 0; i < node.getOutputAmt(); ++i)
@@ -264,23 +264,23 @@ public class RenderUtility
     /**
      * Draw a node field's connections (with gradient according to their data types) starting at the given coordinates (not the node's coordinates!) with dot offset being applied onto them. Alpha is {@link #nodeFieldConnectionsAlpha}.
      */
-    public void drawNodeFieldConnections(NodeField field, int x, int y)
+    public void drawNodeFieldConnections(NodeField<?> field, int x, int y)
     {
         // Retrieve all connections
-        ArrayList<NodeField> connections = field.getConnectionsList();
+        ArrayList<NodeField<?>> connections = field.getConnectionsList();
         
         // Loop through "destinations"
-        for (NodeField dest : connections)
+        for (NodeField<?> dest : connections)
         {
             this.drawConnection(field, dest, x, y);
         }
     }
     
-    public void drawInputEnums(NodeField field, int x, int y)
+    public <A> void drawInputEnums(NodeField<A> field, int x, int y)
     {
         // Draw the enum options
         
-        DataTypeEnum dt = (DataTypeEnum) field.dataType;
+        DataTypeEnum<A> dt = (DataTypeEnum<A>) field.dataType;
         
         int w, h;
         
@@ -305,7 +305,7 @@ public class RenderUtility
     /**
      * Draw a node field's single connection (with gradient according to their data types) starting at the given coordinates (not the node's coordinates!) with dot offset being applied onto them. Alpha is {@link #nodeFieldConnectionsAlpha}.
      */
-    public void drawConnection(NodeField field, NodeField dest, int x, int y)
+    public <A, B> void drawConnection(NodeField<A> field, NodeField<B> dest, int x, int y)
     {
         // The middle of the dot
         int dotX = this.getDotOffX(field) + x + this.nodeFieldDotSize / 2;
@@ -316,10 +316,8 @@ public class RenderUtility
         
         int x1, y1, x2, y2;
         
-        DataType type1 = field.dataType;
-        DataType type2;
-        
-        type2 = dest.dataType;
+        DataType<A> type1 = field.dataType;
+        DataType<B> type2 = dest.dataType;
         
         // We are already at the dot position of the 1st field, so we can just take the
         // difference of the nodes themselves to get the 2nd dot's position
@@ -362,7 +360,7 @@ public class RenderUtility
     /**
      * Draw a rectangle with the color {@link #hoverColor} and alpha {@link #hoverAlpha} over the node field
      */
-    public void drawNodeFieldHover(NodeField field, int x, int y)
+    public void drawNodeFieldHover(NodeField<?> field, int x, int y)
     {
         this.drawHoverRect(x + this.getFieldOffX(field), y + this.getFieldOffY(field), this.fieldWidth, this.nodeHeight);
     }
@@ -408,7 +406,7 @@ public class RenderUtility
     {
         for (int i = 0; i < node.getInputAmt(); ++i)
         {
-            Input in = (Input) node.getInput(i);
+            Input<?> in = node.getInput(i);
             
             if (in.hasDisplayValue())
             {
@@ -417,7 +415,7 @@ public class RenderUtility
         }
     }
     
-    public void drawInputValue(Input input, int x, int y, boolean overrideDot)
+    public <A> void drawInputValue(Input<A> input, int x, int y, boolean overrideDot)
     {
         int width = this.inputValueWidth;
         
@@ -482,7 +480,7 @@ public class RenderUtility
             lines.add(desc);
         }
         
-        NodeField f;
+        NodeField<?> f;
         
         if (node.getInputAmt() > 0)
         {
@@ -509,7 +507,7 @@ public class RenderUtility
         this.gui.renderTooltip(lines, x, y);
     }
     
-    public void drawNodeFieldHoveringText(NodeField field, int x, int y)
+    public void drawNodeFieldHoveringText(NodeField<?> field, int x, int y)
     {
         ArrayList<String> lines = new ArrayList<>();
         
@@ -539,7 +537,7 @@ public class RenderUtility
     /**
      * Get the x offset of the node field to the node, depends on {@link NodeField#isOutput()}.
      */
-    public int getFieldOffX(NodeField field)
+    public int getFieldOffX(NodeField<?> field)
     {
         return field.isOutput() ? this.fieldWidth : 0;
     }
@@ -547,7 +545,7 @@ public class RenderUtility
     /**
      * Get the y offset of the node field to the node (header accounted for), depends on {@link NodeField#id}.
      */
-    public int getFieldOffY(NodeField field)
+    public int getFieldOffY(NodeField<?> field)
     {
         return this.nodeHeight * (field.getId() + 1);
     }
@@ -557,7 +555,7 @@ public class RenderUtility
      * 
      * @see RenderUtility#getFieldOffX(NodeField)
      */
-    public int getDotOffToHeight(NodeField field)
+    public int getDotOffToHeight(NodeField<?> field)
     {
         return (this.nodeHeight - this.nodeFieldDotSize) / 2;
     }
@@ -565,7 +563,7 @@ public class RenderUtility
     /**
      * Get the x offset of the node field's dot to the node field.
      */
-    public int getDotOffX(NodeField field)
+    public int getDotOffX(NodeField<?> field)
     {
         return (field.isOutput() ? (this.fieldWidth + this.dotOffset - (this.getDotOffToHeight(field) + this.nodeFieldDotSize)) : (this.getDotOffToHeight(field)) - this.dotOffset);
     }
@@ -573,7 +571,7 @@ public class RenderUtility
     /**
      * Get the y offset of the node field's dot to the node field.
      */
-    public int getDotOffY(NodeField field)
+    public int getDotOffY(NodeField<?> field)
     {
         return this.getDotOffToHeight(field);
     }
@@ -589,7 +587,7 @@ public class RenderUtility
     /**
      * Get the line width for the data type. Doubles if "exec" type
      */
-    public float getLineWidth(DataType type)
+    public float getLineWidth(DataType<?> type)
     {
         return (type == DataType.EXEC ? 2 : 1) * this.nodeFieldConnectionsWidth;
     }

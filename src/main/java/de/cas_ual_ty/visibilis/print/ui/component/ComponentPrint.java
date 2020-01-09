@@ -276,7 +276,7 @@ public class ComponentPrint extends Component
                     else if (this.clickedObj.type == EnumMouseInteractionType.INPUT_ENUM && this.hoverObj.type == EnumMouseInteractionType.INPUT_ENUM_ID)
                     {
                         this.getProvider().saveChange();
-                        this.clickedObj.input.setValue(((DataTypeEnum) this.clickedObj.input.dataType).getEnum(this.hoverObj.inputEnumId));
+                        DataTypeEnum.setEnum(this.clickedObj.input, this.hoverObj.inputEnumId);
                     }
                     
                     // Deselect whatever you had selected before (a premature return statement stops this from happening)
@@ -438,7 +438,7 @@ public class ComponentPrint extends Component
                 y = node.posY;
                 h = this.getUtil().getNodeTotalHeight(node);
                 
-                DataTypeEnum dt = (DataTypeEnum) this.clickedObj.input.dataType;
+                DataTypeEnum<?> dt = (DataTypeEnum<?>) this.clickedObj.input.dataType;
                 
                 float h3;
                 
@@ -686,11 +686,11 @@ public class ComponentPrint extends Component
         this.getUtil().updateLineWidth(this.getPrint());
     }
     
-    public void setUnfocusTextField(Input input)
+    public <A> void setUnfocusTextField(Input<A> input)
     {
         if (input != null)
         {
-            DataTypeDynamic dt = (DataTypeDynamic) input.dataType;
+            DataTypeDynamic<A> dt = (DataTypeDynamic<A>) input.dataType;
             
             // Can the string in the text box be applied to the input? Is it viable?
             if (dt.canParseString(this.fieldInput.getText()))
@@ -705,9 +705,9 @@ public class ComponentPrint extends Component
         this.clickedObj.nothing();
     }
     
-    public void setFocusTextField(Input input)
+    public <A> void setFocusTextField(Input<A> input)
     {
-        DataTypeDynamic dt = (DataTypeDynamic) input.dataType;
+        DataTypeDynamic<A> dt = (DataTypeDynamic<A>) input.dataType;
         
         // Make it visible
         this.fieldInput.setVisible(true);
@@ -857,7 +857,7 @@ public class ComponentPrint extends Component
     /**
      * Get the node field dot posX
      */
-    public int getDotPosX(NodeField field)
+    public int getDotPosX(NodeField<?> field)
     {
         return field.node.posX + this.getUtil().getFieldOffX(field) + this.getUtil().getDotOffX(field);
     }
@@ -865,7 +865,7 @@ public class ComponentPrint extends Component
     /**
      * Get the node field dot posY
      */
-    public int getDotPosY(NodeField field)
+    public int getDotPosY(NodeField<?> field)
     {
         return field.node.posY + this.getUtil().getFieldOffY(field) + this.getUtil().getDotOffY(field);
     }

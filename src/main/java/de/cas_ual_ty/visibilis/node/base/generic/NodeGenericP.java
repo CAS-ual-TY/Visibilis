@@ -10,16 +10,16 @@ public abstract class NodeGenericP<A> extends NodeBiGenericP<A, A>
         super();
     }
     
-    public abstract DataType getDataType();
+    public abstract DataType<A> getDataType();
     
     @Override
-    public DataType getOutDataType()
+    public DataType<A> getOutDataType()
     {
         return this.getDataType();
     }
     
     @Override
-    public DataType getInDataType()
+    public DataType<A> getInDataType()
     {
         return this.getDataType();
     }

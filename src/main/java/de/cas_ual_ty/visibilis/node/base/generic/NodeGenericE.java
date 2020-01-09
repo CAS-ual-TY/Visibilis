@@ -10,7 +10,7 @@ public abstract class NodeGenericE<A> extends NodeBiGenericP2<A, Boolean>
         super();
     }
     
-    public abstract DataType getDataType();
+    public abstract DataType<A> getDataType();
     
     protected abstract Boolean compare(A input, A in2);
     
@@ -21,13 +21,13 @@ public abstract class NodeGenericE<A> extends NodeBiGenericP2<A, Boolean>
     }
     
     @Override
-    public DataType getOutDataType()
+    public DataType<Boolean> getOutDataType()
     {
         return DataType.BOOLEAN;
     }
     
     @Override
-    public DataType getInDataType()
+    public DataType<A> getInDataType()
     {
         return this.getDataType();
     }

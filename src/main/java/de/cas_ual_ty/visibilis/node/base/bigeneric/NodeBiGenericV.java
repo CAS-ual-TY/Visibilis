@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.base.bigeneric;
 
-public abstract class NodeBiGenericV<A, C> extends NodeBiGenericP<A, C>
+public abstract class NodeBiGenericV<I, O> extends NodeBiGenericP<I, O>
 {
     public NodeBiGenericV()
     {
@@ -8,8 +8,8 @@ public abstract class NodeBiGenericV<A, C> extends NodeBiGenericP<A, C>
     }
     
     @Override
-    protected C calculate(A input)
+    protected O calculate(I input)
     {
-        return (C) input;
+        return (O) input;
     }
 }

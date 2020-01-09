@@ -11,7 +11,7 @@ public abstract class NodeFloatP2 extends NodeGenericP2<Float>
     }
     
     @Override
-    public DataType getDataType()
+    public DataType<Float> getDataType()
     {
         return DataType.FLOAT;
     }

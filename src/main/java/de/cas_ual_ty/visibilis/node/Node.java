@@ -15,7 +15,7 @@ import net.minecraft.nbt.CompoundNBT;
 public abstract class Node
 {
     /*
-     * Some explanations: The word "calculate" is described to calculate all output values of this node (output field nodes). The values are then stored so that multiple child nodes can get them without the need to calculate more than once. Once all nodes have been calculated, they will be "reset", meaning that the "isCalculated()" state will be false again, triggering recalculation on next call (and possibly other things).
+     * Some explanations: The word "calculate" is described to calculate all Output<?> values of this node (Output<?> field nodes). The values are then stored so that multiple child nodes can get them without the need to calculate more than once. Once all nodes have been calculated, they will be "reset", meaning that the "isCalculated()" state will be false again, triggering recalculation on next call (and possibly other things).
      * 
      * Empty constructor needed for instantiation of nodes.
      */
@@ -31,8 +31,8 @@ public abstract class Node
     
     public int posX, posY;
     
-    protected ArrayList<Output> outputFields;
-    protected ArrayList<Input> inputFields;
+    protected ArrayList<Output<?>> outputFields;
+    protected ArrayList<Input<?>> inputFields;
     
     public Node()
     {
@@ -74,25 +74,25 @@ public abstract class Node
         // (or if none of the inputs have any connections)
         if (!this.isStart())
         {
-            NodeField field0, field1;
+            NodeField<?> field0, field1;
             
             int i, j;
             
-            // Loop through all input fields
+            // Loop through all Input<?> fields
             for (i = 0; i < this.getInputAmt(); ++i)
             {
-                // Get the input field of this node
+                // Get the Input<?> field of this node
                 field0 = this.getInput(i);
                 
                 // Check if it also has some connections (parent nodes)
-                // Input fields might also be disconnected
+                // Input<?> fields might also be disconnected
                 if (field0.hasConnections())
                 {
-                    // Input has connections, so loop through all of them
+                    // Input<?> has connections, so loop through all of them
                     for (j = 0; j < field0.getConnectionsList().size(); ++j)
                     {
-                        // Get the parent node field (output of parent node)
-                        field1 = (NodeField) field0.getConnectionsList().get(j);
+                        // Get the parent node field (Output<?> of parent node)
+                        field1 = (NodeField<?>) field0.getConnectionsList().get(j);
                         
                         // Check if it is calculated
                         if (!field1.node.isCalculated())
@@ -139,7 +139,7 @@ public abstract class Node
     /**
      * See if this node is a dead end with no further connections at the output.
      * 
-     * @return <b>true</b> if {@link #getOutputAmt()} equals 0 or none of the output fields have any connections.
+     * @return <b>true</b> if {@link #getOutputAmt()} equals 0 or none of the Output<?> fields have any connections.
      */
     public boolean isEnd()
     {
@@ -148,7 +148,7 @@ public abstract class Node
             return true;
         }
         
-        NodeField field0;
+        NodeField<?> field0;
         
         int i;
         
@@ -168,7 +168,7 @@ public abstract class Node
     /**
      * See if this node is a dead <s>end</s> start with no further connections at the input.
      * 
-     * @return <b>true</b> if {@link #getInputAmt()} equals 0 or none of the input fields have any connections.
+     * @return <b>true</b> if {@link #getInputAmt()} equals 0 or none of the Input<?> fields have any connections.
      */
     public boolean isStart()
     {
@@ -178,20 +178,20 @@ public abstract class Node
             return true;
         }
         
-        NodeField field0;
+        NodeField<?> field0;
         
         int i;
         
         // Otherwise, loop through inputs
         for (i = 0; i < this.getInputAmt(); ++i)
         {
-            // Get the input here
+            // Get the Input<?> here
             field0 = this.getInput(i);
             
             // Check if it has any connections
             if (field0.hasConnections())
             {
-                // An input of this node has connections, this means that this has a parent node, so this is not a "dead start"
+                // An Input<?> of this node has connections, this means that this has a parent node, so this is not a "dead start"
                 return false;
             }
         }
@@ -204,14 +204,14 @@ public abstract class Node
      */
     public boolean hasAllRequiredInputs(ExecProvider provider)
     {
-        Input field0;
+        Input<?> field0;
         int i;
         
         // loop through inputs
         for (i = 0; i < this.getInputAmt(); ++i)
         {
-            // Get the input here
-            field0 = (Input) this.getInput(i);
+            // Get the Input<?> here
+            field0 = (Input<?>) this.getInput(i);
             
             // Check if it needs connections or it currently returns nothing
             if (field0.getMustUseConnections() && !field0.hasConnections())
@@ -224,22 +224,22 @@ public abstract class Node
         return true;
     }
     
-    public int getOutputId(Output out)
+    public int getOutputId(Output<?> out)
     {
         return this.outputFields.indexOf(out);
     }
     
-    public int getInputId(Input in)
+    public int getInputId(Input<?> in)
     {
         return this.inputFields.indexOf(in);
     }
     
-    public int addOutput(Output out)
+    public int addOutput(Output<?> out)
     {
         return this.addOutput(out, this.getOutputAmt());
     }
     
-    public int addOutput(Output out, int index)
+    public int addOutput(Output<?> out, int index)
     {
         if (out != null && !this.outputFields.contains(out))
         {
@@ -256,12 +256,12 @@ public abstract class Node
         return -1;
     }
     
-    public int addInput(Input in)
+    public int addInput(Input<?> in)
     {
         return this.addInput(in, this.getInputAmt());
     }
     
-    public int addInput(Input in, int index)
+    public int addInput(Input<?> in, int index)
     {
         if (in != null && !this.inputFields.contains(in))
         {
@@ -278,14 +278,14 @@ public abstract class Node
         return -1;
     }
     
-    public void removeOutput(Output out0)
+    public void removeOutput(Output<?> out0)
     {
         if (this.outputFields.contains(out0))
         {
             out0.cutConnections();
             this.outputFields.remove(out0);
             
-            for (Output out : this.outputFields)
+            for (Output<?> out : this.outputFields)
             {
                 out.recalculateId();
             }
@@ -302,14 +302,14 @@ public abstract class Node
         }
     }
     
-    public void removeInput(Input in0)
+    public void removeInput(Input<?> in0)
     {
         if (this.inputFields.contains(in0))
         {
             in0.cutConnections();
             this.inputFields.remove(in0);
             
-            for (Input in : this.inputFields)
+            for (Input<?> in : this.inputFields)
             {
                 in.recalculateId();
             }
@@ -327,7 +327,7 @@ public abstract class Node
     }
     
     /**
-     * @return The total amount of output node fields.
+     * @return The total amount of Output<?> node fields.
      */
     public int getOutputAmt()
     {
@@ -335,7 +335,7 @@ public abstract class Node
     }
     
     /**
-     * @return The total amount of input node fields.
+     * @return The total amount of Input<?> node fields.
      */
     public int getInputAmt()
     {
@@ -343,43 +343,43 @@ public abstract class Node
     }
     
     /**
-     * Get the output node field of the specified index.
+     * Get the Output<?> node field of the specified index.
      * 
      * @param index
-     *            The index of the output node field.
+     *            The index of the Output<?> node field.
      * @return The node field at the specified index.
      */
-    public Output getOutput(int index)
+    public Output<?> getOutput(int index)
     {
         return this.outputFields.get(index);
     }
     
     /**
-     * Get the input node field of the specified index.
+     * Get the Input<?> node field of the specified index.
      * 
      * @param index
-     *            The index of the input node field.
+     *            The index of the Input<?> node field.
      * @return The node field at the specified index.
      */
-    public Input getInput(int index)
+    public Input<?> getInput(int index)
     {
         return this.inputFields.get(index);
     }
     
     // Output.getValue() links to this. So the value must be stored inside the Node, not inside NodeField.
     /**
-     * Get the output value of the specified index stored in this node.
+     * Get the Output<?> value of the specified index stored in this node.
      * 
      * @param index
-     *            The index of the output node field to get the value from.
+     *            The index of the Output<?> node field to get the value from.
      * @return The value of the specified index.
      */
     @Nullable
     public abstract <B> B getOutputValue(int index);
     
     // This links to Input.getValue(), which links to the connected output's Output.GetValue(), which links to this node's parent node's Node.getOutputValue().
-    // Deprecated since it is better to just call Input.getValue() directly.
-    @Deprecated
+    // It is better to just call Input.getValue() directly.
+    @SuppressWarnings("unchecked")
     @Nullable
     public <B> B getInputValue(int index)
     {
@@ -399,12 +399,12 @@ public abstract class Node
      */
     public void disconnect()
     {
-        for (Output out : this.outputFields)
+        for (Output<?> out : this.outputFields)
         {
             out.cutConnections();
         }
         
-        for (Input in : this.inputFields)
+        for (Input<?> in : this.inputFields)
         {
             in.cutConnections();
         }
@@ -460,7 +460,7 @@ public abstract class Node
     /**
      * Used for translating the name of a field of this node.
      */
-    public String getFieldUnlocalizedName(NodeField field)
+    public String getFieldUnlocalizedName(NodeField<?> field)
     {
         return "field." + this.getID() + "." + field.name;// + ".name";
     }
@@ -468,7 +468,7 @@ public abstract class Node
     /**
      * Used for translating the description of a field of this node.
      */
-    public String getFieldUnlocalizedDesc(NodeField field)
+    public String getFieldUnlocalizedDesc(NodeField<?> field)
     {
         return "field." + this.getID() + "." + field.name + ".desc";
     }
@@ -488,12 +488,12 @@ public abstract class Node
         return I18n.format(this.getUnlocalizedGroup());
     }
     
-    public String getFieldName(NodeField field)
+    public String getFieldName(NodeField<?> field)
     {
         return I18n.format(this.getFieldUnlocalizedName(field));
     }
     
-    public String getFieldDesc(NodeField field)
+    public String getFieldDesc(NodeField<?> field)
     {
         return I18n.format(this.getFieldUnlocalizedDesc(field));
     }
@@ -507,7 +507,7 @@ public abstract class Node
         this.posY = nbt0.getInt(Node.KEY_POS_Y);
         
         CompoundNBT nbt;
-        NodeField f;
+        NodeField<?> f;
         
         for (int i = 0; i < this.getOutputAmt(); ++i)
         {
@@ -540,7 +540,7 @@ public abstract class Node
         
         CompoundNBT nbt;
         
-        for (NodeField f : this.outputFields)
+        for (NodeField<?> f : this.outputFields)
         {
             if (f.useNBT())
             {
@@ -550,7 +550,7 @@ public abstract class Node
             }
         }
         
-        for (NodeField f : this.inputFields)
+        for (NodeField<?> f : this.inputFields)
         {
             if (f.useNBT())
             {
@@ -577,7 +577,7 @@ public abstract class Node
         return new ArrayList<NodeAction>();
     }
     
-    public void triggerRecalculation(Input input)
+    public void triggerRecalculation(Input<?> input)
     {
         if (input.hasConnections())
         {

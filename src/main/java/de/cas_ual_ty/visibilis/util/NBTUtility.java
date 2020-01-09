@@ -193,9 +193,9 @@ public class NBTUtility
         int[] array = nbt.getIntArray(NBTUtility.KEY_PRINT_CONNECTIONS);
         
         Node n;
-        NodeField f;
+        NodeField<?> f;
         Node n1;
-        NodeField f1;
+        NodeField<?> f1;
         
         for (int i = 0; i + 3 < array.length; i += 4)
         {
@@ -223,9 +223,9 @@ public class NBTUtility
         int k;
         
         Node n;
-        NodeField f;
-        ArrayList<NodeField> connections;
-        NodeField f1;
+        NodeField<?> f;
+        ArrayList<NodeField<?>> connections;
+        NodeField<?> f1;
         
         for (i = 0; i < p.getNodes().size(); ++i)
         {

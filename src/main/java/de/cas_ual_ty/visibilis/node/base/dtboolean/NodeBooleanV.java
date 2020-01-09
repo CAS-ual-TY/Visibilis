@@ -11,7 +11,7 @@ public class NodeBooleanV extends NodeGenericV<Boolean>
     }
     
     @Override
-    public DataType getDataType()
+    public DataType<Boolean> getDataType()
     {
         return DataType.BOOLEAN;
     }

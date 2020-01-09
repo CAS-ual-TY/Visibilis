@@ -97,7 +97,7 @@ public class NodesRegistry
     
     // --- NODES END ---
     
-    private static boolean hasEmptyConstructor(Class c)
+    private static boolean hasEmptyConstructor(Class<?> c)
     {
         try
         {

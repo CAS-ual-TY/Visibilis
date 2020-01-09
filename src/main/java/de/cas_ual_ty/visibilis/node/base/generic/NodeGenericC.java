@@ -15,7 +15,7 @@ public abstract class NodeGenericC<A> extends Node
         this.addOutput(this.out1 = new Output<A>(this, this.getDataType(), "out1"));
     }
     
-    public abstract DataType getDataType();
+    public abstract DataType<A> getDataType();
     
     protected abstract A getConstant();
     
@@ -26,9 +26,9 @@ public abstract class NodeGenericC<A> extends Node
     }
     
     @Override
-    public <B> B getOutputValue(int index)
+    public A getOutputValue(int index)
     {
-        return index == 0 ? (B) this.getConstant() : null;
+        return index == 0 ? this.getConstant() : null;
     }
     
     @Override
