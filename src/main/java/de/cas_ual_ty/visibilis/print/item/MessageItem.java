@@ -18,7 +18,7 @@ public class MessageItem
     
     public MessageItem(int slot, ItemStack itemStack)
     {
-        this(slot, NBTUtility.savePrintToNBT(((ItemPrint) itemStack.getItem()).getPrint(itemStack)));
+        this(slot, NBTUtility.savePrintToNBT(((ItemPrint)itemStack.getItem()).getPrint(itemStack)));
     }
     
     public MessageItem(int slot, CompoundNBT nbt)
@@ -41,10 +41,10 @@ public class MessageItem
     public static void handle(MessageItem msg, Supplier<NetworkEvent.Context> ctx)
     {
         ItemStack itemStack = ctx.get().getSender().inventory.getStackInSlot(msg.slot);
-        ItemPrint item = (ItemPrint) itemStack.getItem(); //TODO change to print capability
+        ItemPrint item = (ItemPrint)itemStack.getItem(); //TODO change to print capability
         Print print = NBTUtility.loadPrintFromNBT(msg.nbt);
         
-        if (!MinecraftForge.EVENT_BUS.post(new ItemPrintValidationEvent(itemStack, print)))
+        if(!MinecraftForge.EVENT_BUS.post(new ItemPrintValidationEvent(itemStack, print)))
         {
             item.setPrintTag(itemStack, msg.nbt);
         }

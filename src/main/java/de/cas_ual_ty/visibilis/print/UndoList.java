@@ -12,7 +12,7 @@ public class UndoList
     public UndoList(int max)
     {
         this.index = -1;
-        this.list = new LinkedList<Print>();
+        this.list = new LinkedList<>();
         this.max = max;
     }
     
@@ -44,7 +44,7 @@ public class UndoList
     
     public UndoList add(Print print)
     {
-        if (this.canRedo())
+        if(this.canRedo())
         {
             this.list.subList(++this.index, this.list.size()).clear();
         }
@@ -92,7 +92,7 @@ public class UndoList
     
     public void cutToMax()
     {
-        while (this.list.size() > this.max)
+        while(this.list.size() > this.max)
         {
             this.list.removeFirst();
         }

@@ -18,7 +18,7 @@ public class NodeGroupsHelper
     
     public boolean isTextMatchingNode(Node node, String text)
     {
-        if (StringUtils.isNullOrEmpty(text))
+        if(StringUtils.isNullOrEmpty(text))
         {
             return false;
         }
@@ -26,9 +26,9 @@ public class NodeGroupsHelper
         text = text.toLowerCase();
         ArrayList<String> tags = this.getTagsForNode(node);
         
-        for (String tag : tags)
+        for(String tag : tags)
         {
-            if (tag.contains(text))
+            if(tag.contains(text))
             {
                 return true;
             }
@@ -41,7 +41,7 @@ public class NodeGroupsHelper
     {
         Class<? extends Node> c = node.getClass();
         
-        if (!this.nodeToTags.containsKey(c))
+        if(!this.nodeToTags.containsKey(c))
         {
             this.nodeToTags.put(c, this.createTagsForNode(node));
         }
@@ -67,15 +67,15 @@ public class NodeGroupsHelper
         int i;
         int j;
         
-        for (i = 0; i < groups.length; ++i)
+        for(i = 0; i < groups.length; ++i)
         {
             groupId = groups[i];
             tags = this.getTagsForGroup(groupId);
             
-            for (j = 0; j < tags.length; ++j)
+            for(j = 0; j < tags.length; ++j)
             {
                 tag = tags[j];
-                if (!list.contains(tag))
+                if(!list.contains(tag))
                 {
                     list.add(tag);
                 }
@@ -83,13 +83,13 @@ public class NodeGroupsHelper
         }
         
         tag = node.getID().trim().toLowerCase();
-        if (!list.contains(tag))
+        if(!list.contains(tag))
         {
             list.add(tag);
         }
         
         tag = node.getName().trim().toLowerCase();
-        if (!list.contains(tag))
+        if(!list.contains(tag))
         {
             list.add(tag);
         }
@@ -101,7 +101,7 @@ public class NodeGroupsHelper
     {
         Class<? extends Node> c = node.getClass();
         
-        if (!this.nodeToGroups.containsKey(c))
+        if(!this.nodeToGroups.containsKey(c))
         {
             this.nodeToGroups.put(c, NodeGroupsHelper.createGroupsForNode(node));
         }
@@ -121,7 +121,7 @@ public class NodeGroupsHelper
     
     public String[] getTagsForGroup(String groupId)
     {
-        if (!this.groupToTags.containsKey(groupId))
+        if(!this.groupToTags.containsKey(groupId))
         {
             this.groupToTags.put(groupId, NodeGroupsHelper.createTagsForGroup(groupId));
         }
@@ -136,7 +136,7 @@ public class NodeGroupsHelper
     
     public String getNameForGroup(String groupId)
     {
-        if (!this.groupToName.containsKey(groupId))
+        if(!this.groupToName.containsKey(groupId))
         {
             this.groupToName.put(groupId, NodeGroupsHelper.createNameForGroup(groupId));
         }

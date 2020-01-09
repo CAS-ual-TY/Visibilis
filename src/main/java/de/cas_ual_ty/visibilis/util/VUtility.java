@@ -5,6 +5,6 @@ public class VUtility
     @SuppressWarnings("unchecked")
     public static <A> A[] createGenericArray(int length)
     {
-        return (A[]) new Object[length];
+        return (A[])new Object[length];
     }
 }

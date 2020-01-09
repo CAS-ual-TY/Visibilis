@@ -10,6 +10,6 @@ public abstract class NodeBiGenericV<I, O> extends NodeBiGenericP<I, O>
     @Override
     protected O calculate(I input)
     {
-        return (O) input;
+        return (O)input;
     }
 }

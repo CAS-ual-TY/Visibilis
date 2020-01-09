@@ -69,11 +69,11 @@ public class Visibilis
     public static final String MOD_ID = "visibilis";
     public static final String PROTOCOL_VERSION = "1";
     
-    public static VItemTest itemTest = (VItemTest) new VItemTest(new Item.Properties().group(ItemGroup.COMBAT).maxStackSize(1)).setRegistryName(Visibilis.MOD_ID + ":" + "test");
+    public static VItemTest itemTest = (VItemTest)new VItemTest(new Item.Properties().group(ItemGroup.COMBAT).maxStackSize(1)).setRegistryName(Visibilis.MOD_ID + ":" + "test");
     
     public static Visibilis instance;
     
-    public static IVSidedProxy proxy = (IVSidedProxy) DistExecutor.runForDist(() -> de.cas_ual_ty.visibilis.proxy.VProxyClient::new, () -> de.cas_ual_ty.visibilis.proxy.VProxyServer::new);
+    public static IVSidedProxy proxy = (IVSidedProxy)DistExecutor.runForDist(() -> de.cas_ual_ty.visibilis.proxy.VProxyClient::new, () -> de.cas_ual_ty.visibilis.proxy.VProxyServer::new);
     
     public static SimpleChannel channel;
     

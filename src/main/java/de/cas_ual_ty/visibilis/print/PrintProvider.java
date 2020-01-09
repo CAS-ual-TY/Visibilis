@@ -79,7 +79,7 @@ public abstract class PrintProvider
     {
         ArrayList<NodeAction> list = node.getActions();
         
-        if (this.canDeleteNode(node))
+        if(this.canDeleteNode(node))
         {
             list.add(new NodeAction(node, NodeAction.LANG_DELETE)
             {

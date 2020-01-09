@@ -7,7 +7,7 @@ public class NodeTangent extends NodeFloatP
     @Override
     protected Float calculate(Float in1)
     {
-        return (float) Math.tan(in1.floatValue());
+        return (float)Math.tan(in1.floatValue());
     }
     
     @Override

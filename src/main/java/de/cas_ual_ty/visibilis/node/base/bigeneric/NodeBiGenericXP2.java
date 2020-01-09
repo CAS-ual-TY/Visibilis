@@ -25,8 +25,8 @@ public abstract class NodeBiGenericXP2<I, O> extends NodeParallelizable
     public NodeBiGenericXP2()
     {
         super();
-        this.expansionOutputs = new LinkedList<Output<O>>();
-        this.expansionInputs = new LinkedList<Input<I>>();
+        this.expansionOutputs = new LinkedList<>();
+        this.expansionInputs = new LinkedList<>();
         this.createBaseFields();
     }
     
@@ -59,7 +59,7 @@ public abstract class NodeBiGenericXP2<I, O> extends NodeParallelizable
     
     public Output<O> createDynamicOutput()
     {
-        return new Output<O>(this, this.getOutDataType(), "out1");
+        return new Output<>(this, this.getOutDataType(), "out1");
     }
     
     public void addDynamicInput(Input<I> in)
@@ -70,13 +70,13 @@ public abstract class NodeBiGenericXP2<I, O> extends NodeParallelizable
     
     public Input<I> createDynamicInput()
     {
-        return new Input<I>(this, this.getInDataType(), "in1");
+        return new Input<>(this, this.getInDataType(), "in1");
     }
     
     @Override
     public void expand()
     {
-        if (this.parallelized)
+        if(this.parallelized)
         {
             this.addDynamicOutput(this.createDynamicOutput());
         }
@@ -87,7 +87,7 @@ public abstract class NodeBiGenericXP2<I, O> extends NodeParallelizable
     @Override
     public void shrink()
     {
-        if (this.parallelized)
+        if(this.parallelized)
         {
             this.removeOutput(this.expansionOutputs.removeLast().getId());
         }
@@ -99,7 +99,7 @@ public abstract class NodeBiGenericXP2<I, O> extends NodeParallelizable
     public void parallelize()
     {
         this.expansionInputs.removeLast();
-        for (int i = 1; i < this.expansionInputs.size(); ++i)
+        for(int i = 1; i < this.expansionInputs.size(); ++i)
         {
             this.addDynamicOutput(this.createDynamicOutput());
         }
@@ -109,7 +109,7 @@ public abstract class NodeBiGenericXP2<I, O> extends NodeParallelizable
     public void unparallelize()
     {
         int size = this.expansionOutputs.size();
-        for (int i = 1; i < size; ++i)
+        for(int i = 1; i < size; ++i)
         {
             this.removeOutput(this.expansionOutputs.removeLast().getId());
         }
@@ -121,19 +121,19 @@ public abstract class NodeBiGenericXP2<I, O> extends NodeParallelizable
     {
         I[] inputs = VUtility.createGenericArray(this.expansionInputs.size());
         
-        if (this.parallelized)
+        if(this.parallelized)
         {
             I in2 = this.in2.getValue();
             
             int i = 0;
-            for (Input<I> input : this.expansionInputs)
+            for(Input<I> input : this.expansionInputs)
             {
                 inputs[i++] = input.getValue();
             }
             
-            for (I a : inputs)
+            for(I a : inputs)
             {
-                if (!this.canCalculate(a, in2))
+                if(!this.canCalculate(a, in2))
                 {
                     return false;
                 }
@@ -142,7 +142,7 @@ public abstract class NodeBiGenericXP2<I, O> extends NodeParallelizable
             this.values = VUtility.createGenericArray(this.expansionOutputs.size());
             
             i = 0;
-            for (I a : inputs)
+            for(I a : inputs)
             {
                 this.values[i++] = this.calculate(a, in2);
             }
@@ -150,12 +150,12 @@ public abstract class NodeBiGenericXP2<I, O> extends NodeParallelizable
         else
         {
             int i = 0;
-            for (Input<I> input : this.expansionInputs)
+            for(Input<I> input : this.expansionInputs)
             {
                 inputs[i++] = input.getValue();
             }
             
-            if (!this.canCalculate(inputs))
+            if(!this.canCalculate(inputs))
             {
                 return false;
             }
@@ -183,12 +183,12 @@ public abstract class NodeBiGenericXP2<I, O> extends NodeParallelizable
     @Override
     public O getOutputValue(int index)
     {
-        if (this.parallelized)
+        if(this.parallelized)
         {
             int i = 0;
-            for (Output<O> output : this.expansionOutputs)
+            for(Output<O> output : this.expansionOutputs)
             {
-                if (output.getId() == index)
+                if(output.getId() == index)
                 {
                     return this.values[i];
                 }
@@ -198,7 +198,7 @@ public abstract class NodeBiGenericXP2<I, O> extends NodeParallelizable
         }
         else
         {
-            if (this.expansionOutputs.getFirst().getId() == index)
+            if(this.expansionOutputs.getFirst().getId() == index)
             {
                 return this.value;
             }

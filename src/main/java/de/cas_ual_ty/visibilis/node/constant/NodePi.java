@@ -12,7 +12,7 @@ public class NodePi extends NodeFloatC
     @Override
     protected Float getConstant()
     {
-        return (float) Math.PI;
+        return (float)Math.PI;
     }
     
     @Override

@@ -56,12 +56,12 @@ public abstract class NodeParallelizable extends NodeExpandable
     {
         ArrayList<NodeAction> list = super.getActions();
         
-        if (this.canParallelize())
+        if(this.canParallelize())
         {
             list.add(this.createActionParallelize());
         }
         
-        if (this.canUnparallelize())
+        if(this.canUnparallelize())
         {
             list.add(this.createActionUnparallelize());
         }
@@ -101,7 +101,7 @@ public abstract class NodeParallelizable extends NodeExpandable
         super.readNodeFromNBT(nbt);
         boolean parallelized = nbt.getBoolean(NodeParallelizable.KEY_PARALLELIZATION);
         
-        if (parallelized)
+        if(parallelized)
         {
             this.actionParallelize();
         }

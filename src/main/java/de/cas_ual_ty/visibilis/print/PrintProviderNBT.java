@@ -17,7 +17,7 @@ public abstract class PrintProviderNBT extends PrintProvider
     @Override
     public ArrayList<Node> getAvailableNodes()
     {
-        return new ArrayList<Node>();
+        return new ArrayList<>();
     }
     
     @Override
@@ -57,7 +57,7 @@ public abstract class PrintProviderNBT extends PrintProvider
     {
         Print print;
         
-        if (!nbt0.contains(Visibilis.MOD_ID))
+        if(!nbt0.contains(Visibilis.MOD_ID))
         {
             print = this.createNewPrint();
         }

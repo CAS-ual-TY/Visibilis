@@ -48,7 +48,7 @@ public class DataType<A>
     @SuppressWarnings("rawtypes")
     public static final DataType EXEC = new DataType("exec", new float[] { 1F, 0F, 0F });
     
-    public static final DataTypeDynamic<Integer> INTEGER = (DataTypeDynamic<Integer>) new DataTypeDynamic<Integer>("integer", new float[] { 0.5F, 1F, 0F }, 1)
+    public static final DataTypeDynamic<Integer> INTEGER = (DataTypeDynamic<Integer>)new DataTypeDynamic<Integer>("integer", new float[] { 0.5F, 1F, 0F }, 1)
     {
         @Override
         public boolean equals(Integer obj1, Integer obj2)
@@ -59,7 +59,7 @@ public class DataType<A>
         @Override
         public boolean canParseString(String s)
         {
-            if (s.equals("-"))
+            if(s.equals("-"))
             {
                 return true;
             }
@@ -78,7 +78,7 @@ public class DataType<A>
         @Override
         public Integer stringToValue(String s)
         {
-            if (s.equals("-"))
+            if(s.equals("-"))
             {
                 return 0;
             }
@@ -100,7 +100,7 @@ public class DataType<A>
         }
     }.setBlackText();
     
-    public static final DataTypeDynamic<Float> FLOAT = (DataTypeDynamic<Float>) new DataTypeDynamic<Float>("float", new float[] { 1F, 1F, 0F }, 1.0F)
+    public static final DataTypeDynamic<Float> FLOAT = (DataTypeDynamic<Float>)new DataTypeDynamic<Float>("float", new float[] { 1F, 1F, 0F }, 1.0F)
     {
         @Override
         public boolean equals(Float obj1, Float obj2)
@@ -111,7 +111,7 @@ public class DataType<A>
         @Override
         public boolean canParseString(String s)
         {
-            if (s.equals("-"))
+            if(s.equals("-"))
             {
                 return true;
             }
@@ -130,7 +130,7 @@ public class DataType<A>
         @Override
         public Float stringToValue(String s)
         {
-            if (s.equals("-"))
+            if(s.equals("-"))
             {
                 return 0F;
             }
@@ -161,7 +161,7 @@ public class DataType<A>
         }
     }.addEnum(false).addEnum(true);
     
-    public static final DataTypeDynamic<String> STRING = (DataTypeDynamic<String>) new DataTypeDynamic<String>("string", new float[] { 1F, 1F, 1F }, "text")
+    public static final DataTypeDynamic<String> STRING = (DataTypeDynamic<String>)new DataTypeDynamic<String>("string", new float[] { 1F, 1F, 1F }, "text")
     {
         @Override
         public boolean canParseString(String s)
@@ -237,7 +237,7 @@ public class DataType<A>
         this.textColor = DataType.COLOR_TEXT_WHITE;
         this.defaultValue = null;
         
-        if (DataType.DATA_TYPES_LIST.containsKey(id))
+        if(DataType.DATA_TYPES_LIST.containsKey(id))
         {
             Visibilis.error("Data type \"" + id + "\" already exists!");
         }
@@ -261,7 +261,7 @@ public class DataType<A>
      */
     public /* final */ DataType<A> registerConverter(DataType<?> from, Converter converter)
     {
-        if (this == DataType.EXEC || from == DataType.EXEC)
+        if(this == DataType.EXEC || from == DataType.EXEC)
         {
             Visibilis.error("EXEC is not convertible!");
             return this;
@@ -283,7 +283,7 @@ public class DataType<A>
      */
     public /* final */ DataType<A> registerGenericConverter(DataType<?> from)
     {
-        if (this == DataType.EXEC || from == DataType.EXEC)
+        if(this == DataType.EXEC || from == DataType.EXEC)
         {
             return this;
         }

@@ -9,7 +9,7 @@ public class NodeAddition extends NodeFloatXP2
     {
         float value = 0;
         
-        for (Float in : inputs)
+        for(Float in : inputs)
         {
             value += in.floatValue();
         }

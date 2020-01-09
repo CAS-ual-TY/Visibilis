@@ -7,7 +7,7 @@ public class NodeRound extends NodeFloatP
     @Override
     protected Float calculate(Float in1)
     {
-        return (float) Math.round(in1.floatValue());
+        return (float)Math.round(in1.floatValue());
     }
     
     @Override

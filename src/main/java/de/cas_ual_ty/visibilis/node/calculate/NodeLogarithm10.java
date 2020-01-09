@@ -7,7 +7,7 @@ public class NodeLogarithm10 extends NodeFloatP
     @Override
     protected Float calculate(Float in1)
     {
-        return (float) Math.log10(in1.floatValue());
+        return (float)Math.log10(in1.floatValue());
     }
     
     @Override

@@ -12,7 +12,7 @@ public abstract class NodeGenericC<A> extends Node
     public NodeGenericC()
     {
         super();
-        this.addOutput(this.out1 = new Output<A>(this, this.getDataType(), "out1"));
+        this.addOutput(this.out1 = new Output<>(this, this.getDataType(), "out1"));
     }
     
     public abstract DataType<A> getDataType();

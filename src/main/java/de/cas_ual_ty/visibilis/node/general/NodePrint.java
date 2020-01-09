@@ -34,9 +34,9 @@ public class NodePrint extends NodeExpandable implements INodeExec
     {
         String s;
         
-        for (int i = 1; i < this.getInputAmt(); ++i)
+        for(int i = 1; i < this.getInputAmt(); ++i)
         {
-            s = (String) this.getInput(i).getValue();
+            s = (String)this.getInput(i).getValue();
             
             provider.getCommandSender().sendFeedback(new StringTextComponent(s), true);
         }
@@ -53,7 +53,7 @@ public class NodePrint extends NodeExpandable implements INodeExec
     @Override
     public void expand()
     {
-        this.addInput(new Input<String>(this, DataType.STRING, "in2"));
+        this.addInput(new Input<>(this, DataType.STRING, "in2"));
     }
     
     @Override

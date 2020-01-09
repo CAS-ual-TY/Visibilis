@@ -22,7 +22,7 @@ public abstract class NodeBiGenericX<I, O> extends NodeExpandable
     public NodeBiGenericX()
     {
         super();
-        this.expansionInputs = new LinkedList<Input<I>>();
+        this.expansionInputs = new LinkedList<>();
         this.createBaseFields();
     }
     
@@ -33,7 +33,7 @@ public abstract class NodeBiGenericX<I, O> extends NodeExpandable
     
     public void createBaseFields()
     {
-        this.addOutput(this.out1 = new Output<O>(this, this.getOutDataType(), "out1"));
+        this.addOutput(this.out1 = new Output<>(this, this.getOutDataType(), "out1"));
         
         this.countBaseFields();
         
@@ -53,7 +53,7 @@ public abstract class NodeBiGenericX<I, O> extends NodeExpandable
     
     public Input<I> createDynamicInput()
     {
-        return new Input<I>(this, this.getInDataType(), "in1");
+        return new Input<>(this, this.getInDataType(), "in1");
     }
     
     @Override
@@ -74,12 +74,12 @@ public abstract class NodeBiGenericX<I, O> extends NodeExpandable
         I[] inputs = VUtility.createGenericArray(this.expansionInputs.size());
         
         int i = 0;
-        for (Input<I> input : this.expansionInputs)
+        for(Input<I> input : this.expansionInputs)
         {
             inputs[i++] = input.getValue();
         }
         
-        if (!this.canCalculate(inputs))
+        if(!this.canCalculate(inputs))
         {
             return false;
         }
@@ -99,7 +99,7 @@ public abstract class NodeBiGenericX<I, O> extends NodeExpandable
     @Override
     public O getOutputValue(int index)
     {
-        if (index == this.out1.getId())
+        if(index == this.out1.getId())
         {
             return this.value;
         }

@@ -21,7 +21,7 @@ public interface INodeExec
     
     public default Node toNode()
     {
-        return (Node) this;
+        return (Node)this;
     }
     
     public static float[] getColor()

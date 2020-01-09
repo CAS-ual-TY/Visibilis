@@ -37,23 +37,23 @@ public class Output<A> extends NodeField<A>
     @Override
     protected boolean setConnectionTo(NodeField<?> field)
     {
-        if (field instanceof Input)
+        if(field instanceof Input)
         {
-            if (!this.connections.contains(field))
+            if(!this.connections.contains(field))
             {
                 // Make sure exec node fields can only have 1 connection (not output to multiple inputs)
-                if (this.dataType == DataType.EXEC)
+                if(this.dataType == DataType.EXEC)
                 {
                     // Just to be sure. This is only false if someone accidentally added an exec node field to a non exec node
-                    if (field.node instanceof INodeExec)
+                    if(field.node instanceof INodeExec)
                     {
                         this.connections.clear();
-                        this.connections.add((Input<?>) field);
+                        this.connections.add((Input<?>)field);
                     }
                 }
                 else
                 {
-                    this.connections.add((Input<?>) field);
+                    this.connections.add((Input<?>)field);
                 }
             }
             
@@ -86,9 +86,9 @@ public class Output<A> extends NodeField<A>
     {
         ArrayList<NodeField<?>> list = new ArrayList<>();
         
-        if (this.hasConnections())
+        if(this.hasConnections())
         {
-            for (Input<?> input : this.connections)
+            for(Input<?> input : this.connections)
             {
                 list.add(input);
             }

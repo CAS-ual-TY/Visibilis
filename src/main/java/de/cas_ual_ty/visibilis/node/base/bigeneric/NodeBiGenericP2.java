@@ -17,7 +17,7 @@ public abstract class NodeBiGenericP2<I, O> extends NodeBiGenericP<I, O>
     @Override
     public void createBaseFields()
     {
-        this.addInput(this.in2 = new Input<I>(this, this.getInDataType(), "in2"));
+        this.addInput(this.in2 = new Input<>(this, this.getInDataType(), "in2"));
         
         super.createBaseFields();
     }

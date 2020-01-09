@@ -12,7 +12,7 @@ public class NodeE extends NodeFloatC
     @Override
     protected Float getConstant()
     {
-        return (float) Math.E;
+        return (float)Math.E;
     }
     
     @Override

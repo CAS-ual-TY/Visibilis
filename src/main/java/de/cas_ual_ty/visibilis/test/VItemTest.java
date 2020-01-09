@@ -19,7 +19,7 @@ public class VItemTest extends ItemPrint
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
     {
-        if (this.openGui(playerIn, handIn))
+        if(this.openGui(playerIn, handIn))
         {
             return new ActionResult<>(ActionResultType.SUCCESS, playerIn.getHeldItem(handIn));
         }

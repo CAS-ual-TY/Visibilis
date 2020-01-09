@@ -34,25 +34,25 @@ public class NodeActionWidget implements IGuiEventListener
         
         Rectangle dim = Rectangle.fromXYWH(mouseX - w, mouseY - h, w, h);
         
-        if (dim.r > dimensionsIn.r)
+        if(dim.r > dimensionsIn.r)
         {
             dim.l -= dim.r - dimensionsIn.r;
             dim.r -= dim.r - dimensionsIn.r;
         }
         
-        if (dim.b > dimensionsIn.b)
+        if(dim.b > dimensionsIn.b)
         {
             dim.t -= dim.b - dimensionsIn.b;
             dim.b -= dim.b - dimensionsIn.b;
         }
         
-        if (dim.l < dimensionsIn.l)
+        if(dim.l < dimensionsIn.l)
         {
             dim.l += dimensionsIn.l - dim.l;
             dim.r += dimensionsIn.l - dim.l;
         }
         
-        if (dim.t < dimensionsIn.t)
+        if(dim.t < dimensionsIn.t)
         {
             dim.t += dimensionsIn.t - dim.t;
             dim.b += dimensionsIn.t - dim.t;
@@ -76,13 +76,13 @@ public class NodeActionWidget implements IGuiEventListener
         
         int marginText = 2;
         
-        for (int i = 0; i < this.actions.size(); ++i)
+        for(int i = 0; i < this.actions.size(); ++i)
         {
             action = this.actions.get(i);
             RenderUtility.drawRect(x, y, w, h, 1, this.component.getUtil().actionColor);
             RenderUtility.drawTextCentered(this.component.getUtil().fontRenderer, x, y + marginText, this.dimensions.w + marginText, I18n.format(action.text), this.component.getUtil().actionColorText);
             
-            if (RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
+            if(RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
             {
                 this.hoverObj = action;
                 this.component.getUtil().drawHoverRect(x, y, w, h);
@@ -95,7 +95,7 @@ public class NodeActionWidget implements IGuiEventListener
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int modifiers)
     {
-        if (modifiers == 0 && this.hoverObj != null)
+        if(modifiers == 0 && this.hoverObj != null)
         {
             this.hoverObj.clicked();
             return true;

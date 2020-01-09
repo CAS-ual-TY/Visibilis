@@ -81,13 +81,13 @@ public class NBTUtility
         CompoundNBT nbt1;
         Node n;
         
-        for (int i = 0; i < nbtlist.size(); ++i)
+        for(int i = 0; i < nbtlist.size(); ++i)
         {
             nbt1 = nbtlist.getCompound(i);
             
             n = NBTUtility.loadNodeFromNBT(nbt1);
             
-            if (n != null)
+            if(n != null)
             {
                 p.addNode(n);
             }
@@ -108,13 +108,13 @@ public class NBTUtility
         CompoundNBT nbt1;
         Node n;
         
-        for (int i = 0; i < p.getNodes().size(); ++i)
+        for(int i = 0; i < p.getNodes().size(); ++i)
         {
             n = p.getNodes().get(i);
             
             nbt1 = NBTUtility.saveNodeToNBT(n);
             
-            if (nbt1 != null)
+            if(nbt1 != null)
             {
                 nbtlist.add(nbt1);
             }
@@ -138,7 +138,7 @@ public class NBTUtility
         
         n = NodesRegistry.INSTANCE.instantiateNode(id);
         
-        if (n == null)
+        if(n == null)
         {
             return null;
         }
@@ -157,7 +157,7 @@ public class NBTUtility
         
         String name = NodesRegistry.INSTANCE.getNameForNode(n);
         
-        if (name == null)
+        if(name == null)
         {
             return null;
         }
@@ -197,14 +197,14 @@ public class NBTUtility
         Node n1;
         NodeField<?> f1;
         
-        for (int i = 0; i + 3 < array.length; i += 4)
+        for(int i = 0; i + 3 < array.length; i += 4)
         {
             n = Print.getNodeForIdx(p, array[i + 0]);
             f = n.getOutput(array[i + 1]);
             n1 = Print.getNodeForIdx(p, array[i + 2]);
             f1 = n1.getInput(array[i + 3]);
             
-            if (!NodeField.tryConnect(f, f1))
+            if(!NodeField.tryConnect(f, f1))
             {
                 Visibilis.error("Could not load connection! Connecting failed.");
             }
@@ -227,16 +227,16 @@ public class NBTUtility
         ArrayList<NodeField<?>> connections;
         NodeField<?> f1;
         
-        for (i = 0; i < p.getNodes().size(); ++i)
+        for(i = 0; i < p.getNodes().size(); ++i)
         {
             n = p.getNodes().get(i);
             
-            for (j = 0; j < n.getOutputAmt(); ++j)
+            for(j = 0; j < n.getOutputAmt(); ++j)
             {
                 f = n.getOutput(j);
                 connections = f.getConnectionsList();
                 
-                for (k = 0; k < connections.size(); ++k)
+                for(k = 0; k < connections.size(); ++k)
                 {
                     f1 = connections.get(k);
                     array.add(i);
@@ -256,15 +256,15 @@ public class NBTUtility
     
     private static void recPrintTree(int indent, CompoundNBT nbt)
     {
-        for (String key : nbt.keySet())
+        for(String key : nbt.keySet())
         {
             Visibilis.debug(NBTUtility.indent(indent) + key);
             
-            if (nbt.get(key) instanceof ListNBT)
+            if(nbt.get(key) instanceof ListNBT)
             {
                 NBTUtility.recPrintList(indent + 1, nbt.getList(key, NBT.TAG_COMPOUND));
             }
-            else if (nbt.get(key) instanceof CompoundNBT)
+            else if(nbt.get(key) instanceof CompoundNBT)
             {
                 NBTUtility.recPrintTree(indent + 1, nbt.getCompound(key));
             }
@@ -273,7 +273,7 @@ public class NBTUtility
     
     private static void recPrintList(int indent, ListNBT nbt0)
     {
-        for (int i = 0; i < nbt0.size(); ++i)
+        for(int i = 0; i < nbt0.size(); ++i)
         {
             NBTUtility.recPrintTree(indent + 1, nbt0.getCompound(i));
         }
@@ -283,7 +283,7 @@ public class NBTUtility
     {
         String s = "";
         
-        for (; amt > 0; --amt)
+        for(; amt > 0; --amt)
         {
             s += "  ";
         }

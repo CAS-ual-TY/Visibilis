@@ -127,12 +127,12 @@ public class RenderUtility
      */
     public void drawPrint(Print print)
     {
-        for (Node node : print.getNodes())
+        for(Node node : print.getNodes())
         {
             this.drawNode(node, node.posX + print.posX, node.posY + print.posY);
         }
         
-        for (Node node : print.getNodes())
+        for(Node node : print.getNodes())
         {
             this.drawNodeConnections(node, node.posX + print.posX, node.posY + print.posY);
         }
@@ -164,14 +164,14 @@ public class RenderUtility
         NodeField<?> field;
         
         // Draw inputs, i + 1 to draw below header
-        for (i = 0; i < node.getInputAmt(); ++i)
+        for(i = 0; i < node.getInputAmt(); ++i)
         {
             field = node.getInput(i);
             this.drawNodeField(field, x, y + this.getFieldOffY(field));
         }
         
         // Draw outputs, i + 1 to draw below header
-        for (i = 0; i < node.getOutputAmt(); ++i)
+        for(i = 0; i < node.getOutputAmt(); ++i)
         {
             field = node.getOutput(i);
             this.drawNodeField(field, x + this.fieldWidth, y + this.getFieldOffY(field)); // Outputs are on the right, so add half width of the node
@@ -220,7 +220,7 @@ public class RenderUtility
         // the dot is in the middle of a quad of size height x height, at the left/right of the field
         int nameW = this.fieldWidth - this.nodeHeight;
         
-        if (field.isInput())
+        if(field.isInput())
         {
             // Input, so draw the dot on the left, the name on the right
             nameX += this.nodeHeight;
@@ -254,7 +254,7 @@ public class RenderUtility
         NodeField<?> field;
         
         // Draw output -> input connections, not the other way around, so its not done twice
-        for (int i = 0; i < node.getOutputAmt(); ++i)
+        for(int i = 0; i < node.getOutputAmt(); ++i)
         {
             field = node.getOutput(i);
             this.drawNodeFieldConnections(field, x + this.fieldWidth, y + this.getFieldOffY(field));
@@ -270,7 +270,7 @@ public class RenderUtility
         ArrayList<NodeField<?>> connections = field.getConnectionsList();
         
         // Loop through "destinations"
-        for (NodeField<?> dest : connections)
+        for(NodeField<?> dest : connections)
         {
             this.drawConnection(field, dest, x, y);
         }
@@ -280,7 +280,7 @@ public class RenderUtility
     {
         // Draw the enum options
         
-        DataTypeEnum<A> dt = (DataTypeEnum<A>) field.dataType;
+        DataTypeEnum<A> dt = (DataTypeEnum<A>)field.dataType;
         
         int w, h;
         
@@ -290,7 +290,7 @@ public class RenderUtility
         String s;
         
         // Loop through enums of the data type
-        for (int i = 0; i < dt.getEnumSize(); ++i)
+        for(int i = 0; i < dt.getEnumSize(); ++i)
         {
             // Get the string representation of the enum
             s = dt.valueToString(dt.getEnum(i));
@@ -404,11 +404,11 @@ public class RenderUtility
     
     public void drawNodeInputValues(Node node, int x, int y)
     {
-        for (int i = 0; i < node.getInputAmt(); ++i)
+        for(int i = 0; i < node.getInputAmt(); ++i)
         {
             Input<?> in = node.getInput(i);
             
-            if (in.hasDisplayValue())
+            if(in.hasDisplayValue())
             {
                 this.drawInputValue(in, x, y + this.getFieldOffY(in), true);
             }
@@ -419,7 +419,7 @@ public class RenderUtility
     {
         int width = this.inputValueWidth;
         
-        if (overrideDot)
+        if(overrideDot)
         {
             width = this.fieldWidth;
         }
@@ -455,15 +455,15 @@ public class RenderUtility
         
         ArrayList<String> tagsList = NodeGroupsHelper.INSTANCE.getTagsForNode(node);
         
-        if (tagsList.size() > 0)
+        if(tagsList.size() > 0)
         {
             String tags = "";
             
-            for (i = 0; i < tagsList.size(); ++i)
+            for(i = 0; i < tagsList.size(); ++i)
             {
                 tags += tagsList.get(i);
                 
-                if (i < tagsList.size() - 1)
+                if(i < tagsList.size() - 1)
                 {
                     tags += ", ";
                 }
@@ -474,7 +474,7 @@ public class RenderUtility
         
         String desc = node.getDesc();
         
-        if (!StringUtils.isNullOrEmpty(desc) && !desc.equals(node.getUnlocalizedDesc()))
+        if(!StringUtils.isNullOrEmpty(desc) && !desc.equals(node.getUnlocalizedDesc()))
         {
             lines.add("");
             lines.add(desc);
@@ -482,22 +482,22 @@ public class RenderUtility
         
         NodeField<?> f;
         
-        if (node.getInputAmt() > 0)
+        if(node.getInputAmt() > 0)
         {
             lines.add("");
             
-            for (i = 0; i < node.getInputAmt(); ++i)
+            for(i = 0; i < node.getInputAmt(); ++i)
             {
                 f = node.getInput(i);
                 lines.add(TextFormatting.GOLD.toString() + f.getName() + TextFormatting.RESET + " - " + this.tIn);
             }
         }
         
-        if (node.getOutputAmt() > 0)
+        if(node.getOutputAmt() > 0)
         {
             lines.add("");
             
-            for (i = 0; i < node.getOutputAmt(); ++i)
+            for(i = 0; i < node.getOutputAmt(); ++i)
             {
                 f = node.getOutput(i);
                 lines.add(TextFormatting.DARK_RED.toString() + f.getName() + TextFormatting.RESET + " - " + this.tOut);
@@ -515,7 +515,7 @@ public class RenderUtility
         
         String desc = field.getDesc();
         
-        if (!StringUtils.isNullOrEmpty(desc) && !desc.equals(field.getUnlocalizedDesc()))
+        if(!StringUtils.isNullOrEmpty(desc) && !desc.equals(field.getUnlocalizedDesc()))
         {
             lines.add("");
             lines.add(desc);
@@ -597,7 +597,7 @@ public class RenderUtility
      */
     public void updateLineWidth(Print print)
     {
-        this.nodeFieldConnectionsWidth = (float) ((this.nodeFieldDotSize / 2) * print.zoom * Minecraft.getInstance().mainWindow.getGuiScaleFactor());
+        this.nodeFieldConnectionsWidth = (float)((this.nodeFieldDotSize / 2) * print.zoom * Minecraft.getInstance().mainWindow.getGuiScaleFactor());
     }
     
     public static void drawTextCentered(FontRenderer fontRenderer, int x, int y, int w, String text, float color[])
@@ -649,7 +649,7 @@ public class RenderUtility
     
     public static int getVerticalAmtMinusOne(Node node)
     {
-        if (node.getInputAmt() > node.getOutputAmt())
+        if(node.getInputAmt() > node.getOutputAmt())
         {
             return node.getInputAmt() + 1;
         }
@@ -664,9 +664,9 @@ public class RenderUtility
      */
     public static int colorToInt(float[] color)
     {
-        int r = (int) (color[0] * 255F);
-        int g = (int) (color[1] * 255F);
-        int b = (int) (color[2] * 255F);
+        int r = (int)(color[0] * 255F);
+        int g = (int)(color[1] * 255F);
+        int b = (int)(color[2] * 255F);
         int a = 255;
         
         int colorInt = (a << 24);
@@ -695,7 +695,7 @@ public class RenderUtility
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
         // * scaleFactor due to the automatic resizing depending on window size (or the GUI size settings)
         // All the derparoundery with the Y position because Minecraft 0,0 is at the top left, but lwjgl 0,0 is at the bottom left
-        GL11.glScissor((int) (x * sr.getGuiScaleFactor()), (int) ((sr.getScaledHeight() - y - h) * sr.getGuiScaleFactor()), (int) (w * sr.getGuiScaleFactor()), (int) (h * sr.getGuiScaleFactor()));
+        GL11.glScissor((int)(x * sr.getGuiScaleFactor()), (int)((sr.getScaledHeight() - y - h) * sr.getGuiScaleFactor()), (int)(w * sr.getGuiScaleFactor()), (int)(h * sr.getGuiScaleFactor()));
     }
     
     /**

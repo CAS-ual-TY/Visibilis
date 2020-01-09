@@ -11,9 +11,11 @@ public class VCommandShutdown
 {
     public static void register(CommandDispatcher<CommandSource> dispatcher)
     {
-        dispatcher.register(Commands.literal("vshutdown").requires((arg1) -> {
+        dispatcher.register(Commands.literal("vshutdown").requires((arg1) ->
+        {
             return arg1.getServer().isSinglePlayer() || arg1.hasPermissionLevel(2);
-        }).executes((arg2) -> {
+        }).executes((arg2) ->
+        {
             CommandSource source = arg2.getSource();
             VCommandShutdown.execute(source);
             return 0;
@@ -22,7 +24,7 @@ public class VCommandShutdown
     
     public static void execute(CommandSource sender)
     {
-        if (!sender.getWorld().isRemote)
+        if(!sender.getWorld().isRemote)
         {
             VConfigHelper.setValueAndSave(VConfigHelper.commonConfig, "shutdown", true);
             VConfiguration.shutdown = true;

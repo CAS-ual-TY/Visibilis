@@ -72,12 +72,12 @@ public class ComponentNodeList extends Component
         int margin = 2;
         
         int x = 0;
-        int y = (int) (this.listOffset + this.listRect.y / zoom + margin); // We start at the offset
+        int y = (int)(this.listOffset + this.listRect.y / zoom + margin); // We start at the offset
         int w = this.getUtil().nodeWidth;
         int h;
         
         // Draw all the nodes in the list
-        for (Node node : this.getAvailableNodesList())
+        for(Node node : this.getAvailableNodesList())
         {
             this.getUtil().drawNode(node, x, y);
             
@@ -86,7 +86,7 @@ public class ComponentNodeList extends Component
             // If the mouse is on a node:
             // - update hoverObj
             // - Immediately render hover rect
-            if (mouseOnList && RenderUtility.isCoordInsideRect(mouseX, mouseY, this.dimensions.x, this.dimensions.y + y * zoom, w * zoom, h * zoom))
+            if(mouseOnList && RenderUtility.isCoordInsideRect(mouseX, mouseY, this.dimensions.x, this.dimensions.y + y * zoom, w * zoom, h * zoom))
             {
                 this.hoverObj.node(node);
                 this.getUtil().drawHoverRect(x, y, w, h);
@@ -108,11 +108,11 @@ public class ComponentNodeList extends Component
         // <=>
         // listOffset < b - y / 2
         
-        if (this.listOffset < botRect) //Bottom of list is below window
+        if(this.listOffset < botRect) //Bottom of list is below window
         {
             this.listOffset = botRect;
         }
-        if (this.listOffset > topRect) //Top of list is above window
+        if(this.listOffset > topRect) //Top of list is above window
         {
             this.listOffset = topRect;
         }
@@ -120,7 +120,7 @@ public class ComponentNodeList extends Component
         //        RenderUtility.scissorEnd();
         GlStateManager.popMatrix();
         
-        if (mouseOnTextField)
+        if(mouseOnTextField)
         {
             // This overrides any nodes the mouse might be on
             this.hoverObj.textField(this.searchInput);
@@ -132,7 +132,7 @@ public class ComponentNodeList extends Component
     @Override
     public void guiPostRender(int mouseX, int mouseY, float partialTicks)
     {
-        if (this.hoverObj.type == EnumMouseInteractionType.NODE)
+        if(this.hoverObj.type == EnumMouseInteractionType.NODE)
         {
             this.getUtil().drawNodeHoveringText(this.hoverObj.node, mouseX, mouseY);
         }
@@ -141,16 +141,16 @@ public class ComponentNodeList extends Component
     @Override
     public void guiTick()
     {
-        if (!this.updateKeyPressedDelay())
+        if(!this.updateKeyPressedDelay())
         {
             return;
         }
         
-        if (this.keyPressed == GLFW.GLFW_KEY_PAGE_UP)
+        if(this.keyPressed == GLFW.GLFW_KEY_PAGE_UP)
         {
             this.scrollUp();
         }
-        else if (this.keyPressed == GLFW.GLFW_KEY_PAGE_DOWN)
+        else if(this.keyPressed == GLFW.GLFW_KEY_PAGE_DOWN)
         {
             this.scrollDown();
         }
@@ -161,18 +161,18 @@ public class ComponentNodeList extends Component
     @Override
     public boolean mouseClicked(double mouseX, double mouseY, int modifiers)
     {
-        if (modifiers == 0)
+        if(modifiers == 0)
         {
-            if (this.hoverObj.type == EnumMouseInteractionType.NODE)
+            if(this.hoverObj.type == EnumMouseInteractionType.NODE)
             {
                 this.getProvider().saveChange();
                 this.uiBase.addNodeToPrint(this.hoverObj.node.setPosition(-this.getPrint().posX, -this.getPrint().posY));
             }
             
             // If you had the text field selected and click on it again, dont deselect it
-            if (this.hoverObj.type == EnumMouseInteractionType.TEXT_FIELD)
+            if(this.hoverObj.type == EnumMouseInteractionType.TEXT_FIELD)
             {
-                if (this.searchInput.isFocused())
+                if(this.searchInput.isFocused())
                 {
                     return this.searchInput.mouseClicked(mouseX, mouseY, modifiers);
                 }
@@ -194,9 +194,9 @@ public class ComponentNodeList extends Component
     @Override
     public boolean charTyped(char typedChar, int keyCode)
     {
-        if (this.searchInput.isFocused())
+        if(this.searchInput.isFocused())
         {
-            if (keyCode == GLFW.GLFW_KEY_ENTER)
+            if(keyCode == GLFW.GLFW_KEY_ENTER)
             {
                 this.setUnfocusTextField();
                 return true;
@@ -215,9 +215,9 @@ public class ComponentNodeList extends Component
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers)
     {
-        if (this.searchInput.isFocused())
+        if(this.searchInput.isFocused())
         {
-            if (keyCode == GLFW.GLFW_KEY_ENTER)
+            if(keyCode == GLFW.GLFW_KEY_ENTER)
             {
                 this.setUnfocusTextField();
                 return true;
@@ -240,9 +240,9 @@ public class ComponentNodeList extends Component
     {
         this.updateKeyPressed(-1, 0);
         
-        if (this.searchInput.isFocused())
+        if(this.searchInput.isFocused())
         {
-            if (keyCode == GLFW.GLFW_KEY_ENTER)
+            if(keyCode == GLFW.GLFW_KEY_ENTER)
             {
                 this.setUnfocusTextField();
                 return true;
@@ -283,7 +283,7 @@ public class ComponentNodeList extends Component
     public boolean updateKeyPressedDelay()
     {
         boolean ret = --this.keyPressedDelay <= 0;
-        if (ret)
+        if(ret)
         {
             this.keyPressedDelay = 3;
         }
@@ -292,7 +292,7 @@ public class ComponentNodeList extends Component
     
     public ArrayList<Node> getAvailableNodesList()
     {
-        return this.cutNodeListToSearch((ArrayList<Node>) this.getProvider().getAvailableNodes().clone());
+        return this.cutNodeListToSearch((ArrayList<Node>)this.getProvider().getAvailableNodes().clone());
     }
     
     /**
@@ -302,20 +302,20 @@ public class ComponentNodeList extends Component
      */
     public ArrayList<Node> cutNodeListToSearch(ArrayList<Node> list)
     {
-        if (list == null)
+        if(list == null)
         {
             return new ArrayList<>();
         }
         
         String text = this.searchInput.getText().trim();
         
-        if (!StringUtils.isNullOrEmpty(text))
+        if(!StringUtils.isNullOrEmpty(text))
         {
-            ArrayList<Node> list2 = (ArrayList<Node>) list.clone();
+            ArrayList<Node> list2 = (ArrayList<Node>)list.clone();
             
-            for (Node node : list2)
+            for(Node node : list2)
             {
-                if (!NodeGroupsHelper.INSTANCE.isTextMatchingNode(node, text))
+                if(!NodeGroupsHelper.INSTANCE.isTextMatchingNode(node, text))
                 {
                     list.remove(node);
                 }

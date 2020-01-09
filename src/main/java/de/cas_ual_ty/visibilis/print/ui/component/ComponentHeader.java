@@ -53,11 +53,11 @@ public class ComponentHeader extends Component
         this.undo.active = this.getProvider().canUndo();
         this.redo.active = this.getProvider().canRedo();
         
-        if (this.undo.isMouseOver(mouseX, mouseY))
+        if(this.undo.isMouseOver(mouseX, mouseY))
         {
             this.getParentGui().renderTooltip(I18n.format(ComponentHeader.LANG_UNDO), mouseX, mouseY);
         }
-        else if (this.redo.isMouseOver(mouseX, mouseY))
+        else if(this.redo.isMouseOver(mouseX, mouseY))
         {
             this.getParentGui().renderTooltip(I18n.format(ComponentHeader.LANG_REDO), mouseX, mouseY);
         }

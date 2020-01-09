@@ -7,7 +7,7 @@ public class NodeSines extends NodeFloatP
     @Override
     protected Float calculate(Float in1)
     {
-        return (float) Math.sin(in1.floatValue());
+        return (float)Math.sin(in1.floatValue());
     }
     
     @Override

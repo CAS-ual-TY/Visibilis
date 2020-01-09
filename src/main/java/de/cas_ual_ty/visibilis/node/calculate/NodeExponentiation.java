@@ -7,7 +7,7 @@ public class NodeExponentiation extends NodeFloatP2
     @Override
     protected Float calculate(Float in1, Float in2)
     {
-        return (float) Math.pow(in1.floatValue(), in2.floatValue());
+        return (float)Math.pow(in1.floatValue(), in2.floatValue());
     }
     
     @Override

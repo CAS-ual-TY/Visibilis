@@ -54,12 +54,12 @@ public abstract class NodeExpandable extends Node
     {
         ArrayList<NodeAction> list = super.getActions();
         
-        if (this.canExpand())
+        if(this.canExpand())
         {
             list.add(this.createActionExpand());
         }
         
-        if (this.canShrink())
+        if(this.canShrink())
         {
             list.add(this.createActionShrink());
         }
@@ -98,7 +98,7 @@ public abstract class NodeExpandable extends Node
     {
         int expansion = nbt.getInt(NodeExpandable.KEY_EXPANSION);
         
-        for (int i = 0; i < expansion; ++i)
+        for(int i = 0; i < expansion; ++i)
         {
             this.actionExpand();
         }

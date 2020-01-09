@@ -52,13 +52,13 @@ public abstract class Sorter extends Node implements INodeExec
     @Override
     public <B> B getOutputValue(int index)
     {
-        if (index == this.outTargetsList1.getId())
+        if(index == this.outTargetsList1.getId())
         {
-            return (B) this.targetsList1;
+            return (B)this.targetsList1;
         }
-        else if (index == this.outTargetsList2.getId())
+        else if(index == this.outTargetsList2.getId())
         {
-            return (B) this.targetsList2;
+            return (B)this.targetsList2;
         }
         
         return null;

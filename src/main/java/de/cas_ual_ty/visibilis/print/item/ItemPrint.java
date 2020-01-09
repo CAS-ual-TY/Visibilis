@@ -38,7 +38,7 @@ public class ItemPrint extends Item
      */
     public boolean openGui(PlayerEntity player, ItemStack itemStack, Hand hand)
     {
-        if (player.world.isRemote)
+        if(player.world.isRemote)
         {
             Visibilis.proxy.openGuiPrint(this.getHelper(itemStack, hand == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND.getSlotIndex() : EquipmentSlotType.OFFHAND.getSlotIndex()));
             return true;
@@ -64,7 +64,7 @@ public class ItemPrint extends Item
     {
         CompoundNBT nbt0 = itemStack.getOrCreateTag();
         
-        if (!nbt0.contains(Visibilis.MOD_ID))
+        if(!nbt0.contains(Visibilis.MOD_ID))
         {
             return null;
         }

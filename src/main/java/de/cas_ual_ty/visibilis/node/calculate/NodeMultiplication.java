@@ -9,7 +9,7 @@ public class NodeMultiplication extends NodeFloatXP2
     {
         float value = 1;
         
-        for (Float in : inputs)
+        for(Float in : inputs)
         {
             value *= in.floatValue();
         }

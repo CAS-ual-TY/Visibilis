@@ -30,11 +30,11 @@ public class NodeWhile extends Node implements INodeExec
     @Override
     public Output getOutExec(int index)
     {
-        if (this.exec2)
+        if(this.exec2)
         {
             return null;
         }
-        else if (this.condition)
+        else if(this.condition)
         {
             this.triggerRecalculation(this.inCondition);
             return this.outExec1;

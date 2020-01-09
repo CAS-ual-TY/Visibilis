@@ -41,9 +41,9 @@ public abstract class Selektor extends Node
     @Override
     public <B> B getOutputValue(int index)
     {
-        if (index == this.outTargetsList.getId())
+        if(index == this.outTargetsList.getId())
         {
-            return (B) this.targetsList;
+            return (B)this.targetsList;
         }
         
         return null;

@@ -60,7 +60,7 @@ public class Print
      */
     public Print addNode(Node node)
     {
-        if (this.containsNode(node))
+        if(this.containsNode(node))
         {
             // Remove node from the list to add it on top again
             this.removeNodeKeepConnections(node);
@@ -68,9 +68,9 @@ public class Print
         
         this.nodes.add(node);
         
-        if (node instanceof NodeEvent)
+        if(node instanceof NodeEvent)
         {
-            this.events.add((NodeEvent) node);
+            this.events.add((NodeEvent)node);
         }
         
         return this;
@@ -98,7 +98,7 @@ public class Print
      */
     public boolean removeNodeKeepConnections(Node node)
     {
-        if (node instanceof NodeEvent)
+        if(node instanceof NodeEvent)
         {
             this.events.remove(node);
         }
@@ -138,11 +138,11 @@ public class Print
         NodeEvent event;
         
         // Start from back of list (= on top of gui) to front of list (= on bottom of gui)
-        for (int i = this.events.size() - 1; i >= 0; --i)
+        for(int i = this.events.size() - 1; i >= 0; --i)
         {
             event = this.events.get(i);
             
-            if (event.eventType.equals(eventType))
+            if(event.eventType.equals(eventType))
             {
                 return this.execute(event, new ExecProvider(sender));
             }
@@ -160,7 +160,7 @@ public class Print
      */
     public boolean execute(INodeExec node, ExecProvider provider)
     {
-        if (VConfiguration.shutdown)
+        if(VConfiguration.shutdown)
         {
             return false;
         }
@@ -169,7 +169,7 @@ public class Print
         
         boolean ret = this.exec(node, provider);
         
-        for (Node n : this.nodes)
+        for(Node n : this.nodes)
         {
             n.resetValues();
         }
@@ -187,7 +187,7 @@ public class Print
     protected boolean exec(INodeExec node, ExecProvider provider)
     {
         // If the node can not be calculated, abort
-        if (!node.toNode().calculate(provider))
+        if(!node.toNode().calculate(provider))
         {
             return false;
         }
@@ -202,26 +202,26 @@ public class Print
          */
         
         // Loop through all outputs of the exec type
-        while ((out = node.getOutExec(i)) != null)
+        while((out = node.getOutExec(i)) != null)
         {
-            if (!out.hasConnections())
+            if(!out.hasConnections())
             {
                 ++i;
                 continue;
             }
             
             // Get the connected input of the next node
-            in = (Input<?>) out.getConnections().get(0);
+            in = (Input<?>)out.getConnections().get(0);
             
-            if (in != null)
+            if(in != null)
             {
                 // Get the node of the input
-                next = (INodeExec) in.node;
+                next = (INodeExec)in.node;
                 
-                if (next != null)
+                if(next != null)
                 {
                     // Check the the sub node has been successfully calculated
-                    if (!this.exec(next, provider))
+                    if(!this.exec(next, provider))
                     {
                         // Abort if false
                         return false;
@@ -269,11 +269,11 @@ public class Print
     {
         Node n1;
         
-        for (int i = 0; i < p.getNodes().size(); ++i)
+        for(int i = 0; i < p.getNodes().size(); ++i)
         {
             n1 = p.getNodes().get(i);
             
-            if (n1 == n)
+            if(n1 == n)
             {
                 return i;
             }
@@ -289,7 +289,7 @@ public class Print
      */
     public static Node getNodeForIdx(Print p, int idx)
     {
-        if (idx < p.getNodes().size())
+        if(idx < p.getNodes().size())
         {
             return p.getNodes().get(idx);
         }

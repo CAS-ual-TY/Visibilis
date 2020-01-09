@@ -25,7 +25,7 @@ public class NodeFloatToInteger extends NodeBiGenericP<Float, Integer>
     @Override
     protected Integer calculate(Float input)
     {
-        return (int) input.floatValue();
+        return (int)input.floatValue();
     }
     
     @Override

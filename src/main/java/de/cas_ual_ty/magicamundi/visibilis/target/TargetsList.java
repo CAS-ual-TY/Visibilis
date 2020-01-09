@@ -10,6 +10,6 @@ public class TargetsList extends ArrayList<Target>
     @Override
     public TargetsList clone()
     {
-        return (TargetsList) super.clone();
+        return (TargetsList)super.clone();
     }
 }

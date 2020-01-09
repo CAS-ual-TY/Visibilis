@@ -62,13 +62,13 @@ public abstract class NodeField<Z>
     
     public void recalculateId()
     {
-        if (this.isOutput())
+        if(this.isOutput())
         {
-            this.id = this.node.getOutputId((Output<Z>) this);
+            this.id = this.node.getOutputId((Output<Z>)this);
         }
         else
         {
-            this.id = this.node.getInputId((Input<Z>) this);
+            this.id = this.node.getInputId((Input<Z>)this);
         }
     }
     
@@ -116,7 +116,7 @@ public abstract class NodeField<Z>
      */
     public void cutConnections()
     {
-        for (NodeField<?> field : this.getConnectionsList())
+        for(NodeField<?> field : this.getConnectionsList())
         {
             field.removeConnectionOneSided(this);
         }
@@ -174,15 +174,15 @@ public abstract class NodeField<Z>
     
     public static void connect(NodeField<?> n1, NodeField<?> n2)
     {
-        if (n1.isOutput() != n2.isOutput())
+        if(n1.isOutput() != n2.isOutput())
         {
-            if (n1.isOutput())
+            if(n1.isOutput())
             {
-                NodeField.connect((Output<?>) n1, (Input<?>) n2);
+                NodeField.connect((Output<?>)n1, (Input<?>)n2);
             }
             else
             {
-                NodeField.connect((Output<?>) n2, (Input<?>) n1);
+                NodeField.connect((Output<?>)n2, (Input<?>)n1);
             }
         }
     }
@@ -190,7 +190,7 @@ public abstract class NodeField<Z>
     public static void connect(Output<?> out, Input<?> in)
     {
         // Inputs can only be connected once...
-        if (in.connection != null && in.connection != out)
+        if(in.connection != null && in.connection != out)
         {
             // ... so remove the input from the current output it is connected to (if there is any)
             in.connection.removeConnectionOneSided(in);
@@ -205,7 +205,7 @@ public abstract class NodeField<Z>
      */
     public static boolean canConnect(NodeField<?> n1, NodeField<?> n2)
     {
-        return (n1.isOutput() != n2.isOutput()) && (n1.isOutput() ? NodeField.canConnect((Output<?>) n1, (Input<?>) n2, true) : NodeField.canConnect((Output<?>) n2, (Input<?>) n1, true));
+        return (n1.isOutput() != n2.isOutput()) && (n1.isOutput() ? NodeField.canConnect((Output<?>)n1, (Input<?>)n2, true) : NodeField.canConnect((Output<?>)n2, (Input<?>)n1, true));
     }
     
     /**
@@ -221,13 +221,13 @@ public abstract class NodeField<Z>
     
     public static boolean tryConnect(NodeField<?> n1, NodeField<?> n2)
     {
-        if (n1 instanceof Output && n2 instanceof Input)
+        if(n1 instanceof Output && n2 instanceof Input)
         {
-            return NodeField.tryConnect((Output<?>) n1, (Input<?>) n2, true);
+            return NodeField.tryConnect((Output<?>)n1, (Input<?>)n2, true);
         }
-        else if (n2 instanceof Output && n1 instanceof Input)
+        else if(n2 instanceof Output && n1 instanceof Input)
         {
-            return NodeField.tryConnect((Output<?>) n2, (Input<?>) n1, true);
+            return NodeField.tryConnect((Output<?>)n2, (Input<?>)n1, true);
         }
         
         return false;
@@ -235,7 +235,7 @@ public abstract class NodeField<Z>
     
     public static boolean tryConnect(Output<?> out, Input<?> in, boolean ignorePresentConnection)
     {
-        if (NodeField.canConnect(out, in))
+        if(NodeField.canConnect(out, in))
         {
             NodeField.connect(out, in);
             return true;

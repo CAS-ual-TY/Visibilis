@@ -31,7 +31,7 @@ public class DataTypeEnum<A> extends DataType<A>
     @Override
     public DataType<A> setDefaultValue(A value)
     {
-        if (!this.enums.contains(value))
+        if(!this.enums.contains(value))
         {
             this.enums.add(value);
         }
@@ -42,7 +42,7 @@ public class DataTypeEnum<A> extends DataType<A>
     @Override
     public A getDefaultValue()
     {
-        if (this.defaultValue == null)
+        if(this.defaultValue == null)
         {
             this.defaultValue = this.getDefaultEnum();
         }
@@ -80,9 +80,9 @@ public class DataTypeEnum<A> extends DataType<A>
      */
     public int getEnumIdx(A value)
     {
-        for (int i = 0; i < this.enums.size(); ++i)
+        for(int i = 0; i < this.enums.size(); ++i)
         {
-            if (this.enums.get(i) == value)
+            if(this.enums.get(i) == value)
             {
                 return i;
             }

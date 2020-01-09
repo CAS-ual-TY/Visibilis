@@ -22,8 +22,8 @@ public abstract class NodeBiGenericP<I, O> extends NodeExpandable
     public NodeBiGenericP()
     {
         super();
-        this.expansionOutputs = new LinkedList<Output<O>>();
-        this.expansionInputs = new LinkedList<Input<I>>();
+        this.expansionOutputs = new LinkedList<>();
+        this.expansionInputs = new LinkedList<>();
         this.createBaseFields();
     }
     
@@ -52,7 +52,7 @@ public abstract class NodeBiGenericP<I, O> extends NodeExpandable
     
     public Output<O> createDynamicOutput()
     {
-        return new Output<O>(this, this.getOutDataType(), "out1");
+        return new Output<>(this, this.getOutDataType(), "out1");
     }
     
     public void addDynamicInput(Input<I> in)
@@ -63,7 +63,7 @@ public abstract class NodeBiGenericP<I, O> extends NodeExpandable
     
     public Input<I> createDynamicInput()
     {
-        return new Input<I>(this, this.getInDataType(), "in1");
+        return new Input<>(this, this.getInDataType(), "in1");
     }
     
     @Override
@@ -86,14 +86,14 @@ public abstract class NodeBiGenericP<I, O> extends NodeExpandable
         I[] inputs = VUtility.createGenericArray(this.expansionInputs.size());
         
         int i = 0;
-        for (Input<I> input : this.expansionInputs)
+        for(Input<I> input : this.expansionInputs)
         {
             inputs[i++] = input.getValue();
         }
         
-        for (I a : inputs)
+        for(I a : inputs)
         {
-            if (!this.canCalculate(a))
+            if(!this.canCalculate(a))
             {
                 return false;
             }
@@ -102,7 +102,7 @@ public abstract class NodeBiGenericP<I, O> extends NodeExpandable
         this.values = VUtility.createGenericArray(this.expansionOutputs.size());
         
         i = 0;
-        for (I a : inputs)
+        for(I a : inputs)
         {
             this.values[i++] = this.calculate(a);
         }
@@ -121,9 +121,9 @@ public abstract class NodeBiGenericP<I, O> extends NodeExpandable
     public O getOutputValue(int index)
     {
         int i = 0;
-        for (Output<O> output : this.expansionOutputs)
+        for(Output<O> output : this.expansionOutputs)
         {
-            if (output.getId() == index)
+            if(output.getId() == index)
             {
                 return this.values[i];
             }

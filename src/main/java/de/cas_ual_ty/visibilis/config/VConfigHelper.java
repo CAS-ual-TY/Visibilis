@@ -12,11 +12,11 @@ public class VConfigHelper
     
     public static void bake(ModConfig config)
     {
-        if (config.getSpec() == VConfiguration.CLIENT_SPEC)
+        if(config.getSpec() == VConfiguration.CLIENT_SPEC)
         {
             VConfigHelper.bakeClient(config);
         }
-        else if (config.getSpec() == VConfiguration.COMMON_SPEC)
+        else if(config.getSpec() == VConfiguration.COMMON_SPEC)
         {
             VConfigHelper.bakeServer(config);
         }

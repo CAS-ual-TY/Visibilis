@@ -52,7 +52,7 @@ public class VPrintProviderTest extends PrintProviderItem
     public VPrintProviderTest(ItemStack itemStack, int slot)
     {
         super(itemStack, slot);
-        this.list = new ArrayList<Node>();
+        this.list = new ArrayList<>();
         VPrintProviderTest.addAllNodesToList(this.list);
     }
     
@@ -71,7 +71,7 @@ public class VPrintProviderTest extends PrintProviderItem
     @Override
     public void onNodeAdded(Node node)
     {
-        if (node instanceof NodeEvent)
+        if(node instanceof NodeEvent)
         {
             this.list.remove(node);
         }
@@ -88,7 +88,7 @@ public class VPrintProviderTest extends PrintProviderItem
     @Override
     public void onNodeRemoved(Node node)
     {
-        if (node instanceof NodeEvent)
+        if(node instanceof NodeEvent)
         {
             this.list.add(node);
         }

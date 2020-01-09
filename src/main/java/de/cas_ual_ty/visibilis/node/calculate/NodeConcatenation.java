@@ -9,7 +9,7 @@ public class NodeConcatenation extends NodeStringXP2
     {
         String value = "";
         
-        for (String in : inputs)
+        for(String in : inputs)
         {
             value += in;
         }

@@ -18,9 +18,9 @@ public class NodeAND extends NodeBooleanXP2
     @Override
     protected Boolean calculate(Boolean[] inputs)
     {
-        for (Boolean input : inputs)
+        for(Boolean input : inputs)
         {
-            if (!input.booleanValue())
+            if(!input.booleanValue())
             {
                 return false;
             }

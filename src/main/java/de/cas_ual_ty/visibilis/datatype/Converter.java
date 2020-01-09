@@ -19,6 +19,6 @@ public class Converter
     @SuppressWarnings("unchecked")
     public <A> A convert(Object value)
     {
-        return (A) value;
+        return (A)value;
     }
 }

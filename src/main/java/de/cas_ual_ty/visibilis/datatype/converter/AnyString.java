@@ -8,6 +8,6 @@ public class AnyString extends Converter
     @Override
     public <A> A convert(Object value)
     {
-        return (A) value.toString();
+        return (A)value.toString();
     }
 }

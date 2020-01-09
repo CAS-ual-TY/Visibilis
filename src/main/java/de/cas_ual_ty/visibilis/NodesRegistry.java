@@ -34,7 +34,7 @@ public class NodesRegistry
     {
         modIdName = GameData.checkPrefix(modIdName, false).toString();
         
-        if (NodesRegistry.hasEmptyConstructor(c))
+        if(NodesRegistry.hasEmptyConstructor(c))
         {
             this.mapNodes.put(modIdName, c);
         }
@@ -58,7 +58,7 @@ public class NodesRegistry
     
     public Node instantiateNode(String modIdName)
     {
-        if (this.mapNodes.containsKey(modIdName))
+        if(this.mapNodes.containsKey(modIdName))
         {
             try
             {
@@ -84,9 +84,9 @@ public class NodesRegistry
     
     public String getNameForNode(Class<? extends Node> c)
     {
-        for (Map.Entry<String, Class<? extends Node>> e : this.mapNodes.entrySet())
+        for(Map.Entry<String, Class<? extends Node>> e : this.mapNodes.entrySet())
         {
-            if (e.getValue().equals(c))
+            if(e.getValue().equals(c))
             {
                 return e.getKey();
             }

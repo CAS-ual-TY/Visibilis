@@ -75,7 +75,7 @@ public class UiBase implements IGuiEventListener
     {
         this.initComponentDimensions();
         
-        for (Component c : this.children)
+        for(Component c : this.children)
         {
             c.guiInitGui();
         }
@@ -86,7 +86,7 @@ public class UiBase implements IGuiEventListener
      */
     public void guiOnClose()
     {
-        for (Component c : this.children)
+        for(Component c : this.children)
         {
             c.guiOnGuiClosed();
         }
@@ -99,17 +99,17 @@ public class UiBase implements IGuiEventListener
     {
         this.setLastMousePos(mouseX, mouseY);
         
-        for (Component c : this.children)
+        for(Component c : this.children)
         {
             c.updateMouseOverDimensions(mouseX, mouseY);
         }
         
-        for (Component c : this.children)
+        for(Component c : this.children)
         {
             c.guiRender(mouseX, mouseY, partialTicks);
         }
         
-        for (Component c : this.children)
+        for(Component c : this.children)
         {
             c.guiPostRender(mouseX, mouseY, partialTicks);
         }
@@ -117,7 +117,7 @@ public class UiBase implements IGuiEventListener
     
     public void guiTick()
     {
-        for (Component c : this.children)
+        for(Component c : this.children)
         {
             c.guiTick();
         }
@@ -125,7 +125,7 @@ public class UiBase implements IGuiEventListener
     
     public void initComponentDimensions()
     {
-        int w = (int) (this.util.nodeWidth * this.windowNodeList.zoom);
+        int w = (int)(this.util.nodeWidth * this.windowNodeList.zoom);
         int h = 20;
         
         this.windowPrint.setDimensions(Rectangle.fromXYWH(0, h, this.getScaledResolution().getScaledWidth() - w, this.getScaledResolution().getScaledHeight() - h));
@@ -163,7 +163,7 @@ public class UiBase implements IGuiEventListener
     {
         this.setLastMousePos(mouseX, mouseY);
         
-        for (Component c : this.children)
+        for(Component c : this.children)
         {
             c.mouseMoved(mouseX, mouseY);
         }
@@ -174,9 +174,9 @@ public class UiBase implements IGuiEventListener
     {
         this.setLastMousePos(mouseX, mouseY);
         
-        for (Component c : this.children)
+        for(Component c : this.children)
         {
-            if (c.mouseClicked(mouseX, mouseY, modifiers))
+            if(c.mouseClicked(mouseX, mouseY, modifiers))
             {
                 return true;
             }
@@ -190,9 +190,9 @@ public class UiBase implements IGuiEventListener
     {
         this.setLastMousePos(mouseX, mouseY);
         
-        for (Component c : this.children)
+        for(Component c : this.children)
         {
-            if (c.mouseReleased(mouseX, mouseY, modifiers))
+            if(c.mouseReleased(mouseX, mouseY, modifiers))
             {
                 return true;
             }
@@ -206,9 +206,9 @@ public class UiBase implements IGuiEventListener
     {
         this.setLastMousePos(mouseX, mouseY);
         
-        for (Component c : this.children)
+        for(Component c : this.children)
         {
-            if (c.mouseDragged(mouseX, mouseY, modifiers, deltaX, deltaY))
+            if(c.mouseDragged(mouseX, mouseY, modifiers, deltaX, deltaY))
             {
                 return true;
             }
@@ -222,9 +222,9 @@ public class UiBase implements IGuiEventListener
     {
         this.setLastMousePos(mouseX, mouseY);
         
-        for (Component c : this.children)
+        for(Component c : this.children)
         {
-            if (c.mouseScrolled(mouseX, mouseY, amountScrolled))
+            if(c.mouseScrolled(mouseX, mouseY, amountScrolled))
             {
                 return true;
             }
@@ -236,9 +236,9 @@ public class UiBase implements IGuiEventListener
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers)
     {
-        for (Component c : this.children)
+        for(Component c : this.children)
         {
-            if (c.keyPressed(keyCode, scanCode, modifiers))
+            if(c.keyPressed(keyCode, scanCode, modifiers))
             {
                 return true;
             }
@@ -250,9 +250,9 @@ public class UiBase implements IGuiEventListener
     @Override
     public boolean keyReleased(int keyCode, int scanCode, int modifiers)
     {
-        for (Component c : this.children)
+        for(Component c : this.children)
         {
-            if (c.keyReleased(keyCode, scanCode, modifiers))
+            if(c.keyReleased(keyCode, scanCode, modifiers))
             {
                 return true;
             }
@@ -264,12 +264,12 @@ public class UiBase implements IGuiEventListener
     @Override
     public boolean charTyped(char typedChar, int keyCode)
     {
-        if (this.windowPrint.isolateInput())
+        if(this.windowPrint.isolateInput())
         {
             this.windowPrint.charTyped(typedChar, keyCode);
             return true;
         }
-        else if (this.windowNodeList.isolateInput())
+        else if(this.windowNodeList.isolateInput())
         {
             this.windowNodeList.charTyped(typedChar, keyCode);
             return true;
