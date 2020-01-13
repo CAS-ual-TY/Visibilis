@@ -1,5 +1,7 @@
 package de.cas_ual_ty.visibilis.util;
 
+import java.util.ArrayList;
+
 public class VUtility
 {
     @SuppressWarnings("unchecked")
@@ -12,5 +14,11 @@ public class VUtility
     public static <A, B> A convert(B b)
     {
         return (A)b;
+    }
+    
+    @SuppressWarnings("unchecked")
+    public static <A> ArrayList<A> cloneArrayList(ArrayList<A> list)
+    {
+        return (ArrayList<A>)list.clone();
     }
 }

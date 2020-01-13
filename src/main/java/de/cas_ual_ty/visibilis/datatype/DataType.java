@@ -7,6 +7,7 @@ import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.datatype.converter.AnyString;
 import de.cas_ual_ty.visibilis.datatype.converter.IntegerFloat;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
+import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.nbt.CompoundNBT;
 
 public class DataType<A>
@@ -312,10 +313,9 @@ public class DataType<A>
     /**
      * Converts the value which represents the given data type to this data type; {@link #canConvert(DataType)} for the given data type must be true otherwise NullPointer is thrown.
      */
-    @SuppressWarnings("unchecked")
     public <F> A convert(DataType<F> from, F value)
     {
-        return ((Converter<F, A>)this.converters.get(from)).convert(value);
+        return (VUtility.<Converter<F, A>, Converter<?, A>> convert(this.converters.get(from))).convert(value);
     }
     
     /**

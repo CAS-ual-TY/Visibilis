@@ -12,6 +12,7 @@ import de.cas_ual_ty.visibilis.print.ui.RenderUtility;
 import de.cas_ual_ty.visibilis.print.ui.RenderUtility.Rectangle;
 import de.cas_ual_ty.visibilis.print.ui.UiBase;
 import de.cas_ual_ty.visibilis.print.ui.util.MouseInteractionObject.EnumMouseInteractionType;
+import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.util.StringUtils;
 
@@ -290,10 +291,9 @@ public class ComponentNodeList extends Component
         return ret;
     }
     
-    @SuppressWarnings("unchecked")
     public ArrayList<Node> getAvailableNodesList()
     {
-        return this.cutNodeListToSearch((ArrayList<Node>)this.getProvider().getAvailableNodes().clone());
+        return this.cutNodeListToSearch(VUtility.cloneArrayList(this.getProvider().getAvailableNodes()));
     }
     
     /**
@@ -312,8 +312,7 @@ public class ComponentNodeList extends Component
         
         if(!StringUtils.isNullOrEmpty(text))
         {
-            @SuppressWarnings("unchecked")
-            ArrayList<Node> list2 = (ArrayList<Node>)list.clone();
+            ArrayList<Node> list2 = VUtility.cloneArrayList(list);
             
             for(Node node : list2)
             {

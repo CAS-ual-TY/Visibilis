@@ -1,5 +1,6 @@
 package de.cas_ual_ty.visibilis.node;
 
+import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
@@ -8,10 +9,9 @@ public class NodeType<T extends Node> extends ForgeRegistryEntry<NodeType<?>> im
     private IFactory<T> factory;
     private Class<T> nodeClass;
     
-    @SuppressWarnings("unchecked")
     public NodeType(IFactory<T> factory)
     {
-        this(factory, (Class<T>)factory.create().getClass());
+        this(factory, (VUtility.convert(factory.create().getClass())));
     }
     
     public NodeType(IFactory<T> factory, Class<T> nodeClass)
