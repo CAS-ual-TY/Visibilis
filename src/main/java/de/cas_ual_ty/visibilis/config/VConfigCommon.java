@@ -15,9 +15,9 @@ public class VConfigCommon
         builder.push("general");
         
         this.shutdown = builder
-                        .comment("Shutdown all print activity; No more visual code is being executed.")
-                        .translation(Visibilis.MOD_ID + ".config." + VConfigCommon.KEY_SHUTDOWN)
-                        .define(VConfigCommon.KEY_SHUTDOWN, false);
+            .comment("Shutdown all print activity; No more visual code is being executed.")
+            .translation(Visibilis.MOD_ID + ".config." + VConfigCommon.KEY_SHUTDOWN)
+            .define(VConfigCommon.KEY_SHUTDOWN, false);
         
         builder.pop();
     }

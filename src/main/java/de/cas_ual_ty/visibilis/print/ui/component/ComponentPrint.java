@@ -762,7 +762,7 @@ public class ComponentPrint extends Component
             // ... if the user is hovering over it, as output and header do not have any conditions
             // To be a viable hover
             return this.hoverObj.type == EnumMouseInteractionType.OUTPUT
-                            || this.hoverObj.type == EnumMouseInteractionType.NODE_HEADER;
+                || this.hoverObj.type == EnumMouseInteractionType.NODE_HEADER;
         }
         else
         {

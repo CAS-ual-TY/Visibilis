@@ -92,9 +92,9 @@ public class Visibilis
     public void init(FMLCommonSetupEvent event)
     {
         Visibilis.channel = NetworkRegistry.newSimpleChannel(new ResourceLocation(Visibilis.MOD_ID, "main"),
-                        () -> Visibilis.PROTOCOL_VERSION,
-                        Visibilis.PROTOCOL_VERSION::equals,
-                        Visibilis.PROTOCOL_VERSION::equals);
+            () -> Visibilis.PROTOCOL_VERSION,
+            Visibilis.PROTOCOL_VERSION::equals,
+            Visibilis.PROTOCOL_VERSION::equals);
         Visibilis.channel.registerMessage(0, MessageItem.class, MessageItem::encode, MessageItem::decode, MessageItem::handle);
         
         this.registerNodes();
