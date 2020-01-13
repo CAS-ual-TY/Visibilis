@@ -2,12 +2,11 @@ package de.cas_ual_ty.visibilis.datatype.converter;
 
 import de.cas_ual_ty.visibilis.datatype.Converter;
 
-public class AnyString extends Converter
+public class AnyString<A> extends Converter<A, String>
 {
-    @SuppressWarnings("unchecked")
     @Override
-    public <A> A convert(Object value)
+    public String convert(Object value)
     {
-        return (A)value.toString();
+        return value.toString();
     }
 }

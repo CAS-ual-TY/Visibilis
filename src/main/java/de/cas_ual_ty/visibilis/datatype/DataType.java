@@ -193,15 +193,15 @@ public class DataType<A>
     {
         DataType.FLOAT.registerConverter(DataType.INTEGER, new IntegerFloat()); // As I dont know how this will be used in the future, I rather add this in.
         
-        DataType.STRING.registerConverter(DataType.INTEGER, new AnyString());
-        DataType.STRING.registerConverter(DataType.FLOAT, new AnyString());
-        DataType.STRING.registerConverter(DataType.BOOLEAN, new AnyString());
+        DataType.STRING.registerConverter(DataType.INTEGER, new AnyString<>());
+        DataType.STRING.registerConverter(DataType.FLOAT, new AnyString<>());
+        DataType.STRING.registerConverter(DataType.BOOLEAN, new AnyString<>());
     }
     
     /**
      * All registered converters
      */
-    protected HashMap<DataType<?>, Converter> converters;
+    protected HashMap<DataType<?>, Converter<?, A>> converters;
     
     /**
      * Unique id. Used for translation
@@ -258,7 +258,7 @@ public class DataType<A>
      *            The converter to set how data is converted
      * @return This for chaining
      */
-    public /* final */ DataType<A> registerConverter(DataType<?> from, Converter converter)
+    public <F> DataType<A> registerConverter(DataType<F> from, Converter<F, A> converter)
     {
         if(this == DataType.EXEC || from == DataType.EXEC)
         {
@@ -280,14 +280,14 @@ public class DataType<A>
      *            The converter to set how data is converted
      * @return This for chaining
      */
-    public /* final */ DataType<A> registerGenericConverter(DataType<?> from)
+    public <F> DataType<A> registerGenericConverter(DataType<F> from)
     {
         if(this == DataType.EXEC || from == DataType.EXEC)
         {
             return this;
         }
         
-        Converter converter = new Converter().setFromTo(from, this);
+        Converter<F, A> converter = new Converter<F, A>().setFromTo(from, this);
         
         this.converters.put(from, converter);
         return this;
@@ -304,7 +304,7 @@ public class DataType<A>
     /**
      * Converts the value of this node field to this data type; {@link #canConvert(DataType)} for the node field's data type must be true otherwise NullPointer is thrown.
      */
-    public A convert(NodeField<?> from)
+    public <F> A convert(NodeField<F> from)
     {
         return this.convert(from.dataType, from.getValue());
     }
@@ -312,9 +312,10 @@ public class DataType<A>
     /**
      * Converts the value which represents the given data type to this data type; {@link #canConvert(DataType)} for the given data type must be true otherwise NullPointer is thrown.
      */
-    public A convert(DataType<?> from, Object value)
+    @SuppressWarnings("unchecked")
+    public <F> A convert(DataType<F> from, F value)
     {
-        return this.converters.get(from).<A> convert(value);
+        return ((Converter<F, A>)this.converters.get(from)).convert(value);
     }
     
     /**

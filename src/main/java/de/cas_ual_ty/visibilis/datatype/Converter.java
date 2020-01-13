@@ -1,24 +1,25 @@
 package de.cas_ual_ty.visibilis.datatype;
 
-public class Converter
+import de.cas_ual_ty.visibilis.util.VUtility;
+
+public class Converter<F, T>
 {
-    public DataType<?> from;
-    public DataType<?> to;
+    public DataType<F> from;
+    public DataType<T> to;
     
     public Converter()
     {
     }
     
-    public Converter setFromTo(DataType<?> from, DataType<?> to)
+    public Converter<F, T> setFromTo(DataType<F> from, DataType<T> to)
     {
         this.from = from;
         this.to = to;
         return this;
     }
     
-    @SuppressWarnings("unchecked")
-    public <A> A convert(Object value)
+    public T convert(F value)
     {
-        return (A)value;
+        return VUtility.convert(value);
     }
 }
