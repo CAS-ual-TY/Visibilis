@@ -99,7 +99,7 @@ public abstract class NodeBiGenericX<O, I> extends NodeExpandable
     @Override
     public <A> A getOutputValue(Output<A> out)
     {
-        return out == this.out1O ? VUtility.convert(this.value) : null;
+        return out == this.out1O ? VUtility.cast(this.value) : null;
     }
     
     @Override

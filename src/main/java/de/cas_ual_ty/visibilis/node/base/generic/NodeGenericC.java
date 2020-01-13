@@ -29,7 +29,7 @@ public abstract class NodeGenericC<B> extends Node
     @Override
     public <O> O getOutputValue(Output<O> out)
     {
-        return out == this.out1B ? VUtility.convert(this.getConstant()) : null;
+        return out == this.out1B ? VUtility.cast(this.getConstant()) : null;
     }
     
     @Override

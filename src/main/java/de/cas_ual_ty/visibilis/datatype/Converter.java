@@ -20,6 +20,6 @@ public class Converter<F, T>
     
     public T convert(F value)
     {
-        return VUtility.convert(value);
+        return VUtility.cast(value);
     }
 }

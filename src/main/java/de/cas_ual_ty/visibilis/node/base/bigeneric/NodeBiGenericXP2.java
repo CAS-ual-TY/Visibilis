@@ -190,7 +190,7 @@ public abstract class NodeBiGenericXP2<O, I> extends NodeParallelizable
             {
                 if(output == out)
                 {
-                    return VUtility.convert(this.values[i]);
+                    return VUtility.cast(this.values[i]);
                 }
                 
                 ++i;
@@ -200,7 +200,7 @@ public abstract class NodeBiGenericXP2<O, I> extends NodeParallelizable
         {
             if(this.expansionOutputs.getFirst() == out)
             {
-                return VUtility.convert(this.value);
+                return VUtility.cast(this.value);
             }
         }
         

@@ -46,7 +46,7 @@ public class NodeFor extends Node implements INodeExec
     @Override
     public <O> O getOutputValue(Output<O> out)
     {
-        return out == this.out2Index ? VUtility.convert(this.value) : null;
+        return out == this.out2Index ? VUtility.cast(this.value) : null;
     }
     
     @Override

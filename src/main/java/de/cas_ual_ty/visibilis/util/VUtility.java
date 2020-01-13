@@ -11,7 +11,7 @@ public class VUtility
     }
     
     @SuppressWarnings("unchecked")
-    public static <A, B> A convert(B b)
+    public static <A, B> A cast(B b)
     {
         return (A)b;
     }

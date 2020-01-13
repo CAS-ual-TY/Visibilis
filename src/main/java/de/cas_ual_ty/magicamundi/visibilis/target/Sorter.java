@@ -55,11 +55,11 @@ public abstract class Sorter extends Node implements INodeExec
     {
         if(out == this.outTargetsList1)
         {
-            return VUtility.convert(this.targetsList1);
+            return VUtility.cast(this.targetsList1);
         }
         else if(out == this.outTargetsList2)
         {
-            return VUtility.convert(this.targetsList2);
+            return VUtility.cast(this.targetsList2);
         }
         
         return null;

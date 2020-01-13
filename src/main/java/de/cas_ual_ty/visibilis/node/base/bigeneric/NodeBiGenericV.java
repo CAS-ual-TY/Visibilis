@@ -12,6 +12,6 @@ public abstract class NodeBiGenericV<O, I> extends NodeBiGenericP<O, I>
     @Override
     protected O calculate(I input)
     {
-        return VUtility.convert(input);
+        return VUtility.cast(input);
     }
 }

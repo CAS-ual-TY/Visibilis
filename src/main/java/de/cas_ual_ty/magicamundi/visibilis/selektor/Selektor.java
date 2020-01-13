@@ -44,7 +44,7 @@ public abstract class Selektor extends Node
     {
         if(out == this.outTargetsList)
         {
-            return VUtility.convert(this.targetsList);
+            return VUtility.cast(this.targetsList);
         }
         
         return null;

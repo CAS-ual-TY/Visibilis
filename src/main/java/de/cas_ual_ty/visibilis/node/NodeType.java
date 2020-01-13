@@ -11,7 +11,7 @@ public class NodeType<T extends Node> extends ForgeRegistryEntry<NodeType<?>> im
     
     public NodeType(IFactory<T> factory)
     {
-        this(factory, (VUtility.convert(factory.create().getClass())));
+        this(factory, (VUtility.cast(factory.create().getClass())));
     }
     
     public NodeType(IFactory<T> factory, Class<T> nodeClass)

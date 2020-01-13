@@ -315,7 +315,7 @@ public class DataType<A>
      */
     public <F> A convert(DataType<F> from, F value)
     {
-        return (VUtility.<Converter<F, A>, Converter<?, A>> convert(this.converters.get(from))).convert(value);
+        return (VUtility.<Converter<F, A>, Converter<?, A>> cast(this.converters.get(from))).convert(value);
     }
     
     /**

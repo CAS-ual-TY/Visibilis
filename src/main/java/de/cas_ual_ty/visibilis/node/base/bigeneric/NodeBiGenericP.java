@@ -125,7 +125,7 @@ public abstract class NodeBiGenericP<O, I> extends NodeExpandable
         {
             if(output == out)
             {
-                return VUtility.convert(this.values[i]);
+                return VUtility.cast(this.values[i]);
             }
             
             ++i;
