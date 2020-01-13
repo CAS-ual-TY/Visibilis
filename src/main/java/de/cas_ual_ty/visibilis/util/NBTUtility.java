@@ -136,7 +136,7 @@ public class NBTUtility
         
         String id = nbt.getString(NBTUtility.KEY_NODE);
         
-        n = NodesRegistry.INSTANCE.instantiateNode(id);
+        n = NodesRegistry.instantiateNode(id);
         
         if(n == null)
         {
@@ -155,7 +155,7 @@ public class NBTUtility
     {
         CompoundNBT nbt = new CompoundNBT();
         
-        String name = NodesRegistry.INSTANCE.getNameForNode(n);
+        String name = NodesRegistry.getNameForNode(n);
         
         if(name == null)
         {

@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis;
 
 import de.cas_ual_ty.visibilis.config.VConfigHelper;
 import de.cas_ual_ty.visibilis.config.VConfiguration;
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.dtboolean.NodeBooleanV;
 import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatV;
 import de.cas_ual_ty.visibilis.node.calculate.NodeAddition;
@@ -50,6 +51,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.RegistryEvent.NewRegistry;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -62,6 +65,8 @@ import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegistryBuilder;
 
 @Mod(Visibilis.MOD_ID)
 public class Visibilis
@@ -77,12 +82,19 @@ public class Visibilis
     
     public static SimpleChannel channel;
     
+    public static IForgeRegistry<NodeType<?>> nodesRegistry;
+    
     public Visibilis()
     {
         Visibilis.instance = this;
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::init);
-        MinecraftForge.EVENT_BUS.addListener(this::serverStarting);
-        MinecraftForge.EVENT_BUS.addListener(VCommandExec::execCommand);
+        
+        IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
+        bus.addListener(this::init);
+        bus.addListener(this::newRegistry);
+        
+        bus = MinecraftForge.EVENT_BUS;
+        bus.addListener(this::serverStarting);
+        bus.addListener(VCommandExec::execCommand);
         
         ModLoadingContext mld = ModLoadingContext.get();
         mld.registerConfig(ModConfig.Type.CLIENT, VConfiguration.CLIENT_SPEC);
@@ -96,63 +108,18 @@ public class Visibilis
             Visibilis.PROTOCOL_VERSION::equals,
             Visibilis.PROTOCOL_VERSION::equals);
         Visibilis.channel.registerMessage(0, MessageItem.class, MessageItem::encode, MessageItem::decode, MessageItem::handle);
-        
-        this.registerNodes();
+    }
+    
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public void newRegistry(NewRegistry event)
+    {
+        Visibilis.nodesRegistry = new RegistryBuilder().setName(new ResourceLocation(Visibilis.MOD_ID, "nodes")).setType(NodeType.class).setMaxID(4096).setDefaultKey(new ResourceLocation(Visibilis.MOD_ID, "default")).create();
     }
     
     public void serverStarting(FMLServerStartingEvent event)
     {
         VCommandExec.register(event.getCommandDispatcher());
         VCommandShutdown.register(event.getCommandDispatcher());
-    }
-    
-    public void registerNodes()
-    {
-        NodesRegistry.INSTANCE.registerNode(NodeEvent.class, Visibilis.MOD_ID, "event");
-        NodesRegistry.INSTANCE.registerNode(VNodePrintDebug.class, Visibilis.MOD_ID, "test");
-        
-        NodesRegistry.INSTANCE.registerNode(NodeAddition.class, Visibilis.MOD_ID, "addition");
-        NodesRegistry.INSTANCE.registerNode(NodeDivision.class, Visibilis.MOD_ID, "division");
-        NodesRegistry.INSTANCE.registerNode(NodeExponentiation.class, Visibilis.MOD_ID, "exponentiation");
-        NodesRegistry.INSTANCE.registerNode(NodeLogarithm10.class, Visibilis.MOD_ID, "logarithm_10");
-        NodesRegistry.INSTANCE.registerNode(NodeLogarithm1p.class, Visibilis.MOD_ID, "logarithm_1p");
-        NodesRegistry.INSTANCE.registerNode(NodeLogarithmE.class, Visibilis.MOD_ID, "logarithm_e");
-        NodesRegistry.INSTANCE.registerNode(NodeModulo.class, Visibilis.MOD_ID, "modulo");
-        NodesRegistry.INSTANCE.registerNode(NodeMultiplication.class, Visibilis.MOD_ID, "multiplication");
-        NodesRegistry.INSTANCE.registerNode(NodeRoot.class, Visibilis.MOD_ID, "root");
-        NodesRegistry.INSTANCE.registerNode(NodeSubtraction.class, Visibilis.MOD_ID, "subtraction");
-        NodesRegistry.INSTANCE.registerNode(NodeConcatenation.class, Visibilis.MOD_ID, "concatenation");
-        
-        NodesRegistry.INSTANCE.registerNode(NodeE.class, Visibilis.MOD_ID, "e");
-        NodesRegistry.INSTANCE.registerNode(NodePi.class, Visibilis.MOD_ID, "pi");
-        NodesRegistry.INSTANCE.registerNode(NodeSQRT2.class, Visibilis.MOD_ID, "sqrt2");
-        NodesRegistry.INSTANCE.registerNode(NodeFloatV.class, Visibilis.MOD_ID, "const_float");
-        NodesRegistry.INSTANCE.registerNode(NodeBooleanV.class, Visibilis.MOD_ID, "const_boolean");
-        
-        NodesRegistry.INSTANCE.registerNode(NodeCosines.class, Visibilis.MOD_ID, "cosines");
-        NodesRegistry.INSTANCE.registerNode(NodeRound.class, Visibilis.MOD_ID, "round");
-        NodesRegistry.INSTANCE.registerNode(NodeRoundDown.class, Visibilis.MOD_ID, "round_down");
-        NodesRegistry.INSTANCE.registerNode(NodeRoundUp.class, Visibilis.MOD_ID, "round_up");
-        NodesRegistry.INSTANCE.registerNode(NodeSines.class, Visibilis.MOD_ID, "sines");
-        NodesRegistry.INSTANCE.registerNode(NodeTangent.class, Visibilis.MOD_ID, "tangent");
-        
-        NodesRegistry.INSTANCE.registerNode(NodeAND.class, Visibilis.MOD_ID, "and");
-        NodesRegistry.INSTANCE.registerNode(NodeNAND.class, Visibilis.MOD_ID, "nand");
-        NodesRegistry.INSTANCE.registerNode(NodeNOR.class, Visibilis.MOD_ID, "nor");
-        NodesRegistry.INSTANCE.registerNode(NodeNOT.class, Visibilis.MOD_ID, "not");
-        NodesRegistry.INSTANCE.registerNode(NodeOR.class, Visibilis.MOD_ID, "or");
-        NodesRegistry.INSTANCE.registerNode(NodeXNOR.class, Visibilis.MOD_ID, "xnor");
-        NodesRegistry.INSTANCE.registerNode(NodeXOR.class, Visibilis.MOD_ID, "xor");
-        
-        NodesRegistry.INSTANCE.registerNode(NodeBranch.class, Visibilis.MOD_ID, "branch");
-        NodesRegistry.INSTANCE.registerNode(NodeMerge.class, Visibilis.MOD_ID, "merge");
-        NodesRegistry.INSTANCE.registerNode(NodeFor.class, Visibilis.MOD_ID, "for");
-        NodesRegistry.INSTANCE.registerNode(NodeWhile.class, Visibilis.MOD_ID, "while");
-        
-        NodesRegistry.INSTANCE.registerNode(NodeFloatCompare.class, Visibilis.MOD_ID, "equals");
-        NodesRegistry.INSTANCE.registerNode(NodeFloatToInteger.class, Visibilis.MOD_ID, "cast_float_to_integer");
-        
-        NodesRegistry.INSTANCE.registerNode(NodePrint.class, Visibilis.MOD_ID, "print");
     }
     
     // TODO low: Some nice logging here please
@@ -176,6 +143,58 @@ public class Visibilis
         public static void registerItems(RegistryEvent.Register<Item> event)
         {
             event.getRegistry().register(Visibilis.itemTest);
+        }
+        
+        @SubscribeEvent
+        public static void registerNodeTypes(RegistryEvent.Register<NodeType<?>> event)
+        {
+            IForgeRegistry<NodeType<?>> registry = event.getRegistry();
+            
+            registry.register(new NodeType<>(NodeEvent::new).setRegistryName(Visibilis.MOD_ID, "event"));
+            registry.register(new NodeType<>(VNodePrintDebug::new).setRegistryName(Visibilis.MOD_ID, "test"));
+            
+            registry.register(new NodeType<>(NodeAddition::new).setRegistryName(Visibilis.MOD_ID, "addition"));
+            registry.register(new NodeType<>(NodeDivision::new).setRegistryName(Visibilis.MOD_ID, "division"));
+            registry.register(new NodeType<>(NodeExponentiation::new).setRegistryName(Visibilis.MOD_ID, "exponentiation"));
+            registry.register(new NodeType<>(NodeLogarithm10::new).setRegistryName(Visibilis.MOD_ID, "logarithm_10"));
+            registry.register(new NodeType<>(NodeLogarithm1p::new).setRegistryName(Visibilis.MOD_ID, "logarithm_1p"));
+            registry.register(new NodeType<>(NodeLogarithmE::new).setRegistryName(Visibilis.MOD_ID, "logarithm_e"));
+            registry.register(new NodeType<>(NodeModulo::new).setRegistryName(Visibilis.MOD_ID, "modulo"));
+            registry.register(new NodeType<>(NodeMultiplication::new).setRegistryName(Visibilis.MOD_ID, "multiplication"));
+            registry.register(new NodeType<>(NodeRoot::new).setRegistryName(Visibilis.MOD_ID, "root"));
+            registry.register(new NodeType<>(NodeSubtraction::new).setRegistryName(Visibilis.MOD_ID, "subtraction"));
+            registry.register(new NodeType<>(NodeConcatenation::new).setRegistryName(Visibilis.MOD_ID, "concatenation"));
+            
+            registry.register(new NodeType<>(NodeE::new).setRegistryName(Visibilis.MOD_ID, "e"));
+            registry.register(new NodeType<>(NodePi::new).setRegistryName(Visibilis.MOD_ID, "pi"));
+            registry.register(new NodeType<>(NodeSQRT2::new).setRegistryName(Visibilis.MOD_ID, "sqrt2"));
+            registry.register(new NodeType<>(NodeFloatV::new).setRegistryName(Visibilis.MOD_ID, "const_float"));
+            registry.register(new NodeType<>(NodeBooleanV::new).setRegistryName(Visibilis.MOD_ID, "const_boolean"));
+            
+            registry.register(new NodeType<>(NodeCosines::new).setRegistryName(Visibilis.MOD_ID, "cosines"));
+            registry.register(new NodeType<>(NodeRound::new).setRegistryName(Visibilis.MOD_ID, "round"));
+            registry.register(new NodeType<>(NodeRoundDown::new).setRegistryName(Visibilis.MOD_ID, "round_down"));
+            registry.register(new NodeType<>(NodeRoundUp::new).setRegistryName(Visibilis.MOD_ID, "round_up"));
+            registry.register(new NodeType<>(NodeSines::new).setRegistryName(Visibilis.MOD_ID, "sines"));
+            registry.register(new NodeType<>(NodeTangent::new).setRegistryName(Visibilis.MOD_ID, "tangent"));
+            
+            registry.register(new NodeType<>(NodeAND::new).setRegistryName(Visibilis.MOD_ID, "and"));
+            registry.register(new NodeType<>(NodeNAND::new).setRegistryName(Visibilis.MOD_ID, "nand"));
+            registry.register(new NodeType<>(NodeNOR::new).setRegistryName(Visibilis.MOD_ID, "nor"));
+            registry.register(new NodeType<>(NodeNOT::new).setRegistryName(Visibilis.MOD_ID, "not"));
+            registry.register(new NodeType<>(NodeOR::new).setRegistryName(Visibilis.MOD_ID, "or"));
+            registry.register(new NodeType<>(NodeXNOR::new).setRegistryName(Visibilis.MOD_ID, "xnor"));
+            registry.register(new NodeType<>(NodeXOR::new).setRegistryName(Visibilis.MOD_ID, "xor"));
+            
+            registry.register(new NodeType<>(NodeBranch::new).setRegistryName(Visibilis.MOD_ID, "branch"));
+            registry.register(new NodeType<>(NodeMerge::new).setRegistryName(Visibilis.MOD_ID, "merge"));
+            registry.register(new NodeType<>(NodeFor::new).setRegistryName(Visibilis.MOD_ID, "for"));
+            registry.register(new NodeType<>(NodeWhile::new).setRegistryName(Visibilis.MOD_ID, "while"));
+            
+            registry.register(new NodeType<>(NodeFloatCompare::new).setRegistryName(Visibilis.MOD_ID, "equals"));
+            registry.register(new NodeType<>(NodeFloatToInteger::new).setRegistryName(Visibilis.MOD_ID, "cast_float_to_integer"));
+            
+            registry.register(new NodeType<>(NodePrint::new).setRegistryName(Visibilis.MOD_ID, "print"));
         }
         
         @SubscribeEvent

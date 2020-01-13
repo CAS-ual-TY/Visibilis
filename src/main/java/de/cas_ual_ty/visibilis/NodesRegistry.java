@@ -1,118 +1,98 @@
 package de.cas_ual_ty.visibilis;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.function.Consumer;
 
 import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.node.NodeType;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.registries.GameData;
 
 public class NodesRegistry
 {
-    public static final NodesRegistry INSTANCE = new NodesRegistry();
-    
-    private final HashMap<String, Class<? extends Node>> mapNodes;
-    
-    public NodesRegistry()
+    public static Node instantiateNode(String modId, String name)
     {
-        this.mapNodes = new HashMap<>();
+        return NodesRegistry.instantiateNode(modId + ":" + name);
     }
     
-    // --- NODES START ---
-    
-    public void registerNode(Class<? extends Node> c, String modId, String name)
+    public static Node instantiateNode(String modIdName)
     {
-        this.registerNode(c, modId + ":" + name);
+        return NodesRegistry.instantiateNode(new ResourceLocation(modIdName));
     }
     
-    public void registerNode(Class<? extends Node> c, ResourceLocation rl)
+    public static Node instantiateNode(ResourceLocation rl)
     {
-        this.registerNode(c, rl.toString());
-    }
-    
-    public void registerNode(Class<? extends Node> c, String modIdName)
-    {
-        modIdName = GameData.checkPrefix(modIdName, false).toString();
-        
-        if(NodesRegistry.hasEmptyConstructor(c))
+        if(Visibilis.nodesRegistry.containsKey(rl))
         {
-            this.mapNodes.put(modIdName, c);
-        }
-        else
-        {
-            Visibilis.error("Node \"" + modIdName + "\" could not be registered!");
-        }
-    }
-    
-    // --- ---
-    
-    public Node instantiateNode(String modId, String name)
-    {
-        return this.instantiateNode(modId + ":" + name);
-    }
-    
-    public Node instantiateNode(ResourceLocation rl)
-    {
-        return this.instantiateNode(rl.toString());
-    }
-    
-    public Node instantiateNode(String modIdName)
-    {
-        if(this.mapNodes.containsKey(modIdName))
-        {
-            try
-            {
-                return this.mapNodes.get(modIdName).newInstance();
-            }
-            catch (InstantiationException | IllegalAccessException e)
-            {
-                Visibilis.error("Node \"" + modIdName + "\" could not be instantiated despite being registered!");
-            }
+            return Visibilis.nodesRegistry.getValue(rl).instantiate();
         }
         
-        Visibilis.error("Node \"" + modIdName + "\" does not exist!");
+        Visibilis.error("Node \"" + rl.toString() + "\" does not exist!");
         
         return null;
     }
     
     // --- ---
     
-    public String getNameForNode(Node n)
+    public static String getNameForNode(Node n)
     {
-        return this.getNameForNode(n.getClass());
+        ResourceLocation rl = NodesRegistry.getRLForNode(n);
+        
+        if(rl != null)
+        {
+            return rl.toString();
+        }
+        
+        return null;
     }
     
-    public String getNameForNode(Class<? extends Node> c)
+    @SuppressWarnings("rawtypes")
+    public static ResourceLocation getRLForNode(Node n)
     {
-        for(Map.Entry<String, Class<? extends Node>> e : this.mapNodes.entrySet())
+        NodeType type = NodesRegistry.getNodeTypeFor(n);
+        
+        if(type != null)
         {
-            if(e.getValue().equals(c))
+            return type.getRegistryName();
+        }
+        
+        return null;
+    }
+    
+    @SuppressWarnings("rawtypes")
+    public static NodeType getNodeTypeFor(Node n)
+    {
+        return NodesRegistry.getNodeTypeFor(n.getClass());
+    }
+    
+    @SuppressWarnings("rawtypes")
+    public static NodeType getNodeTypeFor(Class<? extends Node> clazz)
+    {
+        NodeType type;
+        for(ResourceLocation key : Visibilis.nodesRegistry.getKeys())
+        {
+            type = Visibilis.nodesRegistry.getValue(key);
+            
+            if(type.getNodeClass() == clazz)
             {
-                return e.getKey();
+                return type;
             }
         }
         
         return null;
     }
     
-    // --- NODES END ---
-    
-    private static boolean hasEmptyConstructor(Class<?> c)
+    public static void forEachRL(Consumer<ResourceLocation> consumer)
     {
-        try
+        for(ResourceLocation rl : Visibilis.nodesRegistry.getKeys())
         {
-            c.newInstance();
-            return true;
+            consumer.accept(rl);
         }
-        catch (IllegalAccessException e)
+    }
+    
+    public static void forEachNodeType(Consumer<NodeType<?>> consumer)
+    {
+        NodesRegistry.forEachRL((rl) ->
         {
-            Visibilis.error("Class \"" + c.getPackage().toString() + "." + c.getName() + "\" is missing an empty constructor!");
-        }
-        catch (InstantiationException e)
-        {
-            Visibilis.error("Class \"" + c.getPackage().toString() + "." + c.getName() + "\" is abstract!");
-        }
-        
-        return false;
+            consumer.accept(Visibilis.nodesRegistry.getValue(rl));
+        });
     }
 }
