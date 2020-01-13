@@ -58,11 +58,13 @@ public abstract class DataTypeDynamic<A> extends DataType<A>
     
     public A loadFromNBT(CompoundNBT nbt)
     {
-        return null;
+        return this.stringToValue(nbt.getString(KEY_DATA));
     }
     
     public CompoundNBT saveToNBT(A data)
     {
-        return null;
+        CompoundNBT nbt = new CompoundNBT();
+        nbt.putString(KEY_DATA, this.valueToString(data));
+        return nbt;
     }
 }
