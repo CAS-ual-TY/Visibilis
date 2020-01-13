@@ -6,19 +6,19 @@ import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.util.VUtility;
 
-public abstract class NodeGenericC<A> extends Node
+public abstract class NodeGenericC<B> extends Node
 {
-    public Output<A> out1;
+    public Output<B> out1B;
     
     public NodeGenericC()
     {
         super();
-        this.addOutput(this.out1 = new Output<>(this, this.getDataType(), "out1"));
+        this.addOutput(this.out1B = new Output<>(this, this.getDataType(), "out1"));
     }
     
-    public abstract DataType<A> getDataType();
+    public abstract DataType<B> getDataType();
     
-    protected abstract A getConstant();
+    protected abstract B getConstant();
     
     @Override
     public boolean doCalculate(ExecProvider provider)
@@ -29,7 +29,7 @@ public abstract class NodeGenericC<A> extends Node
     @Override
     public <O> O getOutputValue(Output<O> out)
     {
-        return out == this.out1 ? VUtility.convert(this.getConstant()) : null;
+        return out == this.out1B ? VUtility.convert(this.getConstant()) : null;
     }
     
     @Override

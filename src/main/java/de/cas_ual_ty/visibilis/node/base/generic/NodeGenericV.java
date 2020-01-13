@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.base.generic;
 
-public abstract class NodeGenericV<A> extends NodeGenericP<A>
+public abstract class NodeGenericV<B> extends NodeGenericP<B>
 {
     public NodeGenericV()
     {
@@ -8,7 +8,7 @@ public abstract class NodeGenericV<A> extends NodeGenericP<A>
     }
     
     @Override
-    protected A calculate(A input)
+    protected B calculate(B input)
     {
         return input;
     }

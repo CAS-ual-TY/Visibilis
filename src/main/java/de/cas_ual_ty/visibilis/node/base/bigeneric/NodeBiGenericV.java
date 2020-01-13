@@ -2,7 +2,7 @@ package de.cas_ual_ty.visibilis.node.base.bigeneric;
 
 import de.cas_ual_ty.visibilis.util.VUtility;
 
-public abstract class NodeBiGenericV<I, O> extends NodeBiGenericP<I, O>
+public abstract class NodeBiGenericV<O, I> extends NodeBiGenericP<O, I>
 {
     public NodeBiGenericV()
     {

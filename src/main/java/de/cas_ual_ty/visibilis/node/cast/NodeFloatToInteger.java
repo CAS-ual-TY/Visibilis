@@ -3,7 +3,7 @@ package de.cas_ual_ty.visibilis.node.cast;
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.base.bigeneric.NodeBiGenericP;
 
-public class NodeFloatToInteger extends NodeBiGenericP<Float, Integer>
+public class NodeFloatToInteger extends NodeBiGenericP<Integer, Float>
 {
     public NodeFloatToInteger()
     {

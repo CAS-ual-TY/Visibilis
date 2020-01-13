@@ -9,11 +9,11 @@ import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.util.VUtility;
 
-public abstract class NodeBiGenericX<I, O> extends NodeExpandable
+public abstract class NodeBiGenericX<O, I> extends NodeExpandable
 {
     public LinkedList<Input<I>> expansionInputs;
     
-    public Output<O> out1;
+    public Output<O> out1O;
     
     public O value;
     
@@ -33,7 +33,7 @@ public abstract class NodeBiGenericX<I, O> extends NodeExpandable
     
     public void createBaseFields()
     {
-        this.addOutput(this.out1 = new Output<>(this, this.getOutDataType(), "out1"));
+        this.addOutput(this.out1O = new Output<>(this, this.getOutDataType(), "out1"));
         
         this.countBaseFields();
         
@@ -99,7 +99,7 @@ public abstract class NodeBiGenericX<I, O> extends NodeExpandable
     @Override
     public <A> A getOutputValue(Output<A> out)
     {
-        return out == this.out1 ? VUtility.convert(this.value) : null;
+        return out == this.out1O ? VUtility.convert(this.value) : null;
     }
     
     @Override

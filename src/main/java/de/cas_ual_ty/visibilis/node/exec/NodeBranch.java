@@ -9,32 +9,32 @@ import de.cas_ual_ty.visibilis.node.field.Output;
 
 public class NodeBranch extends Node implements INodeExec
 {
-    public final Output<Object> outExec1;
-    public final Output<Object> outExec2;
-    public final Input<Object> inExec;
-    public final Input<Boolean> inBoolean;
+    public final Output<Object> out1Exec;
+    public final Output<Object> out2Exec;
+    public final Input<Object> in1Exec;
+    public final Input<Boolean> in2Boolean;
     
     public boolean value;
     
     public NodeBranch()
     {
         super();
-        this.addOutput(this.outExec1 = new Output<>(this, DataType.EXEC, "out1"));
-        this.addOutput(this.outExec2 = new Output<>(this, DataType.EXEC, "out2"));
-        this.addInput(this.inExec = new Input<>(this, DataType.EXEC, "in1"));
-        this.addInput(this.inBoolean = new Input<>(this, DataType.BOOLEAN, "in2"));
+        this.addOutput(this.out1Exec = new Output<>(this, DataType.EXEC, "out1"));
+        this.addOutput(this.out2Exec = new Output<>(this, DataType.EXEC, "out2"));
+        this.addInput(this.in1Exec = new Input<>(this, DataType.EXEC, "in1"));
+        this.addInput(this.in2Boolean = new Input<>(this, DataType.BOOLEAN, "in2"));
     }
     
     @Override
     public Output<Object> getOutExec(int index)
     {
-        return index == 0 ? (this.value ? this.outExec1 : this.outExec2) : null;
+        return index == 0 ? (this.value ? this.out1Exec : this.out2Exec) : null;
     }
     
     @Override
     public boolean doCalculate(ExecProvider provider)
     {
-        this.value = this.inBoolean.getValue();
+        this.value = this.in2Boolean.getValue();
         return true;
     }
     

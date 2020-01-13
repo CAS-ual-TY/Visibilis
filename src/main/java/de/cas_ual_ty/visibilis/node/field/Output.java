@@ -6,7 +6,7 @@ import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.INodeExec;
 import de.cas_ual_ty.visibilis.node.Node;
 
-public class Output<A> extends NodeField<A>
+public class Output<O> extends NodeField<O>
 {
     /*
      * Clarifications:
@@ -20,7 +20,7 @@ public class Output<A> extends NodeField<A>
      */
     protected final ArrayList<Input<?>> connections;
     
-    public Output(Node node, DataType<A> dataType, String name)
+    public Output(Node node, DataType<O> dataType, String name)
     {
         super(node, dataType, name);
         this.connections = new ArrayList<>();
@@ -64,7 +64,7 @@ public class Output<A> extends NodeField<A>
     }
     
     @Override
-    public A getValue()
+    public O getValue()
     {
         return this.node.getOutputValue(this);
     }

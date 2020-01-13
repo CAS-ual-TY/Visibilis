@@ -9,7 +9,7 @@ import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.util.VUtility;
 
-public abstract class NodeBiGenericP<I, O> extends NodeExpandable
+public abstract class NodeBiGenericP<O, I> extends NodeExpandable
 {
     public LinkedList<Output<O>> expansionOutputs;
     public LinkedList<Input<I>> expansionInputs;

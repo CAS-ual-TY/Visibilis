@@ -10,11 +10,11 @@ import de.cas_ual_ty.visibilis.util.VUtility;
 
 public class NodeFor extends Node implements INodeExec
 {
-    public final Output<Object> outExec1;
-    public final Output<Integer> outIndex2;
-    public final Output<Object> outExec3;
-    public final Input<Object> inExec;
-    public final Input<Integer> inLength;
+    public final Output<Object> out1Exec;
+    public final Output<Integer> out2Index;
+    public final Output<Object> out3Exec;
+    public final Input<Object> in1Exec;
+    public final Input<Integer> in2Length;
     
     public int length;
     public int value;
@@ -22,31 +22,31 @@ public class NodeFor extends Node implements INodeExec
     public NodeFor()
     {
         super();
-        this.addOutput(this.outExec1 = new Output<>(this, DataType.EXEC, "out1"));
-        this.addOutput(this.outIndex2 = new Output<>(this, DataType.INTEGER, "out2"));
-        this.addOutput(this.outExec3 = new Output<>(this, DataType.EXEC, "out3"));
-        this.addInput(this.inExec = new Input<>(this, DataType.EXEC, "in1"));
-        this.addInput(this.inLength = new Input<>(this, DataType.INTEGER, "in2"));
+        this.addOutput(this.out1Exec = new Output<>(this, DataType.EXEC, "out1"));
+        this.addOutput(this.out2Index = new Output<>(this, DataType.INTEGER, "out2"));
+        this.addOutput(this.out3Exec = new Output<>(this, DataType.EXEC, "out3"));
+        this.addInput(this.in1Exec = new Input<>(this, DataType.EXEC, "in1"));
+        this.addInput(this.in2Length = new Input<>(this, DataType.INTEGER, "in2"));
     }
     
     @Override
     public Output<Object> getOutExec(int index)
     {
         this.value = index;
-        return index == this.length ? this.outExec3 : (index < this.length ? this.outExec1 : null);
+        return index == this.length ? this.out3Exec : (index < this.length ? this.out1Exec : null);
     }
     
     @Override
     public boolean doCalculate(ExecProvider provider)
     {
-        this.length = this.inLength.getValue();
+        this.length = this.in2Length.getValue();
         return true;
     }
     
     @Override
     public <O> O getOutputValue(Output<O> out)
     {
-        return out == this.outIndex2 ? VUtility.convert(this.value) : null;
+        return out == this.out2Index ? VUtility.convert(this.value) : null;
     }
     
     @Override

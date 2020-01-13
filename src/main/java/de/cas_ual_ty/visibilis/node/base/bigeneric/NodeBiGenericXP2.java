@@ -9,7 +9,7 @@ import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.util.VUtility;
 
-public abstract class NodeBiGenericXP2<I, O> extends NodeParallelizable
+public abstract class NodeBiGenericXP2<O, I> extends NodeParallelizable
 {
     public LinkedList<Output<O>> expansionOutputs;
     public LinkedList<Input<I>> expansionInputs;

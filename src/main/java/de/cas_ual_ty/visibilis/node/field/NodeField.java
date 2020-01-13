@@ -8,7 +8,7 @@ import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.Node;
 import net.minecraft.nbt.CompoundNBT;
 
-public abstract class NodeField<Z>
+public abstract class NodeField<B>
 {
     /*
      * Clarifications:
@@ -30,14 +30,14 @@ public abstract class NodeField<Z>
     /**
      * The data type of this node field.
      */
-    public final DataType<Z> dataType;
+    public final DataType<B> dataType;
     
     /**
      * The name of this node field (before translation).
      */
     public final String name;
     
-    public NodeField(Node node, DataType<Z> dataType, String name)
+    public NodeField(Node node, DataType<B> dataType, String name)
     {
         this.node = node;
         this.dataType = dataType;
@@ -64,11 +64,11 @@ public abstract class NodeField<Z>
     {
         if(this.isOutput())
         {
-            this.id = this.node.getOutputId((Output<Z>)this);
+            this.id = this.node.getOutputId((Output<B>)this);
         }
         else
         {
-            this.id = this.node.getInputId((Input<Z>)this);
+            this.id = this.node.getInputId((Input<B>)this);
         }
     }
     
@@ -84,7 +84,7 @@ public abstract class NodeField<Z>
      * @return The value this node field is currently representing.
      */
     @Nullable
-    public abstract Z getValue();
+    public abstract B getValue();
     
     /**
      * @return <b>true</b> if this node is connected to another node (or multiple).

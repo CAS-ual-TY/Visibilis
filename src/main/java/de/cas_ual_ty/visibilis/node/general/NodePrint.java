@@ -10,23 +10,23 @@ import net.minecraft.util.text.StringTextComponent;
 
 public class NodePrint extends NodeExpandable implements INodeExec
 {
-    public Output<Object> out1;
-    public Input<Object> in1;
+    public Output<Object> out1Exec;
+    public Input<Object> in1Exec;
     
     public String[] values;
     
     public NodePrint()
     {
         super();
-        this.addOutput(this.out1 = new Output<>(this, DataType.EXEC, "out1"));
-        this.addInput(this.in1 = new Input<>(this, DataType.EXEC, "in1"));
+        this.addOutput(this.out1Exec = new Output<>(this, DataType.EXEC, "out1"));
+        this.addInput(this.in1Exec = new Input<>(this, DataType.EXEC, "in1"));
         this.expand();
     }
     
     @Override
     public Output<Object> getOutExec(int index)
     {
-        return index == 0 ? this.out1 : null;
+        return index == 0 ? this.out1Exec : null;
     }
     
     @Override

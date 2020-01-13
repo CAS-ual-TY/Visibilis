@@ -8,7 +8,7 @@ import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
 import de.cas_ual_ty.visibilis.node.Node;
 import net.minecraft.nbt.CompoundNBT;
 
-public class Input<A> extends NodeField<A>
+public class Input<I> extends NodeField<I>
 {
     /*
      * Clarifications:
@@ -25,11 +25,11 @@ public class Input<A> extends NodeField<A>
      */
     protected Output<?> connection;
     
-    protected A value = null;
+    protected I value = null;
     
     protected boolean mustUseConnection;
     
-    public Input(Node node, DataType<A> dataType, String name)
+    public Input(Node node, DataType<I> dataType, String name)
     {
         super(node, dataType, name);
         this.mustUseConnection = !dataType.hasDefaultValue();
@@ -67,12 +67,12 @@ public class Input<A> extends NodeField<A>
      * @see NodeField#getValue()
      */
     @Override
-    public A getValue()
+    public I getValue()
     {
-        return this.hasConnections() ? (A)this.getConvertedValue() : this.getSetValue();
+        return this.hasConnections() ? (I)this.getConvertedValue() : this.getSetValue();
     }
     
-    public A getConvertedValue()
+    public I getConvertedValue()
     {
         return this.dataType.convert(this.connection);
     }
@@ -114,11 +114,11 @@ public class Input<A> extends NodeField<A>
             
             if(this.dataType instanceof DataTypeDynamic)
             {
-                ((DataTypeDynamic<A>)this.dataType).getDefaultValue();
+                ((DataTypeDynamic<I>)this.dataType).getDefaultValue();
             }
             else if(this.dataType instanceof DataTypeEnum)
             {
-                ((DataTypeEnum<A>)this.dataType).getDefaultEnum();
+                ((DataTypeEnum<I>)this.dataType).getDefaultEnum();
             }
         }
     }
@@ -140,9 +140,9 @@ public class Input<A> extends NodeField<A>
      * @return The value this node field is currently representing, ignoring connections.
      * @see #getValue()
      */
-    public A getSetValue()
+    public I getSetValue()
     {
-        return this.value != null ? this.value : (this.dataType.hasDefaultValue() ? ((A)this.dataType.getDefaultValue()) : null);
+        return this.value != null ? this.value : (this.dataType.hasDefaultValue() ? ((I)this.dataType.getDefaultValue()) : null);
     }
     
     /**
@@ -156,7 +156,7 @@ public class Input<A> extends NodeField<A>
     /**
      * Set the value that is used if {@link #hasConnections()} is <b>false</b>
      */
-    public Input<A> setValue(A value)
+    public Input<I> setValue(I value)
     {
         this.value = value;
         return this;
@@ -171,7 +171,7 @@ public class Input<A> extends NodeField<A>
      * By calling this, {@link #getValue()} will only return a value from the connection.
      * A connection is required for this input.
      */
-    public Input<A> setMustUseConnection()
+    public Input<I> setMustUseConnection()
     {
         this.mustUseConnection = true;
         return this;
@@ -188,12 +188,12 @@ public class Input<A> extends NodeField<A>
     {
         if(this.dataType instanceof DataTypeEnum)
         {
-            DataTypeEnum<A> dt = (DataTypeEnum<A>)this.dataType;
+            DataTypeEnum<I> dt = (DataTypeEnum<I>)this.dataType;
             nbt.putInt(Input.KEY_DATA_ENUM, dt.getEnumIdx(this.getSetValue()));
         }
         else if(this.dataType instanceof DataTypeDynamic)
         {
-            DataTypeDynamic<A> dt = (DataTypeDynamic<A>)this.dataType;
+            DataTypeDynamic<I> dt = (DataTypeDynamic<I>)this.dataType;
             CompoundNBT data = dt.saveToNBT(this.getSetValue());
             if(data != null)
             {
@@ -209,12 +209,12 @@ public class Input<A> extends NodeField<A>
     {
         if(this.dataType instanceof DataTypeEnum)
         {
-            DataTypeEnum<A> dt = (DataTypeEnum<A>)this.dataType;
+            DataTypeEnum<I> dt = (DataTypeEnum<I>)this.dataType;
             this.setValue(dt.getEnum(nbt.getInt(Input.KEY_DATA_ENUM)));
         }
         else if(this.dataType instanceof DataTypeDynamic)
         {
-            DataTypeDynamic<A> dt = (DataTypeDynamic<A>)this.dataType;
+            DataTypeDynamic<I> dt = (DataTypeDynamic<I>)this.dataType;
             if(nbt.contains(Input.KEY_DATA_DYNAMIC))
             {
                 CompoundNBT data = nbt.getCompound(Input.KEY_DATA_DYNAMIC);

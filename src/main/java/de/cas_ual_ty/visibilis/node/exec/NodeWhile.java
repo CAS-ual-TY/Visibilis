@@ -9,10 +9,10 @@ import de.cas_ual_ty.visibilis.node.field.Output;
 
 public class NodeWhile extends Node implements INodeExec
 {
-    public final Output<Object> outExec1;
-    public final Output<Object> outExec2;
-    public final Input<Object> inExec;
-    public final Input<Boolean> inCondition;
+    public final Output<Object> out1Exec;
+    public final Output<Object> out2Exec;
+    public final Input<Object> in1Exec;
+    public final Input<Boolean> in2Condition;
     
     public boolean condition;
     public boolean exec2;
@@ -20,10 +20,10 @@ public class NodeWhile extends Node implements INodeExec
     public NodeWhile()
     {
         super();
-        this.addOutput(this.outExec1 = new Output<>(this, DataType.EXEC, "out1"));
-        this.addOutput(this.outExec2 = new Output<>(this, DataType.EXEC, "out2"));
-        this.addInput(this.inExec = new Input<>(this, DataType.EXEC, "in1"));
-        this.addInput(this.inCondition = new Input<>(this, DataType.BOOLEAN, "in2"));
+        this.addOutput(this.out1Exec = new Output<>(this, DataType.EXEC, "out1"));
+        this.addOutput(this.out2Exec = new Output<>(this, DataType.EXEC, "out2"));
+        this.addInput(this.in1Exec = new Input<>(this, DataType.EXEC, "in1"));
+        this.addInput(this.in2Condition = new Input<>(this, DataType.BOOLEAN, "in2"));
         this.exec2 = false;
     }
     
@@ -36,20 +36,20 @@ public class NodeWhile extends Node implements INodeExec
         }
         else if(this.condition)
         {
-            this.triggerRecalculation(this.inCondition);
-            return this.outExec1;
+            this.triggerRecalculation(this.in2Condition);
+            return this.out1Exec;
         }
         else
         {
             this.exec2 = true;
-            return this.outExec2;
+            return this.out2Exec;
         }
     }
     
     @Override
     public boolean doCalculate(ExecProvider provider)
     {
-        this.condition = this.inCondition.getValue();
+        this.condition = this.in2Condition.getValue();
         return true;
     }
     

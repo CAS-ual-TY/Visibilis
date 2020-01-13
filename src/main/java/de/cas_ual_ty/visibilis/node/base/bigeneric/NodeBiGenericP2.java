@@ -3,7 +3,7 @@ package de.cas_ual_ty.visibilis.node.base.bigeneric;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.field.Input;
 
-public abstract class NodeBiGenericP2<I, O> extends NodeBiGenericP<I, O>
+public abstract class NodeBiGenericP2<O, I> extends NodeBiGenericP<O, I>
 {
     public Input<I> in2;
     

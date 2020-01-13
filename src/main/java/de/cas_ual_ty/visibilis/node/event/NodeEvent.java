@@ -12,7 +12,7 @@ public class NodeEvent extends Node implements INodeExec
     // NBT Keys
     public static final String KEY_EVENT_TYPE = "eventType";
     
-    public final Output<Object> outExec;
+    public final Output<Object> out1Exec;
     
     /**
      * The modId:type of this event.
@@ -22,7 +22,7 @@ public class NodeEvent extends Node implements INodeExec
     public NodeEvent()
     {
         super();
-        this.addOutput(this.outExec = new Output<>(this, DataType.EXEC, "out1"));
+        this.addOutput(this.out1Exec = new Output<>(this, DataType.EXEC, "out1"));
         this.eventType = null; // Just to make sure it is initialized
     }
     
@@ -57,7 +57,7 @@ public class NodeEvent extends Node implements INodeExec
     @Override
     public Output<Object> getOutExec(int index)
     {
-        return index == 0 ? this.outExec : null;
+        return index == 0 ? this.out1Exec : null;
     }
     
     @Override
