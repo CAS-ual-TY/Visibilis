@@ -97,14 +97,9 @@ public abstract class NodeBiGenericX<I, O> extends NodeExpandable
     protected abstract O calculate(I[] inputs);
     
     @Override
-    public O getOutputValue(int index)
+    public <A> A getOutputValue(Output<A> out)
     {
-        if(index == this.out1.getId())
-        {
-            return this.value;
-        }
-        
-        return null;
+        return out == this.out1 ? VUtility.convert(this.value) : null;
     }
     
     @Override

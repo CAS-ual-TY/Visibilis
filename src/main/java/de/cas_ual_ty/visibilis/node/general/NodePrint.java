@@ -10,8 +10,8 @@ import net.minecraft.util.text.StringTextComponent;
 
 public class NodePrint extends NodeExpandable implements INodeExec
 {
-    public Output<?> out1;
-    public Input<?> in1;
+    public Output<Object> out1;
+    public Input<Object> in1;
     
     public String[] values;
     
@@ -24,7 +24,7 @@ public class NodePrint extends NodeExpandable implements INodeExec
     }
     
     @Override
-    public Output<?> getOutExec(int index)
+    public Output<Object> getOutExec(int index)
     {
         return index == 0 ? this.out1 : null;
     }
@@ -45,7 +45,7 @@ public class NodePrint extends NodeExpandable implements INodeExec
     }
     
     @Override
-    public <B> B getOutputValue(int index)
+    public <O> O getOutputValue(Output<O> out)
     {
         return null;
     }

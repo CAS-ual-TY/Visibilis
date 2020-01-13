@@ -7,13 +7,14 @@ import de.cas_ual_ty.visibilis.node.INodeExec;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
+import de.cas_ual_ty.visibilis.util.VUtility;
 
 public abstract class Sorter extends Node implements INodeExec
 {
-    public final Output outExec;
+    public final Output<Object> outExec;
     public final Output<TargetsList> outTargetsList1;
     public final Output<TargetsList> outTargetsList2;
-    public final Input inExec;
+    public final Input<Object> inExec;
     public final Input<TargetsList> inTargetsList;
     
     public TargetsList targetsList1;
@@ -22,10 +23,10 @@ public abstract class Sorter extends Node implements INodeExec
     public Sorter()
     {
         super();
-        this.addOutput(this.outExec = new Output(this, DataType.EXEC, "exec"));
+        this.addOutput(this.outExec = new Output<>(this, DataType.EXEC, "exec"));
         this.addOutput(this.outTargetsList1 = new Output<>(this, MMDataType.TARGETS_LIST, "targets_list"));
         this.addOutput(this.outTargetsList2 = new Output<>(this, MMDataType.TARGETS_LIST, "targets_list"));
-        this.addInput(this.inExec = new Input(this, DataType.EXEC, "exec"));
+        this.addInput(this.inExec = new Input<>(this, DataType.EXEC, "exec"));
         this.addInput(this.inTargetsList = new Input<>(this, MMDataType.TARGETS_LIST, "targets_list"));
         this.targetsList2 = new TargetsList();
     }
@@ -50,22 +51,22 @@ public abstract class Sorter extends Node implements INodeExec
     public abstract boolean sortOut(TargetsList list1, TargetsList list2);
     
     @Override
-    public <B> B getOutputValue(int index)
+    public <O> O getOutputValue(Output<O> out)
     {
-        if(index == this.outTargetsList1.getId())
+        if(out == this.outTargetsList1)
         {
-            return (B)this.targetsList1;
+            return VUtility.convert(this.targetsList1);
         }
-        else if(index == this.outTargetsList2.getId())
+        else if(out == this.outTargetsList2)
         {
-            return (B)this.targetsList2;
+            return VUtility.convert(this.targetsList2);
         }
         
         return null;
     }
     
     @Override
-    public Output getOutExec(int index)
+    public Output<Object> getOutExec(int index)
     {
         return index == 0 ? this.outExec : null;
     }

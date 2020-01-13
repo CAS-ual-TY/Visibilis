@@ -370,20 +370,19 @@ public abstract class Node
     /**
      * Get the Output<?> value of the specified index stored in this node.
      * 
-     * @param index
-     *            The index of the Output<?> node field to get the value from.
-     * @return The value of the specified index.
+     * @param out
+     *            the Output node field to get the value from.
+     * @return The value of the specified node field.
      */
     @Nullable
-    public abstract <B> B getOutputValue(int index);
+    public abstract <O> O getOutputValue(Output<O> out);
     
     // This links to Input.getValue(), which links to the connected output's Output.GetValue(), which links to this node's parent node's Node.getOutputValue().
     // It is better to just call Input.getValue() directly.
-    @SuppressWarnings("unchecked")
     @Nullable
-    public <B> B getInputValue(int index)
+    public <I> I getInputValue(Input<I> in)
     {
-        return (B)this.getInput(index).getValue();
+        return in.getValue();
     }
     
     /**

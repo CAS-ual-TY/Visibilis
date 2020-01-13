@@ -6,13 +6,14 @@ import de.cas_ual_ty.visibilis.node.INodeExec;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
+import de.cas_ual_ty.visibilis.util.VUtility;
 
 public class NodeFor extends Node implements INodeExec
 {
-    public final Output<?> outExec1;
+    public final Output<Object> outExec1;
     public final Output<Integer> outIndex2;
-    public final Output<?> outExec3;
-    public final Input<?> inExec;
+    public final Output<Object> outExec3;
+    public final Input<Object> inExec;
     public final Input<Integer> inLength;
     
     public int length;
@@ -29,7 +30,7 @@ public class NodeFor extends Node implements INodeExec
     }
     
     @Override
-    public Output<?> getOutExec(int index)
+    public Output<Object> getOutExec(int index)
     {
         this.value = index;
         return index == this.length ? this.outExec3 : (index < this.length ? this.outExec1 : null);
@@ -43,9 +44,9 @@ public class NodeFor extends Node implements INodeExec
     }
     
     @Override
-    public Integer getOutputValue(int index)
+    public <O> O getOutputValue(Output<O> out)
     {
-        return index == 1 ? this.value : null;
+        return out == this.outIndex2 ? VUtility.convert(this.value) : null;
     }
     
     @Override

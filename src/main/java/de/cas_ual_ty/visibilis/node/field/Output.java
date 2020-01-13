@@ -66,7 +66,7 @@ public class Output<A> extends NodeField<A>
     @Override
     public A getValue()
     {
-        return this.node.<A> getOutputValue(this.getId());
+        return this.node.getOutputValue(this);
     }
     
     @Override

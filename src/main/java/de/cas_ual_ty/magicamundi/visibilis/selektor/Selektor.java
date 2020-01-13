@@ -6,10 +6,11 @@ import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.field.Output;
+import de.cas_ual_ty.visibilis.util.VUtility;
 
 public abstract class Selektor extends Node
 {
-    public final Output outExec;
+    public final Output<Object> outExec;
     public final Output<TargetsList> outTargetsList;
     
     public final TargetsList targetsList;
@@ -17,7 +18,7 @@ public abstract class Selektor extends Node
     public Selektor()
     {
         super();
-        this.addOutput(this.outExec = new Output(this, DataType.EXEC, "exec"));
+        this.addOutput(this.outExec = new Output<>(this, DataType.EXEC, "exec"));
         this.addOutput(this.outTargetsList = new Output<>(this, MMDataType.TARGETS_LIST, "targets_list"));
         this.targetsList = new TargetsList();
     }
@@ -39,11 +40,11 @@ public abstract class Selektor extends Node
     public abstract boolean findTargets(TargetsList list);
     
     @Override
-    public <B> B getOutputValue(int index)
+    public <O> O getOutputValue(Output<O> out)
     {
-        if(index == this.outTargetsList.getId())
+        if(out == this.outTargetsList)
         {
-            return (B)this.targetsList;
+            return VUtility.convert(this.targetsList);
         }
         
         return null;

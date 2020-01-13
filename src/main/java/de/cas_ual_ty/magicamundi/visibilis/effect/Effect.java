@@ -11,15 +11,15 @@ import de.cas_ual_ty.visibilis.node.field.Output;
 
 public abstract class Effect extends Node implements INodeExec
 {
-    public final Output outExec;
-    public final Input inExec;
+    public final Output<Object> outExec;
+    public final Input<Object> inExec;
     public final Input<TargetsList> inTargetsList;
     
     public Effect()
     {
         super();
-        this.addOutput(this.outExec = new Output(this, DataType.EXEC, "exec"));
-        this.addInput(this.inExec = new Input(this, DataType.EXEC, "exec"));
+        this.addOutput(this.outExec = new Output<>(this, DataType.EXEC, "exec"));
+        this.addInput(this.inExec = new Input<>(this, DataType.EXEC, "exec"));
         this.addInput(this.inTargetsList = new Input<>(this, MMDataType.TARGETS_LIST, "targets_list"));
     }
     
@@ -39,13 +39,13 @@ public abstract class Effect extends Node implements INodeExec
     public abstract boolean applyEffect(TargetsList list);
     
     @Override
-    public <B> B getOutputValue(int index)
+    public <O> O getOutputValue(Output<O> out)
     {
         return null;
     }
     
     @Override
-    public Output getOutExec(int index)
+    public Output<Object> getOutExec(int index)
     {
         return index == 0 ? this.outExec : null;
     }

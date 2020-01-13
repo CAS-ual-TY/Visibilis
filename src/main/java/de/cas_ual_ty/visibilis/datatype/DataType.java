@@ -45,8 +45,7 @@ public class DataType<A>
      * This is all not required for a data type anyways. Sometimes it is definitely better NOT to implement this with very advanced types (eg. a list type).
      */
     
-    @SuppressWarnings("rawtypes")
-    public static final DataType EXEC = new DataType("exec", new float[] { 1F, 0F, 0F });
+    public static final DataType<Object> EXEC = new DataType<>("exec", new float[] { 1F, 0F, 0F });
     
     public static final DataTypeDynamic<Integer> INTEGER = (DataTypeDynamic<Integer>)new DataTypeDynamic<Integer>("integer", new float[] { 0.5F, 1F, 0F }, 1)
     {

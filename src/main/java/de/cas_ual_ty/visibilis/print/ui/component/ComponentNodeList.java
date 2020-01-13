@@ -290,6 +290,7 @@ public class ComponentNodeList extends Component
         return ret;
     }
     
+    @SuppressWarnings("unchecked")
     public ArrayList<Node> getAvailableNodesList()
     {
         return this.cutNodeListToSearch((ArrayList<Node>)this.getProvider().getAvailableNodes().clone());
@@ -311,6 +312,7 @@ public class ComponentNodeList extends Component
         
         if(!StringUtils.isNullOrEmpty(text))
         {
+            @SuppressWarnings("unchecked")
             ArrayList<Node> list2 = (ArrayList<Node>)list.clone();
             
             for(Node node : list2)

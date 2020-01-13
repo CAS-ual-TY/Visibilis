@@ -5,7 +5,7 @@ import de.cas_ual_ty.visibilis.node.INodeExec;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericX;
 import de.cas_ual_ty.visibilis.node.field.Output;
 
-public class NodeMerge extends NodeGenericX implements INodeExec
+public class NodeMerge extends NodeGenericX<Object> implements INodeExec
 {
     public NodeMerge()
     {
@@ -13,13 +13,13 @@ public class NodeMerge extends NodeGenericX implements INodeExec
     }
     
     @Override
-    public Output<?> getOutExec(int index)
+    public Output<Object> getOutExec(int index)
     {
         return index == 0 ? this.out1 : null;
     }
     
     @Override
-    public DataType<?> getDataType()
+    public DataType<Object> getDataType()
     {
         return DataType.EXEC;
     }

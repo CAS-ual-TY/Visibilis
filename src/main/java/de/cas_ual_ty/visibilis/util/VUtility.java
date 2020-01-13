@@ -7,4 +7,10 @@ public class VUtility
     {
         return (A[])new Object[length];
     }
+    
+    @SuppressWarnings("unchecked")
+    public static <A, B> A convert(B b)
+    {
+        return (A)b;
+    }
 }

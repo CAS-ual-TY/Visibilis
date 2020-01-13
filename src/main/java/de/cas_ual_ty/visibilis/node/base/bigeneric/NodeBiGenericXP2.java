@@ -181,16 +181,16 @@ public abstract class NodeBiGenericXP2<I, O> extends NodeParallelizable
     protected abstract O calculate(I[] inputs); // Not Injective
     
     @Override
-    public O getOutputValue(int index)
+    public <A> A getOutputValue(Output<A> out)
     {
         if(this.parallelized)
         {
             int i = 0;
             for(Output<O> output : this.expansionOutputs)
             {
-                if(output.getId() == index)
+                if(output == out)
                 {
-                    return this.values[i];
+                    return VUtility.convert(this.values[i]);
                 }
                 
                 ++i;
@@ -198,9 +198,9 @@ public abstract class NodeBiGenericXP2<I, O> extends NodeParallelizable
         }
         else
         {
-            if(this.expansionOutputs.getFirst().getId() == index)
+            if(this.expansionOutputs.getFirst() == out)
             {
-                return this.value;
+                return VUtility.convert(this.value);
             }
         }
         

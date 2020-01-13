@@ -4,6 +4,7 @@ import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.field.Output;
+import de.cas_ual_ty.visibilis.util.VUtility;
 
 public abstract class NodeGenericC<A> extends Node
 {
@@ -26,9 +27,9 @@ public abstract class NodeGenericC<A> extends Node
     }
     
     @Override
-    public A getOutputValue(int index)
+    public <O> O getOutputValue(Output<O> out)
     {
-        return index == 0 ? this.getConstant() : null;
+        return out == this.out1 ? VUtility.convert(this.getConstant()) : null;
     }
     
     @Override

@@ -9,9 +9,9 @@ import de.cas_ual_ty.visibilis.node.field.Output;
 
 public class NodeWhile extends Node implements INodeExec
 {
-    public final Output<?> outExec1;
-    public final Output<?> outExec2;
-    public final Input<?> inExec;
+    public final Output<Object> outExec1;
+    public final Output<Object> outExec2;
+    public final Input<Object> inExec;
     public final Input<Boolean> inCondition;
     
     public boolean condition;
@@ -28,7 +28,7 @@ public class NodeWhile extends Node implements INodeExec
     }
     
     @Override
-    public Output getOutExec(int index)
+    public Output<Object> getOutExec(int index)
     {
         if(this.exec2)
         {
@@ -54,7 +54,7 @@ public class NodeWhile extends Node implements INodeExec
     }
     
     @Override
-    public <B> B getOutputValue(int index)
+    public <O> O getOutputValue(Output<O> out)
     {
         return null;
     }

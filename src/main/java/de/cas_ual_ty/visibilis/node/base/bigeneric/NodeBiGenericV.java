@@ -1,5 +1,7 @@
 package de.cas_ual_ty.visibilis.node.base.bigeneric;
 
+import de.cas_ual_ty.visibilis.util.VUtility;
+
 public abstract class NodeBiGenericV<I, O> extends NodeBiGenericP<I, O>
 {
     public NodeBiGenericV()
@@ -10,6 +12,6 @@ public abstract class NodeBiGenericV<I, O> extends NodeBiGenericP<I, O>
     @Override
     protected O calculate(I input)
     {
-        return (O)input;
+        return VUtility.convert(input);
     }
 }

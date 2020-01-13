@@ -10,18 +10,18 @@ import de.cas_ual_ty.visibilis.util.NBTUtility;
 
 public class VNodePrintDebug extends Node implements INodeExec
 {
-    public Output out1;
-    public Input in1;
+    public Output<Object> out1;
+    public Input<Object> in1;
     
     public VNodePrintDebug()
     {
         super();
-        this.addOutput(this.out1 = new Output(this, DataType.EXEC, "out1"));
-        this.addInput(this.in1 = new Input(this, DataType.EXEC, "in1"));
+        this.addOutput(this.out1 = new Output<>(this, DataType.EXEC, "out1"));
+        this.addInput(this.in1 = new Input<>(this, DataType.EXEC, "in1"));
     }
     
     @Override
-    public Output getOutExec(int index)
+    public Output<Object> getOutExec(int index)
     {
         return index == 0 ? this.out1 : null;
     }
@@ -35,7 +35,7 @@ public class VNodePrintDebug extends Node implements INodeExec
     }
     
     @Override
-    public <B> B getOutputValue(int index)
+    public <O> O getOutputValue(Output<O> out)
     {
         return null;
     }
