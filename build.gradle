@@ -13,7 +13,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.0.0.0'
+version = '1.14.4-1.0'
 group = 'de.cas_ual_ty.visibilis' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'visibilis'
 
@@ -146,4 +146,19 @@ publishing {
             url "file:///${project.projectDir}/mcmodsrepo"
         }
     }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar    
+    archives sourcesJar 
 }
