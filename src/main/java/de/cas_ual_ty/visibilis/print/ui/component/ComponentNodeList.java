@@ -193,6 +193,26 @@ public class ComponentNodeList extends Component
     }
     
     @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double amountScrolled)
+    {
+        int i;
+        
+        for(i = 0; i < amountScrolled; ++i)
+        {
+            this.scrollUp();
+        }
+        
+        amountScrolled *= -1;
+        
+        for(i = 0; i < amountScrolled; ++i)
+        {
+            this.scrollDown();
+        }
+        
+        return super.mouseScrolled(mouseX, mouseY, amountScrolled);
+    }
+    
+    @Override
     public boolean charTyped(char typedChar, int keyCode)
     {
         if(this.searchInput.isFocused())
