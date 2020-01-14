@@ -1,10 +1,10 @@
 package de.cas_ual_ty.visibilis.node.event;
 
-import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.INodeExec;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.field.Output;
+import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import net.minecraft.nbt.CompoundNBT;
 
 public class NodeEvent extends Node implements INodeExec
@@ -22,7 +22,7 @@ public class NodeEvent extends Node implements INodeExec
     public NodeEvent()
     {
         super();
-        this.addOutput(this.out1Exec = new Output<>(this, DataType.EXEC, "out1"));
+        this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1"));
         this.eventType = null; // Just to make sure it is initialized
     }
     

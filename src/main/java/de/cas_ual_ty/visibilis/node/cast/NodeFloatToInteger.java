@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis.node.cast;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.base.bigeneric.NodeBiGenericP;
+import de.cas_ual_ty.visibilis.registries.VDataTypes;
 
 public class NodeFloatToInteger extends NodeBiGenericP<Integer, Float>
 {
@@ -13,13 +14,13 @@ public class NodeFloatToInteger extends NodeBiGenericP<Integer, Float>
     @Override
     public DataType<Integer> getOutDataType()
     {
-        return DataType.INTEGER;
+        return VDataTypes.INTEGER;
     }
     
     @Override
     public DataType<Float> getInDataType()
     {
-        return DataType.FLOAT;
+        return VDataTypes.FLOAT;
     }
     
     @Override

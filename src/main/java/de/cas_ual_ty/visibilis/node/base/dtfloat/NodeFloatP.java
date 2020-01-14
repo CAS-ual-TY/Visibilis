@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis.node.base.dtfloat;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericP;
+import de.cas_ual_ty.visibilis.registries.VDataTypes;
 
 public abstract class NodeFloatP extends NodeGenericP<Float>
 {
@@ -13,7 +14,7 @@ public abstract class NodeFloatP extends NodeGenericP<Float>
     @Override
     public DataType<Float> getDataType()
     {
-        return DataType.FLOAT;
+        return VDataTypes.FLOAT;
     }
     
     @Override

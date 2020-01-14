@@ -13,6 +13,7 @@ import de.cas_ual_ty.visibilis.node.NodeGroupsHelper;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.print.Print;
+import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import net.minecraft.client.MainWindow;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -589,7 +590,7 @@ public class RenderUtility
      */
     public float getLineWidth(DataType<?> type)
     {
-        return (type == DataType.EXEC ? 2 : 1) * this.nodeFieldConnectionsWidth;
+        return (type == VDataTypes.EXEC ? 2 : 1) * this.nodeFieldConnectionsWidth;
     }
     
     /**

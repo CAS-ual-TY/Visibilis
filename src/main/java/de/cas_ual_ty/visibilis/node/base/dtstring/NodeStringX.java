@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis.node.base.dtstring;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericX;
+import de.cas_ual_ty.visibilis.registries.VDataTypes;
 
 public abstract class NodeStringX extends NodeGenericX<String>
 {
@@ -13,6 +14,6 @@ public abstract class NodeStringX extends NodeGenericX<String>
     @Override
     public DataType<String> getDataType()
     {
-        return DataType.STRING;
+        return VDataTypes.STRING;
     }
 }

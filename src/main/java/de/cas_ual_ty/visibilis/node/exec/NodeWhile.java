@@ -1,11 +1,11 @@
 package de.cas_ual_ty.visibilis.node.exec;
 
-import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecProvider;
 import de.cas_ual_ty.visibilis.node.INodeExec;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
+import de.cas_ual_ty.visibilis.registries.VDataTypes;
 
 public class NodeWhile extends Node implements INodeExec
 {
@@ -20,10 +20,10 @@ public class NodeWhile extends Node implements INodeExec
     public NodeWhile()
     {
         super();
-        this.addOutput(this.out1Exec = new Output<>(this, DataType.EXEC, "out1"));
-        this.addOutput(this.out2Exec = new Output<>(this, DataType.EXEC, "out2"));
-        this.addInput(this.in1Exec = new Input<>(this, DataType.EXEC, "in1"));
-        this.addInput(this.in2Condition = new Input<>(this, DataType.BOOLEAN, "in2"));
+        this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1"));
+        this.addOutput(this.out2Exec = new Output<>(this, VDataTypes.EXEC, "out2"));
+        this.addInput(this.in1Exec = new Input<>(this, VDataTypes.EXEC, "in1"));
+        this.addInput(this.in2Condition = new Input<>(this, VDataTypes.BOOLEAN, "in2"));
         this.exec2 = false;
     }
     

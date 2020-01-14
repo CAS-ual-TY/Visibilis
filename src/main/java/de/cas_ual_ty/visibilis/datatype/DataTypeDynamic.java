@@ -11,14 +11,14 @@ public abstract class DataTypeDynamic<A> extends DataType<A>
     
     // Default value is required for this type of a data type so it is added to the constructor.
     
-    public DataTypeDynamic(String id, A defaultValue)
+    public DataTypeDynamic(A defaultValue)
     {
-        this(id, DataType.COLOR_DEFAULT_GREY, defaultValue);
+        this(DataType.COLOR_DEFAULT_GREY, defaultValue);
     }
     
-    public DataTypeDynamic(String id, float[] color, A defaultValue)
+    public DataTypeDynamic(float[] color, A defaultValue)
     {
-        super(id, color);
+        super(color);
         this.setDefaultValue(defaultValue);
         this.validator = this.createValidator();
     }

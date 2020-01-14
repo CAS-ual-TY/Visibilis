@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.INodeExec;
 import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.registries.VDataTypes;
 
 public class Output<O> extends NodeField<O>
 {
@@ -42,7 +43,7 @@ public class Output<O> extends NodeField<O>
             if(!this.connections.contains(field))
             {
                 // Make sure exec node fields can only have 1 connection (not output to multiple inputs)
-                if(this.dataType == DataType.EXEC)
+                if(this.dataType == VDataTypes.EXEC)
                 {
                     // Just to be sure. This is only false if someone accidentally added an exec node field to a non exec node
                     if(field.node instanceof INodeExec)

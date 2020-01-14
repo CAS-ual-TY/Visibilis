@@ -21,9 +21,9 @@ public class NodesRegistry
     
     public static Node instantiateNode(ResourceLocation rl)
     {
-        if(Visibilis.nodesRegistry.containsKey(rl))
+        if(Visibilis.nodeTypesRegistry.containsKey(rl))
         {
-            return Visibilis.nodesRegistry.getValue(rl).instantiate();
+            return Visibilis.nodeTypesRegistry.getValue(rl).instantiate();
         }
         
         Visibilis.error("Node \"" + rl.toString() + "\" does not exist!");
@@ -65,9 +65,9 @@ public class NodesRegistry
     public static NodeType getNodeTypeFor(Class<? extends Node> clazz)
     {
         NodeType type;
-        for(ResourceLocation key : Visibilis.nodesRegistry.getKeys())
+        for(ResourceLocation key : Visibilis.nodeTypesRegistry.getKeys())
         {
-            type = Visibilis.nodesRegistry.getValue(key);
+            type = Visibilis.nodeTypesRegistry.getValue(key);
             
             if(type.getNodeClass() == clazz)
             {
@@ -80,7 +80,7 @@ public class NodesRegistry
     
     public static void forEachRL(Consumer<ResourceLocation> consumer)
     {
-        for(ResourceLocation rl : Visibilis.nodesRegistry.getKeys())
+        for(ResourceLocation rl : Visibilis.nodeTypesRegistry.getKeys())
         {
             consumer.accept(rl);
         }
@@ -90,7 +90,7 @@ public class NodesRegistry
     {
         NodesRegistry.forEachRL((rl) ->
         {
-            consumer.accept(Visibilis.nodesRegistry.getValue(rl));
+            consumer.accept(Visibilis.nodeTypesRegistry.getValue(rl));
         });
     }
 }

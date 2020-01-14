@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis.node.base.generic;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.base.bigeneric.NodeBiGenericP2;
+import de.cas_ual_ty.visibilis.registries.VDataTypes;
 
 public abstract class NodeGenericE<I> extends NodeBiGenericP2<Boolean, I>
 {
@@ -23,7 +24,7 @@ public abstract class NodeGenericE<I> extends NodeBiGenericP2<Boolean, I>
     @Override
     public DataType<Boolean> getOutDataType()
     {
-        return DataType.BOOLEAN;
+        return VDataTypes.BOOLEAN;
     }
     
     @Override

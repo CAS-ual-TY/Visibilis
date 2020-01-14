@@ -7,10 +7,11 @@ import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.datatype.converter.AnyString;
 import de.cas_ual_ty.visibilis.datatype.converter.IntegerFloat;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
+import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import de.cas_ual_ty.visibilis.util.VUtility;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 
-public class DataType<A>
+public class DataType<A> extends ForgeRegistryEntry<DataType<?>>
 {
     public static final float[] COLOR_TEXT_WHITE = new float[] { 1F, 1F, 1F };
     public static final float[] COLOR_TEXT_BLACK = new float[] { 0F, 0F, 0F };
@@ -46,168 +47,19 @@ public class DataType<A>
      * This is all not required for a data type anyways. Sometimes it is definitely better NOT to implement this with very advanced types (eg. a list type).
      */
     
-    public static final DataType<Object> EXEC = new DataType<>("exec", new float[] { 1F, 0F, 0F });
-    
-    public static final DataTypeDynamic<Integer> INTEGER = (DataTypeDynamic<Integer>)new DataTypeDynamic<Integer>("integer", new float[] { 0.5F, 1F, 0F }, 1)
-    {
-        @Override
-        public boolean equals(Integer obj1, Integer obj2)
-        {
-            return obj1.intValue() == obj2.intValue();
-        }
-        
-        @Override
-        public boolean canParseString(String s)
-        {
-            if(s.equals("-"))
-            {
-                return true;
-            }
-            
-            try
-            {
-                this.stringToValue(s);
-                return true;
-            }
-            catch (NumberFormatException e)
-            {
-                return false;
-            }
-        }
-        
-        @Override
-        public Integer stringToValue(String s)
-        {
-            if(s.equals("-"))
-            {
-                return 0;
-            }
-            return Integer.parseInt(s);
-        }
-        
-        @Override
-        public Integer loadFromNBT(CompoundNBT nbt)
-        {
-            return nbt.getInt(DataType.KEY_DATA);
-        }
-        
-        @Override
-        public CompoundNBT saveToNBT(Integer data)
-        {
-            CompoundNBT nbt = new CompoundNBT();
-            nbt.putInt(DataType.KEY_DATA, data.intValue());
-            return nbt;
-        }
-    }.setBlackText();
-    
-    public static final DataTypeDynamic<Float> FLOAT = (DataTypeDynamic<Float>)new DataTypeDynamic<Float>("float", new float[] { 1F, 1F, 0F }, 1.0F)
-    {
-        @Override
-        public boolean equals(Float obj1, Float obj2)
-        {
-            return obj1.floatValue() == obj2.floatValue();
-        }
-        
-        @Override
-        public boolean canParseString(String s)
-        {
-            if(s.equals("-"))
-            {
-                return true;
-            }
-            
-            try
-            {
-                this.stringToValue(s);
-                return true;
-            }
-            catch (NumberFormatException e)
-            {
-                return false;
-            }
-        }
-        
-        @Override
-        public Float stringToValue(String s)
-        {
-            if(s.equals("-"))
-            {
-                return 0F;
-            }
-            return Float.parseFloat(s);
-        }
-        
-        @Override
-        public Float loadFromNBT(CompoundNBT nbt)
-        {
-            return nbt.getFloat(DataType.KEY_DATA);
-        }
-        
-        @Override
-        public CompoundNBT saveToNBT(Float data)
-        {
-            CompoundNBT nbt = new CompoundNBT();
-            nbt.putFloat(DataType.KEY_DATA, data.floatValue());
-            return nbt;
-        }
-    }.setBlackText();
-    
-    public static final DataTypeEnum<Boolean> BOOLEAN = new DataTypeEnum<Boolean>("boolean", new float[] { 1F, 0F, 1F })
-    {
-        @Override
-        public boolean equals(Boolean obj1, Boolean obj2)
-        {
-            return obj1.booleanValue() == obj2.booleanValue();
-        }
-    }.addEnum(false).addEnum(true);
-    
-    public static final DataTypeDynamic<String> STRING = (DataTypeDynamic<String>)new DataTypeDynamic<String>("string", new float[] { 1F, 1F, 1F }, "text")
-    {
-        @Override
-        public boolean canParseString(String s)
-        {
-            return true; // TODO Maybe not everything should be allowed? eg \". Problems when loading from NBT?
-        }
-        
-        @Override
-        public String stringToValue(String s)
-        {
-            return s;
-        }
-        
-        @Override
-        public String loadFromNBT(CompoundNBT nbt)
-        {
-            return nbt.getString(DataType.KEY_DATA);
-        }
-        
-        @Override
-        public CompoundNBT saveToNBT(String data)
-        {
-            CompoundNBT nbt = new CompoundNBT();
-            nbt.putString(DataType.KEY_DATA, data);
-            return nbt;
-        }
-    }.setBlackText();
-    
     static
     {
-        DataType.FLOAT.registerConverter(DataType.INTEGER, new IntegerFloat()); // As I dont know how this will be used in the future, I rather add this in.
+        VDataTypes.FLOAT.registerConverter(VDataTypes.INTEGER, new IntegerFloat()); // As I dont know how this will be used in the future, I rather add this in.
         
-        DataType.STRING.registerConverter(DataType.INTEGER, new AnyString<>());
-        DataType.STRING.registerConverter(DataType.FLOAT, new AnyString<>());
-        DataType.STRING.registerConverter(DataType.BOOLEAN, new AnyString<>());
+        VDataTypes.STRING.registerConverter(VDataTypes.INTEGER, new AnyString<>());
+        VDataTypes.STRING.registerConverter(VDataTypes.FLOAT, new AnyString<>());
+        VDataTypes.STRING.registerConverter(VDataTypes.BOOLEAN, new AnyString<>());
     }
     
     /**
      * All registered converters
      */
     protected HashMap<DataType<?>, Converter<?, A>> converters;
-    
-    /**
-     * Unique id. Used for translation
-     */
-    public final String id;
     
     /**
      * Color for rendering - background of the text. This should be colored, its the representation of this data type
@@ -224,25 +76,17 @@ public class DataType<A>
      */
     protected A defaultValue;
     
-    public DataType(String id)
+    public DataType()
     {
-        this(id, DataType.COLOR_DEFAULT_GREY);
+        this(DataType.COLOR_DEFAULT_GREY);
     }
     
-    public DataType(String id, float[] color)
+    public DataType(float[] color)
     {
-        this.id = id;
         this.converters = new HashMap<>();
         this.color = color;
         this.textColor = DataType.COLOR_TEXT_WHITE;
         this.defaultValue = null;
-        
-        if(DataType.DATA_TYPES_LIST.containsKey(id))
-        {
-            Visibilis.error("Data type \"" + id + "\" already exists!");
-        }
-        
-        DataType.DATA_TYPES_LIST.put(id, this);
     }
     
     public boolean equals(A obj1, A obj2)
@@ -261,7 +105,7 @@ public class DataType<A>
      */
     public <F> DataType<A> registerConverter(DataType<F> from, Converter<F, A> converter)
     {
-        if(this == DataType.EXEC || from == DataType.EXEC)
+        if(this == VDataTypes.EXEC || from == VDataTypes.EXEC)
         {
             Visibilis.error("EXEC is not convertible!");
             return this;
@@ -283,7 +127,7 @@ public class DataType<A>
      */
     public <F> DataType<A> registerGenericConverter(DataType<F> from)
     {
-        if(this == DataType.EXEC || from == DataType.EXEC)
+        if(this == VDataTypes.EXEC || from == VDataTypes.EXEC)
         {
             return this;
         }
