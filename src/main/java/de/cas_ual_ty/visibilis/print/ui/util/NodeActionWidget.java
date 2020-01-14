@@ -32,35 +32,30 @@ public class NodeActionWidget implements IGuiEventListener
         int w = this.component.uiBase.util.nodeWidth;
         int h = this.component.uiBase.util.nodeHeight * this.actions.size();
         
-        Rectangle dim = Rectangle.fromXYWH(mouseX - w, mouseY - h, w, h);
+        int midX = dimensionsIn.x + dimensionsIn.w / 2;
+        int midY = dimensionsIn.y + dimensionsIn.h / 2;
         
-        if(dim.r > dimensionsIn.r)
+        int x, y;
+        
+        if(mouseX >= midX)
         {
-            dim.l -= dim.r - dimensionsIn.r;
-            dim.r -= dim.r - dimensionsIn.r;
+            x = mouseX - w;
+        }
+        else
+        {
+            x = mouseX;
         }
         
-        if(dim.b > dimensionsIn.b)
+        if(mouseY >= midY)
         {
-            dim.t -= dim.b - dimensionsIn.b;
-            dim.b -= dim.b - dimensionsIn.b;
+            y = mouseY - h;
+        }
+        else
+        {
+            y = mouseY;
         }
         
-        if(dim.l < dimensionsIn.l)
-        {
-            dim.l += dimensionsIn.l - dim.l;
-            dim.r += dimensionsIn.l - dim.l;
-        }
-        
-        if(dim.t < dimensionsIn.t)
-        {
-            dim.t += dimensionsIn.t - dim.t;
-            dim.b += dimensionsIn.t - dim.t;
-        }
-        
-        dim.updateXYWH();
-        
-        this.dimensions = dim;
+        this.dimensions = Rectangle.fromXYWH(x, y, w, h);
     }
     
     public void guiRender(int mouseX, int mouseY, float partialTicks)
