@@ -6,6 +6,7 @@ import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeType;
 import net.minecraft.util.ResourceLocation;
 
+@SuppressWarnings("rawtypes")
 public class NodesRegistry
 {
     public static Node instantiateNode(String modId, String name)
@@ -44,7 +45,6 @@ public class NodesRegistry
         return null;
     }
     
-    @SuppressWarnings("rawtypes")
     public static ResourceLocation getRLForNode(Node n)
     {
         NodeType type = NodesRegistry.getNodeTypeFor(n);
@@ -57,13 +57,11 @@ public class NodesRegistry
         return null;
     }
     
-    @SuppressWarnings("rawtypes")
     public static NodeType getNodeTypeFor(Node n)
     {
         return NodesRegistry.getNodeTypeFor(n.getClass());
     }
     
-    @SuppressWarnings("rawtypes")
     public static NodeType getNodeTypeFor(Class<? extends Node> clazz)
     {
         NodeType type;
