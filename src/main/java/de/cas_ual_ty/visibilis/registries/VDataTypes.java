@@ -31,7 +31,7 @@ public class VDataTypes
     {
         IForgeRegistry<DataType<?>> registry = event.getRegistry();
         
-        registry.register(new DataType<>(new float[] { 1F, 0F, 0F }).setRegistryName(Visibilis.MOD_ID, "exec"));
+        registry.register(new DataType<Object>(new float[] { 1F, 0F, 0F }).setRegistryName(Visibilis.MOD_ID, "exec"));
         
         registry.register(new DataTypeDynamic<Integer>(new float[] { 0.5F, 1F, 0F }, 1)
         {
