@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.general;
 
-import de.cas_ual_ty.visibilis.node.ExecProvider;
+import de.cas_ual_ty.visibilis.node.ExecContext;
 import de.cas_ual_ty.visibilis.node.INodeExec;
 import de.cas_ual_ty.visibilis.node.base.NodeExpandable;
 import de.cas_ual_ty.visibilis.node.field.Input;
@@ -30,7 +30,7 @@ public class NodePrint extends NodeExpandable implements INodeExec
     }
     
     @Override
-    public boolean doCalculate(ExecProvider provider)
+    public boolean doCalculate(ExecContext context)
     {
         String s;
         
@@ -38,7 +38,7 @@ public class NodePrint extends NodeExpandable implements INodeExec
         {
             s = (String)this.getInput(i).getValue();
             
-            provider.getCommandSender().sendFeedback(new StringTextComponent(s), true);
+            context.getData().getCommandSender().sendFeedback(new StringTextComponent(s), true);
         }
         
         return true;

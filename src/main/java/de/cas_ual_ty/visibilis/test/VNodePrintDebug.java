@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.test;
 
-import de.cas_ual_ty.visibilis.node.ExecProvider;
+import de.cas_ual_ty.visibilis.node.ExecContext;
 import de.cas_ual_ty.visibilis.node.INodeExec;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.field.Input;
@@ -27,9 +27,9 @@ public class VNodePrintDebug extends Node implements INodeExec
     }
     
     @Override
-    public boolean doCalculate(ExecProvider provider)
+    public boolean doCalculate(ExecContext context)
     {
-        VNBTUtility.printTree(VNBTUtility.savePrintToNBT(provider.getPrint()));
+        VNBTUtility.printTree(VNBTUtility.savePrintToNBT(context.getPrint()));
         
         return true;
     }

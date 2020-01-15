@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.exec;
 
-import de.cas_ual_ty.visibilis.node.ExecProvider;
+import de.cas_ual_ty.visibilis.node.ExecContext;
 import de.cas_ual_ty.visibilis.node.INodeExec;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.field.Input;
@@ -32,7 +32,7 @@ public class NodeBranch extends Node implements INodeExec
     }
     
     @Override
-    public boolean doCalculate(ExecProvider provider)
+    public boolean doCalculate(ExecContext context)
     {
         this.value = this.in2Boolean.getValue();
         return true;

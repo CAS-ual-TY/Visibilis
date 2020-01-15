@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.config.VConfiguration;
-import de.cas_ual_ty.visibilis.node.ExecProvider;
+import de.cas_ual_ty.visibilis.node.DataProvider;
+import de.cas_ual_ty.visibilis.node.ExecContext;
 import de.cas_ual_ty.visibilis.node.INodeExec;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
@@ -146,7 +147,7 @@ public class Print
             
             if(event.eventType.equals(eventType))
             {
-                return this.execute(event, new ExecProvider(sender));
+                return this.execute(event, new DataProvider(sender));
             }
         }
         
@@ -160,16 +161,16 @@ public class Print
      *            The node to start the exec chain from.
      * @return <b>true</b> if the given parameter exec node and all child exec nodes could be calculated successfully.
      */
-    public boolean execute(INodeExec node, ExecProvider provider)
+    public boolean execute(INodeExec node, DataProvider provider)
     {
         if(VConfiguration.shutdown)
         {
             return false;
         }
         
-        provider.setPrint(this);
+        ExecContext context = new ExecContext(this, provider);
         
-        boolean ret = this.exec(node, provider);
+        boolean ret = this.exec(node, context);
         
         for(Node n : this.nodes)
         {
@@ -186,10 +187,10 @@ public class Print
      *            The node to start the exec chain from.
      * @return <b>true</b> if the given parameter exec node and all child exec nodes could be calculated successfully.
      */
-    protected boolean exec(INodeExec node, ExecProvider provider)
+    protected boolean exec(INodeExec node, ExecContext context)
     {
         // If the node can not be calculated, abort
-        if(!node.toNode().calculate(provider))
+        if(!node.toNode().calculate(context))
         {
             return false;
         }
@@ -223,7 +224,7 @@ public class Print
                 if(next != null)
                 {
                     // Check the the sub node has been successfully calculated
-                    if(!this.exec(next, provider))
+                    if(!this.exec(next, context))
                     {
                         // Abort if false
                         return false;

@@ -3,7 +3,7 @@ package de.cas_ual_ty.visibilis.node.base.bigeneric;
 import java.util.LinkedList;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.node.ExecProvider;
+import de.cas_ual_ty.visibilis.node.ExecContext;
 import de.cas_ual_ty.visibilis.node.base.NodeParallelizable;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
@@ -117,7 +117,7 @@ public abstract class NodeBiGenericXP2<O, I> extends NodeParallelizable
     }
     
     @Override
-    public boolean doCalculate(ExecProvider provider)
+    public boolean doCalculate(ExecContext context)
     {
         I[] inputs = VUtility.createGenericArray(this.expansionInputs.size());
         

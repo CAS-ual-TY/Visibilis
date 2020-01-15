@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.base.bigeneric;
 
-import de.cas_ual_ty.visibilis.node.ExecProvider;
+import de.cas_ual_ty.visibilis.node.ExecContext;
 import de.cas_ual_ty.visibilis.node.field.Input;
 
 public abstract class NodeBiGenericP2<O, I> extends NodeBiGenericP<O, I>
@@ -23,11 +23,11 @@ public abstract class NodeBiGenericP2<O, I> extends NodeBiGenericP<O, I>
     }
     
     @Override
-    public boolean doCalculate(ExecProvider provider)
+    public boolean doCalculate(ExecContext context)
     {
         this.tempIn2 = this.in2.getValue();
         
-        return super.doCalculate(provider);
+        return super.doCalculate(context);
     }
     
     @Override

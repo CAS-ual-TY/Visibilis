@@ -88,7 +88,7 @@ public abstract class Node
      * 
      * @return <b>true</b> if all parent nodes have successfully been calculated, <false> if they could not be calculated.
      */
-    public boolean preCalculate(ExecProvider provider)
+    public boolean preCalculate(ExecContext context)
     {
         // If this node has no inputs it also has no parents, so it can be calculated immediately
         // (or if none of the inputs have any connections)
@@ -118,7 +118,7 @@ public abstract class Node
                         if(!field1.getNode().isCalculated())
                         {
                             // Calculate it, return false if it fails
-                            if(!field1.getNode().calculate(provider))
+                            if(!field1.getNode().calculate(context))
                             {
                                 return false;
                             }
@@ -136,17 +136,17 @@ public abstract class Node
      * 
      * @return <b>true</b> if all nodes have successfully been calculated, <false> if they could not be calculated.
      */
-    public boolean calculate(ExecProvider provider)
+    public boolean calculate(ExecContext context)
     {
         // Make sure all parents are calculated
-        if(!this.preCalculate(provider) || !this.hasAllRequiredInputs(provider))
+        if(!this.preCalculate(context) || !this.hasAllRequiredInputs(context))
         {
             // Abort if parents could not be calculated
             return false;
         }
         
         // Now try calculate this node
-        return this.doCalculate(provider);
+        return this.doCalculate(context);
     }
     
     /**
@@ -154,7 +154,7 @@ public abstract class Node
      * 
      * @return <b>true</b> if this node has successfully been calculated, <false> if it could not be calculated.
      */
-    public abstract boolean doCalculate(ExecProvider provider);
+    public abstract boolean doCalculate(ExecContext context);
     
     /**
      * See if this node is a dead end with no further connections at the output.
@@ -222,7 +222,7 @@ public abstract class Node
     /**
      * Returns <b>true</b> if all inputs that are required for calculation are connected. Override if there are any optional inputs not required for calculation.
      */
-    public boolean hasAllRequiredInputs(ExecProvider provider)
+    public boolean hasAllRequiredInputs(ExecContext context)
     {
         Input<?> field0;
         int i;
