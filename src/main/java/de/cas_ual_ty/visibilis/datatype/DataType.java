@@ -5,7 +5,6 @@ import java.util.Map;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.datatype.converter.AnyString;
-import de.cas_ual_ty.visibilis.datatype.converter.IntegerFloat;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import de.cas_ual_ty.visibilis.util.VUtility;
@@ -49,7 +48,7 @@ public class DataType<A> extends ForgeRegistryEntry<DataType<?>>
     
     static
     {
-        VDataTypes.FLOAT.registerConverter(VDataTypes.INTEGER, new IntegerFloat()); // As I dont know how this will be used in the future, I rather add this in.
+        VDataTypes.FLOAT.registerConverter(VDataTypes.INTEGER, (f) -> f.floatValue()); // As I dont know how this will be used in the future, I rather add this in.
         
         VDataTypes.STRING.registerConverter(VDataTypes.INTEGER, new AnyString<>());
         VDataTypes.STRING.registerConverter(VDataTypes.FLOAT, new AnyString<>());
@@ -59,7 +58,7 @@ public class DataType<A> extends ForgeRegistryEntry<DataType<?>>
     /**
      * All registered converters
      */
-    protected HashMap<DataType<?>, Converter<?, A>> converters;
+    protected HashMap<DataType<?>, IConverter<?, A>> converters;
     
     /**
      * Color for rendering - background of the text. This should be colored, its the representation of this data type
@@ -103,7 +102,7 @@ public class DataType<A> extends ForgeRegistryEntry<DataType<?>>
      *            The converter to set how data is converted
      * @return This for chaining
      */
-    public <F> DataType<A> registerConverter(DataType<F> from, Converter<F, A> converter)
+    public <F> DataType<A> registerConverter(DataType<F> from, IConverter<F, A> converter)
     {
         if(this == VDataTypes.EXEC || from == VDataTypes.EXEC)
         {
@@ -111,7 +110,6 @@ public class DataType<A> extends ForgeRegistryEntry<DataType<?>>
             return this;
         }
         
-        converter.setFromTo(from, this);
         this.converters.put(from, converter);
         return this;
     }
@@ -132,7 +130,7 @@ public class DataType<A> extends ForgeRegistryEntry<DataType<?>>
             return this;
         }
         
-        Converter<F, A> converter = new Converter<F, A>().setFromTo(from, this);
+        IConverter<F, A> converter = (f) -> VUtility.cast(f);
         
         this.converters.put(from, converter);
         return this;
@@ -159,7 +157,7 @@ public class DataType<A> extends ForgeRegistryEntry<DataType<?>>
      */
     public <F> A convert(DataType<F> from, F value)
     {
-        return (VUtility.<Converter<F, A>, Converter<?, A>> cast(this.converters.get(from))).convert(value);
+        return (VUtility.<IConverter<F, A>, IConverter<?, A>> cast(this.converters.get(from))).convert(value);
     }
     
     /**
