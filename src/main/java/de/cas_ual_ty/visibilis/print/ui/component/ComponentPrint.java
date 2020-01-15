@@ -197,8 +197,8 @@ public class ComponentPrint extends Component
                     {
                         this.getProvider().saveChange();
                         // Save off set of the mouse and the top left corner of the header (= the print position)
-                        this.tmpOffX = this.mouseXToPrintRounded(mouseX) - this.hoverObj.node.posX;// - this.getPrint().posX;
-                        this.tmpOffY = this.mouseYToPrintRounded(mouseY) - this.hoverObj.node.posY;// - this.getPrint().posY;
+                        this.tmpOffX = this.mouseXToPrintRounded(mouseX) - this.hoverObj.node.getPosX();// - this.getPrint().posX;
+                        this.tmpOffY = this.mouseYToPrintRounded(mouseY) - this.hoverObj.node.getPosY();// - this.getPrint().posY;
                         this.setHoverToClicked();
                         return true;
                     }
@@ -303,8 +303,8 @@ public class ComponentPrint extends Component
         // => move the node. Keep offset that was set before
         if(this.clickedObj.type == EnumMouseInteractionType.NODE_HEADER)
         {
-            this.clickedObj.node.posX = this.mouseXToPrintRounded(mouseX) - this.tmpOffX;
-            this.clickedObj.node.posY = this.mouseYToPrintRounded(mouseY) - this.tmpOffY;
+            this.clickedObj.node.setPosX(this.mouseXToPrintRounded(mouseX) - this.tmpOffX);
+            this.clickedObj.node.setPosY(this.mouseYToPrintRounded(mouseY) - this.tmpOffY);
             return true;
         }
         
@@ -434,8 +434,8 @@ public class ComponentPrint extends Component
             
             if(this.clickedObj.input.getDataType() instanceof DataTypeEnum)
             {
-                x = node.posX - w;
-                y = node.posY;
+                x = node.getPosX() - w;
+                y = node.getPosY();
                 h = this.getUtil().getNodeTotalHeight(node);
                 
                 DataTypeEnum<?> dt = (DataTypeEnum<?>)this.clickedObj.input.getDataType();
@@ -476,8 +476,8 @@ public class ComponentPrint extends Component
             node = this.getPrint().getNodes().get(i);
             
             // Entire node position and size, zoom and shift are already accounted for
-            x = node.posX;
-            y = node.posY;
+            x = node.getPosX();
+            y = node.getPosY();
             h = this.getUtil().getNodeTotalHeight(node);
             h2 = this.getUtil().nodeHeight;
             
@@ -546,8 +546,8 @@ public class ComponentPrint extends Component
         // Loop through all nodes. Nodes at the end of the list will be drawn on top, so front to back is fine
         for(Node node : print.getNodes())
         {
-            x = node.posX;
-            y = node.posY;
+            x = node.getPosX();
+            y = node.getPosY();
             this.drawNode(node, x, y);
         }
         
@@ -555,8 +555,8 @@ public class ComponentPrint extends Component
         // TODO low: figure out a better way to draw the node connections, right now they are drawn after drawing *all* the nodes.
         for(Node node : print.getNodes())
         {
-            x = node.posX;
-            y = node.posY;
+            x = node.getPosX();
+            y = node.getPosY();
             this.getUtil().drawNodeConnections(node, x, y);
         }
     }
@@ -625,8 +625,8 @@ public class ComponentPrint extends Component
                 h = this.getUtil().nodeHeight;
                 
                 // "- w" because we want to draw these options to the left of the input.
-                x = this.clickedObj.input.getNode().posX - w;
-                y = this.clickedObj.input.getNode().posY + this.getUtil().getFieldOffY(this.clickedObj.input);
+                x = this.clickedObj.input.getNode().getPosX() - w;
+                y = this.clickedObj.input.getNode().getPosY() + this.getUtil().getFieldOffY(this.clickedObj.input);
                 
                 // Draw the enum options
                 this.getUtil().drawInputEnums(this.clickedObj.input, x, y);
@@ -713,8 +713,8 @@ public class ComponentPrint extends Component
         this.fieldInput.setVisible(true);
         
         // Adjust position to node field accordingly
-        this.fieldInput.x = input.getNode().posX + this.getUtil().getFieldOffX(input);
-        this.fieldInput.y = input.getNode().posY + this.getUtil().getFieldOffY(input);
+        this.fieldInput.x = input.getNode().getPosX() + this.getUtil().getFieldOffX(input);
+        this.fieldInput.y = input.getNode().getPosY() + this.getUtil().getFieldOffY(input);
         
         // Adjust size to node field accordingly
         this.fieldInput.setWidth(this.getUtil().fieldWidth);
@@ -811,7 +811,7 @@ public class ComponentPrint extends Component
      */
     public int getAbsNodePosX(Node n)
     {
-        return this.getPrint().posX + n.posX;
+        return this.getPrint().posX + n.getPosX();
     }
     
     /**
@@ -819,7 +819,7 @@ public class ComponentPrint extends Component
      */
     public int getAbsNodePosY(Node n)
     {
-        return this.getPrint().posY + n.posY;
+        return this.getPrint().posY + n.getPosY();
     }
     
     /**
@@ -859,7 +859,7 @@ public class ComponentPrint extends Component
      */
     public int getDotPosX(NodeField<?> field)
     {
-        return field.getNode().posX + this.getUtil().getFieldOffX(field) + this.getUtil().getDotOffX(field);
+        return field.getNode().getPosX() + this.getUtil().getFieldOffX(field) + this.getUtil().getDotOffX(field);
     }
     
     /**
@@ -867,7 +867,7 @@ public class ComponentPrint extends Component
      */
     public int getDotPosY(NodeField<?> field)
     {
-        return field.getNode().posY + this.getUtil().getFieldOffY(field) + this.getUtil().getDotOffY(field);
+        return field.getNode().getPosY() + this.getUtil().getFieldOffY(field) + this.getUtil().getDotOffY(field);
     }
     
     public void addNodeToPrint(Node n)

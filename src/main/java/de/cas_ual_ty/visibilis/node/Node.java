@@ -29,7 +29,7 @@ public abstract class Node
     public static final float[] COLOR_DEFAULT = new float[] { 0.5F, 0.5F, 0.5F };
     public static final float[] COLOR_TEXT_DEFAULT = new float[] { 1F, 1F, 1F };
     
-    public int posX, posY;
+    private int posX, posY;
     
     protected ArrayList<Output<?>> outputFields;
     protected ArrayList<Input<?>> inputFields;
@@ -41,10 +41,30 @@ public abstract class Node
         this.setPosition(0, 0); // Just to make sure they are always initialized
     }
     
+    public int getPosX()
+    {
+        return this.posX;
+    }
+    
+    public int getPosY()
+    {
+        return this.posY;
+    }
+    
+    public void setPosX(int posX)
+    {
+        this.posX = posX;
+    }
+    
+    public void setPosY(int posY)
+    {
+        this.posY = posY;
+    }
+    
     public Node setPosition(int x, int y)
     {
-        this.posX = x;
-        this.posY = y;
+        this.setPosX(x);
+        this.setPosY(y);
         return this;
     }
     
@@ -502,8 +522,8 @@ public abstract class Node
      */
     public void readNodeFromNBT(CompoundNBT nbt0)
     {
-        this.posX = nbt0.getInt(Node.KEY_POS_X);
-        this.posY = nbt0.getInt(Node.KEY_POS_Y);
+        this.setPosX(nbt0.getInt(Node.KEY_POS_X));
+        this.setPosY(nbt0.getInt(Node.KEY_POS_Y));
         
         CompoundNBT nbt;
         NodeField<?> f;
@@ -534,8 +554,8 @@ public abstract class Node
      */
     public void writeNodeToNBT(CompoundNBT nbt0)
     {
-        nbt0.putInt(Node.KEY_POS_X, this.posX);
-        nbt0.putInt(Node.KEY_POS_Y, this.posY);
+        nbt0.putInt(Node.KEY_POS_X, this.getPosX());
+        nbt0.putInt(Node.KEY_POS_Y, this.getPosY());
         
         CompoundNBT nbt;
         

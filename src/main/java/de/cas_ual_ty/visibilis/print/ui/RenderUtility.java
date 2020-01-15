@@ -130,12 +130,12 @@ public class RenderUtility
     {
         for(Node node : print.getNodes())
         {
-            this.drawNode(node, node.posX + print.posX, node.posY + print.posY);
+            this.drawNode(node, node.getPosX() + print.posX, node.getPosY() + print.posY);
         }
         
         for(Node node : print.getNodes())
         {
-            this.drawNodeConnections(node, node.posX + print.posX, node.posY + print.posY);
+            this.drawNodeConnections(node, node.getPosX() + print.posX, node.getPosY() + print.posY);
         }
     }
     
@@ -322,8 +322,8 @@ public class RenderUtility
         
         // We are already at the dot position of the 1st field, so we can just take the
         // difference of the nodes themselves to get the 2nd dot's position
-        offX = dest.getNode().posX - field.getNode().posX;
-        offY = dest.getNode().posY - field.getNode().posY;
+        offX = dest.getNode().getPosX() - field.getNode().getPosX();
+        offY = dest.getNode().getPosY() - field.getNode().getPosY();
         
         // Our position is an output dot, so we need to shift to an input dot
         offX -= this.nodeWidth - this.nodeHeight;
