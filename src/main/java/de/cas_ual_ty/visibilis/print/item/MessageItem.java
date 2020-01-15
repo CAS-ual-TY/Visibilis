@@ -10,6 +10,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.fml.network.NetworkEvent.Context;
 
 public class MessageItem
 {
@@ -40,13 +41,20 @@ public class MessageItem
     
     public static void handle(MessageItem msg, Supplier<NetworkEvent.Context> ctx)
     {
-        ItemStack itemStack = ctx.get().getSender().inventory.getStackInSlot(msg.slot);
-        ItemPrint item = (ItemPrint)itemStack.getItem(); //TODO change to print capability
-        Print print = NBTUtility.loadPrintFromNBT(msg.nbt);
+        Context context = ctx.get();
         
-        if(!MinecraftForge.EVENT_BUS.post(new ItemPrintValidationEvent(itemStack, print)))
+        context.enqueueWork(() ->
         {
-            item.setPrintTag(itemStack, msg.nbt);
-        }
+            ItemStack itemStack = ctx.get().getSender().inventory.getStackInSlot(msg.slot);
+            ItemPrint item = (ItemPrint)itemStack.getItem(); //TODO change to print capability
+            Print print = NBTUtility.loadPrintFromNBT(msg.nbt);
+            
+            if(!MinecraftForge.EVENT_BUS.post(new ItemPrintValidationEvent(itemStack, print)))
+            {
+                item.setPrintTag(itemStack, msg.nbt);
+            }
+        });
+        
+        ctx.get().setPacketHandled(true);
     }
 }
