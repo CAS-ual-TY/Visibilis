@@ -27,15 +27,7 @@ Here are some basic mod ideas I have. I don't know if I am going make any of the
 
 #### Magica Mundi - *The magic things of this world*
 The sequel to **[Mundus Magicus](https://www.curseforge.com/minecraft/mc-mods/mundus-magicus)**: Visual coding to design, create and customize your own spells (In case you are wondering: Mundus Magicus - *Magic world*).
-A spell is made up of 3 basic components:
- - **Events - When** to "fire" the spell (eg. right click, every second, when taking damage etc.)
- - **Detectors - Who** or what to affect (eg. everyone within 5m of you, all pigs, your cursor etc.)
- - **Effects - What** to do or how to affect the targets (eg. lighting, healing or damage, freezing etc.)
-
-You can customize all of these components using the visual coding interface. Say you want to damage everyone for 10% of their current health, then kill anyone below 5% of their max health and spawn a lighting at every entity killed that way: You can do that.
-You can also just spam fart noices at every player every second. You can do that... too.
-
-Now this is all the major stuff that needs to be known about this mod. The possibilities of this will be (/are?) endless. There are obviously more minor components and functionalities to this, but I will make a separate repository for this mod whenever I feel like these 2 mods are ready for public release.
+Also open source on GitHub: **[Magica Mundi](https://github.com/CAS-ual-TY/MagicaMundi)**.
 
 #### Programmable Machines - An idea
 Programm your own machines. Kinda like the known Mining Turtles from Computer Craft. But in a more appealing visual programming language instead. Or maybe your own War-Bots? Patrolling Knights?
@@ -54,7 +46,7 @@ A list of contributors is at the bottom.
 
 ### What to contribute
  - Code contributions to Visibilis
- - Code contributions to Magica Mundi
+ - Code contributions to **[Magica Mundi](https://github.com/CAS-ual-TY/MagicaMundi)**
  - Your own ideas and mods
 
 Now, I have never worked with strangers on a project. And I never have created documentation for anyone else but myself. But **I try to structure and document the code as well and as much as possible**. Keeping this in mind, feel free to correct my wording and terminology wherever necessary. I have not learned it but I am willing to do so.
@@ -76,9 +68,16 @@ Terminology:
  - **Event Node**: Extends "Exec Node"; This is the **start of the execution chain** in each print depending on the **event type**
 
 Code to take a look at:
- - **de.cas_ual_ty.visibilis.GuiPrint**: contains **basic user interface** functionality
- - **de.cas_ual_ty.visibilis.Print#execute(NodeExec)**: starts the node chain; "exec" nodes are calculated in succession
- - **de.cas_ual_ty.visibilis.node.Node#preCalculate()**: whenever a node is executed that has an uncalculated **"non-exec" parent**, that parent is **calculated first**, then the "exec" node
+ - **de.cas_ual_ty.visibilis.print.ui.UiBase**: Contains **all required user interface** functionality; you can open this GUI via **de.cas_ual_ty.visibilis.util.VUtility**
+ - **de.cas_ual_ty.visibilis.print.PrintProvider**: Extend this to have callbacks to the UI; this is **all thats needed** to implement and use the full UI; also comes with base implementations eg. **de.cas_ual_ty.print.item.XXX**
+ - **de.cas_ual_ty.visibilis.print.Print#execute(INodeExec, DataProvider)**: Starts the node chain; "exec" nodes are calculated in succession
+ - **de.cas_ual_ty.visibilis.node.dataprovider.DataProvider**: Allows you **to pass information** to your nodes that is required; eg. if your prints only fire for a custom entity and they need that instance, you pass it via this class
+ - **de.cas_ual_ty.visibilis.node.Node#preCalculate(DataProvider)**: Whenever a node is executed that has an uncalculated **"non-exec" parent**, that parent is **calculated first**, then the "exec" node
+ - **de.cas_ual_ty.visibilis.node.exec.XXX**: Good **examples** for exec nodes; for loop, if branch, while loop, etc.
+ - **de.cas_ual_ty.visibilis.node.general.NodePrint**: Good example for a basic, independent node
+
+Other examples:
+ - **[Magica Mundi GitHub Repo](https://github.com/CAS-ual-TY/MagicaMundi)** A mod created by myself built on this API; if you dont know how to use this check out the repo
 
 ## Contact
 I do not tend to be very active on GitHub itself with the exception of pushing commits. I would probably not see a message here for weeks. So:
