@@ -43,10 +43,10 @@ public class Output<O> extends NodeField<O>
             if(!this.connections.contains(field))
             {
                 // Make sure exec node fields can only have 1 connection (not output to multiple inputs)
-                if(this.dataType == VDataTypes.EXEC)
+                if(this.getDataType() == VDataTypes.EXEC)
                 {
                     // Just to be sure. This is only false if someone accidentally added an exec node field to a non exec node
-                    if(field.node instanceof INodeExec)
+                    if(field.getNode() instanceof INodeExec)
                     {
                         this.connections.clear();
                         this.connections.add((Input<?>)field);
@@ -67,7 +67,7 @@ public class Output<O> extends NodeField<O>
     @Override
     public O getValue()
     {
-        return this.node.getOutputValue(this);
+        return this.getNode().getOutputValue(this);
     }
     
     @Override

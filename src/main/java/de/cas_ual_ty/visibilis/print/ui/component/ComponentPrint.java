@@ -222,12 +222,12 @@ public class ComponentPrint extends Component
                         {
                             // Check if you can put in an immediate value
                             
-                            if(this.hoverObj.input.dataType instanceof DataTypeEnum)
+                            if(this.hoverObj.input.getDataType() instanceof DataTypeEnum)
                             {
                                 //Immediate value of an enum, update clickedObj accordingly
                                 this.clickedObj.inputEnum(this.hoverObj.input);
                             }
-                            else if(this.hoverObj.input.dataType instanceof DataTypeDynamic)
+                            else if(this.hoverObj.input.getDataType() instanceof DataTypeDynamic)
                             {
                                 //Dynamic immediate value, update clickedObj accordingly
                                 this.clickedObj.inputDynamic(this.hoverObj.input);
@@ -432,13 +432,13 @@ public class ComponentPrint extends Component
         {
             node = this.clickedObj.node;
             
-            if(this.clickedObj.input.dataType instanceof DataTypeEnum)
+            if(this.clickedObj.input.getDataType() instanceof DataTypeEnum)
             {
                 x = node.posX - w;
                 y = node.posY;
                 h = this.getUtil().getNodeTotalHeight(node);
                 
-                DataTypeEnum<?> dt = (DataTypeEnum<?>)this.clickedObj.input.dataType;
+                DataTypeEnum<?> dt = (DataTypeEnum<?>)this.clickedObj.input.getDataType();
                 
                 float h3;
                 
@@ -610,7 +610,7 @@ public class ComponentPrint extends Component
                 int dotY = this.getDotPosY(this.clickedObj.nodeField);
                 
                 // Node field was clicked on -> Render line from Dot to Mouse
-                RenderUtility.drawGradientLine(dotX + this.getUtil().nodeFieldDotSize / 2, dotY + this.getUtil().nodeFieldDotSize / 2, this.mouseXToPrintRounded(mouseX), this.mouseYToPrintRounded(mouseY), this.getUtil().getLineWidth(this.clickedObj.nodeField.dataType), this.clickedObj.nodeField.dataType.getColor()[0], this.clickedObj.nodeField.dataType.getColor()[1], this.clickedObj.nodeField.dataType.getColor()[2], this.getUtil().nodeFieldConnectionsAlpha, this.clickedObj.nodeField.dataType.getColor()[0], this.clickedObj.nodeField.dataType.getColor()[1], this.clickedObj.nodeField.dataType.getColor()[2], this.getUtil().nodeFieldConnectionsAlpha);
+                RenderUtility.drawGradientLine(dotX + this.getUtil().nodeFieldDotSize / 2, dotY + this.getUtil().nodeFieldDotSize / 2, this.mouseXToPrintRounded(mouseX), this.mouseYToPrintRounded(mouseY), this.getUtil().getLineWidth(this.clickedObj.nodeField.getDataType()), this.clickedObj.nodeField.getDataType().getColor()[0], this.clickedObj.nodeField.getDataType().getColor()[1], this.clickedObj.nodeField.getDataType().getColor()[2], this.getUtil().nodeFieldConnectionsAlpha, this.clickedObj.nodeField.getDataType().getColor()[0], this.clickedObj.nodeField.getDataType().getColor()[1], this.clickedObj.nodeField.getDataType().getColor()[2], this.getUtil().nodeFieldConnectionsAlpha);
             }
             else if(this.clickedObj.type == EnumMouseInteractionType.INPUT_DYNAMIC)
             {
@@ -625,8 +625,8 @@ public class ComponentPrint extends Component
                 h = this.getUtil().nodeHeight;
                 
                 // "- w" because we want to draw these options to the left of the input.
-                x = this.clickedObj.input.node.posX - w;
-                y = this.clickedObj.input.node.posY + this.getUtil().getFieldOffY(this.clickedObj.input);
+                x = this.clickedObj.input.getNode().posX - w;
+                y = this.clickedObj.input.getNode().posY + this.getUtil().getFieldOffY(this.clickedObj.input);
                 
                 // Draw the enum options
                 this.getUtil().drawInputEnums(this.clickedObj.input, x, y);
@@ -690,7 +690,7 @@ public class ComponentPrint extends Component
     {
         if(input != null)
         {
-            DataTypeDynamic<A> dt = (DataTypeDynamic<A>)input.dataType;
+            DataTypeDynamic<A> dt = (DataTypeDynamic<A>)input.getDataType();
             
             // Can the string in the text box be applied to the input? Is it viable?
             if(dt.canParseString(this.fieldInput.getText()))
@@ -707,14 +707,14 @@ public class ComponentPrint extends Component
     
     public <A> void setFocusTextField(Input<A> input)
     {
-        DataTypeDynamic<A> dt = (DataTypeDynamic<A>)input.dataType;
+        DataTypeDynamic<A> dt = (DataTypeDynamic<A>)input.getDataType();
         
         // Make it visible
         this.fieldInput.setVisible(true);
         
         // Adjust position to node field accordingly
-        this.fieldInput.x = input.node.posX + this.getUtil().getFieldOffX(input);
-        this.fieldInput.y = input.node.posY + this.getUtil().getFieldOffY(input);
+        this.fieldInput.x = input.getNode().posX + this.getUtil().getFieldOffX(input);
+        this.fieldInput.y = input.getNode().posY + this.getUtil().getFieldOffY(input);
         
         // Adjust size to node field accordingly
         this.fieldInput.setWidth(this.getUtil().fieldWidth);
@@ -755,7 +755,7 @@ public class ComponentPrint extends Component
                 // Hovering over an input is viable, if it
                 // - has connections (to disconnect)
                 // - has an immediate value (and it can actually be put in - the data type is properly representable in this gui)
-                return this.hoverObj.input.hasConnections() || (this.hoverObj.input.hasDisplayValue() && (this.hoverObj.input.dataType instanceof DataTypeDynamic || this.hoverObj.input.dataType instanceof DataTypeEnum));
+                return this.hoverObj.input.hasConnections() || (this.hoverObj.input.hasDisplayValue() && (this.hoverObj.input.getDataType() instanceof DataTypeDynamic || this.hoverObj.input.getDataType() instanceof DataTypeEnum));
             }
             
             // If nothing of the above is the case, then simply return true...
@@ -859,7 +859,7 @@ public class ComponentPrint extends Component
      */
     public int getDotPosX(NodeField<?> field)
     {
-        return field.node.posX + this.getUtil().getFieldOffX(field) + this.getUtil().getDotOffX(field);
+        return field.getNode().posX + this.getUtil().getFieldOffX(field) + this.getUtil().getDotOffX(field);
     }
     
     /**
@@ -867,7 +867,7 @@ public class ComponentPrint extends Component
      */
     public int getDotPosY(NodeField<?> field)
     {
-        return field.node.posY + this.getUtil().getFieldOffY(field) + this.getUtil().getDotOffY(field);
+        return field.getNode().posY + this.getUtil().getFieldOffY(field) + this.getUtil().getDotOffY(field);
     }
     
     public void addNodeToPrint(Node n)

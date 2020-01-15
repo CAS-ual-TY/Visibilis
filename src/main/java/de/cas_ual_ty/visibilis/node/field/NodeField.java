@@ -25,23 +25,38 @@ public abstract class NodeField<B>
     /**
      * The parent node of this node field.
      */
-    public final Node node;
+    private final Node node;
     
     /**
      * The data type of this node field.
      */
-    public final DataType<B> dataType;
+    private final DataType<B> dataType;
     
     /**
      * The name of this node field (before translation).
      */
-    public final String name;
+    private final String name;
     
     public NodeField(Node node, DataType<B> dataType, String name)
     {
         this.node = node;
         this.dataType = dataType;
         this.name = name;
+    }
+    
+    public Node getNode()
+    {
+        return this.node;
+    }
+    
+    public DataType<B> getDataType()
+    {
+        return this.dataType;
+    }
+    
+    public String getName()
+    {
+        return this.name;
     }
     
     /**
@@ -64,11 +79,11 @@ public abstract class NodeField<B>
     {
         if(this.isOutput())
         {
-            this.id = this.node.getOutputId((Output<B>)this);
+            this.id = this.getNode().getOutputId((Output<B>)this);
         }
         else
         {
-            this.id = this.node.getInputId((Input<B>)this);
+            this.id = this.getNode().getInputId((Input<B>)this);
         }
     }
     
@@ -129,7 +144,7 @@ public abstract class NodeField<B>
      */
     public String getUnlocalizedName()
     {
-        return this.node.getFieldUnlocalizedName(this);
+        return this.getNode().getFieldUnlocalizedName(this);
     }
     
     /**
@@ -137,15 +152,15 @@ public abstract class NodeField<B>
      */
     public String getUnlocalizedDesc()
     {
-        return this.node.getFieldUnlocalizedDesc(this);
+        return this.getNode().getFieldUnlocalizedDesc(this);
     }
     
     /**
      * @see de.cas_ual_ty.visibilis.node.Node#getFieldName(NodeField)
      */
-    public String getName()
+    public String getNameTranslated()
     {
-        return this.node.getFieldName(this);
+        return this.getNode().getFieldName(this);
     }
     
     /**
@@ -153,7 +168,7 @@ public abstract class NodeField<B>
      */
     public String getDesc()
     {
-        return this.node.getFieldDesc(this);
+        return this.getNode().getFieldDesc(this);
     }
     
     /**
@@ -216,7 +231,7 @@ public abstract class NodeField<B>
      */
     public static boolean canConnect(Output<?> out, Input<?> in, boolean ignorePresentConnection)
     {
-        return out.node != in.node & in.dataType.canConvert(out.dataType) && (!ignorePresentConnection ? (in.connection == null) : true);
+        return out.getNode() != in.getNode() & in.getDataType().canConvert(out.getDataType()) && (!ignorePresentConnection ? (in.connection == null) : true);
     }
     
     public static boolean tryConnect(NodeField<?> n1, NodeField<?> n2)

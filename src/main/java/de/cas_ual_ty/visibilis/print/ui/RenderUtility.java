@@ -228,15 +228,15 @@ public class RenderUtility
         }
         
         // Draw inner colored rectangle
-        RenderUtility.drawRect(nameX + this.nodeRectMargin, nameY + this.nodeRectMargin, nameW - 2 * this.nodeRectMargin, this.nodeHeight - 2 * this.nodeRectMargin, field.dataType.getColor()[0], field.dataType.getColor()[1], field.dataType.getColor()[2]);
+        RenderUtility.drawRect(nameX + this.nodeRectMargin, nameY + this.nodeRectMargin, nameW - 2 * this.nodeRectMargin, this.nodeHeight - 2 * this.nodeRectMargin, field.getDataType().getColor()[0], field.getDataType().getColor()[1], field.getDataType().getColor()[2]);
         
         // Draw dot on top
         this.drawNodeFieldDot(field, dotX, dotY);
         
         // Draw name
-        String name = field.getName();
+        String name = field.getNameTranslated();
         name = this.fontRenderer.trimStringToWidth(name, nameW - 2 * this.nodeTextMargin); // Trim the name in case it is too big
-        this.fontRenderer.drawString(name, nameX + this.nodeTextMargin, nameY + this.nodeTextMargin, RenderUtility.colorToInt(field.dataType.getTextColor())); // Draw the trimmed name, maybe add shadow?
+        this.fontRenderer.drawString(name, nameX + this.nodeTextMargin, nameY + this.nodeTextMargin, RenderUtility.colorToInt(field.getDataType().getTextColor())); // Draw the trimmed name, maybe add shadow?
     }
     
     /**
@@ -244,7 +244,7 @@ public class RenderUtility
      */
     public void drawNodeFieldDot(NodeField<?> field, int x, int y)
     {
-        RenderUtility.drawRect(x, y, this.nodeFieldDotSize, this.nodeFieldDotSize, field.dataType.getColor()[0], field.dataType.getColor()[1], field.dataType.getColor()[2]);
+        RenderUtility.drawRect(x, y, this.nodeFieldDotSize, this.nodeFieldDotSize, field.getDataType().getColor()[0], field.getDataType().getColor()[1], field.getDataType().getColor()[2]);
     }
     
     /**
@@ -281,7 +281,7 @@ public class RenderUtility
     {
         // Draw the enum options
         
-        DataTypeEnum<A> dt = (DataTypeEnum<A>)field.dataType;
+        DataTypeEnum<A> dt = (DataTypeEnum<A>)field.getDataType();
         
         int w, h;
         
@@ -317,13 +317,13 @@ public class RenderUtility
         
         int x1, y1, x2, y2;
         
-        DataType<A> type1 = field.dataType;
-        DataType<B> type2 = dest.dataType;
+        DataType<A> type1 = field.getDataType();
+        DataType<B> type2 = dest.getDataType();
         
         // We are already at the dot position of the 1st field, so we can just take the
         // difference of the nodes themselves to get the 2nd dot's position
-        offX = dest.node.posX - field.node.posX;
-        offY = dest.node.posY - field.node.posY;
+        offX = dest.getNode().posX - field.getNode().posX;
+        offY = dest.getNode().posY - field.getNode().posY;
         
         // Our position is an output dot, so we need to shift to an input dot
         offX -= this.nodeWidth - this.nodeHeight;
@@ -429,7 +429,7 @@ public class RenderUtility
             x += this.fieldWidth - width;
         }
         
-        this.drawRectWithText(x, y, width, this.nodeHeight, input.dataType.getColor(), TextFormatting.UNDERLINE + input.dataType.valueToString(input.getSetValue()), input.dataType.getTextColor());
+        this.drawRectWithText(x, y, width, this.nodeHeight, input.getDataType().getColor(), TextFormatting.UNDERLINE + input.getDataType().valueToString(input.getSetValue()), input.getDataType().getTextColor());
     }
     
     /**
@@ -490,7 +490,7 @@ public class RenderUtility
             for(i = 0; i < node.getInputAmt(); ++i)
             {
                 f = node.getInput(i);
-                lines.add(TextFormatting.GOLD.toString() + f.getName() + TextFormatting.RESET + " - " + this.tIn);
+                lines.add(TextFormatting.GOLD.toString() + f.getNameTranslated() + TextFormatting.RESET + " - " + this.tIn);
             }
         }
         
@@ -501,7 +501,7 @@ public class RenderUtility
             for(i = 0; i < node.getOutputAmt(); ++i)
             {
                 f = node.getOutput(i);
-                lines.add(TextFormatting.DARK_RED.toString() + f.getName() + TextFormatting.RESET + " - " + this.tOut);
+                lines.add(TextFormatting.DARK_RED.toString() + f.getNameTranslated() + TextFormatting.RESET + " - " + this.tOut);
             }
         }
         
@@ -512,7 +512,7 @@ public class RenderUtility
     {
         ArrayList<String> lines = new ArrayList<>();
         
-        lines.add(TextFormatting.BOLD.toString() + (field.isOutput() ? TextFormatting.DARK_RED.toString() : TextFormatting.GOLD.toString()) + field.getName() + TextFormatting.RESET + " - " + (field.isOutput() ? this.tOut : this.tIn));
+        lines.add(TextFormatting.BOLD.toString() + (field.isOutput() ? TextFormatting.DARK_RED.toString() : TextFormatting.GOLD.toString()) + field.getNameTranslated() + TextFormatting.RESET + " - " + (field.isOutput() ? this.tOut : this.tIn));
         
         String desc = field.getDesc();
         

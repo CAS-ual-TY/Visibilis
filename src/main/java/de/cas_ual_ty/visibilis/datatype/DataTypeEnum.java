@@ -98,6 +98,6 @@ public class DataTypeEnum<A> extends DataType<A>
     
     public static <A> void setEnum(Input<A> input, int _enum)
     {
-        input.setValue(((DataTypeEnum<A>)input.dataType).getEnum(_enum));
+        input.setValue(((DataTypeEnum<A>)input.getDataType()).getEnum(_enum));
     }
 }

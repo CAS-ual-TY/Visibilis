@@ -216,7 +216,7 @@ public class Print
             if(in != null)
             {
                 // Get the node of the input
-                next = (INodeExec)in.node;
+                next = (INodeExec)in.getNode();
                 
                 if(next != null)
                 {

@@ -95,10 +95,10 @@ public abstract class Node
                         field1 = (NodeField<?>)field0.getConnectionsList().get(j);
                         
                         // Check if it is calculated
-                        if(!field1.node.isCalculated())
+                        if(!field1.getNode().isCalculated())
                         {
                             // Calculate it, return false if it fails
-                            if(!field1.node.calculate(provider))
+                            if(!field1.getNode().calculate(provider))
                             {
                                 return false;
                             }
@@ -461,7 +461,7 @@ public abstract class Node
      */
     public String getFieldUnlocalizedName(NodeField<?> field)
     {
-        return "field." + this.getID() + "." + field.name;// + ".name";
+        return "field." + this.getID() + "." + field.getName();// + ".name";
     }
     
     /**
@@ -469,7 +469,7 @@ public abstract class Node
      */
     public String getFieldUnlocalizedDesc(NodeField<?> field)
     {
-        return "field." + this.getID() + "." + field.name + ".desc";
+        return "field." + this.getID() + "." + field.getName() + ".desc";
     }
     
     public String getName()
@@ -580,7 +580,7 @@ public abstract class Node
     {
         if(input.hasConnections())
         {
-            this.triggerRecalculation(input.getConnection().node);
+            this.triggerRecalculation(input.getConnection().getNode());
         }
     }
     

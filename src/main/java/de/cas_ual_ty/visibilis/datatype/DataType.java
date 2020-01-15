@@ -151,7 +151,7 @@ public class DataType<A> extends ForgeRegistryEntry<DataType<?>>
      */
     public <F> A convert(NodeField<F> from)
     {
-        return this.convert(from.dataType, from.getValue());
+        return this.convert(from.getDataType(), from.getValue());
     }
     
     /**
