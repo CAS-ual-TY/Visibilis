@@ -50,7 +50,7 @@ public class ComponentPrint extends Component
         this.fieldInput.setCanLoseFocus(false);
         this.rightClickMenu = null;
         
-        this.uiBase.setAddToPrint(this::addNodeToPrint);
+        this.getUiBase().setAddToPrint(this::addNodeToPrint);
     }
     
     @Override
@@ -72,7 +72,7 @@ public class ComponentPrint extends Component
         // Check if the hover is actually viable and throw it out if not
         if(!this.isHoverViable())
         {
-            this.hoverObj.nothing();
+            this.getHoverObj().nothing();
         }
         
         // Scissor by dimensions rect, apply print zoom, translate by print coords
@@ -121,12 +121,12 @@ public class ComponentPrint extends Component
             // zoom in
             else if(this.keyPressed == GLFW.GLFW_KEY_KP_ADD)
             {
-                this.zoomIn(this.uiBase.lastMousePosX, this.uiBase.lastMousePosY);
+                this.zoomIn(this.getUiBase().lastMousePosX, this.getUiBase().lastMousePosY);
             }
             // zoom out
             else if(this.keyPressed == GLFW.GLFW_KEY_KP_SUBTRACT)
             {
-                this.zoomOut(this.uiBase.lastMousePosX, this.uiBase.lastMousePosY);
+                this.zoomOut(this.getUiBase().lastMousePosX, this.getUiBase().lastMousePosY);
             }
             // move print up
             if(this.keyPressed == GLFW.GLFW_KEY_W || this.keyPressed == GLFW.GLFW_KEY_UP)
@@ -193,49 +193,49 @@ public class ComponentPrint extends Component
                     // Nothing was selected before, now user clicks on something hovered over
                     
                     // User clicked on the header. This might be initiation of a click move.
-                    if(this.hoverObj.type == EnumMouseInteractionType.NODE_HEADER)
+                    if(this.getHoverObj().type == EnumMouseInteractionType.NODE_HEADER)
                     {
                         this.getProvider().saveChange();
                         // Save off set of the mouse and the top left corner of the header (= the print position)
-                        this.tmpOffX = this.mouseXToPrintRounded(mouseX) - this.hoverObj.node.getPosX();// - this.getPrint().posX;
-                        this.tmpOffY = this.mouseYToPrintRounded(mouseY) - this.hoverObj.node.getPosY();// - this.getPrint().posY;
+                        this.tmpOffX = this.mouseXToPrintRounded(mouseX) - this.getHoverObj().node.getPosX();// - this.getPrint().posX;
+                        this.tmpOffY = this.mouseYToPrintRounded(mouseY) - this.getHoverObj().node.getPosY();// - this.getPrint().posY;
                         this.setHoverToClicked();
                         return true;
                     }
-                    else if(this.hoverObj.type == EnumMouseInteractionType.OUTPUT)
+                    else if(this.getHoverObj().type == EnumMouseInteractionType.OUTPUT)
                     {
                         this.setHoverToClicked();
                         return true;
                     }
-                    else if(this.hoverObj.type == EnumMouseInteractionType.INPUT)
+                    else if(this.getHoverObj().type == EnumMouseInteractionType.INPUT)
                     {
                         // Input was clicked
                         
-                        if(this.hoverObj.input.hasConnections())
+                        if(this.getHoverObj().input.hasConnections())
                         {
                             this.getProvider().saveChange();
                             // Cut all connections
-                            this.hoverObj.input.cutConnections();
+                            this.getHoverObj().input.cutConnections();
                         }
                         
-                        if(this.hoverObj.input.hasDisplayValue())
+                        if(this.getHoverObj().input.hasDisplayValue())
                         {
                             // Check if you can put in an immediate value
                             
-                            if(this.hoverObj.input.getDataType() instanceof DataTypeEnum)
+                            if(this.getHoverObj().input.getDataType() instanceof DataTypeEnum)
                             {
                                 //Immediate value of an enum, update clickedObj accordingly
-                                this.clickedObj.inputEnum(this.hoverObj.input);
+                                this.clickedObj.inputEnum(this.getHoverObj().input);
                             }
-                            else if(this.hoverObj.input.getDataType() instanceof DataTypeDynamic)
+                            else if(this.getHoverObj().input.getDataType() instanceof DataTypeDynamic)
                             {
                                 //Dynamic immediate value, update clickedObj accordingly
-                                this.clickedObj.inputDynamic(this.hoverObj.input);
+                                this.clickedObj.inputDynamic(this.getHoverObj().input);
                                 this.setFocusTextField(this.clickedObj.input); // Enable text field already an set coords and size appropriately
                             }
                         }
                         
-                        this.hoverObj.nothing(); // Dont know why I put this, maybe unnecessary idk
+                        this.getHoverObj().nothing(); // Dont know why I put this, maybe unnecessary idk
                         
                         return true;
                     }
@@ -246,12 +246,12 @@ public class ComponentPrint extends Component
                     // => do the interaction
                     
                     // Output was selected, user now clicks on Input
-                    if(this.clickedObj.type == EnumMouseInteractionType.OUTPUT && this.hoverObj.type == EnumMouseInteractionType.INPUT)
+                    if(this.clickedObj.type == EnumMouseInteractionType.OUTPUT && this.getHoverObj().type == EnumMouseInteractionType.INPUT)
                     {
-                        if(NodeField.canConnect(this.clickedObj.nodeField, this.hoverObj.nodeField))
+                        if(NodeField.canConnect(this.clickedObj.nodeField, this.getHoverObj().nodeField))
                         {
                             this.getProvider().saveChange();
-                            NodeField.connect(this.clickedObj.nodeField, this.hoverObj.nodeField);
+                            NodeField.connect(this.clickedObj.nodeField, this.getHoverObj().nodeField);
                             return true;
                         }
                     }
@@ -259,7 +259,7 @@ public class ComponentPrint extends Component
                     else if(this.clickedObj.type == EnumMouseInteractionType.INPUT_DYNAMIC)
                     {
                         // If you click on the same input again, do not deselect (return) and transfer the interaction to the fieldInput itself
-                        if(this.clickedObj.nodeField == this.hoverObj.nodeField)
+                        if(this.clickedObj.nodeField == this.getHoverObj().nodeField)
                         {
                             this.fieldInput.mouseClicked(this.mouseXToPrintRounded(mouseX), this.mouseYToPrintRounded(mouseY), modifiers);
                             return true;
@@ -273,10 +273,10 @@ public class ComponentPrint extends Component
                     }
                     // Enum input was selected before, hoverObj CAN ONLY be one of the enum values (or nothing).
                     // If it is not nothing, set the enum value
-                    else if(this.clickedObj.type == EnumMouseInteractionType.INPUT_ENUM && this.hoverObj.type == EnumMouseInteractionType.INPUT_ENUM_ID)
+                    else if(this.clickedObj.type == EnumMouseInteractionType.INPUT_ENUM && this.getHoverObj().type == EnumMouseInteractionType.INPUT_ENUM_ID)
                     {
                         this.getProvider().saveChange();
-                        DataTypeEnum.setEnum(this.clickedObj.input, this.hoverObj.inputEnumId);
+                        DataTypeEnum.setEnum(this.clickedObj.input, this.getHoverObj().inputEnumId);
                     }
                     
                     // Deselect whatever you had selected before (a premature return statement stops this from happening)
@@ -285,10 +285,10 @@ public class ComponentPrint extends Component
             }
             else if(modifiers == 1)
             {
-                if(this.hoverObj.type == EnumMouseInteractionType.NODE_HEADER && this.hoverObj.node.hasActions())
+                if(this.getHoverObj().type == EnumMouseInteractionType.NODE_HEADER && this.getHoverObj().node.hasActions())
                 {
                     this.clickedObj.nothing();
-                    this.rightClickMenu = new NodeActionWidget(this, (int)Math.round(mouseX), (int)Math.round(mouseY), this.dimensions, this.getProvider().getActionsForNode(this.hoverObj.node));
+                    this.rightClickMenu = new NodeActionWidget(this, (int)Math.round(mouseX), (int)Math.round(mouseY), this.dimensions, this.getProvider().getActionsForNode(this.getHoverObj().node));
                 }
             }
         }
@@ -382,7 +382,7 @@ public class ComponentPrint extends Component
     
     public void setHoverToClicked()
     {
-        this.clickedObj.inherit(this.hoverObj);
+        this.clickedObj.inherit(this.getHoverObj());
     }
     
     public void updateKeyPressed(int keyCode, int delay)
@@ -403,7 +403,7 @@ public class ComponentPrint extends Component
     
     public void updateMouseHoveringObj(int mouseX0, int mouseY0)
     {
-        this.hoverObj.nothing();
+        this.getHoverObj().nothing();
         
         // If the mouse is not inside the dimensions, there is nothing to hover over
         if(!this.dimensions.isCoordInside(mouseX0, mouseY0))
@@ -455,7 +455,7 @@ public class ComponentPrint extends Component
                     // If mouse is hovering over said rect, whiten it
                     if(RenderUtility.isCoordInsideRect(mouseX, mouseY, x, y, w, h))
                     {
-                        this.hoverObj.inputEnumId(this.clickedObj.input, j);
+                        this.getHoverObj().inputEnumId(this.clickedObj.input, j);
                         return; // Enums have priority, return so it does not get overridden
                     }
                 }
@@ -488,7 +488,7 @@ public class ComponentPrint extends Component
                 {
                     // Inside header -> return node itself
                     
-                    this.hoverObj.nodeHeader(node);
+                    this.getHoverObj().nodeHeader(node);
                     return;
                 }
                 else
@@ -507,7 +507,7 @@ public class ComponentPrint extends Component
                             {
                                 // inside this node field -> return it
                                 
-                                this.hoverObj.input(node.getInput(j - 1));
+                                this.getHoverObj().input(node.getInput(j - 1));
                                 return;
                             }
                         }
@@ -522,7 +522,7 @@ public class ComponentPrint extends Component
                             {
                                 // inside this node field -> return it
                                 
-                                this.hoverObj.output(node.getOutput(j - 1));
+                                this.getHoverObj().output(node.getOutput(j - 1));
                                 return;
                             }
                         }
@@ -577,15 +577,15 @@ public class ComponentPrint extends Component
      */
     public void drawNodeInteractions(Node node, int x, int y)
     {
-        if(node == this.hoverObj.node)
+        if(node == this.getHoverObj().node)
         {
-            if(this.hoverObj.type == EnumMouseInteractionType.NODE_HEADER)
+            if(this.getHoverObj().type == EnumMouseInteractionType.NODE_HEADER)
             {
                 this.getUtil().drawNodeHover(node, x, y);
             }
-            else if(this.hoverObj.type == EnumMouseInteractionType.OUTPUT || this.hoverObj.type == EnumMouseInteractionType.INPUT)
+            else if(this.getHoverObj().type == EnumMouseInteractionType.OUTPUT || this.getHoverObj().type == EnumMouseInteractionType.INPUT)
             {
-                this.getUtil().drawNodeFieldHover(this.hoverObj.nodeField, x, y);
+                this.getUtil().drawNodeFieldHover(this.getHoverObj().nodeField, x, y);
             }
         }
     }
@@ -631,9 +631,9 @@ public class ComponentPrint extends Component
                 // Draw the enum options
                 this.getUtil().drawInputEnums(this.clickedObj.input, x, y);
                 
-                if(this.hoverObj.type == EnumMouseInteractionType.INPUT_ENUM_ID)
+                if(this.getHoverObj().type == EnumMouseInteractionType.INPUT_ENUM_ID)
                 {
-                    this.getUtil().drawHoverRect(x, y - h * this.hoverObj.inputEnumId, w, h);
+                    this.getUtil().drawHoverRect(x, y - h * this.getHoverObj().inputEnumId, w, h);
                 }
             }
         }
@@ -641,13 +641,13 @@ public class ComponentPrint extends Component
     
     public void drawHoverText(int mouseX, int mouseY)
     {
-        if(this.hoverObj.type == EnumMouseInteractionType.NODE_HEADER)
+        if(this.getHoverObj().type == EnumMouseInteractionType.NODE_HEADER)
         {
-            this.getUtil().drawNodeHoveringText(this.hoverObj.node, mouseX, mouseY);
+            this.getUtil().drawNodeHoveringText(this.getHoverObj().node, mouseX, mouseY);
         }
-        else if(this.hoverObj.type == EnumMouseInteractionType.OUTPUT || this.hoverObj.type == EnumMouseInteractionType.INPUT)
+        else if(this.getHoverObj().type == EnumMouseInteractionType.OUTPUT || this.getHoverObj().type == EnumMouseInteractionType.INPUT)
         {
-            this.getUtil().drawNodeFieldHoveringText(this.hoverObj.nodeField, mouseX, mouseY);
+            this.getUtil().drawNodeFieldHoveringText(this.getHoverObj().nodeField, mouseX, mouseY);
         }
     }
     
@@ -740,7 +740,7 @@ public class ComponentPrint extends Component
          * Find all viable cases and return true
          */
         
-        if(this.hoverObj.isNothing())
+        if(this.getHoverObj().isNothing())
         {
             //Hover over nothing is viable
             return true;
@@ -750,19 +750,19 @@ public class ComponentPrint extends Component
         {
             // Nothing is clicked, but something is hovered over
             
-            if(this.hoverObj.type == EnumMouseInteractionType.INPUT)
+            if(this.getHoverObj().type == EnumMouseInteractionType.INPUT)
             {
                 // Hovering over an input is viable, if it
                 // - has connections (to disconnect)
                 // - has an immediate value (and it can actually be put in - the data type is properly representable in this gui)
-                return this.hoverObj.input.hasConnections() || (this.hoverObj.input.hasDisplayValue() && (this.hoverObj.input.getDataType() instanceof DataTypeDynamic || this.hoverObj.input.getDataType() instanceof DataTypeEnum));
+                return this.getHoverObj().input.hasConnections() || (this.getHoverObj().input.hasDisplayValue() && (this.getHoverObj().input.getDataType() instanceof DataTypeDynamic || this.getHoverObj().input.getDataType() instanceof DataTypeEnum));
             }
             
             // If nothing of the above is the case, then simply return true...
             // ... if the user is hovering over it, as output and header do not have any conditions
             // To be a viable hover
-            return this.hoverObj.type == EnumMouseInteractionType.OUTPUT
-                || this.hoverObj.type == EnumMouseInteractionType.NODE_HEADER;
+            return this.getHoverObj().type == EnumMouseInteractionType.OUTPUT
+                || this.getHoverObj().type == EnumMouseInteractionType.NODE_HEADER;
         }
         else
         {
@@ -774,17 +774,17 @@ public class ComponentPrint extends Component
     
     public boolean isHoverViableClicked()
     {
-        if(this.clickedObj.type == EnumMouseInteractionType.OUTPUT && this.hoverObj.type == EnumMouseInteractionType.INPUT)
+        if(this.clickedObj.type == EnumMouseInteractionType.OUTPUT && this.getHoverObj().type == EnumMouseInteractionType.INPUT)
         {
-            return NodeField.canConnect(this.clickedObj.output, this.hoverObj.input);
+            return NodeField.canConnect(this.clickedObj.output, this.getHoverObj().input);
         }
-        else if(this.clickedObj.type == EnumMouseInteractionType.INPUT_ENUM && this.hoverObj.type == EnumMouseInteractionType.INPUT_ENUM_ID)
+        else if(this.clickedObj.type == EnumMouseInteractionType.INPUT_ENUM && this.getHoverObj().type == EnumMouseInteractionType.INPUT_ENUM_ID)
         {
             return true;
         }
         else if(this.clickedObj.type == EnumMouseInteractionType.INPUT_DYNAMIC)
         {
-            return this.clickedObj.nodeField == this.hoverObj.nodeField;
+            return this.clickedObj.nodeField == this.getHoverObj().nodeField;
         }
         
         return false;

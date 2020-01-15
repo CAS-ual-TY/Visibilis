@@ -29,8 +29,8 @@ public class NodeActionWidget implements IGuiEventListener
     
     public void createDimensions(int mouseX, int mouseY, Rectangle dimensionsIn)
     {
-        int w = this.component.uiBase.util.nodeWidth;
-        int h = this.component.uiBase.util.nodeHeight * this.actions.size();
+        int w = this.component.getUiBase().getUtil().nodeWidth;
+        int h = this.component.getUiBase().getUtil().nodeHeight * this.actions.size();
         
         int midX = dimensionsIn.x + dimensionsIn.w / 2;
         int midY = dimensionsIn.y + dimensionsIn.h / 2;

@@ -61,7 +61,7 @@ public class ComponentNodeList extends Component
         this.dimensions.render(0.375F, 0.375F, 0.375F);
         
         // Reset hoverObj, then check if the mouse is over smth
-        this.hoverObj.nothing();
+        this.getHoverObj().nothing();
         boolean mouseOnTextField = this.inputRect.isCoordInside(mouseX, mouseY);
         boolean mouseOnList = !mouseOnTextField && this.listRect.isCoordInside(mouseX, mouseY);
         
@@ -89,7 +89,7 @@ public class ComponentNodeList extends Component
             // - Immediately render hover rect
             if(mouseOnList && RenderUtility.isCoordInsideRect(mouseX, mouseY, this.dimensions.x, this.dimensions.y + y * zoom, w * zoom, h * zoom))
             {
-                this.hoverObj.node(node);
+                this.getHoverObj().node(node);
                 this.getUtil().drawHoverRect(x, y, w, h);
             }
             
@@ -124,7 +124,7 @@ public class ComponentNodeList extends Component
         if(mouseOnTextField)
         {
             // This overrides any nodes the mouse might be on
-            this.hoverObj.textField(this.searchInput);
+            this.getHoverObj().textField(this.searchInput);
         }
         
         this.searchInput.render(mouseX, mouseY, partialTicks);
@@ -133,9 +133,9 @@ public class ComponentNodeList extends Component
     @Override
     public void guiPostRender(int mouseX, int mouseY, float partialTicks)
     {
-        if(this.hoverObj.type == EnumMouseInteractionType.NODE)
+        if(this.getHoverObj().type == EnumMouseInteractionType.NODE)
         {
-            this.getUtil().drawNodeHoveringText(this.hoverObj.node, mouseX, mouseY);
+            this.getUtil().drawNodeHoveringText(this.getHoverObj().node, mouseX, mouseY);
         }
     }
     
@@ -164,14 +164,14 @@ public class ComponentNodeList extends Component
     {
         if(modifiers == 0)
         {
-            if(this.hoverObj.type == EnumMouseInteractionType.NODE)
+            if(this.getHoverObj().type == EnumMouseInteractionType.NODE)
             {
                 this.getProvider().saveChange();
-                this.uiBase.addNodeToPrint(this.hoverObj.node.setPosition(-this.getPrint().getPosX(), -this.getPrint().getPosY()));
+                this.getUiBase().addNodeToPrint(this.getHoverObj().node.setPosition(-this.getPrint().getPosX(), -this.getPrint().getPosY()));
             }
             
             // If you had the text field selected and click on it again, dont deselect it
-            if(this.hoverObj.type == EnumMouseInteractionType.TEXT_FIELD)
+            if(this.getHoverObj().type == EnumMouseInteractionType.TEXT_FIELD)
             {
                 if(this.searchInput.isFocused())
                 {

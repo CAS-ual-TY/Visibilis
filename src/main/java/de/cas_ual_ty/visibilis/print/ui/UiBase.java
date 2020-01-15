@@ -23,8 +23,8 @@ public class UiBase implements IGuiEventListener
     
     protected Consumer<Node> addToPrint;
     
-    public final RenderUtility util;
-    public final PrintProvider provider;
+    private final RenderUtility util;
+    private final PrintProvider provider;
     
     // Helper fields
     public double lastMousePosX;
@@ -48,6 +48,16 @@ public class UiBase implements IGuiEventListener
         this.windowPrint = this.createCPrint();
         this.windowNodeList = this.createCNodeList();
         this.windowHeader = this.createCHeader();
+    }
+    
+    public RenderUtility getUtil()
+    {
+        return this.util;
+    }
+    
+    public PrintProvider getProvider()
+    {
+        return this.provider;
     }
     
     public ComponentPrint createCPrint()
@@ -125,7 +135,7 @@ public class UiBase implements IGuiEventListener
     
     public void initComponentDimensions()
     {
-        int w = (int)(this.util.nodeWidth * this.windowNodeList.zoom);
+        int w = (int)(this.getUtil().nodeWidth * this.windowNodeList.zoom);
         int h = 20;
         
         this.windowPrint.setDimensions(Rectangle.fromXYWH(0, h, this.getScaledResolution().getScaledWidth() - w, this.getScaledResolution().getScaledHeight() - h));
@@ -290,6 +300,6 @@ public class UiBase implements IGuiEventListener
     public void addNodeToPrint(Node n)
     {
         this.addToPrint.accept(n);
-        this.provider.onNodeAdded(n);
+        this.getProvider().onNodeAdded(n);
     }
 }

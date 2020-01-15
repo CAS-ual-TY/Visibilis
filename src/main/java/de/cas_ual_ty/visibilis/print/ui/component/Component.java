@@ -12,9 +12,9 @@ import net.minecraft.client.gui.screen.Screen;
 
 public abstract class Component implements IGuiEventListener
 {
-    public final MouseInteractionObject hoverObj = new MouseInteractionObject();
+    private final MouseInteractionObject hoverObj = new MouseInteractionObject();
     
-    public final UiBase uiBase;
+    private final UiBase uiBase;
     
     /** Dimensions (Rectangle) of this window component. Controlled by the parent UiBase instance */
     public Rectangle dimensions;
@@ -25,11 +25,21 @@ public abstract class Component implements IGuiEventListener
     {
         this.uiBase = uiBase;
         
-        this.uiBase.children.add(this);
+        this.getUiBase().children.add(this);
     }
     
     // --- START ---
     // --- Methods called from UiBase ---
+    
+    public MouseInteractionObject getHoverObj()
+    {
+        return this.hoverObj;
+    }
+    
+    public UiBase getUiBase()
+    {
+        return this.uiBase;
+    }
     
     public Component setDimensions(Rectangle dimensions)
     {
@@ -98,12 +108,12 @@ public abstract class Component implements IGuiEventListener
      */
     public MainWindow getSR()
     {
-        return this.uiBase.getScaledResolution();
+        return this.getUiBase().getScaledResolution();
     }
     
     public Screen getParentGui()
     {
-        return this.uiBase.getParentGui();
+        return this.getUiBase().getParentGui();
     }
     
     @Override
@@ -156,11 +166,11 @@ public abstract class Component implements IGuiEventListener
     
     public RenderUtility getUtil()
     {
-        return this.uiBase.util;
+        return this.getUiBase().getUtil();
     }
     
     public PrintProvider getProvider()
     {
-        return this.uiBase.provider;
+        return this.getUiBase().getProvider();
     }
 }
