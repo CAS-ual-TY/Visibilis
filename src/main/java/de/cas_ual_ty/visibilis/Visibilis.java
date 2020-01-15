@@ -13,12 +13,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent.NewRegistry;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
@@ -49,6 +46,7 @@ public class Visibilis
         
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(this::init);
+        bus.addListener(this::onModConfigEvent);
         bus.addListener(this::newRegistry);
         
         bus = MinecraftForge.EVENT_BUS;
@@ -69,6 +67,11 @@ public class Visibilis
         Visibilis.channel.registerMessage(0, MessageItem.class, MessageItem::encode, MessageItem::decode, MessageItem::handle);
         
         VDataTypes.addConverters();
+    }
+    
+    public void onModConfigEvent(ModConfig.ModConfigEvent event)
+    {
+        VConfigHelper.bake(event.getConfig());
     }
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -96,15 +99,5 @@ public class Visibilis
     public static void debug(Object s)
     {
         System.out.println("------------------------ " + s);
-    }
-    
-    @EventBusSubscriber(modid = Visibilis.MOD_ID, bus = Bus.MOD)
-    public static class Registries
-    {
-        @SubscribeEvent
-        public static void onModConfigEvent(ModConfig.ModConfigEvent event)
-        {
-            VConfigHelper.bake(event.getConfig());
-        }
     }
 }
