@@ -130,12 +130,12 @@ public class RenderUtility
     {
         for(Node node : print.getNodes())
         {
-            this.drawNode(node, node.getPosX() + print.posX, node.getPosY() + print.posY);
+            this.drawNode(node, node.getPosX() + print.getPosX(), node.getPosY() + print.getPosY());
         }
         
         for(Node node : print.getNodes())
         {
-            this.drawNodeConnections(node, node.getPosX() + print.posX, node.getPosY() + print.posY);
+            this.drawNodeConnections(node, node.getPosX() + print.getPosX(), node.getPosY() + print.getPosY());
         }
     }
     
@@ -598,7 +598,7 @@ public class RenderUtility
      */
     public void updateLineWidth(Print print)
     {
-        this.nodeFieldConnectionsWidth = (float)((this.nodeFieldDotSize / 2) * print.zoom * Minecraft.getInstance().mainWindow.getGuiScaleFactor());
+        this.nodeFieldConnectionsWidth = (float)((this.nodeFieldDotSize / 2) * print.getZoom() * Minecraft.getInstance().mainWindow.getGuiScaleFactor());
     }
     
     public static void drawTextCentered(FontRenderer fontRenderer, int x, int y, int w, String text, float color[])

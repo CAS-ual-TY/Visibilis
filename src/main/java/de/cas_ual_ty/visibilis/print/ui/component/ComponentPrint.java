@@ -64,7 +64,7 @@ public class ComponentPrint extends Component
     {
         // Background & show zoom on top left
         this.dimensions.render(0.5F, 0.25F, 0.25F);
-        Minecraft.getInstance().fontRenderer.drawString(this.getPrint().zoom + "x", 1 + this.dimensions.x, 1 + this.dimensions.y, 0xFFFFFF);
+        Minecraft.getInstance().fontRenderer.drawString(this.getPrint().getZoom() + "x", 1 + this.dimensions.x, 1 + this.dimensions.y, 0xFFFFFF);
         
         // Check what the mouse is over and properly hold it in hoverObj
         this.updateMouseHoveringObj(mouseX, mouseY);
@@ -78,8 +78,8 @@ public class ComponentPrint extends Component
         // Scissor by dimensions rect, apply print zoom, translate by print coords
         GlStateManager.pushMatrix();
         RenderUtility.scissorStart(this.getSR(), this.dimensions.x, this.dimensions.y, this.dimensions.w, this.dimensions.h);
-        RenderUtility.applyZoom(this.getPrint().zoom); // Inside of the matrix since you would otherwise "touch" everything outside of the matrix
-        GlStateManager.translatef(this.getPrint().posX, this.getPrint().posY, 0); // Move everything in the print by the print's position
+        RenderUtility.applyZoom(this.getPrint().getZoom()); // Inside of the matrix since you would otherwise "touch" everything outside of the matrix
+        GlStateManager.translatef(this.getPrint().getPosX(), this.getPrint().getPosY(), 0); // Move everything in the print by the print's position
         
         // Draw the Print: All nodes, fields, connections
         this.drawPrint(this.getPrint());
@@ -115,8 +115,8 @@ public class ComponentPrint extends Component
             // Reset position to 0
             if(this.keyPressed == GLFW.GLFW_KEY_SPACE)
             {
-                this.getPrint().posX = 0;
-                this.getPrint().posY = 0;
+                this.getPrint().setPosX(0);
+                this.getPrint().setPosY(0);
             }
             // zoom in
             else if(this.keyPressed == GLFW.GLFW_KEY_KP_ADD)
@@ -131,22 +131,22 @@ public class ComponentPrint extends Component
             // move print up
             if(this.keyPressed == GLFW.GLFW_KEY_W || this.keyPressed == GLFW.GLFW_KEY_UP)
             {
-                this.getPrint().posY -= 8 * 2 / this.getPrint().zoom;
+                this.getPrint().setPosY(this.getPrint().getPosY() - 8 * 2 / this.getPrint().getZoom());
             }
             // move print down
             if(this.keyPressed == GLFW.GLFW_KEY_S || this.keyPressed == GLFW.GLFW_KEY_DOWN)
             {
-                this.getPrint().posY += 8 * 2 / this.getPrint().zoom;
+                this.getPrint().setPosY(this.getPrint().getPosY() + 8 * 2 / this.getPrint().getZoom());
             }
             // move print left
             if(this.keyPressed == GLFW.GLFW_KEY_A || this.keyPressed == GLFW.GLFW_KEY_LEFT)
             {
-                this.getPrint().posX -= 8 * 2 / this.getPrint().zoom;
+                this.getPrint().setPosX(this.getPrint().getPosX() - 8 * 2 / this.getPrint().getZoom());
             }
             // move print right
             if(this.keyPressed == GLFW.GLFW_KEY_D || this.keyPressed == GLFW.GLFW_KEY_RIGHT)
             {
-                this.getPrint().posX += 8 * 2 / this.getPrint().zoom;
+                this.getPrint().setPosX(this.getPrint().getPosX() + 8 * 2 / this.getPrint().getZoom());
             }
         }
         super.guiTick();
@@ -653,16 +653,16 @@ public class ComponentPrint extends Component
     
     public void zoomIn(double mouseX, double mouseY)
     {
-        this.getPrint().zoom *= 2;
+        this.getPrint().setZoom(this.getPrint().getZoom() * 2);
         
-        if(this.getPrint().zoom > 2)
+        if(this.getPrint().getZoom() > 2)
         {
-            this.getPrint().zoom = 2;
+            this.getPrint().setZoom(2);
         }
         else
         {
-            this.getPrint().posX -= (mouseX) / this.getPrint().zoom;
-            this.getPrint().posY -= (mouseY) / this.getPrint().zoom;
+            this.getPrint().setPosX(this.getPrint().getPosX() - (mouseX) / this.getPrint().getZoom());
+            this.getPrint().setPosY(this.getPrint().getPosY() - (mouseY) / this.getPrint().getZoom());
         }
         
         this.getUtil().updateLineWidth(this.getPrint());
@@ -670,17 +670,17 @@ public class ComponentPrint extends Component
     
     public void zoomOut(double mouseX, double mouseY)
     {
-        this.getPrint().zoom *= 0.5F;
+        this.getPrint().setZoom(this.getPrint().getZoom() * 0.5F);
         
-        if(this.getPrint().zoom < 0.125F)
+        if(this.getPrint().getZoom() < 0.125F)
         {
-            this.getPrint().zoom = 0.125F;
+            this.getPrint().setZoom(0.125F);
         }
         else
         {
             // We need the previous zoom here and 0.5F. current zoom is previous zoom * 0.5F.
-            this.getPrint().posX += (mouseX * 0.5F) / this.getPrint().zoom;
-            this.getPrint().posY += (mouseY * 0.5F) / this.getPrint().zoom;
+            this.getPrint().setPosX(this.getPrint().getPosX() + (mouseX * 0.5F) / this.getPrint().getZoom());
+            this.getPrint().setPosY(this.getPrint().getPosY() + (mouseY * 0.5F) / this.getPrint().getZoom());
         }
         
         this.getUtil().updateLineWidth(this.getPrint());
@@ -795,7 +795,7 @@ public class ComponentPrint extends Component
      */
     public double printToGui(double i)
     {
-        return i / this.getPrint().zoom;
+        return i / this.getPrint().getZoom();
     }
     
     /**
@@ -811,7 +811,7 @@ public class ComponentPrint extends Component
      */
     public int getAbsNodePosX(Node n)
     {
-        return this.getPrint().posX + n.getPosX();
+        return this.getPrint().getPosX() + n.getPosX();
     }
     
     /**
@@ -819,7 +819,7 @@ public class ComponentPrint extends Component
      */
     public int getAbsNodePosY(Node n)
     {
-        return this.getPrint().posY + n.getPosY();
+        return this.getPrint().getPosY() + n.getPosY();
     }
     
     /**
@@ -827,7 +827,7 @@ public class ComponentPrint extends Component
      */
     public double mouseXToPrint(double mouseX)
     {
-        return this.printToGui(mouseX) - this.getPrint().posX;
+        return this.printToGui(mouseX) - this.getPrint().getPosX();
     }
     
     /**
@@ -835,7 +835,7 @@ public class ComponentPrint extends Component
      */
     public double mouseYToPrint(double mouseY)
     {
-        return this.printToGui(mouseY) - this.getPrint().posY;
+        return this.printToGui(mouseY) - this.getPrint().getPosY();
     }
     
     /**
@@ -843,7 +843,7 @@ public class ComponentPrint extends Component
      */
     public int mouseXToPrintRounded(double mouseX)
     {
-        return this.printToGuiRounded(mouseX) - this.getPrint().posX;
+        return this.printToGuiRounded(mouseX) - this.getPrint().getPosX();
     }
     
     /**
@@ -851,7 +851,7 @@ public class ComponentPrint extends Component
      */
     public int mouseYToPrintRounded(double mouseY)
     {
-        return this.printToGuiRounded(mouseY) - this.getPrint().posY;
+        return this.printToGuiRounded(mouseY) - this.getPrint().getPosY();
     }
     
     /**
@@ -872,6 +872,6 @@ public class ComponentPrint extends Component
     
     public void addNodeToPrint(Node n)
     {
-        this.getProvider().getPrint().addNode(n.setPosition(-this.getPrint().posX + (int)((this.dimensions.w * 0.5F + this.dimensions.x) / this.getPrint().zoom), -this.getPrint().posY + (int)((this.dimensions.h * 0.5F + this.dimensions.y) / this.getPrint().zoom)));
+        this.getProvider().getPrint().addNode(n.setPosition(-this.getPrint().getPosX() + (int)((this.dimensions.w * 0.5F + this.dimensions.x) / this.getPrint().getZoom()), -this.getPrint().getPosY() + (int)((this.dimensions.h * 0.5F + this.dimensions.y) / this.getPrint().getZoom())));
     }
 }

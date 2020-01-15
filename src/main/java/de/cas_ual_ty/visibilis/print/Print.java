@@ -13,6 +13,7 @@ import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.util.NBTUtility;
 import net.minecraft.command.CommandSource;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.MathHelper;
 
 public class Print
 {
@@ -28,12 +29,13 @@ public class Print
     /**
      * Where the user currently shifted the print in the GUI. Saved so that they start off again where they last left
      */
-    public int posX, posY;
+    private int posX;
+    private int posY;
     
     /**
      * How much the user currently zoomed in the GUI. Saved so that they start off again where they last left
      */
-    public float zoom = .5F;
+    private float zoom = .5F;
     
     /**
      * All nodes in this print (including events).
@@ -47,8 +49,8 @@ public class Print
     
     public Print()
     {
-        this.posX = 0;
-        this.posY = 0;
+        this.setPosX(0);
+        this.setPosY(0);
     }
     
     /**
@@ -241,9 +243,9 @@ public class Print
      */
     public void readFromNBT(CompoundNBT nbt)
     {
-        this.posX = nbt.getInt(Print.KEY_POS_X);
-        this.posY = nbt.getInt(Print.KEY_POS_Y);
-        this.zoom = nbt.getFloat(Print.KEY_ZOOM);
+        this.setPosX(nbt.getInt(Print.KEY_POS_X));
+        this.setPosY(nbt.getInt(Print.KEY_POS_Y));
+        this.setZoom(nbt.getFloat(Print.KEY_ZOOM));
         
         NBTUtility.readPrintNodesFromNBT(this, nbt);
         NBTUtility.readPrintConnectionsFromNBT(this, nbt);
@@ -254,9 +256,9 @@ public class Print
      */
     public void writeToNBT(CompoundNBT nbt)
     {
-        nbt.putInt(Print.KEY_POS_X, this.posX);
-        nbt.putInt(Print.KEY_POS_Y, this.posY);
-        nbt.putFloat(Print.KEY_ZOOM, this.zoom);
+        nbt.putInt(Print.KEY_POS_X, this.getPosX());
+        nbt.putInt(Print.KEY_POS_Y, this.getPosY());
+        nbt.putFloat(Print.KEY_ZOOM, this.getZoom());
         
         NBTUtility.writePrintNodesToNBT(this, nbt);
         NBTUtility.writePrintConnectionsToNBT(this, nbt);
@@ -307,5 +309,45 @@ public class Print
     {
         //Yes very lazy I know :P But atleast we have a solution for now
         return NBTUtility.loadPrintFromNBT(NBTUtility.savePrintToNBT(this));
+    }
+    
+    public int getPosX()
+    {
+        return this.posX;
+    }
+    
+    public void setPosX(int posX)
+    {
+        this.posX = posX;
+    }
+    
+    public void setPosX(double posX)
+    {
+        this.posX = MathHelper.floor(posX);
+    }
+    
+    public int getPosY()
+    {
+        return this.posY;
+    }
+    
+    public void setPosY(int posY)
+    {
+        this.posY = posY;
+    }
+    
+    public void setPosY(double posY)
+    {
+        this.posY = MathHelper.floor(posY);
+    }
+    
+    public float getZoom()
+    {
+        return this.zoom;
+    }
+    
+    public void setZoom(float zoom)
+    {
+        this.zoom = zoom;
     }
 }

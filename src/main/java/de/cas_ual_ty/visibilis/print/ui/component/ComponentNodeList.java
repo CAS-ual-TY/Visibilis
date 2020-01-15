@@ -167,7 +167,7 @@ public class ComponentNodeList extends Component
             if(this.hoverObj.type == EnumMouseInteractionType.NODE)
             {
                 this.getProvider().saveChange();
-                this.uiBase.addNodeToPrint(this.hoverObj.node.setPosition(-this.getPrint().posX, -this.getPrint().posY));
+                this.uiBase.addNodeToPrint(this.hoverObj.node.setPosition(-this.getPrint().getPosX(), -this.getPrint().getPosY()));
             }
             
             // If you had the text field selected and click on it again, dont deselect it
