@@ -2,8 +2,10 @@ package de.cas_ual_ty.visibilis.util;
 
 import java.util.ArrayList;
 
+import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.config.VConfigHelper;
 import de.cas_ual_ty.visibilis.config.VConfiguration;
+import de.cas_ual_ty.visibilis.print.PrintProvider;
 
 public class VUtility
 {
@@ -49,5 +51,10 @@ public class VUtility
     public static boolean isShowdown()
     {
         return VConfiguration.shutdown;
+    }
+    
+    public static void openGuiForClient(PrintProvider helper)
+    {
+        Visibilis.proxy.openGuiPrint(helper);
     }
 }

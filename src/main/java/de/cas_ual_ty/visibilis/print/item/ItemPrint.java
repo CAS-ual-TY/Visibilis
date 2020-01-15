@@ -5,6 +5,7 @@ import de.cas_ual_ty.visibilis.print.GuiPrint;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.PrintProvider;
 import de.cas_ual_ty.visibilis.util.VNBTUtility;
+import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
@@ -40,7 +41,7 @@ public class ItemPrint extends Item
     {
         if(player.world.isRemote)
         {
-            Visibilis.proxy.openGuiPrint(this.getHelper(itemStack, hand == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND.getSlotIndex() : EquipmentSlotType.OFFHAND.getSlotIndex()));
+            VUtility.openGuiForClient(this.getHelper(itemStack, hand == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND.getSlotIndex() : EquipmentSlotType.OFFHAND.getSlotIndex()));
             return true;
         }
         
