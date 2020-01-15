@@ -7,7 +7,6 @@ import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.print.item.MessageItem;
 import de.cas_ual_ty.visibilis.proxy.IVSidedProxy;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
-import de.cas_ual_ty.visibilis.test.VCommandExec;
 import de.cas_ual_ty.visibilis.util.VCommand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -50,8 +49,8 @@ public class Visibilis
         bus.addListener(this::newRegistry);
         
         bus = MinecraftForge.EVENT_BUS;
-        bus.addListener(this::serverStarting);
-        bus.addListener(VCommandExec::execCommand);
+        bus.<FMLServerStartingEvent> addListener((event) -> VCommand.register(event.getCommandDispatcher()));
+        bus.addListener(VCommand::execCommand);
         
         ModLoadingContext mld = ModLoadingContext.get();
         mld.registerConfig(ModConfig.Type.CLIENT, VConfiguration.CLIENT_SPEC);
@@ -79,12 +78,6 @@ public class Visibilis
     {
         Visibilis.nodeTypesRegistry = new RegistryBuilder().setName(new ResourceLocation(Visibilis.MOD_ID, "nodes")).setType(NodeType.class).setMaxID(4096).create();
         Visibilis.dataTypesRegistry = new RegistryBuilder().setName(new ResourceLocation(Visibilis.MOD_ID, "datatypes")).setType(DataType.class).setMaxID(4096).create();
-    }
-    
-    public void serverStarting(FMLServerStartingEvent event)
-    {
-        VCommandExec.register(event.getCommandDispatcher());
-        VCommand.register(event.getCommandDispatcher());
     }
     
     // TODO low: Some nice logging here please
