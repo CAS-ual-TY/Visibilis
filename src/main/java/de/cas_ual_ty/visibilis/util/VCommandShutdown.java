@@ -2,8 +2,6 @@ package de.cas_ual_ty.visibilis.util;
 
 import com.mojang.brigadier.CommandDispatcher;
 
-import de.cas_ual_ty.visibilis.config.VConfigHelper;
-import de.cas_ual_ty.visibilis.config.VConfiguration;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 
@@ -26,8 +24,7 @@ public class VCommandShutdown
     {
         if(!sender.getWorld().isRemote)
         {
-            VConfigHelper.setValueAndSave(VConfigHelper.commonConfig, "shutdown", true);
-            VConfiguration.shutdown = true;
+            VUtility.shutdown();
         }
     }
 }

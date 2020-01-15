@@ -3,7 +3,6 @@ package de.cas_ual_ty.visibilis.print;
 import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.Visibilis;
-import de.cas_ual_ty.visibilis.config.VConfiguration;
 import de.cas_ual_ty.visibilis.node.DataProvider;
 import de.cas_ual_ty.visibilis.node.ExecContext;
 import de.cas_ual_ty.visibilis.node.INodeExec;
@@ -12,6 +11,7 @@ import de.cas_ual_ty.visibilis.node.event.NodeEvent;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.util.VNBTUtility;
+import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.command.CommandSource;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.MathHelper;
@@ -163,7 +163,7 @@ public class Print
      */
     public boolean execute(INodeExec node, DataProvider provider)
     {
-        if(VConfiguration.shutdown)
+        if(VUtility.isShowdown())
         {
             return false;
         }

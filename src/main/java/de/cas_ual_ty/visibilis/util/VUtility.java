@@ -2,6 +2,9 @@ package de.cas_ual_ty.visibilis.util;
 
 import java.util.ArrayList;
 
+import de.cas_ual_ty.visibilis.config.VConfigHelper;
+import de.cas_ual_ty.visibilis.config.VConfiguration;
+
 public class VUtility
 {
     @SuppressWarnings("unchecked")
@@ -18,5 +21,33 @@ public class VUtility
     public static <A> ArrayList<A> cloneArrayList(ArrayList<A> list)
     {
         return VUtility.cast(list.clone());
+    }
+    
+    private static boolean wasShutDown = false;
+    
+    public static void shutdown()
+    {
+        VUtility.wasShutDown = true;
+        VUtility.setShutdown(true);
+    }
+    
+    public static void unShutdown()
+    {
+        if(VUtility.wasShutDown)
+        {
+            VUtility.wasShutDown = false;
+            VUtility.setShutdown(false);
+        }
+    }
+    
+    public static void setShutdown(boolean value)
+    {
+        VConfigHelper.setValueAndSave(VConfigHelper.commonConfig, "shutdown", value);
+        VConfiguration.shutdown = value;
+    }
+    
+    public static boolean isShowdown()
+    {
+        return VConfiguration.shutdown;
     }
 }
