@@ -4,6 +4,7 @@ import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.datatype.DataTypeDynamic;
 import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
+import de.cas_ual_ty.visibilis.datatype.converter.AnyString;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -174,5 +175,15 @@ public class VDataTypes
                 return nbt;
             }
         }.setBlackText().setRegistryName(Visibilis.MOD_ID, "string"));
+    }
+    
+    // Called from FMLCommonSetupEvent
+    public static void addConverters()
+    {
+        VDataTypes.FLOAT.registerConverter(VDataTypes.INTEGER, (f) -> f.floatValue()); // As I dont know how this will be used in the future, I rather add this in.
+        
+        VDataTypes.STRING.registerConverter(VDataTypes.INTEGER, new AnyString<>());
+        VDataTypes.STRING.registerConverter(VDataTypes.FLOAT, new AnyString<>());
+        VDataTypes.STRING.registerConverter(VDataTypes.BOOLEAN, new AnyString<>());
     }
 }

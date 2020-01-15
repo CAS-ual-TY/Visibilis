@@ -6,6 +6,7 @@ import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.print.item.MessageItem;
 import de.cas_ual_ty.visibilis.proxy.IVSidedProxy;
+import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import de.cas_ual_ty.visibilis.test.VCommandExec;
 import de.cas_ual_ty.visibilis.util.VCommandShutdown;
 import net.minecraft.util.ResourceLocation;
@@ -66,9 +67,11 @@ public class Visibilis
             Visibilis.PROTOCOL_VERSION::equals,
             Visibilis.PROTOCOL_VERSION::equals);
         Visibilis.channel.registerMessage(0, MessageItem.class, MessageItem::encode, MessageItem::decode, MessageItem::handle);
+        
+        VDataTypes.addConverters();
     }
     
-    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public void newRegistry(NewRegistry event)
     {
         Visibilis.nodeTypesRegistry = new RegistryBuilder().setName(new ResourceLocation(Visibilis.MOD_ID, "nodes")).setType(NodeType.class).setMaxID(4096).create();

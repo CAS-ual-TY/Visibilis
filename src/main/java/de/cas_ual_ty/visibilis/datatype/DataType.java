@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import de.cas_ual_ty.visibilis.Visibilis;
-import de.cas_ual_ty.visibilis.datatype.converter.AnyString;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import de.cas_ual_ty.visibilis.util.VUtility;
@@ -45,15 +44,6 @@ public class DataType<A> extends ForgeRegistryEntry<DataType<?>>
      * 
      * This is all not required for a data type anyways. Sometimes it is definitely better NOT to implement this with very advanced types (eg. a list type).
      */
-    
-    static
-    {
-        VDataTypes.FLOAT.registerConverter(VDataTypes.INTEGER, (f) -> f.floatValue()); // As I dont know how this will be used in the future, I rather add this in.
-        
-        VDataTypes.STRING.registerConverter(VDataTypes.INTEGER, new AnyString<>());
-        VDataTypes.STRING.registerConverter(VDataTypes.FLOAT, new AnyString<>());
-        VDataTypes.STRING.registerConverter(VDataTypes.BOOLEAN, new AnyString<>());
-    }
     
     /**
      * All registered converters
