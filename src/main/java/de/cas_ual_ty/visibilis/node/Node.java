@@ -8,7 +8,7 @@ import de.cas_ual_ty.visibilis.NodesRegistry;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.node.field.Output;
-import de.cas_ual_ty.visibilis.util.NBTUtility;
+import de.cas_ual_ty.visibilis.util.VNBTUtility;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.CompoundNBT;
 
@@ -518,7 +518,7 @@ public abstract class Node
     }
     
     /**
-     * Read from NBT. Does not load everything, see {@link NBTUtility#readNodeFromNBT(Node, NBTTagCompound)} for a proper method
+     * Read from NBT. Does not load everything, see {@link VNBTUtility#readNodeFromNBT(Node, NBTTagCompound)} for a proper method
      */
     public void readNodeFromNBT(CompoundNBT nbt0)
     {
@@ -550,7 +550,7 @@ public abstract class Node
     }
     
     /**
-     * Write to NBT. Does not write everything, see {@link NBTUtility#writeNodeToNBT(Node, NBTTagCompound)} for a proper method
+     * Write to NBT. Does not write everything, see {@link VNBTUtility#writeNodeToNBT(Node, NBTTagCompound)} for a proper method
      */
     public void writeNodeToNBT(CompoundNBT nbt0)
     {
@@ -622,6 +622,6 @@ public abstract class Node
     public Node clone()
     {
         //Yes very lazy I know :P But atleast we have a solution for now
-        return NBTUtility.loadNodeFromNBT(NBTUtility.saveNodeToNBT(this));
+        return VNBTUtility.loadNodeFromNBT(VNBTUtility.saveNodeToNBT(this));
     }
 }

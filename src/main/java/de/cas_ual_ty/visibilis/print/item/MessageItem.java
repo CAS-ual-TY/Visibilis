@@ -4,7 +4,7 @@ import java.util.function.Supplier;
 
 import de.cas_ual_ty.visibilis.event.ItemPrintValidationEvent;
 import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.util.NBTUtility;
+import de.cas_ual_ty.visibilis.util.VNBTUtility;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
@@ -19,7 +19,7 @@ public class MessageItem
     
     public MessageItem(int slot, ItemStack itemStack)
     {
-        this(slot, NBTUtility.savePrintToNBT(((ItemPrint)itemStack.getItem()).getPrint(itemStack)));
+        this(slot, VNBTUtility.savePrintToNBT(((ItemPrint)itemStack.getItem()).getPrint(itemStack)));
     }
     
     public MessageItem(int slot, CompoundNBT nbt)
@@ -47,7 +47,7 @@ public class MessageItem
         {
             ItemStack itemStack = ctx.get().getSender().inventory.getStackInSlot(msg.slot);
             ItemPrint item = (ItemPrint)itemStack.getItem(); //TODO change to print capability
-            Print print = NBTUtility.loadPrintFromNBT(msg.nbt);
+            Print print = VNBTUtility.loadPrintFromNBT(msg.nbt);
             
             if(!MinecraftForge.EVENT_BUS.post(new ItemPrintValidationEvent(itemStack, print)))
             {

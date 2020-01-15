@@ -4,7 +4,7 @@ import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.print.GuiPrint;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.PrintProvider;
-import de.cas_ual_ty.visibilis.util.NBTUtility;
+import de.cas_ual_ty.visibilis.util.VNBTUtility;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
@@ -71,13 +71,13 @@ public class ItemPrint extends Item
         else
         {
             CompoundNBT nbt = nbt0.getCompound(Visibilis.MOD_ID);
-            return NBTUtility.loadPrintFromNBT(nbt);
+            return VNBTUtility.loadPrintFromNBT(nbt);
         }
     }
     
     public void setPrint(ItemStack itemStack, Print print)
     {
-        this.setPrintTag(itemStack, NBTUtility.savePrintToNBT(print));
+        this.setPrintTag(itemStack, VNBTUtility.savePrintToNBT(print));
     }
     
     public void setPrintTag(ItemStack itemStack, CompoundNBT nbt)

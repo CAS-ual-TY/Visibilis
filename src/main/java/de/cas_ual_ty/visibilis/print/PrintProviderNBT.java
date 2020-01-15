@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Node;
-import de.cas_ual_ty.visibilis.util.NBTUtility;
+import de.cas_ual_ty.visibilis.util.VNBTUtility;
 import net.minecraft.nbt.CompoundNBT;
 
 public abstract class PrintProviderNBT extends PrintProvider
@@ -64,7 +64,7 @@ public abstract class PrintProviderNBT extends PrintProvider
         else
         {
             CompoundNBT nbt = nbt0.getCompound(Visibilis.MOD_ID);
-            print = NBTUtility.loadPrintFromNBT(nbt);
+            print = VNBTUtility.loadPrintFromNBT(nbt);
         }
         
         this.undoList.setFirst(print);
@@ -72,7 +72,7 @@ public abstract class PrintProviderNBT extends PrintProvider
     
     public void writeToNBT(CompoundNBT nbt0)
     {
-        CompoundNBT nbt = NBTUtility.savePrintToNBT(this.getPrint());
+        CompoundNBT nbt = VNBTUtility.savePrintToNBT(this.getPrint());
         nbt0.put(Visibilis.MOD_ID, nbt);
         
         this.synchToServer(nbt0);

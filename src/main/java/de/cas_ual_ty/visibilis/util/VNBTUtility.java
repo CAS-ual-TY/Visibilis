@@ -13,7 +13,7 @@ import net.minecraft.nbt.ListNBT;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.Constants.NBT;
 
-public class NBTUtility
+public class VNBTUtility
 {
     // read: Instance reading itself from NBT
     // write: Instance writing itself to NBT
@@ -36,7 +36,7 @@ public class NBTUtility
     public static Print loadPrintFromNBT(CompoundNBT nbt)
     {
         Print p = new Print();
-        NBTUtility.readPrintFromNBT(p, nbt);
+        VNBTUtility.readPrintFromNBT(p, nbt);
         
         return p;
     }
@@ -47,7 +47,7 @@ public class NBTUtility
     public static CompoundNBT savePrintToNBT(Print p)
     {
         CompoundNBT nbt = new CompoundNBT();
-        NBTUtility.writePrintToNBT(p, nbt);
+        VNBTUtility.writePrintToNBT(p, nbt);
         
         return nbt;
     }
@@ -57,7 +57,7 @@ public class NBTUtility
      */
     public static void readPrintFromNBT(Print p, CompoundNBT nbt)
     {
-        CompoundNBT nbt1 = nbt.getCompound(NBTUtility.KEY_PRINT);
+        CompoundNBT nbt1 = nbt.getCompound(VNBTUtility.KEY_PRINT);
         p.readFromNBT(nbt1);
     }
     
@@ -68,7 +68,7 @@ public class NBTUtility
     {
         CompoundNBT nbt1 = new CompoundNBT();
         p.writeToNBT(nbt1);
-        nbt.put(NBTUtility.KEY_PRINT, nbt1);
+        nbt.put(VNBTUtility.KEY_PRINT, nbt1);
     }
     
     /**
@@ -76,7 +76,7 @@ public class NBTUtility
      */
     public static void readPrintNodesFromNBT(Print p, CompoundNBT nbt)
     {
-        ListNBT nbtlist = nbt.getList(NBTUtility.KEY_PRINT_NODES, Constants.NBT.TAG_COMPOUND);
+        ListNBT nbtlist = nbt.getList(VNBTUtility.KEY_PRINT_NODES, Constants.NBT.TAG_COMPOUND);
         
         CompoundNBT nbt1;
         Node n;
@@ -85,7 +85,7 @@ public class NBTUtility
         {
             nbt1 = nbtlist.getCompound(i);
             
-            n = NBTUtility.loadNodeFromNBT(nbt1);
+            n = VNBTUtility.loadNodeFromNBT(nbt1);
             
             if(n != null)
             {
@@ -112,7 +112,7 @@ public class NBTUtility
         {
             n = p.getNodes().get(i);
             
-            nbt1 = NBTUtility.saveNodeToNBT(n);
+            nbt1 = VNBTUtility.saveNodeToNBT(n);
             
             if(nbt1 != null)
             {
@@ -124,7 +124,7 @@ public class NBTUtility
             }
         }
         
-        nbt.put(NBTUtility.KEY_PRINT_NODES, nbtlist);
+        nbt.put(VNBTUtility.KEY_PRINT_NODES, nbtlist);
     }
     
     /**
@@ -134,7 +134,7 @@ public class NBTUtility
     {
         Node n;
         
-        String id = nbt.getString(NBTUtility.KEY_NODE);
+        String id = nbt.getString(VNBTUtility.KEY_NODE);
         
         n = NodesRegistry.instantiateNode(id);
         
@@ -143,7 +143,7 @@ public class NBTUtility
             return null;
         }
         
-        NBTUtility.readNodeFromNBT(n, nbt);
+        VNBTUtility.readNodeFromNBT(n, nbt);
         
         return n;
     }
@@ -162,9 +162,9 @@ public class NBTUtility
             return null;
         }
         
-        nbt.putString(NBTUtility.KEY_NODE, name);
+        nbt.putString(VNBTUtility.KEY_NODE, name);
         
-        NBTUtility.writeNodeToNBT(n, nbt);
+        VNBTUtility.writeNodeToNBT(n, nbt);
         
         return nbt;
     }
@@ -190,7 +190,7 @@ public class NBTUtility
      */
     public static void readPrintConnectionsFromNBT(Print p, CompoundNBT nbt)
     {
-        int[] array = nbt.getIntArray(NBTUtility.KEY_PRINT_CONNECTIONS);
+        int[] array = nbt.getIntArray(VNBTUtility.KEY_PRINT_CONNECTIONS);
         
         Node n;
         NodeField<?> f;
@@ -246,27 +246,27 @@ public class NBTUtility
                 }
             }
         }
-        nbt.put(NBTUtility.KEY_PRINT_CONNECTIONS, new IntArrayNBT(array));
+        nbt.put(VNBTUtility.KEY_PRINT_CONNECTIONS, new IntArrayNBT(array));
     }
     
     public static void printTree(CompoundNBT nbt)
     {
-        NBTUtility.recPrintTree(0, nbt);
+        VNBTUtility.recPrintTree(0, nbt);
     }
     
     private static void recPrintTree(int indent, CompoundNBT nbt)
     {
         for(String key : nbt.keySet())
         {
-            Visibilis.debug(NBTUtility.indent(indent) + key);
+            Visibilis.debug(VNBTUtility.indent(indent) + key);
             
             if(nbt.get(key) instanceof ListNBT)
             {
-                NBTUtility.recPrintList(indent + 1, nbt.getList(key, NBT.TAG_COMPOUND));
+                VNBTUtility.recPrintList(indent + 1, nbt.getList(key, NBT.TAG_COMPOUND));
             }
             else if(nbt.get(key) instanceof CompoundNBT)
             {
-                NBTUtility.recPrintTree(indent + 1, nbt.getCompound(key));
+                VNBTUtility.recPrintTree(indent + 1, nbt.getCompound(key));
             }
         }
     }
@@ -275,7 +275,7 @@ public class NBTUtility
     {
         for(int i = 0; i < nbt0.size(); ++i)
         {
-            NBTUtility.recPrintTree(indent + 1, nbt0.getCompound(i));
+            VNBTUtility.recPrintTree(indent + 1, nbt0.getCompound(i));
         }
     }
     

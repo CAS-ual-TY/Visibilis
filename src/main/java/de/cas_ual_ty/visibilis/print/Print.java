@@ -10,7 +10,7 @@ import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
-import de.cas_ual_ty.visibilis.util.NBTUtility;
+import de.cas_ual_ty.visibilis.util.VNBTUtility;
 import net.minecraft.command.CommandSource;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.MathHelper;
@@ -247,8 +247,8 @@ public class Print
         this.setPosY(nbt.getInt(Print.KEY_POS_Y));
         this.setZoom(nbt.getFloat(Print.KEY_ZOOM));
         
-        NBTUtility.readPrintNodesFromNBT(this, nbt);
-        NBTUtility.readPrintConnectionsFromNBT(this, nbt);
+        VNBTUtility.readPrintNodesFromNBT(this, nbt);
+        VNBTUtility.readPrintConnectionsFromNBT(this, nbt);
     }
     
     /**
@@ -260,8 +260,8 @@ public class Print
         nbt.putInt(Print.KEY_POS_Y, this.getPosY());
         nbt.putFloat(Print.KEY_ZOOM, this.getZoom());
         
-        NBTUtility.writePrintNodesToNBT(this, nbt);
-        NBTUtility.writePrintConnectionsToNBT(this, nbt);
+        VNBTUtility.writePrintNodesToNBT(this, nbt);
+        VNBTUtility.writePrintConnectionsToNBT(this, nbt);
     }
     
     /**
@@ -308,7 +308,7 @@ public class Print
     public Print clone()
     {
         //Yes very lazy I know :P But atleast we have a solution for now
-        return NBTUtility.loadPrintFromNBT(NBTUtility.savePrintToNBT(this));
+        return VNBTUtility.loadPrintFromNBT(VNBTUtility.savePrintToNBT(this));
     }
     
     public int getPosX()
