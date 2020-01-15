@@ -4,6 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 
 import de.cas_ual_ty.visibilis.Visibilis;
+import de.cas_ual_ty.visibilis.event.CommandBuilderEvent;
 import de.cas_ual_ty.visibilis.event.ExecCommandEvent;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.item.ItemPrint;
@@ -23,31 +24,34 @@ public class VCommand
             return arg1.getServer().isSinglePlayer() || arg1.hasPermissionLevel(2);
         });
         
-        base.then(Commands.literal("sd").executes((cmd) ->
+        // To show you how to use it
+        CommandBuilderEvent event = new CommandBuilderEvent(base);
+        
+        event.getArgumentBase().then(Commands.literal("sd").executes((cmd) ->
         {
             VCommand.shutdown(cmd.getSource());
             return 0;
         }));
         
-        base.then(Commands.literal("shutdown").executes((cmd) ->
+        event.getArgumentBase().then(Commands.literal("shutdown").executes((cmd) ->
         {
             VCommand.shutdown(cmd.getSource());
             return 0;
         }));
         
-        base.then(Commands.literal("usd").executes((cmd) ->
+        event.getArgumentBase().then(Commands.literal("usd").executes((cmd) ->
         {
             VCommand.unshutdown(cmd.getSource());
             return 0;
         }));
         
-        base.then(Commands.literal("unshowdown").executes((cmd) ->
+        event.getArgumentBase().then(Commands.literal("unshowdown").executes((cmd) ->
         {
             VCommand.unshutdown(cmd.getSource());
             return 0;
         }));
         
-        base.then(Commands.literal("exec").requires((arg1) ->
+        event.getArgumentBase().then(Commands.literal("exec").requires((arg1) ->
         {
             return arg1.getServer().isSinglePlayer() || arg1.hasPermissionLevel(2);
         }).executes((arg2) ->
@@ -56,6 +60,8 @@ public class VCommand
             VCommand.execute(source);
             return 0;
         }));
+        
+        MinecraftForge.EVENT_BUS.post(event);
         
         dispatcher.register(base);
     }
