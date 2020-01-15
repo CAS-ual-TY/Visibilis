@@ -8,7 +8,7 @@ import de.cas_ual_ty.visibilis.print.item.MessageItem;
 import de.cas_ual_ty.visibilis.proxy.IVSidedProxy;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import de.cas_ual_ty.visibilis.test.VCommandExec;
-import de.cas_ual_ty.visibilis.util.VCommandShutdown;
+import de.cas_ual_ty.visibilis.util.VCommand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent.NewRegistry;
@@ -84,7 +84,7 @@ public class Visibilis
     public void serverStarting(FMLServerStartingEvent event)
     {
         VCommandExec.register(event.getCommandDispatcher());
-        VCommandShutdown.register(event.getCommandDispatcher());
+        VCommand.register(event.getCommandDispatcher());
     }
     
     // TODO low: Some nice logging here please
