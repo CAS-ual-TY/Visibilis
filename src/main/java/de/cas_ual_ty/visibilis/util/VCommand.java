@@ -6,6 +6,7 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.event.CommandBuilderEvent;
 import de.cas_ual_ty.visibilis.event.ExecCommandEvent;
+import de.cas_ual_ty.visibilis.node.dataprovider.DataProviderItemStack;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.item.ItemPrint;
 import net.minecraft.command.CommandSource;
@@ -99,18 +100,10 @@ public class VCommand
             ItemPrint item = (ItemPrint)itemStack.getItem();
             Print p = item.getPrint(itemStack);
             
-            return VCommand.executeFor(sender, p);
-        }
-        
-        return false;
-    }
-    
-    public static boolean executeFor(CommandSource sender, Print p)
-    {
-        if(p != null)
-        {
-            p.executeEvent(Visibilis.MOD_ID, "command", sender);
-            return true;
+            if(p != null)
+            {
+                return p.executeEvent(Visibilis.MOD_ID, "command", new DataProviderItemStack(sender, itemStack));
+            }
         }
         
         return false;

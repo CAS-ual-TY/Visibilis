@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.node;
+package de.cas_ual_ty.visibilis.node.dataprovider;
 
 import net.minecraft.command.CommandSource;
 import net.minecraft.world.World;

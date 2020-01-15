@@ -3,10 +3,10 @@ package de.cas_ual_ty.visibilis.print;
 import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.Visibilis;
-import de.cas_ual_ty.visibilis.node.DataProvider;
 import de.cas_ual_ty.visibilis.node.ExecContext;
 import de.cas_ual_ty.visibilis.node.INodeExec;
 import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.node.dataprovider.DataProvider;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
@@ -132,11 +132,17 @@ public class Print
         return this.executeEvent(modId + ":" + eventType, sender);
     }
     
-    /**
-     * @param eventType
-     * @return
-     */
     public boolean executeEvent(String eventType, CommandSource sender)
+    {
+        return this.executeEvent(eventType, new DataProvider(sender));
+    }
+    
+    public boolean executeEvent(String modId, String eventType, DataProvider data)
+    {
+        return this.executeEvent(modId + ":" + eventType, data);
+    }
+    
+    public boolean executeEvent(String eventType, DataProvider data)
     {
         NodeEvent event;
         
@@ -147,7 +153,7 @@ public class Print
             
             if(event.eventType.equals(eventType))
             {
-                return this.execute(event, new DataProvider(sender));
+                return this.execute(event, data);
             }
         }
         
