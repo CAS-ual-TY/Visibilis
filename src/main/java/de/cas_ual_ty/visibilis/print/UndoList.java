@@ -5,7 +5,7 @@ import java.util.LinkedList;
 public class UndoList
 {
     private int index;
-    public int max;
+    private int max;
     
     private LinkedList<Print> list;
     
@@ -92,7 +92,7 @@ public class UndoList
     
     public void cutToMax()
     {
-        while(this.list.size() > this.max)
+        while(this.list.size() > this.getMax())
         {
             this.list.removeFirst();
         }
@@ -106,5 +106,10 @@ public class UndoList
     public int getSize()
     {
         return this.list.size();
+    }
+    
+    public int getMax()
+    {
+        return this.max;
     }
 }

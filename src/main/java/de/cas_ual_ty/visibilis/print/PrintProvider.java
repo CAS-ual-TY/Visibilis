@@ -14,7 +14,7 @@ public abstract class PrintProvider
      * If you need access to the screen from here, remember that you can also do that with: Minecraft.getInstance().currentScreen
      */
     
-    public UndoList undoList;
+    protected UndoList undoList;
     
     public PrintProvider()
     {
