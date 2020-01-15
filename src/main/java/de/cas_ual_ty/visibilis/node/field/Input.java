@@ -84,12 +84,6 @@ public class Input<I> extends NodeField<I>
     }
     
     @Override
-    public boolean isOutput()
-    {
-        return false;
-    }
-    
-    @Override
     public ArrayList<NodeField<?>> getConnectionsList()
     {
         ArrayList<NodeField<?>> list = new ArrayList<>();

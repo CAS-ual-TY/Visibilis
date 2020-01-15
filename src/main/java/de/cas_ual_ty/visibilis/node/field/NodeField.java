@@ -68,11 +68,14 @@ public abstract class NodeField<B>
      */
     protected abstract boolean setConnectionTo(NodeField<?> field);
     
-    public abstract boolean isOutput();
-    
-    public boolean isInput()
+    public final boolean isOutput()
     {
-        return !this.isOutput();
+        return this instanceof Output;
+    }
+    
+    public final boolean isInput()
+    {
+        return this instanceof Input;
     }
     
     public void recalculateId()

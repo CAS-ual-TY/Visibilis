@@ -77,12 +77,6 @@ public class Output<O> extends NodeField<O>
     }
     
     @Override
-    public boolean isOutput()
-    {
-        return true;
-    }
-    
-    @Override
     public ArrayList<NodeField<?>> getConnectionsList()
     {
         ArrayList<NodeField<?>> list = new ArrayList<>();
