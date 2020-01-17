@@ -236,7 +236,7 @@
     "node.while.groups": "exec",
     
     "_comment8": "--- Compare ---",
-    "group.compare": "Exec",
+    "group.compare": "Compare",
     "group.compare.tags": "order;compare",
     
     "node.equals": "Equals",
@@ -254,7 +254,25 @@
     "field.cast_integer.in1": "Float",
     "node.cast_integer.groups": "cast;operators",
     
-    "_comment10": "--- Other ---",
+    "_comment10": "--- Vectors ---",
+    "group.vector": "Vector",
+    "group.vector.tags": "vectors",
+    
+    "node.vector3d_create": "Create Vector",
+    "field.vector3d_create.out1": "(X, Y, Z)",
+    "field.vector3d_create.in1": "X",
+    "field.vector3d_create.in2": "Y",
+    "field.vector3d_create.in3": "Z",
+    "node.vector3d_create.groups": "vector",
+    
+    "node.vector3d_split": "Split Vector",
+    "field.vector3d_split.out1": "X",
+    "field.vector3d_split.out2": "Y",
+    "field.vector3d_split.out3": "Z",
+    "field.vector3d_split.in1": "(X, Y, Z)",
+    "node.vector3d_split.groups": "vector",
+    
+    "_commentF": "--- Other ---",
     "group.other": "Other",
     "group.other.tags": "other",
     

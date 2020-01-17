@@ -4,6 +4,8 @@ import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.dtboolean.NodeBooleanV;
 import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatV;
+import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dCreate;
+import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dSplit;
 import de.cas_ual_ty.visibilis.node.calculate.NodeAddition;
 import de.cas_ual_ty.visibilis.node.calculate.NodeConcatenation;
 import de.cas_ual_ty.visibilis.node.calculate.NodeDivision;
@@ -99,6 +101,9 @@ public class VNodeTypes
         
         registry.register(new NodeType<>(NodeFloatCompare::new, NodeFloatCompare.class).setRegistryName(Visibilis.MOD_ID, "equals"));
         registry.register(new NodeType<>(NodeFloatToInteger::new, NodeFloatToInteger.class).setRegistryName(Visibilis.MOD_ID, "cast_float_to_integer"));
+        
+        registry.register(new NodeType<>(NodeVector3dCreate::new, NodeVector3dCreate.class).setRegistryName(Visibilis.MOD_ID, "vector3d_create"));
+        registry.register(new NodeType<>(NodeVector3dSplit::new, NodeVector3dSplit.class).setRegistryName(Visibilis.MOD_ID, "vector3d_split"));
         
         registry.register(new NodeType<>(NodePrint::new, NodePrint.class).setRegistryName(Visibilis.MOD_ID, "print"));
     }
