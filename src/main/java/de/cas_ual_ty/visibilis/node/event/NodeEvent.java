@@ -5,13 +5,9 @@ import de.cas_ual_ty.visibilis.node.INodeExec;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
-import net.minecraft.nbt.CompoundNBT;
 
 public class NodeEvent extends Node implements INodeExec
 {
-    // NBT Keys
-    public static final String KEY_EVENT_TYPE = "eventType";
-    
     public final Output<Object> out1Exec;
     
     /**
@@ -19,16 +15,10 @@ public class NodeEvent extends Node implements INodeExec
      */
     public String eventType;
     
-    public NodeEvent()
+    public NodeEvent(String modId, String eventType)
     {
         super();
         this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1"));
-        this.eventType = null; // Just to make sure it is initialized
-    }
-    
-    public NodeEvent(String modId, String eventType)
-    {
-        this();
         this.eventType = modId + ":" + eventType;
     }
     
@@ -64,21 +54,5 @@ public class NodeEvent extends Node implements INodeExec
     public String getID()
     {
         return "event." + this.getEventType();
-    }
-    
-    @Override
-    public void readNodeFromNBT(CompoundNBT nbt)
-    {
-        super.readNodeFromNBT(nbt);
-        
-        this.eventType = nbt.getString(NodeEvent.KEY_EVENT_TYPE);
-    }
-    
-    @Override
-    public void writeNodeToNBT(CompoundNBT nbt)
-    {
-        super.writeNodeToNBT(nbt);
-        
-        nbt.putString(NodeEvent.KEY_EVENT_TYPE, this.getEventType());
     }
 }
