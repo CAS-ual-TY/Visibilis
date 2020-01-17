@@ -6,6 +6,7 @@ import de.cas_ual_ty.visibilis.datatype.DataTypeDynamic;
 import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
 import de.cas_ual_ty.visibilis.datatype.converter.AnyString;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -26,6 +27,8 @@ public class VDataTypes
     public static final DataTypeEnum<Boolean> BOOLEAN = null;
     
     public static final DataTypeDynamic<String> STRING = null;
+    
+    public static final DataType<Vec3d> VECTOR3D = null;
     
     @SubscribeEvent
     public static void register(RegistryEvent.Register<DataType<?>> event)
@@ -175,6 +178,8 @@ public class VDataTypes
                 return nbt;
             }
         }.setBlackText().setRegistryName(Visibilis.MOD_ID, "string"));
+        
+        registry.register(new DataType<Vec3d>(new float[] { 1F, 1F, 0.5F }).setRegistryName(Visibilis.MOD_ID, "vector3d").setBlackText());
     }
     
     // Called from FMLCommonSetupEvent
@@ -185,5 +190,6 @@ public class VDataTypes
         VDataTypes.STRING.registerConverter(VDataTypes.INTEGER, new AnyString<>());
         VDataTypes.STRING.registerConverter(VDataTypes.FLOAT, new AnyString<>());
         VDataTypes.STRING.registerConverter(VDataTypes.BOOLEAN, new AnyString<>());
+        VDataTypes.STRING.registerConverter(VDataTypes.VECTOR3D, new AnyString<>());
     }
 }
