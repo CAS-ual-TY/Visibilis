@@ -9,6 +9,7 @@ public class NodeType<T extends Node> extends ForgeRegistryEntry<NodeType<?>> im
     private IFactory<T> factory;
     private Class<T> nodeClass;
     
+    @Deprecated // Dont be lazy!
     public NodeType(IFactory<T> factory)
     {
         this(factory, (VUtility.cast(factory.create().getClass())));
