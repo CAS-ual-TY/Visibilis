@@ -1,14 +1,13 @@
 package de.cas_ual_ty.visibilis.node.general;
 
 import de.cas_ual_ty.visibilis.node.ExecContext;
-import de.cas_ual_ty.visibilis.node.INodeExec;
 import de.cas_ual_ty.visibilis.node.base.NodeExpandable;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import net.minecraft.util.text.StringTextComponent;
 
-public class NodePrint extends NodeExpandable implements INodeExec
+public class NodePrint extends NodeExpandable
 {
     public Output<Object> out1Exec;
     public Input<Object> in1Exec;

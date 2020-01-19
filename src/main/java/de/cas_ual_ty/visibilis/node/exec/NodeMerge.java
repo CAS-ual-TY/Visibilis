@@ -1,12 +1,11 @@
 package de.cas_ual_ty.visibilis.node.exec;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.node.INodeExec;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericX;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 
-public class NodeMerge extends NodeGenericX<Object> implements INodeExec
+public class NodeMerge extends NodeGenericX<Object>
 {
     public NodeMerge()
     {
@@ -29,6 +28,18 @@ public class NodeMerge extends NodeGenericX<Object> implements INodeExec
     protected Object calculate(Object[] inputs)
     {
         return null;
+    }
+    
+    @Override
+    public float[] getColor()
+    {
+        return VDataTypes.EXEC.getColor();
+    }
+    
+    @Override
+    public float[] getTextColor()
+    {
+        return VDataTypes.EXEC.getTextColor();
     }
     
     @Override

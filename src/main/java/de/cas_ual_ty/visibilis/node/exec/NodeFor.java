@@ -1,14 +1,13 @@
 package de.cas_ual_ty.visibilis.node.exec;
 
 import de.cas_ual_ty.visibilis.node.ExecContext;
-import de.cas_ual_ty.visibilis.node.INodeExec;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import de.cas_ual_ty.visibilis.util.VUtility;
 
-public class NodeFor extends Node implements INodeExec
+public class NodeFor extends Node
 {
     public final Output<Object> out1Exec;
     public final Output<Integer> out2Index;
@@ -47,6 +46,18 @@ public class NodeFor extends Node implements INodeExec
     public <O> O getOutputValue(Output<O> out)
     {
         return out == this.out2Index ? VUtility.cast(this.value) : null;
+    }
+    
+    @Override
+    public float[] getColor()
+    {
+        return VDataTypes.EXEC.getColor();
+    }
+    
+    @Override
+    public float[] getTextColor()
+    {
+        return VDataTypes.EXEC.getTextColor();
     }
     
     @Override

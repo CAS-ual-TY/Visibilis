@@ -157,6 +157,21 @@ public abstract class Node
     public abstract boolean doCalculate(ExecContext context);
     
     /**
+     * After calculation, get the next output of the exec data type (basically just the next exec node to calculate). This is getting called repeatedly until <b>null</b> is returned.
+     * Only override if this node continues the execution chain. Eg. if you do not have an exec output then you do not override this.
+     * 
+     * @see de.cas_ual_ty.visibilis.print.Print#execute()
+     * @param index
+     *            The index of the sub nodes starting at 0, incremented after every call.
+     * @return The next node in execution order. <b>null</b> if there are no more sub nodes.
+     */
+    @Nullable
+    public Output<Object> getOutExec(int index)
+    {
+        return null;
+    }
+    
+    /**
      * See if this node is a dead end with no further connections at the output.
      * 
      * @return <b>true</b> if {@link #getOutputAmt()} equals 0 or none of the Output<?> fields have any connections.
@@ -434,7 +449,7 @@ public abstract class Node
      */
     public float[] getColor()
     {
-        return this instanceof INodeExec ? INodeExec.getColor() : Node.COLOR_DEFAULT;
+        return Node.COLOR_DEFAULT;
     }
     
     /**
@@ -442,7 +457,7 @@ public abstract class Node
      */
     public float[] getTextColor()
     {
-        return this instanceof INodeExec ? INodeExec.getTextColor() : Node.COLOR_TEXT_DEFAULT;
+        return Node.COLOR_TEXT_DEFAULT;
     }
     
     /**

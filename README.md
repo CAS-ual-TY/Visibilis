@@ -88,7 +88,7 @@ If you are looking for a guide on how to setup so you can work with/on Visibilis
 #### Code to take a look at
  - **de.cas_ual_ty.visibilis.print.ui.UiBase**: Contains **all required user interface** functionality; you can open this GUI via **de.cas_ual_ty.visibilis.util.VUtility**
  - **de.cas_ual_ty.visibilis.print.PrintProvider**: Extend this to have callbacks to the UI; this is **all thats needed** to implement and use the full UI; also comes with base implementations eg. **de.cas_ual_ty.print.item.XXX**
- - **de.cas_ual_ty.visibilis.print.Print#execute(INodeExec, DataProvider)**: Starts the node chain; "exec" nodes are calculated in succession
+ - **de.cas_ual_ty.visibilis.print.Print#execute(Node, DataProvider)**: Starts the node chain; "exec" nodes are calculated in succession
  - **de.cas_ual_ty.visibilis.node.dataprovider.DataProvider**: Allows you **to pass information** to your nodes that is required; eg. if your prints only fire for a custom entity and they need that instance, you pass it via this class
  - **de.cas_ual_ty.visibilis.node.Node#preCalculate(DataProvider)**: Whenever a node is executed that has an uncalculated **"non-exec" parent**, that parent is **calculated first**, then the "exec" node
  - **de.cas_ual_ty.visibilis.node.exec.XXX**: Good **examples** for exec nodes; for loop, if branch, while loop, etc.

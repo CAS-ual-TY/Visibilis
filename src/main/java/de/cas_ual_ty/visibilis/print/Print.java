@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.ExecContext;
-import de.cas_ual_ty.visibilis.node.INodeExec;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.dataprovider.DataProvider;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
@@ -167,7 +166,7 @@ public class Print
      *            The node to start the exec chain from.
      * @return <b>true</b> if the given parameter exec node and all child exec nodes could be calculated successfully.
      */
-    public boolean execute(INodeExec node, DataProvider provider)
+    public boolean execute(Node node, DataProvider provider)
     {
         if(VUtility.isShowdown())
         {
@@ -193,17 +192,17 @@ public class Print
      *            The node to start the exec chain from.
      * @return <b>true</b> if the given parameter exec node and all child exec nodes could be calculated successfully.
      */
-    protected boolean exec(INodeExec node, ExecContext context)
+    protected boolean exec(Node node, ExecContext context)
     {
         // If the node can not be calculated, abort
-        if(!node.toNode().calculate(context))
+        if(!node.calculate(context))
         {
             return false;
         }
         
         Output<?> out;
         Input<?> in;
-        INodeExec next;
+        Node next;
         int i = 0;
         
         /*
@@ -225,7 +224,7 @@ public class Print
             if(in != null)
             {
                 // Get the node of the input
-                next = (INodeExec)in.getNode();
+                next = (Node)in.getNode();
                 
                 if(next != null)
                 {
