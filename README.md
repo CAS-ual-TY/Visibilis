@@ -75,7 +75,9 @@ Both files will be in build/libs
 If you want to work on Visibilis itself, simply fork or clone this repo and then run the normal gradle commands for your IDE (eg. forge eclipse & forge genEclipseRuns).
 
 ### What to get started with
-Terminology:
+If you are looking for a guide on how to setup so you can work with/on Visibilis, just look right above this sentence. The next part is just a collection of things to understand/take a look at to understand the concepts and terminology.
+
+#### Terminology
  - **Print**: Contains nodes which can be connected in various ways to create **functionality**
  - **Node**: A component which uses its inputs to **calculate** its outputs; All parent nodes must be calculated beforehand
  - **Node Field**: A connection anchor you could say: Either an **input** or an **output**. Outputs can be connected to various inputs, but inputs can each only be connected to a single output; They all have a specific data type
@@ -83,7 +85,7 @@ Terminology:
  - **Exec Node**: A type of node which **carries** node fields of the **"exec"** data type; Nodes carry this data type if their execution order makes a difference
  - **Event Node**: Extends "Exec Node"; This is the **start of the execution chain** in each print depending on the **event type**
 
-Code to take a look at:
+#### Code to take a look at
  - **de.cas_ual_ty.visibilis.print.ui.UiBase**: Contains **all required user interface** functionality; you can open this GUI via **de.cas_ual_ty.visibilis.util.VUtility**
  - **de.cas_ual_ty.visibilis.print.PrintProvider**: Extend this to have callbacks to the UI; this is **all thats needed** to implement and use the full UI; also comes with base implementations eg. **de.cas_ual_ty.print.item.XXX**
  - **de.cas_ual_ty.visibilis.print.Print#execute(INodeExec, DataProvider)**: Starts the node chain; "exec" nodes are calculated in succession
@@ -92,7 +94,7 @@ Code to take a look at:
  - **de.cas_ual_ty.visibilis.node.exec.XXX**: Good **examples** for exec nodes; for loop, if branch, while loop, etc.
  - **de.cas_ual_ty.visibilis.node.general.NodePrint**: Good example for a basic, independent node
 
-Other examples:
+#### Other examples
  - **[Magica Mundi GitHub Repo](https://github.com/CAS-ual-TY/MagicaMundi)** A mod created by myself built on this API; if you dont know how to use this check out the repo
 
 ## Contact
