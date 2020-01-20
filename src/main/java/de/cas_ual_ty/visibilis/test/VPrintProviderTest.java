@@ -22,6 +22,10 @@ import de.cas_ual_ty.visibilis.node.calculate.NodeRoot;
 import de.cas_ual_ty.visibilis.node.calculate.NodeSubtraction;
 import de.cas_ual_ty.visibilis.node.cast.NodeFloatToInteger;
 import de.cas_ual_ty.visibilis.node.compare.NodeFloatEquals;
+import de.cas_ual_ty.visibilis.node.compare.NodeFloatGreater;
+import de.cas_ual_ty.visibilis.node.compare.NodeFloatGreaterEquals;
+import de.cas_ual_ty.visibilis.node.compare.NodeFloatLess;
+import de.cas_ual_ty.visibilis.node.compare.NodeFloatLessEquals;
 import de.cas_ual_ty.visibilis.node.constant.NodeE;
 import de.cas_ual_ty.visibilis.node.constant.NodePi;
 import de.cas_ual_ty.visibilis.node.constant.NodeSQRT2;
@@ -143,6 +147,11 @@ public class VPrintProviderTest extends PrintProviderItem
         list.add(new NodeWhile());
         
         list.add(new NodeFloatEquals());
+        list.add(new NodeFloatGreater());
+        list.add(new NodeFloatGreaterEquals());
+        list.add(new NodeFloatLess());
+        list.add(new NodeFloatLessEquals());
+        
         list.add(new NodeFloatToInteger());
         
         list.add(new NodeVector3dCreate());

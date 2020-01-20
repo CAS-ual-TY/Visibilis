@@ -245,6 +245,30 @@
     "field.equals.in2": "B",
     "node.equals.groups": "compare",
     
+    "node.greater_than": "Greater than",
+    "field.greater_than.out1": "A > B",
+    "field.greater_than.in1": "A",
+    "field.greater_than.in2": "B",
+    "node.greater_than.groups": "compare",
+    
+    "node.greater_than_or_equals": "Greater than or Equals",
+    "field.greater_than_or_equals.out1": "A >= B",
+    "field.greater_than_or_equals.in1": "A",
+    "field.greater_than_or_equals.in2": "B",
+    "node.greater_than_or_equals.groups": "compare",
+    
+    "node.less_than": "Less than",
+    "field.less_than.out1": "A < B",
+    "field.less_than.in1": "A",
+    "field.less_than.in2": "B",
+    "node.less_than.groups": "compare",
+    
+    "node.less_than_or_equals": "Less than or Equals",
+    "field.less_than_or_equals.out1": "A <= B",
+    "field.less_than_or_equals.in1": "A",
+    "field.less_than_or_equals.in2": "B",
+    "node.less_than_or_equals.groups": "compare",
+    
     "_comment9": "--- Cast ---",
     "group.cast": "Cast",
     "group.cast.tags": "cast;convert",
