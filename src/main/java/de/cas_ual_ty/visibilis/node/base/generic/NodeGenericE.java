@@ -32,4 +32,16 @@ public abstract class NodeGenericE<I> extends NodeBiGenericP2<Boolean, I>
     {
         return this.getDataType();
     }
+    
+    @Override
+    public float[] getColor()
+    {
+        return this.getOutDataType().getColor();
+    }
+    
+    @Override
+    public float[] getTextColor()
+    {
+        return this.getOutDataType().getTextColor();
+    }
 }

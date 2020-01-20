@@ -23,4 +23,16 @@ public abstract class NodeGenericXP2<B> extends NodeBiGenericXP2<B, B>
     {
         return this.getDataType();
     }
+    
+    @Override
+    public float[] getColor()
+    {
+        return this.getDataType().getColor();
+    }
+    
+    @Override
+    public float[] getTextColor()
+    {
+        return this.getDataType().getTextColor();
+    }
 }

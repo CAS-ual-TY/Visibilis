@@ -23,4 +23,16 @@ public abstract class NodeGenericX<B> extends NodeBiGenericX<B, B>
     {
         return this.getDataType();
     }
+    
+    @Override
+    public float[] getColor()
+    {
+        return this.getDataType().getColor();
+    }
+    
+    @Override
+    public float[] getTextColor()
+    {
+        return this.getDataType().getTextColor();
+    }
 }
