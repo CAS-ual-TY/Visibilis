@@ -19,7 +19,7 @@ import de.cas_ual_ty.visibilis.node.calculate.NodeMultiplication;
 import de.cas_ual_ty.visibilis.node.calculate.NodeRoot;
 import de.cas_ual_ty.visibilis.node.calculate.NodeSubtraction;
 import de.cas_ual_ty.visibilis.node.cast.NodeFloatToInteger;
-import de.cas_ual_ty.visibilis.node.compare.NodeFloatCompare;
+import de.cas_ual_ty.visibilis.node.compare.NodeFloatEquals;
 import de.cas_ual_ty.visibilis.node.constant.NodeE;
 import de.cas_ual_ty.visibilis.node.constant.NodePi;
 import de.cas_ual_ty.visibilis.node.constant.NodeSQRT2;
@@ -100,7 +100,7 @@ public class VNodeTypes
         registry.register(new NodeType<>(NodeFor::new, NodeFor.class).setRegistryName(Visibilis.MOD_ID, "for"));
         registry.register(new NodeType<>(NodeWhile::new, NodeWhile.class).setRegistryName(Visibilis.MOD_ID, "while"));
         
-        registry.register(new NodeType<>(NodeFloatCompare::new, NodeFloatCompare.class).setRegistryName(Visibilis.MOD_ID, "equals"));
+        registry.register(new NodeType<>(NodeFloatEquals::new, NodeFloatEquals.class).setRegistryName(Visibilis.MOD_ID, "equals"));
         registry.register(new NodeType<>(NodeFloatToInteger::new, NodeFloatToInteger.class).setRegistryName(Visibilis.MOD_ID, "cast_float_to_integer"));
         
         registry.register(new NodeType<>(NodeVector3dCreate::new, NodeVector3dCreate.class).setRegistryName(Visibilis.MOD_ID, "vector3d_create"));

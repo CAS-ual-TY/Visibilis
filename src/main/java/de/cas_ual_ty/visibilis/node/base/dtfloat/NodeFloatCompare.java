@@ -1,12 +1,12 @@
 package de.cas_ual_ty.visibilis.node.base.dtfloat;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericE;
+import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericCompare;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 
-public abstract class NodeFloatE extends NodeGenericE<Float>
+public abstract class NodeFloatCompare extends NodeGenericCompare<Float>
 {
-    public NodeFloatE()
+    public NodeFloatCompare()
     {
         super();
     }

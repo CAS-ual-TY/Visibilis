@@ -1,10 +1,10 @@
 package de.cas_ual_ty.visibilis.node.compare;
 
-import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatE;
+import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatCompare;
 
-public class NodeFloatCompare extends NodeFloatE
+public class NodeFloatEquals extends NodeFloatCompare
 {
-    public NodeFloatCompare()
+    public NodeFloatEquals()
     {
         super();
     }
