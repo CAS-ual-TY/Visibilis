@@ -1,12 +1,12 @@
 package de.cas_ual_ty.visibilis.node.base.dtboolean;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericC;
+import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericConstant;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 
-public abstract class NodeBooleanC extends NodeGenericC<Boolean>
+public abstract class NodeBooleanConstant extends NodeGenericConstant<Boolean>
 {
-    public NodeBooleanC()
+    public NodeBooleanConstant()
     {
         super();
     }

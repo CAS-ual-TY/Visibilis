@@ -1,12 +1,12 @@
 package de.cas_ual_ty.visibilis.node.base.dtfloat;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericC;
+import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericConstant;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 
-public abstract class NodeFloatC extends NodeGenericC<Float>
+public abstract class NodeFloatConstant extends NodeGenericConstant<Float>
 {
-    public NodeFloatC()
+    public NodeFloatConstant()
     {
         super();
     }

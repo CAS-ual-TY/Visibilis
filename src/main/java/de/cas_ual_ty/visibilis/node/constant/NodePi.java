@@ -1,8 +1,8 @@
 package de.cas_ual_ty.visibilis.node.constant;
 
-import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatC;
+import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatConstant;
 
-public class NodePi extends NodeFloatC
+public class NodePi extends NodeFloatConstant
 {
     public NodePi()
     {

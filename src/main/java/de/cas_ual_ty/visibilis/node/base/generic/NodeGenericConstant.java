@@ -6,11 +6,11 @@ import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.util.VUtility;
 
-public abstract class NodeGenericC<B> extends Node
+public abstract class NodeGenericConstant<B> extends Node
 {
     public Output<B> out1B;
     
-    public NodeGenericC()
+    public NodeGenericConstant()
     {
         super();
         this.addOutput(this.out1B = new Output<>(this, this.getDataType(), "out1"));
