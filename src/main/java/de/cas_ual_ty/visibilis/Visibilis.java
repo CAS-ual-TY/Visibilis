@@ -15,7 +15,8 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.config.ModConfig.ModConfigEvent;
+import net.minecraftforge.fml.config.ModConfig.Type;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -45,16 +46,16 @@ public class Visibilis
         
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(this::init);
-        bus.addListener(this::onModConfigEvent);
         bus.addListener(this::newRegistry);
+        bus.<ModConfigEvent> addListener((event) -> VConfigHelper.bake(event.getConfig()));
         
         bus = MinecraftForge.EVENT_BUS;
-        bus.<FMLServerStartingEvent> addListener((event) -> VCommand.register(event.getCommandDispatcher()));
         bus.addListener(VCommand::execCommand);
+        bus.<FMLServerStartingEvent> addListener((event) -> VCommand.register(event.getCommandDispatcher()));
         
         ModLoadingContext mld = ModLoadingContext.get();
-        mld.registerConfig(ModConfig.Type.CLIENT, VConfiguration.CLIENT_SPEC);
-        mld.registerConfig(ModConfig.Type.COMMON, VConfiguration.COMMON_SPEC);
+        mld.registerConfig(Type.CLIENT, VConfiguration.CLIENT_SPEC);
+        mld.registerConfig(Type.COMMON, VConfiguration.COMMON_SPEC);
     }
     
     public void init(FMLCommonSetupEvent event)
@@ -66,11 +67,6 @@ public class Visibilis
         Visibilis.channel.registerMessage(0, MessageItem.class, MessageItem::encode, MessageItem::decode, MessageItem::handle);
         
         VDataTypes.addConverters();
-    }
-    
-    public void onModConfigEvent(ModConfig.ModConfigEvent event)
-    {
-        VConfigHelper.bake(event.getConfig());
     }
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
