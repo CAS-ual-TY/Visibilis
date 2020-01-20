@@ -1,51 +1,26 @@
 package de.cas_ual_ty.visibilis.node.base.bigeneric;
 
-import de.cas_ual_ty.visibilis.node.ExecContext;
-import de.cas_ual_ty.visibilis.node.field.Input;
+import de.cas_ual_ty.visibilis.datatype.DataType;
+import de.cas_ual_ty.visibilis.node.base.trigeneric.NodeTriGenericP2;
 
-public abstract class NodeBiGenericP2<O, I> extends NodeBiGenericP<O, I>
+public abstract class NodeBiGenericP2<O, I> extends NodeTriGenericP2<O, I, I>
 {
-    public Input<I> in2;
-    
-    private I tempIn2;
-    
     public NodeBiGenericP2()
     {
         super();
     }
     
-    @Override
-    public void createBaseFields()
-    {
-        this.addInput(this.in2 = new Input<>(this, this.getInDataType(), "in2"));
-        
-        super.createBaseFields();
-    }
+    public abstract DataType<I> getInDataType();
     
     @Override
-    public boolean doCalculate(ExecContext context)
+    public DataType<I> getIn1DataType()
     {
-        this.tempIn2 = this.in2.getValue();
-        
-        return super.doCalculate(context);
+        return this.getInDataType();
     }
     
     @Override
-    protected boolean canCalculate(I input)
+    public DataType<I> getIn2DataType()
     {
-        return this.canCalculate(input, this.tempIn2);
+        return this.getInDataType();
     }
-    
-    protected boolean canCalculate(I input, I in2)
-    {
-        return true;
-    }
-    
-    @Override
-    protected O calculate(I input)
-    {
-        return this.calculate(input, this.tempIn2);
-    }
-    
-    protected abstract O calculate(I input, I in2);
 }
