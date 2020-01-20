@@ -272,6 +272,12 @@
     "field.vector3d_split.in1": "(X, Y, Z)",
     "node.vector3d_split.groups": "vector",
     
+    "node.vector3d_scale": "Scale Vector",
+    "field.vector3d_scale.out1": "(X, Y, Z) x A",
+    "field.vector3d_scale.in1": "(X, Y, Z)",
+    "field.vector3d_scale.in2": "A",
+    "node.vector3d_scale.groups": "vector",
+    
     "_commentF": "--- Other ---",
     "group.other": "Other",
     "group.other.tags": "other",

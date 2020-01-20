@@ -7,6 +7,7 @@ import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.base.dtboolean.NodeBooleanV;
 import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatV;
 import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dCreate;
+import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dScale;
 import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dSplit;
 import de.cas_ual_ty.visibilis.node.calculate.NodeAddition;
 import de.cas_ual_ty.visibilis.node.calculate.NodeConcatenation;
@@ -146,6 +147,7 @@ public class VPrintProviderTest extends PrintProviderItem
         
         list.add(new NodeVector3dCreate());
         list.add(new NodeVector3dSplit());
+        list.add(new NodeVector3dScale());
         
         list.add(new NodePrint());
     }
