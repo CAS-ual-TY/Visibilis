@@ -3,6 +3,7 @@ package de.cas_ual_ty.visibilis.node.base.generic;
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecContext;
 import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.util.VUtility;
 
@@ -42,5 +43,32 @@ public abstract class NodeGenericConstant<B> extends Node
     public float[] getTextColor()
     {
         return this.getDataType().getTextColor();
+    }
+    
+    public static <O> NodeType<NodeGenericConstant<O>> createType(DataType<O> dataType, String id, O constant)
+    {
+        return new NodeType<>(() ->
+        {
+            return new NodeGenericConstant<O>()
+            {
+                @Override
+                public DataType<O> getDataType()
+                {
+                    return dataType;
+                }
+                
+                @Override
+                protected O getConstant()
+                {
+                    return constant;
+                }
+                
+                @Override
+                public String getID()
+                {
+                    return id;
+                }
+            };
+        });
     }
 }

@@ -19,6 +19,7 @@ public class NodeVector3dSplit extends Node
     
     public NodeVector3dSplit()
     {
+        super();
         this.addOutput(this.out1Float = new Output<>(this, VDataTypes.FLOAT, "out1"));
         this.addOutput(this.out2Float = new Output<>(this, VDataTypes.FLOAT, "out2"));
         this.addOutput(this.out3Float = new Output<>(this, VDataTypes.FLOAT, "out3"));

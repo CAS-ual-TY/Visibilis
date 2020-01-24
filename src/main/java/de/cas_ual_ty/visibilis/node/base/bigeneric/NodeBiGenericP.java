@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecContext;
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.NodeExpandable;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
@@ -150,5 +151,59 @@ public abstract class NodeBiGenericP<O, I> extends NodeExpandable
     public float[] getTextColor()
     {
         return this.getOutDataType().getTextColor();
+    }
+    
+    public static <O, I> NodeType<NodeBiGenericP<O, I>> createType(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, ICalculation<O, I> function)
+    {
+        return NodeBiGenericP.createType(dataTypeOut, dataTypeIn, id, function, (input) -> true);
+    }
+    
+    public static <O, I> NodeType<NodeBiGenericP<O, I>> createType(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, ICalculation<O, I> function, ICalculationRequirement<O, I> requirement)
+    {
+        return new NodeType<>(() ->
+        {
+            return new NodeBiGenericP<O, I>()
+            {
+                @Override
+                public DataType<O> getOutDataType()
+                {
+                    return dataTypeOut;
+                }
+                
+                @Override
+                public DataType<I> getInDataType()
+                {
+                    return dataTypeIn;
+                }
+                
+                @Override
+                protected boolean canCalculate(I input)
+                {
+                    return requirement.canCalculate(input);
+                }
+                
+                @Override
+                protected O calculate(I input)
+                {
+                    return function.calculate(input);
+                }
+                
+                @Override
+                public String getID()
+                {
+                    return id;
+                }
+            };
+        });
+    }
+    
+    public static interface ICalculationRequirement<O, I>
+    {
+        boolean canCalculate(I input);
+    }
+    
+    public static interface ICalculation<O, I>
+    {
+        O calculate(I input);
     }
 }

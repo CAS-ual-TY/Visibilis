@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecContext;
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.NodeExpandable;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
@@ -137,5 +138,65 @@ public abstract class NodeTriGenericP2<O, I1, I2> extends NodeExpandable
         }
         
         return null;
+    }
+    
+    public static <O, I1, I2> NodeType<NodeTriGenericP2<O, I1, I2>> createType(DataType<O> dataTypeOut, DataType<I1> dataTypeIn1, DataType<I2> dataTypeIn2, String id, ICalculation<O, I1, I2> function)
+    {
+        return NodeTriGenericP2.createType(dataTypeOut, dataTypeIn1, dataTypeIn2, id, function, (input, in2) -> true);
+    }
+    
+    public static <O, I1, I2> NodeType<NodeTriGenericP2<O, I1, I2>> createType(DataType<O> dataTypeOut, DataType<I1> dataTypeIn1, DataType<I2> dataTypeIn2, String id, ICalculation<O, I1, I2> function, ICalculationRequirement<O, I1, I2> requirement)
+    {
+        return new NodeType<>(() ->
+        {
+            return new NodeTriGenericP2<O, I1, I2>()
+            {
+                @Override
+                public DataType<O> getOutDataType()
+                {
+                    return dataTypeOut;
+                }
+                
+                @Override
+                public DataType<I1> getIn1DataType()
+                {
+                    return dataTypeIn1;
+                }
+                
+                @Override
+                public DataType<I2> getIn2DataType()
+                {
+                    return dataTypeIn2;
+                }
+                
+                @Override
+                protected boolean canCalculate(I1 input, I2 in2)
+                {
+                    return requirement.canCalculate(input, in2);
+                }
+                
+                @Override
+                protected O calculate(I1 input, I2 in2)
+                {
+                    return function.calculate(input, in2);
+                }
+                
+                @Override
+                public String getID()
+                {
+                    return id;
+                }
+            };
+        });
+    }
+    
+    public static interface ICalculationRequirement<O, I1, I2>
+    {
+        boolean canCalculate(I1 input, I2 in2);
+    }
+    
+    public static interface ICalculation<O, I1, I2>
+    {
+        O calculate(I1 input, I2 in2);
     }
 }

@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecContext;
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.NodeParallelizable;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
@@ -223,5 +224,81 @@ public abstract class NodeBiGenericXP2<O, I> extends NodeParallelizable
     public float[] getTextColor()
     {
         return this.getOutDataType().getTextColor();
+    }
+    
+    public static <O, I> NodeType<NodeBiGenericXP2<O, I>> createType(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, ICalculationX<O, I> functionX, ICalculationP2<O, I> functionP2)
+    {
+        return NodeBiGenericXP2.createType(dataTypeOut, dataTypeIn, id, functionX, functionP2, (inputs) -> true, (input, in2) -> true);
+    }
+    
+    public static <O, I> NodeType<NodeBiGenericXP2<O, I>> createType(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, ICalculationX<O, I> functionX, ICalculationP2<O, I> functionP2, ICalculationRequirementX<O, I> requirementX, ICalculationRequirementP2<O, I> requirementP2)
+    {
+        return new NodeType<>(() ->
+        {
+            return new NodeBiGenericXP2<O, I>()
+            {
+                @Override
+                public DataType<O> getOutDataType()
+                {
+                    return dataTypeOut;
+                }
+                
+                @Override
+                public DataType<I> getInDataType()
+                {
+                    return dataTypeIn;
+                }
+                
+                @Override
+                protected boolean canCalculate(I[] inputs)
+                {
+                    return requirementX.canCalculate(inputs);
+                }
+                
+                @Override
+                protected O calculate(I[] inputs)
+                {
+                    return functionX.calculate(inputs);
+                }
+                
+                @Override
+                protected boolean canCalculate(I input, I in2)
+                {
+                    return requirementP2.canCalculate(input, in2);
+                }
+                
+                @Override
+                protected O calculate(I input, I in2)
+                {
+                    return functionP2.calculate(input, in2);
+                }
+                
+                @Override
+                public String getID()
+                {
+                    return id;
+                }
+            };
+        });
+    }
+    
+    public static interface ICalculationRequirementX<O, I>
+    {
+        boolean canCalculate(I[] inputs);
+    }
+    
+    public static interface ICalculationX<O, I>
+    {
+        O calculate(I[] inputs);
+    }
+    
+    public static interface ICalculationRequirementP2<O, I>
+    {
+        boolean canCalculate(I input, I in2);
+    }
+    
+    public static interface ICalculationP2<O, I>
+    {
+        O calculate(I input, I in2);
     }
 }
