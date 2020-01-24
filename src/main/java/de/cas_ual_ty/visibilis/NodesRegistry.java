@@ -47,32 +47,11 @@ public class NodesRegistry
     
     public static ResourceLocation getRLForNode(Node n)
     {
-        NodeType type = NodesRegistry.getNodeTypeFor(n);
+        NodeType type = n.type;
         
         if(type != null)
         {
             return type.getRegistryName();
-        }
-        
-        return null;
-    }
-    
-    public static NodeType getNodeTypeFor(Node n)
-    {
-        return NodesRegistry.getNodeTypeFor(n.getClass());
-    }
-    
-    public static NodeType getNodeTypeFor(Class<? extends Node> clazz)
-    {
-        NodeType type;
-        for(ResourceLocation key : Visibilis.nodeTypesRegistry.getKeys())
-        {
-            type = Visibilis.nodeTypesRegistry.getValue(key);
-            
-            if(type.getNodeClass() == clazz)
-            {
-                return type;
-            }
         }
         
         return null;
