@@ -47,11 +47,11 @@ public class Visibilis
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(this::init);
         bus.addListener(this::newRegistry);
-        bus.<ModConfigEvent> addListener((event) -> VConfigHelper.bake(event.getConfig()));
+        bus.<ModConfigEvent>addListener((event) -> VConfigHelper.bake(event.getConfig()));
         
         bus = MinecraftForge.EVENT_BUS;
         bus.addListener(VCommand::execCommand);
-        bus.<FMLServerStartingEvent> addListener((event) -> VCommand.register(event.getCommandDispatcher()));
+        bus.<FMLServerStartingEvent>addListener((event) -> VCommand.register(event.getCommandDispatcher()));
         
         ModLoadingContext mld = ModLoadingContext.get();
         mld.registerConfig(Type.CLIENT, VConfiguration.CLIENT_SPEC);

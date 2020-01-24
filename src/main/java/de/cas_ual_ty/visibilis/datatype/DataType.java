@@ -148,7 +148,7 @@ public class DataType<A> extends ForgeRegistryEntry<DataType<?>>
      */
     public <F> A convert(DataType<F> from, F value)
     {
-        return (VUtility.<IConverter<F, A>, IConverter<?, A>> cast(this.converters.get(from))).convert(value);
+        return (VUtility.<IConverter<F, A>, IConverter<?, A>>cast(this.converters.get(from))).convert(value);
     }
     
     /**
