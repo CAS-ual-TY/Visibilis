@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis.node.event;
 
 import de.cas_ual_ty.visibilis.node.ExecContext;
 import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 
@@ -14,9 +15,9 @@ public class NodeEvent extends Node
      */
     public String eventType;
     
-    public NodeEvent(String modId, String eventType)
+    public NodeEvent(NodeType<?> type, String modId, String eventType)
     {
-        super();
+        super(type);
         this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1"));
         this.eventType = modId + ":" + eventType;
     }

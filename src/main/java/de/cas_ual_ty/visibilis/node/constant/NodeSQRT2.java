@@ -1,13 +1,14 @@
 package de.cas_ual_ty.visibilis.node.constant;
 
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatConstant;
 import net.minecraft.util.math.MathHelper;
 
 public class NodeSQRT2 extends NodeFloatConstant
 {
-    public NodeSQRT2()
+    public NodeSQRT2(NodeType<?> type)
     {
-        super();
+        super(type);
     }
     
     @Override

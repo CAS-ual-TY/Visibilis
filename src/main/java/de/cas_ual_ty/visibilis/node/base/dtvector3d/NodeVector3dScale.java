@@ -1,15 +1,16 @@
 package de.cas_ual_ty.visibilis.node.base.dtvector3d;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.trigeneric.NodeTriGenericP2;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import net.minecraft.util.math.Vec3d;
 
 public class NodeVector3dScale extends NodeTriGenericP2<Vec3d, Vec3d, Float>
 {
-    public NodeVector3dScale()
+    public NodeVector3dScale(NodeType<?> type)
     {
-        super();
+        super(type);
     }
     
     @Override

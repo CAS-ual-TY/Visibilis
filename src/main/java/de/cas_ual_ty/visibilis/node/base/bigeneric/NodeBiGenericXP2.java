@@ -23,9 +23,9 @@ public abstract class NodeBiGenericXP2<O, I> extends NodeParallelizable
     protected int inAmt;
     protected int outAmt;
     
-    public NodeBiGenericXP2()
+    public NodeBiGenericXP2(NodeType<?> type)
     {
-        super();
+        super(type);
         this.expansionOutputs = new LinkedList<>();
         this.expansionInputs = new LinkedList<>();
         this.createBaseFields();
@@ -233,9 +233,9 @@ public abstract class NodeBiGenericXP2<O, I> extends NodeParallelizable
     
     public static <O, I> NodeType<NodeBiGenericXP2<O, I>> createType(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, ICalculationX<O, I> functionX, ICalculationP2<O, I> functionP2, ICalculationRequirementX<O, I> requirementX, ICalculationRequirementP2<O, I> requirementP2)
     {
-        return new NodeType<>(() ->
+        return new NodeType<>((type) ->
         {
-            return new NodeBiGenericXP2<O, I>()
+            return new NodeBiGenericXP2<O, I>(type)
             {
                 @Override
                 public DataType<O> getOutDataType()

@@ -2,52 +2,8 @@ package de.cas_ual_ty.visibilis.test;
 
 import java.util.ArrayList;
 
-import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Node;
-import de.cas_ual_ty.visibilis.node.base.dtboolean.NodeBooleanV;
-import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatV;
-import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dCreate;
-import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dScale;
-import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dSplit;
-import de.cas_ual_ty.visibilis.node.calculate.NodeAddition;
-import de.cas_ual_ty.visibilis.node.calculate.NodeConcatenation;
-import de.cas_ual_ty.visibilis.node.calculate.NodeDivision;
-import de.cas_ual_ty.visibilis.node.calculate.NodeExponentiation;
-import de.cas_ual_ty.visibilis.node.calculate.NodeLogarithm10;
-import de.cas_ual_ty.visibilis.node.calculate.NodeLogarithm1p;
-import de.cas_ual_ty.visibilis.node.calculate.NodeLogarithmE;
-import de.cas_ual_ty.visibilis.node.calculate.NodeModulo;
-import de.cas_ual_ty.visibilis.node.calculate.NodeMultiplication;
-import de.cas_ual_ty.visibilis.node.calculate.NodeRoot;
-import de.cas_ual_ty.visibilis.node.calculate.NodeSubtraction;
-import de.cas_ual_ty.visibilis.node.cast.NodeFloatToInteger;
-import de.cas_ual_ty.visibilis.node.compare.NodeFloatEquals;
-import de.cas_ual_ty.visibilis.node.compare.NodeFloatGreater;
-import de.cas_ual_ty.visibilis.node.compare.NodeFloatGreaterEquals;
-import de.cas_ual_ty.visibilis.node.compare.NodeFloatLess;
-import de.cas_ual_ty.visibilis.node.compare.NodeFloatLessEquals;
-import de.cas_ual_ty.visibilis.node.constant.NodeE;
-import de.cas_ual_ty.visibilis.node.constant.NodePi;
-import de.cas_ual_ty.visibilis.node.constant.NodeSQRT2;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
-import de.cas_ual_ty.visibilis.node.exec.NodeBranch;
-import de.cas_ual_ty.visibilis.node.exec.NodeFor;
-import de.cas_ual_ty.visibilis.node.exec.NodeMerge;
-import de.cas_ual_ty.visibilis.node.exec.NodeWhile;
-import de.cas_ual_ty.visibilis.node.function.NodeCosines;
-import de.cas_ual_ty.visibilis.node.function.NodeRound;
-import de.cas_ual_ty.visibilis.node.function.NodeRoundDown;
-import de.cas_ual_ty.visibilis.node.function.NodeRoundUp;
-import de.cas_ual_ty.visibilis.node.function.NodeSines;
-import de.cas_ual_ty.visibilis.node.function.NodeTangent;
-import de.cas_ual_ty.visibilis.node.general.NodePrint;
-import de.cas_ual_ty.visibilis.node.logic.NodeAND;
-import de.cas_ual_ty.visibilis.node.logic.NodeNAND;
-import de.cas_ual_ty.visibilis.node.logic.NodeNOR;
-import de.cas_ual_ty.visibilis.node.logic.NodeNOT;
-import de.cas_ual_ty.visibilis.node.logic.NodeOR;
-import de.cas_ual_ty.visibilis.node.logic.NodeXNOR;
-import de.cas_ual_ty.visibilis.node.logic.NodeXOR;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.item.PrintProviderItem;
 import net.minecraft.item.ItemStack;
@@ -105,6 +61,7 @@ public class VPrintProviderTest extends PrintProviderItem
     
     public static void addAllNodesToList(ArrayList<Node> list)
     {
+        /* TODO current branch
         list.add(new NodeEvent(Visibilis.MOD_ID, "command"));
         list.add(new VNodePrintDebug());
         
@@ -159,5 +116,6 @@ public class VPrintProviderTest extends PrintProviderItem
         list.add(new NodeVector3dScale());
         
         list.add(new NodePrint());
+        */
     }
 }

@@ -11,7 +11,7 @@ public class NodeType<T extends Node> extends ForgeRegistryEntry<NodeType<?>> im
     
     public NodeType(IFactory<T> factory)
     {
-        this(factory, (VUtility.cast(factory.create().getClass())));
+        this(factory, (VUtility.cast(factory.create(null).getClass()))); //TODO
     }
     
     public NodeType(IFactory<T> factory, Class<T> nodeClass)
@@ -22,7 +22,7 @@ public class NodeType<T extends Node> extends ForgeRegistryEntry<NodeType<?>> im
     
     public T instantiate()
     {
-        return this.factory.create();
+        return this.factory.create(this);
     }
     
     public IFactory<T> getFactory()
@@ -37,6 +37,6 @@ public class NodeType<T extends Node> extends ForgeRegistryEntry<NodeType<?>> im
     
     public static interface IFactory<U extends Node>
     {
-        U create();
+        U create(NodeType<U> type);
     }
 }

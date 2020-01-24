@@ -6,9 +6,9 @@ import de.cas_ual_ty.visibilis.node.base.trigeneric.NodeTriGenericP2;
 
 public abstract class NodeBiGenericP2<O, I> extends NodeTriGenericP2<O, I, I>
 {
-    public NodeBiGenericP2()
+    public NodeBiGenericP2(NodeType<?> type)
     {
-        super();
+        super(type);
     }
     
     public abstract DataType<I> getInDataType();
@@ -32,9 +32,9 @@ public abstract class NodeBiGenericP2<O, I> extends NodeTriGenericP2<O, I, I>
     
     public static <O, I> NodeType<NodeBiGenericP2<O, I>> createType(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, ICalculation<O, I> function, ICalculationRequirement<O, I> requirement)
     {
-        return new NodeType<>(() ->
+        return new NodeType<>((type) ->
         {
-            return new NodeBiGenericP2<O, I>()
+            return new NodeBiGenericP2<O, I>(type)
             {
                 @Override
                 public DataType<O> getOutDataType()

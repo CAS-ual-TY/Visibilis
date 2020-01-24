@@ -1,12 +1,13 @@
 package de.cas_ual_ty.visibilis.node.compare;
 
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatCompare;
 
 public class NodeFloatGreater extends NodeFloatCompare
 {
-    public NodeFloatGreater()
+    public NodeFloatGreater(NodeType<?> type)
     {
-        super();
+        super(type);
     }
     
     @Override

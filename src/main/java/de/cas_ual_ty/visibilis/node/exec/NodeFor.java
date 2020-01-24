@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis.node.exec;
 
 import de.cas_ual_ty.visibilis.node.ExecContext;
 import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
@@ -18,9 +19,9 @@ public class NodeFor extends Node
     public int length;
     public int value;
     
-    public NodeFor()
+    public NodeFor(NodeType<?> type)
     {
-        super();
+        super(type);
         this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1"));
         this.addOutput(this.out2Index = new Output<>(this, VDataTypes.INTEGER, "out2"));
         this.addOutput(this.out3Exec = new Output<>(this, VDataTypes.EXEC, "out3"));

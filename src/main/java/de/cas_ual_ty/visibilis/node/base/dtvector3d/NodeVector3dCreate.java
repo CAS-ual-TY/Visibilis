@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis.node.base.dtvector3d;
 
 import de.cas_ual_ty.visibilis.node.ExecContext;
 import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
@@ -17,8 +18,9 @@ public class NodeVector3dCreate extends Node
     
     protected Vec3d value;
     
-    public NodeVector3dCreate()
+    public NodeVector3dCreate(NodeType<?> type)
     {
+        super(type);
         this.addOutput(this.out1Vector3d = new Output<>(this, VDataTypes.VECTOR3D, "out1"));
         this.addInput(this.in1Float = new Input<>(this, VDataTypes.FLOAT, "in1"));
         this.addInput(this.in2Float = new Input<>(this, VDataTypes.FLOAT, "in2"));

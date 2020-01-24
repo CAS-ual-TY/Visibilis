@@ -1,12 +1,13 @@
 package de.cas_ual_ty.visibilis.node.constant;
 
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatConstant;
 
 public class NodeE extends NodeFloatConstant
 {
-    public NodeE()
+    public NodeE(NodeType<?> type)
     {
-        super();
+        super(type);
     }
     
     @Override

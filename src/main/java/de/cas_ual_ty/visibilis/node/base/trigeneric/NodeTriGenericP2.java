@@ -22,9 +22,9 @@ public abstract class NodeTriGenericP2<O, I1, I2> extends NodeExpandable
     
     public Input<I2> in2;
     
-    public NodeTriGenericP2()
+    public NodeTriGenericP2(NodeType<?> type)
     {
-        super();
+        super(type);
         this.expansionOutputs = new LinkedList<>();
         this.expansionInputs = new LinkedList<>();
         this.createBaseFields();
@@ -147,9 +147,9 @@ public abstract class NodeTriGenericP2<O, I1, I2> extends NodeExpandable
     
     public static <O, I1, I2> NodeType<NodeTriGenericP2<O, I1, I2>> createType(DataType<O> dataTypeOut, DataType<I1> dataTypeIn1, DataType<I2> dataTypeIn2, String id, ICalculation<O, I1, I2> function, ICalculationRequirement<O, I1, I2> requirement)
     {
-        return new NodeType<>(() ->
+        return new NodeType<>((type) ->
         {
-            return new NodeTriGenericP2<O, I1, I2>()
+            return new NodeTriGenericP2<O, I1, I2>(type)
             {
                 @Override
                 public DataType<O> getOutDataType()

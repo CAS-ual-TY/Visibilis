@@ -7,9 +7,9 @@ import de.cas_ual_ty.visibilis.registries.VDataTypes;
 
 public abstract class NodeGenericCompare<I> extends NodeBiGenericP2<Boolean, I>
 {
-    public NodeGenericCompare()
+    public NodeGenericCompare(NodeType<?> type)
     {
-        super();
+        super(type);
     }
     
     public abstract DataType<I> getDataType();
@@ -48,9 +48,9 @@ public abstract class NodeGenericCompare<I> extends NodeBiGenericP2<Boolean, I>
     
     public static <I> NodeType<NodeGenericCompare<I>> createType(DataType<I> dataType, String id, ICalculation<I> function)
     {
-        return new NodeType<>(() ->
+        return new NodeType<>((type) ->
         {
-            return new NodeGenericCompare<I>()
+            return new NodeGenericCompare<I>(type)
             {
                 @Override
                 public DataType<I> getDataType()

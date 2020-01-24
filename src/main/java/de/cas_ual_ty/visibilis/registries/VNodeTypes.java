@@ -63,7 +63,7 @@ public class VNodeTypes
     {
         IForgeRegistry<NodeType<?>> registry = event.getRegistry();
         
-        registry.register(new NodeType<>(() -> new NodeEvent(Visibilis.MOD_ID, "command"), NodeEvent.class).setRegistryName(Visibilis.MOD_ID, "event_command"));
+        registry.register(new NodeType<>((type) -> new NodeEvent(type, Visibilis.MOD_ID, "command"), NodeEvent.class).setRegistryName(Visibilis.MOD_ID, "event_command"));
         registry.register(new NodeType<>(VNodePrintDebug::new, VNodePrintDebug.class).setRegistryName(Visibilis.MOD_ID, "print_debug"));
         
         registry.register(new NodeType<>(NodeAddition::new, NodeAddition.class).setRegistryName(Visibilis.MOD_ID, "addition"));

@@ -6,9 +6,9 @@ import de.cas_ual_ty.visibilis.util.VUtility;
 
 public abstract class NodeBiGenericV<O, I> extends NodeBiGenericP<O, I>
 {
-    public NodeBiGenericV()
+    public NodeBiGenericV(NodeType<?> type)
     {
-        super();
+        super(type);
     }
     
     @Override
@@ -19,9 +19,9 @@ public abstract class NodeBiGenericV<O, I> extends NodeBiGenericP<O, I>
     
     public static <O, I> NodeType<NodeBiGenericV<O, I>> createType(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, ICalculation<O, I> function, ICalculationRequirement<O, I> requirement)
     {
-        return new NodeType<>(() ->
+        return new NodeType<>((type) ->
         {
-            return new NodeBiGenericV<O, I>()
+            return new NodeBiGenericV<O, I>(type)
             {
                 @Override
                 public DataType<O> getOutDataType()

@@ -3,6 +3,7 @@ package de.cas_ual_ty.visibilis.node.base;
 import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.node.NodeAction;
+import de.cas_ual_ty.visibilis.node.NodeType;
 import net.minecraft.nbt.CompoundNBT;
 
 public abstract class NodeParallelizable extends NodeExpandable
@@ -19,9 +20,9 @@ public abstract class NodeParallelizable extends NodeExpandable
     
     public boolean parallelized;
     
-    public NodeParallelizable()
+    public NodeParallelizable(NodeType<?> type)
     {
-        super();
+        super(type);
         this.parallelized = false;
     }
     

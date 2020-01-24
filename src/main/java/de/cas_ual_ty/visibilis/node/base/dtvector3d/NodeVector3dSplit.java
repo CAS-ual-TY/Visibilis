@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis.node.base.dtvector3d;
 
 import de.cas_ual_ty.visibilis.node.ExecContext;
 import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
@@ -17,9 +18,9 @@ public class NodeVector3dSplit extends Node
     
     protected double x, y, z;
     
-    public NodeVector3dSplit()
+    public NodeVector3dSplit(NodeType<?> type)
     {
-        super();
+        super(type);
         this.addOutput(this.out1Float = new Output<>(this, VDataTypes.FLOAT, "out1"));
         this.addOutput(this.out2Float = new Output<>(this, VDataTypes.FLOAT, "out2"));
         this.addOutput(this.out3Float = new Output<>(this, VDataTypes.FLOAT, "out3"));

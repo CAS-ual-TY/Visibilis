@@ -5,9 +5,9 @@ import de.cas_ual_ty.visibilis.node.NodeType;
 
 public abstract class NodeGenericV<B> extends NodeGenericP<B>
 {
-    public NodeGenericV()
+    public NodeGenericV(NodeType<?> type)
     {
-        super();
+        super(type);
     }
     
     @Override
@@ -18,9 +18,9 @@ public abstract class NodeGenericV<B> extends NodeGenericP<B>
     
     public static <I> NodeType<NodeGenericV<I>> createType(DataType<I> dataType, String id)
     {
-        return new NodeType<>(() ->
+        return new NodeType<>((type) ->
         {
-            return new NodeGenericV<I>()
+            return new NodeGenericV<I>(type)
             {
                 @Override
                 public DataType<I> getDataType()

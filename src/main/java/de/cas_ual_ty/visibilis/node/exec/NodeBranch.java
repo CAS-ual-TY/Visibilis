@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis.node.exec;
 
 import de.cas_ual_ty.visibilis.node.ExecContext;
 import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
@@ -15,9 +16,9 @@ public class NodeBranch extends Node
     
     public boolean value;
     
-    public NodeBranch()
+    public NodeBranch(NodeType<?> type)
     {
-        super();
+        super(type);
         this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1"));
         this.addOutput(this.out2Exec = new Output<>(this, VDataTypes.EXEC, "out2"));
         this.addInput(this.in1Exec = new Input<>(this, VDataTypes.EXEC, "in1"));

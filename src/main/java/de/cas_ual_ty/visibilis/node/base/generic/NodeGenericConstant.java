@@ -11,9 +11,9 @@ public abstract class NodeGenericConstant<B> extends Node
 {
     public Output<B> out1B;
     
-    public NodeGenericConstant()
+    public NodeGenericConstant(NodeType<?> type)
     {
-        super();
+        super(type);
         this.addOutput(this.out1B = new Output<>(this, this.getDataType(), "out1"));
     }
     
@@ -47,9 +47,9 @@ public abstract class NodeGenericConstant<B> extends Node
     
     public static <O> NodeType<NodeGenericConstant<O>> createType(DataType<O> dataType, String id, O constant)
     {
-        return new NodeType<>(() ->
+        return new NodeType<>((type) ->
         {
-            return new NodeGenericConstant<O>()
+            return new NodeGenericConstant<O>(type)
             {
                 @Override
                 public DataType<O> getDataType()

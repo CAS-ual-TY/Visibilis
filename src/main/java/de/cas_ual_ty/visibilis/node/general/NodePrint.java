@@ -1,6 +1,7 @@
 package de.cas_ual_ty.visibilis.node.general;
 
 import de.cas_ual_ty.visibilis.node.ExecContext;
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.NodeExpandable;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
@@ -14,9 +15,9 @@ public class NodePrint extends NodeExpandable
     
     public String[] values;
     
-    public NodePrint()
+    public NodePrint(NodeType<?> type)
     {
-        super();
+        super(type);
         this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1"));
         this.addInput(this.in1Exec = new Input<>(this, VDataTypes.EXEC, "in1"));
         this.expand();

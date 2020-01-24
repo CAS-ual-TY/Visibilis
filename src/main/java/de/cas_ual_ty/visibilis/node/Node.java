@@ -31,11 +31,14 @@ public abstract class Node
     
     private int posX, posY;
     
+    public final NodeType<?> type;
+    
     protected ArrayList<Output<?>> outputFields;
     protected ArrayList<Input<?>> inputFields;
     
-    public Node()
+    public Node(NodeType<?> type)
     {
+        this.type = type;
         this.outputFields = new ArrayList<>();
         this.inputFields = new ArrayList<>();
         this.setPosition(0, 0); // Just to make sure they are always initialized

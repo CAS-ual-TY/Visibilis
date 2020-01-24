@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis.test;
 
 import de.cas_ual_ty.visibilis.node.ExecContext;
 import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
@@ -12,9 +13,9 @@ public class VNodePrintDebug extends Node
     public Output<Object> out1Exec;
     public Input<Object> in1Exec;
     
-    public VNodePrintDebug()
+    public VNodePrintDebug(NodeType<?> type)
     {
-        super();
+        super(type);
         this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1"));
         this.addInput(this.in1Exec = new Input<>(this, VDataTypes.EXEC, "in1"));
     }

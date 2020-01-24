@@ -1,9 +1,15 @@
 package de.cas_ual_ty.visibilis.node.calculate;
 
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatP2;
 
 public class NodeDivision extends NodeFloatP2
 {
+    public NodeDivision(NodeType<?> type)
+    {
+        super(type);
+    }
+    
     @Override
     protected boolean canCalculate(Float in1, Float in2)
     {

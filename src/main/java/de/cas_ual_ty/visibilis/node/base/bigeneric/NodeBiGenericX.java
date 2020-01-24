@@ -20,9 +20,9 @@ public abstract class NodeBiGenericX<O, I> extends NodeExpandable
     
     protected int inAmt;
     
-    public NodeBiGenericX()
+    public NodeBiGenericX(NodeType<?> type)
     {
-        super();
+        super(type);
         this.expansionInputs = new LinkedList<>();
         this.createBaseFields();
     }
@@ -122,9 +122,9 @@ public abstract class NodeBiGenericX<O, I> extends NodeExpandable
     
     public static <O, I> NodeType<NodeBiGenericX<O, I>> createType(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, ICalculation<O, I> function, ICalculationRequirement<O, I> requirement)
     {
-        return new NodeType<>(() ->
+        return new NodeType<>((type) ->
         {
-            return new NodeBiGenericX<O, I>()
+            return new NodeBiGenericX<O, I>(type)
             {
                 @Override
                 public DataType<O> getOutDataType()

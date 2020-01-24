@@ -6,9 +6,9 @@ import de.cas_ual_ty.visibilis.node.base.bigeneric.NodeBiGenericP;
 
 public abstract class NodeGenericP<B> extends NodeBiGenericP<B, B>
 {
-    public NodeGenericP()
+    public NodeGenericP(NodeType<?> type)
     {
-        super();
+        super(type);
     }
     
     public abstract DataType<B> getDataType();
@@ -39,9 +39,9 @@ public abstract class NodeGenericP<B> extends NodeBiGenericP<B, B>
     
     public static <H> NodeType<NodeGenericP<H>> createType(DataType<H> dataType, String id, ICalculation<H> function)
     {
-        return new NodeType<>(() ->
+        return new NodeType<>((type) ->
         {
-            return new NodeGenericP<H>()
+            return new NodeGenericP<H>(type)
             {
                 @Override
                 public DataType<H> getDataType()

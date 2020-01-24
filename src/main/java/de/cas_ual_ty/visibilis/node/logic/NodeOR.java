@@ -1,12 +1,13 @@
 package de.cas_ual_ty.visibilis.node.logic;
 
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.dtboolean.NodeBooleanXP2;
 
 public class NodeOR extends NodeBooleanXP2
 {
-    public NodeOR()
+    public NodeOR(NodeType<?> type)
     {
-        super();
+        super(type);
     }
     
     @Override

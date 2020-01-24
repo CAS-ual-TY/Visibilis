@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeAction;
+import de.cas_ual_ty.visibilis.node.NodeType;
 import net.minecraft.nbt.CompoundNBT;
 
 public abstract class NodeExpandable extends Node
@@ -17,9 +18,9 @@ public abstract class NodeExpandable extends Node
     
     public int expansion;
     
-    public NodeExpandable()
+    public NodeExpandable(NodeType<?> type)
     {
-        super();
+        super(type);
         this.expansion = 0;
     }
     

@@ -6,9 +6,9 @@ import de.cas_ual_ty.visibilis.node.base.bigeneric.NodeBiGenericXP2;
 
 public abstract class NodeGenericXP2<B> extends NodeBiGenericXP2<B, B>
 {
-    public NodeGenericXP2()
+    public NodeGenericXP2(NodeType<?> type)
     {
-        super();
+        super(type);
     }
     
     public abstract DataType<B> getDataType();
@@ -44,9 +44,9 @@ public abstract class NodeGenericXP2<B> extends NodeBiGenericXP2<B, B>
     
     public static <I> NodeType<NodeGenericXP2<I>> createType(DataType<I> dataType, String id, ICalculationX<I> functionX, ICalculationP2<I> functionP2, ICalculationRequirementX<I> requirementX, ICalculationRequirementP2<I> requirementP2)
     {
-        return new NodeType<>(() ->
+        return new NodeType<>((type) ->
         {
-            return new NodeGenericXP2<I>()
+            return new NodeGenericXP2<I>(type)
             {
                 @Override
                 public DataType<I> getDataType()

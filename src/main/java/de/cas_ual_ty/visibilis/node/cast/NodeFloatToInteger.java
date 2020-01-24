@@ -1,14 +1,15 @@
 package de.cas_ual_ty.visibilis.node.cast;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.bigeneric.NodeBiGenericP;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 
 public class NodeFloatToInteger extends NodeBiGenericP<Integer, Float>
 {
-    public NodeFloatToInteger()
+    public NodeFloatToInteger(NodeType<?> type)
     {
-        super();
+        super(type);
     }
     
     @Override
