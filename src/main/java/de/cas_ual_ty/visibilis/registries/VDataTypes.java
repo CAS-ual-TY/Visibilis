@@ -19,15 +19,11 @@ import net.minecraftforge.registries.ObjectHolder;
 public class VDataTypes
 {
     public static final DataType<Object> EXEC = null;
-    
     public static final DataTypeDynamic<Integer> INTEGER = null;
-    
     public static final DataTypeDynamic<Float> FLOAT = null;
-    
+    public static final DataTypeDynamic<Double> DOUBLE = null;
     public static final DataTypeEnum<Boolean> BOOLEAN = null;
-    
     public static final DataTypeDynamic<String> STRING = null;
-    
     public static final DataType<Vec3d> VECTOR3D = null;
     
     @SubscribeEvent
@@ -140,6 +136,58 @@ public class VDataTypes
                 return nbt;
             }
         }.setBlackText().setRegistryName(Visibilis.MOD_ID, "float"));
+        
+        registry.register(new DataTypeDynamic<Double>(new float[] { 1F, 1F, 0F }, 1.0D)
+        {
+            @Override
+            public boolean equals(Double obj1, Double obj2)
+            {
+                return obj1.doubleValue() == obj2.doubleValue();
+            }
+            
+            @Override
+            public boolean canParseString(String s)
+            {
+                if(s.equals("-"))
+                {
+                    return true;
+                }
+                
+                try
+                {
+                    this.stringToValue(s);
+                    return true;
+                }
+                catch (NumberFormatException e)
+                {
+                    return false;
+                }
+            }
+            
+            @Override
+            public Double stringToValue(String s)
+            {
+                if(s.equals("-"))
+                {
+                    return 0D;
+                }
+                return Double.parseDouble(s);
+            }
+            
+            @Override
+            public Double loadFromNBT(CompoundNBT nbt)
+            {
+                return nbt.getDouble(DataType.KEY_DATA);
+            }
+            
+            @Override
+            public CompoundNBT saveToNBT(Double data)
+            {
+                CompoundNBT nbt = new CompoundNBT();
+                nbt.putDouble(DataType.KEY_DATA, data.doubleValue());
+                return nbt;
+            }
+        }.setBlackText().setRegistryName(Visibilis.MOD_ID, "double"));
         
         registry.register(new DataTypeEnum<Boolean>(new float[] { 1F, 0F, 1F })
         {
