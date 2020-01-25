@@ -83,7 +83,7 @@ If you are looking for a guide on how to setup so you can work with/on Visibilis
  - **Node Field**: A connection anchor you could say: Either an **input** or an **output**. Outputs can be connected to various inputs, but inputs can each only be connected to a single output; They all have a specific data type
  - **"exec"**: The **execution chain** or **data type**; Usually connections transfer data for connected nodes to be used, but the "exec" type insead just decides **which node to calculate next**; **"exec"** **outputs** can all only be connected **to a single input**
  - **Exec Node**: A type of node which **carries** node fields of the **"exec"** data type; Nodes carry this data type if their execution order makes a difference
- - **Event Node**: Extends "Exec Node"; This is the **start of the execution chain** in each print depending on the **event type**
+ - **Event Node**: A special "Exec Node"; This is one possible **start of the execution chain** in each print depending on the **event type**
 
 #### Code to take a look at
  - **de.cas_ual_ty.visibilis.print.ui.UiBase**: Contains **all required user interface** functionality; you can open this GUI via **de.cas_ual_ty.visibilis.util.VUtility**
