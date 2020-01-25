@@ -236,13 +236,17 @@ public class VDataTypes
     // Called from FMLCommonSetupEvent
     public static void addConverters()
     {
-        VDataTypes.FLOAT.registerConverter(VDataTypes.INTEGER, (n) -> n.floatValue()); // As I dont know how this will be used in the future, I rather add this in.
-        VDataTypes.DOUBLE.registerConverter(VDataTypes.INTEGER, (n) -> n.doubleValue()); // As I dont know how this will be used in the future, I rather add this in.
-        VDataTypes.DOUBLE.registerConverter(VDataTypes.FLOAT, (n) -> n.doubleValue()); // As I dont know how this will be used in the future, I rather add this in.
+        VDataTypes.FLOAT.registerConverter(VDataTypes.INTEGER, (n) -> n.floatValue());
+        VDataTypes.DOUBLE.registerConverter(VDataTypes.INTEGER, (n) -> n.doubleValue());
+        VDataTypes.DOUBLE.registerConverter(VDataTypes.FLOAT, (n) -> n.doubleValue());
         
         VDataTypes.NUMBER.registerGenericConverter(VDataTypes.INTEGER);
         VDataTypes.NUMBER.registerGenericConverter(VDataTypes.FLOAT);
         VDataTypes.NUMBER.registerGenericConverter(VDataTypes.DOUBLE);
+        
+        VDataTypes.INTEGER.registerConverter(VDataTypes.NUMBER, (n) -> n.intValue());
+        VDataTypes.FLOAT.registerConverter(VDataTypes.NUMBER, (n) -> n.floatValue());
+        VDataTypes.DOUBLE.registerConverter(VDataTypes.NUMBER, (n) -> n.doubleValue());
         
         VDataTypes.STRING.registerConverter(VDataTypes.INTEGER, new AnyString<>());
         VDataTypes.STRING.registerConverter(VDataTypes.FLOAT, new AnyString<>());
