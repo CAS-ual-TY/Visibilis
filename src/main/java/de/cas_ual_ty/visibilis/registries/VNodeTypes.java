@@ -5,6 +5,7 @@ import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dCreate;
 import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dScale;
 import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dSplit;
+import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericCompare;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericConstant;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericHardcoded;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericP2;
@@ -16,11 +17,6 @@ import de.cas_ual_ty.visibilis.node.calculate.NodeLogarithm1p;
 import de.cas_ual_ty.visibilis.node.calculate.NodeLogarithmE;
 import de.cas_ual_ty.visibilis.node.calculate.NodeRoot;
 import de.cas_ual_ty.visibilis.node.cast.NodeFloatToInteger;
-import de.cas_ual_ty.visibilis.node.compare.NodeFloatEquals;
-import de.cas_ual_ty.visibilis.node.compare.NodeFloatGreater;
-import de.cas_ual_ty.visibilis.node.compare.NodeFloatGreaterEquals;
-import de.cas_ual_ty.visibilis.node.compare.NodeFloatLess;
-import de.cas_ual_ty.visibilis.node.compare.NodeFloatLessEquals;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
 import de.cas_ual_ty.visibilis.node.exec.NodeBranch;
 import de.cas_ual_ty.visibilis.node.exec.NodeFor;
@@ -190,11 +186,40 @@ public class VNodeTypes
         registry.register(new NodeType<>(NodeFor::new).setRegistryName(Visibilis.MOD_ID, "for"));
         registry.register(new NodeType<>(NodeWhile::new).setRegistryName(Visibilis.MOD_ID, "while"));
         
-        registry.register(new NodeType<>(NodeFloatEquals::new).setRegistryName(Visibilis.MOD_ID, "equals"));
-        registry.register(new NodeType<>(NodeFloatGreater::new).setRegistryName(Visibilis.MOD_ID, "greater_than"));
-        registry.register(new NodeType<>(NodeFloatGreaterEquals::new).setRegistryName(Visibilis.MOD_ID, "greater_than_or_equals"));
-        registry.register(new NodeType<>(NodeFloatLess::new).setRegistryName(Visibilis.MOD_ID, "less_than"));
-        registry.register(new NodeType<>(NodeFloatLessEquals::new).setRegistryName(Visibilis.MOD_ID, "less_than_or_equals"));
+        registry.register(NodeGenericCompare.createTypeGenericCompare(VDataTypes.NUMBER,
+            new NumberFunctionP2<>(
+                (i, j) -> i.intValue() == j.intValue(),
+                (i, j) -> i.floatValue() == j.floatValue(),
+                (i, j) -> i.doubleValue() == j.doubleValue()))
+            .setRegistryName(Visibilis.MOD_ID, "equals"));
+        
+        registry.register(NodeGenericCompare.createTypeGenericCompare(VDataTypes.NUMBER,
+            new NumberFunctionP2<>(
+                (i, j) -> i.intValue() > j.intValue(),
+                (i, j) -> i.floatValue() > j.floatValue(),
+                (i, j) -> i.doubleValue() > j.doubleValue()))
+            .setRegistryName(Visibilis.MOD_ID, "greater_than"));
+        
+        registry.register(NodeGenericCompare.createTypeGenericCompare(VDataTypes.NUMBER,
+            new NumberFunctionP2<>(
+                (i, j) -> i.intValue() >= j.intValue(),
+                (i, j) -> i.floatValue() >= j.floatValue(),
+                (i, j) -> i.doubleValue() >= j.doubleValue()))
+            .setRegistryName(Visibilis.MOD_ID, "greater_than_or_equals"));
+        
+        registry.register(NodeGenericCompare.createTypeGenericCompare(VDataTypes.NUMBER,
+            new NumberFunctionP2<>(
+                (i, j) -> i.intValue() < j.intValue(),
+                (i, j) -> i.floatValue() < j.floatValue(),
+                (i, j) -> i.doubleValue() < j.doubleValue()))
+            .setRegistryName(Visibilis.MOD_ID, "less_than"));
+        
+        registry.register(NodeGenericCompare.createTypeGenericCompare(VDataTypes.NUMBER,
+            new NumberFunctionP2<>(
+                (i, j) -> i.intValue() <= j.intValue(),
+                (i, j) -> i.floatValue() <= j.floatValue(),
+                (i, j) -> i.doubleValue() <= j.doubleValue()))
+            .setRegistryName(Visibilis.MOD_ID, "less_than_or_equals"));
         
         registry.register(new NodeType<>(NodeFloatToInteger::new).setRegistryName(Visibilis.MOD_ID, "cast_float_to_integer"));
         
