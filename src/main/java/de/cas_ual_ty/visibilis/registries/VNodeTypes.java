@@ -8,6 +8,7 @@ import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dSplit;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericCompare;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericConstant;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericHardcoded;
+import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericP;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericP2;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericXP2;
 import de.cas_ual_ty.visibilis.node.calculate.NodeConcatenation;
@@ -22,12 +23,9 @@ import de.cas_ual_ty.visibilis.node.exec.NodeBranch;
 import de.cas_ual_ty.visibilis.node.exec.NodeFor;
 import de.cas_ual_ty.visibilis.node.exec.NodeMerge;
 import de.cas_ual_ty.visibilis.node.exec.NodeWhile;
-import de.cas_ual_ty.visibilis.node.function.NodeCosines;
 import de.cas_ual_ty.visibilis.node.function.NodeRound;
 import de.cas_ual_ty.visibilis.node.function.NodeRoundDown;
 import de.cas_ual_ty.visibilis.node.function.NodeRoundUp;
-import de.cas_ual_ty.visibilis.node.function.NodeSines;
-import de.cas_ual_ty.visibilis.node.function.NodeTangent;
 import de.cas_ual_ty.visibilis.node.general.NodePrint;
 import de.cas_ual_ty.visibilis.node.logic.NodeAND;
 import de.cas_ual_ty.visibilis.node.logic.NodeNAND;
@@ -174,12 +172,13 @@ public class VNodeTypes
         registry.register(NodeGenericConstant.createTypeGenericV(VDataTypes.DOUBLE).setRegistryName(Visibilis.MOD_ID, "constant_double"));
         registry.register(NodeGenericConstant.createTypeGenericV(VDataTypes.BOOLEAN).setRegistryName(Visibilis.MOD_ID, "constant_boolean"));
         
-        registry.register(new NodeType<>(NodeCosines::new).setRegistryName(Visibilis.MOD_ID, "cosines"));
+        registry.register(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.sin(d)).setRegistryName(Visibilis.MOD_ID, "sines"));
+        registry.register(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.cos(d)).setRegistryName(Visibilis.MOD_ID, "cosines"));
+        registry.register(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.tan(d)).setRegistryName(Visibilis.MOD_ID, "tangent"));
+        
         registry.register(new NodeType<>(NodeRound::new).setRegistryName(Visibilis.MOD_ID, "round"));
         registry.register(new NodeType<>(NodeRoundDown::new).setRegistryName(Visibilis.MOD_ID, "round_down"));
         registry.register(new NodeType<>(NodeRoundUp::new).setRegistryName(Visibilis.MOD_ID, "round_up"));
-        registry.register(new NodeType<>(NodeSines::new).setRegistryName(Visibilis.MOD_ID, "sines"));
-        registry.register(new NodeType<>(NodeTangent::new).setRegistryName(Visibilis.MOD_ID, "tangent"));
         
         registry.register(new NodeType<>(NodeAND::new).setRegistryName(Visibilis.MOD_ID, "and"));
         registry.register(new NodeType<>(NodeNAND::new).setRegistryName(Visibilis.MOD_ID, "nand"));
