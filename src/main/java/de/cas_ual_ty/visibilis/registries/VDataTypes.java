@@ -190,7 +190,7 @@ public class VDataTypes
             }
         }.setBlackText().setRegistryName(Visibilis.MOD_ID, "double"));
         
-        registry.register(new DataType<>(new float[] {1F, 0.5F, 0F}).setRegistryName(Visibilis.MOD_ID, "number"));
+        registry.register(new DataType<>(new float[] { 1F, 0.5F, 0F }).setRegistryName(Visibilis.MOD_ID, "number"));
         
         registry.register(new DataTypeEnum<Boolean>(new float[] { 1F, 0F, 1F })
         {
