@@ -16,7 +16,7 @@ public abstract class NodeGenericV<B> extends NodeGenericP<B>
         return input;
     }
     
-    public static <I> NodeType<NodeGenericV<I>> createType(DataType<I> dataType, String id)
+    public static <I> NodeType<NodeGenericV<I>> createTypeGenericV(DataType<I> dataType, String id)
     {
         return new NodeType<>((type) ->
         {

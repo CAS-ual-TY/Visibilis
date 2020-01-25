@@ -1,6 +1,7 @@
 package de.cas_ual_ty.visibilis.node.base.trigeneric;
 
 import java.util.LinkedList;
+import java.util.function.BiFunction;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecContext;
@@ -140,12 +141,12 @@ public abstract class NodeTriGenericP2<O, I1, I2> extends NodeExpandable
         return null;
     }
     
-    public static <O, I1, I2> NodeType<NodeTriGenericP2<O, I1, I2>> createType(DataType<O> dataTypeOut, DataType<I1> dataTypeIn1, DataType<I2> dataTypeIn2, String id, ICalculation<O, I1, I2> function)
+    public static <O, I1, I2> NodeType<NodeTriGenericP2<O, I1, I2>> createTypeTriGenericP2(DataType<O> dataTypeOut, DataType<I1> dataTypeIn1, DataType<I2> dataTypeIn2, String id, BiFunction<I1, I2, O> function)
     {
-        return NodeTriGenericP2.createType(dataTypeOut, dataTypeIn1, dataTypeIn2, id, function, (input, in2) -> true);
+        return NodeTriGenericP2.createTypeTriGenericP2(dataTypeOut, dataTypeIn1, dataTypeIn2, id, function, (input, in2) -> true);
     }
     
-    public static <O, I1, I2> NodeType<NodeTriGenericP2<O, I1, I2>> createType(DataType<O> dataTypeOut, DataType<I1> dataTypeIn1, DataType<I2> dataTypeIn2, String id, ICalculation<O, I1, I2> function, ICalculationRequirement<O, I1, I2> requirement)
+    public static <O, I1, I2> NodeType<NodeTriGenericP2<O, I1, I2>> createTypeTriGenericP2(DataType<O> dataTypeOut, DataType<I1> dataTypeIn1, DataType<I2> dataTypeIn2, String id, BiFunction<I1, I2, O> function, BiFunction<I1, I2, Boolean> requirement)
     {
         return new NodeType<>((type) ->
         {
@@ -172,13 +173,13 @@ public abstract class NodeTriGenericP2<O, I1, I2> extends NodeExpandable
                 @Override
                 protected boolean canCalculate(I1 input, I2 in2)
                 {
-                    return requirement.canCalculate(input, in2);
+                    return requirement.apply(input, in2);
                 }
                 
                 @Override
                 protected O calculate(I1 input, I2 in2)
                 {
-                    return function.calculate(input, in2);
+                    return function.apply(input, in2);
                 }
                 
                 @Override
@@ -188,15 +189,5 @@ public abstract class NodeTriGenericP2<O, I1, I2> extends NodeExpandable
                 }
             };
         });
-    }
-    
-    public static interface ICalculationRequirement<O, I1, I2>
-    {
-        boolean canCalculate(I1 input, I2 in2);
-    }
-    
-    public static interface ICalculation<O, I1, I2>
-    {
-        O calculate(I1 input, I2 in2);
     }
 }

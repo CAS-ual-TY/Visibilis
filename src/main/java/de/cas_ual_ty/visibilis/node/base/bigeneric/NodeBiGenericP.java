@@ -1,6 +1,7 @@
 package de.cas_ual_ty.visibilis.node.base.bigeneric;
 
 import java.util.LinkedList;
+import java.util.function.Function;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecContext;
@@ -153,12 +154,12 @@ public abstract class NodeBiGenericP<O, I> extends NodeExpandable
         return this.getOutDataType().getTextColor();
     }
     
-    public static <O, I> NodeType<NodeBiGenericP<O, I>> createType(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, ICalculation<O, I> function)
+    public static <O, I> NodeType<NodeBiGenericP<O, I>> createTypeBiGenericP(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, Function<I, O> function)
     {
-        return NodeBiGenericP.createType(dataTypeOut, dataTypeIn, id, function, (input) -> true);
+        return NodeBiGenericP.createTypeBiGenericP(dataTypeOut, dataTypeIn, id, function, (input) -> true);
     }
     
-    public static <O, I> NodeType<NodeBiGenericP<O, I>> createType(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, ICalculation<O, I> function, ICalculationRequirement<O, I> requirement)
+    public static <O, I> NodeType<NodeBiGenericP<O, I>> createTypeBiGenericP(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, Function<I, O> function, Function<I, Boolean> requirement)
     {
         return new NodeType<>((type) ->
         {
@@ -179,13 +180,13 @@ public abstract class NodeBiGenericP<O, I> extends NodeExpandable
                 @Override
                 protected boolean canCalculate(I input)
                 {
-                    return requirement.canCalculate(input);
+                    return requirement.apply(input);
                 }
                 
                 @Override
                 protected O calculate(I input)
                 {
-                    return function.calculate(input);
+                    return function.apply(input);
                 }
                 
                 @Override
@@ -195,15 +196,5 @@ public abstract class NodeBiGenericP<O, I> extends NodeExpandable
                 }
             };
         });
-    }
-    
-    public static interface ICalculationRequirement<O, I>
-    {
-        boolean canCalculate(I input);
-    }
-    
-    public static interface ICalculation<O, I>
-    {
-        O calculate(I input);
     }
 }

@@ -1,6 +1,7 @@
 package de.cas_ual_ty.visibilis.node.base.bigeneric;
 
 import java.util.LinkedList;
+import java.util.function.Function;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecContext;
@@ -115,12 +116,12 @@ public abstract class NodeBiGenericX<O, I> extends NodeExpandable
         return this.getOutDataType().getTextColor();
     }
     
-    public static <O, I> NodeType<NodeBiGenericX<O, I>> createType(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, ICalculation<O, I> function)
+    public static <O, I> NodeType<NodeBiGenericX<O, I>> createTypeBiGenericX(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, Function<I[], O> function)
     {
-        return NodeBiGenericX.createType(dataTypeOut, dataTypeIn, id, function, (input) -> true);
+        return NodeBiGenericX.createTypeBiGenericX(dataTypeOut, dataTypeIn, id, function, (inputs) -> true);
     }
     
-    public static <O, I> NodeType<NodeBiGenericX<O, I>> createType(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, ICalculation<O, I> function, ICalculationRequirement<O, I> requirement)
+    public static <O, I> NodeType<NodeBiGenericX<O, I>> createTypeBiGenericX(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, Function<I[], O> function, Function<I[], Boolean> requirement)
     {
         return new NodeType<>((type) ->
         {
@@ -141,13 +142,13 @@ public abstract class NodeBiGenericX<O, I> extends NodeExpandable
                 @Override
                 protected boolean canCalculate(I[] inputs)
                 {
-                    return requirement.canCalculate(inputs);
+                    return requirement.apply(inputs);
                 }
                 
                 @Override
                 protected O calculate(I[] inputs)
                 {
-                    return function.calculate(inputs);
+                    return function.apply(inputs);
                 }
                 
                 @Override
@@ -157,15 +158,5 @@ public abstract class NodeBiGenericX<O, I> extends NodeExpandable
                 }
             };
         });
-    }
-    
-    public static interface ICalculationRequirement<O, I>
-    {
-        boolean canCalculate(I[] inputs);
-    }
-    
-    public static interface ICalculation<O, I>
-    {
-        O calculate(I[] inputs);
     }
 }

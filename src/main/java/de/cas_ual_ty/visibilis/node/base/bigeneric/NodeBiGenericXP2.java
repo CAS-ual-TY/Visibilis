@@ -1,6 +1,8 @@
 package de.cas_ual_ty.visibilis.node.base.bigeneric;
 
 import java.util.LinkedList;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.ExecContext;
@@ -226,12 +228,12 @@ public abstract class NodeBiGenericXP2<O, I> extends NodeParallelizable
         return this.getOutDataType().getTextColor();
     }
     
-    public static <O, I> NodeType<NodeBiGenericXP2<O, I>> createType(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, ICalculationX<O, I> functionX, ICalculationP2<O, I> functionP2)
+    public static <O, I> NodeType<NodeBiGenericXP2<O, I>> createTypeBiGenericXP2(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, Function<I[], O> functionX, BiFunction<I, I, O> functionP2)
     {
-        return NodeBiGenericXP2.createType(dataTypeOut, dataTypeIn, id, functionX, functionP2, (inputs) -> true, (input, in2) -> true);
+        return NodeBiGenericXP2.createTypeBiGenericXP2(dataTypeOut, dataTypeIn, id, functionX, functionP2, (inputs) -> true, (input, in2) -> true);
     }
     
-    public static <O, I> NodeType<NodeBiGenericXP2<O, I>> createType(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, ICalculationX<O, I> functionX, ICalculationP2<O, I> functionP2, ICalculationRequirementX<O, I> requirementX, ICalculationRequirementP2<O, I> requirementP2)
+    public static <O, I> NodeType<NodeBiGenericXP2<O, I>> createTypeBiGenericXP2(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, Function<I[], O> functionX, BiFunction<I, I, O> functionP2, Function<I[], Boolean> requirementX, BiFunction<I, I, Boolean> requirementP2)
     {
         return new NodeType<>((type) ->
         {
@@ -252,25 +254,25 @@ public abstract class NodeBiGenericXP2<O, I> extends NodeParallelizable
                 @Override
                 protected boolean canCalculate(I[] inputs)
                 {
-                    return requirementX.canCalculate(inputs);
+                    return requirementX.apply(inputs);
                 }
                 
                 @Override
                 protected O calculate(I[] inputs)
                 {
-                    return functionX.calculate(inputs);
+                    return functionX.apply(inputs);
                 }
                 
                 @Override
                 protected boolean canCalculate(I input, I in2)
                 {
-                    return requirementP2.canCalculate(input, in2);
+                    return requirementP2.apply(input, in2);
                 }
                 
                 @Override
                 protected O calculate(I input, I in2)
                 {
-                    return functionP2.calculate(input, in2);
+                    return functionP2.apply(input, in2);
                 }
                 
                 @Override
@@ -280,25 +282,5 @@ public abstract class NodeBiGenericXP2<O, I> extends NodeParallelizable
                 }
             };
         });
-    }
-    
-    public static interface ICalculationRequirementX<O, I>
-    {
-        boolean canCalculate(I[] inputs);
-    }
-    
-    public static interface ICalculationX<O, I>
-    {
-        O calculate(I[] inputs);
-    }
-    
-    public static interface ICalculationRequirementP2<O, I>
-    {
-        boolean canCalculate(I input, I in2);
-    }
-    
-    public static interface ICalculationP2<O, I>
-    {
-        O calculate(I input, I in2);
     }
 }

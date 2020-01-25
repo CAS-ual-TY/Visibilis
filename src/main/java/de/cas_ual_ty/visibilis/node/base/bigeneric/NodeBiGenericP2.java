@@ -1,5 +1,7 @@
 package de.cas_ual_ty.visibilis.node.base.bigeneric;
 
+import java.util.function.BiFunction;
+
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.trigeneric.NodeTriGenericP2;
@@ -25,12 +27,12 @@ public abstract class NodeBiGenericP2<O, I> extends NodeTriGenericP2<O, I, I>
         return this.getInDataType();
     }
     
-    public static <O, I> NodeType<NodeBiGenericP2<O, I>> createType(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, ICalculation<O, I> function)
+    public static <O, I> NodeType<NodeBiGenericP2<O, I>> createTypeBiGenericP2(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, BiFunction<I, I, O> function)
     {
-        return NodeBiGenericP2.createType(dataTypeOut, dataTypeIn, id, function, (input, in2) -> true);
+        return NodeBiGenericP2.createTypeBiGenericP2(dataTypeOut, dataTypeIn, id, function, (input, in2) -> true);
     }
     
-    public static <O, I> NodeType<NodeBiGenericP2<O, I>> createType(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, ICalculation<O, I> function, ICalculationRequirement<O, I> requirement)
+    public static <O, I> NodeType<NodeBiGenericP2<O, I>> createTypeBiGenericP2(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, BiFunction<I, I, O> function, BiFunction<I, I, Boolean> requirement)
     {
         return new NodeType<>((type) ->
         {
@@ -51,13 +53,13 @@ public abstract class NodeBiGenericP2<O, I> extends NodeTriGenericP2<O, I, I>
                 @Override
                 protected boolean canCalculate(I input, I in2)
                 {
-                    return requirement.canCalculate(input, in2);
+                    return requirement.apply(input, in2);
                 }
                 
                 @Override
                 protected O calculate(I input, I in2)
                 {
-                    return function.calculate(input, in2);
+                    return function.apply(input, in2);
                 }
                 
                 @Override
@@ -67,15 +69,5 @@ public abstract class NodeBiGenericP2<O, I> extends NodeTriGenericP2<O, I, I>
                 }
             };
         });
-    }
-    
-    public static interface ICalculationRequirement<O, I>
-    {
-        boolean canCalculate(I input, I in2);
-    }
-    
-    public static interface ICalculation<O, I>
-    {
-        O calculate(I input, I in2);
     }
 }

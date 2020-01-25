@@ -1,5 +1,7 @@
 package de.cas_ual_ty.visibilis.node.base.generic;
 
+import java.util.function.Function;
+
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.bigeneric.NodeBiGenericX;
@@ -37,12 +39,12 @@ public abstract class NodeGenericX<B> extends NodeBiGenericX<B, B>
         return this.getDataType().getTextColor();
     }
     
-    public static <I> NodeType<NodeGenericX<I>> createType(DataType<I> dataType, String id, ICalculation<I> function)
+    public static <I> NodeType<NodeGenericX<I>> createTypeGenericX(DataType<I> dataType, String id, Function<I[], I> function)
     {
-        return NodeGenericX.createType(dataType, id, function, (inputs) -> true);
+        return NodeGenericX.createTypeGenericX(dataType, id, function, (inputs) -> true);
     }
     
-    public static <I> NodeType<NodeGenericX<I>> createType(DataType<I> dataType, String id, ICalculation<I> function, ICalculationRequirement<I> requirement)
+    public static <I> NodeType<NodeGenericX<I>> createTypeGenericX(DataType<I> dataType, String id, Function<I[], I> function, Function<I[], Boolean> requirement)
     {
         return new NodeType<>((type) ->
         {
@@ -57,13 +59,13 @@ public abstract class NodeGenericX<B> extends NodeBiGenericX<B, B>
                 @Override
                 protected boolean canCalculate(I[] inputs)
                 {
-                    return requirement.canCalculate(inputs);
+                    return requirement.apply(inputs);
                 }
                 
                 @Override
                 protected I calculate(I[] inputs)
                 {
-                    return function.calculate(inputs);
+                    return function.apply(inputs);
                 }
                 
                 @Override
@@ -73,15 +75,5 @@ public abstract class NodeGenericX<B> extends NodeBiGenericX<B, B>
                 }
             };
         });
-    }
-    
-    public static interface ICalculationRequirement<I>
-    {
-        boolean canCalculate(I[] inputs);
-    }
-    
-    public static interface ICalculation<I>
-    {
-        I calculate(I[] inputs);
     }
 }
