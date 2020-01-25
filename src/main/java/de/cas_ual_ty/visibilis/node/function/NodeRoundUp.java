@@ -15,10 +15,4 @@ public class NodeRoundUp extends NodeFloatP
     {
         return (float)Math.ceil(in1.floatValue());
     }
-    
-    @Override
-    public String getID()
-    {
-        return "round_up";
-    }
 }

@@ -29,10 +29,4 @@ public class NodeOR extends NodeBooleanXP2
         
         return false;
     }
-    
-    @Override
-    public String getID()
-    {
-        return "or";
-    }
 }

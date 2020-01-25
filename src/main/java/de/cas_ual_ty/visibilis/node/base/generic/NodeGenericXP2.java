@@ -40,12 +40,12 @@ public abstract class NodeGenericXP2<B> extends NodeBiGenericXP2<B, B>
         return this.getDataType().getTextColor();
     }
     
-    public static <I> NodeType<NodeGenericXP2<I>> createTypeGenericXP2(DataType<I> dataType, String id, Function<I[], I> functionX, BiFunction<I, I, I> functionP2)
+    public static <I> NodeType<NodeGenericXP2<I>> createTypeGenericXP2(DataType<I> dataType, Function<I[], I> functionX, BiFunction<I, I, I> functionP2)
     {
-        return NodeGenericXP2.createTypeGenericXP2(dataType, id, functionX, functionP2, (inputs) -> true, (input, in2) -> true);
+        return NodeGenericXP2.createTypeGenericXP2(dataType, functionX, functionP2, (inputs) -> true, (input, in2) -> true);
     }
     
-    public static <I> NodeType<NodeGenericXP2<I>> createTypeGenericXP2(DataType<I> dataType, String id, Function<I[], I> functionX, BiFunction<I, I, I> functionP2, Function<I[], Boolean> requirementX, BiFunction<I, I, Boolean> requirementP2)
+    public static <I> NodeType<NodeGenericXP2<I>> createTypeGenericXP2(DataType<I> dataType, Function<I[], I> functionX, BiFunction<I, I, I> functionP2, Function<I[], Boolean> requirementX, BiFunction<I, I, Boolean> requirementP2)
     {
         return new NodeType<>((type) ->
         {
@@ -79,12 +79,6 @@ public abstract class NodeGenericXP2<B> extends NodeBiGenericXP2<B, B>
                 protected I calculate(I input, I in2)
                 {
                     return functionP2.apply(input, in2);
-                }
-                
-                @Override
-                public String getID()
-                {
-                    return id;
                 }
             };
         });

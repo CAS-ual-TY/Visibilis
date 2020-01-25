@@ -15,10 +15,4 @@ public class NodeRoundDown extends NodeFloatP
     {
         return (float)Math.floor(in1.floatValue());
     }
-    
-    @Override
-    public String getID()
-    {
-        return "round_down";
-    }
 }

@@ -15,10 +15,4 @@ public class NodeCosines extends NodeFloatP
     {
         return (float)Math.cos(in1.floatValue());
     }
-    
-    @Override
-    public String getID()
-    {
-        return "cosines";
-    }
 }

@@ -28,10 +28,4 @@ public class NodeMultiplication extends NodeFloatXP2
     {
         return in1.floatValue() * in2.floatValue();
     }
-    
-    @Override
-    public String getID()
-    {
-        return "multiplication";
-    }
 }

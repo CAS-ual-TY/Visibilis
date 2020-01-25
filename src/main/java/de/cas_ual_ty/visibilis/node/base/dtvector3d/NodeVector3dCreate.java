@@ -46,12 +46,6 @@ public class NodeVector3dCreate extends Node
     }
     
     @Override
-    public String getID()
-    {
-        return "vector3d_create";
-    }
-    
-    @Override
     public float[] getColor()
     {
         return VDataTypes.VECTOR3D.getColor();

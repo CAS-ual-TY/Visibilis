@@ -16,10 +16,4 @@ public class NodeSQRT2 extends NodeFloatConstant
     {
         return MathHelper.SQRT_2;
     }
-    
-    @Override
-    public String getID()
-    {
-        return "sqrt_2";
-    }
 }

@@ -15,10 +15,4 @@ public class NodeFloatLess extends NodeFloatCompare
     {
         return input.floatValue() < in2.floatValue();
     }
-    
-    @Override
-    public String getID()
-    {
-        return "less_than";
-    }
 }

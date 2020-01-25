@@ -38,12 +38,6 @@ public class NodeVector3dScale extends NodeTriGenericP2<Vec3d, Vec3d, Float>
     }
     
     @Override
-    public String getID()
-    {
-        return "vector3d_scale";
-    }
-    
-    @Override
     public float[] getColor()
     {
         return VDataTypes.VECTOR3D.getColor();

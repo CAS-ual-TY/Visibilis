@@ -15,10 +15,4 @@ public class NodeFloatEquals extends NodeFloatCompare
     {
         return input.floatValue() == in2.floatValue();
     }
-    
-    @Override
-    public String getID()
-    {
-        return "equals";
-    }
 }

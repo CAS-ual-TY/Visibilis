@@ -55,10 +55,4 @@ public class NodeBranch extends Node
     {
         return VDataTypes.EXEC.getTextColor();
     }
-    
-    @Override
-    public String getID()
-    {
-        return "branch";
-    }
 }

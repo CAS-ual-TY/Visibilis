@@ -15,10 +15,4 @@ public class NodeRound extends NodeFloatP
     {
         return (float)Math.round(in1.floatValue());
     }
-    
-    @Override
-    public String getID()
-    {
-        return "round";
-    }
 }

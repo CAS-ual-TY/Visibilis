@@ -15,10 +15,4 @@ public class NodeSubtraction extends NodeFloatP2
     {
         return in1.floatValue() - in2.floatValue();
     }
-    
-    @Override
-    public String getID()
-    {
-        return "subtraction";
-    }
 }

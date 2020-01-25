@@ -15,10 +15,4 @@ public class NodeXNOR extends NodeBooleanP2
     {
         return in1 == in2;
     }
-    
-    @Override
-    public String getID()
-    {
-        return "xnor";
-    }
 }

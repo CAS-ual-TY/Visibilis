@@ -72,12 +72,6 @@ public class NodeWhile extends Node
     }
     
     @Override
-    public String getID()
-    {
-        return "while";
-    }
-    
-    @Override
     public void resetValues()
     {
         super.resetValues();

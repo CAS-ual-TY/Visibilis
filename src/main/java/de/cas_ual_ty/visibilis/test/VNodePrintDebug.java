@@ -51,10 +51,4 @@ public class VNodePrintDebug extends Node
     {
         return VDataTypes.EXEC.getTextColor();
     }
-    
-    @Override
-    public String getID()
-    {
-        return "vprintdebug";
-    }
 }

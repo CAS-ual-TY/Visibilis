@@ -31,12 +31,6 @@ public class NodeFloatToInteger extends NodeBiGenericP<Integer, Float>
     }
     
     @Override
-    public String getID()
-    {
-        return "cast_integer";
-    }
-    
-    @Override
     public float[] getColor()
     {
         return VDataTypes.INTEGER.getColor();

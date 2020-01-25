@@ -28,10 +28,4 @@ public class NodeConcatenation extends NodeStringXP2
     {
         return in1 + in2;
     }
-    
-    @Override
-    public String getID()
-    {
-        return "concatenation";
-    }
 }

@@ -60,10 +60,4 @@ public class NodeFor extends Node
     {
         return VDataTypes.EXEC.getTextColor();
     }
-    
-    @Override
-    public String getID()
-    {
-        return "for";
-    }
 }

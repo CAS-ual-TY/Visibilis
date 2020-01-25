@@ -56,12 +56,6 @@ public class NodeVector3dSplit extends Node
     }
     
     @Override
-    public String getID()
-    {
-        return "vector3d_split";
-    }
-    
-    @Override
     public float[] getColor()
     {
         return VDataTypes.VECTOR3D.getColor();

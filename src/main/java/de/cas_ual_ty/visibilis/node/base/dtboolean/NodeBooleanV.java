@@ -17,10 +17,4 @@ public class NodeBooleanV extends NodeGenericV<Boolean>
     {
         return VDataTypes.BOOLEAN;
     }
-    
-    @Override
-    public String getID()
-    {
-        return "const_boolean";
-    }
 }

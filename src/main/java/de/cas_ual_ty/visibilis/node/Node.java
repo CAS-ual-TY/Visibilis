@@ -468,7 +468,10 @@ public abstract class Node
      * 
      * @return A unique identifier (for translation only)
      */
-    public abstract String getID();
+    public String getID()
+    {
+        return this.type.getRegistryName().toString();
+    }
     
     /**
      * Used for translating the name of this node.

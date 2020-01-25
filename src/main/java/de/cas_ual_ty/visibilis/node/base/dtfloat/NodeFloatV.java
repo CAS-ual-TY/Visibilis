@@ -17,10 +17,4 @@ public class NodeFloatV extends NodeGenericV<Float>
     {
         return VDataTypes.FLOAT;
     }
-    
-    @Override
-    public String getID()
-    {
-        return "const_float";
-    }
 }

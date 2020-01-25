@@ -15,10 +15,4 @@ public class NodeNOT extends NodeBooleanP
     {
         return !in1;
     }
-    
-    @Override
-    public String getID()
-    {
-        return "not";
-    }
 }

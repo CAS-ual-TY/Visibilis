@@ -15,10 +15,4 @@ public class NodeE extends NodeFloatConstant
     {
         return (float)Math.E;
     }
-    
-    @Override
-    public String getID()
-    {
-        return "e";
-    }
 }

@@ -15,10 +15,4 @@ public class NodeLogarithm10 extends NodeFloatP
     {
         return (float)Math.log10(in1.floatValue());
     }
-    
-    @Override
-    public String getID()
-    {
-        return "logarithm_10";
-    }
 }

@@ -15,10 +15,4 @@ public class NodeFloatGreaterEquals extends NodeFloatCompare
     {
         return input.floatValue() >= in2.floatValue();
     }
-    
-    @Override
-    public String getID()
-    {
-        return "greater_than_or_equals";
-    }
 }

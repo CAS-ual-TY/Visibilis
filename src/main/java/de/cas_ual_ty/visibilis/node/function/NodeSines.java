@@ -15,10 +15,4 @@ public class NodeSines extends NodeFloatP
     {
         return (float)Math.sin(in1.floatValue());
     }
-    
-    @Override
-    public String getID()
-    {
-        return "sines";
-    }
 }

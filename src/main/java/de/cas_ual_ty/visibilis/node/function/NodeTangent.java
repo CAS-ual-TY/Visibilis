@@ -15,10 +15,4 @@ public class NodeTangent extends NodeFloatP
     {
         return (float)Math.tan(in1.floatValue());
     }
-    
-    @Override
-    public String getID()
-    {
-        return "tangent";
-    }
 }

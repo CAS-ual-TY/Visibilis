@@ -15,10 +15,4 @@ public class NodeExponentiation extends NodeFloatP2
     {
         return (float)Math.pow(in1.floatValue(), in2.floatValue());
     }
-    
-    @Override
-    public String getID()
-    {
-        return "exponentiation";
-    }
 }

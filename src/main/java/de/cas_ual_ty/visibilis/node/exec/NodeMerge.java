@@ -42,10 +42,4 @@ public class NodeMerge extends NodeGenericX<Object>
     {
         return VDataTypes.EXEC.getTextColor();
     }
-    
-    @Override
-    public String getID()
-    {
-        return "merge";
-    }
 }

@@ -51,12 +51,6 @@ public class NodeEvent extends Node
     }
     
     @Override
-    public String getID()
-    {
-        return "event." + this.getEventType();
-    }
-    
-    @Override
     public float[] getColor()
     {
         return VDataTypes.EXEC.getColor();

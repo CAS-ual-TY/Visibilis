@@ -154,12 +154,12 @@ public abstract class NodeBiGenericP<O, I> extends NodeExpandable
         return this.getOutDataType().getTextColor();
     }
     
-    public static <O, I> NodeType<NodeBiGenericP<O, I>> createTypeBiGenericP(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, Function<I, O> function)
+    public static <O, I> NodeType<NodeBiGenericP<O, I>> createTypeBiGenericP(DataType<O> dataTypeOut, DataType<I> dataTypeIn, Function<I, O> function)
     {
-        return NodeBiGenericP.createTypeBiGenericP(dataTypeOut, dataTypeIn, id, function, (input) -> true);
+        return NodeBiGenericP.createTypeBiGenericP(dataTypeOut, dataTypeIn, function, (input) -> true);
     }
     
-    public static <O, I> NodeType<NodeBiGenericP<O, I>> createTypeBiGenericP(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, Function<I, O> function, Function<I, Boolean> requirement)
+    public static <O, I> NodeType<NodeBiGenericP<O, I>> createTypeBiGenericP(DataType<O> dataTypeOut, DataType<I> dataTypeIn, Function<I, O> function, Function<I, Boolean> requirement)
     {
         return new NodeType<>((type) ->
         {
@@ -187,12 +187,6 @@ public abstract class NodeBiGenericP<O, I> extends NodeExpandable
                 protected O calculate(I input)
                 {
                     return function.apply(input);
-                }
-                
-                @Override
-                public String getID()
-                {
-                    return id;
                 }
             };
         });

@@ -15,10 +15,4 @@ public class NodeNOR extends NodeBooleanP2
     {
         return !(in1 || in2);
     }
-    
-    @Override
-    public String getID()
-    {
-        return "nor";
-    }
 }

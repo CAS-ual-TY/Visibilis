@@ -15,10 +15,4 @@ public class NodePi extends NodeFloatConstant
     {
         return (float)Math.PI;
     }
-    
-    @Override
-    public String getID()
-    {
-        return "pi";
-    }
 }

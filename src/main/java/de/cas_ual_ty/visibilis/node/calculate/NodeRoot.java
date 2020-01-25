@@ -21,10 +21,4 @@ public class NodeRoot extends NodeFloatP2
     {
         return (float)Math.pow(Math.E, Math.log(in1.floatValue()) / in2.floatValue());
     }
-    
-    @Override
-    public String getID()
-    {
-        return "root";
-    }
 }

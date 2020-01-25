@@ -19,7 +19,7 @@ public abstract class NodeBiGenericV<O, I> extends NodeBiGenericP<O, I>
         return VUtility.cast(input);
     }
     
-    public static <O, I> NodeType<NodeBiGenericV<O, I>> createTypeBiGenericV(DataType<O> dataTypeOut, DataType<I> dataTypeIn, String id, Function<I, O> function)
+    public static <O, I> NodeType<NodeBiGenericV<O, I>> createTypeBiGenericV(DataType<O> dataTypeOut, DataType<I> dataTypeIn, Function<I, O> function)
     {
         return new NodeType<>((type) ->
         {
@@ -41,12 +41,6 @@ public abstract class NodeBiGenericV<O, I> extends NodeBiGenericP<O, I>
                 protected O calculate(I input)
                 {
                     return function.apply(input);
-                }
-                
-                @Override
-                public String getID()
-                {
-                    return id;
                 }
             };
         });

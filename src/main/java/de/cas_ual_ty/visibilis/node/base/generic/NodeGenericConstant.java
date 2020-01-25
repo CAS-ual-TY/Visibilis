@@ -45,7 +45,7 @@ public abstract class NodeGenericConstant<B> extends Node
         return this.getDataType().getTextColor();
     }
     
-    public static <O> NodeType<NodeGenericConstant<O>> createTypeGenericConstant(DataType<O> dataType, String id, O constant)
+    public static <O> NodeType<NodeGenericConstant<O>> createTypeGenericConstant(DataType<O> dataType, O constant)
     {
         return new NodeType<>((type) ->
         {
@@ -61,12 +61,6 @@ public abstract class NodeGenericConstant<B> extends Node
                 protected O getConstant()
                 {
                     return constant;
-                }
-                
-                @Override
-                public String getID()
-                {
-                    return id;
                 }
             };
         });

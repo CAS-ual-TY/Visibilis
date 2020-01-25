@@ -17,10 +17,4 @@ public class NodeDoubleV extends NodeGenericV<Double>
     {
         return VDataTypes.DOUBLE;
     }
-    
-    @Override
-    public String getID()
-    {
-        return "const_double";
-    }
 }

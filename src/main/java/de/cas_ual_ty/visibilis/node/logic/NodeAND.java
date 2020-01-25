@@ -29,10 +29,4 @@ public class NodeAND extends NodeBooleanXP2
         
         return true;
     }
-    
-    @Override
-    public String getID()
-    {
-        return "and";
-    }
 }

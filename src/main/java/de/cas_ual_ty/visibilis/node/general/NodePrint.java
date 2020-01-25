@@ -73,10 +73,4 @@ public class NodePrint extends NodeExpandable
     {
         return VDataTypes.STRING.getTextColor();
     }
-    
-    @Override
-    public String getID()
-    {
-        return "print";
-    }
 }
