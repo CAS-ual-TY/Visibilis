@@ -12,7 +12,6 @@ import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericHardcoded;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericP;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericP2;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericXP2;
-import de.cas_ual_ty.visibilis.node.calculate.NodeConcatenation;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
 import de.cas_ual_ty.visibilis.node.exec.NodeBranch;
 import de.cas_ual_ty.visibilis.node.exec.NodeFor;
@@ -162,7 +161,20 @@ public class VNodeTypes
         registry.register(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.log(d)).setRegistryName(Visibilis.MOD_ID, "logarithm_e"));
         registry.register(NodeGenericP2.createTypeGenericP2(VDataTypes.DOUBLE, (d1, d2) -> Math.pow(Math.E, Math.log(d1.doubleValue()) / d2.doubleValue())).setRegistryName(Visibilis.MOD_ID, "root"));
         
-        registry.register(new NodeType<>(NodeConcatenation::new).setRegistryName(Visibilis.MOD_ID, "concatenation"));
+        registry.register(NodeGenericXP2.createTypeGenericXP2(VDataTypes.STRING,
+            (ss) ->
+            {
+                String r = "";
+                for(String s : ss)
+                {
+                    r += s;
+                }
+                return r;
+            },
+            (s1, s2) ->
+            {
+                return s1 + s2;
+            }).setRegistryName(Visibilis.MOD_ID, "concatenation"));
         
         registry.register(NodeGenericHardcoded.createTypeGenericConstant(VDataTypes.DOUBLE, Math.E).setRegistryName(Visibilis.MOD_ID, "e"));
         registry.register(NodeGenericHardcoded.createTypeGenericConstant(VDataTypes.DOUBLE, Math.PI).setRegistryName(Visibilis.MOD_ID, "pi"));
