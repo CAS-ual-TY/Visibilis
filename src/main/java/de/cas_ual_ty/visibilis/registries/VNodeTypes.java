@@ -18,11 +18,9 @@ import de.cas_ual_ty.visibilis.node.exec.NodeBranch;
 import de.cas_ual_ty.visibilis.node.exec.NodeFor;
 import de.cas_ual_ty.visibilis.node.exec.NodeMerge;
 import de.cas_ual_ty.visibilis.node.exec.NodeWhile;
-import de.cas_ual_ty.visibilis.node.function.NodeRound;
-import de.cas_ual_ty.visibilis.node.function.NodeRoundDown;
-import de.cas_ual_ty.visibilis.node.function.NodeRoundUp;
 import de.cas_ual_ty.visibilis.node.general.NodePrint;
 import de.cas_ual_ty.visibilis.test.VNodePrintDebug;
+import de.cas_ual_ty.visibilis.util.VNumberHelper.NumberFunctionP;
 import de.cas_ual_ty.visibilis.util.VNumberHelper.NumberFunctionP2;
 import de.cas_ual_ty.visibilis.util.VNumberHelper.NumberFunctionX;
 import net.minecraft.util.math.MathHelper;
@@ -179,9 +177,26 @@ public class VNodeTypes
         registry.register(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.cos(d)).setRegistryName(Visibilis.MOD_ID, "cosines"));
         registry.register(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.tan(d)).setRegistryName(Visibilis.MOD_ID, "tangent"));
         
-        registry.register(new NodeType<>(NodeRound::new).setRegistryName(Visibilis.MOD_ID, "round"));
-        registry.register(new NodeType<>(NodeRoundDown::new).setRegistryName(Visibilis.MOD_ID, "round_down"));
-        registry.register(new NodeType<>(NodeRoundUp::new).setRegistryName(Visibilis.MOD_ID, "round_up"));
+        registry.register(NodeGenericP.createTypeGenericP(VDataTypes.NUMBER,
+            new NumberFunctionP<>(
+                (i) -> i.intValue(),
+                (i) -> Math.round(i.floatValue()),
+                (i) -> Math.round(i.doubleValue())))
+            .setRegistryName(Visibilis.MOD_ID, "round"));
+        
+        registry.register(NodeGenericP.createTypeGenericP(VDataTypes.NUMBER,
+            new NumberFunctionP<>(
+                (i) -> i.intValue(),
+                (i) -> MathHelper.floor(i.floatValue()),
+                (i) -> MathHelper.floor(i.doubleValue())))
+            .setRegistryName(Visibilis.MOD_ID, "floor"));
+        
+        registry.register(NodeGenericP.createTypeGenericP(VDataTypes.NUMBER,
+            new NumberFunctionP<>(
+                (i) -> i.intValue(),
+                (i) -> MathHelper.ceil(i.floatValue()),
+                (i) -> MathHelper.ceil(i.doubleValue())))
+            .setRegistryName(Visibilis.MOD_ID, "ceil"));
         
         registry.register(NodeGenericP.createTypeGenericP(VDataTypes.BOOLEAN,
             (b) ->
