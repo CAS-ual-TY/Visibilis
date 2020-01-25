@@ -22,6 +22,7 @@ public class VDataTypes
     public static final DataTypeDynamic<Integer> INTEGER = null;
     public static final DataTypeDynamic<Float> FLOAT = null;
     public static final DataTypeDynamic<Double> DOUBLE = null;
+    public static final DataType<Number> NUMBER = null;
     public static final DataTypeEnum<Boolean> BOOLEAN = null;
     public static final DataTypeDynamic<String> STRING = null;
     public static final DataType<Vec3d> VECTOR3D = null;
@@ -189,6 +190,8 @@ public class VDataTypes
             }
         }.setBlackText().setRegistryName(Visibilis.MOD_ID, "double"));
         
+        registry.register(new DataType<>(new float[] {1F, 0.5F, 0F}).setRegistryName(Visibilis.MOD_ID, "number"));
+        
         registry.register(new DataTypeEnum<Boolean>(new float[] { 1F, 0F, 1F })
         {
             @Override
@@ -233,10 +236,18 @@ public class VDataTypes
     // Called from FMLCommonSetupEvent
     public static void addConverters()
     {
-        VDataTypes.FLOAT.registerConverter(VDataTypes.INTEGER, (f) -> f.floatValue()); // As I dont know how this will be used in the future, I rather add this in.
+        VDataTypes.FLOAT.registerConverter(VDataTypes.INTEGER, (n) -> n.floatValue()); // As I dont know how this will be used in the future, I rather add this in.
+        VDataTypes.DOUBLE.registerConverter(VDataTypes.INTEGER, (n) -> n.doubleValue()); // As I dont know how this will be used in the future, I rather add this in.
+        VDataTypes.DOUBLE.registerConverter(VDataTypes.FLOAT, (n) -> n.doubleValue()); // As I dont know how this will be used in the future, I rather add this in.
+        
+        VDataTypes.NUMBER.registerGenericConverter(VDataTypes.INTEGER);
+        VDataTypes.NUMBER.registerGenericConverter(VDataTypes.FLOAT);
+        VDataTypes.NUMBER.registerGenericConverter(VDataTypes.DOUBLE);
         
         VDataTypes.STRING.registerConverter(VDataTypes.INTEGER, new AnyString<>());
         VDataTypes.STRING.registerConverter(VDataTypes.FLOAT, new AnyString<>());
+        VDataTypes.STRING.registerConverter(VDataTypes.DOUBLE, new AnyString<>());
+        VDataTypes.STRING.registerConverter(VDataTypes.NUMBER, new AnyString<>());
         VDataTypes.STRING.registerConverter(VDataTypes.BOOLEAN, new AnyString<>());
         VDataTypes.STRING.registerConverter(VDataTypes.VECTOR3D, new AnyString<>());
     }
