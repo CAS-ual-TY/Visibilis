@@ -140,14 +140,22 @@ public class VNodeTypes
             new NumberFunctionP2<>(
                 (i, j) -> i.intValue() / j.intValue(),
                 (i, j) -> i.floatValue() / j.floatValue(),
-                (i, j) -> i.doubleValue() / j.doubleValue()))
+                (i, j) -> i.doubleValue() / j.doubleValue()),
+            new NumberFunctionP2<>(
+                (i, j) -> j.intValue() != 0,
+                (i, j) -> j.floatValue() != 0,
+                (i, j) -> j.doubleValue() != 0))
             .setRegistryName(Visibilis.MOD_ID, "division"));
         
         registry.register(NodeGenericP2.createTypeGenericP2(VDataTypes.NUMBER,
             new NumberFunctionP2<>(
                 (i, j) -> i.intValue() % j.intValue(),
                 (i, j) -> i.floatValue() % j.floatValue(),
-                (i, j) -> i.doubleValue() % j.doubleValue()))
+                (i, j) -> i.doubleValue() % j.doubleValue()),
+            new NumberFunctionP2<>(
+                (i, j) -> j.intValue() != 0,
+                (i, j) -> j.floatValue() != 0,
+                (i, j) -> j.doubleValue() != 0))
             .setRegistryName(Visibilis.MOD_ID, "modulo"));
         
         registry.register(new NodeType<>(NodeExponentiation::new).setRegistryName(Visibilis.MOD_ID, "exponentiation"));
