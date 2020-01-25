@@ -13,11 +13,6 @@ import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericP;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericP2;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericXP2;
 import de.cas_ual_ty.visibilis.node.calculate.NodeConcatenation;
-import de.cas_ual_ty.visibilis.node.calculate.NodeExponentiation;
-import de.cas_ual_ty.visibilis.node.calculate.NodeLogarithm10;
-import de.cas_ual_ty.visibilis.node.calculate.NodeLogarithm1p;
-import de.cas_ual_ty.visibilis.node.calculate.NodeLogarithmE;
-import de.cas_ual_ty.visibilis.node.calculate.NodeRoot;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
 import de.cas_ual_ty.visibilis.node.exec.NodeBranch;
 import de.cas_ual_ty.visibilis.node.exec.NodeFor;
@@ -149,11 +144,26 @@ public class VNodeTypes
                 (i, j) -> j.doubleValue() != 0))
             .setRegistryName(Visibilis.MOD_ID, "modulo"));
         
-        registry.register(new NodeType<>(NodeExponentiation::new).setRegistryName(Visibilis.MOD_ID, "exponentiation"));
-        registry.register(new NodeType<>(NodeLogarithm10::new).setRegistryName(Visibilis.MOD_ID, "logarithm_10"));
-        registry.register(new NodeType<>(NodeLogarithm1p::new).setRegistryName(Visibilis.MOD_ID, "logarithm_1p"));
-        registry.register(new NodeType<>(NodeLogarithmE::new).setRegistryName(Visibilis.MOD_ID, "logarithm_e"));
-        registry.register(new NodeType<>(NodeRoot::new).setRegistryName(Visibilis.MOD_ID, "root"));
+        registry.register(NodeGenericP2.createTypeGenericP2(VDataTypes.NUMBER,
+            new NumberFunctionP2<>(
+                (i, j) ->
+                {
+                    int r = 1;
+                    for(int k = 0; k < j; ++k)
+                    {
+                        r *= i;
+                    }
+                    return r;
+                },
+                (i, j) -> (float)Math.pow(i.floatValue(), j.floatValue()),
+                (i, j) -> Math.pow(i.doubleValue(), j.doubleValue())))
+            .setRegistryName(Visibilis.MOD_ID, "exponentiation"));
+        
+        registry.register(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.log10(d)).setRegistryName(Visibilis.MOD_ID, "logarithm_10"));
+        registry.register(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.log1p(d)).setRegistryName(Visibilis.MOD_ID, "logarithm_1p"));
+        registry.register(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.log(d)).setRegistryName(Visibilis.MOD_ID, "logarithm_e"));
+        registry.register(NodeGenericP2.createTypeGenericP2(VDataTypes.DOUBLE, (d1, d2) -> Math.pow(Math.E, Math.log(d1.doubleValue()) / d2.doubleValue())).setRegistryName(Visibilis.MOD_ID, "root"));
+        
         registry.register(new NodeType<>(NodeConcatenation::new).setRegistryName(Visibilis.MOD_ID, "concatenation"));
         
         registry.register(NodeGenericHardcoded.createTypeGenericConstant(VDataTypes.DOUBLE, Math.E).setRegistryName(Visibilis.MOD_ID, "e"));
