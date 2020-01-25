@@ -23,6 +23,7 @@ import de.cas_ual_ty.visibilis.util.VNumberHelper.NumberFunctionP;
 import de.cas_ual_ty.visibilis.util.VNumberHelper.NumberFunctionP2;
 import de.cas_ual_ty.visibilis.util.VNumberHelper.NumberFunctionX;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -366,6 +367,23 @@ public class VNodeTypes
         registry.register(new NodeType<>(NodeVector3dSplit::new).setRegistryName(Visibilis.MOD_ID, "vector3d_split"));
         
         registry.register(new NodeType<>(NodeTriGenericP2.createTypeTriGenericP2(VDataTypes.VECTOR3D, VDataTypes.VECTOR3D, VDataTypes.NUMBER, (vec, n) -> vec.scale(n.doubleValue()))).setRegistryName(Visibilis.MOD_ID, "vector3d_scale"));
+        registry.register(new NodeType<>(NodeGenericXP2.createTypeGenericXP2(VDataTypes.VECTOR3D,
+            (vecs) ->
+            {
+                Vec3d r = Vec3d.ZERO;
+                for(Vec3d vec : vecs)
+                {
+                    r = r.add(vec);
+                }
+                return r;
+            },
+            (vec1, vec2) -> vec1.add(vec2))).setRegistryName(Visibilis.MOD_ID, "vector3d_addition"));
+        registry.register(new NodeType<>(NodeGenericP2.createTypeGenericP2(VDataTypes.VECTOR3D, (vec1, vec2) -> vec1.subtract(vec2))).setRegistryName(Visibilis.MOD_ID, "vector3d_subtraction"));
+        registry.register(new NodeType<>(NodeGenericP.createTypeGenericP(VDataTypes.VECTOR3D, (vec1) -> vec1.normalize())).setRegistryName(Visibilis.MOD_ID, "vector3d_normalization"));
+        registry.register(new NodeType<>(NodeTriGenericP2.createTypeTriGenericP2(VDataTypes.DOUBLE, VDataTypes.VECTOR3D, VDataTypes.VECTOR3D, (vec1, vec2) -> vec1.dotProduct(vec2))).setRegistryName(Visibilis.MOD_ID, "vector3d_dot_product"));
+        registry.register(new NodeType<>(NodeGenericP2.createTypeGenericP2(VDataTypes.VECTOR3D, (vec1, vec2) -> vec1.crossProduct(vec2))).setRegistryName(Visibilis.MOD_ID, "vector3d_cross_product"));
+        registry.register(new NodeType<>(NodeBiGenericP.createTypeBiGenericP(VDataTypes.DOUBLE, VDataTypes.VECTOR3D, (vec) -> vec.length())).setRegistryName(Visibilis.MOD_ID, "vector3d_length"));
+        registry.register(new NodeType<>(NodeBiGenericP.createTypeBiGenericP(VDataTypes.DOUBLE, VDataTypes.VECTOR3D, (vec) -> vec.lengthSquared())).setRegistryName(Visibilis.MOD_ID, "vector3d_length_squared"));
         
         registry.register(new NodeType<>(NodePrint::new).setRegistryName(Visibilis.MOD_ID, "print"));
     }
