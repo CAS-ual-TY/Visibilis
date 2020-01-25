@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.node.base.dtvector3d;
+package de.cas_ual_ty.visibilis.node.vector3d;
 
 import de.cas_ual_ty.visibilis.node.ExecContext;
 import de.cas_ual_ty.visibilis.node.Node;
