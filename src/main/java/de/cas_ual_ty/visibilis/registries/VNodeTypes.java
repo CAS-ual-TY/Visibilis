@@ -2,12 +2,11 @@ package de.cas_ual_ty.visibilis.registries;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.NodeType;
-import de.cas_ual_ty.visibilis.node.base.dtboolean.NodeBooleanV;
-import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatV;
 import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dCreate;
 import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dScale;
 import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dSplit;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericP2;
+import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericV;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericXP2;
 import de.cas_ual_ty.visibilis.node.calculate.NodeConcatenation;
 import de.cas_ual_ty.visibilis.node.calculate.NodeExponentiation;
@@ -166,8 +165,11 @@ public class VNodeTypes
         registry.register(new NodeType<>(NodeE::new).setRegistryName(Visibilis.MOD_ID, "e"));
         registry.register(new NodeType<>(NodePi::new).setRegistryName(Visibilis.MOD_ID, "pi"));
         registry.register(new NodeType<>(NodeSQRT2::new).setRegistryName(Visibilis.MOD_ID, "sqrt2"));
-        registry.register(new NodeType<>(NodeFloatV::new).setRegistryName(Visibilis.MOD_ID, "const_float"));
-        registry.register(new NodeType<>(NodeBooleanV::new).setRegistryName(Visibilis.MOD_ID, "const_boolean"));
+        
+        registry.register(NodeGenericV.createTypeGenericV(VDataTypes.INTEGER).setRegistryName(Visibilis.MOD_ID, "constant_integer"));
+        registry.register(NodeGenericV.createTypeGenericV(VDataTypes.FLOAT).setRegistryName(Visibilis.MOD_ID, "constant_float"));
+        registry.register(NodeGenericV.createTypeGenericV(VDataTypes.DOUBLE).setRegistryName(Visibilis.MOD_ID, "constant_double"));
+        registry.register(NodeGenericV.createTypeGenericV(VDataTypes.BOOLEAN).setRegistryName(Visibilis.MOD_ID, "constant_boolean"));
         
         registry.register(new NodeType<>(NodeCosines::new).setRegistryName(Visibilis.MOD_ID, "cosines"));
         registry.register(new NodeType<>(NodeRound::new).setRegistryName(Visibilis.MOD_ID, "round"));
