@@ -27,14 +27,14 @@ public abstract class NodeBiGenericP2<O, I> extends NodeTriGenericP2<O, I, I>
         return this.getInDataType();
     }
     
-    public static <O, I> NodeType<NodeBiGenericP2<O, I>> createTypeBiGenericP2(DataType<O> dataTypeOut, DataType<I> dataTypeIn, BiFunction<I, I, O> function)
+    public static <O, I> NodeType.IFactory<NodeBiGenericP2<O, I>> createTypeBiGenericP2(DataType<O> dataTypeOut, DataType<I> dataTypeIn, BiFunction<I, I, O> function)
     {
         return NodeBiGenericP2.createTypeBiGenericP2(dataTypeOut, dataTypeIn, function, (input, in2) -> true);
     }
     
-    public static <O, I> NodeType<NodeBiGenericP2<O, I>> createTypeBiGenericP2(DataType<O> dataTypeOut, DataType<I> dataTypeIn, BiFunction<I, I, O> function, BiFunction<I, I, Boolean> requirement)
+    public static <O, I> NodeType.IFactory<NodeBiGenericP2<O, I>> createTypeBiGenericP2(DataType<O> dataTypeOut, DataType<I> dataTypeIn, BiFunction<I, I, O> function, BiFunction<I, I, Boolean> requirement)
     {
-        return new NodeType<>((type) ->
+        return (type) ->
         {
             return new NodeBiGenericP2<O, I>(type)
             {
@@ -62,6 +62,6 @@ public abstract class NodeBiGenericP2<O, I> extends NodeTriGenericP2<O, I, I>
                     return function.apply(input, in2);
                 }
             };
-        });
+        };
     }
 }

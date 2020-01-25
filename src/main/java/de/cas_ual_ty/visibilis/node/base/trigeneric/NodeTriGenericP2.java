@@ -141,14 +141,14 @@ public abstract class NodeTriGenericP2<O, I1, I2> extends NodeExpandable
         return null;
     }
     
-    public static <O, I1, I2> NodeType<NodeTriGenericP2<O, I1, I2>> createTypeTriGenericP2(DataType<O> dataTypeOut, DataType<I1> dataTypeIn1, DataType<I2> dataTypeIn2, BiFunction<I1, I2, O> function)
+    public static <O, I1, I2> NodeType.IFactory<NodeTriGenericP2<O, I1, I2>> createTypeTriGenericP2(DataType<O> dataTypeOut, DataType<I1> dataTypeIn1, DataType<I2> dataTypeIn2, BiFunction<I1, I2, O> function)
     {
         return NodeTriGenericP2.createTypeTriGenericP2(dataTypeOut, dataTypeIn1, dataTypeIn2, function, (input, in2) -> true);
     }
     
-    public static <O, I1, I2> NodeType<NodeTriGenericP2<O, I1, I2>> createTypeTriGenericP2(DataType<O> dataTypeOut, DataType<I1> dataTypeIn1, DataType<I2> dataTypeIn2, BiFunction<I1, I2, O> function, BiFunction<I1, I2, Boolean> requirement)
+    public static <O, I1, I2> NodeType.IFactory<NodeTriGenericP2<O, I1, I2>> createTypeTriGenericP2(DataType<O> dataTypeOut, DataType<I1> dataTypeIn1, DataType<I2> dataTypeIn2, BiFunction<I1, I2, O> function, BiFunction<I1, I2, Boolean> requirement)
     {
-        return new NodeType<>((type) ->
+        return (type) ->
         {
             return new NodeTriGenericP2<O, I1, I2>(type)
             {
@@ -182,6 +182,6 @@ public abstract class NodeTriGenericP2<O, I1, I2> extends NodeExpandable
                     return function.apply(input, in2);
                 }
             };
-        });
+        };
     }
 }

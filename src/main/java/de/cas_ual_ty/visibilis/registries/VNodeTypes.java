@@ -42,7 +42,7 @@ public class VNodeTypes
         registry.register(new NodeType<>((type) -> new NodeEvent(type, Visibilis.MOD_ID, "command")).setRegistryName(Visibilis.MOD_ID, "event_command"));
         registry.register(new NodeType<>(VNodePrintDebug::new).setRegistryName(Visibilis.MOD_ID, "print_debug"));
         
-        registry.register(NodeGenericXP2.createTypeGenericXP2(VDataTypes.NUMBER,
+        registry.register(new NodeType<>(NodeGenericXP2.createTypeGenericXP2(VDataTypes.NUMBER,
             new NumberFunctionX<>(
                 (ints) ->
                 {
@@ -74,17 +74,17 @@ public class VNodeTypes
             new NumberFunctionP2<>(
                 (i, j) -> i.intValue() + j.intValue(),
                 (i, j) -> i.floatValue() + j.floatValue(),
-                (i, j) -> i.doubleValue() + j.doubleValue()))
-            .setRegistryName(Visibilis.MOD_ID, "addition"));
+                (i, j) -> i.doubleValue() + j.doubleValue())))
+                    .setRegistryName(Visibilis.MOD_ID, "addition"));
         
-        registry.register(NodeGenericP2.createTypeGenericP2(VDataTypes.NUMBER,
+        registry.register(new NodeType<>(NodeGenericP2.createTypeGenericP2(VDataTypes.NUMBER,
             new NumberFunctionP2<>(
                 (i, j) -> i.intValue() - j.intValue(),
                 (i, j) -> i.floatValue() - j.floatValue(),
-                (i, j) -> i.doubleValue() - j.doubleValue()))
-            .setRegistryName(Visibilis.MOD_ID, "subtraction"));
+                (i, j) -> i.doubleValue() - j.doubleValue())))
+                    .setRegistryName(Visibilis.MOD_ID, "subtraction"));
         
-        registry.register(NodeGenericXP2.createTypeGenericXP2(VDataTypes.NUMBER,
+        registry.register(new NodeType<>(NodeGenericXP2.createTypeGenericXP2(VDataTypes.NUMBER,
             new NumberFunctionX<>(
                 (ints) ->
                 {
@@ -116,10 +116,10 @@ public class VNodeTypes
             new NumberFunctionP2<>(
                 (i, j) -> i.intValue() + j.intValue(),
                 (i, j) -> i.floatValue() + j.floatValue(),
-                (i, j) -> i.doubleValue() + j.doubleValue()))
-            .setRegistryName(Visibilis.MOD_ID, "multiplication"));
+                (i, j) -> i.doubleValue() + j.doubleValue())))
+                    .setRegistryName(Visibilis.MOD_ID, "multiplication"));
         
-        registry.register(NodeGenericP2.createTypeGenericP2(VDataTypes.NUMBER,
+        registry.register(new NodeType<>(NodeGenericP2.createTypeGenericP2(VDataTypes.NUMBER,
             new NumberFunctionP2<>(
                 (i, j) -> i.intValue() / j.intValue(),
                 (i, j) -> i.floatValue() / j.floatValue(),
@@ -127,10 +127,10 @@ public class VNodeTypes
             new NumberFunctionP2<>(
                 (i, j) -> j.intValue() != 0,
                 (i, j) -> j.floatValue() != 0,
-                (i, j) -> j.doubleValue() != 0))
-            .setRegistryName(Visibilis.MOD_ID, "division"));
+                (i, j) -> j.doubleValue() != 0)))
+                    .setRegistryName(Visibilis.MOD_ID, "division"));
         
-        registry.register(NodeGenericP2.createTypeGenericP2(VDataTypes.NUMBER,
+        registry.register(new NodeType<>(NodeGenericP2.createTypeGenericP2(VDataTypes.NUMBER,
             new NumberFunctionP2<>(
                 (i, j) -> i.intValue() % j.intValue(),
                 (i, j) -> i.floatValue() % j.floatValue(),
@@ -138,10 +138,10 @@ public class VNodeTypes
             new NumberFunctionP2<>(
                 (i, j) -> j.intValue() != 0,
                 (i, j) -> j.floatValue() != 0,
-                (i, j) -> j.doubleValue() != 0))
-            .setRegistryName(Visibilis.MOD_ID, "modulo"));
+                (i, j) -> j.doubleValue() != 0)))
+                    .setRegistryName(Visibilis.MOD_ID, "modulo"));
         
-        registry.register(NodeGenericP2.createTypeGenericP2(VDataTypes.NUMBER,
+        registry.register(new NodeType<>(NodeGenericP2.createTypeGenericP2(VDataTypes.NUMBER,
             new NumberFunctionP2<>(
                 (i, j) ->
                 {
@@ -153,15 +153,15 @@ public class VNodeTypes
                     return r;
                 },
                 (i, j) -> (float)Math.pow(i.floatValue(), j.floatValue()),
-                (i, j) -> Math.pow(i.doubleValue(), j.doubleValue())))
-            .setRegistryName(Visibilis.MOD_ID, "exponentiation"));
+                (i, j) -> Math.pow(i.doubleValue(), j.doubleValue()))))
+                    .setRegistryName(Visibilis.MOD_ID, "exponentiation"));
         
-        registry.register(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.log10(d)).setRegistryName(Visibilis.MOD_ID, "logarithm_10"));
-        registry.register(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.log1p(d)).setRegistryName(Visibilis.MOD_ID, "logarithm_1p"));
-        registry.register(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.log(d)).setRegistryName(Visibilis.MOD_ID, "logarithm_e"));
-        registry.register(NodeGenericP2.createTypeGenericP2(VDataTypes.DOUBLE, (d1, d2) -> Math.pow(Math.E, Math.log(d1.doubleValue()) / d2.doubleValue())).setRegistryName(Visibilis.MOD_ID, "root"));
+        registry.register(new NodeType<>(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.log10(d))).setRegistryName(Visibilis.MOD_ID, "logarithm_10"));
+        registry.register(new NodeType<>(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.log1p(d))).setRegistryName(Visibilis.MOD_ID, "logarithm_1p"));
+        registry.register(new NodeType<>(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.log(d))).setRegistryName(Visibilis.MOD_ID, "logarithm_e"));
+        registry.register(new NodeType<>(NodeGenericP2.createTypeGenericP2(VDataTypes.DOUBLE, (d1, d2) -> Math.pow(Math.E, Math.log(d1.doubleValue()) / d2.doubleValue()))).setRegistryName(Visibilis.MOD_ID, "root"));
         
-        registry.register(NodeGenericXP2.createTypeGenericXP2(VDataTypes.STRING,
+        registry.register(new NodeType<>(NodeGenericXP2.createTypeGenericXP2(VDataTypes.STRING,
             (ss) ->
             {
                 String r = "";
@@ -174,50 +174,46 @@ public class VNodeTypes
             (s1, s2) ->
             {
                 return s1 + s2;
-            }).setRegistryName(Visibilis.MOD_ID, "concatenation"));
+            })).setRegistryName(Visibilis.MOD_ID, "concatenation"));
         
-        registry.register(NodeGenericHardcoded.createTypeGenericConstant(VDataTypes.DOUBLE, Math.E).setRegistryName(Visibilis.MOD_ID, "e"));
-        registry.register(NodeGenericHardcoded.createTypeGenericConstant(VDataTypes.DOUBLE, Math.PI).setRegistryName(Visibilis.MOD_ID, "pi"));
-        registry.register(NodeGenericHardcoded.createTypeGenericConstant(VDataTypes.FLOAT, MathHelper.SQRT_2).setRegistryName(Visibilis.MOD_ID, "sqrt2"));
+        registry.register(new NodeType<>(NodeGenericHardcoded.createTypeGenericConstant(VDataTypes.DOUBLE, Math.E)).setRegistryName(Visibilis.MOD_ID, "e"));
+        registry.register(new NodeType<>(NodeGenericHardcoded.createTypeGenericConstant(VDataTypes.DOUBLE, Math.PI)).setRegistryName(Visibilis.MOD_ID, "pi"));
+        registry.register(new NodeType<>(NodeGenericHardcoded.createTypeGenericConstant(VDataTypes.FLOAT, MathHelper.SQRT_2)).setRegistryName(Visibilis.MOD_ID, "sqrt2"));
         
-        registry.register(NodeGenericConstant.createTypeGenericV(VDataTypes.INTEGER).setRegistryName(Visibilis.MOD_ID, "constant_integer"));
-        registry.register(NodeGenericConstant.createTypeGenericV(VDataTypes.FLOAT).setRegistryName(Visibilis.MOD_ID, "constant_float"));
-        registry.register(NodeGenericConstant.createTypeGenericV(VDataTypes.DOUBLE).setRegistryName(Visibilis.MOD_ID, "constant_double"));
-        registry.register(NodeGenericConstant.createTypeGenericV(VDataTypes.BOOLEAN).setRegistryName(Visibilis.MOD_ID, "constant_boolean"));
+        registry.register(new NodeType<>(NodeGenericConstant.createTypeGenericV(VDataTypes.INTEGER)).setRegistryName(Visibilis.MOD_ID, "constant_integer"));
+        registry.register(new NodeType<>(NodeGenericConstant.createTypeGenericV(VDataTypes.FLOAT)).setRegistryName(Visibilis.MOD_ID, "constant_float"));
+        registry.register(new NodeType<>(NodeGenericConstant.createTypeGenericV(VDataTypes.DOUBLE)).setRegistryName(Visibilis.MOD_ID, "constant_double"));
+        registry.register(new NodeType<>(NodeGenericConstant.createTypeGenericV(VDataTypes.BOOLEAN)).setRegistryName(Visibilis.MOD_ID, "constant_boolean"));
         
-        registry.register(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.sin(d)).setRegistryName(Visibilis.MOD_ID, "sines"));
-        registry.register(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.cos(d)).setRegistryName(Visibilis.MOD_ID, "cosines"));
-        registry.register(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.tan(d)).setRegistryName(Visibilis.MOD_ID, "tangent"));
+        registry.register(new NodeType<>(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.sin(d))).setRegistryName(Visibilis.MOD_ID, "sines"));
+        registry.register(new NodeType<>(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.cos(d))).setRegistryName(Visibilis.MOD_ID, "cosines"));
+        registry.register(new NodeType<>(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.tan(d))).setRegistryName(Visibilis.MOD_ID, "tangent"));
         
-        registry.register(NodeGenericP.createTypeGenericP(VDataTypes.NUMBER,
+        registry.register(new NodeType<>(NodeGenericP.createTypeGenericP(VDataTypes.NUMBER,
             new NumberFunctionP<>(
                 (i) -> i.intValue(),
                 (i) -> Math.round(i.floatValue()),
-                (i) -> Math.round(i.doubleValue())))
-            .setRegistryName(Visibilis.MOD_ID, "round"));
+                (i) -> Math.round(i.doubleValue())))).setRegistryName(Visibilis.MOD_ID, "round"));
         
-        registry.register(NodeGenericP.createTypeGenericP(VDataTypes.NUMBER,
+        registry.register(new NodeType<>(NodeGenericP.createTypeGenericP(VDataTypes.NUMBER,
             new NumberFunctionP<>(
                 (i) -> i.intValue(),
                 (i) -> MathHelper.floor(i.floatValue()),
-                (i) -> MathHelper.floor(i.doubleValue())))
-            .setRegistryName(Visibilis.MOD_ID, "floor"));
+                (i) -> MathHelper.floor(i.doubleValue())))).setRegistryName(Visibilis.MOD_ID, "floor"));
         
-        registry.register(NodeGenericP.createTypeGenericP(VDataTypes.NUMBER,
+        registry.register(new NodeType<>(NodeGenericP.createTypeGenericP(VDataTypes.NUMBER,
             new NumberFunctionP<>(
                 (i) -> i.intValue(),
                 (i) -> MathHelper.ceil(i.floatValue()),
-                (i) -> MathHelper.ceil(i.doubleValue())))
-            .setRegistryName(Visibilis.MOD_ID, "ceil"));
+                (i) -> MathHelper.ceil(i.doubleValue())))).setRegistryName(Visibilis.MOD_ID, "ceil"));
         
-        registry.register(NodeGenericP.createTypeGenericP(VDataTypes.BOOLEAN,
+        registry.register(new NodeType<>(NodeGenericP.createTypeGenericP(VDataTypes.BOOLEAN,
             (b) ->
             {
                 return !b;
-            })
-            .setRegistryName(Visibilis.MOD_ID, "not"));
+            })).setRegistryName(Visibilis.MOD_ID, "not"));
         
-        registry.register(NodeGenericXP2.createTypeGenericXP2(VDataTypes.BOOLEAN,
+        registry.register(new NodeType<>(NodeGenericXP2.createTypeGenericXP2(VDataTypes.BOOLEAN,
             (booleans) ->
             {
                 for(boolean b : booleans)
@@ -232,10 +228,9 @@ public class VNodeTypes
             (b1, b2) ->
             {
                 return b1 && b2;
-            })
-            .setRegistryName(Visibilis.MOD_ID, "and"));
+            })).setRegistryName(Visibilis.MOD_ID, "and"));
         
-        registry.register(NodeGenericXP2.createTypeGenericXP2(VDataTypes.BOOLEAN,
+        registry.register(new NodeType<>(NodeGenericXP2.createTypeGenericXP2(VDataTypes.BOOLEAN,
             (booleans) ->
             {
                 for(boolean b : booleans)
@@ -250,10 +245,9 @@ public class VNodeTypes
             (b1, b2) ->
             {
                 return !(b1 && b2);
-            })
-            .setRegistryName(Visibilis.MOD_ID, "nand"));
+            })).setRegistryName(Visibilis.MOD_ID, "nand"));
         
-        registry.register(NodeGenericXP2.createTypeGenericXP2(VDataTypes.BOOLEAN,
+        registry.register(new NodeType<>(NodeGenericXP2.createTypeGenericXP2(VDataTypes.BOOLEAN,
             (booleans) ->
             {
                 for(boolean b : booleans)
@@ -268,10 +262,9 @@ public class VNodeTypes
             (b1, b2) ->
             {
                 return b1 || b2;
-            })
-            .setRegistryName(Visibilis.MOD_ID, "or"));
+            })).setRegistryName(Visibilis.MOD_ID, "or"));
         
-        registry.register(NodeGenericXP2.createTypeGenericXP2(VDataTypes.BOOLEAN,
+        registry.register(new NodeType<>(NodeGenericXP2.createTypeGenericXP2(VDataTypes.BOOLEAN,
             (booleans) ->
             {
                 for(boolean b : booleans)
@@ -286,10 +279,9 @@ public class VNodeTypes
             (b1, b2) ->
             {
                 return !(b1 || b2);
-            })
-            .setRegistryName(Visibilis.MOD_ID, "nor"));
+            })).setRegistryName(Visibilis.MOD_ID, "nor"));
         
-        registry.register(NodeGenericXP2.createTypeGenericXP2(VDataTypes.BOOLEAN,
+        registry.register(new NodeType<>(NodeGenericXP2.createTypeGenericXP2(VDataTypes.BOOLEAN,
             (booleans) ->
             {
                 boolean flag = false;
@@ -305,10 +297,9 @@ public class VNodeTypes
             (b1, b2) ->
             {
                 return b1 != b2;
-            })
-            .setRegistryName(Visibilis.MOD_ID, "xor"));
+            })).setRegistryName(Visibilis.MOD_ID, "xor"));
         
-        registry.register(NodeGenericXP2.createTypeGenericXP2(VDataTypes.BOOLEAN,
+        registry.register(new NodeType<>(NodeGenericXP2.createTypeGenericXP2(VDataTypes.BOOLEAN,
             (booleans) ->
             {
                 boolean flag = true;
@@ -324,64 +315,57 @@ public class VNodeTypes
             (b1, b2) ->
             {
                 return b1 == b2;
-            })
-            .setRegistryName(Visibilis.MOD_ID, "xnor"));
+            })).setRegistryName(Visibilis.MOD_ID, "xnor"));
         
         registry.register(new NodeType<>(NodeBranch::new).setRegistryName(Visibilis.MOD_ID, "branch"));
         registry.register(new NodeType<>(NodeMerge::new).setRegistryName(Visibilis.MOD_ID, "merge"));
         registry.register(new NodeType<>(NodeFor::new).setRegistryName(Visibilis.MOD_ID, "for"));
         registry.register(new NodeType<>(NodeWhile::new).setRegistryName(Visibilis.MOD_ID, "while"));
         
-        registry.register(NodeGenericCompare.createTypeGenericCompare(VDataTypes.NUMBER,
+        registry.register(new NodeType<>(NodeGenericCompare.createTypeGenericCompare(VDataTypes.NUMBER,
             new NumberFunctionP2<>(
                 (i, j) -> i.intValue() == j.intValue(),
                 (i, j) -> i.floatValue() == j.floatValue(),
-                (i, j) -> i.doubleValue() == j.doubleValue()))
-            .setRegistryName(Visibilis.MOD_ID, "equal_to"));
+                (i, j) -> i.doubleValue() == j.doubleValue()))).setRegistryName(Visibilis.MOD_ID, "equal_to"));
         
-        registry.register(NodeGenericCompare.createTypeGenericCompare(VDataTypes.NUMBER,
+        registry.register(new NodeType<>(NodeGenericCompare.createTypeGenericCompare(VDataTypes.NUMBER,
             new NumberFunctionP2<>(
                 (i, j) -> i.intValue() != j.intValue(),
                 (i, j) -> i.floatValue() != j.floatValue(),
-                (i, j) -> i.doubleValue() != j.doubleValue()))
-            .setRegistryName(Visibilis.MOD_ID, "not_equal_to"));
+                (i, j) -> i.doubleValue() != j.doubleValue()))).setRegistryName(Visibilis.MOD_ID, "not_equal_to"));
         
-        registry.register(NodeGenericCompare.createTypeGenericCompare(VDataTypes.NUMBER,
+        registry.register(new NodeType<>(NodeGenericCompare.createTypeGenericCompare(VDataTypes.NUMBER,
             new NumberFunctionP2<>(
                 (i, j) -> i.intValue() > j.intValue(),
                 (i, j) -> i.floatValue() > j.floatValue(),
-                (i, j) -> i.doubleValue() > j.doubleValue()))
-            .setRegistryName(Visibilis.MOD_ID, "greater_than"));
+                (i, j) -> i.doubleValue() > j.doubleValue()))).setRegistryName(Visibilis.MOD_ID, "greater_than"));
         
-        registry.register(NodeGenericCompare.createTypeGenericCompare(VDataTypes.NUMBER,
+        registry.register(new NodeType<>(NodeGenericCompare.createTypeGenericCompare(VDataTypes.NUMBER,
             new NumberFunctionP2<>(
                 (i, j) -> i.intValue() >= j.intValue(),
                 (i, j) -> i.floatValue() >= j.floatValue(),
-                (i, j) -> i.doubleValue() >= j.doubleValue()))
-            .setRegistryName(Visibilis.MOD_ID, "greater_than_or_equal_to"));
+                (i, j) -> i.doubleValue() >= j.doubleValue()))).setRegistryName(Visibilis.MOD_ID, "greater_than_or_equal_to"));
         
-        registry.register(NodeGenericCompare.createTypeGenericCompare(VDataTypes.NUMBER,
+        registry.register(new NodeType<>(NodeGenericCompare.createTypeGenericCompare(VDataTypes.NUMBER,
             new NumberFunctionP2<>(
                 (i, j) -> i.intValue() < j.intValue(),
                 (i, j) -> i.floatValue() < j.floatValue(),
-                (i, j) -> i.doubleValue() < j.doubleValue()))
-            .setRegistryName(Visibilis.MOD_ID, "less_than"));
+                (i, j) -> i.doubleValue() < j.doubleValue()))).setRegistryName(Visibilis.MOD_ID, "less_than"));
         
-        registry.register(NodeGenericCompare.createTypeGenericCompare(VDataTypes.NUMBER,
+        registry.register(new NodeType<>(NodeGenericCompare.createTypeGenericCompare(VDataTypes.NUMBER,
             new NumberFunctionP2<>(
                 (i, j) -> i.intValue() <= j.intValue(),
                 (i, j) -> i.floatValue() <= j.floatValue(),
-                (i, j) -> i.doubleValue() <= j.doubleValue()))
-            .setRegistryName(Visibilis.MOD_ID, "less_than_or_equal_to"));
+                (i, j) -> i.doubleValue() <= j.doubleValue()))).setRegistryName(Visibilis.MOD_ID, "less_than_or_equal_to"));
         
-        registry.register(NodeBiGenericP.createTypeBiGenericP(VDataTypes.INTEGER, VDataTypes.FLOAT, (f) -> f.intValue()).setRegistryName(Visibilis.MOD_ID, "cast_float_to_integer"));
-        registry.register(NodeBiGenericP.createTypeBiGenericP(VDataTypes.INTEGER, VDataTypes.DOUBLE, (d) -> d.intValue()).setRegistryName(Visibilis.MOD_ID, "cast_double_to_integer"));
-        registry.register(NodeBiGenericP.createTypeBiGenericP(VDataTypes.FLOAT, VDataTypes.DOUBLE, (f) -> f.floatValue()).setRegistryName(Visibilis.MOD_ID, "cast_double_to_float"));
+        registry.register(new NodeType<>(NodeBiGenericP.createTypeBiGenericP(VDataTypes.INTEGER, VDataTypes.FLOAT, (f) -> f.intValue())).setRegistryName(Visibilis.MOD_ID, "cast_float_to_integer"));
+        registry.register(new NodeType<>(NodeBiGenericP.createTypeBiGenericP(VDataTypes.INTEGER, VDataTypes.DOUBLE, (d) -> d.intValue())).setRegistryName(Visibilis.MOD_ID, "cast_double_to_integer"));
+        registry.register(new NodeType<>(NodeBiGenericP.createTypeBiGenericP(VDataTypes.FLOAT, VDataTypes.DOUBLE, (f) -> f.floatValue())).setRegistryName(Visibilis.MOD_ID, "cast_double_to_float"));
         
         registry.register(new NodeType<>(NodeVector3dCreate::new).setRegistryName(Visibilis.MOD_ID, "vector3d_create"));
         registry.register(new NodeType<>(NodeVector3dSplit::new).setRegistryName(Visibilis.MOD_ID, "vector3d_split"));
         
-        registry.register(NodeTriGenericP2.createTypeTriGenericP2(VDataTypes.VECTOR3D, VDataTypes.VECTOR3D, VDataTypes.NUMBER, (vec, n) -> vec.scale(n.doubleValue())));
+        registry.register(new NodeType<>(NodeTriGenericP2.createTypeTriGenericP2(VDataTypes.VECTOR3D, VDataTypes.VECTOR3D, VDataTypes.NUMBER, (vec, n) -> vec.scale(n.doubleValue()))));
         
         registry.register(new NodeType<>(NodePrint::new).setRegistryName(Visibilis.MOD_ID, "print"));
     }

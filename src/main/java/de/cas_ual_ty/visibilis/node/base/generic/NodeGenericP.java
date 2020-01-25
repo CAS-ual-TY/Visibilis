@@ -39,9 +39,9 @@ public abstract class NodeGenericP<B> extends NodeBiGenericP<B, B>
         return this.getDataType().getTextColor();
     }
     
-    public static <I> NodeType<NodeGenericP<I>> createTypeGenericP(DataType<I> dataType, Function<I, I> function)
+    public static <I> NodeType.IFactory<NodeGenericP<I>> createTypeGenericP(DataType<I> dataType, Function<I, I> function)
     {
-        return new NodeType<>((type) ->
+        return (type) ->
         {
             return new NodeGenericP<I>(type)
             {
@@ -57,6 +57,6 @@ public abstract class NodeGenericP<B> extends NodeBiGenericP<B, B>
                     return function.apply(input);
                 }
             };
-        });
+        };
     }
 }

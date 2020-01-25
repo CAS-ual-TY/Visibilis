@@ -48,9 +48,9 @@ public abstract class NodeGenericCompare<I> extends NodeBiGenericP2<Boolean, I>
         return this.getOutDataType().getTextColor();
     }
     
-    public static <I> NodeType<NodeGenericCompare<I>> createTypeGenericCompare(DataType<I> dataType, BiFunction<I, I, Boolean> function)
+    public static <I> NodeType.IFactory<NodeGenericCompare<I>> createTypeGenericCompare(DataType<I> dataType, BiFunction<I, I, Boolean> function)
     {
-        return new NodeType<>((type) ->
+        return (type) ->
         {
             return new NodeGenericCompare<I>(type)
             {
@@ -66,6 +66,6 @@ public abstract class NodeGenericCompare<I> extends NodeBiGenericP2<Boolean, I>
                     return function.apply(input, in2);
                 }
             };
-        });
+        };
     }
 }

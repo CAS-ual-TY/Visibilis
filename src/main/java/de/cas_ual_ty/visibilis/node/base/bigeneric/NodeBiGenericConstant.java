@@ -19,9 +19,9 @@ public abstract class NodeBiGenericConstant<O, I> extends NodeBiGenericP<O, I>
         return VUtility.cast(input);
     }
     
-    public static <O, I> NodeType<NodeBiGenericConstant<O, I>> createTypeBiGenericV(DataType<O> dataTypeOut, DataType<I> dataTypeIn, Function<I, O> function)
+    public static <O, I> NodeType.IFactory<NodeBiGenericConstant<O, I>> createTypeBiGenericV(DataType<O> dataTypeOut, DataType<I> dataTypeIn, Function<I, O> function)
     {
-        return new NodeType<>((type) ->
+        return (type) ->
         {
             return new NodeBiGenericConstant<O, I>(type)
             {
@@ -43,6 +43,6 @@ public abstract class NodeBiGenericConstant<O, I> extends NodeBiGenericP<O, I>
                     return function.apply(input);
                 }
             };
-        });
+        };
     }
 }

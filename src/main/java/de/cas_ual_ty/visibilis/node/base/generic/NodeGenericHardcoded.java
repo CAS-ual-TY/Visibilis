@@ -45,9 +45,9 @@ public abstract class NodeGenericHardcoded<B> extends Node
         return this.getDataType().getTextColor();
     }
     
-    public static <O> NodeType<NodeGenericHardcoded<O>> createTypeGenericConstant(DataType<O> dataType, O constant)
+    public static <O> NodeType.IFactory<NodeGenericHardcoded<O>> createTypeGenericConstant(DataType<O> dataType, O constant)
     {
-        return new NodeType<>((type) ->
+        return (type) ->
         {
             return new NodeGenericHardcoded<O>(type)
             {
@@ -63,6 +63,6 @@ public abstract class NodeGenericHardcoded<B> extends Node
                     return constant;
                 }
             };
-        });
+        };
     }
 }

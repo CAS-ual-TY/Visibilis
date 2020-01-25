@@ -40,14 +40,14 @@ public abstract class NodeGenericXP2<B> extends NodeBiGenericXP2<B, B>
         return this.getDataType().getTextColor();
     }
     
-    public static <I> NodeType<NodeGenericXP2<I>> createTypeGenericXP2(DataType<I> dataType, Function<I[], I> functionX, BiFunction<I, I, I> functionP2)
+    public static <I> NodeType.IFactory<NodeGenericXP2<I>> createTypeGenericXP2(DataType<I> dataType, Function<I[], I> functionX, BiFunction<I, I, I> functionP2)
     {
         return NodeGenericXP2.createTypeGenericXP2(dataType, functionX, functionP2, (inputs) -> true, (input, in2) -> true);
     }
     
-    public static <I> NodeType<NodeGenericXP2<I>> createTypeGenericXP2(DataType<I> dataType, Function<I[], I> functionX, BiFunction<I, I, I> functionP2, Function<I[], Boolean> requirementX, BiFunction<I, I, Boolean> requirementP2)
+    public static <I> NodeType.IFactory<NodeGenericXP2<I>> createTypeGenericXP2(DataType<I> dataType, Function<I[], I> functionX, BiFunction<I, I, I> functionP2, Function<I[], Boolean> requirementX, BiFunction<I, I, Boolean> requirementP2)
     {
-        return new NodeType<>((type) ->
+        return (type) ->
         {
             return new NodeGenericXP2<I>(type)
             {
@@ -81,6 +81,6 @@ public abstract class NodeGenericXP2<B> extends NodeBiGenericXP2<B, B>
                     return functionP2.apply(input, in2);
                 }
             };
-        });
+        };
     }
 }

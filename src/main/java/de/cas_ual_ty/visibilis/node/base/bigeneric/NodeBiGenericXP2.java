@@ -228,14 +228,14 @@ public abstract class NodeBiGenericXP2<O, I> extends NodeParallelizable
         return this.getOutDataType().getTextColor();
     }
     
-    public static <O, I> NodeType<NodeBiGenericXP2<O, I>> createTypeBiGenericXP2(DataType<O> dataTypeOut, DataType<I> dataTypeIn, Function<I[], O> functionX, BiFunction<I, I, O> functionP2)
+    public static <O, I> NodeType.IFactory<NodeBiGenericXP2<O, I>> createTypeBiGenericXP2(DataType<O> dataTypeOut, DataType<I> dataTypeIn, Function<I[], O> functionX, BiFunction<I, I, O> functionP2)
     {
         return NodeBiGenericXP2.createTypeBiGenericXP2(dataTypeOut, dataTypeIn, functionX, functionP2, (inputs) -> true, (input, in2) -> true);
     }
     
-    public static <O, I> NodeType<NodeBiGenericXP2<O, I>> createTypeBiGenericXP2(DataType<O> dataTypeOut, DataType<I> dataTypeIn, Function<I[], O> functionX, BiFunction<I, I, O> functionP2, Function<I[], Boolean> requirementX, BiFunction<I, I, Boolean> requirementP2)
+    public static <O, I> NodeType.IFactory<NodeBiGenericXP2<O, I>> createTypeBiGenericXP2(DataType<O> dataTypeOut, DataType<I> dataTypeIn, Function<I[], O> functionX, BiFunction<I, I, O> functionP2, Function<I[], Boolean> requirementX, BiFunction<I, I, Boolean> requirementP2)
     {
-        return new NodeType<>((type) ->
+        return (type) ->
         {
             return new NodeBiGenericXP2<O, I>(type)
             {
@@ -275,6 +275,6 @@ public abstract class NodeBiGenericXP2<O, I> extends NodeParallelizable
                     return functionP2.apply(input, in2);
                 }
             };
-        });
+        };
     }
 }

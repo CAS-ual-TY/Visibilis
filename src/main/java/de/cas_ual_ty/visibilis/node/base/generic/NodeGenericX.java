@@ -39,14 +39,14 @@ public abstract class NodeGenericX<B> extends NodeBiGenericX<B, B>
         return this.getDataType().getTextColor();
     }
     
-    public static <I> NodeType<NodeGenericX<I>> createTypeGenericX(DataType<I> dataType, Function<I[], I> function)
+    public static <I> NodeType.IFactory<NodeGenericX<I>> createTypeGenericX(DataType<I> dataType, Function<I[], I> function)
     {
         return NodeGenericX.createTypeGenericX(dataType, function, (inputs) -> true);
     }
     
-    public static <I> NodeType<NodeGenericX<I>> createTypeGenericX(DataType<I> dataType, Function<I[], I> function, Function<I[], Boolean> requirement)
+    public static <I> NodeType.IFactory<NodeGenericX<I>> createTypeGenericX(DataType<I> dataType, Function<I[], I> function, Function<I[], Boolean> requirement)
     {
-        return new NodeType<>((type) ->
+        return (type) ->
         {
             return new NodeGenericX<I>(type)
             {
@@ -68,6 +68,6 @@ public abstract class NodeGenericX<B> extends NodeBiGenericX<B, B>
                     return function.apply(inputs);
                 }
             };
-        });
+        };
     }
 }

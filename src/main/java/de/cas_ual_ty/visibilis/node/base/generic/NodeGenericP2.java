@@ -39,14 +39,14 @@ public abstract class NodeGenericP2<B> extends NodeBiGenericP2<B, B>
         return this.getDataType().getTextColor();
     }
     
-    public static <I> NodeType<NodeGenericP2<I>> createTypeGenericP2(DataType<I> dataType, BiFunction<I, I, I> function)
+    public static <I> NodeType.IFactory<NodeGenericP2<I>> createTypeGenericP2(DataType<I> dataType, BiFunction<I, I, I> function)
     {
         return NodeGenericP2.createTypeGenericP2(dataType, function, (input, in2) -> true);
     }
     
-    public static <I> NodeType<NodeGenericP2<I>> createTypeGenericP2(DataType<I> dataType, BiFunction<I, I, I> function, BiFunction<I, I, Boolean> requirement)
+    public static <I> NodeType.IFactory<NodeGenericP2<I>> createTypeGenericP2(DataType<I> dataType, BiFunction<I, I, I> function, BiFunction<I, I, Boolean> requirement)
     {
-        return new NodeType<>((type) ->
+        return (type) ->
         {
             return new NodeGenericP2<I>(type)
             {
@@ -68,6 +68,6 @@ public abstract class NodeGenericP2<B> extends NodeBiGenericP2<B, B>
                     return function.apply(input, in2);
                 }
             };
-        });
+        };
     }
 }

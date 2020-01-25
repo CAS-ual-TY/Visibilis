@@ -16,9 +16,9 @@ public abstract class NodeGenericConstant<B> extends NodeGenericP<B>
         return input;
     }
     
-    public static <I> NodeType<NodeGenericConstant<I>> createTypeGenericV(DataType<I> dataType)
+    public static <I> NodeType.IFactory<NodeGenericConstant<I>> createTypeGenericV(DataType<I> dataType)
     {
-        return new NodeType<>((type) ->
+        return (type) ->
         {
             return new NodeGenericConstant<I>(type)
             {
@@ -28,6 +28,6 @@ public abstract class NodeGenericConstant<B> extends NodeGenericP<B>
                     return dataType;
                 }
             };
-        });
+        };
     }
 }
