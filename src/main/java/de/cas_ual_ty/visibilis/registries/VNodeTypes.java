@@ -5,6 +5,7 @@ import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dCreate;
 import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dScale;
 import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dSplit;
+import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericConstant;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericP2;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericV;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericXP2;
@@ -20,9 +21,6 @@ import de.cas_ual_ty.visibilis.node.compare.NodeFloatGreater;
 import de.cas_ual_ty.visibilis.node.compare.NodeFloatGreaterEquals;
 import de.cas_ual_ty.visibilis.node.compare.NodeFloatLess;
 import de.cas_ual_ty.visibilis.node.compare.NodeFloatLessEquals;
-import de.cas_ual_ty.visibilis.node.constant.NodeE;
-import de.cas_ual_ty.visibilis.node.constant.NodePi;
-import de.cas_ual_ty.visibilis.node.constant.NodeSQRT2;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
 import de.cas_ual_ty.visibilis.node.exec.NodeBranch;
 import de.cas_ual_ty.visibilis.node.exec.NodeFor;
@@ -45,6 +43,7 @@ import de.cas_ual_ty.visibilis.node.logic.NodeXOR;
 import de.cas_ual_ty.visibilis.test.VNodePrintDebug;
 import de.cas_ual_ty.visibilis.util.VNumberHelper.NumberFunctionP2;
 import de.cas_ual_ty.visibilis.util.VNumberHelper.NumberFunctionX;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -162,9 +161,9 @@ public class VNodeTypes
         registry.register(new NodeType<>(NodeRoot::new).setRegistryName(Visibilis.MOD_ID, "root"));
         registry.register(new NodeType<>(NodeConcatenation::new).setRegistryName(Visibilis.MOD_ID, "concatenation"));
         
-        registry.register(new NodeType<>(NodeE::new).setRegistryName(Visibilis.MOD_ID, "e"));
-        registry.register(new NodeType<>(NodePi::new).setRegistryName(Visibilis.MOD_ID, "pi"));
-        registry.register(new NodeType<>(NodeSQRT2::new).setRegistryName(Visibilis.MOD_ID, "sqrt2"));
+        registry.register(NodeGenericConstant.createTypeGenericConstant(VDataTypes.DOUBLE, Math.E).setRegistryName(Visibilis.MOD_ID, "e"));
+        registry.register(NodeGenericConstant.createTypeGenericConstant(VDataTypes.DOUBLE, Math.PI).setRegistryName(Visibilis.MOD_ID, "pi"));
+        registry.register(NodeGenericConstant.createTypeGenericConstant(VDataTypes.FLOAT, MathHelper.SQRT_2).setRegistryName(Visibilis.MOD_ID, "sqrt2"));
         
         registry.register(NodeGenericV.createTypeGenericV(VDataTypes.INTEGER).setRegistryName(Visibilis.MOD_ID, "constant_integer"));
         registry.register(NodeGenericV.createTypeGenericV(VDataTypes.FLOAT).setRegistryName(Visibilis.MOD_ID, "constant_float"));
