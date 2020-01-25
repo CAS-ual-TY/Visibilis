@@ -7,6 +7,7 @@ import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatV;
 import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dCreate;
 import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dScale;
 import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dSplit;
+import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericXP2;
 import de.cas_ual_ty.visibilis.node.calculate.NodeAddition;
 import de.cas_ual_ty.visibilis.node.calculate.NodeConcatenation;
 import de.cas_ual_ty.visibilis.node.calculate.NodeDivision;
@@ -66,6 +67,14 @@ public class VNodeTypes
         registry.register(new NodeType<>((type) -> new NodeEvent(type, Visibilis.MOD_ID, "command")).setRegistryName(Visibilis.MOD_ID, "event_command"));
         registry.register(new NodeType<>(VNodePrintDebug::new).setRegistryName(Visibilis.MOD_ID, "print_debug"));
         
+        /* Example
+        registry.register(NodeGenericXP2.createTypeGenericXP2(VDataTypes.FLOAT, "addition", (inputs) ->
+        {
+            float r = 0;;
+            for(Float f : inputs)
+                r += f.floatValue();
+            return r;
+        }, (input, in2) -> input + in2)); */
         registry.register(new NodeType<>(NodeAddition::new).setRegistryName(Visibilis.MOD_ID, "addition"));
         registry.register(new NodeType<>(NodeDivision::new).setRegistryName(Visibilis.MOD_ID, "division"));
         registry.register(new NodeType<>(NodeExponentiation::new).setRegistryName(Visibilis.MOD_ID, "exponentiation"));
