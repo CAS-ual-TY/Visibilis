@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis.registries;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.NodeType;
+import de.cas_ual_ty.visibilis.node.base.bigeneric.NodeBiGenericP;
 import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dCreate;
 import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dScale;
 import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dSplit;
@@ -17,7 +18,6 @@ import de.cas_ual_ty.visibilis.node.calculate.NodeLogarithm10;
 import de.cas_ual_ty.visibilis.node.calculate.NodeLogarithm1p;
 import de.cas_ual_ty.visibilis.node.calculate.NodeLogarithmE;
 import de.cas_ual_ty.visibilis.node.calculate.NodeRoot;
-import de.cas_ual_ty.visibilis.node.cast.NodeFloatToInteger;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
 import de.cas_ual_ty.visibilis.node.exec.NodeBranch;
 import de.cas_ual_ty.visibilis.node.exec.NodeFor;
@@ -27,13 +27,6 @@ import de.cas_ual_ty.visibilis.node.function.NodeRound;
 import de.cas_ual_ty.visibilis.node.function.NodeRoundDown;
 import de.cas_ual_ty.visibilis.node.function.NodeRoundUp;
 import de.cas_ual_ty.visibilis.node.general.NodePrint;
-import de.cas_ual_ty.visibilis.node.logic.NodeAND;
-import de.cas_ual_ty.visibilis.node.logic.NodeNAND;
-import de.cas_ual_ty.visibilis.node.logic.NodeNOR;
-import de.cas_ual_ty.visibilis.node.logic.NodeNOT;
-import de.cas_ual_ty.visibilis.node.logic.NodeOR;
-import de.cas_ual_ty.visibilis.node.logic.NodeXNOR;
-import de.cas_ual_ty.visibilis.node.logic.NodeXOR;
 import de.cas_ual_ty.visibilis.test.VNodePrintDebug;
 import de.cas_ual_ty.visibilis.util.VNumberHelper.NumberFunctionP2;
 import de.cas_ual_ty.visibilis.util.VNumberHelper.NumberFunctionX;
@@ -180,13 +173,122 @@ public class VNodeTypes
         registry.register(new NodeType<>(NodeRoundDown::new).setRegistryName(Visibilis.MOD_ID, "round_down"));
         registry.register(new NodeType<>(NodeRoundUp::new).setRegistryName(Visibilis.MOD_ID, "round_up"));
         
-        registry.register(new NodeType<>(NodeAND::new).setRegistryName(Visibilis.MOD_ID, "and"));
-        registry.register(new NodeType<>(NodeNAND::new).setRegistryName(Visibilis.MOD_ID, "nand"));
-        registry.register(new NodeType<>(NodeNOR::new).setRegistryName(Visibilis.MOD_ID, "nor"));
-        registry.register(new NodeType<>(NodeNOT::new).setRegistryName(Visibilis.MOD_ID, "not"));
-        registry.register(new NodeType<>(NodeOR::new).setRegistryName(Visibilis.MOD_ID, "or"));
-        registry.register(new NodeType<>(NodeXNOR::new).setRegistryName(Visibilis.MOD_ID, "xnor"));
-        registry.register(new NodeType<>(NodeXOR::new).setRegistryName(Visibilis.MOD_ID, "xor"));
+        registry.register(NodeGenericP.createTypeGenericP(VDataTypes.BOOLEAN,
+            (b) ->
+            {
+                return !b;
+            })
+            .setRegistryName(Visibilis.MOD_ID, "not"));
+        
+        registry.register(NodeGenericXP2.createTypeGenericXP2(VDataTypes.BOOLEAN,
+            (booleans) ->
+            {
+                for(boolean b : booleans)
+                {
+                    if(!b)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            },
+            (b1, b2) ->
+            {
+                return b1 && b2;
+            })
+            .setRegistryName(Visibilis.MOD_ID, "and"));
+        
+        registry.register(NodeGenericXP2.createTypeGenericXP2(VDataTypes.BOOLEAN,
+            (booleans) ->
+            {
+                for(boolean b : booleans)
+                {
+                    if(!b)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            },
+            (b1, b2) ->
+            {
+                return !(b1 && b2);
+            })
+            .setRegistryName(Visibilis.MOD_ID, "nand"));
+        
+        registry.register(NodeGenericXP2.createTypeGenericXP2(VDataTypes.BOOLEAN,
+            (booleans) ->
+            {
+                for(boolean b : booleans)
+                {
+                    if(b)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            },
+            (b1, b2) ->
+            {
+                return b1 || b2;
+            })
+            .setRegistryName(Visibilis.MOD_ID, "or"));
+        
+        registry.register(NodeGenericXP2.createTypeGenericXP2(VDataTypes.BOOLEAN,
+            (booleans) ->
+            {
+                for(boolean b : booleans)
+                {
+                    if(b)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            },
+            (b1, b2) ->
+            {
+                return !(b1 || b2);
+            })
+            .setRegistryName(Visibilis.MOD_ID, "nor"));
+        
+        registry.register(NodeGenericXP2.createTypeGenericXP2(VDataTypes.BOOLEAN,
+            (booleans) ->
+            {
+                boolean flag = false;
+                for(boolean b : booleans)
+                {
+                    if(b)
+                    {
+                        flag = !flag;
+                    }
+                }
+                return flag;
+            },
+            (b1, b2) ->
+            {
+                return b1 != b2;
+            })
+            .setRegistryName(Visibilis.MOD_ID, "xor"));
+        
+        registry.register(NodeGenericXP2.createTypeGenericXP2(VDataTypes.BOOLEAN,
+            (booleans) ->
+            {
+                boolean flag = true;
+                for(boolean b : booleans)
+                {
+                    if(b)
+                    {
+                        flag = !flag;
+                    }
+                }
+                return flag;
+            },
+            (b1, b2) ->
+            {
+                return b1 == b2;
+            })
+            .setRegistryName(Visibilis.MOD_ID, "xnor"));
         
         registry.register(new NodeType<>(NodeBranch::new).setRegistryName(Visibilis.MOD_ID, "branch"));
         registry.register(new NodeType<>(NodeMerge::new).setRegistryName(Visibilis.MOD_ID, "merge"));
@@ -228,7 +330,9 @@ public class VNodeTypes
                 (i, j) -> i.doubleValue() <= j.doubleValue()))
             .setRegistryName(Visibilis.MOD_ID, "less_than_or_equals"));
         
-        registry.register(new NodeType<>(NodeFloatToInteger::new).setRegistryName(Visibilis.MOD_ID, "cast_float_to_integer"));
+        registry.register(NodeBiGenericP.createTypeBiGenericP(VDataTypes.INTEGER, VDataTypes.FLOAT, (f) -> f.intValue()).setRegistryName(Visibilis.MOD_ID, "cast_float_to_integer"));
+        registry.register(NodeBiGenericP.createTypeBiGenericP(VDataTypes.INTEGER, VDataTypes.DOUBLE, (d) -> d.intValue()).setRegistryName(Visibilis.MOD_ID, "cast_double_to_integer"));
+        registry.register(NodeBiGenericP.createTypeBiGenericP(VDataTypes.FLOAT, VDataTypes.DOUBLE, (f) -> f.floatValue()).setRegistryName(Visibilis.MOD_ID, "cast_double_to_float"));
         
         registry.register(new NodeType<>(NodeVector3dCreate::new).setRegistryName(Visibilis.MOD_ID, "vector3d_create"));
         registry.register(new NodeType<>(NodeVector3dSplit::new).setRegistryName(Visibilis.MOD_ID, "vector3d_split"));
