@@ -300,7 +300,14 @@ public class VNodeTypes
                 (i, j) -> i.intValue() == j.intValue(),
                 (i, j) -> i.floatValue() == j.floatValue(),
                 (i, j) -> i.doubleValue() == j.doubleValue()))
-            .setRegistryName(Visibilis.MOD_ID, "equals"));
+            .setRegistryName(Visibilis.MOD_ID, "equal_to"));
+        
+        registry.register(NodeGenericCompare.createTypeGenericCompare(VDataTypes.NUMBER,
+            new NumberFunctionP2<>(
+                (i, j) -> i.intValue() != j.intValue(),
+                (i, j) -> i.floatValue() != j.floatValue(),
+                (i, j) -> i.doubleValue() != j.doubleValue()))
+            .setRegistryName(Visibilis.MOD_ID, "not_equal_to"));
         
         registry.register(NodeGenericCompare.createTypeGenericCompare(VDataTypes.NUMBER,
             new NumberFunctionP2<>(
@@ -314,7 +321,7 @@ public class VNodeTypes
                 (i, j) -> i.intValue() >= j.intValue(),
                 (i, j) -> i.floatValue() >= j.floatValue(),
                 (i, j) -> i.doubleValue() >= j.doubleValue()))
-            .setRegistryName(Visibilis.MOD_ID, "greater_than_or_equals"));
+            .setRegistryName(Visibilis.MOD_ID, "greater_than_or_equal_to"));
         
         registry.register(NodeGenericCompare.createTypeGenericCompare(VDataTypes.NUMBER,
             new NumberFunctionP2<>(
@@ -328,7 +335,7 @@ public class VNodeTypes
                 (i, j) -> i.intValue() <= j.intValue(),
                 (i, j) -> i.floatValue() <= j.floatValue(),
                 (i, j) -> i.doubleValue() <= j.doubleValue()))
-            .setRegistryName(Visibilis.MOD_ID, "less_than_or_equals"));
+            .setRegistryName(Visibilis.MOD_ID, "less_than_or_equal_to"));
         
         registry.register(NodeBiGenericP.createTypeBiGenericP(VDataTypes.INTEGER, VDataTypes.FLOAT, (f) -> f.intValue()).setRegistryName(Visibilis.MOD_ID, "cast_float_to_integer"));
         registry.register(NodeBiGenericP.createTypeBiGenericP(VDataTypes.INTEGER, VDataTypes.DOUBLE, (d) -> d.intValue()).setRegistryName(Visibilis.MOD_ID, "cast_double_to_integer"));
