@@ -41,6 +41,11 @@ public abstract class NodeGenericP<B> extends NodeBiGenericP<B, B>
     
     public static <I> NodeType.IFactory<NodeGenericP<I>> createTypeGenericP(DataType<I> dataType, Function<I, I> function)
     {
+        return NodeGenericP.createTypeGenericP(dataType, function, (input) -> true);
+    }
+    
+    public static <I> NodeType.IFactory<NodeGenericP<I>> createTypeGenericP(DataType<I> dataType, Function<I, I> function, Function<I, Boolean> requirement)
+    {
         return (type) ->
         {
             return new NodeGenericP<I>(type)
@@ -49,6 +54,12 @@ public abstract class NodeGenericP<B> extends NodeBiGenericP<B, B>
                 public DataType<I> getDataType()
                 {
                     return dataType;
+                }
+                
+                @Override
+                protected boolean canCalculate(I input)
+                {
+                    return requirement.apply(input);
                 }
                 
                 @Override
