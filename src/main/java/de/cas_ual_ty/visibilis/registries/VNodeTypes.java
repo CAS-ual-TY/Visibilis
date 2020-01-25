@@ -7,18 +7,14 @@ import de.cas_ual_ty.visibilis.node.base.dtfloat.NodeFloatV;
 import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dCreate;
 import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dScale;
 import de.cas_ual_ty.visibilis.node.base.dtvector3d.NodeVector3dSplit;
+import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericP2;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericXP2;
-import de.cas_ual_ty.visibilis.node.calculate.NodeAddition;
 import de.cas_ual_ty.visibilis.node.calculate.NodeConcatenation;
-import de.cas_ual_ty.visibilis.node.calculate.NodeDivision;
 import de.cas_ual_ty.visibilis.node.calculate.NodeExponentiation;
 import de.cas_ual_ty.visibilis.node.calculate.NodeLogarithm10;
 import de.cas_ual_ty.visibilis.node.calculate.NodeLogarithm1p;
 import de.cas_ual_ty.visibilis.node.calculate.NodeLogarithmE;
-import de.cas_ual_ty.visibilis.node.calculate.NodeModulo;
-import de.cas_ual_ty.visibilis.node.calculate.NodeMultiplication;
 import de.cas_ual_ty.visibilis.node.calculate.NodeRoot;
-import de.cas_ual_ty.visibilis.node.calculate.NodeSubtraction;
 import de.cas_ual_ty.visibilis.node.cast.NodeFloatToInteger;
 import de.cas_ual_ty.visibilis.node.compare.NodeFloatEquals;
 import de.cas_ual_ty.visibilis.node.compare.NodeFloatGreater;
@@ -48,6 +44,8 @@ import de.cas_ual_ty.visibilis.node.logic.NodeOR;
 import de.cas_ual_ty.visibilis.node.logic.NodeXNOR;
 import de.cas_ual_ty.visibilis.node.logic.NodeXOR;
 import de.cas_ual_ty.visibilis.test.VNodePrintDebug;
+import de.cas_ual_ty.visibilis.util.VNumberHelper.NumberFunctionP2;
+import de.cas_ual_ty.visibilis.util.VNumberHelper.NumberFunctionX;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -67,24 +65,102 @@ public class VNodeTypes
         registry.register(new NodeType<>((type) -> new NodeEvent(type, Visibilis.MOD_ID, "command")).setRegistryName(Visibilis.MOD_ID, "event_command"));
         registry.register(new NodeType<>(VNodePrintDebug::new).setRegistryName(Visibilis.MOD_ID, "print_debug"));
         
-        /* Example
-        registry.register(NodeGenericXP2.createTypeGenericXP2(VDataTypes.FLOAT, "addition", (inputs) ->
-        {
-            float r = 0;;
-            for(Float f : inputs)
-                r += f.floatValue();
-            return r;
-        }, (input, in2) -> input + in2)); */
-        registry.register(new NodeType<>(NodeAddition::new).setRegistryName(Visibilis.MOD_ID, "addition"));
-        registry.register(new NodeType<>(NodeDivision::new).setRegistryName(Visibilis.MOD_ID, "division"));
+        registry.register(NodeGenericXP2.createTypeGenericXP2(VDataTypes.NUMBER,
+            new NumberFunctionX<>(
+                (ints) ->
+                {
+                    int r = 0;
+                    for(Integer i : ints)
+                    {
+                        r += i.intValue();
+                    }
+                    return r;
+                },
+                (floats) ->
+                {
+                    float r = 0;
+                    for(Float i : floats)
+                    {
+                        r += i.floatValue();
+                    }
+                    return r;
+                },
+                (doubles) ->
+                {
+                    double r = 0;
+                    for(Double i : doubles)
+                    {
+                        r += i.doubleValue();
+                    }
+                    return r;
+                }),
+            new NumberFunctionP2<>(
+                (i, j) -> i.intValue() + j.intValue(),
+                (i, j) -> i.floatValue() + j.floatValue(),
+                (i, j) -> i.doubleValue() + j.doubleValue()))
+            .setRegistryName(Visibilis.MOD_ID, "addition"));
+        
+        registry.register(NodeGenericP2.createTypeGenericP2(VDataTypes.NUMBER,
+            new NumberFunctionP2<>(
+                (i, j) -> i.intValue() - j.intValue(),
+                (i, j) -> i.floatValue() - j.floatValue(),
+                (i, j) -> i.doubleValue() - j.doubleValue()))
+            .setRegistryName(Visibilis.MOD_ID, "subtraction"));
+        
+        registry.register(NodeGenericXP2.createTypeGenericXP2(VDataTypes.NUMBER,
+            new NumberFunctionX<>(
+                (ints) ->
+                {
+                    int r = 1;
+                    for(Integer i : ints)
+                    {
+                        r *= i.intValue();
+                    }
+                    return r;
+                },
+                (floats) ->
+                {
+                    float r = 1;
+                    for(Float i : floats)
+                    {
+                        r *= i.floatValue();
+                    }
+                    return r;
+                },
+                (doubles) ->
+                {
+                    double r = 1;
+                    for(Double i : doubles)
+                    {
+                        r *= i.doubleValue();
+                    }
+                    return r;
+                }),
+            new NumberFunctionP2<>(
+                (i, j) -> i.intValue() + j.intValue(),
+                (i, j) -> i.floatValue() + j.floatValue(),
+                (i, j) -> i.doubleValue() + j.doubleValue()))
+            .setRegistryName(Visibilis.MOD_ID, "multiplication"));
+        
+        registry.register(NodeGenericP2.createTypeGenericP2(VDataTypes.NUMBER,
+            new NumberFunctionP2<>(
+                (i, j) -> i.intValue() / j.intValue(),
+                (i, j) -> i.floatValue() / j.floatValue(),
+                (i, j) -> i.doubleValue() / j.doubleValue()))
+            .setRegistryName(Visibilis.MOD_ID, "division"));
+        
+        registry.register(NodeGenericP2.createTypeGenericP2(VDataTypes.NUMBER,
+            new NumberFunctionP2<>(
+                (i, j) -> i.intValue() % j.intValue(),
+                (i, j) -> i.floatValue() % j.floatValue(),
+                (i, j) -> i.doubleValue() % j.doubleValue()))
+            .setRegistryName(Visibilis.MOD_ID, "modulo"));
+        
         registry.register(new NodeType<>(NodeExponentiation::new).setRegistryName(Visibilis.MOD_ID, "exponentiation"));
         registry.register(new NodeType<>(NodeLogarithm10::new).setRegistryName(Visibilis.MOD_ID, "logarithm_10"));
         registry.register(new NodeType<>(NodeLogarithm1p::new).setRegistryName(Visibilis.MOD_ID, "logarithm_1p"));
         registry.register(new NodeType<>(NodeLogarithmE::new).setRegistryName(Visibilis.MOD_ID, "logarithm_e"));
-        registry.register(new NodeType<>(NodeModulo::new).setRegistryName(Visibilis.MOD_ID, "modulo"));
-        registry.register(new NodeType<>(NodeMultiplication::new).setRegistryName(Visibilis.MOD_ID, "multiplication"));
         registry.register(new NodeType<>(NodeRoot::new).setRegistryName(Visibilis.MOD_ID, "root"));
-        registry.register(new NodeType<>(NodeSubtraction::new).setRegistryName(Visibilis.MOD_ID, "subtraction"));
         registry.register(new NodeType<>(NodeConcatenation::new).setRegistryName(Visibilis.MOD_ID, "concatenation"));
         
         registry.register(new NodeType<>(NodeE::new).setRegistryName(Visibilis.MOD_ID, "e"));
