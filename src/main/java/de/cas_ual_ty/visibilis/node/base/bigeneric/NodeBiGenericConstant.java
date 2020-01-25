@@ -6,9 +6,9 @@ import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.util.VUtility;
 
-public abstract class NodeBiGenericV<O, I> extends NodeBiGenericP<O, I>
+public abstract class NodeBiGenericConstant<O, I> extends NodeBiGenericP<O, I>
 {
-    public NodeBiGenericV(NodeType<?> type)
+    public NodeBiGenericConstant(NodeType<?> type)
     {
         super(type);
     }
@@ -19,11 +19,11 @@ public abstract class NodeBiGenericV<O, I> extends NodeBiGenericP<O, I>
         return VUtility.cast(input);
     }
     
-    public static <O, I> NodeType<NodeBiGenericV<O, I>> createTypeBiGenericV(DataType<O> dataTypeOut, DataType<I> dataTypeIn, Function<I, O> function)
+    public static <O, I> NodeType<NodeBiGenericConstant<O, I>> createTypeBiGenericV(DataType<O> dataTypeOut, DataType<I> dataTypeIn, Function<I, O> function)
     {
         return new NodeType<>((type) ->
         {
-            return new NodeBiGenericV<O, I>(type)
+            return new NodeBiGenericConstant<O, I>(type)
             {
                 @Override
                 public DataType<O> getOutDataType()

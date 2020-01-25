@@ -1,66 +1,31 @@
 package de.cas_ual_ty.visibilis.node.base.generic;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.node.ExecContext;
-import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeType;
-import de.cas_ual_ty.visibilis.node.field.Output;
-import de.cas_ual_ty.visibilis.util.VUtility;
 
-public abstract class NodeGenericConstant<B> extends Node
+public abstract class NodeGenericConstant<B> extends NodeGenericP<B>
 {
-    public Output<B> out1B;
-    
     public NodeGenericConstant(NodeType<?> type)
     {
         super(type);
-        this.addOutput(this.out1B = new Output<>(this, this.getDataType(), "out1"));
-    }
-    
-    public abstract DataType<B> getDataType();
-    
-    protected abstract B getConstant();
-    
-    @Override
-    public boolean doCalculate(ExecContext context)
-    {
-        return true;
     }
     
     @Override
-    public <O> O getOutputValue(Output<O> out)
+    protected B calculate(B input)
     {
-        return out == this.out1B ? VUtility.cast(this.getConstant()) : null;
+        return input;
     }
     
-    @Override
-    public float[] getColor()
-    {
-        return this.getDataType().getColor();
-    }
-    
-    @Override
-    public float[] getTextColor()
-    {
-        return this.getDataType().getTextColor();
-    }
-    
-    public static <O> NodeType<NodeGenericConstant<O>> createTypeGenericConstant(DataType<O> dataType, O constant)
+    public static <I> NodeType<NodeGenericConstant<I>> createTypeGenericV(DataType<I> dataType)
     {
         return new NodeType<>((type) ->
         {
-            return new NodeGenericConstant<O>(type)
+            return new NodeGenericConstant<I>(type)
             {
                 @Override
-                public DataType<O> getDataType()
+                public DataType<I> getDataType()
                 {
                     return dataType;
-                }
-                
-                @Override
-                protected O getConstant()
-                {
-                    return constant;
                 }
             };
         });
