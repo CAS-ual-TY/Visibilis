@@ -1,6 +1,7 @@
 package de.cas_ual_ty.visibilis.registries;
 
 import de.cas_ual_ty.visibilis.Visibilis;
+import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.bigeneric.NodeBiGenericP;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericCompare;
@@ -35,10 +36,81 @@ import net.minecraftforge.registries.ObjectHolder;
 @ObjectHolder(Visibilis.MOD_ID)
 public class VNodeTypes
 {
+    public static final NodeType<Node> COMMAND = null;
+    public static final NodeType<Node> PRINT_DEBUG = null;
+    
+    public static final NodeType<Node> ADDITION = null;
+    public static final NodeType<Node> SUBTRACTION = null;
+    public static final NodeType<Node> MULTIPLICATION = null;
+    public static final NodeType<Node> DIVISION = null;
+    public static final NodeType<Node> MODULO = null;
+    public static final NodeType<Node> EXPONENTIATION = null;
+    
+    public static final NodeType<Node> LOGARITHM_10 = null;
+    public static final NodeType<Node> LOGARITHM_1P = null;
+    public static final NodeType<Node> LOGARITHM_E = null;
+    public static final NodeType<Node> ROOT = null;
+    
+    public static final NodeType<Node> CONCATENATION = null;
+    
+    public static final NodeType<Node> E = null;
+    public static final NodeType<Node> PI = null;
+    public static final NodeType<Node> SQRT2 = null;
+    
+    public static final NodeType<Node> CONSTANT_INTEGER = null;
+    public static final NodeType<Node> CONSTANT_FLOAT = null;
+    public static final NodeType<Node> CONSTANT_DOUBLE = null;
+    public static final NodeType<Node> CONSTANT_BOOLEAN = null;
+    
+    public static final NodeType<Node> SINES = null;
+    public static final NodeType<Node> COSINES = null;
+    public static final NodeType<Node> TANGENT = null;
+    
+    public static final NodeType<Node> ROUND = null;
+    public static final NodeType<Node> FLOOR = null;
+    public static final NodeType<Node> CEIL = null;
+    
+    public static final NodeType<Node> NOT = null;
+    public static final NodeType<Node> AND = null;
+    public static final NodeType<Node> NAND = null;
+    public static final NodeType<Node> OR = null;
+    public static final NodeType<Node> NOR = null;
+    public static final NodeType<Node> XOR = null;
+    public static final NodeType<Node> XNOR = null;
+    
+    public static final NodeType<Node> BRANCH = null;
+    public static final NodeType<Node> MERGE = null;
+    public static final NodeType<Node> FOR = null;
+    public static final NodeType<Node> WHILE = null;
+    
+    public static final NodeType<Node> EQUAL_TO = null;
+    public static final NodeType<Node> NOT_EQUAL_TO = null;
+    public static final NodeType<Node> GREATER_THAN = null;
+    public static final NodeType<Node> GREATER_THAN_OR_EQUAL_TO = null;
+    public static final NodeType<Node> LESS_THAN = null;
+    public static final NodeType<Node> LESS_THAN_OR_EQUAL_TO = null;
+    
+    public static final NodeType<Node> CAST_FLOAT_TO_INTEGER = null;
+    public static final NodeType<Node> CAST_DOUBLE_TO_INTEGER = null;
+    public static final NodeType<Node> CAST_DOUBLE_TO_FLOAT = null;
+    
+    public static final NodeType<Node> VECTOR3D_CREATE = null;
+    public static final NodeType<Node> VECTOR3D_SPLIT = null;
+    public static final NodeType<Node> VECTOR3D_SCALE = null;
+    public static final NodeType<Node> VECTOR3D_ADDITION = null;
+    public static final NodeType<Node> VECTOR3D_SUBTRACTION = null;
+    public static final NodeType<Node> VECTOR3D_NORMALIZATION = null;
+    public static final NodeType<Node> VECTOR3D_DOT_PRODUCT = null;
+    public static final NodeType<Node> VECTOR3D_CROSS_PRODUCT = null;
+    public static final NodeType<Node> VECTOR3D_LENGTH = null;
+    public static final NodeType<Node> VECTOR3D_LENGTH_SQUARED = null;
+    
+    public static final NodeType<Node> PRINT = null;
+    
     @SubscribeEvent
-    public static void register(RegistryEvent.Register<NodeType<?>> event)
+    public static void register(RegistryEvent.Register<NodeType<? extends Node>> event)
     {
-        IForgeRegistry<NodeType<?>> registry = event.getRegistry();
+        IForgeRegistry<NodeType<? extends Node>> registry = event.getRegistry();
         
         registry.register(new NodeType<>((type) -> new NodeEvent(type, Visibilis.MOD_ID, "command")).setRegistryName(Visibilis.MOD_ID, "event_command"));
         registry.register(new NodeType<>(VNodePrintDebug::new).setRegistryName(Visibilis.MOD_ID, "print_debug"));
