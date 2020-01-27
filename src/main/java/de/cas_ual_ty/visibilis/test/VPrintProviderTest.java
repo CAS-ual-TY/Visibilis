@@ -6,6 +6,7 @@ import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.event.NodeEvent;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.item.PrintProviderItem;
+import de.cas_ual_ty.visibilis.registries.VNodeTypes;
 import net.minecraft.item.ItemStack;
 
 public class VPrintProviderTest extends PrintProviderItem
@@ -61,61 +62,75 @@ public class VPrintProviderTest extends PrintProviderItem
     
     public static void addAllNodesToList(ArrayList<Node> list)
     {
-        /* TODO current branch
-        list.add(new NodeEvent(Visibilis.MOD_ID, "command"));
-        list.add(new VNodePrintDebug());
+        list.add(VNodeTypes.COMMAND.instantiate());
+        list.add(VNodeTypes.PRINT_DEBUG.instantiate());
         
-        list.add(new NodeAddition());
-        list.add(new NodeDivision());
-        list.add(new NodeExponentiation());
-        list.add(new NodeLogarithm10());
-        list.add(new NodeLogarithm1p());
-        list.add(new NodeLogarithmE());
-        list.add(new NodeModulo());
-        list.add(new NodeMultiplication());
-        list.add(new NodeRoot());
-        list.add(new NodeSubtraction());
-        list.add(new NodeConcatenation());
+        list.add(VNodeTypes.ADDITION.instantiate());
+        list.add(VNodeTypes.SUBTRACTION.instantiate());
+        list.add(VNodeTypes.MULTIPLICATION.instantiate());
+        list.add(VNodeTypes.DIVISION.instantiate());
+        list.add(VNodeTypes.MODULO.instantiate());
+        list.add(VNodeTypes.EXPONENTIATION.instantiate());
         
-        list.add(new NodeE());
-        list.add(new NodePi());
-        list.add(new NodeSQRT2());
-        list.add(new NodeFloatV());
-        list.add(new NodeBooleanV());
+        list.add(VNodeTypes.LOGARITHM_10.instantiate());
+        list.add(VNodeTypes.LOGARITHM_1P.instantiate());
+        list.add(VNodeTypes.LOGARITHM_E.instantiate());
+        list.add(VNodeTypes.ROOT.instantiate());
         
-        list.add(new NodeRound());
-        list.add(new NodeRoundUp());
-        list.add(new NodeRoundDown());
-        list.add(new NodeSines());
-        list.add(new NodeCosines());
-        list.add(new NodeTangent());
+        list.add(VNodeTypes.CONCATENATION.instantiate());
         
-        list.add(new NodeAND());
-        list.add(new NodeNAND());
-        list.add(new NodeNOR());
-        list.add(new NodeNOT());
-        list.add(new NodeOR());
-        list.add(new NodeXNOR());
-        list.add(new NodeXOR());
+        list.add(VNodeTypes.E.instantiate());
+        list.add(VNodeTypes.PI.instantiate());
+        list.add(VNodeTypes.SQRT2.instantiate());
         
-        list.add(new NodeBranch());
-        list.add(new NodeMerge());
-        list.add(new NodeFor());
-        list.add(new NodeWhile());
+        list.add(VNodeTypes.CONSTANT_INTEGER.instantiate());
+        list.add(VNodeTypes.CONSTANT_FLOAT.instantiate());
+        list.add(VNodeTypes.CONSTANT_DOUBLE.instantiate());
+        list.add(VNodeTypes.CONSTANT_BOOLEAN.instantiate());
         
-        list.add(new NodeFloatEquals());
-        list.add(new NodeFloatGreater());
-        list.add(new NodeFloatGreaterEquals());
-        list.add(new NodeFloatLess());
-        list.add(new NodeFloatLessEquals());
+        list.add(VNodeTypes.SINES.instantiate());
+        list.add(VNodeTypes.COSINES.instantiate());
+        list.add(VNodeTypes.TANGENT.instantiate());
         
-        list.add(new NodeFloatToInteger());
+        list.add(VNodeTypes.ROUND.instantiate());
+        list.add(VNodeTypes.FLOOR.instantiate());
+        list.add(VNodeTypes.CEIL.instantiate());
         
-        list.add(new NodeVector3dCreate());
-        list.add(new NodeVector3dSplit());
-        list.add(new NodeVector3dScale());
+        list.add(VNodeTypes.NOT.instantiate());
+        list.add(VNodeTypes.AND.instantiate());
+        list.add(VNodeTypes.NAND.instantiate());
+        list.add(VNodeTypes.OR.instantiate());
+        list.add(VNodeTypes.NOR.instantiate());
+        list.add(VNodeTypes.XOR.instantiate());
+        list.add(VNodeTypes.XNOR.instantiate());
         
-        list.add(new NodePrint());
-        */
+        list.add(VNodeTypes.BRANCH.instantiate());
+        list.add(VNodeTypes.MERGE.instantiate());
+        list.add(VNodeTypes.FOR.instantiate());
+        list.add(VNodeTypes.WHILE.instantiate());
+        
+        list.add(VNodeTypes.EQUAL_TO.instantiate());
+        list.add(VNodeTypes.NOT_EQUAL_TO.instantiate());
+        list.add(VNodeTypes.GREATER_THAN.instantiate());
+        list.add(VNodeTypes.GREATER_THAN_OR_EQUAL_TO.instantiate());
+        list.add(VNodeTypes.LESS_THAN.instantiate());
+        list.add(VNodeTypes.LESS_THAN_OR_EQUAL_TO.instantiate());
+        
+        list.add(VNodeTypes.CAST_FLOAT_TO_INTEGER.instantiate());
+        list.add(VNodeTypes.CAST_DOUBLE_TO_INTEGER.instantiate());
+        list.add(VNodeTypes.CAST_DOUBLE_TO_FLOAT.instantiate());
+        
+        list.add(VNodeTypes.VECTOR3D_CREATE.instantiate());
+        list.add(VNodeTypes.VECTOR3D_SPLIT.instantiate());
+        list.add(VNodeTypes.VECTOR3D_SCALE.instantiate());
+        list.add(VNodeTypes.VECTOR3D_ADDITION.instantiate());
+        list.add(VNodeTypes.VECTOR3D_SUBTRACTION.instantiate());
+        list.add(VNodeTypes.VECTOR3D_NORMALIZATION.instantiate());
+        list.add(VNodeTypes.VECTOR3D_DOT_PRODUCT.instantiate());
+        list.add(VNodeTypes.VECTOR3D_CROSS_PRODUCT.instantiate());
+        list.add(VNodeTypes.VECTOR3D_LENGTH.instantiate());
+        list.add(VNodeTypes.VECTOR3D_LENGTH_SQUARED.instantiate());
+        
+        list.add(VNodeTypes.PRINT.instantiate());
     }
 }
