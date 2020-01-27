@@ -152,11 +152,12 @@ public abstract class NodeBiGenericXP2<O, I> extends NodeParallelizable
         }
         else
         {
-            int i = 0;
-            for(Input<I> input : this.expansionInputs)
+            int i;
+            for(i = 1; i < this.expansionInputs.size(); ++i)
             {
-                inputs[i++] = input.getValue();
+                inputs[i - 1] = this.expansionInputs.get(i).getValue();
             }
+            inputs[i - 1] = this.in2.getValue();
             
             if(!this.canCalculate(inputs))
             {
