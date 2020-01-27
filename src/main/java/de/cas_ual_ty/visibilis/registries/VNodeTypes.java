@@ -36,7 +36,7 @@ import net.minecraftforge.registries.ObjectHolder;
 @ObjectHolder(Visibilis.MOD_ID)
 public class VNodeTypes
 {
-    public static final NodeType<Node> COMMAND = null;
+    public static final NodeType<Node> EVENT_COMMAND = null;
     public static final NodeType<Node> PRINT_DEBUG = null;
     
     public static final NodeType<Node> ADDITION = null;
@@ -55,7 +55,7 @@ public class VNodeTypes
     
     public static final NodeType<Node> E = null;
     public static final NodeType<Node> PI = null;
-    public static final NodeType<Node> SQRT2 = null;
+    public static final NodeType<Node> SQRT_2 = null;
     
     public static final NodeType<Node> CONSTANT_INTEGER = null;
     public static final NodeType<Node> CONSTANT_FLOAT = null;
@@ -251,7 +251,7 @@ public class VNodeTypes
         
         registry.register(new NodeType<>(NodeGenericHardcoded.createTypeGenericConstant(VDataTypes.DOUBLE, Math.E)).setRegistryName(Visibilis.MOD_ID, "e"));
         registry.register(new NodeType<>(NodeGenericHardcoded.createTypeGenericConstant(VDataTypes.DOUBLE, Math.PI)).setRegistryName(Visibilis.MOD_ID, "pi"));
-        registry.register(new NodeType<>(NodeGenericHardcoded.createTypeGenericConstant(VDataTypes.FLOAT, MathHelper.SQRT_2)).setRegistryName(Visibilis.MOD_ID, "sqrt2"));
+        registry.register(new NodeType<>(NodeGenericHardcoded.createTypeGenericConstant(VDataTypes.FLOAT, MathHelper.SQRT_2)).setRegistryName(Visibilis.MOD_ID, "sqrt_2"));
         
         registry.register(new NodeType<>(NodeGenericConstant.createTypeGenericV(VDataTypes.INTEGER)).setRegistryName(Visibilis.MOD_ID, "constant_integer"));
         registry.register(new NodeType<>(NodeGenericConstant.createTypeGenericV(VDataTypes.FLOAT)).setRegistryName(Visibilis.MOD_ID, "constant_float"));

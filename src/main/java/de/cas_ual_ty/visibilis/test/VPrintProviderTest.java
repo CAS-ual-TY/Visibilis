@@ -62,7 +62,7 @@ public class VPrintProviderTest extends PrintProviderItem
     
     public static void addAllNodesToList(ArrayList<Node> list)
     {
-        list.add(VNodeTypes.COMMAND.instantiate());
+        list.add(VNodeTypes.EVENT_COMMAND.instantiate());
         list.add(VNodeTypes.PRINT_DEBUG.instantiate());
         
         list.add(VNodeTypes.ADDITION.instantiate());
@@ -81,7 +81,7 @@ public class VPrintProviderTest extends PrintProviderItem
         
         list.add(VNodeTypes.E.instantiate());
         list.add(VNodeTypes.PI.instantiate());
-        list.add(VNodeTypes.SQRT2.instantiate());
+        list.add(VNodeTypes.SQRT_2.instantiate());
         
         list.add(VNodeTypes.CONSTANT_INTEGER.instantiate());
         list.add(VNodeTypes.CONSTANT_FLOAT.instantiate());
