@@ -43,7 +43,7 @@ public class VPrintProviderTest extends PrintProviderItem
         {
             int index = this.list.indexOf(node);
             this.list.remove(index);
-            this.list.add(index, node.clone());
+            this.list.add(index, node.type.instantiate());
         }
         
         super.onNodeAdded(node);
