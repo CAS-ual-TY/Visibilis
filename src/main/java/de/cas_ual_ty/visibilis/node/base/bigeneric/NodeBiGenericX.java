@@ -73,7 +73,7 @@ public abstract class NodeBiGenericX<O, I> extends NodeExpandable
     @Override
     public boolean doCalculate(ExecContext context)
     {
-        I[] inputs = VUtility.createGenericArray(this.expansionInputs.size());
+        I[] inputs = this.getInDataType().createArray(this.expansionInputs.size());
         
         int i = 0;
         for(Input<I> input : this.expansionInputs)

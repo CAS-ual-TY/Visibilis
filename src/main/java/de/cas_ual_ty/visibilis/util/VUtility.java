@@ -15,11 +15,6 @@ public class VUtility
         return (A)b;
     }
     
-    public static <A> A[] createGenericArray(int length)
-    {
-        return VUtility.cast(new Object[length]);
-    }
-    
     public static <A> ArrayList<A> cloneArrayList(ArrayList<A> list)
     {
         return VUtility.cast(list.clone());

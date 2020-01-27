@@ -89,7 +89,7 @@ public abstract class NodeTriGenericP2<O, I1, I2> extends NodeExpandable
     @Override
     public boolean doCalculate(ExecContext context)
     {
-        I1[] inputs = VUtility.createGenericArray(this.expansionInputs.size());
+        I1[] inputs = this.getIn1DataType().createArray(this.expansionInputs.size());
         I2 in2 = this.in2.getValue();
         
         int i = 0;
@@ -106,7 +106,7 @@ public abstract class NodeTriGenericP2<O, I1, I2> extends NodeExpandable
             }
         }
         
-        this.values = VUtility.createGenericArray(this.expansionOutputs.size());
+        this.values = this.getOutDataType().createArray(this.expansionOutputs.size());
         
         i = 0;
         for(I1 a : inputs)

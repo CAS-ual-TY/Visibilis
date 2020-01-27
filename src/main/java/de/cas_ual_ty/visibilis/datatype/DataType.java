@@ -66,17 +66,25 @@ public class DataType<A> extends ForgeRegistryEntry<DataType<?>>
      */
     protected A defaultValue;
     
-    public DataType()
+    protected ArrayFactory<A> arrayFactory;
+    
+    public DataType(ArrayFactory<A> arrayFactory)
     {
-        this(DataType.COLOR_DEFAULT_GREY);
+        this(DataType.COLOR_DEFAULT_GREY, arrayFactory);
     }
     
-    public DataType(float[] color)
+    public DataType(float[] color, ArrayFactory<A> arrayFactory)
     {
         this.converters = new HashMap<>();
         this.color = color;
         this.textColor = DataType.COLOR_TEXT_WHITE;
         this.defaultValue = null;
+        this.arrayFactory = arrayFactory;
+    }
+    
+    public A[] createArray(int length)
+    {
+        return this.arrayFactory.createArray(length);
     }
     
     public boolean equals(A obj1, A obj2)
@@ -148,7 +156,7 @@ public class DataType<A> extends ForgeRegistryEntry<DataType<?>>
      */
     public <F> A convert(DataType<F> from, F value)
     {
-        return (VUtility.<IConverter<F, A>, IConverter<?, A>>cast(this.converters.get(from))).convert(value);
+        return from == this ? VUtility.cast(value) : (VUtility.<IConverter<F, A>, IConverter<?, A>>cast(this.converters.get(from))).convert(value);
     }
     
     /**
@@ -223,5 +231,10 @@ public class DataType<A> extends ForgeRegistryEntry<DataType<?>>
     public DataType<A> setBlackText()
     {
         return this.setTextColor(DataType.COLOR_TEXT_BLACK);
+    }
+    
+    public static interface ArrayFactory<A>
+    {
+        A[] createArray(int length);
     }
 }

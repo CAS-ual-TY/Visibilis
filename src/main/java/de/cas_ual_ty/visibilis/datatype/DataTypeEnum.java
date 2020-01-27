@@ -11,14 +11,14 @@ public class DataTypeEnum<A> extends DataType<A>
      */
     protected ArrayList<A> enums = null;
     
-    public DataTypeEnum()
+    public DataTypeEnum(ArrayFactory<A> arrayFactory)
     {
-        this(DataType.COLOR_DEFAULT_GREY);
+        this(DataType.COLOR_DEFAULT_GREY, arrayFactory);
     }
     
-    public DataTypeEnum(float[] color)
+    public DataTypeEnum(float[] color, ArrayFactory<A> arrayFactory)
     {
-        super(color);
+        super(color, arrayFactory);
         this.enums = new ArrayList<>();
     }
     

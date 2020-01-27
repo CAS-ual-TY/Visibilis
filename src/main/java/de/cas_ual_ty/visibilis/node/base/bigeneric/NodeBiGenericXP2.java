@@ -122,7 +122,7 @@ public abstract class NodeBiGenericXP2<O, I> extends NodeParallelizable
     @Override
     public boolean doCalculate(ExecContext context)
     {
-        I[] inputs = VUtility.createGenericArray(this.expansionInputs.size());
+        I[] inputs = this.getInDataType().createArray(this.expansionInputs.size());
         
         if(this.parallelized)
         {
@@ -142,7 +142,7 @@ public abstract class NodeBiGenericXP2<O, I> extends NodeParallelizable
                 }
             }
             
-            this.values = VUtility.createGenericArray(this.expansionOutputs.size());
+            this.values = this.getOutDataType().createArray(this.expansionOutputs.size());
             
             i = 0;
             for(I a : inputs)
