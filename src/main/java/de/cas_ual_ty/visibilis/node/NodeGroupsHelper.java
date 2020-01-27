@@ -10,9 +10,9 @@ public class NodeGroupsHelper
 {
     public static final NodeGroupsHelper INSTANCE = new NodeGroupsHelper();
     
-    private HashMap<Class<? extends Node>, ArrayList<String>> nodeToTags = new HashMap<>();
+    private HashMap<NodeType<? extends Node>, ArrayList<String>> nodeToTags = new HashMap<>();
     
-    private HashMap<Class<? extends Node>, String[]> nodeToGroups = new HashMap<>();
+    private HashMap<NodeType<? extends Node>, String[]> nodeToGroups = new HashMap<>();
     private HashMap<String, String> groupToName = new HashMap<>();
     private HashMap<String, String[]> groupToTags = new HashMap<>();
     
@@ -39,7 +39,7 @@ public class NodeGroupsHelper
     
     public ArrayList<String> getTagsForNode(Node node)
     {
-        Class<? extends Node> c = node.getClass();
+        NodeType<? extends Node> c = node.type;
         
         if(!this.nodeToTags.containsKey(c))
         {
@@ -49,7 +49,7 @@ public class NodeGroupsHelper
         return this.getTagsForNode(c);
     }
     
-    private ArrayList<String> getTagsForNode(Class<? extends Node> c)
+    private ArrayList<String> getTagsForNode(NodeType<? extends Node> c)
     {
         return this.nodeToTags.get(c);
     }
@@ -99,7 +99,7 @@ public class NodeGroupsHelper
     
     public String[] getGroupsForNode(Node node)
     {
-        Class<? extends Node> c = node.getClass();
+        NodeType<? extends Node> c = node.type;
         
         if(!this.nodeToGroups.containsKey(c))
         {
@@ -109,7 +109,7 @@ public class NodeGroupsHelper
         return this.getGroupsForNode(c);
     }
     
-    private String[] getGroupsForNode(Class<? extends Node> c)
+    private String[] getGroupsForNode(NodeType<? extends Node> c)
     {
         return this.nodeToGroups.get(c);
     }
