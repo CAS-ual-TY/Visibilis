@@ -19,6 +19,18 @@ public abstract class NodeBiGenericConstant<O, I> extends NodeBiGenericP<O, I>
         return VUtility.cast(input);
     }
     
+    @Override
+    public float[] getColor()
+    {
+        return this.getOutDataType().getColor();
+    }
+    
+    @Override
+    public float[] getTextColor()
+    {
+        return this.getOutDataType().getTextColor();
+    }
+    
     public static <O, I> NodeType.IFactory<NodeBiGenericConstant<O, I>> createTypeBiGenericV(DataType<O> dataTypeOut, DataType<I> dataTypeIn, Function<I, O> function)
     {
         return (type) ->

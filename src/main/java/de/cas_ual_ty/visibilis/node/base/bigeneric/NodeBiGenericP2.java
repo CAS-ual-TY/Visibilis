@@ -27,6 +27,18 @@ public abstract class NodeBiGenericP2<O, I> extends NodeTriGenericP2<O, I, I>
         return this.getInDataType();
     }
     
+    @Override
+    public float[] getColor()
+    {
+        return this.getOutDataType().getColor();
+    }
+    
+    @Override
+    public float[] getTextColor()
+    {
+        return this.getOutDataType().getTextColor();
+    }
+    
     public static <O, I> NodeType.IFactory<NodeBiGenericP2<O, I>> createTypeBiGenericP2(DataType<O> dataTypeOut, DataType<I> dataTypeIn, BiFunction<I, I, O> function)
     {
         return NodeBiGenericP2.createTypeBiGenericP2(dataTypeOut, dataTypeIn, function, (input, in2) -> true);

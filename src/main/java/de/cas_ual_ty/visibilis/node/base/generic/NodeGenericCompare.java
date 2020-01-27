@@ -39,13 +39,13 @@ public abstract class NodeGenericCompare<I> extends NodeBiGenericP2<Boolean, I>
     @Override
     public float[] getColor()
     {
-        return this.getOutDataType().getColor();
+        return this.getDataType().getColor();
     }
     
     @Override
     public float[] getTextColor()
     {
-        return this.getOutDataType().getTextColor();
+        return this.getDataType().getTextColor();
     }
     
     public static <I> NodeType.IFactory<NodeGenericCompare<I>> createTypeGenericCompare(DataType<I> dataType, BiFunction<I, I, Boolean> function)

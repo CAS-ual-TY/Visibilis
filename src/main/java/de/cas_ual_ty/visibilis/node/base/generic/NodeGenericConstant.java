@@ -16,6 +16,18 @@ public abstract class NodeGenericConstant<B> extends NodeGenericP<B>
         return input;
     }
     
+    @Override
+    public float[] getColor()
+    {
+        return this.getDataType().getColor();
+    }
+    
+    @Override
+    public float[] getTextColor()
+    {
+        return this.getDataType().getTextColor();
+    }
+    
     public static <I> NodeType.IFactory<NodeGenericConstant<I>> createTypeGenericV(DataType<I> dataType)
     {
         return (type) ->

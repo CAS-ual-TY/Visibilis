@@ -141,6 +141,18 @@ public abstract class NodeTriGenericP2<O, I1, I2> extends NodeExpandable
         return null;
     }
     
+    @Override
+    public float[] getColor()
+    {
+        return this.getOutDataType().getColor();
+    }
+    
+    @Override
+    public float[] getTextColor()
+    {
+        return this.getOutDataType().getTextColor();
+    }
+    
     public static <O, I1, I2> NodeType.IFactory<NodeTriGenericP2<O, I1, I2>> createTypeTriGenericP2(DataType<O> dataTypeOut, DataType<I1> dataTypeIn1, DataType<I2> dataTypeIn2, BiFunction<I1, I2, O> function)
     {
         return NodeTriGenericP2.createTypeTriGenericP2(dataTypeOut, dataTypeIn1, dataTypeIn2, function, (input, in2) -> true);
