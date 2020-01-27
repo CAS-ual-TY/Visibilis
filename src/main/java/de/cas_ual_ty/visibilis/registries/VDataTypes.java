@@ -34,7 +34,7 @@ public class VDataTypes
         
         registry.register(new DataType<>(new float[] { 1F, 0F, 0F }).setRegistryName(Visibilis.MOD_ID, "exec"));
         
-        registry.register(new DataTypeDynamic<Integer>(new float[] { 0.5F, 1F, 0F }, 1)
+        registry.register(new DataTypeDynamic<Integer>(new float[] { 1F, 1F, 0.75F }, 1)
         {
             @Override
             public boolean equals(Integer obj1, Integer obj2)
@@ -86,7 +86,7 @@ public class VDataTypes
             }
         }.setBlackText().setRegistryName(Visibilis.MOD_ID, "integer"));
         
-        registry.register(new DataTypeDynamic<Float>(new float[] { 1F, 1F, 0F }, 1.0F)
+        registry.register(new DataTypeDynamic<Float>(new float[] { 1F, 1F, 0.5F }, 1.0F)
         {
             @Override
             public boolean equals(Float obj1, Float obj2)
@@ -138,7 +138,7 @@ public class VDataTypes
             }
         }.setBlackText().setRegistryName(Visibilis.MOD_ID, "float"));
         
-        registry.register(new DataTypeDynamic<Double>(new float[] { 1F, 1F, 0F }, 1.0D)
+        registry.register(new DataTypeDynamic<Double>(new float[] { 1F, 1F, 0.25F }, 1.0D)
         {
             @Override
             public boolean equals(Double obj1, Double obj2)
@@ -190,7 +190,7 @@ public class VDataTypes
             }
         }.setBlackText().setRegistryName(Visibilis.MOD_ID, "double"));
         
-        registry.register(new DataType<>(new float[] { 1F, 0.5F, 0F }).setRegistryName(Visibilis.MOD_ID, "number"));
+        registry.register(new DataType<Number>(new float[] { 1F, 1F, 0F }).setRegistryName(Visibilis.MOD_ID, "number").setBlackText());
         
         registry.register(new DataTypeEnum<Boolean>(new float[] { 1F, 0F, 1F })
         {
@@ -230,7 +230,7 @@ public class VDataTypes
             }
         }.setBlackText().setRegistryName(Visibilis.MOD_ID, "string"));
         
-        registry.register(new DataType<Vec3d>(new float[] { 1F, 1F, 0.5F }).setRegistryName(Visibilis.MOD_ID, "vector3d").setBlackText());
+        registry.register(new DataType<Vec3d>(new float[] { 1F, 0.5F, 0.5F }).setRegistryName(Visibilis.MOD_ID, "vector3d").setBlackText());
     }
     
     // Called from FMLCommonSetupEvent
