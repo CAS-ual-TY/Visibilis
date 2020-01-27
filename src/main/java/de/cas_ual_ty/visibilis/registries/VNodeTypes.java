@@ -262,19 +262,19 @@ public class VNodeTypes
         registry.register(new NodeType<>(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.cos(d))).setRegistryName(Visibilis.MOD_ID, "cosines"));
         registry.register(new NodeType<>(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.tan(d))).setRegistryName(Visibilis.MOD_ID, "tangent"));
         
-        registry.register(new NodeType<>(NodeGenericP.createTypeGenericP(VDataTypes.NUMBER,
+        registry.register(new NodeType<>(NodeBiGenericP.createTypeBiGenericP(VDataTypes.INTEGER, VDataTypes.NUMBER,
             new NumberFunctionP<>(
                 (i) -> i.intValue(),
                 (i) -> Math.round(i.floatValue()),
-                (i) -> Math.round(i.doubleValue())))).setRegistryName(Visibilis.MOD_ID, "round"));
+                (i) -> (int)Math.round(i.doubleValue())))).setRegistryName(Visibilis.MOD_ID, "round"));
         
-        registry.register(new NodeType<>(NodeGenericP.createTypeGenericP(VDataTypes.NUMBER,
+        registry.register(new NodeType<>(NodeBiGenericP.createTypeBiGenericP(VDataTypes.INTEGER, VDataTypes.NUMBER,
             new NumberFunctionP<>(
                 (i) -> i.intValue(),
                 (i) -> MathHelper.floor(i.floatValue()),
                 (i) -> MathHelper.floor(i.doubleValue())))).setRegistryName(Visibilis.MOD_ID, "floor"));
         
-        registry.register(new NodeType<>(NodeGenericP.createTypeGenericP(VDataTypes.NUMBER,
+        registry.register(new NodeType<>(NodeBiGenericP.createTypeBiGenericP(VDataTypes.INTEGER, VDataTypes.NUMBER,
             new NumberFunctionP<>(
                 (i) -> i.intValue(),
                 (i) -> MathHelper.ceil(i.floatValue()),
