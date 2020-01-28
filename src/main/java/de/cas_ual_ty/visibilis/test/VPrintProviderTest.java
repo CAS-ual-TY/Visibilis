@@ -134,5 +134,6 @@ public class VPrintProviderTest extends PrintProviderItem
         list.add(VNodeTypes.PRINT.instantiate());
         
         list.add(VNodeTypes.GET_PLAYER_OPTIONAL.instantiate());
+        list.add(VNodeTypes.SPLIT_PLAYER.instantiate());
     }
 }

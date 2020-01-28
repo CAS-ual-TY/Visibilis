@@ -18,6 +18,7 @@ import de.cas_ual_ty.visibilis.node.exec.NodeMerge;
 import de.cas_ual_ty.visibilis.node.exec.NodeWhile;
 import de.cas_ual_ty.visibilis.node.general.NodeGetPlayerOptional;
 import de.cas_ual_ty.visibilis.node.general.NodePrint;
+import de.cas_ual_ty.visibilis.node.general.NodeSplitPlayer;
 import de.cas_ual_ty.visibilis.node.vector3d.NodeVector3dCreate;
 import de.cas_ual_ty.visibilis.node.vector3d.NodeVector3dSplit;
 import de.cas_ual_ty.visibilis.test.VNodePrintDebug;
@@ -109,6 +110,7 @@ public class VNodeTypes
     public static final NodeType<Node> PRINT = null;
     
     public static final NodeType<Node> GET_PLAYER_OPTIONAL = null;
+    public static final NodeType<Node> SPLIT_PLAYER = null;
     
     @SubscribeEvent
     public static void register(RegistryEvent.Register<NodeType<? extends Node>> event)
@@ -463,5 +465,6 @@ public class VNodeTypes
         registry.register(new NodeType<>(NodePrint::new).setRegistryName(Visibilis.MOD_ID, "print"));
         
         registry.register(new NodeType<>(NodeGetPlayerOptional::new).setRegistryName(Visibilis.MOD_ID, "get_player_optional"));
+        registry.register(new NodeType<>(NodeSplitPlayer::new).setRegistryName(Visibilis.MOD_ID, "split_player"));
     }
 }

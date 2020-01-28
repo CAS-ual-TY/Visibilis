@@ -378,6 +378,12 @@
     "field.visibilis:get_player_optional.in1": "(I)",
     "node.visibilis:get_player_optional.groups": "player",
     
+    "node.visibilis:split_player": "Split Player",
+    "field.visibilis:split_player.out1": "Position Vector",
+    "field.visibilis:split_player.out2": "Motion Vector",
+    "field.visibilis:split_player.in1": "Player",
+    "node.visibilis:split_player.groups": "player",
+    
     "_commentOther": "--- Other ---",
     "group.other": "Other",
     "group.other.tags": "other",
