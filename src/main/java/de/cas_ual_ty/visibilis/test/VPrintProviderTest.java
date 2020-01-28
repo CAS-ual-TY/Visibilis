@@ -116,9 +116,9 @@ public class VPrintProviderTest extends PrintProviderItem
         list.add(VNodeTypes.LESS_THAN.instantiate());
         list.add(VNodeTypes.LESS_THAN_OR_EQUAL_TO.instantiate());
         
-        list.add(VNodeTypes.CAST_FLOAT_TO_INTEGER.instantiate());
-        list.add(VNodeTypes.CAST_DOUBLE_TO_INTEGER.instantiate());
-        list.add(VNodeTypes.CAST_DOUBLE_TO_FLOAT.instantiate());
+        list.add(VNodeTypes.CAST_NUMBER_TO_INTEGER.instantiate());
+        list.add(VNodeTypes.CAST_NUMBER_TO_FLOAT.instantiate());
+        list.add(VNodeTypes.CAST_NUMBER_TO_DOUBLE.instantiate());
         
         list.add(VNodeTypes.VECTOR3D_CREATE.instantiate());
         list.add(VNodeTypes.VECTOR3D_SPLIT.instantiate());

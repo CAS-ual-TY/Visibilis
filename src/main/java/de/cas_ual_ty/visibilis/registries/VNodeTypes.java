@@ -90,9 +90,9 @@ public class VNodeTypes
     public static final NodeType<Node> LESS_THAN = null;
     public static final NodeType<Node> LESS_THAN_OR_EQUAL_TO = null;
     
-    public static final NodeType<Node> CAST_FLOAT_TO_INTEGER = null;
-    public static final NodeType<Node> CAST_DOUBLE_TO_INTEGER = null;
-    public static final NodeType<Node> CAST_DOUBLE_TO_FLOAT = null;
+    public static final NodeType<Node> CAST_NUMBER_TO_INTEGER = null;
+    public static final NodeType<Node> CAST_NUMBER_TO_FLOAT = null;
+    public static final NodeType<Node> CAST_NUMBER_TO_DOUBLE = null;
     
     public static final NodeType<Node> VECTOR3D_CREATE = null;
     public static final NodeType<Node> VECTOR3D_SPLIT = null;
@@ -431,9 +431,9 @@ public class VNodeTypes
                 (i, j) -> i.floatValue() <= j.floatValue(),
                 (i, j) -> i.doubleValue() <= j.doubleValue()))).setRegistryName(Visibilis.MOD_ID, "less_than_or_equal_to"));
         
-        registry.register(new NodeType<>(NodeBiGenericP.createTypeBiGenericP(VDataTypes.INTEGER, VDataTypes.FLOAT, (f) -> f.intValue())).setRegistryName(Visibilis.MOD_ID, "cast_float_to_integer"));
-        registry.register(new NodeType<>(NodeBiGenericP.createTypeBiGenericP(VDataTypes.INTEGER, VDataTypes.DOUBLE, (d) -> d.intValue())).setRegistryName(Visibilis.MOD_ID, "cast_double_to_integer"));
-        registry.register(new NodeType<>(NodeBiGenericP.createTypeBiGenericP(VDataTypes.FLOAT, VDataTypes.DOUBLE, (f) -> f.floatValue())).setRegistryName(Visibilis.MOD_ID, "cast_double_to_float"));
+        registry.register(new NodeType<>(NodeBiGenericP.createTypeBiGenericP(VDataTypes.NUMBER, VDataTypes.INTEGER, (n) -> n.intValue())).setRegistryName(Visibilis.MOD_ID, "cast_number_to_integer"));
+        registry.register(new NodeType<>(NodeBiGenericP.createTypeBiGenericP(VDataTypes.NUMBER, VDataTypes.FLOAT, (n) -> n.floatValue())).setRegistryName(Visibilis.MOD_ID, "cast_number_to_float"));
+        registry.register(new NodeType<>(NodeBiGenericP.createTypeBiGenericP(VDataTypes.NUMBER, VDataTypes.DOUBLE, (n) -> n.doubleValue())).setRegistryName(Visibilis.MOD_ID, "cast_number_to_double"));
         
         registry.register(new NodeType<>(NodeVector3dCreate::new).setRegistryName(Visibilis.MOD_ID, "vector3d_create"));
         registry.register(new NodeType<>(NodeVector3dSplit::new).setRegistryName(Visibilis.MOD_ID, "vector3d_split"));
