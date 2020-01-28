@@ -4,6 +4,7 @@ import de.cas_ual_ty.visibilis.config.VConfigHelper;
 import de.cas_ual_ty.visibilis.config.VConfiguration;
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.NodeType;
+import de.cas_ual_ty.visibilis.node.player.MessagePlayerMotion;
 import de.cas_ual_ty.visibilis.print.item.MessageItem;
 import de.cas_ual_ty.visibilis.proxy.IVSidedProxy;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
@@ -65,6 +66,7 @@ public class Visibilis
             Visibilis.PROTOCOL_VERSION::equals,
             Visibilis.PROTOCOL_VERSION::equals);
         Visibilis.channel.registerMessage(0, MessageItem.class, MessageItem::encode, MessageItem::decode, MessageItem::handle);
+        Visibilis.channel.registerMessage(1, MessagePlayerMotion.class, MessagePlayerMotion::encode, MessagePlayerMotion::decode, MessagePlayerMotion::handle);
         
         VDataTypes.addConverters();
     }
