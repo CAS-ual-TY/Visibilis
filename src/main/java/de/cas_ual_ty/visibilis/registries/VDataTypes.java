@@ -258,5 +258,6 @@ public class VDataTypes
         VDataTypes.STRING.registerConverter(VDataTypes.NUMBER, new AnyString<>());
         VDataTypes.STRING.registerConverter(VDataTypes.BOOLEAN, new AnyString<>());
         VDataTypes.STRING.registerConverter(VDataTypes.VECTOR3D, new AnyString<>());
+        VDataTypes.STRING.registerConverter(VDataTypes.PLAYER, new AnyString<>());
     }
 }
