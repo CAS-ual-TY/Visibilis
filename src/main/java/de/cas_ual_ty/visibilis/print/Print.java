@@ -219,12 +219,12 @@ public class Print
             }
             
             // Get the connected input of the next node
-            in = (Input<?>)out.getConnections().get(0);
+            in = out.getConnections().get(0);
             
             if(in != null)
             {
                 // Get the node of the input
-                next = (Node)in.getNode();
+                next = in.getNode();
                 
                 if(next != null)
                 {

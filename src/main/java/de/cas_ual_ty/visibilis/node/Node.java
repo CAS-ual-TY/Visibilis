@@ -148,6 +148,8 @@ public abstract class Node
             return false;
         }
         
+        this.calculated = true;
+        
         // Now try calculate this node
         return this.doCalculate(context);
     }
