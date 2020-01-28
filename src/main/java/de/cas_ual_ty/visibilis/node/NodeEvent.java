@@ -1,8 +1,5 @@
-package de.cas_ual_ty.visibilis.node.event;
+package de.cas_ual_ty.visibilis.node;
 
-import de.cas_ual_ty.visibilis.node.ExecContext;
-import de.cas_ual_ty.visibilis.node.Node;
-import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 

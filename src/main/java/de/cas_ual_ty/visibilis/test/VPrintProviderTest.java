@@ -3,7 +3,7 @@ package de.cas_ual_ty.visibilis.test;
 import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.node.Node;
-import de.cas_ual_ty.visibilis.node.event.NodeEvent;
+import de.cas_ual_ty.visibilis.node.NodeEvent;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.item.PrintProviderItem;
 import de.cas_ual_ty.visibilis.registries.VNodeTypes;

@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis.registries;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.node.NodeEvent;
 import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.bigeneric.NodeBiGenericP;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericCompare;
@@ -11,7 +12,6 @@ import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericP;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericP2;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericXP2;
 import de.cas_ual_ty.visibilis.node.base.trigeneric.NodeTriGenericP2;
-import de.cas_ual_ty.visibilis.node.event.NodeEvent;
 import de.cas_ual_ty.visibilis.node.exec.NodeBranch;
 import de.cas_ual_ty.visibilis.node.exec.NodeFor;
 import de.cas_ual_ty.visibilis.node.exec.NodeMerge;
