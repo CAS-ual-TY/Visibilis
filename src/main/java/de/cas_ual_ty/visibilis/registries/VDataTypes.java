@@ -5,6 +5,7 @@ import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.datatype.DataTypeDynamic;
 import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
 import de.cas_ual_ty.visibilis.datatype.converter.AnyString;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.event.RegistryEvent;
@@ -26,6 +27,7 @@ public class VDataTypes
     public static final DataTypeEnum<Boolean> BOOLEAN = null;
     public static final DataTypeDynamic<String> STRING = null;
     public static final DataType<Vec3d> VECTOR3D = null;
+    public static final DataType<PlayerEntity> PLAYER = null;
     
     @SubscribeEvent
     public static void register(RegistryEvent.Register<DataType<?>> event)
@@ -231,6 +233,8 @@ public class VDataTypes
         }.setBlackText().setRegistryName(Visibilis.MOD_ID, "string"));
         
         registry.register(new DataType<>(new float[] { 1F, 0.5F, 0.5F }, (length) -> new Vec3d[length]).setRegistryName(Visibilis.MOD_ID, "vector3d").setBlackText());
+        
+        registry.register(new DataType<>(new float[] { 0.5F, 0F, 1F }, (length) -> new PlayerEntity[length]).setRegistryName(Visibilis.MOD_ID, "player")/*.setBlackText()*/);
     }
     
     // Called from FMLCommonSetupEvent
