@@ -13,7 +13,6 @@ public class VProxyClient implements IVSidedProxy
     @Override
     public void openGuiPrint(PrintProvider helper)
     {
-        //        Minecraft.getMinecraft().displayGuiScreen(new GuiPrintOld(helper));
         Minecraft.getInstance().displayGuiScreen(new GuiPrint(new StringTextComponent("Print"), helper));
     }
     
