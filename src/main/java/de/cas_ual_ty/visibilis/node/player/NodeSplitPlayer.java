@@ -31,7 +31,7 @@ public class NodeSplitPlayer extends Node
     @Override
     public boolean doCalculate(ExecContext context)
     {
-        this.player = this.in1Player.getConvertedValue();
+        this.player = this.in1Player.getValue();
         
         if(this.player == null)
         {

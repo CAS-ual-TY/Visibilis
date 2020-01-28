@@ -72,7 +72,7 @@ public class Input<I> extends NodeField<I>
         return this.hasConnections() ? (I)this.getConvertedValue() : this.getSetValue();
     }
     
-    public I getConvertedValue()
+    protected I getConvertedValue()
     {
         return this.getDataType().convert(this.connection);
     }
@@ -153,6 +153,7 @@ public class Input<I> extends NodeField<I>
     public Input<I> setValue(I value)
     {
         this.value = value;
+        this.mustUseConnection = false;
         return this;
     }
     
