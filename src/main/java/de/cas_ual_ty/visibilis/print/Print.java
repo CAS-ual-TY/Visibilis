@@ -168,7 +168,7 @@ public class Print
      */
     public boolean execute(Node node, DataProvider provider)
     {
-        if(VUtility.isShowdown())
+        if(VUtility.isShutdown())
         {
             return false;
         }

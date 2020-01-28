@@ -43,7 +43,7 @@ public class VUtility
         VConfiguration.shutdown = value;
     }
     
-    public static boolean isShowdown()
+    public static boolean isShutdown()
     {
         return VConfiguration.shutdown;
     }
