@@ -16,6 +16,7 @@ import de.cas_ual_ty.visibilis.node.exec.NodeBranch;
 import de.cas_ual_ty.visibilis.node.exec.NodeFor;
 import de.cas_ual_ty.visibilis.node.exec.NodeMerge;
 import de.cas_ual_ty.visibilis.node.exec.NodeWhile;
+import de.cas_ual_ty.visibilis.node.general.NodeGetPlayerOptional;
 import de.cas_ual_ty.visibilis.node.general.NodePrint;
 import de.cas_ual_ty.visibilis.node.vector3d.NodeVector3dCreate;
 import de.cas_ual_ty.visibilis.node.vector3d.NodeVector3dSplit;
@@ -106,6 +107,8 @@ public class VNodeTypes
     public static final NodeType<Node> VECTOR3D_LENGTH_SQUARED = null;
     
     public static final NodeType<Node> PRINT = null;
+    
+    public static final NodeType<Node> GET_PLAYER_OPTIONAL = null;
     
     @SubscribeEvent
     public static void register(RegistryEvent.Register<NodeType<? extends Node>> event)
@@ -458,5 +461,7 @@ public class VNodeTypes
         registry.register(new NodeType<>(NodeBiGenericP.createTypeBiGenericP(VDataTypes.DOUBLE, VDataTypes.VECTOR3D, (vec) -> vec.lengthSquared())).setRegistryName(Visibilis.MOD_ID, "vector3d_length_squared"));
         
         registry.register(new NodeType<>(NodePrint::new).setRegistryName(Visibilis.MOD_ID, "print"));
+        
+        registry.register(new NodeType<>(NodeGetPlayerOptional::new).setRegistryName(Visibilis.MOD_ID, "get_player_optional"));
     }
 }

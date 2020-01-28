@@ -132,5 +132,7 @@ public class VPrintProviderTest extends PrintProviderItem
         list.add(VNodeTypes.VECTOR3D_LENGTH_SQUARED.instantiate());
         
         list.add(VNodeTypes.PRINT.instantiate());
+        
+        list.add(VNodeTypes.GET_PLAYER_OPTIONAL.instantiate());
     }
 }

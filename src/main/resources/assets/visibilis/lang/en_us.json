@@ -367,6 +367,17 @@
     "field.visibilis:vector3d_length_squared.in1": "(X, Y, Z)",
     "node.visibilis:vector3d_length_squared.groups": "vector",
     
+    "_commentPlayer": "--- Player ---",
+    "group.player": "Player",
+    "group.player.tags": "player",
+    
+    "node.visibilis:get_player_optional": "Get Player Optional",
+    "field.visibilis:get_player_optional.out1": "(O) Player != null",
+    "field.visibilis:get_player_optional.out2": "Player",
+    "field.visibilis:get_player_optional.out3": "(O) Player == null",
+    "field.visibilis:get_player_optional.in1": "(I)",
+    "node.visibilis:get_player_optional.groups": "player",
+    
     "_commentOther": "--- Other ---",
     "group.other": "Other",
     "group.other.tags": "other",
