@@ -153,6 +153,10 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
 }
 
+task buildAll(type: GradleBuild) {
+     tasks = ['build', 'sourcesJar']
+}
+
 artifacts {
     archives sourcesJar 
 }
