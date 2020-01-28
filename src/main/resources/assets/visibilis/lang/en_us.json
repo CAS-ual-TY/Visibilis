@@ -384,6 +384,14 @@
     "field.visibilis:split_player.in1": "Player",
     "node.visibilis:split_player.groups": "player",
     
+    "node.visibilis:set_player_transform": "Set Player Transform",
+    "field.visibilis:set_player_transform.out1": "(O)",
+    "field.visibilis:set_player_transform.in1": "(I)",
+    "field.visibilis:set_player_transform.in2": "Player",
+    "field.visibilis:set_player_transform.in3": "Position Vector",
+    "field.visibilis:set_player_transform.in4": "Motion Vector",
+    "node.visibilis:set_player_transform.groups": "player",
+    
     "_commentOther": "--- Other ---",
     "group.other": "Other",
     "group.other.tags": "other",
