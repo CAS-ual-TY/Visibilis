@@ -20,21 +20,14 @@ public class VUtility
         return VUtility.cast(list.clone());
     }
     
-    private static boolean wasShutDown = false;
-    
     public static void shutdown()
     {
-        VUtility.wasShutDown = true;
         VUtility.setShutdown(true);
     }
     
     public static void unShutdown()
     {
-        if(VUtility.wasShutDown)
-        {
-            VUtility.wasShutDown = false;
-            VUtility.setShutdown(false);
-        }
+        VUtility.setShutdown(false);
     }
     
     public static void setShutdown(boolean value)
