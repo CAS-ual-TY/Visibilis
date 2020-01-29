@@ -1,5 +1,7 @@
 package de.cas_ual_ty.visibilis;
 
+import de.cas_ual_ty.visibilis.command.MessagePrintEquipmentSlot;
+import de.cas_ual_ty.visibilis.command.VCommand;
 import de.cas_ual_ty.visibilis.config.VConfigHelper;
 import de.cas_ual_ty.visibilis.config.VConfiguration;
 import de.cas_ual_ty.visibilis.datatype.DataType;
@@ -8,7 +10,6 @@ import de.cas_ual_ty.visibilis.node.player.MessagePlayerMotion;
 import de.cas_ual_ty.visibilis.print.item.MessageItem;
 import de.cas_ual_ty.visibilis.proxy.IVSidedProxy;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
-import de.cas_ual_ty.visibilis.util.VCommand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent.NewRegistry;
@@ -67,6 +68,7 @@ public class Visibilis
             Visibilis.PROTOCOL_VERSION::equals);
         Visibilis.channel.registerMessage(0, MessageItem.class, MessageItem::encode, MessageItem::decode, MessageItem::handle);
         Visibilis.channel.registerMessage(1, MessagePlayerMotion.class, MessagePlayerMotion::encode, MessagePlayerMotion::decode, MessagePlayerMotion::handle);
+        Visibilis.channel.registerMessage(2, MessagePrintEquipmentSlot.class, MessagePrintEquipmentSlot::encode, MessagePrintEquipmentSlot::decode, MessagePrintEquipmentSlot::handle);
         
         VDataTypes.addConverters();
     }

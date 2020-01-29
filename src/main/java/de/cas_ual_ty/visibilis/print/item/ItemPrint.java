@@ -8,6 +8,7 @@ import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.PrintProvider;
 import de.cas_ual_ty.visibilis.util.VNBTUtility;
 import de.cas_ual_ty.visibilis.util.VUtility;
+import net.minecraft.command.CommandSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
@@ -92,5 +93,11 @@ public class ItemPrint extends Item
     {
         CompoundNBT nbt0 = itemStack.getOrCreateTag();
         nbt0.put(Visibilis.MOD_ID, nbt);
+    }
+    
+    // is this item editable via the "v edit" command?
+    public boolean isEditable(ItemStack itemStack, CommandSource source)
+    {
+        return false;
     }
 }

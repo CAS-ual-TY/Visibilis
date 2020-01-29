@@ -61,6 +61,7 @@ public class NodeListProviderBase extends NodeListProvider
     public static void debug(ArrayList<Node> list)
     {
         list.add(VNodeTypes.EVENT_COMMAND.instantiate());
+        list.add(VNodeTypes.EVENT_RIGHT_CLICK.instantiate());
         list.add(VNodeTypes.PRINT_DEBUG.instantiate());
         list.add(VNodeTypes.PRINT.instantiate());
     }

@@ -40,6 +40,7 @@ import net.minecraftforge.registries.ObjectHolder;
 public class VNodeTypes
 {
     public static final NodeType<Node> EVENT_COMMAND = null;
+    public static final NodeType<Node> EVENT_RIGHT_CLICK = null;
     public static final NodeType<Node> PRINT_DEBUG = null;
     
     public static final NodeType<Node> ADDITION = null;
@@ -120,6 +121,7 @@ public class VNodeTypes
         IForgeRegistry<NodeType<? extends Node>> registry = event.getRegistry();
         
         registry.register(new NodeType<>((type) -> new NodeEvent(type, Visibilis.MOD_ID, "command")).setRegistryName(Visibilis.MOD_ID, "event_command"));
+        registry.register(new NodeType<>((type) -> new NodeEvent(type, Visibilis.MOD_ID, "right_click")).setRegistryName(Visibilis.MOD_ID, "event_right_click"));
         registry.register(new NodeType<>(VNodePrintDebug::new).setRegistryName(Visibilis.MOD_ID, "print_debug"));
         
         registry.register(new NodeType<>(NodeGenericXP2.createTypeGenericXP2(VDataTypes.NUMBER,
