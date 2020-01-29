@@ -50,6 +50,31 @@ public class NodeListProviderBase extends NodeListProvider
         super.onNodeRemoved(node);
     }
     
+    @Override
+    public void onOpen(Print print)
+    {
+        // Remove all already existing event nodes so they cant be added twice
+        
+        Node f;
+        for(NodeEvent n : print.events)
+        {
+            f = null;
+            for(Node n1 : this.list)
+            {
+                if(n.type == n1.type)
+                {
+                    f = n1;
+                    break;
+                }
+            }
+            
+            if(f != null)
+            {
+                this.list.remove(f);
+            }
+        }
+    }
+    
     public static void addAllNodesToList(ArrayList<Node> list)
     {
         NodeListProviderBase.debug(list);

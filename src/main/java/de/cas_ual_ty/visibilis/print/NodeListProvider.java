@@ -32,6 +32,11 @@ public abstract class NodeListProvider
     {
     }
     
+    public void onOpen(Print print)
+    {
+        
+    }
+    
     /**
      * Is the user permitted to delete the given node? Used in {@link #getActionsForNode(Screen, Node)}.
      */

@@ -57,17 +57,26 @@ public abstract class PrintProvider
     /**
      * Called when the gui is opened (beginning of constructor {@link Screen#Screen(ITextComponent)})
      */
-    public abstract void init();
+    public void init()
+    {
+        
+    }
     
     /**
      * Called when the gui is opened (end of constructor {@link Screen#Screen(ITextComponent)})
      */
-    public abstract void onGuiOpen();
+    public void onGuiOpen()
+    {
+        this.nodeListProvider.onOpen(this.getPrint());
+    }
     
     /**
      * Called when the opened gui is closed (end of {@link Screen#onClose()}
      */
-    public abstract void onGuiClose();
+    public void onGuiClose()
+    {
+        
+    }
     
     /**
      * Is the user permitted to delete the given node? Used in {@link #getActionsForNode(Screen, Node)}.
