@@ -11,9 +11,9 @@ import net.minecraft.util.math.Vec3d;
 
 public class NodeVector3dSplit extends Node
 {
-    public final Output<Float> out1Float;
-    public final Output<Float> out2Float;
-    public final Output<Float> out3Float;
+    public final Output<Double> out1Double;
+    public final Output<Double> out2Double;
+    public final Output<Double> out3Double;
     public final Input<Vec3d> in1Vector3d;
     
     protected double x, y, z;
@@ -21,9 +21,9 @@ public class NodeVector3dSplit extends Node
     public NodeVector3dSplit(NodeType<?> type)
     {
         super(type);
-        this.addOutput(this.out1Float = new Output<>(this, VDataTypes.FLOAT, "out1"));
-        this.addOutput(this.out2Float = new Output<>(this, VDataTypes.FLOAT, "out2"));
-        this.addOutput(this.out3Float = new Output<>(this, VDataTypes.FLOAT, "out3"));
+        this.addOutput(this.out1Double = new Output<>(this, VDataTypes.DOUBLE, "out1"));
+        this.addOutput(this.out2Double = new Output<>(this, VDataTypes.DOUBLE, "out2"));
+        this.addOutput(this.out3Double = new Output<>(this, VDataTypes.DOUBLE, "out3"));
         this.addInput(this.in1Vector3d = new Input<>(this, VDataTypes.VECTOR3D, "in1"));
     }
     
@@ -39,15 +39,15 @@ public class NodeVector3dSplit extends Node
     @Override
     public <O> O getOutputValue(Output<O> out)
     {
-        if(out == this.out1Float)
+        if(out == this.out1Double)
         {
             return VUtility.cast(this.x);
         }
-        if(out == this.out2Float)
+        if(out == this.out2Double)
         {
             return VUtility.cast(this.y);
         }
-        if(out == this.out3Float)
+        if(out == this.out3Double)
         {
             return VUtility.cast(this.z);
         }

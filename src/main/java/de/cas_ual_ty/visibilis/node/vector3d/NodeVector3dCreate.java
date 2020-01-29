@@ -12,9 +12,9 @@ import net.minecraft.util.math.Vec3d;
 public class NodeVector3dCreate extends Node
 {
     public final Output<Vec3d> out1Vector3d;
-    public final Input<Float> in1Float;
-    public final Input<Float> in2Float;
-    public final Input<Float> in3Float;
+    public final Input<Double> in1Double;
+    public final Input<Double> in2Double;
+    public final Input<Double> in3Double;
     
     protected Vec3d value;
     
@@ -22,15 +22,15 @@ public class NodeVector3dCreate extends Node
     {
         super(type);
         this.addOutput(this.out1Vector3d = new Output<>(this, VDataTypes.VECTOR3D, "out1"));
-        this.addInput(this.in1Float = new Input<>(this, VDataTypes.FLOAT, "in1"));
-        this.addInput(this.in2Float = new Input<>(this, VDataTypes.FLOAT, "in2"));
-        this.addInput(this.in3Float = new Input<>(this, VDataTypes.FLOAT, "in3"));
+        this.addInput(this.in1Double = new Input<>(this, VDataTypes.DOUBLE, "in1"));
+        this.addInput(this.in2Double = new Input<>(this, VDataTypes.DOUBLE, "in2"));
+        this.addInput(this.in3Double = new Input<>(this, VDataTypes.DOUBLE, "in3"));
     }
     
     @Override
     public boolean doCalculate(ExecContext context)
     {
-        this.value = new Vec3d(this.in1Float.getValue(), this.in2Float.getValue(), this.in3Float.getValue());
+        this.value = new Vec3d(this.in1Double.getValue(), this.in2Double.getValue(), this.in3Double.getValue());
         return true;
     }
     
