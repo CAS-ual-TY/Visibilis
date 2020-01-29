@@ -5,7 +5,6 @@ import de.cas_ual_ty.visibilis.node.ExecContext;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.field.Input;
-import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import net.minecraft.entity.player.PlayerEntity;
@@ -35,77 +34,8 @@ public class NodeSetPlayerTransform extends Node
     }
     
     @Override
-    public boolean preCalculate(ExecContext context)
-    {
-        if(!this.isStart())
-        {
-            NodeField<?> field0, field1;
-            
-            int i, j;
-            
-            // Loop through all Input<?> fields
-            for(i = 0; i < this.getInputAmt(); ++i)
-            {
-                // Get the Input<?> field of this node
-                field0 = this.getInput(i);
-                
-                // Check if it also has some connections (parent nodes)
-                // Input<?> fields might also be disconnected
-                if(field0.hasConnections())
-                {
-                    // Input<?> has connections, so loop through all of them
-                    for(j = 0; j < field0.getConnectionsList().size(); ++j)
-                    {
-                        // Get the parent node field (Output<?> of parent node)
-                        field1 = (NodeField<?>)field0.getConnectionsList().get(j);
-                        
-                        // Check if it is calculated
-                        if(!field1.getNode().isCalculated())
-                        {
-                            // Calculate it, return false if it fails
-                            if(!field1.getNode().calculate(context))
-                            {
-                                Visibilis.debug("[1]");
-                                return false;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        
-        return true;
-    }
-    
-    @Override
-    public boolean hasAllRequiredInputs(ExecContext context)
-    {
-        Input<?> field0;
-        int i;
-        
-        // loop through inputs
-        for(i = 0; i < this.getInputAmt(); ++i)
-        {
-            // Get the Input<?> here
-            field0 = (Input<?>)this.getInput(i);
-            
-            // Check if it needs connections or it currently returns nothing
-            if(field0.getMustUseConnections() && !field0.hasConnections())
-            {
-                // no connections -> return false
-                Visibilis.debug("[2]");
-                return false;
-            }
-        }
-        
-        return true;
-    }
-    
-    @Override
     public boolean doCalculate(ExecContext context)
     {
-        Visibilis.debug("Transform Called!");
-        
         this.player = this.in2Player.getValue();
         
         if(this.player == null)
