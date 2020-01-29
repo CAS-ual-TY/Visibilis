@@ -7,6 +7,7 @@ import de.cas_ual_ty.visibilis.print.PrintProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.World;
 
 public class VProxyClient implements IVSidedProxy
 {
@@ -24,5 +25,11 @@ public class VProxyClient implements IVSidedProxy
         {
             consumer.accept(Minecraft.getInstance().player);
         }
+    }
+    
+    @Override
+    public World getClientWorld()
+    {
+        return Minecraft.getInstance().world;
     }
 }

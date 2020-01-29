@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 
 import de.cas_ual_ty.visibilis.print.PrintProvider;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.World;
 
 public interface IVSidedProxy
 {
@@ -13,5 +14,10 @@ public interface IVSidedProxy
     
     public default void doForClientPlayer(Consumer<PlayerEntity> consumer)
     {
+    }
+    
+    public default World getClientWorld()
+    {
+        return null;
     }
 }
