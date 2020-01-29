@@ -2,10 +2,6 @@
     "_commentTestingStart": "--- Testing START ---",
     "item.visibilis.test": "Test Item",
     
-    "node.visibilis:event_command": "vexec",
-    "field.visibilis:event_command.out1": "(O)",
-    "node.visibilis:event_command.groups": "test",
-    
     "node.visibilis:print_debug": "vprintdebug",
     "field.visibilis:print_debug.out1": "(O)",
     "field.visibilis:print_debug.in1": "(I)",
@@ -28,6 +24,18 @@
     "visibilis.action.shrink": "Shrink",
     "visibilis.action.parallelize": "Parallelize",
     "visibilis.action.unparallelize": "De-Parallelize",
+    
+    "_commentEvents": "--- Events ---",
+    "group.events": "Events",
+    "group.events.tags": "events",
+    
+    "node.visibilis:event_command": "vexec",
+    "field.visibilis:event_command.out1": "(O)",
+    "node.visibilis:event_command.groups": "events;test",
+    
+    "node.visibilis:event_right_click": "Right Click Item",
+    "field.visibilis:event_right_click.out1": "(O)",
+    "node.visibilis:event_right_click.groups": "events",
     
     "_commentBaseGroups": "--- Base Groups ---",
     "group.operators": "Operators",
