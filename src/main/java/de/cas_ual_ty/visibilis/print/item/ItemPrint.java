@@ -2,6 +2,8 @@ package de.cas_ual_ty.visibilis.print.item;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.print.GuiPrint;
+import de.cas_ual_ty.visibilis.print.NodeListProvider;
+import de.cas_ual_ty.visibilis.print.NodeListProviderBase;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.PrintProvider;
 import de.cas_ual_ty.visibilis.util.VNBTUtility;
@@ -41,7 +43,7 @@ public class ItemPrint extends Item
     {
         if(player.world.isRemote)
         {
-            VUtility.openGuiForClient(this.getHelper(itemStack, hand == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND.getSlotIndex() : EquipmentSlotType.OFFHAND.getSlotIndex()));
+            VUtility.openGuiForClient(this.getPrintProvider(itemStack, hand == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND.getSlotIndex() : EquipmentSlotType.OFFHAND.getSlotIndex()));
             return true;
         }
         
@@ -56,9 +58,14 @@ public class ItemPrint extends Item
     /**
      * Returns an instance of {@link PrintProvider} which is used to open the {@link de.cas_ual_ty.visibilis.print.GuiPrint} in {@link #openGui(PlayerEntity, ItemStack, Hand)}
      */
-    public PrintProvider getHelper(ItemStack itemStack, int slot)
+    public PrintProvider getPrintProvider(ItemStack itemStack, int slot)
     {
-        return new PrintProviderItem(itemStack, slot);
+        return new PrintProviderItem(this.getNodeList(itemStack, slot), itemStack, slot);
+    }
+    
+    public NodeListProvider getNodeList(ItemStack itemStack, int slot)
+    {
+        return new NodeListProviderBase();
     }
     
     public Print getPrint(ItemStack itemStack)

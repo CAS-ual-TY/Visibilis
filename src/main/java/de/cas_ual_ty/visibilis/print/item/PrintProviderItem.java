@@ -1,6 +1,7 @@
 package de.cas_ual_ty.visibilis.print.item;
 
 import de.cas_ual_ty.visibilis.Visibilis;
+import de.cas_ual_ty.visibilis.print.NodeListProvider;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.PrintProviderNBT;
 import net.minecraft.item.ItemStack;
@@ -11,9 +12,9 @@ public class PrintProviderItem extends PrintProviderNBT
     public ItemStack itemStack;
     public int slot;
     
-    public PrintProviderItem(ItemStack itemStack, int slot)
+    public PrintProviderItem(NodeListProvider nodeListProvider, ItemStack itemStack, int slot)
     {
-        super();
+        super(nodeListProvider);
         
         this.itemStack = itemStack;
         this.slot = slot;

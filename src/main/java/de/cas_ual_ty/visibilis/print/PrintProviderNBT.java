@@ -1,23 +1,14 @@
 package de.cas_ual_ty.visibilis.print;
 
-import java.util.ArrayList;
-
 import de.cas_ual_ty.visibilis.Visibilis;
-import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.util.VNBTUtility;
 import net.minecraft.nbt.CompoundNBT;
 
 public abstract class PrintProviderNBT extends PrintProvider
 {
-    public PrintProviderNBT()
+    public PrintProviderNBT(NodeListProvider nodeListProvider)
     {
-        super();
-    }
-    
-    @Override
-    public ArrayList<Node> getAvailableNodes()
-    {
-        return new ArrayList<>();
+        super(nodeListProvider);
     }
     
     @Override

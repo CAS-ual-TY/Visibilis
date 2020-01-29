@@ -14,10 +14,12 @@ public abstract class PrintProvider
      * If you need access to the screen from here, remember that you can also do that with: Minecraft.getInstance().currentScreen
      */
     
+    protected NodeListProvider nodeListProvider;
     protected UndoList undoList;
     
-    public PrintProvider()
+    public PrintProvider(NodeListProvider nodeListProvider)
     {
+        this.nodeListProvider = nodeListProvider;
         this.undoList = new UndoList();
     }
     
@@ -29,7 +31,10 @@ public abstract class PrintProvider
     /**
      * Get the current available nodes for the side view. THIS IS NOT NULLABLE
      */
-    public abstract ArrayList<Node> getAvailableNodes();
+    public final ArrayList<Node> getAvailableNodes()
+    {
+        return this.nodeListProvider.getAvailableNodes();
+    }
     
     /**
      * Called when a node from {@link #getAvailableNodes()} is added to the print
@@ -37,6 +42,7 @@ public abstract class PrintProvider
      */
     public void onNodeAdded(Node node)
     {
+        this.nodeListProvider.onNodeAdded(node);
     }
     
     /**
@@ -45,6 +51,7 @@ public abstract class PrintProvider
      */
     public void onNodeRemoved(Node node)
     {
+        this.nodeListProvider.onNodeRemoved(node);
     }
     
     /**

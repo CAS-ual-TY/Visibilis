@@ -28,7 +28,7 @@ public class VItemTest extends ItemPrint
     }
     
     @Override
-    public PrintProvider getHelper(ItemStack itemStack, int slot)
+    public PrintProvider getPrintProvider(ItemStack itemStack, int slot)
     {
         return new VPrintProviderTest(itemStack, slot);
     }
