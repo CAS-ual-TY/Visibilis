@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.proxy;
 
-public class VProxyServer
+public class VProxyServer implements IVSidedProxy
 {
     
 }

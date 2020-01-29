@@ -35,7 +35,7 @@ public class Visibilis
     
     public static Visibilis instance;
     
-    public static IVSidedProxy proxy = (IVSidedProxy)DistExecutor.runForDist(() -> de.cas_ual_ty.visibilis.proxy.VProxyClient::new, () -> de.cas_ual_ty.visibilis.proxy.VProxyServer::new);
+    public static IVSidedProxy proxy = DistExecutor.runForDist(() -> de.cas_ual_ty.visibilis.proxy.VProxyClient::new, () -> de.cas_ual_ty.visibilis.proxy.VProxyServer::new);
     
     public static SimpleChannel channel;
     

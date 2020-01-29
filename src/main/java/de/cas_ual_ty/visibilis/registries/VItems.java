@@ -3,7 +3,6 @@ package de.cas_ual_ty.visibilis.registries;
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.test.VItemTest;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -22,7 +21,7 @@ public class VItems
     {
         IForgeRegistry<Item> registry = event.getRegistry();
         
-        registry.register(new VItemTest(new Item.Properties().group(ItemGroup.COMBAT).maxStackSize(1)).setRegistryName(Visibilis.MOD_ID + ":" + "test"));
+        registry.register(new VItemTest(new Item.Properties().maxStackSize(1)).setRegistryName(Visibilis.MOD_ID + ":" + "test"));
     }
     
 }
