@@ -34,9 +34,7 @@ public class Visibilis
     public static final String PROTOCOL_VERSION = "1";
     
     public static Visibilis instance;
-    
-    public static IVSidedProxy proxy = DistExecutor.runForDist(() -> de.cas_ual_ty.visibilis.proxy.VProxyClient::new, () -> de.cas_ual_ty.visibilis.proxy.VProxyServer::new);
-    
+    public static IVSidedProxy proxy;
     public static SimpleChannel channel;
     
     public static IForgeRegistry<NodeType<?>> nodeTypesRegistry;
@@ -45,6 +43,7 @@ public class Visibilis
     public Visibilis()
     {
         Visibilis.instance = this;
+        Visibilis.proxy = DistExecutor.runForDist(() -> de.cas_ual_ty.visibilis.proxy.VProxyClient::new, () -> de.cas_ual_ty.visibilis.proxy.VProxyServer::new);
         
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(this::init);
