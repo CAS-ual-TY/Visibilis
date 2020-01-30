@@ -148,15 +148,24 @@ publishing {
     }
 }
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier = 'deobf'
 }
 
-task buildAll(type: GradleBuild) {
-     tasks = ['build', 'sourcesJar']
+task sourceJar(type: Jar) {
+    from sourceSets.main.allSource
+    classifier = 'sources'
+}
+
+tasks.build.dependsOn('sourceJar', 'deobfJar')
+
+processResources {
+    from (sourceSets.main.resources.srcDirs)
 }
 
 artifacts {
-    archives sourcesJar 
+	archives deobfJar 
+	archives sourceJar
+	archives jar
 }
