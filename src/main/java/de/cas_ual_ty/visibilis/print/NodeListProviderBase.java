@@ -214,5 +214,7 @@ public class NodeListProviderBase extends NodeListProvider
     {
         list.add(VNodeTypes.GET_WORLD_OPTIONAL.instantiate());
         list.add(VNodeTypes.SET_BLOCK.instantiate());
+        list.add(VNodeTypes.BLOCK_POS_CREATE.instantiate());
+        list.add(VNodeTypes.BLOCK_POS_SPLIT.instantiate());
     }
 }
