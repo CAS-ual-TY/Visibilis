@@ -81,6 +81,7 @@ public class NodeListProviderBase extends NodeListProvider
         NodeListProviderBase.exec(list);
         NodeListProviderBase.base(list);
         NodeListProviderBase.player(list);
+        NodeListProviderBase.world(list);
     }
     
     public static void debug(ArrayList<Node> list)
@@ -204,8 +205,13 @@ public class NodeListProviderBase extends NodeListProvider
         list.add(VNodeTypes.VECTOR3D_LENGTH_SQUARED.instantiate());
     }
     
-    private static void string(ArrayList<Node> list)
+    public static void string(ArrayList<Node> list)
     {
         list.add(VNodeTypes.CONCATENATION.instantiate());
+    }
+    
+    public static void world(ArrayList<Node> list)
+    {
+        list.add(VNodeTypes.GET_WORLD_OPTIONAL.instantiate());
     }
 }

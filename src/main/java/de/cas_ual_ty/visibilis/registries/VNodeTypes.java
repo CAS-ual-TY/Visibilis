@@ -16,6 +16,7 @@ import de.cas_ual_ty.visibilis.node.exec.NodeBranch;
 import de.cas_ual_ty.visibilis.node.exec.NodeFor;
 import de.cas_ual_ty.visibilis.node.exec.NodeMerge;
 import de.cas_ual_ty.visibilis.node.exec.NodeWhile;
+import de.cas_ual_ty.visibilis.node.general.NodeGetWorldOptional;
 import de.cas_ual_ty.visibilis.node.general.NodePrint;
 import de.cas_ual_ty.visibilis.node.player.NodeGetPlayerOptional;
 import de.cas_ual_ty.visibilis.node.player.NodeSetPlayerTransform;
@@ -114,6 +115,8 @@ public class VNodeTypes
     public static final NodeType<Node> GET_PLAYER_OPTIONAL = null;
     public static final NodeType<Node> SPLIT_PLAYER = null;
     public static final NodeType<Node> SET_PLAYER_TRANSFORM = null;
+    
+    public static final NodeType<Node> GET_WORLD_OPTIONAL = null;
     
     @SubscribeEvent
     public static void register(RegistryEvent.Register<NodeType<? extends Node>> event)
@@ -471,5 +474,7 @@ public class VNodeTypes
         registry.register(new NodeType<>(NodeGetPlayerOptional::new).setRegistryName(Visibilis.MOD_ID, "get_player_optional"));
         registry.register(new NodeType<>(NodeSplitPlayer::new).setRegistryName(Visibilis.MOD_ID, "split_player"));
         registry.register(new NodeType<>(NodeSetPlayerTransform::new).setRegistryName(Visibilis.MOD_ID, "set_player_transform"));
+        
+        registry.register(new NodeType<>(NodeGetWorldOptional::new).setRegistryName(Visibilis.MOD_ID, "get_world_optional"));
     }
 }
