@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -28,8 +29,9 @@ public class VDataTypes
     public static final DataTypeEnum<Boolean> BOOLEAN = null;
     public static final DataTypeDynamic<String> STRING = null;
     public static final DataType<Vec3d> VECTOR3D = null;
-    public static final DataType<BlockPos> BLOCK_POS = null;
     public static final DataType<PlayerEntity> PLAYER = null;
+    public static final DataType<BlockPos> BLOCK_POS = null;
+    public static final DataType<World> WORLD = null;
     
     @SubscribeEvent
     public static void register(RegistryEvent.Register<DataType<?>> event)
@@ -235,9 +237,9 @@ public class VDataTypes
         }.setBlackText().setRegistryName(Visibilis.MOD_ID, "string"));
         
         registry.register(new DataType<>(new float[] { 1F, 0.5F, 0.5F }, (length) -> new Vec3d[length]).setRegistryName(Visibilis.MOD_ID, "vector3d").setBlackText());
-        registry.register(new DataType<>(new float[] { 1F, 0.75F, 0.75F }, (length) -> new BlockPos[length]).setRegistryName(Visibilis.MOD_ID, "block_pos").setBlackText());
-        
         registry.register(new DataType<>(new float[] { 0.5F, 0F, 1F }, (length) -> new PlayerEntity[length]).setRegistryName(Visibilis.MOD_ID, "player")/*.setBlackText()*/);
+        registry.register(new DataType<>(new float[] { 1F, 0.75F, 0.75F }, (length) -> new BlockPos[length]).setRegistryName(Visibilis.MOD_ID, "block_pos").setBlackText());
+        registry.register(new DataType<>(new float[] { 1F, 0F, 1F }, (length) -> new World[length]).setRegistryName(Visibilis.MOD_ID, "world").setBlackText());
     }
     
     // Called from FMLCommonSetupEvent
