@@ -3,7 +3,6 @@ package de.cas_ual_ty.visibilis.node.world;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
-import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.ExecContext;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeType;
@@ -45,8 +44,6 @@ public class NodeSetBlock extends Node
             parser.parse(true);
             
             BlockState state = parser.getState();
-            
-            Visibilis.debug(state.toString());
             
             if(state != null)
             {
