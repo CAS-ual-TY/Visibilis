@@ -9,11 +9,13 @@ import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.World;
 
 public class NodeSplitPlayer extends Node
 {
     public Output<Vec3d> out1Vector3d; // position
     public Output<Vec3d> out2Vector3d; // motion
+    public Output<World> out3World; // world
     public Input<PlayerEntity> in1Player;
     
     protected PlayerEntity player;
@@ -25,6 +27,7 @@ public class NodeSplitPlayer extends Node
         super(type);
         this.addOutput(this.out1Vector3d = new Output<>(this, VDataTypes.VECTOR3D, "out1"));
         this.addOutput(this.out2Vector3d = new Output<>(this, VDataTypes.VECTOR3D, "out2"));
+        this.addOutput(this.out3World = new Output<>(this, VDataTypes.WORLD, "out3"));
         this.addInput(this.in1Player = new Input<>(this, VDataTypes.PLAYER, "in1"));
     }
     
@@ -47,7 +50,7 @@ public class NodeSplitPlayer extends Node
     @Override
     public <O> O getOutputValue(Output<O> out)
     {
-        return out == this.out1Vector3d ? VUtility.cast(this.position) : (out == this.out2Vector3d ? VUtility.cast(this.motion) : null);
+        return out == this.out1Vector3d ? VUtility.cast(this.position) : (out == this.out2Vector3d ? VUtility.cast(this.motion) : (out == this.out3World ? VUtility.cast(this.player.world) : null));
     }
     
     @Override
