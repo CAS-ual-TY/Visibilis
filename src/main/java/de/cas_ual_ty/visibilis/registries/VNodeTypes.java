@@ -132,7 +132,7 @@ public class VNodeTypes
                 (ints) ->
                 {
                     int r = 0;
-                    for(Integer i : ints)
+                    for(Number i : ints)
                     {
                         r += i.intValue();
                     }
@@ -141,7 +141,7 @@ public class VNodeTypes
                 (floats) ->
                 {
                     float r = 0;
-                    for(Float i : floats)
+                    for(Number i : floats)
                     {
                         r += i.floatValue();
                     }
@@ -150,7 +150,7 @@ public class VNodeTypes
                 (doubles) ->
                 {
                     double r = 0;
-                    for(Double i : doubles)
+                    for(Number i : doubles)
                     {
                         r += i.doubleValue();
                     }
@@ -174,7 +174,7 @@ public class VNodeTypes
                 (ints) ->
                 {
                     int r = 1;
-                    for(Integer i : ints)
+                    for(Number i : ints)
                     {
                         r *= i.intValue();
                     }
@@ -183,7 +183,7 @@ public class VNodeTypes
                 (floats) ->
                 {
                     float r = 1;
-                    for(Float i : floats)
+                    for(Number i : floats)
                     {
                         r *= i.floatValue();
                     }
@@ -192,7 +192,7 @@ public class VNodeTypes
                 (doubles) ->
                 {
                     double r = 1;
-                    for(Double i : doubles)
+                    for(Number i : doubles)
                     {
                         r *= i.doubleValue();
                     }

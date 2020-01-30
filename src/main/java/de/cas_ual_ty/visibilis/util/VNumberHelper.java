@@ -95,11 +95,11 @@ public class VNumberHelper
     
     public static class NumberFunctionX<T> implements Function<Number[], T>
     {
-        private final Function<Integer[], T> functionInteger;
-        private final Function<Float[], T> functionFloat;
-        private final Function<Double[], T> functionDouble;
+        private final Function<Number[], T> functionInteger;
+        private final Function<Number[], T> functionFloat;
+        private final Function<Number[], T> functionDouble;
         
-        public NumberFunctionX(Function<Integer[], T> functionInteger, Function<Float[], T> functionFloat, Function<Double[], T> functionDouble)
+        public NumberFunctionX(Function<Number[], T> functionInteger, Function<Number[], T> functionFloat, Function<Number[], T> functionDouble)
         {
             super();
             this.functionInteger = functionInteger;
@@ -114,15 +114,15 @@ public class VNumberHelper
             
             if(t == VDataTypes.DOUBLE)
             {
-                return this.functionDouble.apply((Double[])ns);
+                return this.functionDouble.apply(ns);
             }
             else if(t == VDataTypes.FLOAT)
             {
-                return this.functionFloat.apply((Float[])ns);
+                return this.functionFloat.apply(ns);
             }
             else
             {
-                return this.functionInteger.apply((Integer[])ns);
+                return this.functionInteger.apply(ns);
             }
         }
     }
