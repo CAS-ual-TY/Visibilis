@@ -23,6 +23,7 @@ import de.cas_ual_ty.visibilis.node.player.NodeSplitPlayer;
 import de.cas_ual_ty.visibilis.node.vector3d.NodeVector3dCreate;
 import de.cas_ual_ty.visibilis.node.vector3d.NodeVector3dSplit;
 import de.cas_ual_ty.visibilis.node.world.NodeGetWorldOptional;
+import de.cas_ual_ty.visibilis.node.world.NodeSetBlock;
 import de.cas_ual_ty.visibilis.test.VNodePrintDebug;
 import de.cas_ual_ty.visibilis.util.VNumberHelper.NumberFunctionP;
 import de.cas_ual_ty.visibilis.util.VNumberHelper.NumberFunctionP2;
@@ -117,6 +118,7 @@ public class VNodeTypes
     public static final NodeType<Node> SET_PLAYER_TRANSFORM = null;
     
     public static final NodeType<Node> GET_WORLD_OPTIONAL = null;
+    public static final NodeType<Node> SET_BLOCK = null;
     
     @SubscribeEvent
     public static void register(RegistryEvent.Register<NodeType<? extends Node>> event)
@@ -476,5 +478,6 @@ public class VNodeTypes
         registry.register(new NodeType<>(NodeSetPlayerTransform::new).setRegistryName(Visibilis.MOD_ID, "set_player_transform"));
         
         registry.register(new NodeType<>(NodeGetWorldOptional::new).setRegistryName(Visibilis.MOD_ID, "get_world_optional"));
+        registry.register(new NodeType<>(NodeSetBlock::new).setRegistryName(Visibilis.MOD_ID, "set_block"));
     }
 }

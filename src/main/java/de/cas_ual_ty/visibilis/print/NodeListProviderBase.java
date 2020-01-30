@@ -213,5 +213,6 @@ public class NodeListProviderBase extends NodeListProvider
     public static void world(ArrayList<Node> list)
     {
         list.add(VNodeTypes.GET_WORLD_OPTIONAL.instantiate());
+        list.add(VNodeTypes.SET_BLOCK.instantiate());
     }
 }
