@@ -237,9 +237,9 @@ public class VDataTypes
         }.setBlackText().setRegistryName(Visibilis.MOD_ID, "string"));
         
         registry.register(new DataType<>(new float[] { 1F, 0.5F, 0.5F }, (length) -> new Vec3d[length]).setRegistryName(Visibilis.MOD_ID, "vector3d").setBlackText());
-        registry.register(new DataType<>(new float[] { 0.5F, 0F, 1F }, (length) -> new PlayerEntity[length]).setRegistryName(Visibilis.MOD_ID, "player")/*.setBlackText()*/);
+        registry.register(new DataType<>(new float[] { 0.5F, 0F, 1F }, (length) -> new PlayerEntity[length]).setRegistryName(Visibilis.MOD_ID, "player"));
         registry.register(new DataType<>(new float[] { 1F, 0.75F, 0.75F }, (length) -> new BlockPos[length]).setRegistryName(Visibilis.MOD_ID, "block_pos").setBlackText());
-        registry.register(new DataType<>(new float[] { 1F, 0F, 1F }, (length) -> new World[length]).setRegistryName(Visibilis.MOD_ID, "world").setBlackText());
+        registry.register(new DataType<>(new float[] { 0.25F, 0F, 0.5F }, (length) -> new World[length]).setRegistryName(Visibilis.MOD_ID, "world"));
     }
     
     // Called from FMLCommonSetupEvent
