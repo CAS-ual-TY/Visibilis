@@ -26,6 +26,13 @@ public class Output<O> extends NodeField<O>
         this.connections = new ArrayList<>();
     }
     
+    @Override
+    public Output<O> setTriggerRecalculation()
+    {
+        super.setTriggerRecalculation();
+        return this;
+    }
+    
     /**
      * @return The list of all connections.
      */

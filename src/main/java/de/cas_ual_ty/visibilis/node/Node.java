@@ -619,21 +619,45 @@ public abstract class Node
         return new ArrayList<>();
     }
     
-    public void triggerRecalculation(Input<?> input)
+    public void triggerParentRecalculation(Input<?> input)
     {
         if(input.hasConnections())
         {
-            this.triggerRecalculation(input.getConnection().getNode());
+            this.triggerParentRecalculation(input.getConnection().getNode());
         }
     }
     
-    public void triggerRecalculation(Node node)
+    public void triggerParentRecalculation(Node node)
     {
         if(node != null)
         {
+            node.resetValues();
             for(int i = 0; i < node.getInputAmt(); ++i)
             {
-                this.triggerRecalculation(node.getInput(i));
+                this.triggerParentRecalculation(node.getInput(i));
+            }
+        }
+    }
+    
+    public void triggerChildRecalculation(Output<?> output)
+    {
+        if(output.hasConnections())
+        {
+            for(Input<?> in : output.getConnections())
+            {
+                this.triggerChildRecalculation(in.getNode());
+            }
+        }
+    }
+    
+    public void triggerChildRecalculation(Node node)
+    {
+        if(node != null)
+        {
+            node.resetValues();
+            for(int i = 0; i < node.getOutputAmt(); ++i)
+            {
+                this.triggerChildRecalculation(node.getOutput(i));
             }
         }
     }

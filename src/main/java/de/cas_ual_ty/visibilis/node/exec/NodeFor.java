@@ -23,7 +23,7 @@ public class NodeFor extends Node
     {
         super(type);
         this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1"));
-        this.addOutput(this.out2Index = new Output<>(this, VDataTypes.INTEGER, "out2"));
+        this.addOutput(this.out2Index = new Output<>(this, VDataTypes.INTEGER, "out2").setTriggerRecalculation());
         this.addOutput(this.out3Exec = new Output<>(this, VDataTypes.EXEC, "out3"));
         this.addInput(this.in1Exec = new Input<>(this, VDataTypes.EXEC, "in1"));
         this.addInput(this.in2Length = new Input<>(this, VDataTypes.INTEGER, "in2"));

@@ -23,20 +23,21 @@ public class NodeWhile extends Node
         this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1"));
         this.addOutput(this.out2Exec = new Output<>(this, VDataTypes.EXEC, "out2"));
         this.addInput(this.in1Exec = new Input<>(this, VDataTypes.EXEC, "in1"));
-        this.addInput(this.in2Condition = new Input<>(this, VDataTypes.BOOLEAN, "in2"));
+        this.addInput(this.in2Condition = new Input<>(this, VDataTypes.BOOLEAN, "in2").setTriggerRecalculation());
         this.exec2 = false;
     }
     
     @Override
     public Output<Object> getOutExec(int index)
     {
+        this.condition = this.in2Condition.getValue();
+        
         if(this.exec2)
         {
             return null;
         }
         else if(this.condition)
         {
-            this.triggerRecalculation(this.in2Condition);
             return this.out1Exec;
         }
         else
@@ -49,7 +50,6 @@ public class NodeWhile extends Node
     @Override
     public boolean doCalculate(ExecContext context)
     {
-        this.condition = this.in2Condition.getValue();
         return true;
     }
     

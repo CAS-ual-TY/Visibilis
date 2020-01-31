@@ -37,11 +37,14 @@ public abstract class NodeField<B>
      */
     private final String name;
     
+    private boolean triggerRecalculation;
+    
     public NodeField(Node node, DataType<B> dataType, String name)
     {
         this.node = node;
         this.dataType = dataType;
         this.name = name;
+        this.triggerRecalculation = false;
     }
     
     public Node getNode()
@@ -57,6 +60,17 @@ public abstract class NodeField<B>
     public String getName()
     {
         return this.name;
+    }
+    
+    public boolean doesTriggerRecalculation()
+    {
+        return this.triggerRecalculation;
+    }
+    
+    public NodeField<B> setTriggerRecalculation()
+    {
+        this.triggerRecalculation = true;
+        return this;
     }
     
     /**

@@ -35,6 +35,13 @@ public class Input<I> extends NodeField<I>
         this.mustUseConnection = !dataType.hasDefaultValue();
     }
     
+    @Override
+    public Input<I> setTriggerRecalculation()
+    {
+        super.setTriggerRecalculation();
+        return this;
+    }
+    
     /**
      * @return The output this is connected to (or null).
      */
