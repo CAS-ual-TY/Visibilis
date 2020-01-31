@@ -389,6 +389,7 @@
     "node.visibilis:split_player": "Split Player",
     "field.visibilis:split_player.out1": "Position Vector",
     "field.visibilis:split_player.out2": "Motion Vector",
+    "field.visibilis:split_player.out3": "World",
     "field.visibilis:split_player.in1": "Player",
     "node.visibilis:split_player.groups": "player",
     
@@ -399,6 +400,39 @@
     "field.visibilis:set_player_transform.in3": "Position Vector",
     "field.visibilis:set_player_transform.in4": "Motion Vector",
     "node.visibilis:set_player_transform.groups": "player",
+    
+    "_commentWorld": "--- World ---",
+    "group.world": "World",
+    "group.world.tags": "world",
+    
+    "node.visibilis:get_world_optional": "Get World Optional",
+    "field.visibilis:get_world_optional.out1": "(O) World != null",
+    "field.visibilis:get_world_optional.out2": "World",
+    "field.visibilis:get_world_optional.out3": "(O) World == null",
+    "field.visibilis:get_world_optional.in1": "(I)",
+    "node.visibilis:get_world_optional.groups": "world",
+    
+    "node.visibilis:set_block": "Set Block",
+    "field.visibilis:set_block.out1": "(O)",
+    "field.visibilis:set_block.in1": "(I)",
+    "field.visibilis:set_block.in2": "World",
+    "field.visibilis:set_block.in3": "Block Pos",
+    "field.visibilis:set_block.in4": "Block State",
+    "node.visibilis:set_block.groups": "world",
+    
+    "node.visibilis:block_pos_create": "Create Block Pos",
+    "field.visibilis:block_pos_create.out1": "(X, Y, Z)",
+    "field.visibilis:block_pos_create.in1": "X",
+    "field.visibilis:block_pos_create.in2": "Y",
+    "field.visibilis:block_pos_create.in3": "Z",
+    "node.visibilis:block_pos_create.groups": "world",
+    
+    "node.visibilis:block_pos_split": "Split Block Pos",
+    "field.visibilis:block_pos_split.out1": "X",
+    "field.visibilis:block_pos_split.out2": "Y",
+    "field.visibilis:block_pos_split.out3": "Z",
+    "field.visibilis:block_pos_split.in1": "(X, Y, Z)",
+    "node.visibilis:block_pos_split.groups": "world",
     
     "_commentOther": "--- Other ---",
     "group.other": "Other",

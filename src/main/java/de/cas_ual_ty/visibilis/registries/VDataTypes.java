@@ -265,5 +265,8 @@ public class VDataTypes
         VDataTypes.STRING.registerConverter(VDataTypes.VECTOR3D, new AnyString<>());
         VDataTypes.STRING.registerConverter(VDataTypes.PLAYER, new AnyString<>());
         VDataTypes.STRING.registerConverter(VDataTypes.BLOCK_POS, new AnyString<>());
+        
+        VDataTypes.BLOCK_POS.registerConverter(VDataTypes.VECTOR3D, BlockPos::new);
+        VDataTypes.VECTOR3D.registerConverter(VDataTypes.BLOCK_POS, Vec3d::new);
     }
 }
