@@ -60,6 +60,7 @@ public class VNodeTypes
     public static final NodeType<Node> LOGARITHM_E = null;
     public static final NodeType<Node> ROOT = null;
     
+    public static final NodeType<Node> CONSTANT_STRING = null;
     public static final NodeType<Node> CONCATENATION = null;
     
     public static final NodeType<Node> E = null;
@@ -254,6 +255,7 @@ public class VNodeTypes
         registry.register(new NodeType<>(NodeGenericP.createTypeGenericP(VDataTypes.DOUBLE, (d) -> Math.log(d))).setRegistryName(Visibilis.MOD_ID, "logarithm_e"));
         registry.register(new NodeType<>(NodeGenericP2.createTypeGenericP2(VDataTypes.DOUBLE, (d1, d2) -> Math.pow(Math.E, Math.log(d1.doubleValue()) / d2.doubleValue()))).setRegistryName(Visibilis.MOD_ID, "root"));
         
+        registry.register(new NodeType<>(NodeGenericConstant.createTypeGenericV(VDataTypes.STRING)).setRegistryName(Visibilis.MOD_ID, "constant_string"));
         registry.register(new NodeType<>(NodeGenericXP2.createTypeGenericXP2(VDataTypes.STRING,
             (ss) ->
             {

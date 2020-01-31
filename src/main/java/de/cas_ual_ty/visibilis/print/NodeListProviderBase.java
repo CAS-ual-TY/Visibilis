@@ -207,6 +207,7 @@ public class NodeListProviderBase extends NodeListProvider
     
     public static void string(ArrayList<Node> list)
     {
+        list.add(VNodeTypes.CONSTANT_STRING.instantiate());
         list.add(VNodeTypes.CONCATENATION.instantiate());
     }
     
