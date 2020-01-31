@@ -143,6 +143,11 @@
     "field.visibilis:constant_boolean.out1": "Boolean",
     "node.visibilis:constant_boolean.groups": "constants;logic_gates",
     
+    "node.visibilis:constant_string": "String Constant",
+    "field.visibilis:constant_string.in1": "String",
+    "field.visibilis:constant_string.out1": "String",
+    "node.visibilis:constant_string.groups": "constants",
+    
     "_commentFunctions": "--- Functions ---",
     "group.functions": "Functions",
     "group.functions.tags": "functions;math",
