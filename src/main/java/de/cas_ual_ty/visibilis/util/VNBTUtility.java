@@ -200,8 +200,14 @@ public class VNBTUtility
         for(int i = 0; i + 3 < array.length; i += 4)
         {
             n = Print.getNodeForIdx(p, array[i + 0]);
-            f = n.getOutput(array[i + 1]);
             n1 = Print.getNodeForIdx(p, array[i + 2]);
+            
+            if(n == null || n1 == null)
+            {
+                continue;
+            }
+            
+            f = n.getOutput(array[i + 1]);
             f1 = n1.getInput(array[i + 3]);
             
             if(!NodeField.tryConnect(f, f1))
