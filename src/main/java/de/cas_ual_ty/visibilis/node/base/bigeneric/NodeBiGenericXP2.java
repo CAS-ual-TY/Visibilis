@@ -42,10 +42,7 @@ public abstract class NodeBiGenericXP2<O, I> extends NodeParallelizable
     public void createBaseFields()
     {
         this.addInput(this.in2 = this.createDynamicInput());
-        this.expansionInputs.add(this.in2);
-        
         this.countBaseFields();
-        
         this.addDynamicOutput(this.createDynamicOutput());
         this.expand();
     }
@@ -101,8 +98,7 @@ public abstract class NodeBiGenericXP2<O, I> extends NodeParallelizable
     @Override
     public void parallelize()
     {
-        this.expansionInputs.removeLast();
-        for(int i = 1; i < this.expansionInputs.size(); ++i)
+        for(int i = this.expansionOutputs.size(); i < this.expansionInputs.size(); ++i)
         {
             this.addDynamicOutput(this.createDynamicOutput());
         }
@@ -111,21 +107,19 @@ public abstract class NodeBiGenericXP2<O, I> extends NodeParallelizable
     @Override
     public void unparallelize()
     {
-        int size = this.expansionOutputs.size();
-        for(int i = 1; i < size; ++i)
+        for(int i = 1; i < this.expansionOutputs.size(); ++i)
         {
             this.removeOutput(this.expansionOutputs.removeLast().getId());
         }
-        this.expansionInputs.addLast(this.in2);
     }
     
     @Override
     public boolean doCalculate(ExecContext context)
     {
-        I[] inputs = this.getInDataType().createArray(this.expansionInputs.size());
-        
         if(this.parallelized)
         {
+            I[] inputs = this.getInDataType().createArray(this.expansionInputs.size());
+            
             I in2 = this.in2.getValue();
             
             int i = 0;
@@ -152,12 +146,14 @@ public abstract class NodeBiGenericXP2<O, I> extends NodeParallelizable
         }
         else
         {
+            I[] inputs = this.getInDataType().createArray(this.expansionInputs.size() + 1);
+            
             int i;
-            for(i = 1; i < this.expansionInputs.size(); ++i)
+            for(i = 0; i < this.expansionInputs.size(); ++i)
             {
-                inputs[i - 1] = this.expansionInputs.get(i).getValue();
+                inputs[i] = this.expansionInputs.get(i).getValue();
             }
-            inputs[i - 1] = this.in2.getValue();
+            inputs[i] = this.in2.getValue();
             
             if(!this.canCalculate(inputs))
             {
