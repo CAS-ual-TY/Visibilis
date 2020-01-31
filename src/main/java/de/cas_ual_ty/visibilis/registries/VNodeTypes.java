@@ -24,6 +24,7 @@ import de.cas_ual_ty.visibilis.node.vector3d.NodeVector3dCreate;
 import de.cas_ual_ty.visibilis.node.vector3d.NodeVector3dSplit;
 import de.cas_ual_ty.visibilis.node.world.NodeBlockPosCreate;
 import de.cas_ual_ty.visibilis.node.world.NodeBlockPosSplit;
+import de.cas_ual_ty.visibilis.node.world.NodeGetBlock;
 import de.cas_ual_ty.visibilis.node.world.NodeGetWorldOptional;
 import de.cas_ual_ty.visibilis.node.world.NodeSetBlock;
 import de.cas_ual_ty.visibilis.test.VNodePrintDebug;
@@ -123,6 +124,7 @@ public class VNodeTypes
     public static final NodeType<Node> SET_BLOCK = null;
     public static final NodeType<Node> BLOCK_POS_CREATE = null;
     public static final NodeType<Node> BLOCK_POS_SPLIT = null;
+    public static final NodeType<Node> GET_BLOCK = null;
     
     @SubscribeEvent
     public static void register(RegistryEvent.Register<NodeType<? extends Node>> event)
@@ -485,5 +487,6 @@ public class VNodeTypes
         registry.register(new NodeType<>(NodeSetBlock::new).setRegistryName(Visibilis.MOD_ID, "set_block"));
         registry.register(new NodeType<>(NodeBlockPosCreate::new).setRegistryName(Visibilis.MOD_ID, "block_pos_create"));
         registry.register(new NodeType<>(NodeBlockPosSplit::new).setRegistryName(Visibilis.MOD_ID, "block_pos_split"));
+        registry.register(new NodeType<>(NodeGetBlock::new).setRegistryName(Visibilis.MOD_ID, "get_block"));
     }
 }
