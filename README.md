@@ -63,10 +63,10 @@ Though in case you do think about making a pull-request: Please **contact me fir
 #### Setup Visibilis as Mod API (eclipse)
 How to setup eclipse so that you can work with this API (all files about to be mentioned can be found here, in this repo in build/libs):
 - Create a new forge gradle project and do a normal eclipse setup
-- Download the normal mod jar and put it into your xxx/run/mods folder (create if non-existent)
-- Download the source jar of the same version as the mod jar and put it into your xxx/lib folder (create if non-existent)
-- Include the mod jar into your java build path of your eclipse project (Project > Properties > Java Build Path > Libraries > Add external JARs...)
-- In your Package Explorer, unbox Referenced Libraries, find the mod file and attach the source to it (Right Click > Properties > Java Source Attachment > External Location > External File...)
+- Download the deobf jar and put it into your xxx/run/mods folder (create if non-existent)
+- Download the source jar of the same version as the deobf jar and put it into your xxx/lib folder (create if non-existent)
+- Include the deobf jar into your java build path of your eclipse project (Project > Properties > Java Build Path > Libraries > Add external JARs...)
+- In your Package Explorer, unbox Referenced Libraries, find the deobf jar and attach the source to it (Right Click > Properties > Java Source Attachment > External Location > External File...)
 
 Instead of using only releases, you can also build everything based on this repo which should almost always be ahead of the latest release. Gradlew commands:
 - gradlew build - To build the mod jar (obviously)
