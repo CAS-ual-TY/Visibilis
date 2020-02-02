@@ -20,7 +20,7 @@ public class NodeWhile extends Node
     public NodeWhile(NodeType<?> type)
     {
         super(type);
-        this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1"));
+        this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1").setTriggerRecalculation());
         this.addOutput(this.out2Exec = new Output<>(this, VDataTypes.EXEC, "out2"));
         this.addInput(this.in1Exec = new Input<>(this, VDataTypes.EXEC, "in1"));
         this.addInput(this.in2Condition = new Input<>(this, VDataTypes.BOOLEAN, "in2").setTriggerRecalculation());

@@ -22,7 +22,7 @@ public class NodeFor extends Node
     public NodeFor(NodeType<?> type)
     {
         super(type);
-        this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1"));
+        this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1").setTriggerRecalculation());
         this.addOutput(this.out2Index = new Output<>(this, VDataTypes.INTEGER, "out2").setTriggerRecalculation());
         this.addOutput(this.out3Exec = new Output<>(this, VDataTypes.EXEC, "out3"));
         this.addInput(this.in1Exec = new Input<>(this, VDataTypes.EXEC, "in1"));
