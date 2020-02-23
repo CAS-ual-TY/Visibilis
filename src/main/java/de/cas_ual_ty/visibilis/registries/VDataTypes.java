@@ -22,6 +22,7 @@ import net.minecraftforge.registries.ObjectHolder;
 public class VDataTypes
 {
     public static final DataType<Object> EXEC = null;
+    public static final DataType<Object> OBJECT = null;
     public static final DataTypeDynamic<Integer> INTEGER = null;
     public static final DataTypeDynamic<Float> FLOAT = null;
     public static final DataTypeDynamic<Double> DOUBLE = null;
@@ -39,6 +40,8 @@ public class VDataTypes
         IForgeRegistry<DataType<?>> registry = event.getRegistry();
         
         registry.register(new DataType<>(new float[] { 1F, 0F, 0F }, (length) -> null).setRegistryName(Visibilis.MOD_ID, "exec"));
+        
+        registry.register(new DataType<Object>(new float[] {0.1F, 0.1F, 0.1F}, (length) -> new Object[length]).setRegistryName(Visibilis.MOD_ID, "object"));
         
         registry.register(new DataTypeDynamic<Integer>(new float[] { 1F, 1F, 0.75F }, (length) -> new Integer[length], 1)
         {
@@ -245,6 +248,12 @@ public class VDataTypes
     // Called from FMLCommonSetupEvent
     public static void addConverters()
     {
+        VDataTypes.OBJECT.registerGenericConverter(VDataTypes.STRING);
+        VDataTypes.OBJECT.registerGenericConverter(VDataTypes.VECTOR3D);
+        VDataTypes.OBJECT.registerGenericConverter(VDataTypes.PLAYER);
+        VDataTypes.OBJECT.registerGenericConverter(VDataTypes.BLOCK_POS);
+        VDataTypes.OBJECT.registerGenericConverter(VDataTypes.WORLD);
+        
         VDataTypes.FLOAT.registerConverter(VDataTypes.INTEGER, (n) -> n.floatValue());
         VDataTypes.DOUBLE.registerConverter(VDataTypes.INTEGER, (n) -> n.doubleValue());
         VDataTypes.DOUBLE.registerConverter(VDataTypes.FLOAT, (n) -> n.doubleValue());
