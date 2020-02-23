@@ -24,6 +24,7 @@
     "visibilis.action.shrink": "Shrink",
     "visibilis.action.parallelize": "Parallelize",
     "visibilis.action.unparallelize": "De-Parallelize",
+    "visibilis.recalc": "Triggers a Re-Calculation!",
     
     "_commentEvents": "--- Events ---",
     "group.events": "Events",

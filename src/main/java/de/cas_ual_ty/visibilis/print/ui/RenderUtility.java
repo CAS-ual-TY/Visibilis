@@ -82,7 +82,7 @@ public class RenderUtility
     public float[] actionColorText;
     
     /** node, output, input, print, as translated string */
-    public String tNode, tOut, tIn, tPrint, tExpand, tShrink;
+    public String tNode, tOut, tIn, tPrint, tExpand, tShrink, tRecalc;
     
     public RenderUtility(Screen gui)
     {
@@ -108,6 +108,7 @@ public class RenderUtility
         this.tPrint = I18n.format("visibilis.print");
         this.tExpand = I18n.format("visibilis.action_expand");
         this.tShrink = I18n.format("visibilis.action_shrink");
+        this.tRecalc = I18n.format("visibilis.recalc");
         
         this.genVars();
     }
@@ -514,7 +515,16 @@ public class RenderUtility
         
         lines.add(TextFormatting.BOLD.toString() + (field.isOutput() ? TextFormatting.DARK_RED.toString() : TextFormatting.GOLD.toString()) + field.getNameTranslated() + TextFormatting.RESET + " - " + (field.isOutput() ? this.tOut : this.tIn));
         
-        String desc = field.getDesc();
+        String desc;
+        
+        if(field.doesTriggerRecalculation())
+        {
+            desc = this.tRecalc;
+            lines.add("");
+            lines.add(desc);
+        }
+        
+        desc = field.getDesc();
         
         if(!StringUtils.isNullOrEmpty(desc) && !desc.equals(field.getUnlocalizedDesc()))
         {
