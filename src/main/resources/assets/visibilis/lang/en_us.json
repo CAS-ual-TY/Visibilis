@@ -1,6 +1,6 @@
 {
     "_commentTestingStart": "--- Testing START ---",
-    "item.visibilis.test": "Test Item",
+    "item.visibilis.code_print": "Code Print",
     
     "node.visibilis:print_debug": "vprintdebug",
     "field.visibilis:print_debug.out1": "(O)",

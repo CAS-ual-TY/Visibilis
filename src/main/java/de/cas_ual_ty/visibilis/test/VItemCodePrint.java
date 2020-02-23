@@ -1,21 +1,14 @@
 package de.cas_ual_ty.visibilis.test;
 
-import de.cas_ual_ty.visibilis.print.PrintProvider;
 import de.cas_ual_ty.visibilis.print.item.ItemPrintClickable;
 import net.minecraft.command.CommandSource;
 import net.minecraft.item.ItemStack;
 
-public class VItemTest extends ItemPrintClickable
+public class VItemCodePrint extends ItemPrintClickable
 {
-    public VItemTest(Properties properties)
+    public VItemCodePrint(Properties properties)
     {
         super(properties);
-    }
-    
-    @Override
-    public PrintProvider getPrintProvider(ItemStack itemStack, int slot)
-    {
-        return new VPrintProviderTest(itemStack, slot);
     }
     
     @Override
