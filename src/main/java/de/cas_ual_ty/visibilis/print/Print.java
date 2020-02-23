@@ -214,11 +214,10 @@ public class Print
          */
         
         // Loop through all outputs of the exec type
-        while((out = node.getOutExec(i)) != null)
+        while((out = node.getOutExec(i++)) != null)
         {
             if(!out.hasConnections())
             {
-                ++i;
                 continue;
             }
             
@@ -259,9 +258,6 @@ public class Print
                         return false;
                     }
                 }
-                
-                // Increment to get the next sub node once the current one is finished calculating
-                ++i;
             }
         }
         
