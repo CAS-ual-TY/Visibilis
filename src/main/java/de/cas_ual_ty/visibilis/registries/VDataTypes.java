@@ -41,7 +41,7 @@ public class VDataTypes
         
         registry.register(new DataType<>(new float[] { 1F, 0F, 0F }, (length) -> null).setRegistryName(Visibilis.MOD_ID, "exec"));
         
-        registry.register(new DataType<Object>(new float[] {0.1F, 0.1F, 0.1F}, (length) -> new Object[length]).setRegistryName(Visibilis.MOD_ID, "object"));
+        registry.register(new DataType<>(new float[] { 0.1F, 0.1F, 0.1F }, (length) -> new Object[length]).setRegistryName(Visibilis.MOD_ID, "object"));
         
         registry.register(new DataTypeDynamic<Integer>(new float[] { 1F, 1F, 0.75F }, (length) -> new Integer[length], 1)
         {
