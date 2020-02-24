@@ -1,10 +1,12 @@
 package de.cas_ual_ty.visibilis.registries;
 
 import de.cas_ual_ty.visibilis.Visibilis;
+import de.cas_ual_ty.visibilis.config.VConfiguration;
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.datatype.DataTypeDynamic;
 import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
 import de.cas_ual_ty.visibilis.datatype.converter.AnyString;
+import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
@@ -39,11 +41,11 @@ public class VDataTypes
     {
         IForgeRegistry<DataType<?>> registry = event.getRegistry();
         
-        registry.register(new DataType<>(new float[] { 1F, 0F, 0F }, (length) -> null).setRegistryName(Visibilis.MOD_ID, "exec"));
+        registry.register(new DataType<>(VUtility.toColor(VConfiguration.CLIENT.color_exec), (length) -> null).setRegistryName(Visibilis.MOD_ID, "exec"));
         
-        registry.register(new DataType<>(new float[] { 0.1F, 0.1F, 0.1F }, (length) -> new Object[length]).setRegistryName(Visibilis.MOD_ID, "object"));
+        registry.register(new DataType<>(VUtility.toColor(VConfiguration.CLIENT.color_object), (length) -> new Object[length]).setRegistryName(Visibilis.MOD_ID, "object"));
         
-        registry.register(new DataTypeDynamic<Integer>(new float[] { 1F, 1F, 0.75F }, (length) -> new Integer[length], 1)
+        registry.register(new DataTypeDynamic<Integer>(VUtility.toColor(VConfiguration.CLIENT.color_integer), (length) -> new Integer[length], 1)
         {
             @Override
             public boolean equals(Integer obj1, Integer obj2)
@@ -95,7 +97,7 @@ public class VDataTypes
             }
         }.setBlackText().setRegistryName(Visibilis.MOD_ID, "integer"));
         
-        registry.register(new DataTypeDynamic<Float>(new float[] { 1F, 1F, 0.5F }, (length) -> new Float[length], 1.0F)
+        registry.register(new DataTypeDynamic<Float>(VUtility.toColor(VConfiguration.CLIENT.color_float), (length) -> new Float[length], 1.0F)
         {
             @Override
             public boolean equals(Float obj1, Float obj2)
@@ -147,7 +149,7 @@ public class VDataTypes
             }
         }.setBlackText().setRegistryName(Visibilis.MOD_ID, "float"));
         
-        registry.register(new DataTypeDynamic<Double>(new float[] { 1F, 1F, 0.25F }, (length) -> new Double[length], 1.0D)
+        registry.register(new DataTypeDynamic<Double>(VUtility.toColor(VConfiguration.CLIENT.color_double), (length) -> new Double[length], 1.0D)
         {
             @Override
             public boolean equals(Double obj1, Double obj2)
@@ -199,9 +201,9 @@ public class VDataTypes
             }
         }.setBlackText().setRegistryName(Visibilis.MOD_ID, "double"));
         
-        registry.register(new DataType<>(new float[] { 1F, 1F, 0F }, (length) -> new Number[length]).setDefaultValue(0).setRegistryName(Visibilis.MOD_ID, "number").setBlackText());
+        registry.register(new DataType<>(VUtility.toColor(VConfiguration.CLIENT.color_number), (length) -> new Number[length]).setDefaultValue(0).setRegistryName(Visibilis.MOD_ID, "number").setBlackText());
         
-        registry.register(new DataTypeEnum<Boolean>(new float[] { 1F, 0F, 1F }, (length) -> new Boolean[length])
+        registry.register(new DataTypeEnum<Boolean>(VUtility.toColor(VConfiguration.CLIENT.color_boolean), (length) -> new Boolean[length])
         {
             @Override
             public boolean equals(Boolean obj1, Boolean obj2)
@@ -210,7 +212,7 @@ public class VDataTypes
             }
         }.addEnum(false).addEnum(true).setRegistryName(Visibilis.MOD_ID, "boolean"));
         
-        registry.register(new DataTypeDynamic<String>(new float[] { 1F, 1F, 1F }, (length) -> new String[length], "text")
+        registry.register(new DataTypeDynamic<String>(VUtility.toColor(VConfiguration.CLIENT.color_string), (length) -> new String[length], "text")
         {
             @Override
             public boolean canParseString(String s)
@@ -239,10 +241,10 @@ public class VDataTypes
             }
         }.setBlackText().setRegistryName(Visibilis.MOD_ID, "string"));
         
-        registry.register(new DataType<>(new float[] { 1F, 0.5F, 0.5F }, (length) -> new Vec3d[length]).setRegistryName(Visibilis.MOD_ID, "vector3d").setBlackText());
-        registry.register(new DataType<>(new float[] { 0.5F, 0F, 1F }, (length) -> new PlayerEntity[length]).setRegistryName(Visibilis.MOD_ID, "player"));
-        registry.register(new DataType<>(new float[] { 1F, 0.75F, 0.75F }, (length) -> new BlockPos[length]).setRegistryName(Visibilis.MOD_ID, "block_pos").setBlackText());
-        registry.register(new DataType<>(new float[] { 0.25F, 0F, 0.5F }, (length) -> new World[length]).setRegistryName(Visibilis.MOD_ID, "world"));
+        registry.register(new DataType<>(VUtility.toColor(VConfiguration.CLIENT.color_vector3d), (length) -> new Vec3d[length]).setRegistryName(Visibilis.MOD_ID, "vector3d").setBlackText());
+        registry.register(new DataType<>(VUtility.toColor(VConfiguration.CLIENT.color_player), (length) -> new PlayerEntity[length]).setRegistryName(Visibilis.MOD_ID, "player"));
+        registry.register(new DataType<>(VUtility.toColor(VConfiguration.CLIENT.color_block_pos), (length) -> new BlockPos[length]).setRegistryName(Visibilis.MOD_ID, "block_pos").setBlackText());
+        registry.register(new DataType<>(VUtility.toColor(VConfiguration.CLIENT.color_world), (length) -> new World[length]).setRegistryName(Visibilis.MOD_ID, "world"));
     }
     
     // Called from FMLCommonSetupEvent

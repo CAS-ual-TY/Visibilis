@@ -3,9 +3,12 @@ package de.cas_ual_ty.visibilis.util;
 import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.Visibilis;
+import de.cas_ual_ty.visibilis.config.VConfigClient;
 import de.cas_ual_ty.visibilis.config.VConfigHelper;
 import de.cas_ual_ty.visibilis.config.VConfiguration;
 import de.cas_ual_ty.visibilis.print.PrintProvider;
+import net.minecraftforge.common.ForgeConfigSpec.Builder;
+import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
 
 public class VUtility
 {
@@ -44,5 +47,29 @@ public class VUtility
     public static void openGuiForClient(PrintProvider helper)
     {
         Visibilis.proxy.openGuiPrint(helper);
+    }
+    
+    public static DoubleValue[] buildColorConfigValue(Builder builder, String translationPrefix, String key, float[] define)
+    {
+        DoubleValue[] values = new DoubleValue[3];
+        
+        builder.push(key);
+        
+        for(int i = 0; i < VConfigClient.SUFFIX_COLOR.length; ++i)
+        {
+            values[i] = builder
+                .comment(VConfigClient.COLORS[i] + " Color")
+                .translation(translationPrefix + key + VConfigClient.SUFFIX_COLOR[i])
+                .defineInRange(VConfigClient.COLORS[i], define[i], 0F, 1F);
+        }
+        
+        builder.pop();
+        
+        return values;
+    }
+    
+    public static float[] toColor(DoubleValue[] values)
+    {
+        return new float[] { values[0].get().floatValue(), values[1].get().floatValue(), values[2].get().floatValue() };
     }
 }
