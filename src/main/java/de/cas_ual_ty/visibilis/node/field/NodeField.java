@@ -1,6 +1,7 @@
 package de.cas_ual_ty.visibilis.node.field;
 
 import java.util.ArrayList;
+import java.util.function.Supplier;
 
 import javax.annotation.Nullable;
 
@@ -30,21 +31,26 @@ public abstract class NodeField<B>
     /**
      * The data type of this node field.
      */
-    private final DataType<B> dataType;
+    private Supplier<DataType<B>> dataType;
     
     /**
      * The name of this node field (before translation).
      */
-    private final String name;
+    private Supplier<String> name;
     
     private boolean triggerRecalculation;
     
-    public NodeField(Node node, DataType<B> dataType, String name)
+    public NodeField(Node node, Supplier<DataType<B>> dataType, Supplier<String> name)
     {
         this.node = node;
         this.dataType = dataType;
         this.name = name;
         this.triggerRecalculation = false;
+    }
+    
+    public NodeField(Node node, DataType<B> dataType, String name)
+    {
+        this(node, () -> dataType, () -> name);
     }
     
     public Node getNode()
@@ -54,12 +60,12 @@ public abstract class NodeField<B>
     
     public DataType<B> getDataType()
     {
-        return this.dataType;
+        return this.dataType.get();
     }
     
     public String getName()
     {
-        return this.name;
+        return this.name.get();
     }
     
     public boolean doesTriggerRecalculation()

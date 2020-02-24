@@ -1,6 +1,7 @@
 package de.cas_ual_ty.visibilis.node.field;
 
 import java.util.ArrayList;
+import java.util.function.Supplier;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.datatype.DataTypeDynamic;
@@ -29,10 +30,15 @@ public class Input<I> extends NodeField<I>
     
     protected boolean mustUseConnection;
     
-    public Input(Node node, DataType<I> dataType, String name)
+    public Input(Node node, Supplier<DataType<I>> dataType, Supplier<String> name)
     {
         super(node, dataType, name);
-        this.mustUseConnection = !dataType.hasDefaultValue();
+        this.mustUseConnection = !this.getDataType().hasDefaultValue();
+    }
+    
+    public Input(Node node, DataType<I> dataType, String name)
+    {
+        this(node, () -> dataType, () -> name);
     }
     
     @Override
