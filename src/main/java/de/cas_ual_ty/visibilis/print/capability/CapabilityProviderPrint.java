@@ -24,12 +24,12 @@ public class CapabilityProviderPrint implements ICapabilitySerializable<INBT>
     @Override
     public INBT serializeNBT()
     {
-        return CapabilityProviderPrint.CAPABILITY_PRINT.getStorage().writeNBT(CapabilityProviderPrint.CAPABILITY_PRINT, this.instance.orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!")), null);
+        return CapabilityProviderPrint.CAPABILITY_PRINT.getStorage().writeNBT(CapabilityProviderPrint.CAPABILITY_PRINT, this.instance.orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty (1)!")), null);
     }
     
     @Override
     public void deserializeNBT(INBT nbt)
     {
-        CapabilityProviderPrint.CAPABILITY_PRINT.getStorage().readNBT(CapabilityProviderPrint.CAPABILITY_PRINT, this.instance.orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!")), null, nbt);
+        CapabilityProviderPrint.CAPABILITY_PRINT.getStorage().readNBT(CapabilityProviderPrint.CAPABILITY_PRINT, this.instance.orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty (2)!")), null, nbt);
     }
 }
