@@ -350,7 +350,7 @@ public class Print
     public void overrideFromNBT(CompoundNBT nbt)
     {
         this.reset();
-        VNBTUtility.readPrintConnectionsFromNBT(this, nbt);
+        VNBTUtility.readPrintFromNBT(this, nbt);
     }
     
     public int getPosX()
