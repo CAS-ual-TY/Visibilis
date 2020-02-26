@@ -10,11 +10,14 @@ import de.cas_ual_ty.visibilis.node.player.MessagePlayerMotion;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
 import de.cas_ual_ty.visibilis.print.capability.StoragePrint;
+import de.cas_ual_ty.visibilis.print.entity.EntityPrint;
+import de.cas_ual_ty.visibilis.print.entity.LivingEntityPrint;
 import de.cas_ual_ty.visibilis.print.entity.MessagePrintSynchEntity;
 import de.cas_ual_ty.visibilis.print.item.ItemPrint;
 import de.cas_ual_ty.visibilis.print.item.MessagePrintSynchItem;
 import de.cas_ual_ty.visibilis.proxy.IVSidedProxy;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -61,7 +64,8 @@ public class Visibilis
         bus = MinecraftForge.EVENT_BUS;
         bus.addListener(VCommand::execCommand);
         bus.<FMLServerStartingEvent>addListener((event) -> VCommand.register(event.getCommandDispatcher()));
-        bus.addListener(this::attachCapabilities);
+        bus.addListener(this::attachCapabilitiesItemStack);
+        bus.addListener(this::attachCapabilitiesEntity);
         
         ModLoadingContext mld = ModLoadingContext.get();
         mld.registerConfig(Type.CLIENT, VConfiguration.CLIENT_SPEC);
@@ -91,9 +95,17 @@ public class Visibilis
         Visibilis.dataTypesRegistry = new RegistryBuilder().setName(new ResourceLocation(Visibilis.MOD_ID, "datatypes")).setType(DataType.class).setMaxID(4096).create();
     }
     
-    public void attachCapabilities(AttachCapabilitiesEvent<ItemStack> event)
+    public void attachCapabilitiesItemStack(AttachCapabilitiesEvent<ItemStack> event)
     {
         if(event.getObject() instanceof ItemStack && event.getObject().getItem() instanceof ItemPrint)
+        {
+            event.addCapability(new ResourceLocation(Visibilis.MOD_ID, "print"), new CapabilityProviderPrint());
+        }
+    }
+    
+    public void attachCapabilitiesEntity(AttachCapabilitiesEvent<Entity> event)
+    {
+        if(event.getObject() instanceof EntityPrint || event.getObject() instanceof LivingEntityPrint)
         {
             event.addCapability(new ResourceLocation(Visibilis.MOD_ID, "print"), new CapabilityProviderPrint());
         }
