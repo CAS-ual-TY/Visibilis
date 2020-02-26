@@ -3,7 +3,7 @@ package de.cas_ual_ty.visibilis.proxy;
 import java.util.function.Consumer;
 
 import de.cas_ual_ty.visibilis.print.GuiPrint;
-import de.cas_ual_ty.visibilis.print.PrintProvider;
+import de.cas_ual_ty.visibilis.print.provider.PrintProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.StringTextComponent;

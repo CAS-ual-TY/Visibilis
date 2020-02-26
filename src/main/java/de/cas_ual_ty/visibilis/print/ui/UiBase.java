@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.function.Consumer;
 
 import de.cas_ual_ty.visibilis.node.Node;
-import de.cas_ual_ty.visibilis.print.PrintProvider;
+import de.cas_ual_ty.visibilis.print.provider.PrintProvider;
 import de.cas_ual_ty.visibilis.print.ui.RenderUtility.Rectangle;
 import de.cas_ual_ty.visibilis.print.ui.component.Component;
 import de.cas_ual_ty.visibilis.print.ui.component.ComponentHeader;

@@ -1,8 +1,9 @@
-package de.cas_ual_ty.visibilis.print;
+package de.cas_ual_ty.visibilis.print.provider;
 
 import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.print.Print;
 import net.minecraft.client.gui.screen.Screen;
 
 public abstract class NodeListProvider

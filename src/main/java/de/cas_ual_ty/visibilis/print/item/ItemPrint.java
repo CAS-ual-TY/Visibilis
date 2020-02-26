@@ -1,11 +1,11 @@
 package de.cas_ual_ty.visibilis.print.item;
 
 import de.cas_ual_ty.visibilis.print.GuiPrint;
-import de.cas_ual_ty.visibilis.print.NodeListProvider;
-import de.cas_ual_ty.visibilis.print.NodeListProviderBase;
 import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.print.PrintProvider;
 import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
+import de.cas_ual_ty.visibilis.print.provider.NodeListProvider;
+import de.cas_ual_ty.visibilis.print.provider.NodeListProviderBase;
+import de.cas_ual_ty.visibilis.print.provider.PrintProvider;
 import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.command.CommandSource;
 import net.minecraft.entity.player.PlayerEntity;

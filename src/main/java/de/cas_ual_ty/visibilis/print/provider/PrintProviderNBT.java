@@ -1,6 +1,7 @@
-package de.cas_ual_ty.visibilis.print;
+package de.cas_ual_ty.visibilis.print.provider;
 
 import de.cas_ual_ty.visibilis.Visibilis;
+import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.util.VNBTUtility;
 import net.minecraft.nbt.CompoundNBT;
 

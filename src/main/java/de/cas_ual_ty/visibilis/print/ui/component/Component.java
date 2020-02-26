@@ -1,7 +1,7 @@
 package de.cas_ual_ty.visibilis.print.ui.component;
 
 import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.print.PrintProvider;
+import de.cas_ual_ty.visibilis.print.provider.PrintProvider;
 import de.cas_ual_ty.visibilis.print.ui.RenderUtility;
 import de.cas_ual_ty.visibilis.print.ui.RenderUtility.Rectangle;
 import de.cas_ual_ty.visibilis.print.ui.UiBase;

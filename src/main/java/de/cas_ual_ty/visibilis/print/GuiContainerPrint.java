@@ -1,5 +1,6 @@
 package de.cas_ual_ty.visibilis.print;
 
+import de.cas_ual_ty.visibilis.print.provider.PrintProvider;
 import de.cas_ual_ty.visibilis.print.ui.UiBase;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;

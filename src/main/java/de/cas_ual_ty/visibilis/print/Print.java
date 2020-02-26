@@ -127,6 +127,14 @@ public class Print
         return this.nodes;
     }
     
+    /**
+     * @return The list of events (no clone or copy).
+     */
+    public ArrayList<NodeEvent> getEvents()
+    {
+        return this.events;
+    }
+    
     public boolean executeEvent(String modId, String eventType, CommandSource sender)
     {
         return this.executeEvent(modId + ":" + eventType, sender);

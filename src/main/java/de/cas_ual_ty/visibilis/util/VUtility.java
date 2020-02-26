@@ -6,7 +6,7 @@ import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.config.VConfigClient;
 import de.cas_ual_ty.visibilis.config.VConfigHelper;
 import de.cas_ual_ty.visibilis.config.VConfiguration;
-import de.cas_ual_ty.visibilis.print.PrintProvider;
+import de.cas_ual_ty.visibilis.print.provider.PrintProvider;
 import net.minecraftforge.common.ForgeConfigSpec.Builder;
 import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
 

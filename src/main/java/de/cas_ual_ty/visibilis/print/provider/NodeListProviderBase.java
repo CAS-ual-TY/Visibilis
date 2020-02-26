@@ -1,9 +1,10 @@
-package de.cas_ual_ty.visibilis.print;
+package de.cas_ual_ty.visibilis.print.provider;
 
 import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeEvent;
+import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.registries.VNodeTypes;
 
 public class NodeListProviderBase extends NodeListProvider
@@ -56,7 +57,7 @@ public class NodeListProviderBase extends NodeListProvider
         // Remove all already existing event nodes so they cant be added twice
         
         Node f;
-        for(NodeEvent n : print.events)
+        for(NodeEvent n : print.getEvents())
         {
             f = null;
             for(Node n1 : this.list)

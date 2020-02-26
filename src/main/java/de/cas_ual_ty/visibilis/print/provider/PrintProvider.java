@@ -1,9 +1,11 @@
-package de.cas_ual_ty.visibilis.print;
+package de.cas_ual_ty.visibilis.print.provider;
 
 import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeAction;
+import de.cas_ual_ty.visibilis.print.Print;
+import de.cas_ual_ty.visibilis.print.UndoList;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.text.ITextComponent;
 
