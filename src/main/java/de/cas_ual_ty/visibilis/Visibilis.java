@@ -8,13 +8,17 @@ import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.player.MessagePlayerMotion;
 import de.cas_ual_ty.visibilis.print.Print;
+import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
 import de.cas_ual_ty.visibilis.print.capability.StoragePrint;
+import de.cas_ual_ty.visibilis.print.item.ItemPrint;
 import de.cas_ual_ty.visibilis.print.item.MessageItem;
 import de.cas_ual_ty.visibilis.proxy.IVSidedProxy;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.RegistryEvent.NewRegistry;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
@@ -56,6 +60,7 @@ public class Visibilis
         bus = MinecraftForge.EVENT_BUS;
         bus.addListener(VCommand::execCommand);
         bus.<FMLServerStartingEvent>addListener((event) -> VCommand.register(event.getCommandDispatcher()));
+        bus.addListener(this::attachCapabilities);
         
         ModLoadingContext mld = ModLoadingContext.get();
         mld.registerConfig(Type.CLIENT, VConfiguration.CLIENT_SPEC);
@@ -82,6 +87,14 @@ public class Visibilis
     {
         Visibilis.nodeTypesRegistry = new RegistryBuilder().setName(new ResourceLocation(Visibilis.MOD_ID, "nodes")).setType(NodeType.class).setMaxID(4096).create();
         Visibilis.dataTypesRegistry = new RegistryBuilder().setName(new ResourceLocation(Visibilis.MOD_ID, "datatypes")).setType(DataType.class).setMaxID(4096).create();
+    }
+    
+    public void attachCapabilities(AttachCapabilitiesEvent<ItemStack> event)
+    {
+        if(event.getObject() instanceof ItemStack && event.getObject().getItem() instanceof ItemPrint)
+        {
+            event.addCapability(new ResourceLocation(Visibilis.MOD_ID, "print"), new CapabilityProviderPrint());
+        }
     }
     
     // TODO low: Some nice logging here please
