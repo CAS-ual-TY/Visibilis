@@ -20,7 +20,7 @@ public class MessageItem
     
     public MessageItem(int slot, ItemStack itemStack)
     {
-        this(slot, VNBTUtility.savePrintToNBT(((ItemPrint)itemStack.getItem()).getPrint(itemStack)));
+        this(slot, VNBTUtility.savePrintToNBT(itemStack.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty (6)!"))));
     }
     
     public MessageItem(int slot, CompoundNBT nbt)
