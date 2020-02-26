@@ -35,22 +35,23 @@ public class Print
     /**
      * How much the user currently zoomed in the GUI. Saved so that they start off again where they last left
      */
-    private float zoom = .5F;
+    private float zoom;
     
     /**
      * All nodes in this print (including events).
      */
-    protected final ArrayList<Node> nodes = new ArrayList<>();
+    protected final ArrayList<Node> nodes;
     
     /**
      * All event nodes in this print
      */
-    protected final ArrayList<NodeEvent> events = new ArrayList<>();
+    protected final ArrayList<NodeEvent> events;
     
     public Print()
     {
-        this.setPosX(0);
-        this.setPosY(0);
+        this.nodes = new ArrayList<>();
+        this.events = new ArrayList<>();
+        this.reset();
     }
     
     /**
@@ -335,6 +336,21 @@ public class Print
     {
         //Yes very lazy I know :P But atleast we have a solution for now
         return VNBTUtility.loadPrintFromNBT(VNBTUtility.savePrintToNBT(this));
+    }
+    
+    public void reset()
+    {
+        this.setPosX(0);
+        this.setPosY(0);
+        this.nodes.clear();
+        this.events.clear();
+        this.zoom = 0.5F;
+    }
+    
+    public void overrideFromNBT(CompoundNBT nbt)
+    {
+        this.reset();
+        VNBTUtility.readPrintConnectionsFromNBT(this, nbt);
     }
     
     public int getPosX()
