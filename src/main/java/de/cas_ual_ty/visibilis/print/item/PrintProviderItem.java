@@ -3,11 +3,13 @@ package de.cas_ual_ty.visibilis.print.item;
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.print.NodeListProvider;
 import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.print.PrintProviderNBT;
+import de.cas_ual_ty.visibilis.print.PrintProvider;
+import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
+import de.cas_ual_ty.visibilis.util.VNBTUtility;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 
-public class PrintProviderItem extends PrintProviderNBT
+public class PrintProviderItem extends PrintProvider
 {
     public ItemStack itemStack;
     public int slot;
@@ -15,24 +17,24 @@ public class PrintProviderItem extends PrintProviderNBT
     public PrintProviderItem(NodeListProvider nodeListProvider, ItemStack itemStack, int slot)
     {
         super(nodeListProvider);
-        
         this.itemStack = itemStack;
         this.slot = slot;
     }
     
     @Override
-    public CompoundNBT getNBT()
+    public void init()
     {
-        return this.itemStack.getOrCreateTag();
+        this.undoList.setFirst(this.itemStack.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElse(new Print()));
+        super.init();
     }
     
     @Override
-    public Print createNewPrint()
+    public void onGuiClose()
     {
-        return new Print();
+        this.synchToServer(VNBTUtility.savePrintToNBT(this.getPrint()));
+        super.onGuiClose();
     }
     
-    @Override
     public void synchToServer(CompoundNBT nbt)
     {
         Visibilis.channel.sendToServer(new MessageItem(this.slot, this.itemStack));
