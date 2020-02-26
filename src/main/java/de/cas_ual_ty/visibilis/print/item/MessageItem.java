@@ -4,6 +4,7 @@ import java.util.function.Supplier;
 
 import de.cas_ual_ty.visibilis.event.ItemPrintValidationEvent;
 import de.cas_ual_ty.visibilis.print.Print;
+import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
 import de.cas_ual_ty.visibilis.util.VNBTUtility;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -46,12 +47,11 @@ public class MessageItem
         context.enqueueWork(() ->
         {
             ItemStack itemStack = ctx.get().getSender().inventory.getStackInSlot(msg.slot);
-            ItemPrint item = (ItemPrint)itemStack.getItem(); //TODO change to print capability
-            Print print = VNBTUtility.loadPrintFromNBT(msg.nbt);
+            Print print = itemStack.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElse(new Print());
             
             if(!MinecraftForge.EVENT_BUS.post(new ItemPrintValidationEvent(itemStack, print)))
             {
-                item.setPrintTag(itemStack, msg.nbt);
+                print.overrideFromNBT(msg.nbt);
             }
         });
         
