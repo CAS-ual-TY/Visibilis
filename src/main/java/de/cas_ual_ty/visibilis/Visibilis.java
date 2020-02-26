@@ -7,11 +7,14 @@ import de.cas_ual_ty.visibilis.config.VConfiguration;
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.player.MessagePlayerMotion;
+import de.cas_ual_ty.visibilis.print.Print;
+import de.cas_ual_ty.visibilis.print.capability.StoragePrint;
 import de.cas_ual_ty.visibilis.print.item.MessageItem;
 import de.cas_ual_ty.visibilis.proxy.IVSidedProxy;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.RegistryEvent.NewRegistry;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
@@ -70,6 +73,8 @@ public class Visibilis
         Visibilis.channel.registerMessage(2, MessagePrintEquipmentSlot.class, MessagePrintEquipmentSlot::encode, MessagePrintEquipmentSlot::decode, MessagePrintEquipmentSlot::handle);
         
         VDataTypes.addConverters();
+        
+        CapabilityManager.INSTANCE.register(Print.class, new StoragePrint(), Print::new);
     }
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
