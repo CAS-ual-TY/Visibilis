@@ -10,9 +10,9 @@ import de.cas_ual_ty.visibilis.node.player.MessagePlayerMotion;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
 import de.cas_ual_ty.visibilis.print.capability.StoragePrint;
-import de.cas_ual_ty.visibilis.print.entity.MessageEntity;
+import de.cas_ual_ty.visibilis.print.entity.MessagePrintSynchEntity;
 import de.cas_ual_ty.visibilis.print.item.ItemPrint;
-import de.cas_ual_ty.visibilis.print.item.MessageItem;
+import de.cas_ual_ty.visibilis.print.item.MessagePrintSynchItem;
 import de.cas_ual_ty.visibilis.proxy.IVSidedProxy;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import net.minecraft.item.ItemStack;
@@ -74,10 +74,10 @@ public class Visibilis
             () -> Visibilis.PROTOCOL_VERSION,
             Visibilis.PROTOCOL_VERSION::equals,
             Visibilis.PROTOCOL_VERSION::equals);
-        Visibilis.channel.registerMessage(0, MessageItem.class, MessageItem::encode, MessageItem::decode, MessageItem::handle);
+        Visibilis.channel.registerMessage(0, MessagePrintSynchItem.class, MessagePrintSynchItem::encode, MessagePrintSynchItem::decode, MessagePrintSynchItem::handle);
         Visibilis.channel.registerMessage(1, MessagePlayerMotion.class, MessagePlayerMotion::encode, MessagePlayerMotion::decode, MessagePlayerMotion::handle);
         Visibilis.channel.registerMessage(2, MessagePrintEquipmentSlot.class, MessagePrintEquipmentSlot::encode, MessagePrintEquipmentSlot::decode, MessagePrintEquipmentSlot::handle);
-        Visibilis.channel.registerMessage(3, MessageEntity.class, MessageEntity::encode, MessageEntity::decode, MessageEntity::handle);
+        Visibilis.channel.registerMessage(3, MessagePrintSynchEntity.class, MessagePrintSynchEntity::encode, MessagePrintSynchEntity::decode, MessagePrintSynchEntity::handle);
         
         VDataTypes.addConverters();
         

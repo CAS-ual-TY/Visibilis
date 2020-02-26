@@ -13,34 +13,34 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 
-public class MessageItem
+public class MessagePrintSynchItem
 {
     public final int slot;
     public final CompoundNBT nbt;
     
-    public MessageItem(int slot, ItemStack itemStack)
+    public MessagePrintSynchItem(int slot, ItemStack itemStack)
     {
         this(slot, VNBTUtility.savePrintToNBT(itemStack.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty (6)!"))));
     }
     
-    public MessageItem(int slot, CompoundNBT nbt)
+    public MessagePrintSynchItem(int slot, CompoundNBT nbt)
     {
         this.nbt = nbt;
         this.slot = slot;
     }
     
-    public static void encode(MessageItem msg, PacketBuffer buf)
+    public static void encode(MessagePrintSynchItem msg, PacketBuffer buf)
     {
         buf.writeInt(msg.slot);
         buf.writeCompoundTag(msg.nbt);
     }
     
-    public static MessageItem decode(PacketBuffer buf)
+    public static MessagePrintSynchItem decode(PacketBuffer buf)
     {
-        return new MessageItem(buf.readInt(), buf.readCompoundTag());
+        return new MessagePrintSynchItem(buf.readInt(), buf.readCompoundTag());
     }
     
-    public static void handle(MessageItem msg, Supplier<NetworkEvent.Context> ctx)
+    public static void handle(MessagePrintSynchItem msg, Supplier<NetworkEvent.Context> ctx)
     {
         Context context = ctx.get();
         
