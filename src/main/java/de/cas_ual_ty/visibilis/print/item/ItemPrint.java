@@ -1,12 +1,11 @@
 package de.cas_ual_ty.visibilis.print.item;
 
-import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.print.GuiPrint;
 import de.cas_ual_ty.visibilis.print.NodeListProvider;
 import de.cas_ual_ty.visibilis.print.NodeListProviderBase;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.PrintProvider;
-import de.cas_ual_ty.visibilis.util.VNBTUtility;
+import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
 import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.command.CommandSource;
 import net.minecraft.entity.player.PlayerEntity;
@@ -71,28 +70,13 @@ public class ItemPrint extends Item
     
     public Print getPrint(ItemStack itemStack)
     {
-        CompoundNBT nbt0 = itemStack.getOrCreateTag();
-        
-        if(!nbt0.contains(Visibilis.MOD_ID))
-        {
-            return null;
-        }
-        else
-        {
-            CompoundNBT nbt = nbt0.getCompound(Visibilis.MOD_ID);
-            return VNBTUtility.loadPrintFromNBT(nbt);
-        }
-    }
-    
-    public void setPrint(ItemStack itemStack, Print print)
-    {
-        this.setPrintTag(itemStack, VNBTUtility.savePrintToNBT(print));
+        return itemStack.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElse(new Print());
     }
     
     public void setPrintTag(ItemStack itemStack, CompoundNBT nbt)
     {
-        CompoundNBT nbt0 = itemStack.getOrCreateTag();
-        nbt0.put(Visibilis.MOD_ID, nbt);
+        Print print = this.getPrint(itemStack);
+        print.overrideFromNBT(nbt);
     }
     
     // is this item editable via the "v edit" command?
