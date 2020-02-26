@@ -2,7 +2,6 @@ package de.cas_ual_ty.visibilis.print.item;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.print.NodeListProvider;
-import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.PrintProvider;
 import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
 import de.cas_ual_ty.visibilis.util.VNBTUtility;
@@ -24,7 +23,7 @@ public class PrintProviderItem extends PrintProvider
     @Override
     public void init()
     {
-        this.undoList.setFirst(this.itemStack.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElse(new Print()));
+        this.undoList.setFirst(this.itemStack.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty (4)!")));
         super.init();
     }
     
