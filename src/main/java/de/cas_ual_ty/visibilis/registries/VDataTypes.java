@@ -250,6 +250,11 @@ public class VDataTypes
     // Called from FMLCommonSetupEvent
     public static void addConverters()
     {
+        VDataTypes.OBJECT.registerGenericConverter(VDataTypes.INTEGER);
+        VDataTypes.OBJECT.registerGenericConverter(VDataTypes.FLOAT);
+        VDataTypes.OBJECT.registerGenericConverter(VDataTypes.DOUBLE);
+        VDataTypes.OBJECT.registerGenericConverter(VDataTypes.NUMBER);
+        VDataTypes.OBJECT.registerGenericConverter(VDataTypes.BOOLEAN);
         VDataTypes.OBJECT.registerGenericConverter(VDataTypes.STRING);
         VDataTypes.OBJECT.registerGenericConverter(VDataTypes.VECTOR3D);
         VDataTypes.OBJECT.registerGenericConverter(VDataTypes.PLAYER);
