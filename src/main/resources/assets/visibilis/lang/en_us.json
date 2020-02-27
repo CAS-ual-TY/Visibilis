@@ -228,6 +228,15 @@
     "field.visibilis:xnor.in2": "B",
     "node.visibilis:xnor.groups": "logic_gates;operators",
     
+    "_commentGeneralNodes": "--- General Nodes ---",
+    "group.general": "General",
+    "group.general.tags": "general;base",
+    
+    "node.visibilis:multi_constant": "Multi Constant",
+    "field.visibilis:multi_constant.out1": "Output",
+    "field.visibilis:multi_constant.in1": "Input",
+    "node.visibilis:multi_constant.groups": "general",
+    
     "_commentExecNodes": "--- Exec Nodes ---",
     "group.exec": "Exec",
     "group.exec.tags": "order;execution",

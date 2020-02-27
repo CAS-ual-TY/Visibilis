@@ -80,6 +80,7 @@ public class NodeListProviderBase extends NodeListProvider
     {
         NodeListProviderBase.debug(list);
         NodeListProviderBase.exec(list);
+        NodeListProviderBase.general(list);
         NodeListProviderBase.base(list);
         NodeListProviderBase.player(list);
         NodeListProviderBase.world(list);
@@ -99,6 +100,11 @@ public class NodeListProviderBase extends NodeListProvider
         list.add(VNodeTypes.MERGE.instantiate());
         list.add(VNodeTypes.FOR.instantiate());
         list.add(VNodeTypes.WHILE.instantiate());
+    }
+    
+    public static void general(ArrayList<Node> list)
+    {
+        list.add(VNodeTypes.MULTI_CONSTANT.instantiate());
     }
     
     public static void player(ArrayList<Node> list)

@@ -16,6 +16,7 @@ import de.cas_ual_ty.visibilis.node.exec.NodeBranch;
 import de.cas_ual_ty.visibilis.node.exec.NodeFor;
 import de.cas_ual_ty.visibilis.node.exec.NodeMerge;
 import de.cas_ual_ty.visibilis.node.exec.NodeWhile;
+import de.cas_ual_ty.visibilis.node.general.NodeMultiConstant;
 import de.cas_ual_ty.visibilis.node.general.NodePrint;
 import de.cas_ual_ty.visibilis.node.player.NodeGetPlayerOptional;
 import de.cas_ual_ty.visibilis.node.player.NodeSetPlayerTransform;
@@ -126,6 +127,8 @@ public class VNodeTypes
     public static final NodeType<Node> BLOCK_POS_CREATE = null;
     public static final NodeType<Node> BLOCK_POS_SPLIT = null;
     public static final NodeType<Node> GET_BLOCK = null;
+    
+    public static final NodeType<Node> MULTI_CONSTANT = null;
     
     @SubscribeEvent
     public static void register(RegistryEvent.Register<NodeType<? extends Node>> event)
@@ -490,5 +493,7 @@ public class VNodeTypes
         registry.register(new NodeType<>(NodeBlockPosCreate::new).setRegistryName(Visibilis.MOD_ID, "block_pos_create"));
         registry.register(new NodeType<>(NodeBlockPosSplit::new).setRegistryName(Visibilis.MOD_ID, "block_pos_split"));
         registry.register(new NodeType<>(NodeGetBlock::new).setRegistryName(Visibilis.MOD_ID, "get_block"));
+        
+        registry.register(new NodeType<>(NodeMultiConstant::new).setRegistryName(Visibilis.MOD_ID, "multi_constant"));
     }
 }
