@@ -268,6 +268,14 @@
     "field.visibilis:while.in2": "(!) A",
     "node.visibilis:while.groups": "exec",
     
+    "node.visibilis:multi_equals_branch": "Multi Equals Branch",
+    "field.visibilis:multi_equals_branch.out1": "(O) A == B",
+    "field.visibilis:multi_equals_branch.out2": "(O)",
+    "field.visibilis:multi_equals_branch.in1": "A",
+    "field.visibilis:multi_equals_branch.in2": "B",
+    "field.visibilis:multi_equals_branch.in3": "(I)",
+    "node.visibilis:multi_equals_branch.groups": "exec",
+    
     "_commentCompare": "--- Compare ---",
     "group.compare": "Compare",
     "group.compare.tags": "order;compare",

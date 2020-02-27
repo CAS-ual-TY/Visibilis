@@ -100,6 +100,7 @@ public class NodeListProviderBase extends NodeListProvider
         list.add(VNodeTypes.MERGE.instantiate());
         list.add(VNodeTypes.FOR.instantiate());
         list.add(VNodeTypes.WHILE.instantiate());
+        list.add(VNodeTypes.MULTI_EQUALS_BRANCH.instantiate());
     }
     
     public static void general(ArrayList<Node> list)

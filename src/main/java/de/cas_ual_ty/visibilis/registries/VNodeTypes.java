@@ -15,6 +15,7 @@ import de.cas_ual_ty.visibilis.node.base.trigeneric.NodeTriGenericP2;
 import de.cas_ual_ty.visibilis.node.exec.NodeBranch;
 import de.cas_ual_ty.visibilis.node.exec.NodeFor;
 import de.cas_ual_ty.visibilis.node.exec.NodeMerge;
+import de.cas_ual_ty.visibilis.node.exec.NodeMultiEqualsBranch;
 import de.cas_ual_ty.visibilis.node.exec.NodeWhile;
 import de.cas_ual_ty.visibilis.node.general.NodeMultiConstant;
 import de.cas_ual_ty.visibilis.node.general.NodePrint;
@@ -93,6 +94,7 @@ public class VNodeTypes
     public static final NodeType<Node> MERGE = null;
     public static final NodeType<Node> FOR = null;
     public static final NodeType<Node> WHILE = null;
+    public static final NodeType<Node> MULTI_EQUALS_BRANCH = null;
     
     public static final NodeType<Node> EQUAL_TO = null;
     public static final NodeType<Node> NOT_EQUAL_TO = null;
@@ -419,6 +421,7 @@ public class VNodeTypes
         registry.register(new NodeType<>(NodeMerge::new).setRegistryName(Visibilis.MOD_ID, "merge"));
         registry.register(new NodeType<>(NodeFor::new).setRegistryName(Visibilis.MOD_ID, "for"));
         registry.register(new NodeType<>(NodeWhile::new).setRegistryName(Visibilis.MOD_ID, "while"));
+        registry.register(new NodeType<>(NodeMultiEqualsBranch::new).setRegistryName(Visibilis.MOD_ID, "multi_equals_branch"));
         
         registry.register(new NodeType<>(NodeGenericCompare.createTypeGenericCompare(VDataTypes.NUMBER,
             new NumberFunctionP2<>(
