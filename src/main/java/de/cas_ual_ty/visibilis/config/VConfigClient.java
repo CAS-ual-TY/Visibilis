@@ -42,7 +42,7 @@ public class VConfigClient
         builder.push("colors");
         
         this.color_exec = VUtility.buildColorConfigValue(builder, Visibilis.MOD_ID + ".config.", VConfigClient.KEY_COLOR_EXEC, new float[] { 1F, 0F, 0F });
-        this.color_object = VUtility.buildColorConfigValue(builder, Visibilis.MOD_ID + ".config.", VConfigClient.KEY_COLOR_OBJECT, new float[] { 0.1F, 0.1F, 0.1F });
+        this.color_object = VUtility.buildColorConfigValue(builder, Visibilis.MOD_ID + ".config.", VConfigClient.KEY_COLOR_OBJECT, new float[] { 0.25F, 0.25F, 0.25F });
         this.color_integer = VUtility.buildColorConfigValue(builder, Visibilis.MOD_ID + ".config.", VConfigClient.KEY_COLOR_INTEGER, new float[] { 1F, 1F, 0.75F });
         this.color_float = VUtility.buildColorConfigValue(builder, Visibilis.MOD_ID + ".config.", VConfigClient.KEY_COLOR_FLOAT, new float[] { 1F, 1F, 0.5F });
         this.color_double = VUtility.buildColorConfigValue(builder, Visibilis.MOD_ID + ".config.", VConfigClient.KEY_COLOR_DOUBLE, new float[] { 1F, 1F, 0.25F });
