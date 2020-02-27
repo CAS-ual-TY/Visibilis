@@ -31,7 +31,7 @@ public abstract class NodeField<B>
     /**
      * The data type of this node field.
      */
-    private Function<NodeField<B>, DataType<B>> dataType;
+    private final DataType<B> dataType;
     
     /**
      * The name of this node field (before translation).
@@ -40,7 +40,7 @@ public abstract class NodeField<B>
     
     private boolean triggerRecalculation;
     
-    public NodeField(Node node, Function<NodeField<B>, DataType<B>> dataType, Function<NodeField<B>, String> name)
+    public NodeField(Node node, DataType<B> dataType, Function<NodeField<B>, String> name)
     {
         this.node = node;
         this.dataType = dataType;
@@ -50,7 +50,7 @@ public abstract class NodeField<B>
     
     public NodeField(Node node, DataType<B> dataType, String name)
     {
-        this(node, (field) -> dataType, (field) -> name);
+        this(node, dataType, (field) -> name);
     }
     
     public Node getNode()
@@ -60,7 +60,7 @@ public abstract class NodeField<B>
     
     public DataType<B> getDataType()
     {
-        return this.dataType.apply(this);
+        return this.dataType;
     }
     
     public String getName()

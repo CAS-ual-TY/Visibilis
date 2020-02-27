@@ -21,7 +21,7 @@ public class Output<O> extends NodeField<O>
      */
     protected final ArrayList<Input<?>> connections;
     
-    public Output(Node node, Function<NodeField<O>, DataType<O>> dataType, Function<NodeField<O>, String> name)
+    public Output(Node node, DataType<O> dataType, Function<NodeField<O>, String> name)
     {
         super(node, dataType, name);
         this.connections = new ArrayList<>();
@@ -29,7 +29,7 @@ public class Output<O> extends NodeField<O>
     
     public Output(Node node, DataType<O> dataType, String name)
     {
-        this(node, (field) -> dataType, (field) -> name);
+        this(node, dataType, (field) -> name);
     }
     
     @Override

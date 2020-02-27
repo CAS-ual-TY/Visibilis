@@ -30,7 +30,7 @@ public class Input<I> extends NodeField<I>
     
     protected boolean mustUseConnection;
     
-    public Input(Node node, Function<NodeField<I>, DataType<I>> dataType, Function<NodeField<I>, String> name)
+    public Input(Node node, DataType<I> dataType, Function<NodeField<I>, String> name)
     {
         super(node, dataType, name);
         this.mustUseConnection = !this.getDataType().hasDefaultValue();
@@ -38,7 +38,7 @@ public class Input<I> extends NodeField<I>
     
     public Input(Node node, DataType<I> dataType, String name)
     {
-        this(node, (field) -> dataType, (field) -> name);
+        this(node, dataType, (field) -> name);
     }
     
     @Override
