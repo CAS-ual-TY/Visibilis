@@ -334,7 +334,8 @@ public abstract class Node
     
     public void removeOutput(int index)
     {
-        this.outputFields.remove(index);
+        NodeField<?> f = this.outputFields.remove(index);
+        f.cutConnections();
         
         for(int i = index; i < this.getOutputAmt(); ++i)
         {
@@ -358,7 +359,8 @@ public abstract class Node
     
     public void removeInput(int index)
     {
-        this.inputFields.remove(index);
+        NodeField<?> f = this.inputFields.remove(index);
+        f.cutConnections();
         
         for(int i = index; i < this.getInputAmt(); ++i)
         {
