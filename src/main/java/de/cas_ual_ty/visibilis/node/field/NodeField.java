@@ -1,6 +1,7 @@
 package de.cas_ual_ty.visibilis.node.field;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import javax.annotation.Nullable;
@@ -40,12 +41,17 @@ public abstract class NodeField<B>
     
     private boolean triggerRecalculation;
     
+    protected Consumer<NodeField<B>> connectCallable;
+    protected Consumer<NodeField<B>> disconnectCallable;
+    
     public NodeField(Node node, DataType<B> dataType, Function<NodeField<B>, String> name)
     {
         this.node = node;
         this.dataType = dataType;
         this.name = name;
         this.triggerRecalculation = false;
+        this.connectCallable = null;
+        this.disconnectCallable = null;
     }
     
     public NodeField(Node node, DataType<B> dataType, String name)
@@ -124,6 +130,28 @@ public abstract class NodeField<B>
     @Nullable
     public abstract B getValue();
     
+    public Consumer<NodeField<B>> getConnectCallable()
+    {
+        return this.connectCallable;
+    }
+    
+    public NodeField<B> setConnectCallable(Consumer<NodeField<B>> connectCallable)
+    {
+        this.connectCallable = connectCallable;
+        return this;
+    }
+    
+    public Consumer<NodeField<B>> getDisconnectCallable()
+    {
+        return this.disconnectCallable;
+    }
+    
+    public NodeField<B> setDisconnectCallable(Consumer<NodeField<B>> disconnectCallable)
+    {
+        this.disconnectCallable = disconnectCallable;
+        return this;
+    }
+    
     /**
      * @return <b>true</b> if this node is connected to another node (or multiple).
      */
@@ -139,7 +167,7 @@ public abstract class NodeField<B>
     /**
      * Cut all connections to other fields (but not their connections to this field).
      */
-    public abstract void clearConnections();
+    protected abstract void clearConnections();
     
     /**
      * Cut the connection from a field to this field (but not from this field to the given field).
@@ -160,6 +188,11 @@ public abstract class NodeField<B>
         }
         
         this.clearConnections();
+        
+        if(this.getDisconnectCallable() != null)
+        {
+            this.getDisconnectCallable().accept(this);
+        }
     }
     
     /**
@@ -225,7 +258,7 @@ public abstract class NodeField<B>
         }
     }
     
-    public static void connect(Output<?> out, Input<?> in)
+    public static final <O, I> void connect(Output<O> out, Input<I> in)
     {
         // Inputs can only be connected once...
         if(in.connection != null && in.connection != out)
@@ -236,6 +269,15 @@ public abstract class NodeField<B>
         
         out.setConnectionTo(in);
         in.setConnectionTo(out);
+        
+        if(out.getConnectCallable() != null)
+        {
+            out.getConnectCallable().accept(out);
+        }
+        if(in.getConnectCallable() != null)
+        {
+            in.getConnectCallable().accept(in);
+        }
     }
     
     /**

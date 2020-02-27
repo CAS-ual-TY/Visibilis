@@ -1,6 +1,7 @@
 package de.cas_ual_ty.visibilis.node.field;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
@@ -45,6 +46,20 @@ public class Input<I> extends NodeField<I>
     public Input<I> setTriggerRecalculation()
     {
         super.setTriggerRecalculation();
+        return this;
+    }
+    
+    @Override
+    public Input<I> setConnectCallable(Consumer<NodeField<I>> connectCallable)
+    {
+        super.setConnectCallable(connectCallable);
+        return this;
+    }
+    
+    @Override
+    public Input<I> setDisconnectCallable(Consumer<NodeField<I>> disconnectCallable)
+    {
+        super.setDisconnectCallable(disconnectCallable);
         return this;
     }
     
@@ -110,7 +125,7 @@ public class Input<I> extends NodeField<I>
     }
     
     @Override
-    public void clearConnections()
+    protected void clearConnections()
     {
         this.connection = null;
         
