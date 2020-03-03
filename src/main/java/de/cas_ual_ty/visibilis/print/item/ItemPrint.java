@@ -84,4 +84,9 @@ public class ItemPrint extends Item
     {
         return false;
     }
+    
+    public boolean validate(ItemStack itemStack, Print print)
+    {
+        return true;
+    }
 }

@@ -49,7 +49,11 @@ public class MessagePrintSynchItem
             ItemStack itemStack = ctx.get().getSender().inventory.getStackInSlot(msg.slot);
             Print print = itemStack.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElse(new Print());
             
-            if(!MinecraftForge.EVENT_BUS.post(new ItemPrintValidationEvent(itemStack, print)))
+            if(itemStack.getItem() instanceof ItemPrint && !((ItemPrint)itemStack.getItem()).validate(itemStack, print))
+            {
+                return;
+            }
+            else if(!MinecraftForge.EVENT_BUS.post(new ItemPrintValidationEvent(itemStack, print)))
             {
                 print.overrideFromNBT(msg.nbt);
             }
