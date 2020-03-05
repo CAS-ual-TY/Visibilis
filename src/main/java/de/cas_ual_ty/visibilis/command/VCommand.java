@@ -7,8 +7,8 @@ import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.event.CommandBuilderEvent;
 import de.cas_ual_ty.visibilis.event.EditCommandEvent;
 import de.cas_ual_ty.visibilis.event.ExecCommandEvent;
-import de.cas_ual_ty.visibilis.node.dataprovider.DataProviderItemStack;
 import de.cas_ual_ty.visibilis.print.Print;
+import de.cas_ual_ty.visibilis.print.item.DataProviderItem;
 import de.cas_ual_ty.visibilis.print.item.ItemPrint;
 import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.command.CommandSource;
@@ -131,7 +131,7 @@ public class VCommand
             
             if(p != null)
             {
-                return p.executeEvent(Visibilis.MOD_ID, event, new DataProviderItemStack(sender, itemStack));
+                return p.executeEvent(Visibilis.MOD_ID, event, new DataProviderItem(sender, itemStack));
             }
         }
         
