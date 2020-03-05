@@ -1,5 +1,6 @@
 package de.cas_ual_ty.visibilis.print.item;
 
+import de.cas_ual_ty.visibilis.node.dataprovider.DataProvider;
 import de.cas_ual_ty.visibilis.print.GuiPrint;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
@@ -8,6 +9,7 @@ import de.cas_ual_ty.visibilis.print.provider.NodeListProviderBase;
 import de.cas_ual_ty.visibilis.print.provider.PrintProvider;
 import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.command.CommandSource;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
@@ -83,6 +85,16 @@ public class ItemPrint extends Item
     public boolean isEditable(ItemStack itemStack, CommandSource source)
     {
         return false;
+    }
+    
+    public DataProvider createDataProvider(Entity entity, ItemStack itemStack)
+    {
+        return new DataProviderItem(entity, itemStack);
+    }
+    
+    public boolean executeEvent(String modId, String event, Entity entity, ItemStack itemStack)
+    {
+        return this.getPrint(itemStack).executeEvent(event, this.createDataProvider(entity, itemStack));
     }
     
     public boolean validate(ItemStack itemStack, Print print)

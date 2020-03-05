@@ -29,7 +29,7 @@ public class ItemPrintClickable extends ItemPrint
             return new ActionResult<>(ActionResultType.PASS, itemstack);
         }
         
-        if(this.executeEvent(worldIn, playerIn, handIn))
+        if(this.executeRightClickEvent(worldIn, playerIn, handIn))
         {
             return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
         }
@@ -39,8 +39,8 @@ public class ItemPrintClickable extends ItemPrint
         }
     }
     
-    public boolean executeEvent(World worldIn, PlayerEntity playerIn, Hand handIn)
+    public boolean executeRightClickEvent(World worldIn, PlayerEntity playerIn, Hand handIn)
     {
-        return this.getPrint(playerIn.getHeldItem(handIn)).executeEvent(Visibilis.MOD_ID, "right_click", playerIn.getCommandSource());
+        return this.executeEvent(Visibilis.MOD_ID, "right_click", playerIn, playerIn.getHeldItem(handIn));
     }
 }
