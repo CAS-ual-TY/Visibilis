@@ -1,5 +1,6 @@
 package de.cas_ual_ty.visibilis.print.entity;
 
+import de.cas_ual_ty.visibilis.node.dataprovider.DataProvider;
 import de.cas_ual_ty.visibilis.print.GuiPrint;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
@@ -62,5 +63,15 @@ public abstract class EntityPrint extends Entity
     {
         Print print = this.getPrint();
         print.overrideFromNBT(nbt);
+    }
+    
+    public DataProvider createDataProvider()
+    {
+        return new DataProviderEntity(this);
+    }
+    
+    public void executeEvent(String modId, String event)
+    {
+        this.getPrint().executeEvent(modId, event, this.createDataProvider());
     }
 }
