@@ -1,9 +1,9 @@
 package de.cas_ual_ty.visibilis.print.entity;
 
-import de.cas_ual_ty.visibilis.node.dataprovider.DataProvider;
 import de.cas_ual_ty.visibilis.print.GuiPrint;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
+import de.cas_ual_ty.visibilis.print.provider.DataProvider;
 import de.cas_ual_ty.visibilis.print.provider.NodeListProvider;
 import de.cas_ual_ty.visibilis.print.provider.NodeListProviderBase;
 import de.cas_ual_ty.visibilis.print.provider.PrintProvider;

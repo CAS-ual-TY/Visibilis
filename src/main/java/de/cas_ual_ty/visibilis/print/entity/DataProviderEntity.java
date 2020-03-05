@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.print.entity;
 
-import de.cas_ual_ty.visibilis.node.dataprovider.DataProvider;
+import de.cas_ual_ty.visibilis.print.provider.DataProvider;
 import net.minecraft.command.CommandSource;
 import net.minecraft.entity.Entity;
 
