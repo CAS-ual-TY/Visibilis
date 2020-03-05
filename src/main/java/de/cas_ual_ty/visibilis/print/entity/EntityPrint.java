@@ -70,8 +70,8 @@ public abstract class EntityPrint extends Entity
         return new DataProviderEntity(this);
     }
     
-    public void executeEvent(String modId, String event)
+    public boolean executeEvent(String modId, String event)
     {
-        this.getPrint().executeEvent(modId, event, this.createDataProvider());
+        return this.getPrint().executeEvent(modId, event, this.createDataProvider());
     }
 }
