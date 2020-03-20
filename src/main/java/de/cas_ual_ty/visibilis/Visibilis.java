@@ -93,8 +93,8 @@ public class Visibilis
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public void newRegistry(NewRegistry event)
     {
-        Visibilis.nodeTypesRegistry = new RegistryBuilder().setName(new ResourceLocation(Visibilis.MOD_ID, "nodes")).setType(NodeType.class).setMaxID(4096).create();
-        Visibilis.dataTypesRegistry = new RegistryBuilder().setName(new ResourceLocation(Visibilis.MOD_ID, "datatypes")).setType(DataType.class).setMaxID(4096).create();
+        Visibilis.nodeTypesRegistry = new RegistryBuilder().setName(new ResourceLocation(Visibilis.MOD_ID, "nodes")).setType(NodeType.class).setMaxID(512).create();
+        Visibilis.dataTypesRegistry = new RegistryBuilder().setName(new ResourceLocation(Visibilis.MOD_ID, "datatypes")).setType(DataType.class).setMaxID(512).create();
     }
     
     public void attachCapabilitiesItemStack(AttachCapabilitiesEvent<ItemStack> event)
