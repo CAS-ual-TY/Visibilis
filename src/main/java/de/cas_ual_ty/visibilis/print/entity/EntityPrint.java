@@ -74,4 +74,9 @@ public abstract class EntityPrint extends Entity
     {
         return this.getPrint().executeEvent(modId, event, this.createDataProvider());
     }
+    
+    public boolean validate(Print print)
+    {
+        return true;
+    }
 }

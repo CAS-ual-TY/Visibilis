@@ -53,6 +53,11 @@ public class MessagePrintSynchEntity
             if(entity != null)
             {
                 Print print = entity.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElse(new Print());
+                
+                if(entity instanceof EntityPrint && !((EntityPrint)entity).validate(print))
+                {
+                    return;
+                }
                 if(!MinecraftForge.EVENT_BUS.post(new EntityPrintValidationEvent(entity)))
                 {
                     print.overrideFromNBT(msg.nbt);
