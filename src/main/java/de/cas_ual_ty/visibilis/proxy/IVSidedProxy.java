@@ -20,4 +20,9 @@ public interface IVSidedProxy
     {
         return null;
     }
+    
+    public default PlayerEntity getClientPlayer()
+    {
+        return null;
+    }
 }

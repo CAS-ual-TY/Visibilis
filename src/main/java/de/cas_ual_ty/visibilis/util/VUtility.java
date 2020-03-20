@@ -7,8 +7,11 @@ import de.cas_ual_ty.visibilis.config.VConfigClient;
 import de.cas_ual_ty.visibilis.config.VConfigHelper;
 import de.cas_ual_ty.visibilis.config.VConfiguration;
 import de.cas_ual_ty.visibilis.print.provider.PrintProvider;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeConfigSpec.Builder;
 import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
+import net.minecraftforge.fml.network.NetworkEvent;
 
 public class VUtility
 {
@@ -71,5 +74,29 @@ public class VUtility
     public static float[] toColor(DoubleValue[] values)
     {
         return new float[] { values[0].get().floatValue(), values[1].get().floatValue(), values[2].get().floatValue() };
+    }
+    
+    public static World getWorld(NetworkEvent.Context context)
+    {
+        if(context.getSender() != null)
+        {
+            return context.getSender().world;
+        }
+        else
+        {
+            return Visibilis.proxy.getClientWorld();
+        }
+    }
+    
+    public static PlayerEntity getPlayer(NetworkEvent.Context context)
+    {
+        if(context.getSender() != null)
+        {
+            return context.getSender();
+        }
+        else
+        {
+            return Visibilis.proxy.getClientPlayer();
+        }
     }
 }

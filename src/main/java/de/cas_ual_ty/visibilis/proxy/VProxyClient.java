@@ -32,4 +32,10 @@ public class VProxyClient implements IVSidedProxy
     {
         return Minecraft.getInstance().world;
     }
+    
+    @Override
+    public PlayerEntity getClientPlayer()
+    {
+        return Minecraft.getInstance().player;
+    }
 }
