@@ -83,7 +83,7 @@ public class Visibilis
         Visibilis.channel.registerMessage(1, MessagePlayerMotion.class, MessagePlayerMotion::encode, MessagePlayerMotion::decode, MessagePlayerMotion::handle);
         Visibilis.channel.registerMessage(2, MessagePrintEquipmentSlot.class, MessagePrintEquipmentSlot::encode, MessagePrintEquipmentSlot::decode, MessagePrintEquipmentSlot::handle);
         Visibilis.channel.registerMessage(3, MessagePrintSynchEntity.class, MessagePrintSynchEntity::encode, MessagePrintSynchEntity::decode, MessagePrintSynchEntity::handle);
-        Visibilis.channel.registerMessage(4, MessagePrintSynchEntity.class, MessagePrintSynchEntity::encode, MessagePrintSynchEntity::decode, MessagePrintEditEntity::handle);
+        Visibilis.channel.registerMessage(4, MessagePrintEditEntity.class, MessagePrintEditEntity::encode, MessagePrintEditEntity::decode, MessagePrintEditEntity::handle);
         
         VDataTypes.addConverters();
         
