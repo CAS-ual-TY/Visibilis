@@ -2,6 +2,7 @@ package de.cas_ual_ty.visibilis.print.entity;
 
 import java.util.function.Function;
 
+import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.print.GuiPrint;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
@@ -13,10 +14,12 @@ import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkDirection;
 
 public abstract class EntityPrint extends Entity
 {
@@ -80,6 +83,11 @@ public abstract class EntityPrint extends Entity
     public boolean validate(Print print)
     {
         return true;
+    }
+    
+    public void openForClient(PlayerEntity player)
+    {
+        Visibilis.channel.sendTo(null, ((ServerPlayerEntity)player).connection.getNetworkManager(), NetworkDirection.PLAY_TO_CLIENT);
     }
     
     public static Function<Print, DataProvider> getDataFactory(Entity entity)

@@ -12,6 +12,7 @@ import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
 import de.cas_ual_ty.visibilis.print.capability.StoragePrint;
 import de.cas_ual_ty.visibilis.print.entity.EntityPrint;
 import de.cas_ual_ty.visibilis.print.entity.LivingEntityPrint;
+import de.cas_ual_ty.visibilis.print.entity.MessagePrintEditEntity;
 import de.cas_ual_ty.visibilis.print.entity.MessagePrintSynchEntity;
 import de.cas_ual_ty.visibilis.print.item.ItemPrint;
 import de.cas_ual_ty.visibilis.print.item.MessagePrintSynchItem;
@@ -82,6 +83,7 @@ public class Visibilis
         Visibilis.channel.registerMessage(1, MessagePlayerMotion.class, MessagePlayerMotion::encode, MessagePlayerMotion::decode, MessagePlayerMotion::handle);
         Visibilis.channel.registerMessage(2, MessagePrintEquipmentSlot.class, MessagePrintEquipmentSlot::encode, MessagePrintEquipmentSlot::decode, MessagePrintEquipmentSlot::handle);
         Visibilis.channel.registerMessage(3, MessagePrintSynchEntity.class, MessagePrintSynchEntity::encode, MessagePrintSynchEntity::decode, MessagePrintSynchEntity::handle);
+        Visibilis.channel.registerMessage(4, MessagePrintSynchEntity.class, MessagePrintSynchEntity::encode, MessagePrintSynchEntity::decode, MessagePrintEditEntity::handle);
         
         VDataTypes.addConverters();
         

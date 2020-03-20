@@ -6,6 +6,7 @@ import de.cas_ual_ty.visibilis.event.EntityPrintValidationEvent;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
 import de.cas_ual_ty.visibilis.util.VNBTUtility;
+import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
@@ -47,7 +48,7 @@ public class MessagePrintSynchEntity
         
         context.enqueueWork(() ->
         {
-            World world = context.getSender().world;
+            World world = VUtility.getWorld(context);
             Entity entity = world.getEntityByID(msg.entityId);
             
             if(entity != null)
