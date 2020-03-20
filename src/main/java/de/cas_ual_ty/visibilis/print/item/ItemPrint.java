@@ -92,7 +92,7 @@ public class ItemPrint extends Item
     
     public boolean executeEvent(String modId, String event, Entity entity, ItemStack itemStack)
     {
-        return this.getPrint(itemStack).executeEvent(event, ItemPrint.createDataFactory(entity, itemStack));
+        return this.getPrint(itemStack).executeEvent(modId, event, ItemPrint.createDataFactory(entity, itemStack));
     }
     
     public boolean validate(ItemStack itemStack, Print print)
