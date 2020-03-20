@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.print.provider.data;
+package de.cas_ual_ty.visibilis.print.provider;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.util.VUtility;

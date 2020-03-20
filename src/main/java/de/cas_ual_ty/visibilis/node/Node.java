@@ -8,7 +8,7 @@ import de.cas_ual_ty.visibilis.NodesRegistry;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.node.field.Output;
-import de.cas_ual_ty.visibilis.print.provider.data.DataProvider;
+import de.cas_ual_ty.visibilis.print.provider.DataProvider;
 import de.cas_ual_ty.visibilis.util.VNBTUtility;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.CompoundNBT;

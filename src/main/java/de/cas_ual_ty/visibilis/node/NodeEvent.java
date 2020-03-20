@@ -1,7 +1,7 @@
 package de.cas_ual_ty.visibilis.node;
 
 import de.cas_ual_ty.visibilis.node.field.Output;
-import de.cas_ual_ty.visibilis.print.provider.data.DataProvider;
+import de.cas_ual_ty.visibilis.print.provider.DataProvider;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 
 public class NodeEvent extends Node

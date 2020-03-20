@@ -1,4 +1,4 @@
-package de.cas_ual_ty.visibilis.print.provider.data;
+package de.cas_ual_ty.visibilis.print.provider;
 
 import java.util.Map;
 import java.util.Optional;
