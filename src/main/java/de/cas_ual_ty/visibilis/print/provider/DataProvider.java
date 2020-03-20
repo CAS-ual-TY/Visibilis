@@ -1,5 +1,6 @@
 package de.cas_ual_ty.visibilis.print.provider;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
@@ -20,6 +21,7 @@ public class DataProvider
     {
         this.print = print;
         this.feedback = feedback;
+        this.map = new HashMap<>();
     }
     
     public DataProvider(Print print, CommandSource source)
