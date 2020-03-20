@@ -8,7 +8,7 @@ import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.NodeExpandable;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
-import de.cas_ual_ty.visibilis.print.provider.ExecContext;
+import de.cas_ual_ty.visibilis.print.provider.data.DataProvider;
 import de.cas_ual_ty.visibilis.util.VUtility;
 
 public abstract class NodeTriGenericP2<O, I1, I2> extends NodeExpandable
@@ -87,7 +87,7 @@ public abstract class NodeTriGenericP2<O, I1, I2> extends NodeExpandable
     }
     
     @Override
-    public boolean doCalculate(ExecContext context)
+    public boolean doCalculate(DataProvider context)
     {
         I1[] inputs = this.getIn1DataType().createArray(this.expansionInputs.size());
         I2 in2 = this.in2.getValue();

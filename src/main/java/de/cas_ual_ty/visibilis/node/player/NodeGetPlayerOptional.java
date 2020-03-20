@@ -4,7 +4,8 @@ import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
-import de.cas_ual_ty.visibilis.print.provider.ExecContext;
+import de.cas_ual_ty.visibilis.print.provider.data.DataKey;
+import de.cas_ual_ty.visibilis.print.provider.data.DataProvider;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.entity.player.PlayerEntity;
@@ -28,16 +29,20 @@ public class NodeGetPlayerOptional extends Node
     }
     
     @Override
-    public boolean doCalculate(ExecContext context)
+    public boolean doCalculate(DataProvider context)
     {
-        if(context.getData().getCommandSender().getEntity() instanceof PlayerEntity)
+        this.value = null;
+        context.getDataOptional(DataKey.KEY_COMMAND_SOURCE).ifPresent((source) ->
         {
-            this.value = (PlayerEntity)context.getData().getCommandSender().getEntity();
-        }
-        else
-        {
-            this.value = null;
-        }
+            if(source.getEntity() instanceof PlayerEntity)
+            {
+                this.value = (PlayerEntity)source.getEntity();
+            }
+            else
+            {
+                this.value = null;
+            }
+        });
         
         return true;
     }

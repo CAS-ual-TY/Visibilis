@@ -4,7 +4,7 @@ import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
-import de.cas_ual_ty.visibilis.print.provider.ExecContext;
+import de.cas_ual_ty.visibilis.print.provider.data.DataProvider;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.util.math.Vec3d;
@@ -28,7 +28,7 @@ public class NodeVector3dSplit extends Node
     }
     
     @Override
-    public boolean doCalculate(ExecContext context)
+    public boolean doCalculate(DataProvider context)
     {
         this.x = this.in1Vector3d.getValue().getX();
         this.y = this.in1Vector3d.getValue().getY();

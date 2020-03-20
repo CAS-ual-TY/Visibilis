@@ -1,12 +1,15 @@
 package de.cas_ual_ty.visibilis.print.item;
 
+import java.util.function.Function;
+
 import de.cas_ual_ty.visibilis.print.GuiPrint;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
-import de.cas_ual_ty.visibilis.print.provider.DataProvider;
 import de.cas_ual_ty.visibilis.print.provider.NodeListProvider;
 import de.cas_ual_ty.visibilis.print.provider.NodeListProviderBase;
 import de.cas_ual_ty.visibilis.print.provider.PrintProvider;
+import de.cas_ual_ty.visibilis.print.provider.data.DataKey;
+import de.cas_ual_ty.visibilis.print.provider.data.DataProvider;
 import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.command.CommandSource;
 import net.minecraft.entity.Entity;
@@ -87,18 +90,18 @@ public class ItemPrint extends Item
         return false;
     }
     
-    public DataProvider createDataProvider(Entity entity, ItemStack itemStack)
-    {
-        return new DataProviderItem(entity, itemStack);
-    }
-    
     public boolean executeEvent(String modId, String event, Entity entity, ItemStack itemStack)
     {
-        return this.getPrint(itemStack).executeEvent(event, this.createDataProvider(entity, itemStack));
+        return this.getPrint(itemStack).executeEvent(event, ItemPrint.createDataFactory(entity, itemStack));
     }
     
     public boolean validate(ItemStack itemStack, Print print)
     {
         return true;
+    }
+    
+    public static Function<Print, DataProvider> createDataFactory(Entity entity, ItemStack itemStack)
+    {
+        return (print) -> new DataProvider(print, entity).addData(DataKey.KEY_ITEM_STACK, itemStack);
     }
 }

@@ -5,7 +5,7 @@ import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.bigeneric.NodeBiGenericP2;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
-import de.cas_ual_ty.visibilis.print.provider.ExecContext;
+import de.cas_ual_ty.visibilis.print.provider.data.DataProvider;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 
 public class NodeMultiEqualsBranch extends NodeBiGenericP2<Object, Object>
@@ -53,7 +53,7 @@ public class NodeMultiEqualsBranch extends NodeBiGenericP2<Object, Object>
     }
     
     @Override
-    public boolean doCalculate(ExecContext context)
+    public boolean doCalculate(DataProvider context)
     {
         boolean flag = super.doCalculate(context);
         

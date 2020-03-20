@@ -8,7 +8,7 @@ import de.cas_ual_ty.visibilis.NodesRegistry;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.node.field.Output;
-import de.cas_ual_ty.visibilis.print.provider.ExecContext;
+import de.cas_ual_ty.visibilis.print.provider.data.DataProvider;
 import de.cas_ual_ty.visibilis.util.VNBTUtility;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.CompoundNBT;
@@ -92,7 +92,7 @@ public abstract class Node
      * 
      * @return <b>true</b> if all parent nodes have successfully been calculated, <false> if they could not be calculated.
      */
-    public boolean preCalculate(ExecContext context)
+    public boolean preCalculate(DataProvider context)
     {
         // If this node has no inputs it also has no parents, so it can be calculated immediately
         // (or if none of the inputs have any connections)
@@ -140,7 +140,7 @@ public abstract class Node
      * 
      * @return <b>true</b> if all nodes have successfully been calculated, <false> if they could not be calculated.
      */
-    public boolean calculate(ExecContext context)
+    public boolean calculate(DataProvider context)
     {
         // Make sure all parents are calculated
         if(!this.preCalculate(context) || !this.hasAllRequiredInputs(context))
@@ -160,7 +160,7 @@ public abstract class Node
      * 
      * @return <b>true</b> if this node has successfully been calculated, <false> if it could not be calculated.
      */
-    public abstract boolean doCalculate(ExecContext context);
+    public abstract boolean doCalculate(DataProvider context);
     
     /**
      * After calculation, get the next output of the exec data type (basically just the next exec node to calculate). This is getting called repeatedly until <b>null</b> is returned.
@@ -243,7 +243,7 @@ public abstract class Node
     /**
      * Returns <b>true</b> if all inputs that are required for calculation are connected. Override if there are any optional inputs not required for calculation.
      */
-    public boolean hasAllRequiredInputs(ExecContext context)
+    public boolean hasAllRequiredInputs(DataProvider context)
     {
         Input<?> field0;
         int i;

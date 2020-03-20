@@ -1,12 +1,14 @@
 package de.cas_ual_ty.visibilis.print.entity;
 
+import java.util.function.Function;
+
 import de.cas_ual_ty.visibilis.print.GuiPrint;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
-import de.cas_ual_ty.visibilis.print.provider.DataProvider;
 import de.cas_ual_ty.visibilis.print.provider.NodeListProvider;
 import de.cas_ual_ty.visibilis.print.provider.NodeListProviderBase;
 import de.cas_ual_ty.visibilis.print.provider.PrintProvider;
+import de.cas_ual_ty.visibilis.print.provider.data.DataProvider;
 import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -65,9 +67,9 @@ public abstract class EntityPrint extends Entity
         print.overrideFromNBT(nbt);
     }
     
-    public DataProvider createDataProvider()
+    public Function<Print, DataProvider> createDataProvider()
     {
-        return new DataProviderEntity(this);
+        return EntityPrint.getDataFactory(this);
     }
     
     public boolean executeEvent(String modId, String event)
@@ -78,5 +80,10 @@ public abstract class EntityPrint extends Entity
     public boolean validate(Print print)
     {
         return true;
+    }
+    
+    public static Function<Print, DataProvider> getDataFactory(Entity entity)
+    {
+        return (print) -> new DataProvider(print, entity);
     }
 }

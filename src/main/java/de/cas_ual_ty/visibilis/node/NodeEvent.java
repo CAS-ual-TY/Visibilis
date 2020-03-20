@@ -1,7 +1,7 @@
 package de.cas_ual_ty.visibilis.node;
 
 import de.cas_ual_ty.visibilis.node.field.Output;
-import de.cas_ual_ty.visibilis.print.provider.ExecContext;
+import de.cas_ual_ty.visibilis.print.provider.data.DataProvider;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 
 public class NodeEvent extends Node
@@ -21,7 +21,7 @@ public class NodeEvent extends Node
     }
     
     @Override
-    public boolean doCalculate(ExecContext context)
+    public boolean doCalculate(DataProvider context)
     {
         return true;
     }

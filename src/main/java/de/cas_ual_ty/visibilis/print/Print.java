@@ -1,14 +1,14 @@
 package de.cas_ual_ty.visibilis.print;
 
 import java.util.ArrayList;
+import java.util.function.Function;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeEvent;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
-import de.cas_ual_ty.visibilis.print.provider.DataProvider;
-import de.cas_ual_ty.visibilis.print.provider.ExecContext;
+import de.cas_ual_ty.visibilis.print.provider.data.DataProvider;
 import de.cas_ual_ty.visibilis.util.VNBTUtility;
 import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.command.CommandSource;
@@ -142,15 +142,20 @@ public class Print
     
     public boolean executeEvent(String eventType, CommandSource sender)
     {
-        return this.executeEvent(eventType, new DataProvider(sender));
+        return this.executeEvent(eventType, (print) -> new DataProvider(print, sender));
     }
     
-    public boolean executeEvent(String modId, String eventType, DataProvider data)
+    public boolean executeEvent(String modId, String eventType, Function<Print, DataProvider> data)
     {
         return this.executeEvent(modId + ":" + eventType, data);
     }
     
-    public boolean executeEvent(String eventType, DataProvider data)
+    public boolean executeEvent(String eventType, Function<Print, DataProvider> data)
+    {
+        return this.executeEvent(eventType, data.apply(this));
+    }
+    
+    protected boolean executeEvent(String eventType, DataProvider data)
     {
         NodeEvent event;
         
@@ -175,16 +180,14 @@ public class Print
      *            The node to start the exec chain from.
      * @return <b>true</b> if the given parameter exec node and all child exec nodes could be calculated successfully.
      */
-    public boolean execute(Node node, DataProvider provider)
+    public boolean execute(Node node, DataProvider data)
     {
         if(VUtility.isShutdown())
         {
             return false;
         }
         
-        ExecContext context = new ExecContext(this, provider);
-        
-        boolean ret = this.exec(node, context);
+        boolean ret = this.exec(node, data);
         
         for(Node n : this.nodes)
         {
@@ -201,7 +204,7 @@ public class Print
      *            The node to start the exec chain from.
      * @return <b>true</b> if the given parameter exec node and all child exec nodes could be calculated successfully.
      */
-    protected boolean exec(Node node, ExecContext context)
+    protected boolean exec(Node node, DataProvider context)
     {
         // If the node can not be calculated, abort
         if(!node.calculate(context))

@@ -8,7 +8,7 @@ import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.base.NodeExpandable;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
-import de.cas_ual_ty.visibilis.print.provider.ExecContext;
+import de.cas_ual_ty.visibilis.print.provider.data.DataProvider;
 import de.cas_ual_ty.visibilis.util.VUtility;
 
 public abstract class NodeBiGenericP<O, I> extends NodeExpandable
@@ -83,7 +83,7 @@ public abstract class NodeBiGenericP<O, I> extends NodeExpandable
     }
     
     @Override
-    public boolean doCalculate(ExecContext context)
+    public boolean doCalculate(DataProvider context)
     {
         I[] inputs = this.getInDataType().createArray(this.expansionInputs.size());
         
