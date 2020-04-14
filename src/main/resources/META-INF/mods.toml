@@ -32,7 +32,7 @@ description='''
 Visual Coding in Minecraft.
 
 This is an API (a base mod). So it does not really do anything unless used by other mods which build upon mid.
-Hovever, when used by other mods, Visibilis becomes very powerful.
+However, when used by other mods, Visibilis becomes very powerful.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 #REMOVED - See https://github.com/MinecraftForge/MinecraftForge/blob/1.14.x/mdk/src/main/resources/META-INF/mods.toml

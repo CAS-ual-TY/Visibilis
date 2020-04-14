@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import org.lwjgl.glfw.GLFW;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeGroupsHelper;
@@ -65,8 +65,8 @@ public class ComponentNodeList extends Component
         boolean mouseOnTextField = this.inputRect.isCoordInside(mouseX, mouseY);
         boolean mouseOnList = !mouseOnTextField && this.listRect.isCoordInside(mouseX, mouseY);
         
-        GlStateManager.pushMatrix();
-        GlStateManager.translatef(this.dimensions.x, this.dimensions.y, 0);
+        RenderSystem.pushMatrix();
+        RenderSystem.translatef(this.dimensions.x, this.dimensions.y, 0);
         //        RenderUtility.scissorStart(this.guiPrint.getScaledResolution(), this.listRect.x, this.listRect.y, this.listRect.w, this.listRect.h);
         RenderUtility.applyZoom(zoom);
         
@@ -119,7 +119,7 @@ public class ComponentNodeList extends Component
         }
         
         //        RenderUtility.scissorEnd();
-        GlStateManager.popMatrix();
+        RenderSystem.popMatrix();
         
         if(mouseOnTextField)
         {

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
@@ -608,7 +609,7 @@ public class RenderUtility
      */
     public void updateLineWidth(Print print)
     {
-        this.nodeFieldConnectionsWidth = (float)((this.nodeFieldDotSize / 2) * print.getZoom() * Minecraft.getInstance().mainWindow.getGuiScaleFactor());
+        this.nodeFieldConnectionsWidth = (float)((this.nodeFieldDotSize / 2) * print.getZoom() * Minecraft.getInstance().getMainWindow().getGuiScaleFactor());
     }
     
     public static void drawTextCentered(FontRenderer fontRenderer, int x, int y, int w, String text, float color[])
@@ -702,7 +703,7 @@ public class RenderUtility
      */
     public static void scissorStart(MainWindow sr, int x, int y, int w, int h)
     {
-        GlStateManager.pushMatrix();
+        RenderSystem.pushMatrix();
         GL11.glEnable(GL11.GL_SCISSOR_TEST);
         // * scaleFactor due to the automatic resizing depending on window size (or the GUI size settings)
         // All the derparoundery with the Y position because Minecraft 0,0 is at the top left, but lwjgl 0,0 is at the bottom left
@@ -715,7 +716,7 @@ public class RenderUtility
     public static void scissorEnd()
     {
         GL11.glDisable(GL11.GL_SCISSOR_TEST);
-        GlStateManager.popMatrix();
+        RenderSystem.popMatrix();
     }
     
     /**
@@ -723,7 +724,7 @@ public class RenderUtility
      */
     public static void applyZoom(float zoom)
     {
-        GlStateManager.scalef(zoom, zoom, 1); // Apply zoom, 2x zoom means 2x size of prints, so this is fine
+        RenderSystem.scalef(zoom, zoom, 1); // Apply zoom, 2x zoom means 2x size of prints, so this is fine
     }
     
     /**
@@ -749,10 +750,10 @@ public class RenderUtility
         GlStateManager.disableTexture(); // We dont need textures
         
         // Make sure alpha is working
-        GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         
         // Set the color!
-        GlStateManager.color4f(r, g, b, a);
+        RenderSystem.color4f(r, g, b, a);
         
         // Start drawing
         bufferbuilder.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION);
@@ -790,11 +791,11 @@ public class RenderUtility
         GlStateManager.enableBlend();
         GlStateManager.disableTexture();
         
-        GlStateManager.disableAlphaTest();
+        RenderSystem.disableAlphaTest();
         
-        GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         
-        GlStateManager.shadeModel(GL11.GL_SMOOTH);
+        RenderSystem.shadeModel(GL11.GL_SMOOTH);
         
         bufferbuilder.begin(GL11.GL_LINES, DefaultVertexFormats.POSITION_COLOR);
         
@@ -803,9 +804,9 @@ public class RenderUtility
         
         tessellator.draw();
         
-        GlStateManager.shadeModel(GL11.GL_FLAT);
+        RenderSystem.shadeModel(GL11.GL_FLAT);
         
-        GlStateManager.enableAlphaTest();
+        RenderSystem.enableAlphaTest();
         
         GlStateManager.enableTexture();
         GlStateManager.disableBlend();
@@ -835,10 +836,10 @@ public class RenderUtility
         GlStateManager.disableTexture(); // We dont need textures
         
         // Make sure alpha is working
-        GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         
         // Set the color!
-        GlStateManager.color4f(r, g, b, a);
+        RenderSystem.color4f(r, g, b, a);
         
         // Start drawing
         bufferbuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION);
@@ -881,10 +882,10 @@ public class RenderUtility
         GlStateManager.disableTexture(); // We dont need textures
         
         // Make sure alpha is working
-        GlStateManager.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
+        RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         
         // Set the color!
-        GlStateManager.color4f(r, g, b, a);
+        RenderSystem.color4f(r, g, b, a);
         
         // Start drawing
         bufferbuilder.begin(GL11.GL_QUAD_STRIP, DefaultVertexFormats.POSITION);

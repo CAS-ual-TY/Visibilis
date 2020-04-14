@@ -165,7 +165,7 @@ public class UiBase implements IGuiEventListener
      */
     public MainWindow getScaledResolution()
     {
-        return Minecraft.getInstance().mainWindow;
+        return Minecraft.getInstance().getMainWindow();
     }
     
     @Override

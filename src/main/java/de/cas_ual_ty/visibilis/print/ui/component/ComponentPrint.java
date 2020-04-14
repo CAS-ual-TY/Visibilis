@@ -2,7 +2,7 @@ package de.cas_ual_ty.visibilis.print.ui.component;
 
 import org.lwjgl.glfw.GLFW;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 
 import de.cas_ual_ty.visibilis.datatype.DataTypeDynamic;
 import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
@@ -76,10 +76,10 @@ public class ComponentPrint extends Component
         }
         
         // Scissor by dimensions rect, apply print zoom, translate by print coords
-        GlStateManager.pushMatrix();
+        RenderSystem.pushMatrix();
         RenderUtility.scissorStart(this.getSR(), this.dimensions.x, this.dimensions.y, this.dimensions.w, this.dimensions.h);
         RenderUtility.applyZoom(this.getPrint().getZoom()); // Inside of the matrix since you would otherwise "touch" everything outside of the matrix
-        GlStateManager.translatef(this.getPrint().getPosX(), this.getPrint().getPosY(), 0); // Move everything in the print by the print's position
+        RenderSystem.translatef(this.getPrint().getPosX(), this.getPrint().getPosY(), 0); // Move everything in the print by the print's position
         
         // Draw the Print: All nodes, fields, connections
         this.drawPrint(this.getPrint());
@@ -88,7 +88,7 @@ public class ComponentPrint extends Component
         this.drawInteractions(mouseX, mouseY, partialTicks);
         
         RenderUtility.scissorEnd();
-        GlStateManager.popMatrix();
+        RenderSystem.popMatrix();
     }
     
     // Draw outside of zoom, shift and scissor
