@@ -8,6 +8,8 @@
 ![Ingame screenshot](https://i.imgur.com/BIgukpx.png)
 Current progress (28/01/2020)
 
+### Current MC Version: 1.15.2
+
 #### Curseforge Project Page
 [https://www.curseforge.com/minecraft/mc-mods/visibilis](https://www.curseforge.com/minecraft/mc-mods/visibilis)
 
