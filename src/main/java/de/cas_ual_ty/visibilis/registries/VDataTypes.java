@@ -41,7 +41,7 @@ public class VDataTypes
     {
         IForgeRegistry<DataType<?>> registry = event.getRegistry();
         
-        registry.register(new DataType<>(VUtility.toColor(VConfiguration.CLIENT.color_exec), (length) -> null).setRegistryName(Visibilis.MOD_ID, "exec"));
+        registry.register(new DataType<>(VUtility.toColor(VConfiguration.CLIENT.color_exec), (length) -> new Object[length]).setRegistryName(Visibilis.MOD_ID, "exec"));
         
         registry.register(new DataType<>(VUtility.toColor(VConfiguration.CLIENT.color_object), (length) -> new Object[length]).setRegistryName(Visibilis.MOD_ID, "object"));
         
