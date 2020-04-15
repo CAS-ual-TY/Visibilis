@@ -9,6 +9,7 @@ import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.print.provider.DataProvider;
+import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import de.cas_ual_ty.visibilis.util.VNBTUtility;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.CompoundNBT;
@@ -110,7 +111,7 @@ public abstract class Node
                 
                 // Check if it also has some connections (parent nodes)
                 // Input<?> fields might also be disconnected
-                if(field0.hasConnections())
+                if(field0.getDataType() != VDataTypes.EXEC && field0.hasConnections())
                 {
                     // Input<?> has connections, so loop through all of them
                     for(j = 0; j < field0.getConnectionsList().size(); ++j)
