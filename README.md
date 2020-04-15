@@ -70,10 +70,7 @@ How to setup eclipse so that you can work with this API (all files about to be m
 - Include the deobf jar into your java build path of your eclipse project (Project > Properties > Java Build Path > Libraries > Add external JARs...)
 - In your Package Explorer, unbox Referenced Libraries, find the deobf jar and attach the source to it (Right Click > Properties > Java Source Attachment > External Location > External File...)
 
-Instead of using only releases, you can also build everything based on this repo which should almost always be ahead of the latest release. Gradlew commands:
-- gradlew build - To build the mod jar (obviously)
-- gradlew sourcesJar - To build the sources jar
-Both files will be in build/libs
+Instead of using only releases, you can also build everything based on this repo which should almost always be ahead of the latest release. The normal "build" command will generate all files (obfuscated jar, non-obfuscated jar, sources jar).
 
 #### Setup Visibilis for contributions
 If you want to work on Visibilis itself, simply fork or clone this repo and then run the normal gradle commands for your IDE (eg. forge eclipse & forge genEclipseRuns).
