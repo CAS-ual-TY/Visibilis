@@ -73,7 +73,7 @@ public class Visibilis
         mld.registerConfig(Type.COMMON, VConfiguration.COMMON_SPEC);
     }
     
-    public void init(FMLCommonSetupEvent event)
+    private void init(FMLCommonSetupEvent event)
     {
         Visibilis.channel = NetworkRegistry.newSimpleChannel(new ResourceLocation(Visibilis.MOD_ID, "main"),
             () -> Visibilis.PROTOCOL_VERSION,
@@ -91,13 +91,13 @@ public class Visibilis
     }
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
-    public void newRegistry(NewRegistry event)
+    private void newRegistry(NewRegistry event)
     {
         Visibilis.nodeTypesRegistry = new RegistryBuilder().setName(new ResourceLocation(Visibilis.MOD_ID, "nodes")).setType(NodeType.class).setMaxID(512).create();
         Visibilis.dataTypesRegistry = new RegistryBuilder().setName(new ResourceLocation(Visibilis.MOD_ID, "datatypes")).setType(DataType.class).setMaxID(512).create();
     }
     
-    public void attachCapabilitiesItemStack(AttachCapabilitiesEvent<ItemStack> event)
+    private void attachCapabilitiesItemStack(AttachCapabilitiesEvent<ItemStack> event)
     {
         if(event.getObject() instanceof ItemStack && event.getObject().getItem() instanceof ItemPrint)
         {
@@ -105,7 +105,7 @@ public class Visibilis
         }
     }
     
-    public void attachCapabilitiesEntity(AttachCapabilitiesEvent<Entity> event)
+    private void attachCapabilitiesEntity(AttachCapabilitiesEvent<Entity> event)
     {
         if(event.getObject() instanceof EntityPrint || event.getObject() instanceof LivingEntityPrint)
         {
