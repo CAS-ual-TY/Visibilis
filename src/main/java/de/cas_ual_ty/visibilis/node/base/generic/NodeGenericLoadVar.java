@@ -20,8 +20,8 @@ public abstract class NodeGenericLoadVar<A> extends Node
     {
         super(type);
         
-        this.out1Var = new Output<>(this, this.getDataType(), "out1");
-        this.in1String = new Input<>(this, VDataTypes.STRING, "in1");
+        this.addOutput(this.out1Var = new Output<>(this, this.getDataType(), "out1"));
+        this.addInput(this.in1String = new Input<>(this, VDataTypes.STRING, "in1"));
     }
     
     public abstract DataType<A> getDataType();

@@ -19,10 +19,10 @@ public abstract class NodeGenericSaveVar<A> extends Node
     {
         super(type);
         
-        this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1");
-        this.in1Exec = new Input<>(this, VDataTypes.EXEC, "in1");
-        this.in2Var = new Input<>(this, this.getDataType(), "in2");
-        this.in3String = new Input<>(this, VDataTypes.STRING, "in3");
+        this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1"));
+        this.addInput(this.in1Exec = new Input<>(this, VDataTypes.EXEC, "in1"));
+        this.addInput(this.in2Var = new Input<>(this, this.getDataType(), "in2"));
+        this.addInput(this.in3String = new Input<>(this, VDataTypes.STRING, "in3"));
     }
     
     public abstract DataType<A> getDataType();

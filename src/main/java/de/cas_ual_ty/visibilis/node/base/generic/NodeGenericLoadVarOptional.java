@@ -23,11 +23,11 @@ public abstract class NodeGenericLoadVarOptional<A> extends Node
     {
         super(type);
         
-        this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1");
-        this.out2Var = new Output<>(this, this.getDataType(), "out2");
-        this.out3Exec = new Output<>(this, VDataTypes.EXEC, "out3");
-        this.in1Exec = new Input<>(this, VDataTypes.EXEC, "in1");
-        this.in2String = new Input<>(this, VDataTypes.STRING, "in2");
+        this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1"));
+        this.addOutput(this.out2Var = new Output<>(this, this.getDataType(), "out2"));
+        this.addOutput(this.out3Exec = new Output<>(this, VDataTypes.EXEC, "out3"));
+        this.addInput(this.in1Exec = new Input<>(this, VDataTypes.EXEC, "in1"));
+        this.addInput(this.in2String = new Input<>(this, VDataTypes.STRING, "in2"));
     }
     
     public abstract DataType<A> getDataType();
