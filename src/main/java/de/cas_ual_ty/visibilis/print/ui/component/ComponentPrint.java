@@ -76,7 +76,6 @@ public class ComponentPrint extends Component
         }
         
         // Scissor by dimensions rect, apply print zoom, translate by print coords
-        RenderSystem.pushMatrix();
         RenderUtility.scissorStart(this.getSR(), this.dimensions.x, this.dimensions.y, this.dimensions.w, this.dimensions.h);
         RenderUtility.applyZoom(this.getPrint().getZoom()); // Inside of the matrix since you would otherwise "touch" everything outside of the matrix
         RenderSystem.translatef(this.getPrint().getPosX(), this.getPrint().getPosY(), 0); // Move everything in the print by the print's position
@@ -88,7 +87,6 @@ public class ComponentPrint extends Component
         this.drawInteractions(mouseX, mouseY, partialTicks);
         
         RenderUtility.scissorEnd();
-        RenderSystem.popMatrix();
     }
     
     // Draw outside of zoom, shift and scissor
