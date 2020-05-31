@@ -123,6 +123,7 @@ public class NodeListProviderBase extends NodeListProvider
         NodeListProviderBase.extendedCalculation(list);
         NodeListProviderBase.string(list);
         NodeListProviderBase.numberConstants(list);
+        NodeListProviderBase.numberSerialization(list);
         NodeListProviderBase.trigonometry(list);
         NodeListProviderBase.logic(list);
         NodeListProviderBase.numberComparisons(list);
@@ -158,6 +159,13 @@ public class NodeListProviderBase extends NodeListProvider
         list.add(VNodeTypes.CONSTANT_FLOAT.instantiate());
         list.add(VNodeTypes.CONSTANT_DOUBLE.instantiate());
         list.add(VNodeTypes.CONSTANT_BOOLEAN.instantiate());
+    }
+    
+    public static void numberSerialization(ArrayList<Node> list)
+    {
+        list.add(VNodeTypes.LOAD_INTEGER.instantiate());
+        list.add(VNodeTypes.LOAD_INTEGER_OPTIONAL.instantiate());
+        list.add(VNodeTypes.SAVE_INTEGER.instantiate());
     }
     
     public static void numberComparisons(ArrayList<Node> list)

@@ -8,8 +8,11 @@ import de.cas_ual_ty.visibilis.node.base.bigeneric.NodeBiGenericP;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericCompare;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericConstant;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericHardcoded;
+import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericLoadVar;
+import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericLoadVarOptional;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericP;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericP2;
+import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericSaveVar;
 import de.cas_ual_ty.visibilis.node.base.generic.NodeGenericXP2;
 import de.cas_ual_ty.visibilis.node.base.trigeneric.NodeTriGenericP2;
 import de.cas_ual_ty.visibilis.node.exec.NodeBranch;
@@ -131,6 +134,10 @@ public class VNodeTypes
     public static final NodeType<Node> GET_BLOCK = null;
     
     public static final NodeType<Node> MULTI_CONSTANT = null;
+    
+    public static final NodeType<Node> LOAD_INTEGER = null;
+    public static final NodeType<Node> LOAD_INTEGER_OPTIONAL = null;
+    public static final NodeType<Node> SAVE_INTEGER = null;
     
     @SubscribeEvent
     public static void register(RegistryEvent.Register<NodeType<? extends Node>> event)
@@ -498,5 +505,9 @@ public class VNodeTypes
         registry.register(new NodeType<>(NodeGetBlock::new).setRegistryName(Visibilis.MOD_ID, "get_block"));
         
         registry.register(new NodeType<>(NodeMultiConstant::new).setRegistryName(Visibilis.MOD_ID, "multi_constant"));
+        
+        registry.register(new NodeType<>(NodeGenericLoadVar.createTypeGenericLoadVar(VDataTypes.INTEGER)).setRegistryName(Visibilis.MOD_ID, "load_integer"));
+        registry.register(new NodeType<>(NodeGenericLoadVarOptional.createTypeGenericLoadVarOptional(VDataTypes.INTEGER)).setRegistryName(Visibilis.MOD_ID, "load_integer_optional"));
+        registry.register(new NodeType<>(NodeGenericSaveVar.createTypeGenericSaveVar(VDataTypes.INTEGER)).setRegistryName(Visibilis.MOD_ID, "save_integer"));
     }
 }
