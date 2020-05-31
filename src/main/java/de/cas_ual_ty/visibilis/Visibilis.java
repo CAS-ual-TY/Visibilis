@@ -101,7 +101,7 @@ public class Visibilis
     {
         if(event.getObject() instanceof ItemStack && event.getObject().getItem() instanceof ItemPrint)
         {
-            attachCapability(event);
+            Visibilis.attachCapability(event);
         }
     }
     
@@ -109,13 +109,13 @@ public class Visibilis
     {
         if(event.getObject() instanceof EntityPrint || event.getObject() instanceof LivingEntityPrint)
         {
-            attachCapability(event);
+            Visibilis.attachCapability(event);
         }
     }
     
-    private static CapabilityProviderPrint attachCapability(AttachCapabilitiesEvent<?> event)
+    public static CapabilityProviderPrint attachCapability(AttachCapabilitiesEvent<?> event)
     {
-        return attachCapability(MOD_ID, event);
+        return Visibilis.attachCapability(Visibilis.MOD_ID, event);
     }
     
     public static CapabilityProviderPrint attachCapability(String modId, AttachCapabilitiesEvent<?> event)
