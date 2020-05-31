@@ -1,9 +1,11 @@
 package de.cas_ual_ty.visibilis.print;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.function.Function;
 
 import de.cas_ual_ty.visibilis.Visibilis;
+import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeEvent;
 import de.cas_ual_ty.visibilis.node.field.Input;
@@ -13,6 +15,9 @@ import de.cas_ual_ty.visibilis.util.VNBTUtility;
 import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.command.CommandSource;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
 public class Print
@@ -25,6 +30,11 @@ public class Print
     public static final String KEY_POS_X = "posX";
     public static final String KEY_POS_Y = "posY";
     public static final String KEY_ZOOM = "zoom";
+    public static final String KEY_VARIABLES_MAP = "variablesMap";
+    public static final String KEY_VARIABLES_MAP_DATA_TYPE = "dataType";
+    public static final String KEY_VARIABLES_MAP_DATA_TYPE_MAP = "map";
+    public static final String KEY_VARIABLES_MAP_DATA_TYPE_MAP_KEY = "key";
+    public static final String KEY_VARIABLES_MAP_DATA_TYPE_MAP_VALUE = "value";
     
     /**
      * Where the user currently shifted the print in the GUI. Saved so that they start off again where they last left
@@ -47,10 +57,13 @@ public class Print
      */
     protected final ArrayList<NodeEvent> events;
     
+    protected final HashMap<DataType<?>, HashMap<String, ?>> variablesMap;
+    
     public Print()
     {
         this.nodes = new ArrayList<>();
         this.events = new ArrayList<>();
+        this.variablesMap = new HashMap<>();
         this.reset();
     }
     
@@ -284,9 +297,52 @@ public class Print
         this.setPosX(nbt.getInt(Print.KEY_POS_X));
         this.setPosY(nbt.getInt(Print.KEY_POS_Y));
         this.setZoom(nbt.getFloat(Print.KEY_ZOOM));
+        this.readVariablesFromNBT(nbt);
         
         VNBTUtility.readPrintNodesFromNBT(this, nbt);
         VNBTUtility.readPrintConnectionsFromNBT(this, nbt);
+    }
+    
+    protected void readVariablesFromNBT(CompoundNBT nbt0)
+    {
+        ListNBT list = nbt0.getList(Print.KEY_VARIABLES_MAP, 10);
+        
+        CompoundNBT nbt;
+        DataType<?> dt;
+        for(INBT nbt1 : list)
+        {
+            if(nbt1 instanceof CompoundNBT)
+            {
+                nbt = (CompoundNBT)nbt1;
+                dt = Visibilis.dataTypesRegistry.getValue(new ResourceLocation(nbt.getString(Print.KEY_VARIABLES_MAP_DATA_TYPE)));
+                
+                if(dt != null)
+                {
+                    this.readDataTypeMapFromNBT(dt, nbt);
+                }
+            }
+        }
+    }
+    
+    protected <A> void readDataTypeMapFromNBT(DataType<A> dt, CompoundNBT nbt0)
+    {
+        ListNBT list = nbt0.getList(Print.KEY_VARIABLES_MAP_DATA_TYPE_MAP, 10);
+        
+        HashMap<String, A> map = this.getDataTypeMap(dt);
+        
+        CompoundNBT nbt;
+        String key;
+        A value;
+        for(INBT nbt1 : list)
+        {
+            if(nbt1 instanceof CompoundNBT)
+            {
+                nbt = (CompoundNBT)nbt1;
+                key = nbt.getString(Print.KEY_VARIABLES_MAP_DATA_TYPE_MAP_KEY);
+                value = dt.readFromNBT(nbt, Print.KEY_VARIABLES_MAP_DATA_TYPE_MAP_VALUE);
+                map.put(key, value);
+            }
+        }
     }
     
     /**
@@ -297,9 +353,44 @@ public class Print
         nbt.putInt(Print.KEY_POS_X, this.getPosX());
         nbt.putInt(Print.KEY_POS_Y, this.getPosY());
         nbt.putFloat(Print.KEY_ZOOM, this.getZoom());
+        this.writeVariablesToNBT(nbt);
         
         VNBTUtility.writePrintNodesToNBT(this, nbt);
         VNBTUtility.writePrintConnectionsToNBT(this, nbt);
+    }
+    
+    protected void writeVariablesToNBT(CompoundNBT nbt0)
+    {
+        ListNBT list = new ListNBT();
+        
+        CompoundNBT nbt;
+        for(DataType<?> dt : this.variablesMap.keySet())
+        {
+            nbt = new CompoundNBT();
+            nbt.putString(Print.KEY_VARIABLES_MAP_DATA_TYPE, dt.getRegistryName().toString());
+            this.writeDataTypeMapToNBT(dt, nbt);
+            list.add(nbt);
+        }
+        
+        nbt0.put(Print.KEY_VARIABLES_MAP, list);
+    }
+    
+    protected <A> void writeDataTypeMapToNBT(DataType<A> dt, CompoundNBT nbt0)
+    {
+        ListNBT list = new ListNBT();
+        
+        HashMap<String, A> map = this.getDataTypeMap(dt);
+        
+        CompoundNBT nbt;
+        for(String key : map.keySet())
+        {
+            nbt = new CompoundNBT();
+            nbt.putString(Print.KEY_VARIABLES_MAP_DATA_TYPE_MAP_KEY, key);
+            dt.writeToNBT(nbt, Print.KEY_VARIABLES_MAP_DATA_TYPE_MAP_VALUE, map.get(key));
+            list.add(nbt);
+        }
+        
+        nbt0.put(Print.KEY_VARIABLES_MAP_DATA_TYPE_MAP, list);
     }
     
     /**
@@ -402,5 +493,44 @@ public class Print
     public void setZoom(float zoom)
     {
         this.zoom = zoom;
+    }
+    
+    public <A> HashMap<String, A> getDataTypeMap(DataType<A> dataType)
+    {
+        if(!dataType.isSerializable())
+        {
+            return null;
+        }
+        
+        HashMap<String, A> map = VUtility.cast(this.variablesMap.get(dataType));
+        
+        if(map == null)
+        {
+            this.variablesMap.put(dataType, map = new HashMap<>());
+        }
+        
+        return map;
+    }
+    
+    public <A> void putVariable(DataType<A> dataType, String key, A value)
+    {
+        if(!dataType.isSerializable())
+        {
+            return;
+        }
+        
+        HashMap<String, A> map = this.getDataTypeMap(dataType);
+        map.put(key, value);
+    }
+    
+    public <A> A getVariable(DataType<A> dataType, String key)
+    {
+        if(!dataType.isSerializable())
+        {
+            return null;
+        }
+        
+        HashMap<String, A> map = this.getDataTypeMap(dataType);
+        return map.get(key);
     }
 }
