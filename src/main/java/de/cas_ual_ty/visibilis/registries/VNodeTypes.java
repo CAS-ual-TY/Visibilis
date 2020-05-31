@@ -138,6 +138,21 @@ public class VNodeTypes
     public static final NodeType<Node> LOAD_INTEGER = null;
     public static final NodeType<Node> LOAD_INTEGER_OPTIONAL = null;
     public static final NodeType<Node> SAVE_INTEGER = null;
+    public static final NodeType<Node> LOAD_FLOAT = null;
+    public static final NodeType<Node> LOAD_FLOAT_OPTIONAL = null;
+    public static final NodeType<Node> SAVE_FLOAT = null;
+    public static final NodeType<Node> LOAD_DOUBLE = null;
+    public static final NodeType<Node> LOAD_DOUBLE_OPTIONAL = null;
+    public static final NodeType<Node> SAVE_DOUBLE = null;
+    public static final NodeType<Node> LOAD_BOOLEAN = null;
+    public static final NodeType<Node> LOAD_BOOLEAN_OPTIONAL = null;
+    public static final NodeType<Node> SAVE_BOOLEAN = null;
+    public static final NodeType<Node> LOAD_STRING = null;
+    public static final NodeType<Node> LOAD_STRING_OPTIONAL = null;
+    public static final NodeType<Node> SAVE_STRING = null;
+    public static final NodeType<Node> LOAD_BLOCK_POS = null;
+    public static final NodeType<Node> LOAD_BLOCK_POS_OPTIONAL = null;
+    public static final NodeType<Node> SAVE_BLOCK_POS = null;
     
     @SubscribeEvent
     public static void register(RegistryEvent.Register<NodeType<? extends Node>> event)
@@ -509,5 +524,20 @@ public class VNodeTypes
         registry.register(new NodeType<>(NodeGenericLoadVar.createTypeGenericLoadVar(VDataTypes.INTEGER)).setRegistryName(Visibilis.MOD_ID, "load_integer"));
         registry.register(new NodeType<>(NodeGenericLoadVarOptional.createTypeGenericLoadVarOptional(VDataTypes.INTEGER)).setRegistryName(Visibilis.MOD_ID, "load_integer_optional"));
         registry.register(new NodeType<>(NodeGenericSaveVar.createTypeGenericSaveVar(VDataTypes.INTEGER)).setRegistryName(Visibilis.MOD_ID, "save_integer"));
+        registry.register(new NodeType<>(NodeGenericLoadVar.createTypeGenericLoadVar(VDataTypes.FLOAT)).setRegistryName(Visibilis.MOD_ID, "load_float"));
+        registry.register(new NodeType<>(NodeGenericLoadVarOptional.createTypeGenericLoadVarOptional(VDataTypes.FLOAT)).setRegistryName(Visibilis.MOD_ID, "load_float_optional"));
+        registry.register(new NodeType<>(NodeGenericSaveVar.createTypeGenericSaveVar(VDataTypes.FLOAT)).setRegistryName(Visibilis.MOD_ID, "save_float"));
+        registry.register(new NodeType<>(NodeGenericLoadVar.createTypeGenericLoadVar(VDataTypes.DOUBLE)).setRegistryName(Visibilis.MOD_ID, "load_double"));
+        registry.register(new NodeType<>(NodeGenericLoadVarOptional.createTypeGenericLoadVarOptional(VDataTypes.DOUBLE)).setRegistryName(Visibilis.MOD_ID, "load_double_optional"));
+        registry.register(new NodeType<>(NodeGenericSaveVar.createTypeGenericSaveVar(VDataTypes.DOUBLE)).setRegistryName(Visibilis.MOD_ID, "save_double"));
+        registry.register(new NodeType<>(NodeGenericLoadVar.createTypeGenericLoadVar(VDataTypes.BOOLEAN)).setRegistryName(Visibilis.MOD_ID, "load_boolean"));
+        registry.register(new NodeType<>(NodeGenericLoadVarOptional.createTypeGenericLoadVarOptional(VDataTypes.BOOLEAN)).setRegistryName(Visibilis.MOD_ID, "load_boolean_optional"));
+        registry.register(new NodeType<>(NodeGenericSaveVar.createTypeGenericSaveVar(VDataTypes.BOOLEAN)).setRegistryName(Visibilis.MOD_ID, "save_boolean"));
+        registry.register(new NodeType<>(NodeGenericLoadVar.createTypeGenericLoadVar(VDataTypes.STRING)).setRegistryName(Visibilis.MOD_ID, "load_string"));
+        registry.register(new NodeType<>(NodeGenericLoadVarOptional.createTypeGenericLoadVarOptional(VDataTypes.STRING)).setRegistryName(Visibilis.MOD_ID, "load_string_optional"));
+        registry.register(new NodeType<>(NodeGenericSaveVar.createTypeGenericSaveVar(VDataTypes.STRING)).setRegistryName(Visibilis.MOD_ID, "save_string"));
+        registry.register(new NodeType<>(NodeGenericLoadVar.createTypeGenericLoadVar(VDataTypes.BLOCK_POS)).setRegistryName(Visibilis.MOD_ID, "load_block_pos"));
+        registry.register(new NodeType<>(NodeGenericLoadVarOptional.createTypeGenericLoadVarOptional(VDataTypes.BLOCK_POS)).setRegistryName(Visibilis.MOD_ID, "load_block_pos_optional"));
+        registry.register(new NodeType<>(NodeGenericSaveVar.createTypeGenericSaveVar(VDataTypes.BLOCK_POS)).setRegistryName(Visibilis.MOD_ID, "save_block_pos"));
     }
 }

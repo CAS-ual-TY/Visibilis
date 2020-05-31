@@ -166,6 +166,12 @@ public class NodeListProviderBase extends NodeListProvider
         list.add(VNodeTypes.LOAD_INTEGER.instantiate());
         list.add(VNodeTypes.LOAD_INTEGER_OPTIONAL.instantiate());
         list.add(VNodeTypes.SAVE_INTEGER.instantiate());
+        list.add(VNodeTypes.LOAD_FLOAT.instantiate());
+        list.add(VNodeTypes.LOAD_FLOAT_OPTIONAL.instantiate());
+        list.add(VNodeTypes.SAVE_FLOAT.instantiate());
+        list.add(VNodeTypes.LOAD_DOUBLE.instantiate());
+        list.add(VNodeTypes.LOAD_DOUBLE_OPTIONAL.instantiate());
+        list.add(VNodeTypes.SAVE_DOUBLE.instantiate());
     }
     
     public static void numberComparisons(ArrayList<Node> list)
@@ -194,6 +200,10 @@ public class NodeListProviderBase extends NodeListProvider
         list.add(VNodeTypes.NOR.instantiate());
         list.add(VNodeTypes.XOR.instantiate());
         list.add(VNodeTypes.XNOR.instantiate());
+        
+        list.add(VNodeTypes.LOAD_BOOLEAN.instantiate());
+        list.add(VNodeTypes.LOAD_BOOLEAN_OPTIONAL.instantiate());
+        list.add(VNodeTypes.SAVE_BOOLEAN.instantiate());
     }
     
     public static void numberRoundingNCasting(ArrayList<Node> list)
@@ -225,6 +235,10 @@ public class NodeListProviderBase extends NodeListProvider
     {
         list.add(VNodeTypes.CONSTANT_STRING.instantiate());
         list.add(VNodeTypes.CONCATENATION.instantiate());
+        
+        list.add(VNodeTypes.LOAD_STRING.instantiate());
+        list.add(VNodeTypes.LOAD_STRING_OPTIONAL.instantiate());
+        list.add(VNodeTypes.SAVE_STRING.instantiate());
     }
     
     public static void world(ArrayList<Node> list)
@@ -234,5 +248,9 @@ public class NodeListProviderBase extends NodeListProvider
         list.add(VNodeTypes.BLOCK_POS_CREATE.instantiate());
         list.add(VNodeTypes.BLOCK_POS_SPLIT.instantiate());
         list.add(VNodeTypes.GET_BLOCK.instantiate());
+        
+        list.add(VNodeTypes.LOAD_BLOCK_POS.instantiate());
+        list.add(VNodeTypes.LOAD_BLOCK_POS_OPTIONAL.instantiate());
+        list.add(VNodeTypes.SAVE_BLOCK_POS.instantiate());
     }
 }
