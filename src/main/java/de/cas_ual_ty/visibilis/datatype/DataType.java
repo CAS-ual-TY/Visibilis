@@ -8,6 +8,7 @@ import de.cas_ual_ty.visibilis.datatype.converter.IConverter;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import de.cas_ual_ty.visibilis.util.VUtility;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class DataType<A> extends ForgeRegistryEntry<DataType<?>>
@@ -231,6 +232,33 @@ public class DataType<A> extends ForgeRegistryEntry<DataType<?>>
     public DataType<A> setBlackText()
     {
         return this.setTextColor(DataType.COLOR_TEXT_BLACK);
+    }
+    
+    public boolean isSerializable()
+    {
+        return false;
+    }
+    
+    public A loadFromNBT(CompoundNBT nbt)
+    {
+        return this.readFromNBT(nbt, DataType.KEY_DATA);
+    }
+    
+    public A readFromNBT(CompoundNBT nbt, String key)
+    {
+        return null;
+    }
+    
+    public CompoundNBT saveToNBT(A data)
+    {
+        CompoundNBT nbt = new CompoundNBT();
+        this.writeToNBT(nbt, DataType.KEY_DATA, data);
+        return nbt;
+    }
+    
+    public void writeToNBT(CompoundNBT nbt, String key, A value)
+    {
+        
     }
     
     public static interface ArrayFactory<A>

@@ -56,15 +56,21 @@ public abstract class DataTypeDynamic<A> extends DataType<A>
         };
     }
     
-    public A loadFromNBT(CompoundNBT nbt)
+    @Override
+    public boolean isSerializable()
     {
-        return this.stringToValue(nbt.getString(DataType.KEY_DATA));
+        return true;
     }
     
-    public CompoundNBT saveToNBT(A data)
+    @Override
+    public A readFromNBT(CompoundNBT nbt, String key)
     {
-        CompoundNBT nbt = new CompoundNBT();
-        nbt.putString(DataType.KEY_DATA, this.valueToString(data));
-        return nbt;
+        return this.stringToValue(nbt.getString(key));
+    }
+    
+    @Override
+    public void writeToNBT(CompoundNBT nbt, String key, A value)
+    {
+        nbt.putString(key, this.valueToString(value));
     }
 }

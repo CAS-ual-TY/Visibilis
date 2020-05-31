@@ -3,6 +3,7 @@ package de.cas_ual_ty.visibilis.datatype;
 import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.node.field.Input;
+import net.minecraft.nbt.CompoundNBT;
 
 public class DataTypeEnum<A> extends DataType<A>
 {
@@ -94,6 +95,24 @@ public class DataTypeEnum<A> extends DataType<A>
     public int getEnumSize()
     {
         return this.enums.size();
+    }
+    
+    @Override
+    public boolean isSerializable()
+    {
+        return true;
+    }
+    
+    @Override
+    public A readFromNBT(CompoundNBT nbt, String key)
+    {
+        return this.getEnum(nbt.getInt(key));
+    }
+    
+    @Override
+    public void writeToNBT(CompoundNBT nbt, String key, A value)
+    {
+        nbt.putInt(key, this.getEnumIdx(value));
     }
     
     public static <A> void setEnum(Input<A> input, int _enum)

@@ -5,8 +5,6 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.datatype.DataTypeDynamic;
-import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
 import de.cas_ual_ty.visibilis.node.Node;
 import net.minecraft.nbt.CompoundNBT;
 
@@ -19,8 +17,7 @@ public class Input<I> extends NodeField<I>
      * "Parent": The parent node of the node of this field
      */
     
-    public static final String KEY_DATA_ENUM = "dataId";
-    public static final String KEY_DATA_DYNAMIC = "data";
+    public static final String KEY_DATA = "data";
     
     /**
      * The output this is connected to.
@@ -132,16 +129,7 @@ public class Input<I> extends NodeField<I>
         // Connection is cut, reset value
         if(this.value != null)
         {
-            this.value = null; //Just to be sure
-            
-            if(this.getDataType() instanceof DataTypeDynamic)
-            {
-                ((DataTypeDynamic<I>)this.getDataType()).getDefaultValue();
-            }
-            else if(this.getDataType() instanceof DataTypeEnum)
-            {
-                ((DataTypeEnum<I>)this.getDataType()).getDefaultEnum();
-            }
+            this.value = this.getDataType().getDefaultValue();
         }
     }
     
@@ -203,25 +191,15 @@ public class Input<I> extends NodeField<I>
     @Override
     public boolean useNBT()
     {
-        return this.hasDisplayValue() && (this.getDataType() instanceof DataTypeEnum || this.getDataType() instanceof DataTypeDynamic);
+        return this.hasDisplayValue() && this.getDataType().isSerializable();
     }
     
     @Override
     public void writeToNBT(CompoundNBT nbt)
     {
-        if(this.getDataType() instanceof DataTypeEnum)
+        if(this.getDataType().isSerializable())
         {
-            DataTypeEnum<I> dt = (DataTypeEnum<I>)this.getDataType();
-            nbt.putInt(Input.KEY_DATA_ENUM, dt.getEnumIdx(this.getSetValue()));
-        }
-        else if(this.getDataType() instanceof DataTypeDynamic)
-        {
-            DataTypeDynamic<I> dt = (DataTypeDynamic<I>)this.getDataType();
-            CompoundNBT data = dt.saveToNBT(this.getSetValue());
-            if(data != null)
-            {
-                nbt.put(Input.KEY_DATA_DYNAMIC, data);
-            }
+            this.getDataType().writeToNBT(nbt, Input.KEY_DATA, this.getSetValue());
         }
         
         super.readFromNBT(nbt);
@@ -230,19 +208,9 @@ public class Input<I> extends NodeField<I>
     @Override
     public void readFromNBT(CompoundNBT nbt)
     {
-        if(this.getDataType() instanceof DataTypeEnum)
+        if(this.getDataType().isSerializable())
         {
-            DataTypeEnum<I> dt = (DataTypeEnum<I>)this.getDataType();
-            this.setValue(dt.getEnum(nbt.getInt(Input.KEY_DATA_ENUM)));
-        }
-        else if(this.getDataType() instanceof DataTypeDynamic)
-        {
-            DataTypeDynamic<I> dt = (DataTypeDynamic<I>)this.getDataType();
-            if(nbt.contains(Input.KEY_DATA_DYNAMIC))
-            {
-                CompoundNBT data = nbt.getCompound(Input.KEY_DATA_DYNAMIC);
-                this.setValue(dt.loadFromNBT(data));
-            }
+            this.setValue(this.getDataType().readFromNBT(nbt, Input.KEY_DATA));
         }
         
         super.writeToNBT(nbt);
