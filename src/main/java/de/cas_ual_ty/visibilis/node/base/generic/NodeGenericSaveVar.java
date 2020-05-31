@@ -49,6 +49,18 @@ public abstract class NodeGenericSaveVar<A> extends Node
         return null;
     }
     
+    @Override
+    public float[] getColor()
+    {
+        return this.getDataType().getColor();
+    }
+    
+    @Override
+    public float[] getTextColor()
+    {
+        return this.getDataType().getTextColor();
+    }
+    
     public static <I> NodeType.IFactory<NodeGenericSaveVar<I>> createTypeGenericSaveVar(DataType<I> dataType)
     {
         return (type) ->

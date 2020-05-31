@@ -52,6 +52,18 @@ public abstract class NodeGenericLoadVarOptional<A> extends Node
         return out == this.out2Var ? VUtility.cast(this.value) : null;
     }
     
+    @Override
+    public float[] getColor()
+    {
+        return this.getDataType().getColor();
+    }
+    
+    @Override
+    public float[] getTextColor()
+    {
+        return this.getDataType().getTextColor();
+    }
+    
     public static <I> NodeType.IFactory<NodeGenericLoadVarOptional<I>> createTypeGenericLoadVarOptional(DataType<I> dataType)
     {
         return (type) ->

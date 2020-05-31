@@ -40,6 +40,18 @@ public abstract class NodeGenericLoadVar<A> extends Node
         return out == this.out1Var ? VUtility.cast(this.value) : null;
     }
     
+    @Override
+    public float[] getColor()
+    {
+        return this.getDataType().getColor();
+    }
+    
+    @Override
+    public float[] getTextColor()
+    {
+        return this.getDataType().getTextColor();
+    }
+    
     public static <I> NodeType.IFactory<NodeGenericLoadVar<I>> createTypeGenericLoadVar(DataType<I> dataType)
     {
         return (type) ->
