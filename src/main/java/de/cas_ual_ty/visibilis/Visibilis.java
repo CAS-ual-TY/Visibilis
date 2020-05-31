@@ -101,7 +101,7 @@ public class Visibilis
     {
         if(event.getObject() instanceof ItemStack && event.getObject().getItem() instanceof ItemPrint)
         {
-            event.addCapability(new ResourceLocation(Visibilis.MOD_ID, "print"), new CapabilityProviderPrint());
+            attachCapability(event);
         }
     }
     
@@ -109,8 +109,16 @@ public class Visibilis
     {
         if(event.getObject() instanceof EntityPrint || event.getObject() instanceof LivingEntityPrint)
         {
-            event.addCapability(new ResourceLocation(Visibilis.MOD_ID, "print"), new CapabilityProviderPrint());
+            attachCapability(event);
         }
+    }
+    
+    public static CapabilityProviderPrint attachCapability(AttachCapabilitiesEvent<?> event)
+    {
+        CapabilityProviderPrint provider = new CapabilityProviderPrint();
+        event.addCapability(new ResourceLocation(Visibilis.MOD_ID, "print"), provider);
+        event.addListener(provider.getListener());
+        return provider;
     }
     
     // TODO low: Some nice logging here please

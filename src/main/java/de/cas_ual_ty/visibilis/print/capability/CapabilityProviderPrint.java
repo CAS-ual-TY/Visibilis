@@ -32,4 +32,9 @@ public class CapabilityProviderPrint implements ICapabilitySerializable<INBT>
     {
         CapabilityProviderPrint.CAPABILITY_PRINT.getStorage().readNBT(CapabilityProviderPrint.CAPABILITY_PRINT, this.instance.orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty (2)!")), null, nbt);
     }
+    
+    public Runnable getListener()
+    {
+        return this.instance::invalidate;
+    }
 }
