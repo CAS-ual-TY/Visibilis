@@ -83,17 +83,15 @@ public class VDataTypes
             }
             
             @Override
-            public Integer loadFromNBT(CompoundNBT nbt)
+            public Integer readFromNBT(CompoundNBT nbt, String key)
             {
-                return nbt.getInt(DataType.KEY_DATA);
+                return nbt.getInt(key);
             }
             
             @Override
-            public CompoundNBT saveToNBT(Integer data)
+            public void writeToNBT(CompoundNBT nbt, String key, Integer value)
             {
-                CompoundNBT nbt = new CompoundNBT();
-                nbt.putInt(DataType.KEY_DATA, data.intValue());
-                return nbt;
+                nbt.putInt(key, value);
             }
         }.setBlackText().setRegistryName(Visibilis.MOD_ID, "integer"));
         
@@ -135,17 +133,15 @@ public class VDataTypes
             }
             
             @Override
-            public Float loadFromNBT(CompoundNBT nbt)
+            public Float readFromNBT(CompoundNBT nbt, String key)
             {
-                return nbt.getFloat(DataType.KEY_DATA);
+                return nbt.getFloat(key);
             }
             
             @Override
-            public CompoundNBT saveToNBT(Float data)
+            public void writeToNBT(CompoundNBT nbt, String key, Float value)
             {
-                CompoundNBT nbt = new CompoundNBT();
-                nbt.putFloat(DataType.KEY_DATA, data.floatValue());
-                return nbt;
+                nbt.putFloat(key, value);
             }
         }.setBlackText().setRegistryName(Visibilis.MOD_ID, "float"));
         
@@ -187,17 +183,15 @@ public class VDataTypes
             }
             
             @Override
-            public Double loadFromNBT(CompoundNBT nbt)
+            public Double readFromNBT(CompoundNBT nbt, String key)
             {
-                return nbt.getDouble(DataType.KEY_DATA);
+                return nbt.getDouble(key);
             }
             
             @Override
-            public CompoundNBT saveToNBT(Double data)
+            public void writeToNBT(CompoundNBT nbt, String key, Double value)
             {
-                CompoundNBT nbt = new CompoundNBT();
-                nbt.putDouble(DataType.KEY_DATA, data.doubleValue());
-                return nbt;
+                nbt.putDouble(key, value);
             }
         }.setBlackText().setRegistryName(Visibilis.MOD_ID, "double"));
         
@@ -209,6 +203,18 @@ public class VDataTypes
             public boolean equals(Boolean obj1, Boolean obj2)
             {
                 return obj1.booleanValue() == obj2.booleanValue();
+            }
+            
+            @Override
+            public Boolean readFromNBT(CompoundNBT nbt, String key)
+            {
+                return nbt.getBoolean(key);
+            }
+            
+            @Override
+            public void writeToNBT(CompoundNBT nbt, String key, Boolean value)
+            {
+                nbt.putBoolean(key, value);
             }
         }.addEnum(false).addEnum(true).setRegistryName(Visibilis.MOD_ID, "boolean"));
         
@@ -227,23 +233,42 @@ public class VDataTypes
             }
             
             @Override
-            public String loadFromNBT(CompoundNBT nbt)
+            public String readFromNBT(CompoundNBT nbt, String key)
             {
-                return nbt.getString(DataType.KEY_DATA);
+                return nbt.getString(key);
             }
             
             @Override
-            public CompoundNBT saveToNBT(String data)
+            public void writeToNBT(CompoundNBT nbt, String key, String value)
             {
-                CompoundNBT nbt = new CompoundNBT();
-                nbt.putString(DataType.KEY_DATA, data);
-                return nbt;
+                nbt.putString(key, value);
             }
         }.setBlackText().setRegistryName(Visibilis.MOD_ID, "string"));
         
         registry.register(new DataType<>(VUtility.toColor(VConfiguration.CLIENT.color_vector3d), (length) -> new Vec3d[length]).setRegistryName(Visibilis.MOD_ID, "vector3d").setBlackText());
         registry.register(new DataType<>(VUtility.toColor(VConfiguration.CLIENT.color_player), (length) -> new PlayerEntity[length]).setRegistryName(Visibilis.MOD_ID, "player"));
-        registry.register(new DataType<>(VUtility.toColor(VConfiguration.CLIENT.color_block_pos), (length) -> new BlockPos[length]).setRegistryName(Visibilis.MOD_ID, "block_pos").setBlackText());
+        registry.register(new DataType<BlockPos>(VUtility.toColor(VConfiguration.CLIENT.color_block_pos), (length) -> new BlockPos[length])
+        {
+            @Override
+            public boolean isSerializable()
+            {
+                return true;
+            }
+            
+            @Override
+            public BlockPos readFromNBT(CompoundNBT nbt, String key)
+            {
+                return new BlockPos(nbt.getInt(key + "_x"), nbt.getInt(key + "_y"), nbt.getInt(key + "_z"));
+            }
+            
+            @Override
+            public void writeToNBT(CompoundNBT nbt, String key, BlockPos value)
+            {
+                nbt.putInt(key + "_x", value.getX());
+                nbt.putInt(key + "_y", value.getY());
+                nbt.putInt(key + "_z", value.getZ());
+            }
+        }.setRegistryName(Visibilis.MOD_ID, "block_pos").setBlackText());
         registry.register(new DataType<>(VUtility.toColor(VConfiguration.CLIENT.color_world), (length) -> new World[length]).setRegistryName(Visibilis.MOD_ID, "world"));
     }
     
