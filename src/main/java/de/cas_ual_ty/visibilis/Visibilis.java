@@ -113,10 +113,15 @@ public class Visibilis
         }
     }
     
-    public static CapabilityProviderPrint attachCapability(AttachCapabilitiesEvent<?> event)
+    private static CapabilityProviderPrint attachCapability(AttachCapabilitiesEvent<?> event)
+    {
+        return attachCapability(MOD_ID, event);
+    }
+    
+    public static CapabilityProviderPrint attachCapability(String modId, AttachCapabilitiesEvent<?> event)
     {
         CapabilityProviderPrint provider = new CapabilityProviderPrint();
-        event.addCapability(new ResourceLocation(Visibilis.MOD_ID, "print"), provider);
+        event.addCapability(new ResourceLocation(modId, "print"), provider);
         event.addListener(provider.getListener());
         return provider;
     }
