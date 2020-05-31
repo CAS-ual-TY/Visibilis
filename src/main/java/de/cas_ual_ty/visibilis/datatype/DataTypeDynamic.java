@@ -46,14 +46,7 @@ public abstract class DataTypeDynamic<A> extends DataType<A>
      */
     protected Predicate<String> createValidator()
     {
-        return new Predicate<String>()
-        {
-            @Override
-            public boolean apply(String input)
-            {
-                return StringUtils.isNullOrEmpty(input) || DataTypeDynamic.this.canParseString(input);
-            }
-        };
+        return (input) -> StringUtils.isNullOrEmpty(input) || this.canParseString(input);
     }
     
     @Override
