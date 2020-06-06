@@ -2,7 +2,6 @@ package de.cas_ual_ty.visibilis.print.entity;
 
 import java.util.function.Supplier;
 
-import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
 import de.cas_ual_ty.visibilis.util.VNBTUtility;

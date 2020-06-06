@@ -2,8 +2,6 @@ package de.cas_ual_ty.visibilis.util;
 
 import java.util.ArrayList;
 
-import javax.annotation.Nullable;
-
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.config.VConfigClient;
 import de.cas_ual_ty.visibilis.config.VConfigHelper;
