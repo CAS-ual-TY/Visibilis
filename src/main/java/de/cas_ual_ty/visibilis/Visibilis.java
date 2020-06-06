@@ -49,8 +49,8 @@ public class Visibilis
     public static IVSidedProxy proxy;
     public static SimpleChannel channel;
     
-    public static IForgeRegistry<NodeType<?>> nodeTypesRegistry;
-    public static IForgeRegistry<DataType<?>> dataTypesRegistry;
+    public static IForgeRegistry<NodeType<?>> NODE_TYPES_REGISTRY;
+    public static IForgeRegistry<DataType<?>> DATA_TYPES_REGISTRY;
     
     public Visibilis()
     {
@@ -93,8 +93,8 @@ public class Visibilis
     @SuppressWarnings({ "rawtypes", "unchecked" })
     private void newRegistry(NewRegistry event)
     {
-        Visibilis.nodeTypesRegistry = new RegistryBuilder().setName(new ResourceLocation(Visibilis.MOD_ID, "nodes")).setType(NodeType.class).setMaxID(512).create();
-        Visibilis.dataTypesRegistry = new RegistryBuilder().setName(new ResourceLocation(Visibilis.MOD_ID, "datatypes")).setType(DataType.class).setMaxID(512).create();
+        Visibilis.NODE_TYPES_REGISTRY = new RegistryBuilder().setName(new ResourceLocation(Visibilis.MOD_ID, "nodes")).setType(NodeType.class).setMaxID(512).create();
+        Visibilis.DATA_TYPES_REGISTRY = new RegistryBuilder().setName(new ResourceLocation(Visibilis.MOD_ID, "datatypes")).setType(DataType.class).setMaxID(512).create();
     }
     
     private void attachCapabilitiesItemStack(AttachCapabilitiesEvent<ItemStack> event)

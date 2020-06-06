@@ -314,7 +314,7 @@ public class Print
             if(nbt1 instanceof CompoundNBT)
             {
                 nbt = (CompoundNBT)nbt1;
-                dt = Visibilis.dataTypesRegistry.getValue(new ResourceLocation(nbt.getString(Print.KEY_VARIABLES_MAP_DATA_TYPE)));
+                dt = Visibilis.DATA_TYPES_REGISTRY.getValue(new ResourceLocation(nbt.getString(Print.KEY_VARIABLES_MAP_DATA_TYPE)));
                 
                 if(dt != null)
                 {

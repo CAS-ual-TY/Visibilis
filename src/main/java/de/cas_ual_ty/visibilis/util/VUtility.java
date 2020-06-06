@@ -6,8 +6,10 @@ import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.config.VConfigClient;
 import de.cas_ual_ty.visibilis.config.VConfigHelper;
 import de.cas_ual_ty.visibilis.config.VConfiguration;
+import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.print.provider.PrintProvider;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeConfigSpec.Builder;
 import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
@@ -98,5 +100,22 @@ public class VUtility
         {
             return Visibilis.proxy.getClientPlayer();
         }
+    }
+    
+    public static Node instantiateNode(String modIdName)
+    {
+        return VUtility.instantiateNode(new ResourceLocation(modIdName));
+    }
+    
+    public static Node instantiateNode(ResourceLocation rl)
+    {
+        if(Visibilis.NODE_TYPES_REGISTRY.containsKey(rl))
+        {
+            return Visibilis.NODE_TYPES_REGISTRY.getValue(rl).instantiate();
+        }
+        
+        Visibilis.error("Node \"" + rl.toString() + "\" does not exist!");
+        
+        return null;
     }
 }

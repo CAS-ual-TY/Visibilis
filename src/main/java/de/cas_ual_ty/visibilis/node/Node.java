@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import javax.annotation.Nullable;
 
-import de.cas_ual_ty.visibilis.NodesRegistry;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.node.field.Output;
