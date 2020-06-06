@@ -24,9 +24,9 @@ public class MessageSynchEntityToClient
         this(entity.getEntityId(), VNBTUtility.savePrintToNBT(entity.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!"))), false);
     }
     
-    public MessageSynchEntityToClient(EntityPrint entity, boolean openGuiForClient)
+    public MessageSynchEntityToClient(IEntityPrint entity, boolean openGuiForClient)
     {
-        this(entity.getEntityId(), VNBTUtility.savePrintToNBT(entity.getPrint()), openGuiForClient);
+        this(((Entity)entity).getEntityId(), VNBTUtility.savePrintToNBT(entity.getPrint()), openGuiForClient);
     }
     
     public MessageSynchEntityToClient(int entityId, CompoundNBT nbt, boolean openForClient)
@@ -60,9 +60,9 @@ public class MessageSynchEntityToClient
             
             print.overrideFromNBT(msg.nbt);
             
-            if(msg.openGuiForClient && entity instanceof EntityPrint)
+            if(msg.openGuiForClient && entity instanceof IEntityPrint)
             {
-                ((EntityPrint)entity).openGui(VUtility.getPlayer(context));
+                ((IEntityPrint)entity).openGui(VUtility.getPlayer(context));
             }
         });
         

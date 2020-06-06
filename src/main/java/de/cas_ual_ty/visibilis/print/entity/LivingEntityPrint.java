@@ -1,66 +1,50 @@
 package de.cas_ual_ty.visibilis.print.entity;
 
-import de.cas_ual_ty.visibilis.print.GuiPrint;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
-import de.cas_ual_ty.visibilis.print.provider.NodeListProvider;
-import de.cas_ual_ty.visibilis.print.provider.NodeListProviderBase;
-import de.cas_ual_ty.visibilis.print.provider.PrintProvider;
-import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.Hand;
+import net.minecraft.util.Direction;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
 
-public abstract class LivingEntityPrint extends LivingEntity
+public abstract class LivingEntityPrint extends LivingEntity implements IEntityPrint
 {
-    protected LivingEntityPrint(EntityType<? extends LivingEntity> type, World world)
+    protected Print print;
+    protected LazyOptional<Print> printOptional;
+    
+    protected LivingEntityPrint(EntityType<? extends LivingEntity> entityTypeIn, World worldIn)
     {
-        super(type, world);
+        super(entityTypeIn, worldIn);
+        this.print = new Print();
+        this.printOptional = LazyOptional.of(() -> this.getPrint());
     }
     
-    /**
-     * Opens the {@link GuiPrint} for the given player
-     * 
-     * @param player
-     *            The player to open the Gui for
-     * @return <b>true</b> if the Gui was opened
-     */
-    public boolean openGui(PlayerEntity player)
-    {
-        if(player.world.isRemote && player.world == this.world) // Make sure they are in the same dimension, synching fetches entity from same world player is in. Need custom PrintProvider otherwise which takes different dimensions into account
-        {
-            VUtility.openGuiForClient(this.getPrintProvider());
-            return true;
-        }
-        
-        return false;
-    }
-    
-    /**
-     * Returns an instance of {@link PrintProvider} which is used to open the {@link de.cas_ual_ty.visibilis.print.GuiPrint} in {@link #openGui(PlayerEntity, ItemStack, Hand)}
-     */
-    public PrintProvider getPrintProvider()
-    {
-        return new PrintProviderEntity(this.getNodeList(), this);
-    }
-    
-    public NodeListProvider getNodeList()
-    {
-        return new NodeListProviderBase();
-    }
-    
+    @Override
     public Print getPrint()
     {
-        return this.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!"));
+        return this.print;
     }
     
-    public void setPrintTag(CompoundNBT nbt)
+    @Override
+    public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side)
     {
-        Print print = this.getPrint();
-        print.overrideFromNBT(nbt);
+        return cap == CapabilityProviderPrint.CAPABILITY_PRINT ? CapabilityProviderPrint.CAPABILITY_PRINT.orEmpty(cap, this.printOptional) : super.getCapability(cap, side);
+    }
+    
+    @Override
+    public void readAdditional(CompoundNBT compound)
+    {
+        super.readAdditional(compound);
+        this.getPrint().readFromNBT(compound);
+    }
+    
+    @Override
+    public void writeAdditional(CompoundNBT compound)
+    {
+        super.readAdditional(compound);
+        this.getPrint().writeToNBT(compound);
     }
 }

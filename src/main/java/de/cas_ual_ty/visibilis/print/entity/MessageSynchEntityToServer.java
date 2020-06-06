@@ -55,7 +55,7 @@ public class MessageSynchEntityToServer
             {
                 Print print = entity.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElse(new Print());
                 
-                if(entity instanceof EntityPrint && !((EntityPrint)entity).validate(print))
+                if(entity instanceof IEntityPrint && !((IEntityPrint)entity).validate(print))
                 {
                     return;
                 }
