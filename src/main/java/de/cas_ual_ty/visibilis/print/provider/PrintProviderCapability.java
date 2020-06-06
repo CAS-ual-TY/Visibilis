@@ -18,7 +18,7 @@ public abstract class PrintProviderCapability extends PrintProvider
     @Override
     public void init()
     {
-        this.undoList.setFirst(this.capabilityProvider.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty (4)!")));
+        this.undoList.setFirst(this.capabilityProvider.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!")));
         super.init();
     }
     

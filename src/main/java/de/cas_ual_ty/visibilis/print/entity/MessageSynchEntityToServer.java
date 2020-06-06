@@ -22,7 +22,7 @@ public class MessageSynchEntityToServer
     
     public MessageSynchEntityToServer(Entity entity)
     {
-        this(entity.getEntityId(), VNBTUtility.savePrintToNBT(entity.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty (8)!"))));
+        this(entity.getEntityId(), VNBTUtility.savePrintToNBT(entity.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!"))));
     }
     
     public MessageSynchEntityToServer(int entityId, CompoundNBT nbt)

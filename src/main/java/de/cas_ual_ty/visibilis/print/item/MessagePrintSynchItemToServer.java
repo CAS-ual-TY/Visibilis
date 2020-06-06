@@ -20,7 +20,7 @@ public class MessagePrintSynchItemToServer
     
     public MessagePrintSynchItemToServer(int slot, ItemStack itemStack)
     {
-        this(slot, VNBTUtility.savePrintToNBT(itemStack.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty (6)!"))));
+        this(slot, VNBTUtility.savePrintToNBT(itemStack.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!"))));
     }
     
     public MessagePrintSynchItemToServer(int slot, CompoundNBT nbt)

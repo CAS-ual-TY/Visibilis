@@ -17,7 +17,6 @@ import net.minecraft.world.World;
 
 public abstract class LivingEntityPrint extends LivingEntity
 {
-    
     protected LivingEntityPrint(EntityType<? extends LivingEntity> type, World world)
     {
         super(type, world);
@@ -56,7 +55,7 @@ public abstract class LivingEntityPrint extends LivingEntity
     
     public Print getPrint()
     {
-        return this.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty (7)!"));
+        return this.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!"));
     }
     
     public void setPrintTag(CompoundNBT nbt)

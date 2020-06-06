@@ -75,7 +75,7 @@ public class ItemPrint extends Item
     
     public Print getPrint(ItemStack itemStack)
     {
-        return itemStack.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty (3)!"));
+        return itemStack.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!"));
     }
     
     public void setPrintTag(ItemStack itemStack, CompoundNBT nbt)
