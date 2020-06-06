@@ -8,7 +8,6 @@ import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.node.player.MessagePlayerMotion;
 import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
 import de.cas_ual_ty.visibilis.print.capability.StoragePrint;
 import de.cas_ual_ty.visibilis.print.entity.MessageSynchEntityToClient;
 import de.cas_ual_ty.visibilis.print.entity.MessageSynchEntityToServer;
@@ -16,6 +15,7 @@ import de.cas_ual_ty.visibilis.print.item.ItemPrint;
 import de.cas_ual_ty.visibilis.print.item.MessagePrintSynchItemToServer;
 import de.cas_ual_ty.visibilis.proxy.IVSidedProxy;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
+import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -97,21 +97,8 @@ public class Visibilis
     {
         if(event.getObject() instanceof ItemStack && event.getObject().getItem() instanceof ItemPrint)
         {
-            Visibilis.attachCapability(event);
+            VUtility.attachCapability(event);
         }
-    }
-    
-    public static CapabilityProviderPrint attachCapability(AttachCapabilitiesEvent<?> event)
-    {
-        return Visibilis.attachCapability(Visibilis.MOD_ID, event);
-    }
-    
-    public static CapabilityProviderPrint attachCapability(String modId, AttachCapabilitiesEvent<?> event)
-    {
-        CapabilityProviderPrint provider = new CapabilityProviderPrint();
-        event.addCapability(new ResourceLocation(modId, "print"), provider);
-        event.addListener(provider.getListener());
-        return provider;
     }
     
     // TODO low: Some nice logging here please

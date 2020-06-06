@@ -7,12 +7,14 @@ import de.cas_ual_ty.visibilis.config.VConfigClient;
 import de.cas_ual_ty.visibilis.config.VConfigHelper;
 import de.cas_ual_ty.visibilis.config.VConfiguration;
 import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
 import de.cas_ual_ty.visibilis.print.provider.PrintProvider;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeConfigSpec.Builder;
 import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
+import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 public class VUtility
@@ -120,5 +122,23 @@ public class VUtility
         Visibilis.error("Node \"" + rl.toString() + "\" does not exist!");
         
         return null;
+    }
+    
+    public static CapabilityProviderPrint attachCapability(AttachCapabilitiesEvent<?> event)
+    {
+        return VUtility.attachCapability(Visibilis.MOD_ID, event);
+    }
+    
+    public static CapabilityProviderPrint attachCapability(String modId, AttachCapabilitiesEvent<?> event)
+    {
+        return VUtility.attachCapability(modId, "print", event);
+    }
+    
+    public static CapabilityProviderPrint attachCapability(String modId, String name, AttachCapabilitiesEvent<?> event)
+    {
+        CapabilityProviderPrint provider = new CapabilityProviderPrint();
+        event.addCapability(new ResourceLocation(modId, name), provider);
+        event.addListener(provider.getListener());
+        return provider;
     }
 }
