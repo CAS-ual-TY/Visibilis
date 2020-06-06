@@ -40,7 +40,7 @@ import net.minecraftforge.registries.RegistryBuilder;
 public class Visibilis
 {
     public static final String MOD_ID = "visibilis";
-    public static final String PROTOCOL_VERSION = "1";
+    public static final String PROTOCOL_VERSION = "2";
     
     public static Visibilis instance;
     public static IVSidedProxy proxy;
