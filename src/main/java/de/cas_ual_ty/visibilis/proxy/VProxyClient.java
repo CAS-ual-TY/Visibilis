@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 public class VProxyClient implements IVSidedProxy
 {
     @Override
-    public void openGuiPrint(PrintProvider helper)
+    public void openGuiForClient(PrintProvider helper)
     {
         Minecraft.getInstance().displayGuiScreen(new GuiPrint(new StringTextComponent("Print"), helper));
     }

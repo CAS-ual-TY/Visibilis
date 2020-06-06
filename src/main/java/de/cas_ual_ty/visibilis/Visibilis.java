@@ -10,15 +10,12 @@ import de.cas_ual_ty.visibilis.node.player.MessagePlayerMotion;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
 import de.cas_ual_ty.visibilis.print.capability.StoragePrint;
-import de.cas_ual_ty.visibilis.print.entity.EntityPrint;
-import de.cas_ual_ty.visibilis.print.entity.LivingEntityPrint;
-import de.cas_ual_ty.visibilis.print.entity.MessagePrintEditEntity;
-import de.cas_ual_ty.visibilis.print.entity.MessagePrintSynchEntity;
+import de.cas_ual_ty.visibilis.print.entity.MessageSynchEntityToClient;
+import de.cas_ual_ty.visibilis.print.entity.MessageSynchEntityToServer;
 import de.cas_ual_ty.visibilis.print.item.ItemPrint;
 import de.cas_ual_ty.visibilis.print.item.MessagePrintSynchItem;
 import de.cas_ual_ty.visibilis.proxy.IVSidedProxy;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -66,7 +63,6 @@ public class Visibilis
         bus.addListener(VCommand::execCommand);
         bus.<FMLServerStartingEvent>addListener((event) -> VCommand.register(event.getCommandDispatcher()));
         bus.addListener(this::attachCapabilitiesItemStack);
-        bus.addListener(this::attachCapabilitiesEntity);
         
         ModLoadingContext mld = ModLoadingContext.get();
         mld.registerConfig(Type.CLIENT, VConfiguration.CLIENT_SPEC);
@@ -82,8 +78,8 @@ public class Visibilis
         Visibilis.channel.registerMessage(0, MessagePrintSynchItem.class, MessagePrintSynchItem::encode, MessagePrintSynchItem::decode, MessagePrintSynchItem::handle);
         Visibilis.channel.registerMessage(1, MessagePlayerMotion.class, MessagePlayerMotion::encode, MessagePlayerMotion::decode, MessagePlayerMotion::handle);
         Visibilis.channel.registerMessage(2, MessagePrintEquipmentSlot.class, MessagePrintEquipmentSlot::encode, MessagePrintEquipmentSlot::decode, MessagePrintEquipmentSlot::handle);
-        Visibilis.channel.registerMessage(3, MessagePrintSynchEntity.class, MessagePrintSynchEntity::encode, MessagePrintSynchEntity::decode, MessagePrintSynchEntity::handle);
-        Visibilis.channel.registerMessage(4, MessagePrintEditEntity.class, MessagePrintEditEntity::encode, MessagePrintEditEntity::decode, MessagePrintEditEntity::handle);
+        Visibilis.channel.registerMessage(3, MessageSynchEntityToServer.class, MessageSynchEntityToServer::encode, MessageSynchEntityToServer::decode, MessageSynchEntityToServer::handle);
+        Visibilis.channel.registerMessage(4, MessageSynchEntityToClient.class, MessageSynchEntityToClient::encode, MessageSynchEntityToClient::decode, MessageSynchEntityToClient::handle);
         
         VDataTypes.addConverters();
         
@@ -100,14 +96,6 @@ public class Visibilis
     private void attachCapabilitiesItemStack(AttachCapabilitiesEvent<ItemStack> event)
     {
         if(event.getObject() instanceof ItemStack && event.getObject().getItem() instanceof ItemPrint)
-        {
-            Visibilis.attachCapability(event);
-        }
-    }
-    
-    private void attachCapabilitiesEntity(AttachCapabilitiesEvent<Entity> event)
-    {
-        if(event.getObject() instanceof EntityPrint || event.getObject() instanceof LivingEntityPrint)
         {
             Visibilis.attachCapability(event);
         }

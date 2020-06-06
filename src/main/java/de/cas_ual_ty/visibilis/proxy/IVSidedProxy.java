@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 
 public interface IVSidedProxy
 {
-    public default void openGuiPrint(PrintProvider helper)
+    public default void openGuiForClient(PrintProvider helper)
     {
     }
     

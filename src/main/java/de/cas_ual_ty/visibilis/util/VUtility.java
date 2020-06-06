@@ -2,6 +2,8 @@ package de.cas_ual_ty.visibilis.util;
 
 import java.util.ArrayList;
 
+import javax.annotation.Nullable;
+
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.config.VConfigClient;
 import de.cas_ual_ty.visibilis.config.VConfigHelper;
@@ -49,9 +51,12 @@ public class VUtility
         return VConfiguration.shutdown;
     }
     
+    /**
+     * Open the standard GuiPrint using the Print provided by the PrintProvider. This does nothing on server side.
+     */
     public static void openGuiForClient(PrintProvider helper)
     {
-        Visibilis.proxy.openGuiPrint(helper);
+        Visibilis.proxy.openGuiForClient(helper);
     }
     
     public static DoubleValue[] buildColorConfigValue(Builder builder, String translationPrefix, String key, float[] define)

@@ -19,6 +19,6 @@ public class PrintProviderEntity extends PrintProviderCapability
     @Override
     public void synchToServer(CompoundNBT nbt)
     {
-        Visibilis.channel.sendToServer(new MessagePrintSynchEntity(this.entity));
+        Visibilis.channel.sendToServer(new MessageSynchEntityToServer(this.entity));
     }
 }

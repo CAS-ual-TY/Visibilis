@@ -3,7 +3,6 @@ package de.cas_ual_ty.visibilis.print.entity;
 import java.util.function.Function;
 
 import de.cas_ual_ty.visibilis.Visibilis;
-import de.cas_ual_ty.visibilis.print.GuiPrint;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
 import de.cas_ual_ty.visibilis.print.provider.DataProvider;
@@ -17,19 +16,28 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkDirection;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fml.network.PacketDistributor;
 
 public abstract class EntityPrint extends Entity
 {
+    protected Print print;
+    protected LazyOptional<Print> printOptional;
+    
     public EntityPrint(EntityType<?> entityTypeIn, World worldIn)
     {
         super(entityTypeIn, worldIn);
+        this.print = new Print();
+        this.printOptional = LazyOptional.of(() -> this.getPrint());
     }
     
     /**
-     * Opens the {@link GuiPrint} for the given player
+     * On client side: calls {@link #doOpenGui()}.
+     * On server side: Sends a packet to the client the given player which calls this method again (on client side).
      * 
      * @param player
      *            The player to open the Gui for
@@ -37,13 +45,34 @@ public abstract class EntityPrint extends Entity
      */
     public boolean openGui(PlayerEntity player)
     {
-        if(player.world.isRemote && player.world == this.world) // Make sure they are in the same dimension, synching fetches entity from same world player is in. Need custom PrintProvider otherwise which takes different dimensions into account
+        // Make sure they are in the same dimension, synching fetches entity from same world player is in
+        // (because it takes the player's world and searches for the entity using its entity id).
+        // Need custom PrintProvider otherwise which takes different dimensions into account
+        if(player.world == this.world)
         {
-            VUtility.openGuiForClient(this.getPrintProvider());
-            return true;
+            if(this.world.isRemote)
+            {
+                this.doOpenGui();
+                return true;
+            }
+            else if(player instanceof ServerPlayerEntity)
+            {
+                Visibilis.channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity)player), new MessageSynchEntityToClient(this, true));
+                return true;
+            }
         }
         
         return false;
+    }
+    
+    public void doOpenGui()
+    {
+        VUtility.openGuiForClient(this.getPrintProvider());
+    }
+    
+    public void synchToTrackers()
+    {
+        Visibilis.channel.send(PacketDistributor.TRACKING_ENTITY.with(() -> this), new MessageSynchEntityToClient(this, false));
     }
     
     /**
@@ -61,7 +90,13 @@ public abstract class EntityPrint extends Entity
     
     public Print getPrint()
     {
-        return this.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty (5)!"));
+        return this.print;
+    }
+    
+    @Override
+    public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side)
+    {
+        return cap == CapabilityProviderPrint.CAPABILITY_PRINT ? CapabilityProviderPrint.CAPABILITY_PRINT.orEmpty(cap, this.printOptional) : super.getCapability(cap, side);
     }
     
     public void setPrintTag(CompoundNBT nbt)
@@ -85,9 +120,16 @@ public abstract class EntityPrint extends Entity
         return true;
     }
     
-    public void openForClient(PlayerEntity player)
+    @Override
+    protected void readAdditional(CompoundNBT compound)
     {
-        Visibilis.channel.sendTo(null, ((ServerPlayerEntity)player).connection.getNetworkManager(), NetworkDirection.PLAY_TO_CLIENT);
+        this.getPrint().readFromNBT(compound);
+    }
+    
+    @Override
+    protected void writeAdditional(CompoundNBT compound)
+    {
+        this.getPrint().writeToNBT(compound);
     }
     
     public static Function<Print, DataProvider> getDataFactory(Entity entity)

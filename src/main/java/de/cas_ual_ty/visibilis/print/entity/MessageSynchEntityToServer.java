@@ -15,34 +15,34 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 
-public class MessagePrintSynchEntity
+public class MessageSynchEntityToServer
 {
     public final int entityId;
     public final CompoundNBT nbt;
     
-    public MessagePrintSynchEntity(Entity entity)
+    public MessageSynchEntityToServer(Entity entity)
     {
         this(entity.getEntityId(), VNBTUtility.savePrintToNBT(entity.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty (8)!"))));
     }
     
-    public MessagePrintSynchEntity(int entityId, CompoundNBT nbt)
+    public MessageSynchEntityToServer(int entityId, CompoundNBT nbt)
     {
         this.nbt = nbt;
         this.entityId = entityId;
     }
     
-    public static void encode(MessagePrintSynchEntity msg, PacketBuffer buf)
+    public static void encode(MessageSynchEntityToServer msg, PacketBuffer buf)
     {
         buf.writeInt(msg.entityId);
         buf.writeCompoundTag(msg.nbt);
     }
     
-    public static MessagePrintSynchEntity decode(PacketBuffer buf)
+    public static MessageSynchEntityToServer decode(PacketBuffer buf)
     {
-        return new MessagePrintSynchEntity(buf.readInt(), buf.readCompoundTag());
+        return new MessageSynchEntityToServer(buf.readInt(), buf.readCompoundTag());
     }
     
-    public static void handle(MessagePrintSynchEntity msg, Supplier<NetworkEvent.Context> ctx)
+    public static void handle(MessageSynchEntityToServer msg, Supplier<NetworkEvent.Context> ctx)
     {
         Context context = ctx.get();
         
