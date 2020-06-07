@@ -4,6 +4,7 @@ import java.util.function.Function;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.print.Print;
+import de.cas_ual_ty.visibilis.print.capability.IPrintHolder;
 import de.cas_ual_ty.visibilis.print.provider.DataProvider;
 import de.cas_ual_ty.visibilis.print.provider.NodeListProvider;
 import de.cas_ual_ty.visibilis.print.provider.NodeListProviderBase;
@@ -17,10 +18,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.PacketDistributor;
 
-public interface IEntityPrint
+public interface IEntityPrint extends IPrintHolder
 {
-    public Print getPrint();
-    
     /**
      * On client side: calls {@link #doOpenGui()}.
      * On server side: Sends a packet to the client the given player which calls this method again (on client side).

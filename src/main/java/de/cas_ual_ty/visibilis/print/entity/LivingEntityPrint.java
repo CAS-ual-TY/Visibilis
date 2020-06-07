@@ -1,7 +1,8 @@
 package de.cas_ual_ty.visibilis.print.entity;
 
 import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
+import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrintHolder;
+import de.cas_ual_ty.visibilis.print.capability.IPrintHolder;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -13,13 +14,13 @@ import net.minecraftforge.common.util.LazyOptional;
 public abstract class LivingEntityPrint extends LivingEntity implements IEntityPrint
 {
     protected Print print;
-    protected LazyOptional<Print> printOptional;
+    protected LazyOptional<IPrintHolder> printOptional;
     
     protected LivingEntityPrint(EntityType<? extends LivingEntity> entityTypeIn, World worldIn)
     {
         super(entityTypeIn, worldIn);
         this.print = new Print();
-        this.printOptional = LazyOptional.of(() -> this.getPrint());
+        this.printOptional = LazyOptional.of(() -> this);
     }
     
     @Override
@@ -29,9 +30,15 @@ public abstract class LivingEntityPrint extends LivingEntity implements IEntityP
     }
     
     @Override
+    public void setPrint(Print print)
+    {
+        this.print = print;
+    }
+    
+    @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side)
     {
-        return cap == CapabilityProviderPrint.CAPABILITY_PRINT ? CapabilityProviderPrint.CAPABILITY_PRINT.orEmpty(cap, this.printOptional) : super.getCapability(cap, side);
+        return cap == CapabilityProviderPrintHolder.CAPABILITY_PRINT_HOLDER ? CapabilityProviderPrintHolder.CAPABILITY_PRINT_HOLDER.orEmpty(cap, this.printOptional) : super.getCapability(cap, side);
     }
     
     @Override

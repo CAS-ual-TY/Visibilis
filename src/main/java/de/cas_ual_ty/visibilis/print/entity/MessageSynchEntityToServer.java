@@ -4,7 +4,8 @@ import java.util.function.Supplier;
 
 import de.cas_ual_ty.visibilis.event.EntityPrintValidationEvent;
 import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
+import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrintHolder;
+import de.cas_ual_ty.visibilis.print.capability.IPrintHolder;
 import de.cas_ual_ty.visibilis.util.VNBTUtility;
 import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.entity.Entity;
@@ -58,7 +59,7 @@ public class MessageSynchEntityToServer
             
             if(entity != null)
             {
-                Print print = entity.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElse(new Print());
+                Print print = VNBTUtility.loadPrintFromNBT(msg.nbt);
                 
                 if(entity instanceof IEntityPrint && !((IEntityPrint)entity).validate(print))
                 {
@@ -66,7 +67,8 @@ public class MessageSynchEntityToServer
                 }
                 if(!MinecraftForge.EVENT_BUS.post(new EntityPrintValidationEvent(entity)))
                 {
-                    print.overrideFromNBT(msg.nbt);
+                    IPrintHolder holder = entity.getCapability(CapabilityProviderPrintHolder.CAPABILITY_PRINT_HOLDER).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!"));
+                    holder.setPrint(print);
                 }
             }
         });

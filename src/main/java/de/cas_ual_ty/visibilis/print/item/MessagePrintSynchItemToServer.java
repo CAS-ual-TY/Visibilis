@@ -4,7 +4,8 @@ import java.util.function.Supplier;
 
 import de.cas_ual_ty.visibilis.event.ItemPrintValidationEvent;
 import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
+import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrintHolder;
+import de.cas_ual_ty.visibilis.print.capability.IPrintHolder;
 import de.cas_ual_ty.visibilis.util.VNBTUtility;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -47,7 +48,7 @@ public class MessagePrintSynchItemToServer
         context.enqueueWork(() ->
         {
             ItemStack itemStack = ctx.get().getSender().inventory.getStackInSlot(msg.slot);
-            Print print = itemStack.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElse(new Print());
+            Print print = VNBTUtility.loadPrintFromNBT(msg.nbt);
             
             if(itemStack.getItem() instanceof ItemPrint && !((ItemPrint)itemStack.getItem()).validate(itemStack, print))
             {
@@ -55,7 +56,8 @@ public class MessagePrintSynchItemToServer
             }
             else if(!MinecraftForge.EVENT_BUS.post(new ItemPrintValidationEvent(itemStack, print)))
             {
-                print.overrideFromNBT(msg.nbt);
+                IPrintHolder holder = itemStack.getCapability(CapabilityProviderPrintHolder.CAPABILITY_PRINT_HOLDER).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!"));
+                holder.setPrint(print);
             }
         });
         

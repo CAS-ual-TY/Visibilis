@@ -7,7 +7,7 @@ import de.cas_ual_ty.visibilis.config.VConfigClient;
 import de.cas_ual_ty.visibilis.config.VConfigHelper;
 import de.cas_ual_ty.visibilis.config.VConfiguration;
 import de.cas_ual_ty.visibilis.node.Node;
-import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
+import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrintHolder;
 import de.cas_ual_ty.visibilis.print.provider.PrintProvider;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
@@ -124,19 +124,19 @@ public class VUtility
         return null;
     }
     
-    public static CapabilityProviderPrint attachCapability(AttachCapabilitiesEvent<?> event)
+    public static CapabilityProviderPrintHolder attachCapability(AttachCapabilitiesEvent<?> event)
     {
         return VUtility.attachCapability(Visibilis.MOD_ID, event);
     }
     
-    public static CapabilityProviderPrint attachCapability(String modId, AttachCapabilitiesEvent<?> event)
+    public static CapabilityProviderPrintHolder attachCapability(String modId, AttachCapabilitiesEvent<?> event)
     {
         return VUtility.attachCapability(modId, "print", event);
     }
     
-    public static CapabilityProviderPrint attachCapability(String modId, String name, AttachCapabilitiesEvent<?> event)
+    public static CapabilityProviderPrintHolder attachCapability(String modId, String name, AttachCapabilitiesEvent<?> event)
     {
-        CapabilityProviderPrint provider = new CapabilityProviderPrint();
+        CapabilityProviderPrintHolder provider = new CapabilityProviderPrintHolder();
         event.addCapability(new ResourceLocation(modId, name), provider);
         event.addListener(provider.getListener());
         return provider;

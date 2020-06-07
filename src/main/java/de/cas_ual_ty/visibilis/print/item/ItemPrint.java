@@ -4,7 +4,8 @@ import java.util.function.Function;
 
 import de.cas_ual_ty.visibilis.print.GuiPrint;
 import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
+import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrintHolder;
+import de.cas_ual_ty.visibilis.print.capability.IPrintHolder;
 import de.cas_ual_ty.visibilis.print.provider.DataKey;
 import de.cas_ual_ty.visibilis.print.provider.DataProvider;
 import de.cas_ual_ty.visibilis.print.provider.NodeListProvider;
@@ -75,7 +76,17 @@ public class ItemPrint extends Item
     
     public Print getPrint(ItemStack itemStack)
     {
-        return itemStack.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!"));
+        return this.getPrintHolder(itemStack).getPrint();
+    }
+    
+    public void setPrint(ItemStack itemStack, Print print)
+    {
+        this.getPrintHolder(itemStack).setPrint(print);
+    }
+    
+    public IPrintHolder getPrintHolder(ItemStack itemStack)
+    {
+        return itemStack.getCapability(CapabilityProviderPrintHolder.CAPABILITY_PRINT_HOLDER).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!"));
     }
     
     public void setPrintTag(ItemStack itemStack, CompoundNBT nbt)

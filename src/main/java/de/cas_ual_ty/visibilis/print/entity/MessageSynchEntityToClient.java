@@ -2,8 +2,7 @@ package de.cas_ual_ty.visibilis.print.entity;
 
 import java.util.function.Supplier;
 
-import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrint;
+import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrintHolder;
 import de.cas_ual_ty.visibilis.util.VNBTUtility;
 import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.entity.Entity;
@@ -21,7 +20,7 @@ public class MessageSynchEntityToClient
     
     public MessageSynchEntityToClient(Entity entity)
     {
-        this(entity.getEntityId(), VNBTUtility.savePrintToNBT(entity.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!"))), false);
+        this(entity.getEntityId(), VNBTUtility.savePrintToNBT(entity.getCapability(CapabilityProviderPrintHolder.CAPABILITY_PRINT_HOLDER).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!")).getPrint()), false);
     }
     
     public MessageSynchEntityToClient(IEntityPrint entity, boolean openGuiForClient)
@@ -56,9 +55,7 @@ public class MessageSynchEntityToClient
         {
             World world = VUtility.getWorld(context);
             Entity entity = world.getEntityByID(msg.entityId);
-            Print print = entity.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElse(new Print());
-            
-            print.overrideFromNBT(msg.nbt);
+            entity.getCapability(CapabilityProviderPrintHolder.CAPABILITY_PRINT_HOLDER).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!")).setPrint(msg.nbt);
             
             if(msg.openGuiForClient && entity instanceof IEntityPrint)
             {
