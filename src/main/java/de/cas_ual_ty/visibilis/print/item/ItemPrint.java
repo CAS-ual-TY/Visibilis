@@ -89,12 +89,6 @@ public class ItemPrint extends Item
         return itemStack.getCapability(CapabilityProviderPrintHolder.CAPABILITY_PRINT_HOLDER).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!"));
     }
     
-    public void setPrintTag(ItemStack itemStack, CompoundNBT nbt)
-    {
-        Print print = this.getPrint(itemStack);
-        print.overrideFromNBT(nbt);
-    }
-    
     // is this item editable via the "v edit" command?
     public boolean isEditable(ItemStack itemStack, CommandSource source)
     {
