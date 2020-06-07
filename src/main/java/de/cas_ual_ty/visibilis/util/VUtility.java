@@ -78,6 +78,25 @@ public class VUtility
         return values;
     }
     
+    public static DoubleValue[] buildTextColorConfigValue(Builder builder, String translationPrefix, String key, float[] define)
+    {
+        DoubleValue[] values = new DoubleValue[3];
+        
+        builder.push(key);
+        
+        for(int i = 0; i < VConfigClient.SUFFIX_COLOR.length; ++i)
+        {
+            values[i] = builder
+                .comment(VConfigClient.COLORS[i] + " Text Color")
+                .translation(translationPrefix + key + VConfigClient.SUFFIX_COLOR[i])
+                .defineInRange(VConfigClient.COLORS[i], define[i], 0F, 1F);
+        }
+        
+        builder.pop();
+        
+        return values;
+    }
+    
     public static float[] toColor(DoubleValue[] values)
     {
         return new float[] { values[0].get().floatValue(), values[1].get().floatValue(), values[2].get().floatValue() };

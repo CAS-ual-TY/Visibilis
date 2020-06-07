@@ -13,12 +13,12 @@ public abstract class DataTypeDynamic<A> extends DataType<A>
     
     public DataTypeDynamic(ArrayFactory<A> arrayFactory, A defaultValue)
     {
-        this(DataType.COLOR_DEFAULT_GREY, arrayFactory, defaultValue);
+        this(DataType.COLOR_DEFAULT_GREY, DataType.COLOR_TEXT_WHITE, arrayFactory, defaultValue);
     }
     
-    public DataTypeDynamic(float[] color, ArrayFactory<A> arrayFactory, A defaultValue)
+    public DataTypeDynamic(float[] color, float[] textColor, ArrayFactory<A> arrayFactory, A defaultValue)
     {
-        super(color, arrayFactory);
+        super(color, textColor, arrayFactory);
         this.setDefaultValue(defaultValue);
         this.validator = this.createValidator();
     }

@@ -71,14 +71,14 @@ public class DataType<A> extends ForgeRegistryEntry<DataType<?>>
     
     public DataType(ArrayFactory<A> arrayFactory)
     {
-        this(DataType.COLOR_DEFAULT_GREY, arrayFactory);
+        this(DataType.COLOR_DEFAULT_GREY, DataType.COLOR_TEXT_WHITE, arrayFactory);
     }
     
-    public DataType(float[] color, ArrayFactory<A> arrayFactory)
+    public DataType(float[] color, float[] textColor, ArrayFactory<A> arrayFactory)
     {
         this.converters = new HashMap<>();
         this.color = color;
-        this.textColor = DataType.COLOR_TEXT_WHITE;
+        this.textColor = textColor;
         this.defaultValue = null;
         this.arrayFactory = arrayFactory;
     }
@@ -221,17 +221,6 @@ public class DataType<A> extends ForgeRegistryEntry<DataType<?>>
     public float[] getTextColor()
     {
         return this.textColor;
-    }
-    
-    public DataType<A> setTextColor(float[] color)
-    {
-        this.textColor = color;
-        return this;
-    }
-    
-    public DataType<A> setBlackText()
-    {
-        return this.setTextColor(DataType.COLOR_TEXT_BLACK);
     }
     
     public boolean isSerializable()
