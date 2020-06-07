@@ -44,12 +44,12 @@ public abstract class EntityPrint extends Entity implements IEntityPrint
     @Override
     protected void readAdditional(CompoundNBT compound)
     {
-        this.getPrint().readFromNBT(compound);
+        this.getPrint().readFromNBT(compound, true);
     }
     
     @Override
     protected void writeAdditional(CompoundNBT compound)
     {
-        this.getPrint().writeToNBT(compound);
+        this.getPrint().writeToNBT(compound, true);
     }
 }

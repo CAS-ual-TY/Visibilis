@@ -45,13 +45,13 @@ public abstract class LivingEntityPrint extends LivingEntity implements IEntityP
     public void readAdditional(CompoundNBT compound)
     {
         super.readAdditional(compound);
-        this.getPrint().readFromNBT(compound);
+        this.getPrint().readFromNBT(compound, true);
     }
     
     @Override
     public void writeAdditional(CompoundNBT compound)
     {
         super.readAdditional(compound);
-        this.getPrint().writeToNBT(compound);
+        this.getPrint().writeToNBT(compound, true);
     }
 }

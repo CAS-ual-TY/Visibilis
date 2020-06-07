@@ -292,11 +292,6 @@ public class Print
     /**
      * Read from NBT.
      */
-    public void readFromNBT(CompoundNBT nbt)
-    {
-        this.readFromNBT(nbt, true);
-    }
-    
     public void readFromNBT(CompoundNBT nbt, boolean readVariables)
     {
         this.setPosX(nbt.getInt(Print.KEY_POS_X));
@@ -357,11 +352,6 @@ public class Print
     /**
      * Write to NBT.
      */
-    public void writeToNBT(CompoundNBT nbt)
-    {
-        this.writeToNBT(nbt, true);
-    }
-    
     public void writeToNBT(CompoundNBT nbt, boolean writeVariables)
     {
         nbt.putInt(Print.KEY_POS_X, this.getPosX());
