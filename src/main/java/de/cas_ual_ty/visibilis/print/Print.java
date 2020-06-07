@@ -447,6 +447,7 @@ public class Print
         this.nodes.clear();
         this.events.clear();
         this.zoom = 0.5F;
+        this.variablesMap.clear();
     }
     
     public void overrideFromNBT(CompoundNBT nbt)
