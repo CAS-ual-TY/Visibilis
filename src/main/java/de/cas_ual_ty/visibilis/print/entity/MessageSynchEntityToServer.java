@@ -20,9 +20,14 @@ public class MessageSynchEntityToServer
     public final int entityId;
     public final CompoundNBT nbt;
     
-    public MessageSynchEntityToServer(Entity entity)
+    public MessageSynchEntityToServer(Entity entity, Print print)
     {
-        this(entity.getEntityId(), VNBTUtility.savePrintToNBT(entity.getCapability(CapabilityProviderPrint.CAPABILITY_PRINT).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!"))));
+        this(entity.getEntityId(), VNBTUtility.savePrintToNBT(print));
+    }
+    
+    public MessageSynchEntityToServer(Entity entity, CompoundNBT nbt)
+    {
+        this(entity.getEntityId(), nbt);
     }
     
     public MessageSynchEntityToServer(int entityId, CompoundNBT nbt)
