@@ -513,6 +513,11 @@ public class Print
         return map;
     }
     
+    public HashMap<DataType<?>, HashMap<String, ?>> getVariablesMap()
+    {
+        return this.variablesMap;
+    }
+    
     public <A> void putVariable(DataType<A> dataType, String key, A value)
     {
         if(!dataType.isSerializable())
