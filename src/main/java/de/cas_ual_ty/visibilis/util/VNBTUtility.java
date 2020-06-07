@@ -40,6 +40,14 @@ public class VNBTUtility
         return p;
     }
     
+    public static Print loadPrintFromNBTSynch(CompoundNBT nbt)
+    {
+        Print p = new Print();
+        VNBTUtility.readPrintFromNBT(p, nbt, false);
+        
+        return p;
+    }
+    
     /**
      * Creates a new {@link Print} with the given Print instance saved onto it, including all its nodes an connections
      */
@@ -51,13 +59,26 @@ public class VNBTUtility
         return nbt;
     }
     
+    public static CompoundNBT savePrintToNBTSynch(Print p)
+    {
+        CompoundNBT nbt = new CompoundNBT();
+        VNBTUtility.writePrintToNBT(p, nbt, false);
+        
+        return nbt;
+    }
+    
     /**
      * Reads a {@link Print} instance's data from the given NBT, excluding nodes and connections
      */
     public static void readPrintFromNBT(Print p, CompoundNBT nbt)
     {
+        VNBTUtility.readPrintFromNBT(p, nbt, true);
+    }
+    
+    public static void readPrintFromNBT(Print p, CompoundNBT nbt, boolean readVariables)
+    {
         CompoundNBT nbt1 = nbt.getCompound(VNBTUtility.KEY_PRINT);
-        p.readFromNBT(nbt1);
+        p.readFromNBT(nbt1, readVariables);
     }
     
     /**
@@ -65,8 +86,13 @@ public class VNBTUtility
      */
     public static void writePrintToNBT(Print p, CompoundNBT nbt)
     {
+        VNBTUtility.writePrintToNBT(p, nbt, true);
+    }
+    
+    public static void writePrintToNBT(Print p, CompoundNBT nbt, boolean writeVariables)
+    {
         CompoundNBT nbt1 = new CompoundNBT();
-        p.writeToNBT(nbt1);
+        p.writeToNBT(nbt1, writeVariables);
         nbt.put(VNBTUtility.KEY_PRINT, nbt1);
     }
     
