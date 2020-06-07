@@ -294,10 +294,19 @@ public class Print
      */
     public void readFromNBT(CompoundNBT nbt)
     {
+        this.readFromNBT(nbt, true);
+    }
+    
+    public void readFromNBT(CompoundNBT nbt, boolean readVariables)
+    {
         this.setPosX(nbt.getInt(Print.KEY_POS_X));
         this.setPosY(nbt.getInt(Print.KEY_POS_Y));
         this.setZoom(nbt.getFloat(Print.KEY_ZOOM));
-        this.readVariablesFromNBT(nbt);
+        
+        if(readVariables)
+        {
+            this.readVariablesFromNBT(nbt);
+        }
         
         VNBTUtility.readPrintNodesFromNBT(this, nbt);
         VNBTUtility.readPrintConnectionsFromNBT(this, nbt);
@@ -350,10 +359,19 @@ public class Print
      */
     public void writeToNBT(CompoundNBT nbt)
     {
+        this.writeToNBT(nbt, true);
+    }
+    
+    public void writeToNBT(CompoundNBT nbt, boolean writeVariables)
+    {
         nbt.putInt(Print.KEY_POS_X, this.getPosX());
         nbt.putInt(Print.KEY_POS_Y, this.getPosY());
         nbt.putFloat(Print.KEY_ZOOM, this.getZoom());
-        this.writeVariablesToNBT(nbt);
+        
+        if(writeVariables)
+        {
+            this.writeVariablesToNBT(nbt);
+        }
         
         VNBTUtility.writePrintNodesToNBT(this, nbt);
         VNBTUtility.writePrintConnectionsToNBT(this, nbt);
