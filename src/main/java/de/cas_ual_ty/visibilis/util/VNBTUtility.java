@@ -32,18 +32,10 @@ public class VNBTUtility
     /**
      * Creates and loads a new {@link Print} instance from the given NBT tag, including all its nodes and connections
      */
-    public static Print loadPrintFromNBT(CompoundNBT nbt)
+    public static Print loadPrintFromNBT(CompoundNBT nbt, boolean loadVariables)
     {
         Print p = new Print();
-        VNBTUtility.readPrintFromNBT(p, nbt);
-        
-        return p;
-    }
-    
-    public static Print loadPrintFromNBTSynch(CompoundNBT nbt)
-    {
-        Print p = new Print();
-        VNBTUtility.readPrintFromNBT(p, nbt, false);
+        VNBTUtility.readPrintFromNBT(p, nbt, loadVariables);
         
         return p;
     }
@@ -51,18 +43,10 @@ public class VNBTUtility
     /**
      * Creates a new {@link Print} with the given Print instance saved onto it, including all its nodes an connections
      */
-    public static CompoundNBT savePrintToNBT(Print p)
+    public static CompoundNBT savePrintToNBT(Print p, boolean saveVariables)
     {
         CompoundNBT nbt = new CompoundNBT();
-        VNBTUtility.writePrintToNBT(p, nbt);
-        
-        return nbt;
-    }
-    
-    public static CompoundNBT savePrintToNBTSynch(Print p)
-    {
-        CompoundNBT nbt = new CompoundNBT();
-        VNBTUtility.writePrintToNBT(p, nbt, false);
+        VNBTUtility.writePrintToNBT(p, nbt, saveVariables);
         
         return nbt;
     }
@@ -70,10 +54,6 @@ public class VNBTUtility
     /**
      * Reads a {@link Print} instance's data from the given NBT, excluding nodes and connections
      */
-    public static void readPrintFromNBT(Print p, CompoundNBT nbt)
-    {
-        VNBTUtility.readPrintFromNBT(p, nbt, true);
-    }
     
     public static void readPrintFromNBT(Print p, CompoundNBT nbt, boolean readVariables)
     {

@@ -18,14 +18,14 @@ public class MessageSynchEntityToClient
     public final CompoundNBT nbt;
     public final boolean openGuiForClient;
     
-    public MessageSynchEntityToClient(Entity entity)
+    public MessageSynchEntityToClient(Entity entity, boolean synchVariables)
     {
-        this(entity.getEntityId(), VNBTUtility.savePrintToNBT(entity.getCapability(CapabilityProviderPrintHolder.CAPABILITY_PRINT_HOLDER).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!")).getPrint()), false);
+        this(entity.getEntityId(), VNBTUtility.savePrintToNBT(entity.getCapability(CapabilityProviderPrintHolder.CAPABILITY_PRINT_HOLDER).orElseThrow(() -> new IllegalArgumentException("LazyOptional must not be empty!")).getPrint(), synchVariables), false);
     }
     
-    public MessageSynchEntityToClient(IEntityPrint entity, boolean openGuiForClient)
+    public MessageSynchEntityToClient(IEntityPrint entity, boolean synchVariables, boolean openGuiForClient)
     {
-        this(((Entity)entity).getEntityId(), VNBTUtility.savePrintToNBT(entity.getPrint()), openGuiForClient);
+        this(((Entity)entity).getEntityId(), VNBTUtility.savePrintToNBT(entity.getPrint(), synchVariables), openGuiForClient);
     }
     
     public MessageSynchEntityToClient(int entityId, CompoundNBT nbt, boolean openForClient)

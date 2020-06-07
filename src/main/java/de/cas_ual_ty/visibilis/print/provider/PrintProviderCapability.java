@@ -25,7 +25,7 @@ public abstract class PrintProviderCapability extends PrintProvider
     @Override
     public void onGuiClose()
     {
-        this.synchToServer(VNBTUtility.savePrintToNBT(this.getPrint()));
+        this.synchToServer(VNBTUtility.savePrintToNBT(this.getPrint(), false));
         super.onGuiClose();
     }
     

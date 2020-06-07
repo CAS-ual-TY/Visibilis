@@ -445,7 +445,7 @@ public class Print
     public Print clone()
     {
         //Yes very lazy I know :P But atleast we have a solution for now
-        return VNBTUtility.loadPrintFromNBT(VNBTUtility.savePrintToNBT(this));
+        return VNBTUtility.loadPrintFromNBT(VNBTUtility.savePrintToNBT(this, true), true);
     }
     
     public void reset()
@@ -461,7 +461,7 @@ public class Print
     public void overrideFromNBT(CompoundNBT nbt)
     {
         this.reset();
-        VNBTUtility.readPrintFromNBT(this, nbt);
+        VNBTUtility.readPrintFromNBT(this, nbt, false);
     }
     
     public int getPosX()

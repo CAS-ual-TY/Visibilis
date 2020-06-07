@@ -29,7 +29,7 @@ public class VNodePrintDebug extends Node
     @Override
     public boolean doCalculate(DataProvider context)
     {
-        VNBTUtility.printTree(VNBTUtility.savePrintToNBT(context.getPrint()));
+        VNBTUtility.printTree(VNBTUtility.savePrintToNBT(context.getPrint(), false));
         
         return true;
     }

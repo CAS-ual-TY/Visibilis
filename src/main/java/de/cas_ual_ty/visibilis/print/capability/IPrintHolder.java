@@ -12,6 +12,6 @@ public interface IPrintHolder
     
     public default void setPrint(CompoundNBT nbt)
     {
-        this.setPrint(VNBTUtility.loadPrintFromNBT(nbt));
+        this.setPrint(VNBTUtility.loadPrintFromNBT(nbt, true));
     }
 }

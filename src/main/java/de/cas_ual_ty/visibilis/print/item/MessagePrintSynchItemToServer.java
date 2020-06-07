@@ -21,7 +21,7 @@ public class MessagePrintSynchItemToServer
     
     public MessagePrintSynchItemToServer(int slot, Print print)
     {
-        this(slot, VNBTUtility.savePrintToNBT(print));
+        this(slot, VNBTUtility.savePrintToNBT(print, false));
     }
     
     public MessagePrintSynchItemToServer(int slot, CompoundNBT nbt)
@@ -48,7 +48,7 @@ public class MessagePrintSynchItemToServer
         context.enqueueWork(() ->
         {
             ItemStack itemStack = ctx.get().getSender().inventory.getStackInSlot(msg.slot);
-            Print print = VNBTUtility.loadPrintFromNBT(msg.nbt);
+            Print print = VNBTUtility.loadPrintFromNBT(msg.nbt, false);
             
             if(itemStack.getItem() instanceof ItemPrint && !((ItemPrint)itemStack.getItem()).validate(itemStack, print))
             {

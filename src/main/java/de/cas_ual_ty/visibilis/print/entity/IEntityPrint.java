@@ -44,7 +44,7 @@ public interface IEntityPrint extends IPrintHolder
             }
             else if(player instanceof ServerPlayerEntity)
             {
-                Visibilis.channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity)player), new MessageSynchEntityToClient(this, true));
+                Visibilis.channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity)player), new MessageSynchEntityToClient(this, this.synchVariables(), true));
                 return true;
             }
         }
@@ -87,7 +87,12 @@ public interface IEntityPrint extends IPrintHolder
     
     public default void synchToTrackers()
     {
-        Visibilis.channel.send(PacketDistributor.TRACKING_ENTITY.with(() -> (Entity)this), new MessageSynchEntityToClient(this, false));
+        Visibilis.channel.send(PacketDistributor.TRACKING_ENTITY.with(() -> (Entity)this), new MessageSynchEntityToClient(this, this.synchVariables(), false));
+    }
+    
+    public default boolean synchVariables()
+    {
+        return true;
     }
     
     public static Function<Print, DataProvider> getDataFactory(Entity entity)

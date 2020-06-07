@@ -12,12 +12,12 @@ public class StoragePrintHolder implements IStorage<IPrintHolder>
     @Override
     public INBT writeNBT(Capability<IPrintHolder> capability, IPrintHolder instance, Direction side)
     {
-        return VNBTUtility.savePrintToNBT(instance.getPrint());
+        return VNBTUtility.savePrintToNBT(instance.getPrint(), true);
     }
     
     @Override
     public void readNBT(Capability<IPrintHolder> capability, IPrintHolder instance, Direction side, INBT nbt)
     {
-        instance.setPrint(VNBTUtility.loadPrintFromNBT((CompoundNBT)nbt));
+        instance.setPrint(VNBTUtility.loadPrintFromNBT((CompoundNBT)nbt, true));
     }
 }

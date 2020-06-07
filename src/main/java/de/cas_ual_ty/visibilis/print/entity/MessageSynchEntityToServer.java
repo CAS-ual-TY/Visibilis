@@ -23,7 +23,7 @@ public class MessageSynchEntityToServer
     
     public MessageSynchEntityToServer(Entity entity, Print print)
     {
-        this(entity.getEntityId(), VNBTUtility.savePrintToNBT(print));
+        this(entity.getEntityId(), VNBTUtility.savePrintToNBT(print, false));
     }
     
     public MessageSynchEntityToServer(Entity entity, CompoundNBT nbt)
@@ -59,7 +59,7 @@ public class MessageSynchEntityToServer
             
             if(entity != null)
             {
-                Print print = VNBTUtility.loadPrintFromNBT(msg.nbt);
+                Print print = VNBTUtility.loadPrintFromNBT(msg.nbt, false);
                 
                 if(entity instanceof IEntityPrint && !((IEntityPrint)entity).validate(print))
                 {

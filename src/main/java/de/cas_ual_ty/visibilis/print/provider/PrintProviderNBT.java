@@ -52,7 +52,7 @@ public abstract class PrintProviderNBT extends PrintProvider
         else
         {
             CompoundNBT nbt = nbt0.getCompound(Visibilis.MOD_ID);
-            print = VNBTUtility.loadPrintFromNBT(nbt);
+            print = VNBTUtility.loadPrintFromNBT(nbt, true);
         }
         
         this.undoList.setFirst(print);
@@ -60,7 +60,7 @@ public abstract class PrintProviderNBT extends PrintProvider
     
     public void writeToNBT(CompoundNBT nbt0)
     {
-        CompoundNBT nbt = VNBTUtility.savePrintToNBT(this.getPrint());
+        CompoundNBT nbt = VNBTUtility.savePrintToNBT(this.getPrint(), true);
         nbt0.put(Visibilis.MOD_ID, nbt);
         
         this.synchToServer(nbt0);
