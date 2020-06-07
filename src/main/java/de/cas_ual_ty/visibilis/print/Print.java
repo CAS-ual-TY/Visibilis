@@ -539,4 +539,15 @@ public class Print
         HashMap<String, A> map = this.getDataTypeMap(dataType);
         return map.get(key);
     }
+    
+    public <A> void removeVariable(DataType<A> dataType, String key)
+    {
+        if(!dataType.isSerializable())
+        {
+            return;
+        }
+        
+        HashMap<String, A> map = this.getDataTypeMap(dataType);
+        map.remove(key);
+    }
 }
