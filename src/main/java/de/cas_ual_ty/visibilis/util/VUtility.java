@@ -62,11 +62,7 @@ public class VUtility
     
     public static float[] toColor(int r, int g, int b)
     {
-        r++;
-        g++;
-        b++;
-        
-        return new float[] { r / 256F, g / 256F, b / 256F };
+        return new float[] { r / 255F, g / 255F, b / 255F };
     }
     
     public static World getWorld(NetworkEvent.Context context)
