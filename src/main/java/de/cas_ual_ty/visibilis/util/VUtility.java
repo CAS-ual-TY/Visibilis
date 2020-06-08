@@ -3,7 +3,6 @@ package de.cas_ual_ty.visibilis.util;
 import java.util.ArrayList;
 
 import de.cas_ual_ty.visibilis.Visibilis;
-import de.cas_ual_ty.visibilis.config.VConfigClient;
 import de.cas_ual_ty.visibilis.config.VConfigHelper;
 import de.cas_ual_ty.visibilis.config.VConfiguration;
 import de.cas_ual_ty.visibilis.node.Node;
@@ -12,13 +11,15 @@ import de.cas_ual_ty.visibilis.print.provider.PrintProvider;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeConfigSpec.Builder;
-import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 public class VUtility
 {
+    public static final float[] COLOR_DEFAULT_WHITE = new float[] { 1F, 1F, 1F };
+    public static final float[] COLOR_DEFAULT_BLACK = new float[] { 0F, 0F, 0F };
+    public static final float[] COLOR_DEFAULT_GREY = new float[] { 0.5F, 0.5F, 0.5F };
+    
     @SuppressWarnings("unchecked")
     public static <A, B> A cast(B b)
     {
@@ -59,47 +60,13 @@ public class VUtility
         Visibilis.proxy.openGuiForClient(helper);
     }
     
-    public static DoubleValue[] buildColorConfigValue(Builder builder, String translationPrefix, String key, float[] define)
+    public static float[] toColor(int r, int g, int b)
     {
-        DoubleValue[] values = new DoubleValue[3];
+        r++;
+        g++;
+        b++;
         
-        builder.push(key);
-        
-        for(int i = 0; i < VConfigClient.SUFFIX_COLOR.length; ++i)
-        {
-            values[i] = builder
-                .comment(VConfigClient.COLORS[i] + " Color")
-                .translation(translationPrefix + key + VConfigClient.SUFFIX_COLOR[i])
-                .defineInRange(VConfigClient.COLORS[i], define[i], 0F, 1F);
-        }
-        
-        builder.pop();
-        
-        return values;
-    }
-    
-    public static DoubleValue[] buildTextColorConfigValue(Builder builder, String translationPrefix, String key, float[] define)
-    {
-        DoubleValue[] values = new DoubleValue[3];
-        
-        builder.push(key);
-        
-        for(int i = 0; i < VConfigClient.SUFFIX_COLOR.length; ++i)
-        {
-            values[i] = builder
-                .comment(VConfigClient.COLORS[i] + " Text Color")
-                .translation(translationPrefix + key + VConfigClient.SUFFIX_COLOR[i])
-                .defineInRange(VConfigClient.COLORS[i], define[i], 0F, 1F);
-        }
-        
-        builder.pop();
-        
-        return values;
-    }
-    
-    public static float[] toColor(DoubleValue[] values)
-    {
-        return new float[] { values[0].get().floatValue(), values[1].get().floatValue(), values[2].get().floatValue() };
+        return new float[] { r / 256F, g / 256F, b / 256F };
     }
     
     public static World getWorld(NetworkEvent.Context context)

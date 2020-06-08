@@ -13,11 +13,6 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 public class DataType<A> extends ForgeRegistryEntry<DataType<?>>
 {
-    public static final float[] COLOR_TEXT_WHITE = new float[] { 1F, 1F, 1F };
-    public static final float[] COLOR_TEXT_BLACK = new float[] { 0F, 0F, 0F };
-    
-    public static final float[] COLOR_DEFAULT_GREY = new float[] { 0.5F, 0.5F, 0.5F };
-    
     public static final Map<String, DataType<?>> DATA_TYPES_LIST = new HashMap<>();
     
     public static final String KEY_DATA = "data";
@@ -71,16 +66,11 @@ public class DataType<A> extends ForgeRegistryEntry<DataType<?>>
     
     public DataType(ArrayFactory<A> arrayFactory)
     {
-        this(DataType.COLOR_DEFAULT_GREY, DataType.COLOR_TEXT_WHITE, arrayFactory);
-    }
-    
-    public DataType(float[] color, float[] textColor, ArrayFactory<A> arrayFactory)
-    {
         this.converters = new HashMap<>();
-        this.color = color;
-        this.textColor = textColor;
         this.defaultValue = null;
         this.arrayFactory = arrayFactory;
+        this.color = VUtility.COLOR_DEFAULT_GREY;
+        this.textColor = VUtility.COLOR_DEFAULT_WHITE;
     }
     
     public A[] createArray(int length)
@@ -221,6 +211,18 @@ public class DataType<A> extends ForgeRegistryEntry<DataType<?>>
     public float[] getTextColor()
     {
         return this.textColor;
+    }
+    
+    public DataType<A> setColor(float[] color)
+    {
+        this.color = color;
+        return this;
+    }
+    
+    public DataType<A> setTextColor(float[] textColor)
+    {
+        this.textColor = textColor;
+        return this;
     }
     
     public boolean isSerializable()

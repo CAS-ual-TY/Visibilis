@@ -25,12 +25,12 @@ public class VConfigHelper
     public static void bakeClient(ModConfig config)
     {
         VConfigHelper.clientConfig = config;
+        VConfiguration.CLIENT.overrideColors();
     }
     
     public static void bakeServer(ModConfig config)
     {
         VConfigHelper.commonConfig = config;
-        
         VConfiguration.shutdown = VConfiguration.COMMON.shutdown.get();
     }
     
