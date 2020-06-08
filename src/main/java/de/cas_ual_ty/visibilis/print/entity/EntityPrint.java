@@ -38,7 +38,7 @@ public abstract class EntityPrint extends Entity implements IEntityPrint
     @Override
     public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side)
     {
-        return cap == CapabilityProviderPrintHolder.CAPABILITY_PRINT_HOLDER ? CapabilityProviderPrintHolder.CAPABILITY_PRINT_HOLDER.orEmpty(cap, this.printOptional) : super.getCapability(cap, side);
+        return cap == CapabilityProviderPrintHolder.CAPABILITY_PRINT_HOLDER ? this.printOptional.cast() : super.getCapability(cap, side);
     }
     
     @Override
