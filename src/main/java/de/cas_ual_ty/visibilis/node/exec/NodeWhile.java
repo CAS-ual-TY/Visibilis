@@ -9,8 +9,8 @@ import de.cas_ual_ty.visibilis.registries.VDataTypes;
 
 public class NodeWhile extends Node
 {
-    public final Output<Object> out1Exec;
     public final Output<Object> out2Exec;
+    public final Output<Object> out1Exec;
     public final Input<Object> in1Exec;
     public final Input<Boolean> in2Condition;
     
@@ -20,8 +20,8 @@ public class NodeWhile extends Node
     public NodeWhile(NodeType<?> type)
     {
         super(type);
-        this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1").setTriggerRecalculation());
-        this.addOutput(this.out2Exec = new Output<>(this, VDataTypes.EXEC, "out2"));
+        this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1"));
+        this.addOutput(this.out2Exec = new Output<>(this, VDataTypes.EXEC, "out2").setTriggerRecalculation());
         this.addInput(this.in1Exec = new Input<>(this, VDataTypes.EXEC, "in1"));
         this.addInput(this.in2Condition = new Input<>(this, VDataTypes.BOOLEAN, "in2").setTriggerRecalculation());
         this.exec2 = false;
@@ -38,12 +38,12 @@ public class NodeWhile extends Node
         }
         else if(this.condition)
         {
-            return this.out1Exec;
+            return this.out2Exec;
         }
         else
         {
             this.exec2 = true;
-            return this.out2Exec;
+            return this.out1Exec;
         }
     }
     

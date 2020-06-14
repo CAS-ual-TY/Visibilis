@@ -10,9 +10,9 @@ import de.cas_ual_ty.visibilis.util.VUtility;
 
 public class NodeFor extends Node
 {
+    public final Output<Object> out2Exec;
+    public final Output<Integer> out3Index;
     public final Output<Object> out1Exec;
-    public final Output<Integer> out2Index;
-    public final Output<Object> out3Exec;
     public final Input<Object> in1Exec;
     public final Input<Integer> in2Length;
     
@@ -22,9 +22,9 @@ public class NodeFor extends Node
     public NodeFor(NodeType<?> type)
     {
         super(type);
-        this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1").setTriggerRecalculation());
-        this.addOutput(this.out2Index = new Output<>(this, VDataTypes.INTEGER, "out2").setTriggerRecalculation());
-        this.addOutput(this.out3Exec = new Output<>(this, VDataTypes.EXEC, "out3"));
+        this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1"));
+        this.addOutput(this.out2Exec = new Output<>(this, VDataTypes.EXEC, "out2").setTriggerRecalculation());
+        this.addOutput(this.out3Index = new Output<>(this, VDataTypes.INTEGER, "out3").setTriggerRecalculation());
         this.addInput(this.in1Exec = new Input<>(this, VDataTypes.EXEC, "in1"));
         this.addInput(this.in2Length = new Input<>(this, VDataTypes.INTEGER, "in2"));
     }
@@ -33,7 +33,7 @@ public class NodeFor extends Node
     public Output<Object> getOutExec(int index)
     {
         this.value = index;
-        return index == this.length ? this.out3Exec : (index < this.length ? this.out1Exec : null);
+        return index == this.length ? this.out1Exec : (index < this.length ? this.out2Exec : null);
     }
     
     @Override
@@ -46,7 +46,7 @@ public class NodeFor extends Node
     @Override
     public <O> O getOutputValue(Output<O> out)
     {
-        return out == this.out2Index ? VUtility.cast(this.value) : null;
+        return out == this.out3Index ? VUtility.cast(this.value) : null;
     }
     
     @Override
