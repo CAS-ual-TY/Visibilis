@@ -753,7 +753,8 @@ public class ComponentPrint extends Component
                 // Hovering over an input is viable, if it
                 // - has connections (to disconnect)
                 // - has an immediate value (and it can actually be put in - the data type is properly representable in this gui)
-                return this.getHoverObj().input.hasConnections() || (this.getHoverObj().input.hasDisplayValue() && (this.getHoverObj().input.getDataType() instanceof DataTypeDynamic || this.getHoverObj().input.getDataType() instanceof DataTypeEnum));
+                return true;
+//                return this.getHoverObj().input.hasConnections() || (this.getHoverObj().input.hasDisplayValue() && (this.getHoverObj().input.getDataType() instanceof DataTypeDynamic || this.getHoverObj().input.getDataType() instanceof DataTypeEnum));
             }
             
             // If nothing of the above is the case, then simply return true...

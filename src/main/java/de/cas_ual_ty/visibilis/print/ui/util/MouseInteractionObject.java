@@ -95,16 +95,6 @@ public class MouseInteractionObject
         this.type = EnumMouseInteractionType.OUTPUT;
     }
     
-    public void input(NodeField<?> nodeField)
-    {
-        this.reset();
-        
-        if(nodeField.isInput())
-        {
-            this.input((Input<?>)nodeField);
-        }
-    }
-    
     public void input(Input<?> input)
     {
         this.reset();
