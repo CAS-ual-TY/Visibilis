@@ -46,10 +46,22 @@ public class Input<I> extends NodeField<I>
         return this;
     }
     
+    public Input<I> setInputConnectCallable(Consumer<Input<I>> connectCallable)
+    {
+        this.setConnectCallable((field) -> connectCallable.accept((Input<I>)field));
+        return this;
+    }
+    
     @Override
     public Input<I> setConnectCallable(Consumer<NodeField<I>> connectCallable)
     {
         super.setConnectCallable(connectCallable);
+        return this;
+    }
+    
+    public Input<I> setInputDisconnectCallable(Consumer<Input<I>> disconnectCallable)
+    {
+        this.setDisconnectCallable((field) -> disconnectCallable.accept((Input<I>)field));
         return this;
     }
     

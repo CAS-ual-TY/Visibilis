@@ -40,10 +40,22 @@ public class Output<O> extends NodeField<O>
         return this;
     }
     
+    public Output<O> setOutputConnectCallable(Consumer<Output<O>> connectCallable)
+    {
+        this.setConnectCallable((field) -> connectCallable.accept((Output<O>)field));
+        return this;
+    }
+    
     @Override
     public Output<O> setConnectCallable(Consumer<NodeField<O>> connectCallable)
     {
         super.setConnectCallable(connectCallable);
+        return this;
+    }
+    
+    public Output<O> setOutputDisconnectCallable(Consumer<Output<O>> disconnectCallable)
+    {
+        this.setDisconnectCallable((field) -> disconnectCallable.accept((Output<O>)field));
         return this;
     }
     

@@ -7,6 +7,7 @@ import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
+import de.cas_ual_ty.visibilis.util.VUtility;
 
 public class NodeMultiConstant extends NodeGenericConstant<Object>
 {
@@ -24,22 +25,21 @@ public class NodeMultiConstant extends NodeGenericConstant<Object>
     @Override
     public Input<Object> createDynamicInput()
     {
-        return super.createDynamicInput().setConnectCallable(this::onInputConnect);
+        return super.createDynamicInput().setInputConnectCallable(this::onInputConnect);
     }
     
-    @SuppressWarnings({ "unchecked", "rawtypes" })
-    public void onInputConnect(NodeField<Object> in0)
+    public void onInputConnect(Input<Object> input)
     {
-        Input<Object> input = (Input<Object>)in0;
         int id2 = this.expansionInputs.indexOf(input);
+        input.setConnectCallable(null);
         
         if(id2 >= 0)
         {
             int id1 = input.getId();
-            DataType<?> from = input.getConnection().getDataType();
+            DataType<? extends Object> from = input.getConnection().getDataType();
             
-            Input<Object> in2 = new Input(this, from, "in1").setDisconnectCallable((in) -> this.onInputDisconnect((NodeField<?>)in));
-            Output<Object> out2 = new Output(this, from, "out2");
+            Input<Object> in2 = VUtility.cast(new Input<>(this, from, "in1").setInputDisconnectCallable(this::onInputDisconnect));
+            Output<Object> out2 = VUtility.cast(new Output<>(this, from, "out1"));
             NodeField.connect(input.getConnection(), in2);
             
             this.removeInput(id1);
@@ -54,9 +54,10 @@ public class NodeMultiConstant extends NodeGenericConstant<Object>
         }
     }
     
-    public void onInputDisconnect(NodeField<?> input)
+    public void onInputDisconnect(Input<?> input)
     {
         int id2 = this.expansionInputs.indexOf(input);
+        input.setDisconnectCallable(null);
         
         if(id2 >= 0)
         {
