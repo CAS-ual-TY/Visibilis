@@ -74,6 +74,8 @@ public class PrintRenderer
     /** Color of the text on top of the background rect of all actions on a node */
     public float[] actionColorText;
     
+    public float[] printBackround;
+    
     /** node, output, input, print, as translated string */
     public String tNode, tOut, tIn, tPrint, tRecalc;
     
@@ -105,6 +107,7 @@ public class PrintRenderer
         this.unneededDot = new float[] { 0.5F, 0.5F, 0.5F };
         this.actionColor = new float[] { 0.25F, 0.25F, 0.25F };
         this.actionColorText = new float[] { 1F, 1F, 1F };
+        this.printBackround = new float[] { 0.625F, 0.625F, 0.625F };
         
         this.genVars();
     }

@@ -63,7 +63,7 @@ public class ComponentPrint extends Component
     public void guiRender(int mouseX, int mouseY, float partialTicks)
     {
         // Background & show zoom on top left
-        this.dimensions.render(0.625F, 0.625F, 0.625F);
+        this.dimensions.render(this.getUtil().printBackround);
         Minecraft.getInstance().fontRenderer.drawString(this.getPrint().getZoom() + "x", 1 + this.dimensions.x, 1 + this.dimensions.y, 0xFFFFFF);
         
         // Check what the mouse is over and properly hold it in hoverObj

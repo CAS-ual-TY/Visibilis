@@ -382,6 +382,11 @@ public class VRenderUtility
             return VRenderUtility.isCoordInsideRect(x, y, this.x, this.y, this.w, this.h);
         }
         
+        public void render(float[] color)
+        {
+            VRenderUtility.drawRect(this.x, this.y, this.w, this.h, color);
+        }
+        
         public void render(float r, float g, float b)
         {
             VRenderUtility.drawRect(this.x, this.y, this.w, this.h, r, g, b);
