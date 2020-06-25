@@ -17,8 +17,8 @@
     "visibilis.output": "Output",
     "visibilis.input": "Input",
     "visibilis.print": "Print",
-	"visibilis.undo": "Undo",
-	"visibilis.redo": "Redo",
+    "visibilis.undo": "Undo",
+    "visibilis.redo": "Redo",
     "visibilis.action.delete": "Delete",
     "visibilis.action.expand": "Expand",
     "visibilis.action.shrink": "Shrink",
@@ -123,22 +123,22 @@
     "node.visibilis:sqrt_2": "Square Root of 2",
     "field.visibilis:sqrt_2.out1": "SQRT 2",
     "node.visibilis:sqrt_2.groups": "constants",
-	
+    
     "node.visibilis:constant_integer": "Integer Constant",
     "field.visibilis:constant_integer.in1": "Integer",
     "field.visibilis:constant_integer.out1": "Integer",
     "node.visibilis:constant_integer.groups": "constants",
-	
+    
     "node.visibilis:constant_float": "Float Constant",
     "field.visibilis:constant_float.in1": "Float",
     "field.visibilis:constant_float.out1": "Float",
     "node.visibilis:constant_float.groups": "constants",
-	
+    
     "node.visibilis:constant_double": "Double Constant",
     "field.visibilis:constant_double.in1": "Double",
     "field.visibilis:constant_double.out1": "Double",
     "node.visibilis:constant_double.groups": "constants",
-	
+    
     "node.visibilis:constant_boolean": "Boolean Constant",
     "field.visibilis:constant_boolean.in1": "Boolean",
     "field.visibilis:constant_boolean.out1": "Boolean",
@@ -156,12 +156,12 @@
     "group.load.tags": "load;read",
     "group.save": "Save",
     "group.save.tags": "save;write",
-
+    
     "node.visibilis:load_integer": "Load Integer",
     "field.visibilis:load_integer.in1": "Key",
     "field.visibilis:load_integer.out1": "Value",
     "node.visibilis:load_integer.groups": "serialization;load",
-
+    
     "node.visibilis:load_integer_optional": "Load Integer Optional",
     "field.visibilis:load_integer_optional.out1": "(O) Value != null",
     "field.visibilis:load_integer_optional.out2": "Value",
@@ -176,12 +176,12 @@
     "field.visibilis:save_integer.in2": "Value",
     "field.visibilis:save_integer.in3": "Key",
     "node.visibilis:save_integer.groups": "serialization;save",
-
+    
     "node.visibilis:load_float": "Load Float",
     "field.visibilis:load_float.in1": "Key",
     "field.visibilis:load_float.out1": "Value",
     "node.visibilis:load_float.groups": "serialization;load",
-
+    
     "node.visibilis:load_float_optional": "Load Float Optional",
     "field.visibilis:load_float_optional.out1": "(O) Value != null",
     "field.visibilis:load_float_optional.out2": "Value",
@@ -196,12 +196,12 @@
     "field.visibilis:save_float.in2": "Value",
     "field.visibilis:save_float.in3": "Key",
     "node.visibilis:save_float.groups": "serialization;save",
-
+    
     "node.visibilis:load_double": "Load Double",
     "field.visibilis:load_double.in1": "Key",
     "field.visibilis:load_double.out1": "Value",
     "node.visibilis:load_double.groups": "serialization;load",
-
+    
     "node.visibilis:load_double_optional": "Load Double Optional",
     "field.visibilis:load_double_optional.out1": "(O) Value != null",
     "field.visibilis:load_double_optional.out2": "Value",
@@ -216,12 +216,12 @@
     "field.visibilis:save_double.in2": "Value",
     "field.visibilis:save_double.in3": "Key",
     "node.visibilis:save_double.groups": "serialization;save",
-
+    
     "node.visibilis:load_boolean": "Load Boolean",
     "field.visibilis:load_boolean.in1": "Key",
     "field.visibilis:load_boolean.out1": "Value",
     "node.visibilis:load_boolean.groups": "serialization;load",
-
+    
     "node.visibilis:load_boolean_optional": "Load Boolean Optional",
     "field.visibilis:load_boolean_optional.out1": "(O) Value != null",
     "field.visibilis:load_boolean_optional.out2": "Value",
@@ -236,12 +236,12 @@
     "field.visibilis:save_boolean.in2": "Value",
     "field.visibilis:save_boolean.in3": "Key",
     "node.visibilis:save_boolean.groups": "serialization;save",
-
+    
     "node.visibilis:load_string": "Load String",
     "field.visibilis:load_string.in1": "Key",
     "field.visibilis:load_string.out1": "Value",
     "node.visibilis:load_string.groups": "serialization;load",
-
+    
     "node.visibilis:load_string_optional": "Load String Optional",
     "field.visibilis:load_string_optional.out1": "(O) Value != null",
     "field.visibilis:load_string_optional.out2": "Value",
@@ -256,12 +256,12 @@
     "field.visibilis:save_string.in2": "Value",
     "field.visibilis:save_string.in3": "Key",
     "node.visibilis:save_string.groups": "serialization;save",
-
+    
     "node.visibilis:load_block_pos": "Load Block Pos",
     "field.visibilis:load_block_pos.in1": "Key",
     "field.visibilis:load_block_pos.out1": "Value",
     "node.visibilis:load_block_pos.groups": "serialization;load",
-
+    
     "node.visibilis:load_block_pos_optional": "Load Block Pos Optional",
     "field.visibilis:load_block_pos_optional.out1": "(O) Value != null",
     "field.visibilis:load_block_pos_optional.out2": "Value",
@@ -314,7 +314,7 @@
     "_commentLogicGates": "--- Logic Gates ---",
     "group.logic_gates": "Logic Gates",
     "group.logic_gates.tags": "logic;gates;boolean;bit;binary",
-	
+    
     "node.visibilis:not": "NOT",
     "field.visibilis:not.out1": "NOT A",
     "field.visibilis:not.in1": "A",
@@ -331,7 +331,7 @@
     "field.visibilis:nand.in1": "A",
     "field.visibilis:nand.in2": "B",
     "node.visibilis:nand.groups": "logic_gates;operators",
-	
+    
     "node.visibilis:or": "OR",
     "field.visibilis:or.out1": "A OR B",
     "field.visibilis:or.in1": "A",
@@ -343,7 +343,7 @@
     "field.visibilis:nor.in1": "A",
     "field.visibilis:nor.in2": "B",
     "node.visibilis:nor.groups": "logic_gates;operators",
-	
+    
     "node.visibilis:xor": "XOR",
     "field.visibilis:xor.out1": "A XOR B",
     "field.visibilis:xor.in1": "A",
@@ -413,7 +413,7 @@
     "field.visibilis:equal_to.in1": "A",
     "field.visibilis:equal_to.in2": "B",
     "node.visibilis:equal_to.groups": "compare",
-	
+    
     "node.visibilis:not_equal_to": "Not Equal to",
     "field.visibilis:not_equal_to.out1": "A != B",
     "field.visibilis:not_equal_to.in1": "A",
@@ -452,12 +452,12 @@
     "field.visibilis:cast_number_to_integer.out1": "Integer",
     "field.visibilis:cast_number_to_integer.in1": "Number",
     "node.visibilis:cast_number_to_integer.groups": "cast;operators",
-	
+    
     "node.visibilis:cast_number_to_float": "Cast to Float",
     "field.visibilis:cast_number_to_float.out1": "Float",
     "field.visibilis:cast_number_to_float.in1": "Number",
     "node.visibilis:cast_number_to_float.groups": "cast;operators",
-	
+    
     "node.visibilis:cast_number_to_double": "Cast to Double",
     "field.visibilis:cast_number_to_double.out1": "Double",
     "field.visibilis:cast_number_to_double.in1": "Number",
@@ -486,42 +486,42 @@
     "field.visibilis:vector3d_scale.in1": "(X, Y, Z)",
     "field.visibilis:vector3d_scale.in2": "S",
     "node.visibilis:vector3d_scale.groups": "vector",
-	
+    
     "node.visibilis:vector3d_addition": "Vector Addition",
     "field.visibilis:vector3d_addition.out1": "(X+A, Y+B, Z+C)",
     "field.visibilis:vector3d_addition.in1": "(X, Y, Z)",
     "field.visibilis:vector3d_addition.in2": "(A, B, C)",
     "node.visibilis:vector3d_addition.groups": "vector",
-	
+    
     "node.visibilis:vector3d_subtraction": "Vector Subtraction",
     "field.visibilis:vector3d_subtraction.out1": "(X-A, Y-B, Z-C)",
     "field.visibilis:vector3d_subtraction.in1": "(X, Y, Z)",
     "field.visibilis:vector3d_subtraction.in2": "(A, B, C)",
     "node.visibilis:vector3d_subtraction.groups": "vector",
-	
+    
     "node.visibilis:vector3d_normalization": "Vector Normalization",
     "field.visibilis:vector3d_normalization.out1": "(X, Y, Z) Normalized",
     "field.visibilis:vector3d_normalization.in1": "(X, Y, Z)",
     "node.visibilis:vector3d_normalization.groups": "vector",
-	
+    
     "node.visibilis:vector3d_dot_product": "Vector Dot Product",
     "field.visibilis:vector3d_dot_product.out1": "Dot Product",
     "field.visibilis:vector3d_dot_product.in1": "(X, Y, Z)",
     "field.visibilis:vector3d_dot_product.in2": "(A, B, C)",
     "node.visibilis:vector3d_dot_product.groups": "vector",
-	
+    
     "node.visibilis:vector3d_cross_product": "Vector Cross Product",
     "field.visibilis:vector3d_cross_product.out1": "Cross Product",
     "field.visibilis:vector3d_cross_product.in1": "(X, Y, Z)",
     "field.visibilis:vector3d_cross_product.in2": "(A, B, C)",
     "node.visibilis:vector3d_cross_product.groups": "vector",
-	
+    
     "node.visibilis:vector3d_length": "Vector Length",
     "field.visibilis:vector3d_length.out1": "SQRT(X*X + Y*Y + Z*Z)",
     "field.visibilis:vector3d_length.in1": "(X, Y, Z)",
     "node.visibilis:vector3d_length.groups": "vector",
-	
-	"node.visibilis:vector3d_length_squared": "Vector Length Squared",
+    
+    "node.visibilis:vector3d_length_squared": "Vector Length Squared",
     "field.visibilis:vector3d_length_squared.out1": "X*X + Y*Y + Z*Z",
     "field.visibilis:vector3d_length_squared.in1": "(X, Y, Z)",
     "node.visibilis:vector3d_length_squared.groups": "vector",

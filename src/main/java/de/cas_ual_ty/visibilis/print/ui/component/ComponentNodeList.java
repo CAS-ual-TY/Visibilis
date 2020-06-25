@@ -8,18 +8,17 @@ import com.mojang.blaze3d.systems.RenderSystem;
 
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeGroupsHelper;
-import de.cas_ual_ty.visibilis.print.ui.RenderUtility;
-import de.cas_ual_ty.visibilis.print.ui.RenderUtility.Rectangle;
 import de.cas_ual_ty.visibilis.print.ui.UiBase;
 import de.cas_ual_ty.visibilis.print.ui.util.MouseInteractionObject.EnumMouseInteractionType;
+import de.cas_ual_ty.visibilis.util.VRenderUtility;
 import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.util.StringUtils;
 
 public class ComponentNodeList extends Component
 {
-    public Rectangle listRect;
-    public Rectangle inputRect;
+    public VRenderUtility.Rectangle listRect;
+    public VRenderUtility.Rectangle inputRect;
     
     public float zoom;
     public int listOffset;
@@ -39,8 +38,8 @@ public class ComponentNodeList extends Component
         this.searchInput = new TextFieldWidget(this.getUtil().fontRenderer, 0, 0, 0, 0, "");
         this.searchInput.setVisible(true);
         this.searchInput.setEnabled(true);
-        this.listRect = Rectangle.fromXYWH(0, 0, 0, 0);
-        this.inputRect = Rectangle.fromXYWH(0, 0, 0, 0);
+        this.listRect = VRenderUtility.Rectangle.fromXYWH(0, 0, 0, 0);
+        this.inputRect = VRenderUtility.Rectangle.fromXYWH(0, 0, 0, 0);
         this.isSearchFieldFocused = false;
     }
     
@@ -68,7 +67,7 @@ public class ComponentNodeList extends Component
         RenderSystem.pushMatrix();
         RenderSystem.translatef(this.dimensions.x, this.dimensions.y, 0);
         //        RenderUtility.scissorStart(this.guiPrint.getScaledResolution(), this.listRect.x, this.listRect.y, this.listRect.w, this.listRect.h);
-        RenderUtility.applyZoom(zoom);
+        VRenderUtility.applyZoom(zoom);
         
         int margin = 2;
         
@@ -87,7 +86,7 @@ public class ComponentNodeList extends Component
             // If the mouse is on a node:
             // - update hoverObj
             // - Immediately render hover rect
-            if(mouseOnList && RenderUtility.isCoordInsideRect(mouseX, mouseY, this.dimensions.x, this.dimensions.y + y * zoom, w * zoom, h * zoom))
+            if(mouseOnList && VRenderUtility.isCoordInsideRect(mouseX, mouseY, this.dimensions.x, this.dimensions.y + y * zoom, w * zoom, h * zoom))
             {
                 this.getHoverObj().node(node);
                 this.getUtil().drawHoverRect(x, y, w, h);

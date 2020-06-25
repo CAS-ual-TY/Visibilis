@@ -5,11 +5,11 @@ import java.util.function.Consumer;
 
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.print.provider.PrintProvider;
-import de.cas_ual_ty.visibilis.print.ui.RenderUtility.Rectangle;
 import de.cas_ual_ty.visibilis.print.ui.component.Component;
 import de.cas_ual_ty.visibilis.print.ui.component.ComponentHeader;
 import de.cas_ual_ty.visibilis.print.ui.component.ComponentNodeList;
 import de.cas_ual_ty.visibilis.print.ui.component.ComponentPrint;
+import de.cas_ual_ty.visibilis.util.VRenderUtility;
 import net.minecraft.client.MainWindow;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.IGuiEventListener;
@@ -23,7 +23,7 @@ public class UiBase implements IGuiEventListener
     
     protected Consumer<Node> addToPrint;
     
-    private final RenderUtility util;
+    private final PrintRenderer util;
     private final PrintProvider provider;
     
     // Helper fields
@@ -42,7 +42,7 @@ public class UiBase implements IGuiEventListener
         
         this.gui = gui;
         
-        this.util = new RenderUtility(this.gui);
+        this.util = new PrintRenderer(this.gui);
         this.provider = provider;
         
         this.windowPrint = this.createCPrint();
@@ -50,7 +50,7 @@ public class UiBase implements IGuiEventListener
         this.windowHeader = this.createCHeader();
     }
     
-    public RenderUtility getUtil()
+    public PrintRenderer getUtil()
     {
         return this.util;
     }
@@ -138,9 +138,9 @@ public class UiBase implements IGuiEventListener
         int w = (int)(this.getUtil().nodeWidth * this.windowNodeList.zoom);
         int h = 20;
         
-        this.windowPrint.setDimensions(Rectangle.fromXYWH(0, h, this.getScaledResolution().getScaledWidth() - w, this.getScaledResolution().getScaledHeight() - h));
-        this.windowNodeList.setDimensions(Rectangle.fromXYWH(this.getScaledResolution().getScaledWidth() - w, 0, w, this.getScaledResolution().getScaledHeight()));
-        this.windowHeader.setDimensions(Rectangle.fromXYWH(0, 0, this.windowPrint.dimensions.w, h));
+        this.windowPrint.setDimensions(VRenderUtility.Rectangle.fromXYWH(0, h, this.getScaledResolution().getScaledWidth() - w, this.getScaledResolution().getScaledHeight() - h));
+        this.windowNodeList.setDimensions(VRenderUtility.Rectangle.fromXYWH(this.getScaledResolution().getScaledWidth() - w, 0, w, this.getScaledResolution().getScaledHeight()));
+        this.windowHeader.setDimensions(VRenderUtility.Rectangle.fromXYWH(0, 0, this.windowPrint.dimensions.w, h));
     }
     
     /**

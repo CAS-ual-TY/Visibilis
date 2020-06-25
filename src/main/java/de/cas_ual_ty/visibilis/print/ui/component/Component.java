@@ -2,10 +2,10 @@ package de.cas_ual_ty.visibilis.print.ui.component;
 
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.provider.PrintProvider;
-import de.cas_ual_ty.visibilis.print.ui.RenderUtility;
-import de.cas_ual_ty.visibilis.print.ui.RenderUtility.Rectangle;
+import de.cas_ual_ty.visibilis.print.ui.PrintRenderer;
 import de.cas_ual_ty.visibilis.print.ui.UiBase;
 import de.cas_ual_ty.visibilis.print.ui.util.MouseInteractionObject;
+import de.cas_ual_ty.visibilis.util.VRenderUtility;
 import net.minecraft.client.MainWindow;
 import net.minecraft.client.gui.IGuiEventListener;
 import net.minecraft.client.gui.screen.Screen;
@@ -17,7 +17,7 @@ public abstract class Component implements IGuiEventListener
     private final UiBase uiBase;
     
     /** Dimensions (Rectangle) of this window component. Controlled by the parent UiBase instance */
-    public Rectangle dimensions;
+    public VRenderUtility.Rectangle dimensions;
     
     public boolean mouseOverDimensions;
     
@@ -41,7 +41,7 @@ public abstract class Component implements IGuiEventListener
         return this.uiBase;
     }
     
-    public Component setDimensions(Rectangle dimensions)
+    public Component setDimensions(VRenderUtility.Rectangle dimensions)
     {
         this.dimensions = dimensions;
         return this;
@@ -164,7 +164,7 @@ public abstract class Component implements IGuiEventListener
         return false;
     }
     
-    public RenderUtility getUtil()
+    public PrintRenderer getUtil()
     {
         return this.getUiBase().getUtil();
     }
