@@ -452,6 +452,16 @@ public abstract class Node
         }
     }
     
+    public Iterable<Output<?>> getOutputsIterable()
+    {
+        return () -> this.outputFields.iterator();
+    }
+    
+    public Iterable<Input<?>> getInputsIterable()
+    {
+        return () -> this.inputFields.iterator();
+    }
+    
     /**
      * Get the header color of this node
      */
