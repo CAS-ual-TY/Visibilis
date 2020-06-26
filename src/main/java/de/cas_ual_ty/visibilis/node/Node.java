@@ -264,6 +264,26 @@ public abstract class Node
         return true;
     }
     
+    public <I> void onInputConnect(Input<I> input)
+    {
+        
+    }
+    
+    public <I> void onInputDisconnect(Input<I> input)
+    {
+        
+    }
+    
+    public <O> void onOutputConnect(Output<O> output)
+    {
+        
+    }
+    
+    public <O> void onOutputDisconnect(Output<O> output)
+    {
+        
+    }
+    
     /**
      * Returns <b>true</b> if all inputs that are required for calculation are connected. Override if there are any optional inputs not required for calculation.
      */

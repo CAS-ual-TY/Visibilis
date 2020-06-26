@@ -25,27 +25,32 @@ public class NodeMultiConstant extends NodeGenericConstant<Object>
     @Override
     public Input<Object> createDynamicInput()
     {
-        return super.createDynamicInput().setInputConnectCallable(this::onInputConnect);
+        return super.createDynamicInput();
     }
     
-    public void onInputConnect(Input<Object> input)
+    @Override
+    public <I> void onInputConnect(Input<I> input)
     {
+        if(!this.expansionInputs.contains(input))
+        {
+            return;
+        }
+        
         int id2 = this.expansionInputs.indexOf(input);
-        input.setConnectCallable(null);
         
         if(id2 >= 0)
         {
             int id1 = input.getId();
             DataType<? extends Object> from = input.getConnection().getDataType();
             
-            Input<Object> in2 = VUtility.cast(new Input<>(this, from, "in1").setInputDisconnectCallable(this::onInputDisconnect));
+            Input<Object> in2 = VUtility.cast(new Input<>(this, from, "in1"));
             Output<Object> out2 = VUtility.cast(new Output<>(this, from, "out1"));
             NodeField.connect(input.getConnection(), in2);
             
-            this.removeInput(id1);
-            this.removeOutput(id1);
             this.expansionInputs.remove(id2);
             this.expansionOutputs.remove(id2);
+            this.removeInput(id1);
+            this.removeOutput(id1);
             
             this.addInput(in2, id1);
             this.addOutput(out2, id1);
@@ -54,10 +59,15 @@ public class NodeMultiConstant extends NodeGenericConstant<Object>
         }
     }
     
-    public void onInputDisconnect(Input<?> input)
+    @Override
+    public <I> void onInputDisconnect(Input<I> input)
     {
+        if(!this.expansionInputs.contains(input))
+        {
+            return;
+        }
+        
         int id2 = this.expansionInputs.indexOf(input);
-        input.setDisconnectCallable(null);
         
         if(id2 >= 0)
         {
@@ -65,10 +75,10 @@ public class NodeMultiConstant extends NodeGenericConstant<Object>
             Input<Object> in2 = this.createDynamicInput();
             Output<Object> out2 = this.createDynamicOutput();
             
-            this.removeInput(id1);
-            this.removeOutput(id1);
             this.expansionInputs.remove(id2);
             this.expansionOutputs.remove(id2);
+            this.removeInput(id1);
+            this.removeOutput(id1);
             
             this.addInput(in2, id1);
             this.addOutput(out2, id1);
