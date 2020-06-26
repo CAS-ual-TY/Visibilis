@@ -28,6 +28,7 @@ public abstract class Node
     public static final String KEY_POS_Y = "posY";
     public static final String KEY_DATA_OUT = "data_out_";
     public static final String KEY_DATA_IN = "data_in_";
+    public static final String KEY_DYNAMIC = "dynamic";
     
     public static final float[] COLOR_DEFAULT = new float[] { 0.5F, 0.5F, 0.5F };
     public static final float[] COLOR_TEXT_DEFAULT = new float[] { 1F, 1F, 1F };
@@ -36,8 +37,8 @@ public abstract class Node
     
     public final NodeType<?> type;
     
-    protected ArrayList<Output<?>> outputFields;
-    protected ArrayList<Input<?>> inputFields;
+    protected List<Output<?>> outputFields;
+    protected List<Input<?>> inputFields;
     
     /**
      * Did this node already calculate? If yes the result is already saved and can just be retrieved. Use {@link #isCalculated()} to check.
@@ -335,7 +336,7 @@ public abstract class Node
                 this.getOutput(i).recalculateId();
             }
             
-            return this.getOutputId(out);
+            return out.getId();
         }
         
         return -1;
@@ -357,7 +358,7 @@ public abstract class Node
                 this.getInput(i).recalculateId();
             }
             
-            return this.getInputId(in);
+            return in.getId();
         }
         
         return -1;
@@ -604,6 +605,7 @@ public abstract class Node
     {
         this.setPosX(nbt0.getInt(Node.KEY_POS_X));
         this.setPosY(nbt0.getInt(Node.KEY_POS_Y));
+        this.setIsDynamic(nbt0.getBoolean(Node.KEY_DYNAMIC));
         
         CompoundNBT nbt;
         NodeField<?> f;
@@ -636,6 +638,7 @@ public abstract class Node
     {
         nbt0.putInt(Node.KEY_POS_X, this.getPosX());
         nbt0.putInt(Node.KEY_POS_Y, this.getPosY());
+        nbt0.putBoolean(Node.KEY_DYNAMIC, this.dynamic);
         
         CompoundNBT nbt;
         
@@ -689,7 +692,7 @@ public abstract class Node
     
     public boolean canSetDynamic()
     {
-        return !this.dynamic;
+        return !this.isDynamic();
     }
     
     public boolean canSetStatic()
