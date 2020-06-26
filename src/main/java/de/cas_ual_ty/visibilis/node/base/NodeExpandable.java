@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.node.base;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeAction;
@@ -51,9 +51,9 @@ public abstract class NodeExpandable extends Node
     public abstract void shrink();
     
     @Override
-    public ArrayList<NodeAction> getActions()
+    public List<NodeAction> getActions()
     {
-        ArrayList<NodeAction> list = super.getActions();
+        List<NodeAction> list = super.getActions();
         
         if(this.canExpand())
         {

@@ -1,6 +1,6 @@
 package de.cas_ual_ty.visibilis.print.ui.util;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import de.cas_ual_ty.visibilis.node.NodeAction;
 import de.cas_ual_ty.visibilis.print.ui.component.Component;
@@ -11,13 +11,13 @@ import net.minecraft.client.resources.I18n;
 public class NodeActionWidget implements IGuiEventListener
 {
     public final Component component;
-    public final ArrayList<NodeAction> actions;
+    public final List<NodeAction> actions;
     
     public VRenderUtility.Rectangle dimensions;
     
     public NodeAction hoverObj;
     
-    public NodeActionWidget(Component component, int mouseX, int mouseY, VRenderUtility.Rectangle dimensionsIn, ArrayList<NodeAction> actions)
+    public NodeActionWidget(Component component, int mouseX, int mouseY, VRenderUtility.Rectangle dimensionsIn, List<NodeAction> actions)
     {
         this.component = component;
         this.actions = actions;

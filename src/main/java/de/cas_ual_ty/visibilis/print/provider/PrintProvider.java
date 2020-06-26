@@ -1,6 +1,7 @@
 package de.cas_ual_ty.visibilis.print.provider;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeAction;
@@ -93,9 +94,9 @@ public abstract class PrintProvider
      * @see NodeAction
      * @see #canDeleteNode(Screen, Node)
      */
-    public ArrayList<NodeAction> getActionsForNode(Node node)
+    public List<NodeAction> getActionsForNode(Node node)
     {
-        ArrayList<NodeAction> list = node.getActions();
+        List<NodeAction> list = node.getActions();
         
         if(this.canDeleteNode(node))
         {

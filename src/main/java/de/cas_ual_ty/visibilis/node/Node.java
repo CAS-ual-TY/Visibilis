@@ -1,6 +1,8 @@
 package de.cas_ual_ty.visibilis.node;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.annotation.Nullable;
 
@@ -37,11 +39,19 @@ public abstract class Node
     protected ArrayList<Output<?>> outputFields;
     protected ArrayList<Input<?>> inputFields;
     
+    /**
+     * Did this node already calculate? If yes the result is already saved and can just be retrieved. Use {@link #isCalculated()} to check.
+     */
+    protected boolean calculated;
+    protected boolean dynamic;
+    
     public Node(NodeType<?> type)
     {
         this.type = type;
         this.outputFields = new ArrayList<>();
         this.inputFields = new ArrayList<>();
+        this.calculated = false;
+        this.dynamic = false;
         this.setPosition(0, 0); // Just to make sure they are always initialized
     }
     
@@ -73,18 +83,29 @@ public abstract class Node
     }
     
     /**
-     * Did this node already calculate? If yes the result is already saved and can just be retrieved. Use {@link #isCalculated()} to check.
-     */
-    protected boolean calculated = false;
-    
-    /**
      * Did this node already calculate? If yes the result is already saved and can just be retrieved.
      * 
      * @return <b>true</b> if already calculated, <b>false</b> if calculation still needs to be done.
+     * @see #isDynamic()
      */
     public boolean isCalculated()
     {
         return this.calculated;
+    }
+    
+    /**
+     * @return <b>true</b> if this node will always re-calculate even if {@link #isCalculated()} is true, otherwise the latter applies
+     * @see #isCalculated()
+     */
+    public boolean isDynamic()
+    {
+        return this.dynamic;
+    }
+    
+    public Node setIsDynamic(boolean dynamic)
+    {
+        this.dynamic = dynamic;
+        return this;
     }
     
     /**
@@ -149,7 +170,10 @@ public abstract class Node
             return false;
         }
         
-        this.calculated = true;
+        if(!this.isDynamic())
+        {
+            this.calculated = true;
+        }
         
         // Now try calculate this node
         return this.doCalculate(context);
@@ -627,9 +651,58 @@ public abstract class Node
     /**
      * Things you can do when right clicking this node. See {@link NodeAction#NodeAction(String)}
      */
-    public ArrayList<NodeAction> getActions()
+    public List<NodeAction> getActions()
     {
+        List<NodeAction> actions = new LinkedList<>();
+        
+        if(this.canSetDynamic())
+        {
+            actions.add(this.createActionSetDynamic());
+        }
+        if(this.canSetStatic())
+        {
+            actions.add(this.createActionSetStatic());
+        }
+        
         return new ArrayList<>();
+    }
+    
+    public boolean canSetDynamic()
+    {
+        return !this.dynamic;
+    }
+    
+    public boolean canSetStatic()
+    {
+        return this.dynamic;
+    }
+    
+    public NodeAction createActionSetDynamic()
+    {
+        return new NodeAction(this, NodeAction.LANG_DYNAMIC)
+        {
+            
+            @Override
+            public boolean clicked()
+            {
+                this.node.setIsDynamic(true);
+                return true;
+            }
+        };
+    }
+    
+    public NodeAction createActionSetStatic()
+    {
+        return new NodeAction(this, NodeAction.LANG_STATIC)
+        {
+            
+            @Override
+            public boolean clicked()
+            {
+                this.node.setIsDynamic(false);
+                return true;
+            }
+        };
     }
     
     public void triggerParentRecalculation(Input<?> input)
