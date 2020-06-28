@@ -49,7 +49,7 @@ public class ItemPrint extends Item
     {
         if(player.world.isRemote)
         {
-            VUtility.openGuiForClient(this.getPrintProvider(itemStack, hand == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND.getSlotIndex() : EquipmentSlotType.OFFHAND.getSlotIndex()));
+            this.doOpenGui(itemStack, hand == Hand.MAIN_HAND ? player.inventory.currentItem : EquipmentSlotType.OFFHAND.getSlotIndex());
             return true;
         }
         
@@ -59,6 +59,11 @@ public class ItemPrint extends Item
     public boolean openGui(PlayerEntity player, Hand hand)
     {
         return this.openGui(player, player.getHeldItem(hand), hand);
+    }
+    
+    public void doOpenGui(ItemStack itemStack, int slot)
+    {
+        VUtility.openGuiForClient(this.getPrintProvider(itemStack, slot));
     }
     
     /**
