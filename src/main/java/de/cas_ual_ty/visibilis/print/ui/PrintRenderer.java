@@ -81,7 +81,7 @@ public class PrintRenderer
     public float[] printBackround;
     
     /** node, output, input, print, as translated string */
-    public String tNode, tOut, tIn, tPrint, tRecalc;
+    public String tNode, tOut, tIn, tPrint, tForce;
     
     public PrintRenderer(Screen gui)
     {
@@ -92,7 +92,7 @@ public class PrintRenderer
         this.tOut = "visibilis.output";
         this.tIn = "visibilis.input";
         this.tPrint = "visibilis.print";
-        this.tRecalc = "visibilis.recalc";
+        this.tForce = "visibilis.force";
         
         this.setVarsAndColors();
     }
@@ -527,7 +527,7 @@ public class PrintRenderer
         
         if(field.doesForceDynamic())
         {
-            desc = I18n.format(this.tRecalc);
+            desc = I18n.format(this.tForce);
             lines.add("");
             lines.add(desc);
         }

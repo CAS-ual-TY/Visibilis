@@ -24,7 +24,9 @@
     "visibilis.action.shrink": "Shrink",
     "visibilis.action.parallelize": "Parallelize",
     "visibilis.action.unparallelize": "De-Parallelize",
-    "visibilis.recalc": "Triggers a Re-Calculation!",
+    "visibilis.action.dynamic": "Make Dynamic",
+    "visibilis.action.static": "Make Static",
+    "visibilis.force": "Forces Dynamic!",
     
     "_commentEvents": "--- Events ---",
     "group.events": "Events",
@@ -383,17 +385,17 @@
     
     "node.visibilis:for": "For Loop",
     "field.visibilis:for.out1": "(O) Index == Length",
-    "field.visibilis:for.out2": "(O!) Index < Length",
-    "field.visibilis:for.out3": "(!) Index",
+    "field.visibilis:for.out2": "(O) Index < Length",
+    "field.visibilis:for.out3": "Index",
     "field.visibilis:for.in1": "(I)",
     "field.visibilis:for.in2": "Length",
     "node.visibilis:for.groups": "exec",
     
     "node.visibilis:while": "While Loop",
     "field.visibilis:while.out1": "(O) NOT A",
-    "field.visibilis:while.out2": "(O!) A",
+    "field.visibilis:while.out2": "(O) A",
     "field.visibilis:while.in1": "(I)",
-    "field.visibilis:while.in2": "(!) A",
+    "field.visibilis:while.in2": "A",
     "node.visibilis:while.groups": "exec",
     
     "node.visibilis:multi_equals_branch": "Multi Equals Branch",
