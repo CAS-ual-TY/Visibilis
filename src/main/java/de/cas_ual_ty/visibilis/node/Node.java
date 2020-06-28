@@ -100,7 +100,7 @@ public abstract class Node
      */
     public boolean isDynamic()
     {
-        return this.dynamic;
+        return this.dynamic || this.isForcedDynamic();
     }
     
     public Node setIsDynamic(boolean dynamic)
@@ -177,7 +177,14 @@ public abstract class Node
         }
         
         // Now try calculate this node
-        return this.doCalculate(context);
+        boolean result = this.doCalculate(context);
+        
+        if(this.isDynamic())
+        {
+            this.resetValues();
+        }
+        
+        return result;
     }
     
     /**
@@ -687,12 +694,44 @@ public abstract class Node
             actions.add(this.createActionSetStatic());
         }
         
-        return new ArrayList<>();
+        return actions;
+    }
+    
+    public void updateDynamic()
+    {
+        if(this.isForcedDynamic())
+        {
+            this.dynamic = false;
+        }
+    }
+    
+    public boolean isForcedDynamic()
+    {
+        for(Output<?> out : this.outputFields)
+        {
+            for(Input<?> in : out.getConnections())
+            {
+                if(in.getDataType() != VDataTypes.EXEC && in.doesForceDynamic())
+                {
+                    return true;
+                }
+            }
+        }
+        
+        for(Input<?> in : this.inputFields)
+        {
+            if(in.getDataType() == VDataTypes.EXEC && in.hasConnections() && in.getConnection().doesForceDynamic())
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
     
     public boolean canSetDynamic()
     {
-        return !this.isDynamic();
+        return !this.dynamic && !this.isDynamic();
     }
     
     public boolean canSetStatic()
@@ -726,49 +765,6 @@ public abstract class Node
                 return true;
             }
         };
-    }
-    
-    public void triggerParentRecalculation(Input<?> input)
-    {
-        if(input.hasConnections())
-        {
-            this.triggerParentRecalculation(input.getConnection().getNode());
-        }
-    }
-    
-    public void triggerParentRecalculation(Node node)
-    {
-        if(node != null)
-        {
-            node.resetValues();
-            for(int i = 0; i < node.getInputAmt(); ++i)
-            {
-                this.triggerParentRecalculation(node.getInput(i));
-            }
-        }
-    }
-    
-    public void triggerChildRecalculation(Output<?> output)
-    {
-        if(output.hasConnections())
-        {
-            for(Input<?> in : output.getConnections())
-            {
-                this.triggerChildRecalculation(in.getNode());
-            }
-        }
-    }
-    
-    public void triggerChildRecalculation(Node node)
-    {
-        if(node != null)
-        {
-            node.resetValues();
-            for(int i = 0; i < node.getOutputAmt(); ++i)
-            {
-                this.triggerChildRecalculation(node.getOutput(i));
-            }
-        }
     }
     
     /**

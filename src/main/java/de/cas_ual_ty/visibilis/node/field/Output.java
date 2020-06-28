@@ -33,9 +33,9 @@ public class Output<O> extends NodeField<O>
     }
     
     @Override
-    public Output<O> setTriggerRecalculation()
+    public Output<O> setForceDynamic()
     {
-        super.setTriggerRecalculation();
+        super.setForceDynamic();
         return this;
     }
     
@@ -115,12 +115,14 @@ public class Output<O> extends NodeField<O>
     @Override
     public void onConnect()
     {
+        this.getNode().updateDynamic();
         this.getNode().onOutputConnect(this);
     }
     
     @Override
     public void onDisconnect()
     {
+        this.getNode().updateDynamic();
         this.getNode().onOutputDisconnect(this);
     }
 }

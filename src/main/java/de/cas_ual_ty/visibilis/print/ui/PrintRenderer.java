@@ -11,6 +11,7 @@ import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import de.cas_ual_ty.visibilis.util.VRenderUtility;
+import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
@@ -151,6 +152,11 @@ public class PrintRenderer
     {
         // --- Start drawing node itself ---
         
+        if(node.isDynamic())
+        {
+            this.drawDynamicNodeBackground(node, x, y);
+        }
+        
         // Background
         this.drawNodeBackground(node, x, y);
         
@@ -172,6 +178,11 @@ public class PrintRenderer
         }
         
         // --- End drawing fields ---
+    }
+    
+    public void drawDynamicNodeBackground(Node node, int x, int y)
+    {
+        VRenderUtility.drawRect(x, y, this.nodeWidth, this.getNodeTotalHeight(node), -1, VRenderUtility.mixColors(VDataTypes.EXEC.getColor(), VUtility.COLOR_DEFAULT_WHITE));
     }
     
     /**
@@ -500,7 +511,7 @@ public class PrintRenderer
         
         String desc;
         
-        if(field.doesTriggerRecalculation())
+        if(field.doesForceDynamic())
         {
             desc = I18n.format(this.tRecalc);
             lines.add("");

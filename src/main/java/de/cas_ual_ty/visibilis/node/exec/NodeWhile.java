@@ -21,9 +21,9 @@ public class NodeWhile extends Node
     {
         super(type);
         this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1"));
-        this.addOutput(this.out2Exec = new Output<>(this, VDataTypes.EXEC, "out2").setTriggerRecalculation());
+        this.addOutput(this.out2Exec = new Output<>(this, VDataTypes.EXEC, "out2").setForceDynamic());
         this.addInput(this.in1Exec = new Input<>(this, VDataTypes.EXEC, "in1"));
-        this.addInput(this.in2Condition = new Input<>(this, VDataTypes.BOOLEAN, "in2").setTriggerRecalculation());
+        this.addInput(this.in2Condition = new Input<>(this, VDataTypes.BOOLEAN, "in2").setForceDynamic());
         this.exec2 = false;
     }
     

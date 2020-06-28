@@ -5,6 +5,7 @@ import java.util.function.Function;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import net.minecraft.nbt.CompoundNBT;
 
 public class Input<I> extends NodeField<I>
@@ -39,9 +40,15 @@ public class Input<I> extends NodeField<I>
     }
     
     @Override
-    public Input<I> setTriggerRecalculation()
+    public Input<I> setForceDynamic()
     {
-        super.setTriggerRecalculation();
+        super.setForceDynamic();
+        
+        if(this.getDataType() != VDataTypes.EXEC)
+        {
+            this.setMustUseConnection();
+        }
+        
         return this;
     }
     
@@ -176,12 +183,14 @@ public class Input<I> extends NodeField<I>
     @Override
     public void onConnect()
     {
+        this.getNode().updateDynamic();
         this.getNode().onInputConnect(this);
     }
     
     @Override
     public void onDisconnect()
     {
+        this.getNode().updateDynamic();
         this.getNode().onInputDisconnect(this);
     }
     

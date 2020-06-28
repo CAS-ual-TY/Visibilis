@@ -230,10 +230,6 @@ public class Print
         Node next;
         int i = 0;
         
-        int j;
-        Output<?> out2;
-        Input<?> in2;
-        
         /*
          * Now to explain the following segment and loop... You might be asking: "Why a loop? Why not just a single connection?" And the answer is in the question: Loops! This way, you can make nodes which can actually loop. Because for every exec node it will keep looping through, until no further sub node can be found.
          */
@@ -244,26 +240,6 @@ public class Print
             if(!out.hasConnections())
             {
                 continue;
-            }
-            
-            for(j = 0; j < node.getInputAmt(); ++j)
-            {
-                in2 = node.getInput(j);
-                
-                if(in2.doesTriggerRecalculation())
-                {
-                    node.triggerParentRecalculation(in2);
-                }
-            }
-            
-            for(j = 0; j < node.getOutputAmt(); ++j)
-            {
-                out2 = node.getOutput(j);
-                
-                if(out2.doesTriggerRecalculation())
-                {
-                    node.triggerChildRecalculation(out2);
-                }
             }
             
             // Get the connected input of the next node

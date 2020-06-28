@@ -38,14 +38,14 @@ public abstract class NodeField<B>
      */
     private Function<NodeField<B>, String> name;
     
-    private boolean triggerRecalculation;
+    private boolean forceDynamic;
     
     public NodeField(Node node, DataType<B> dataType, Function<NodeField<B>, String> name)
     {
         this.node = node;
         this.dataType = dataType;
         this.name = name;
-        this.triggerRecalculation = false;
+        this.forceDynamic = false;
     }
     
     public NodeField(Node node, DataType<B> dataType, String name)
@@ -68,14 +68,14 @@ public abstract class NodeField<B>
         return this.name.apply(this);
     }
     
-    public boolean doesTriggerRecalculation()
+    public boolean doesForceDynamic()
     {
-        return this.triggerRecalculation;
+        return this.forceDynamic;
     }
     
-    public NodeField<B> setTriggerRecalculation()
+    public NodeField<B> setForceDynamic()
     {
-        this.triggerRecalculation = true;
+        this.forceDynamic = true;
         return this;
     }
     
