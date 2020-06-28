@@ -63,6 +63,9 @@ public class PrintRenderer
     /** Background color of nodes */
     public float[] nodeBackground;
     
+    /** Color of rect around dynamic nodes / node fields */
+    public float[] dynamicColor;
+    
     /** Width of the box in front of inputs with fixed values */
     public int inputValueWidth;
     
@@ -120,6 +123,7 @@ public class PrintRenderer
         this.nodeFieldConnectionsWidth = this.nodeFieldDotSize * 2;
         this.nodeTextMargin = (this.nodeHeight - (this.fontRenderer.FONT_HEIGHT)) / 2 + this.fontRenderer.FONT_HEIGHT % 2;
         this.inputValueWidth = this.fieldWidth - this.nodeHeight;
+        this.dynamicColor = VRenderUtility.mixColors(VDataTypes.EXEC.getColor(), VUtility.COLOR_DEFAULT_WHITE);
     }
     
     /**
@@ -182,7 +186,7 @@ public class PrintRenderer
     
     public void drawDynamicNodeBackground(Node node, int x, int y)
     {
-        VRenderUtility.drawRect(x, y, this.nodeWidth, this.getNodeTotalHeight(node), -1, VRenderUtility.mixColors(VDataTypes.EXEC.getColor(), VUtility.COLOR_DEFAULT_WHITE));
+        VRenderUtility.drawRect(x, y, this.nodeWidth, this.getNodeTotalHeight(node), -1, this.dynamicColor);
     }
     
     /**
@@ -229,6 +233,11 @@ public class PrintRenderer
             nameX += this.nodeHeight;
         }
         
+        if(field.doesForceDynamic())
+        {
+            this.drawDynamicNodeFieldDot(field, dotX, dotY);
+        }
+        
         // Draw dot on top
         this.drawNodeFieldDot(field, dotX, dotY);
         
@@ -237,6 +246,11 @@ public class PrintRenderer
         String name = field.getNameTranslated();
         name = this.fontRenderer.trimStringToWidth(name, nameW - 2 * this.nodeTextMargin); // Trim the name in case it is too big
         VRenderUtility.drawRectWithText(this.fontRenderer, nameX, nameY, nameW, this.nodeHeight, this.nodeRectMargin, field.getDataType().getColor(), this.nodeTextMargin, name, field.getDataType().getTextColor());
+    }
+    
+    public void drawDynamicNodeFieldDot(NodeField<?> field, int x, int y)
+    {
+        VRenderUtility.drawRect(x, y, this.nodeFieldDotSize, this.nodeFieldDotSize, -1, this.dynamicColor);
     }
     
     /**
