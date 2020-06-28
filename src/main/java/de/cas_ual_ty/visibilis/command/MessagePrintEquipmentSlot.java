@@ -3,7 +3,7 @@ package de.cas_ual_ty.visibilis.command;
 import java.util.function.Supplier;
 
 import de.cas_ual_ty.visibilis.Visibilis;
-import de.cas_ual_ty.visibilis.print.item.ItemPrint;
+import de.cas_ual_ty.visibilis.print.item.IItemPrint;
 import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
@@ -39,9 +39,9 @@ public class MessagePrintEquipmentSlot
             {
                 ItemStack stack = player.inventory.getStackInSlot(msg.equipmentSlot);
                 
-                if(stack.getItem() instanceof ItemPrint)
+                if(stack.getItem() instanceof IItemPrint)
                 {
-                    VUtility.openGuiForClient(((ItemPrint)stack.getItem()).getPrintProvider(stack, msg.equipmentSlot));
+                    VUtility.openGuiForClient(((IItemPrint)stack.getItem()).getPrintProvider(stack, msg.equipmentSlot));
                 }
             });
         });

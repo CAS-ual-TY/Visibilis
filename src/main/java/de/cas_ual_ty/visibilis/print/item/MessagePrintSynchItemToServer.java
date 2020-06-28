@@ -50,7 +50,7 @@ public class MessagePrintSynchItemToServer
             ItemStack itemStack = ctx.get().getSender().inventory.getStackInSlot(msg.slot);
             Print print = VNBTUtility.loadPrintFromNBT(msg.nbt, false);
             
-            if(itemStack.getItem() instanceof ItemPrint && !((ItemPrint)itemStack.getItem()).validate(itemStack, print))
+            if(itemStack.getItem() instanceof IItemPrint && !((ItemPrint)itemStack.getItem()).validate(itemStack, print))
             {
                 return;
             }

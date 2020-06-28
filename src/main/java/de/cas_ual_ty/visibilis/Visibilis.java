@@ -12,7 +12,7 @@ import de.cas_ual_ty.visibilis.print.capability.PrintHolder;
 import de.cas_ual_ty.visibilis.print.capability.StoragePrintHolder;
 import de.cas_ual_ty.visibilis.print.entity.MessageSynchEntityToClient;
 import de.cas_ual_ty.visibilis.print.entity.MessageSynchEntityToServer;
-import de.cas_ual_ty.visibilis.print.item.ItemPrint;
+import de.cas_ual_ty.visibilis.print.item.IItemPrint;
 import de.cas_ual_ty.visibilis.print.item.MessagePrintSynchItemToServer;
 import de.cas_ual_ty.visibilis.proxy.IVSidedProxy;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
@@ -96,7 +96,7 @@ public class Visibilis
     
     private void attachCapabilitiesItemStack(AttachCapabilitiesEvent<ItemStack> event)
     {
-        if(event.getObject() instanceof ItemStack && event.getObject().getItem() instanceof ItemPrint)
+        if(event.getObject() instanceof ItemStack && event.getObject().getItem() instanceof IItemPrint)
         {
             VUtility.attachCapability(event);
         }
