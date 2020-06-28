@@ -26,7 +26,7 @@
     "visibilis.action.unparallelize": "De-Parallelize",
     "visibilis.action.dynamic": "Make Dynamic",
     "visibilis.action.static": "Make Static",
-    "visibilis.force": "Forces Dynamic!",
+    "visibilis.force": "Forces Dynamic Calculations (value is always recalculated)!",
     
     "_commentEvents": "--- Events ---",
     "group.events": "Events",
