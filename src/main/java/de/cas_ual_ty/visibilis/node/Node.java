@@ -706,6 +706,19 @@ public abstract class Node
         }
     }
     
+    public boolean isExecForcedDynamic()
+    {
+        for(Input<?> in : this.inputFields)
+        {
+            if(in.getDataType() == VDataTypes.EXEC && in.hasConnections() && (in.getConnection().doesForceDynamic() || in.getConnection().getNode().isExecForcedDynamic()))
+            {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
     public boolean isForcedDynamic()
     {
         for(Output<?> out : this.outputFields)
@@ -719,15 +732,7 @@ public abstract class Node
             }
         }
         
-        for(Input<?> in : this.inputFields)
-        {
-            if(in.getDataType() == VDataTypes.EXEC && in.hasConnections() && in.getConnection().doesForceDynamic())
-            {
-                return true;
-            }
-        }
-        
-        return false;
+        return this.isExecForcedDynamic();
     }
     
     public boolean canSetDynamic()
