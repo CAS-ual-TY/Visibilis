@@ -383,17 +383,17 @@
     
     "node.visibilis:for": "לולאת For",
     "field.visibilis:for.out1": "(פ) אינדקס == אורך",
-    "field.visibilis:for.out2": "(פ!) אינדקס < אורך",
-    "field.visibilis:for.out3": "(!) אינדקס",
+    "field.visibilis:for.out2": "(פ) אינדקס < אורך",
+    "field.visibilis:for.out3": "אינדקס",
     "field.visibilis:for.in1": "(ק)",
     "field.visibilis:for.in2": "אורך",
     "node.visibilis:for.groups": "exec",
     
     "node.visibilis:while": "לולאת While",
     "field.visibilis:while.out1": "(פ) NOT A",
-    "field.visibilis:while.out2": "(פ!) A",
+    "field.visibilis:while.out2": "(פ) A",
     "field.visibilis:while.in1": "(ק)",
-    "field.visibilis:while.in2": "(!) A",
+    "field.visibilis:while.in2": "A",
     "node.visibilis:while.groups": "exec",
     
     "node.visibilis:multi_equals_branch": "Multi Equals Branch",
