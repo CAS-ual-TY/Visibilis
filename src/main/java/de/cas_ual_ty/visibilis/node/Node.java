@@ -18,9 +18,10 @@ import net.minecraft.nbt.CompoundNBT;
 public abstract class Node
 {
     /*
-     * Some explanations: The word "calculate" is described to calculate all Output<?> values of this node (Output<?> field nodes). The values are then stored so that multiple child nodes can get them without the need to calculate more than once. Once all nodes have been calculated, they will be "reset", meaning that the "isCalculated()" state will be false again, triggering recalculation on next call (and possibly other things).
-     * 
-     * Empty constructor needed for instantiation of nodes.
+     * Some explanations: The word "calculate" is described to calculate all Output<?> values of this node (Output<?> node fields).
+     * The values are then stored so that multiple child nodes can get them without the need to calculate more than once,
+     * unless this node is set as "dynamic". Then it will always calculate the results and never save them.
+     * Once all nodes have been calculated, they will be "reset", meaning that the "isCalculated()" state will be false again, triggering recalculation on next call (and possibly other things).
      */
     
     // NBT Keys
