@@ -172,17 +172,16 @@ public abstract class Node
             return false;
         }
         
-        if(!this.isDynamic())
-        {
-            this.calculated = true;
-        }
-        
         // Now try calculate this node
         boolean result = this.doCalculate(context);
         
         if(this.isDynamic())
         {
             this.resetValues();
+        }
+        else
+        {
+            this.calculated = true;
         }
         
         return result;
