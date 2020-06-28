@@ -88,15 +88,9 @@ public abstract class NodeField<B>
      */
     protected abstract boolean setConnectionTo(NodeField<?> field);
     
-    public final boolean isOutput()
-    {
-        return this instanceof Output;
-    }
+    public abstract boolean isOutput();
     
-    public final boolean isInput()
-    {
-        return this instanceof Input;
-    }
+    public abstract boolean isInput();
     
     public void recalculateId()
     {

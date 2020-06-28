@@ -73,6 +73,18 @@ public class Output<O> extends NodeField<O>
     }
     
     @Override
+    public final boolean isOutput()
+    {
+        return true;
+    }
+    
+    @Override
+    public final boolean isInput()
+    {
+        return false;
+    }
+    
+    @Override
     public O getValue()
     {
         return this.getNode().getOutputValue(this);

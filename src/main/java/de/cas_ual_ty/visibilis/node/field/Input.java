@@ -74,6 +74,18 @@ public class Input<I> extends NodeField<I>
         return false;
     }
     
+    @Override
+    public final boolean isOutput()
+    {
+        return false;
+    }
+    
+    @Override
+    public final boolean isInput()
+    {
+        return true;
+    }
+    
     /**
      * The first one that is true (top to bottom):</br>
      * If this input is connected -> value of connected output.</br>
