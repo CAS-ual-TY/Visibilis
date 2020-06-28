@@ -113,7 +113,7 @@ public class VCommand
             stack = player.getHeldItem(hand);
             if(stack.getItem() instanceof ItemPrint && ((ItemPrint)stack.getItem()).isEditable(stack, sender))
             {
-                Visibilis.channel.sendTo(new MessagePrintEquipmentSlot(hand == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND.getSlotIndex() : EquipmentSlotType.OFFHAND.getSlotIndex()), player.connection.getNetworkManager(), NetworkDirection.PLAY_TO_CLIENT);
+                Visibilis.channel.sendTo(new MessagePrintEquipmentSlot(hand == Hand.MAIN_HAND ? player.inventory.currentItem : EquipmentSlotType.OFFHAND.getSlotIndex()), player.connection.getNetworkManager(), NetworkDirection.PLAY_TO_CLIENT);
                 return;
             }
         }
