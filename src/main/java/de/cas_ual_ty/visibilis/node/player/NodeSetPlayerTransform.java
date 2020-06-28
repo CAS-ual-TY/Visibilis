@@ -10,7 +10,7 @@ import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
-import net.minecraftforge.fml.network.NetworkDirection;
+import net.minecraftforge.fml.network.PacketDistributor;
 
 public class NodeSetPlayerTransform extends Node
 {
@@ -57,7 +57,11 @@ public class NodeSetPlayerTransform extends Node
                 if(this.in4Vector3d.hasConnections())
                 {
                     this.player.setMotion(motion);
-                    Visibilis.channel.sendTo(new MessagePlayerMotion(motion), ((ServerPlayerEntity)this.player).connection.getNetworkManager(), NetworkDirection.PLAY_TO_CLIENT);
+                    
+                    if(!this.player.world.isRemote)
+                    {
+                        Visibilis.channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity)this.player), new MessagePlayerMotion(motion));
+                    }
                 }
             });
         }

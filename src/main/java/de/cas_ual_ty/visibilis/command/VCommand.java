@@ -18,7 +18,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.network.NetworkDirection;
+import net.minecraftforge.fml.network.PacketDistributor;
 
 public class VCommand
 {
@@ -113,7 +113,7 @@ public class VCommand
             stack = player.getHeldItem(hand);
             if(stack.getItem() instanceof ItemPrint && ((ItemPrint)stack.getItem()).isEditable(stack, sender))
             {
-                Visibilis.channel.sendTo(new MessagePrintEquipmentSlot(hand == Hand.MAIN_HAND ? player.inventory.currentItem : EquipmentSlotType.OFFHAND.getSlotIndex()), player.connection.getNetworkManager(), NetworkDirection.PLAY_TO_CLIENT);
+                Visibilis.channel.send(PacketDistributor.PLAYER.with(() -> player), new MessagePrintEquipmentSlot(hand == Hand.MAIN_HAND ? player.inventory.currentItem : EquipmentSlotType.OFFHAND.getSlotIndex()));
                 return;
             }
         }
