@@ -27,14 +27,15 @@ So following up on the point above, I had several ideas of how to make a "no-str
 Additionally, while drafting some ideas, I took part in a "Nerd Memes" thread and someone said "make your own programming language for fun" as a meme which is kinda what I am doing (?).
 
 ### Example Mod Ideas
-Here are some basic mod ideas I have. I don't know if I am going make any of these (except for Magica Mundi) but these ideas are there so why not.
+Here are some basic mod ideas I have. I don't know if I am going make any of these (except for Magica Mundi and VRobot) but these ideas are there so why not.
 
-#### Magica Mundi - *The magic things of this world*
+#### Magica Mundi - *The magic things of this world* (ON HOLD)
 The sequel to **[Mundus Magicus](https://www.curseforge.com/minecraft/mc-mods/mundus-magicus)**: Visual coding to design, create and customize your own spells (In case you are wondering: Mundus Magicus - *Magic world*).
 Also open source on GitHub: **[Magica Mundi](https://github.com/CAS-ual-TY/MagicaMundi)**.
 
-#### Programmable Machines - An idea
-Programm your own machines. Kinda like the known Mining Turtles from Computer Craft. But in a more appealing visual programming language instead. Or maybe your own War-Bots? Patrolling Knights?
+#### VRobot - Programmable Mining and Building Robots
+Programm your own machines. Kinda like the known Mining Turtles from Computer Craft. But in a more appealing visual programming language instead.
+Also open source on GitHub: **[VRobot](https://github.com/CAS-ual-TY/VRobot)**.
 
 #### Gamemodes - An idea
 Add elements which can be interacted with in the visual coding interface, to allow the creation and customization of gamemodes. Eg. add some flags or bombs and allow the player to use these things in combination with the coding to create his own gamemodes, like: Search & Destroy (or CS:GO Competitive), Capture the Flag or Flag Conquest, etc..
@@ -51,6 +52,7 @@ A list of contributors is at the bottom.
 ### What to contribute
  - Code contributions to Visibilis
  - Code contributions to **[Magica Mundi](https://github.com/CAS-ual-TY/MagicaMundi)**
+ - Code contributions to **[VRobot](https://github.com/CAS-ual-TY/VRobot)**
  - Your own ideas and mods
 
 Now, I have never worked with strangers on a project. And I never have created documentation for anyone else but myself. But **I try to structure and document the code as well and as much as possible**. Keeping this in mind, feel free to correct my wording and terminology wherever necessary. I have not learned it but I am willing to do so.
@@ -96,7 +98,7 @@ If you are looking for a guide on how to setup so you can work with/on Visibilis
  - **de.cas_ual_ty.visibilis.node.general.NodePrint**: Good example for a basic, independent node
 
 #### Other examples
- - **[Magica Mundi GitHub Repo](https://github.com/CAS-ual-TY/MagicaMundi)** A mod created by myself built on this API; if you dont know how to use this check out the repo
+ - **[VRobot GitHub Repo](https://github.com/CAS-ual-TY/VRobot)** A mod created by myself built on this API; if you dont know how to use this check out the repo
 
 ## Contact
 I do not tend to be very active on GitHub itself with the exception of pushing commits. I would probably not see a message here for weeks. So:
@@ -108,3 +110,4 @@ I do not tend to be very active on GitHub itself with the exception of pushing c
 - **The Forge Team**: For being and creating something awesome, too
 - **Wicca**: ["*make your own programming language*"](https://prteamwork.com/threads/nerd-memes.33581/#post-301451)
 - **gendeathrow**: [For telling me about **glScissor**](https://www.minecraftforge.net/forum/topic/74794-render-gui-inside-rectangle/?tab=comments#comment-358643)
+- **diesieben07 & gigaherz**: For their help on the Minecraft Forge Discord
