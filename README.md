@@ -68,9 +68,10 @@ Though in case you do think about making a pull-request: Please **contact me fir
 How to setup eclipse so that you can work with this API (all files about to be mentioned can be found here, in this repo in build/libs):
 - Create a new forge gradle project and do a normal eclipse setup
 - Download the deobf jar and put it into your xxx/run/mods folder (create if non-existent)
-- Download the source jar of the same version as the deobf jar and put it into your xxx/lib folder (create if non-existent)
+- Download the source jar of the same version as the deobf jar and put it into your xxx/libs folder (create if non-existent)
 - Include the deobf jar into your java build path of your eclipse project (Project > Properties > Java Build Path > Libraries > Add external JARs...)
 - In your Package Explorer, unbox Referenced Libraries, find the deobf jar and attach the source to it (Right Click > Properties > Java Source Attachment > External Location > External File...)
+- Add "implementation fileTree(dir: 'run/mods', include: ['\*.jar'])" to your build.gradle (in dependencies) [yes this is a bad solution, I dont know any better, pls help me]
 
 Instead of using only releases, you can also build everything based on this repo which should almost always be ahead of the latest release. The normal "build" command will generate all files (obfuscated jar, non-obfuscated jar, sources jar).
 
