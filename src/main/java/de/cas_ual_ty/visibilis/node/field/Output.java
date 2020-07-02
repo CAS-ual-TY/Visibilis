@@ -1,6 +1,5 @@
 package de.cas_ual_ty.visibilis.node.field;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
@@ -99,9 +98,9 @@ public class Output<O> extends NodeField<O>
     }
     
     @Override
-    public ArrayList<NodeField<?>> getConnectionsList()
+    public List<NodeField<?>> getConnectionsList()
     {
-        ArrayList<NodeField<?>> list = new ArrayList<>();
+        List<NodeField<?>> list = new LinkedList<>();
         
         if(this.hasConnections())
         {
