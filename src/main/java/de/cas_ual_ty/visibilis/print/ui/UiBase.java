@@ -118,7 +118,10 @@ public class UiBase implements IGuiEventListener
         {
             c.guiRender(mouseX, mouseY, partialTicks);
         }
-        
+    }
+    
+    public void guiDrawScreenPost(int mouseX, int mouseY, float partialTicks)
+    {
         for(Component c : this.children)
         {
             c.guiPostRender(mouseX, mouseY, partialTicks);

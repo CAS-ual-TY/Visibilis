@@ -84,6 +84,7 @@ public class GuiPrint extends Screen
     {
         this.getUiLogic().guiDrawScreen(mouseX, mouseY, partialTicks);
         super.render(mouseX, mouseY, partialTicks);
+        this.getUiLogic().guiDrawScreenPost(mouseX, mouseY, partialTicks);
     }
     
     @Override

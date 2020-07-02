@@ -84,9 +84,9 @@ public abstract class GuiContainerPrint<A extends Container> extends ContainerSc
     @Override
     public void render(int mouseX, int mouseY, float partialTicks)
     {
-        this.uiLogic.guiDrawScreen(mouseX, mouseY, partialTicks);
         this.getUiLogic().guiDrawScreen(mouseX, mouseY, partialTicks);
         super.render(mouseX, mouseY, partialTicks);
+        this.getUiLogic().guiDrawScreenPost(mouseX, mouseY, partialTicks);
     }
     
     @Override
