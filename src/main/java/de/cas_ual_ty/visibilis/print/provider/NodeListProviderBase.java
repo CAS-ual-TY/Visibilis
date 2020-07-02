@@ -1,82 +1,51 @@
 package de.cas_ual_ty.visibilis.print.provider;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.cas_ual_ty.visibilis.node.Node;
-import de.cas_ual_ty.visibilis.node.NodeEvent;
-import de.cas_ual_ty.visibilis.print.Print;
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.registries.VNodeTypes;
 
 public class NodeListProviderBase extends NodeListProvider
 {
-    protected ArrayList<Node> list;
+    protected List<NodeType<?>> typeList;
+    protected List<Node> list;
+    
+    public NodeListProviderBase(List<NodeType<?>> typeList)
+    {
+        this.typeList = typeList;
+        this.list = this.buildNodeList();
+    }
     
     public NodeListProviderBase()
     {
-        this.list = new ArrayList<>();
-        NodeListProviderBase.addAllNodesToList(this.list);
+        this(NodeListProviderBase.addAllNodesToList(new ArrayList<>()));
     }
     
     @Override
-    public ArrayList<Node> getAvailableNodes()
+    public List<NodeType<?>> getAvailableNodeTypes()
+    {
+        return this.typeList;
+    }
+    
+    protected List<Node> buildNodeList()
+    {
+        List<Node> list = new ArrayList<>(this.getAvailableNodeTypes().size());
+        for(NodeType<?> type : this.getAvailableNodeTypes())
+        {
+            list.add(type.instantiate());
+        }
+        return list;
+    }
+    
+    @Override
+    public List<Node> getAvailableNodes()
     {
         return this.list;
     }
     
-    @Override
-    public void onNodeAdded(Node node)
-    {
-        if(node instanceof NodeEvent)
-        {
-            this.list.remove(node);
-        }
-        else
-        {
-            int index = this.list.indexOf(node);
-            this.list.remove(index);
-            this.list.add(index, node.type.instantiate());
-        }
-        
-        super.onNodeAdded(node);
-    }
-    
-    @Override
-    public void onNodeRemoved(Node node)
-    {
-        if(node instanceof NodeEvent)
-        {
-            this.list.add(node);
-        }
-        
-        super.onNodeRemoved(node);
-    }
-    
-    @Override
-    public void onOpen(Print print)
-    {
-        // Remove all already existing event nodes so they cant be added twice
-        
-        Node f;
-        for(NodeEvent n : print.getEvents())
-        {
-            f = null;
-            for(Node n1 : this.list)
-            {
-                if(n.type == n1.type)
-                {
-                    f = n1;
-                    break;
-                }
-            }
-            
-            if(f != null)
-            {
-                this.list.remove(f);
-            }
-        }
-    }
-    
-    public static void addAllNodesToList(ArrayList<Node> list)
+    public static List<NodeType<?>> addAllNodesToList(List<NodeType<?>> list)
     {
         NodeListProviderBase.debug(list);
         NodeListProviderBase.exec(list);
@@ -84,40 +53,45 @@ public class NodeListProviderBase extends NodeListProvider
         NodeListProviderBase.base(list);
         NodeListProviderBase.player(list);
         NodeListProviderBase.world(list);
+        return list;
     }
     
-    public static void debug(ArrayList<Node> list)
+    public static List<NodeType<?>> debug(List<NodeType<?>> list)
     {
-        list.add(VNodeTypes.EVENT_COMMAND.instantiate());
-        list.add(VNodeTypes.EVENT_RIGHT_CLICK.instantiate());
-        list.add(VNodeTypes.PRINT_DEBUG.instantiate());
-        list.add(VNodeTypes.PRINT.instantiate());
+        list.add(VNodeTypes.EVENT_COMMAND);
+        list.add(VNodeTypes.EVENT_RIGHT_CLICK);
+        list.add(VNodeTypes.PRINT_DEBUG);
+        list.add(VNodeTypes.PRINT);
+        return list;
     }
     
-    public static void exec(ArrayList<Node> list)
+    public static List<NodeType<?>> exec(List<NodeType<?>> list)
     {
-        list.add(VNodeTypes.BRANCH.instantiate());
-        list.add(VNodeTypes.MERGE.instantiate());
-        list.add(VNodeTypes.FOR.instantiate());
-        list.add(VNodeTypes.WHILE.instantiate());
-        list.add(VNodeTypes.MULTI_EQUALS_BRANCH.instantiate());
+        list.add(VNodeTypes.BRANCH);
+        list.add(VNodeTypes.MERGE);
+        list.add(VNodeTypes.FOR);
+        list.add(VNodeTypes.WHILE);
+        list.add(VNodeTypes.MULTI_EQUALS_BRANCH);
+        return list;
     }
     
-    public static void general(ArrayList<Node> list)
+    public static List<NodeType<?>> general(List<NodeType<?>> list)
     {
-        list.add(VNodeTypes.MULTI_CONSTANT.instantiate());
+        list.add(VNodeTypes.MULTI_CONSTANT);
+        return list;
     }
     
-    public static void player(ArrayList<Node> list)
+    public static List<NodeType<?>> player(List<NodeType<?>> list)
     {
-        list.add(VNodeTypes.GET_PLAYER_OPTIONAL.instantiate());
-        list.add(VNodeTypes.SPLIT_PLAYER.instantiate());
-        list.add(VNodeTypes.SET_PLAYER_TRANSFORM.instantiate());
+        list.add(VNodeTypes.GET_PLAYER_OPTIONAL);
+        list.add(VNodeTypes.SPLIT_PLAYER);
+        list.add(VNodeTypes.SET_PLAYER_TRANSFORM);
+        return list;
     }
     
     // ----------------------------------------
     
-    public static void base(ArrayList<Node> list)
+    public static List<NodeType<?>> base(List<NodeType<?>> list)
     {
         NodeListProviderBase.calculation(list);
         NodeListProviderBase.extendedCalculation(list);
@@ -129,128 +103,140 @@ public class NodeListProviderBase extends NodeListProvider
         NodeListProviderBase.numberComparisons(list);
         NodeListProviderBase.numberRoundingNCasting(list);
         NodeListProviderBase.vectors(list);
+        return list;
     }
     
-    public static void calculation(ArrayList<Node> list)
+    public static List<NodeType<?>> calculation(List<NodeType<?>> list)
     {
-        list.add(VNodeTypes.ADDITION.instantiate());
-        list.add(VNodeTypes.SUBTRACTION.instantiate());
-        list.add(VNodeTypes.MULTIPLICATION.instantiate());
-        list.add(VNodeTypes.DIVISION.instantiate());
-        list.add(VNodeTypes.MODULO.instantiate());
-        list.add(VNodeTypes.EXPONENTIATION.instantiate());
+        list.add(VNodeTypes.ADDITION);
+        list.add(VNodeTypes.SUBTRACTION);
+        list.add(VNodeTypes.MULTIPLICATION);
+        list.add(VNodeTypes.DIVISION);
+        list.add(VNodeTypes.MODULO);
+        list.add(VNodeTypes.EXPONENTIATION);
+        return list;
     }
     
-    public static void extendedCalculation(ArrayList<Node> list)
+    public static List<NodeType<?>> extendedCalculation(List<NodeType<?>> list)
     {
-        list.add(VNodeTypes.LOGARITHM_10.instantiate());
-        list.add(VNodeTypes.LOGARITHM_1P.instantiate());
-        list.add(VNodeTypes.LOGARITHM_E.instantiate());
-        list.add(VNodeTypes.ROOT.instantiate());
+        list.add(VNodeTypes.LOGARITHM_10);
+        list.add(VNodeTypes.LOGARITHM_1P);
+        list.add(VNodeTypes.LOGARITHM_E);
+        list.add(VNodeTypes.ROOT);
+        return list;
     }
     
-    public static void numberConstants(ArrayList<Node> list)
+    public static List<NodeType<?>> numberConstants(List<NodeType<?>> list)
     {
-        list.add(VNodeTypes.E.instantiate());
-        list.add(VNodeTypes.PI.instantiate());
-        list.add(VNodeTypes.SQRT_2.instantiate());
+        list.add(VNodeTypes.E);
+        list.add(VNodeTypes.PI);
+        list.add(VNodeTypes.SQRT_2);
         
-        list.add(VNodeTypes.CONSTANT_INTEGER.instantiate());
-        list.add(VNodeTypes.CONSTANT_FLOAT.instantiate());
-        list.add(VNodeTypes.CONSTANT_DOUBLE.instantiate());
-        list.add(VNodeTypes.CONSTANT_BOOLEAN.instantiate());
+        list.add(VNodeTypes.CONSTANT_INTEGER);
+        list.add(VNodeTypes.CONSTANT_FLOAT);
+        list.add(VNodeTypes.CONSTANT_DOUBLE);
+        list.add(VNodeTypes.CONSTANT_BOOLEAN);
+        return list;
     }
     
-    public static void numberSerialization(ArrayList<Node> list)
+    public static List<NodeType<?>> numberSerialization(List<NodeType<?>> list)
     {
-        list.add(VNodeTypes.LOAD_INTEGER.instantiate());
-        list.add(VNodeTypes.LOAD_INTEGER_OPTIONAL.instantiate());
-        list.add(VNodeTypes.SAVE_INTEGER.instantiate());
-        list.add(VNodeTypes.LOAD_FLOAT.instantiate());
-        list.add(VNodeTypes.LOAD_FLOAT_OPTIONAL.instantiate());
-        list.add(VNodeTypes.SAVE_FLOAT.instantiate());
-        list.add(VNodeTypes.LOAD_DOUBLE.instantiate());
-        list.add(VNodeTypes.LOAD_DOUBLE_OPTIONAL.instantiate());
-        list.add(VNodeTypes.SAVE_DOUBLE.instantiate());
+        list.add(VNodeTypes.LOAD_INTEGER);
+        list.add(VNodeTypes.LOAD_INTEGER_OPTIONAL);
+        list.add(VNodeTypes.SAVE_INTEGER);
+        list.add(VNodeTypes.LOAD_FLOAT);
+        list.add(VNodeTypes.LOAD_FLOAT_OPTIONAL);
+        list.add(VNodeTypes.SAVE_FLOAT);
+        list.add(VNodeTypes.LOAD_DOUBLE);
+        list.add(VNodeTypes.LOAD_DOUBLE_OPTIONAL);
+        list.add(VNodeTypes.SAVE_DOUBLE);
+        return list;
     }
     
-    public static void numberComparisons(ArrayList<Node> list)
+    public static List<NodeType<?>> numberComparisons(List<NodeType<?>> list)
     {
-        list.add(VNodeTypes.EQUAL_TO.instantiate());
-        list.add(VNodeTypes.NOT_EQUAL_TO.instantiate());
-        list.add(VNodeTypes.GREATER_THAN.instantiate());
-        list.add(VNodeTypes.GREATER_THAN_OR_EQUAL_TO.instantiate());
-        list.add(VNodeTypes.LESS_THAN.instantiate());
-        list.add(VNodeTypes.LESS_THAN_OR_EQUAL_TO.instantiate());
+        list.add(VNodeTypes.EQUAL_TO);
+        list.add(VNodeTypes.NOT_EQUAL_TO);
+        list.add(VNodeTypes.GREATER_THAN);
+        list.add(VNodeTypes.GREATER_THAN_OR_EQUAL_TO);
+        list.add(VNodeTypes.LESS_THAN);
+        list.add(VNodeTypes.LESS_THAN_OR_EQUAL_TO);
+        return list;
     }
     
-    public static void trigonometry(ArrayList<Node> list)
+    public static List<NodeType<?>> trigonometry(List<NodeType<?>> list)
     {
-        list.add(VNodeTypes.SINES.instantiate());
-        list.add(VNodeTypes.COSINES.instantiate());
-        list.add(VNodeTypes.TANGENT.instantiate());
+        list.add(VNodeTypes.SINES);
+        list.add(VNodeTypes.COSINES);
+        list.add(VNodeTypes.TANGENT);
+        return list;
     }
     
-    public static void logic(ArrayList<Node> list)
+    public static List<NodeType<?>> logic(List<NodeType<?>> list)
     {
-        list.add(VNodeTypes.NOT.instantiate());
-        list.add(VNodeTypes.AND.instantiate());
-        list.add(VNodeTypes.NAND.instantiate());
-        list.add(VNodeTypes.OR.instantiate());
-        list.add(VNodeTypes.NOR.instantiate());
-        list.add(VNodeTypes.XOR.instantiate());
-        list.add(VNodeTypes.XNOR.instantiate());
+        list.add(VNodeTypes.NOT);
+        list.add(VNodeTypes.AND);
+        list.add(VNodeTypes.NAND);
+        list.add(VNodeTypes.OR);
+        list.add(VNodeTypes.NOR);
+        list.add(VNodeTypes.XOR);
+        list.add(VNodeTypes.XNOR);
         
-        list.add(VNodeTypes.LOAD_BOOLEAN.instantiate());
-        list.add(VNodeTypes.LOAD_BOOLEAN_OPTIONAL.instantiate());
-        list.add(VNodeTypes.SAVE_BOOLEAN.instantiate());
+        list.add(VNodeTypes.LOAD_BOOLEAN);
+        list.add(VNodeTypes.LOAD_BOOLEAN_OPTIONAL);
+        list.add(VNodeTypes.SAVE_BOOLEAN);
+        return list;
     }
     
-    public static void numberRoundingNCasting(ArrayList<Node> list)
+    public static List<NodeType<?>> numberRoundingNCasting(List<NodeType<?>> list)
     {
-        list.add(VNodeTypes.ROUND.instantiate());
-        list.add(VNodeTypes.FLOOR.instantiate());
-        list.add(VNodeTypes.CEIL.instantiate());
+        list.add(VNodeTypes.ROUND);
+        list.add(VNodeTypes.FLOOR);
+        list.add(VNodeTypes.CEIL);
         
-        list.add(VNodeTypes.CAST_NUMBER_TO_INTEGER.instantiate());
-        list.add(VNodeTypes.CAST_NUMBER_TO_FLOAT.instantiate());
-        list.add(VNodeTypes.CAST_NUMBER_TO_DOUBLE.instantiate());
+        list.add(VNodeTypes.CAST_NUMBER_TO_INTEGER);
+        list.add(VNodeTypes.CAST_NUMBER_TO_FLOAT);
+        list.add(VNodeTypes.CAST_NUMBER_TO_DOUBLE);
+        return list;
     }
     
-    public static void vectors(ArrayList<Node> list)
+    public static List<NodeType<?>> vectors(List<NodeType<?>> list)
     {
-        list.add(VNodeTypes.VECTOR3D_CREATE.instantiate());
-        list.add(VNodeTypes.VECTOR3D_SPLIT.instantiate());
-        list.add(VNodeTypes.VECTOR3D_SCALE.instantiate());
-        list.add(VNodeTypes.VECTOR3D_ADDITION.instantiate());
-        list.add(VNodeTypes.VECTOR3D_SUBTRACTION.instantiate());
-        list.add(VNodeTypes.VECTOR3D_NORMALIZATION.instantiate());
-        list.add(VNodeTypes.VECTOR3D_DOT_PRODUCT.instantiate());
-        list.add(VNodeTypes.VECTOR3D_CROSS_PRODUCT.instantiate());
-        list.add(VNodeTypes.VECTOR3D_LENGTH.instantiate());
-        list.add(VNodeTypes.VECTOR3D_LENGTH_SQUARED.instantiate());
+        list.add(VNodeTypes.VECTOR3D_CREATE);
+        list.add(VNodeTypes.VECTOR3D_SPLIT);
+        list.add(VNodeTypes.VECTOR3D_SCALE);
+        list.add(VNodeTypes.VECTOR3D_ADDITION);
+        list.add(VNodeTypes.VECTOR3D_SUBTRACTION);
+        list.add(VNodeTypes.VECTOR3D_NORMALIZATION);
+        list.add(VNodeTypes.VECTOR3D_DOT_PRODUCT);
+        list.add(VNodeTypes.VECTOR3D_CROSS_PRODUCT);
+        list.add(VNodeTypes.VECTOR3D_LENGTH);
+        list.add(VNodeTypes.VECTOR3D_LENGTH_SQUARED);
+        return list;
     }
     
-    public static void string(ArrayList<Node> list)
+    public static List<NodeType<?>> string(List<NodeType<?>> list)
     {
-        list.add(VNodeTypes.CONSTANT_STRING.instantiate());
-        list.add(VNodeTypes.CONCATENATION.instantiate());
+        list.add(VNodeTypes.CONSTANT_STRING);
+        list.add(VNodeTypes.CONCATENATION);
         
-        list.add(VNodeTypes.LOAD_STRING.instantiate());
-        list.add(VNodeTypes.LOAD_STRING_OPTIONAL.instantiate());
-        list.add(VNodeTypes.SAVE_STRING.instantiate());
+        list.add(VNodeTypes.LOAD_STRING);
+        list.add(VNodeTypes.LOAD_STRING_OPTIONAL);
+        list.add(VNodeTypes.SAVE_STRING);
+        return list;
     }
     
-    public static void world(ArrayList<Node> list)
+    public static List<NodeType<?>> world(List<NodeType<?>> list)
     {
-        list.add(VNodeTypes.GET_WORLD_OPTIONAL.instantiate());
-        list.add(VNodeTypes.SET_BLOCK.instantiate());
-        list.add(VNodeTypes.BLOCK_POS_CREATE.instantiate());
-        list.add(VNodeTypes.BLOCK_POS_SPLIT.instantiate());
-        list.add(VNodeTypes.GET_BLOCK.instantiate());
+        list.add(VNodeTypes.GET_WORLD_OPTIONAL);
+        list.add(VNodeTypes.SET_BLOCK);
+        list.add(VNodeTypes.BLOCK_POS_CREATE);
+        list.add(VNodeTypes.BLOCK_POS_SPLIT);
+        list.add(VNodeTypes.GET_BLOCK);
         
-        list.add(VNodeTypes.LOAD_BLOCK_POS.instantiate());
-        list.add(VNodeTypes.LOAD_BLOCK_POS_OPTIONAL.instantiate());
-        list.add(VNodeTypes.SAVE_BLOCK_POS.instantiate());
+        list.add(VNodeTypes.LOAD_BLOCK_POS);
+        list.add(VNodeTypes.LOAD_BLOCK_POS_OPTIONAL);
+        list.add(VNodeTypes.SAVE_BLOCK_POS);
+        return list;
     }
 }

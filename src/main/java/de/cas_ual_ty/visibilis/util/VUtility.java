@@ -1,11 +1,16 @@
 package de.cas_ual_ty.visibilis.util;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.config.VConfigHelper;
 import de.cas_ual_ty.visibilis.config.VConfiguration;
 import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.node.NodeType;
+import de.cas_ual_ty.visibilis.node.field.Input;
+import de.cas_ual_ty.visibilis.node.field.NodeField;
+import de.cas_ual_ty.visibilis.node.field.Output;
+import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrintHolder;
 import de.cas_ual_ty.visibilis.print.provider.PrintProvider;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,11 +29,6 @@ public class VUtility
     public static <A, B> A cast(B b)
     {
         return (A)b;
-    }
-    
-    public static <A> ArrayList<A> cloneArrayList(ArrayList<A> list)
-    {
-        return VUtility.cast(list.clone());
     }
     
     public static void shutdown()
@@ -122,5 +122,40 @@ public class VUtility
         event.addCapability(new ResourceLocation(modId, name), provider);
         event.addListener(provider.getListener());
         return provider;
+    }
+    
+    public static boolean validate(Print p, List<NodeType<?>> typesList)
+    {
+        for(Node node : p.getNodes())
+        {
+            if(!typesList.contains(node.type))
+            {
+                return false;
+            }
+        }
+        
+        return VUtility.validateConnections(p);
+    }
+    
+    public static boolean validateConnections(Print p)
+    {
+        for(Node node : p.getNodes())
+        {
+            for(Output<?> out : node.getOutputsIterable())
+            {
+                if(out.hasConnections())
+                {
+                    for(Input<?> in : out.getConnections())
+                    {
+                        if(!NodeField.canConnect(out, in, true))
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        
+        return true;
     }
 }

@@ -57,10 +57,10 @@ public interface IItemPrint
      */
     public default PrintProvider getPrintProvider(ItemStack itemStack, int slot)
     {
-        return new PrintProviderItem(this.getNodeList(itemStack, slot), itemStack, slot);
+        return new PrintProviderItem(this.getNodeList(itemStack), itemStack, slot);
     }
     
-    public default NodeListProvider getNodeList(ItemStack itemStack, int slot)
+    public default NodeListProvider getNodeList(ItemStack itemStack)
     {
         return new NodeListProviderBase();
     }
@@ -77,7 +77,7 @@ public interface IItemPrint
     
     public default boolean validate(ItemStack itemStack, Print print)
     {
-        return true;
+        return this.getNodeList(itemStack).validate(print);
     }
     
     public default Print getPrint(ItemStack itemStack)

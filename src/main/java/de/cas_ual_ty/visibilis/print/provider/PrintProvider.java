@@ -1,6 +1,5 @@
 package de.cas_ual_ty.visibilis.print.provider;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import de.cas_ual_ty.visibilis.node.Node;
@@ -34,7 +33,7 @@ public abstract class PrintProvider
     /**
      * Get the current available nodes for the side view. THIS IS NOT NULLABLE
      */
-    public final ArrayList<Node> getAvailableNodes()
+    public final List<Node> getAvailableNodes()
     {
         return this.nodeListProvider.getAvailableNodes();
     }

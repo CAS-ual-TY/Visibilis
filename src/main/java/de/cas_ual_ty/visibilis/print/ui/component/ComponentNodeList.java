@@ -1,6 +1,8 @@
 package de.cas_ual_ty.visibilis.print.ui.component;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import org.lwjgl.glfw.GLFW;
 
@@ -11,7 +13,6 @@ import de.cas_ual_ty.visibilis.node.NodeGroupsHelper;
 import de.cas_ual_ty.visibilis.print.ui.UiBase;
 import de.cas_ual_ty.visibilis.print.ui.util.MouseInteractionObject.EnumMouseInteractionType;
 import de.cas_ual_ty.visibilis.util.VRenderUtility;
-import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.util.StringUtils;
 
@@ -310,9 +311,11 @@ public class ComponentNodeList extends Component
         return ret;
     }
     
-    public ArrayList<Node> getAvailableNodesList()
+    public List<Node> getAvailableNodesList()
     {
-        return this.cutNodeListToSearch(VUtility.cloneArrayList(this.getProvider().getAvailableNodes()));
+        List<Node> list = new ArrayList<>(this.getProvider().getAvailableNodes().size());
+        list.addAll(this.getProvider().getAvailableNodes());
+        return this.cutNodeListToSearch(list);
     }
     
     /**
@@ -320,24 +323,28 @@ public class ComponentNodeList extends Component
      * @param list The nodes list
      * @return The nodes list containing only nodes matching the current search criteria
      */
-    public ArrayList<Node> cutNodeListToSearch(ArrayList<Node> list)
+    public List<Node> cutNodeListToSearch(List<Node> list)
     {
         if(list == null)
         {
-            return new ArrayList<>();
+            return new ArrayList<>(0);
         }
         
         String text = this.searchInput.getText().trim();
         
         if(!StringUtils.isNullOrEmpty(text))
         {
-            ArrayList<Node> list2 = VUtility.cloneArrayList(list);
+            Iterator<Node> it = list.iterator();
             
-            for(Node node : list2)
+            Node node = null;
+            
+            while(it.hasNext())
             {
+                node = it.next();
+                
                 if(!NodeGroupsHelper.INSTANCE.isTextMatchingNode(node, text))
                 {
-                    list.remove(node);
+                    it.remove();
                 }
             }
         }

@@ -82,7 +82,7 @@ public interface IEntityPrint extends IPrintHolder
     
     public default boolean validate(Print print)
     {
-        return true;
+        return this.getNodeList().validate(print);
     }
     
     public default void synchToTrackers()
