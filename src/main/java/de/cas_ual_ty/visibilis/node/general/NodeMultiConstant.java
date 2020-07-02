@@ -11,9 +11,12 @@ import de.cas_ual_ty.visibilis.util.VUtility;
 
 public class NodeMultiConstant extends NodeGenericConstant<Object>
 {
+    protected boolean disconnecting;
+    
     public NodeMultiConstant(NodeType<?> type)
     {
         super(type);
+        this.disconnecting = false;
     }
     
     @Override
@@ -31,7 +34,7 @@ public class NodeMultiConstant extends NodeGenericConstant<Object>
     @Override
     public <I> void onInputConnect(Input<I> input)
     {
-        if(!this.expansionInputs.contains(input))
+        if(this.disconnecting || !this.expansionInputs.contains(input))
         {
             return;
         }
@@ -62,7 +65,7 @@ public class NodeMultiConstant extends NodeGenericConstant<Object>
     @Override
     public <I> void onInputDisconnect(Input<I> input)
     {
-        if(!this.expansionInputs.contains(input))
+        if(this.disconnecting || !this.expansionInputs.contains(input))
         {
             return;
         }
@@ -85,5 +88,12 @@ public class NodeMultiConstant extends NodeGenericConstant<Object>
             this.expansionInputs.add(id2, in2);
             this.expansionOutputs.add(id2, out2);
         }
+    }
+    
+    @Override
+    public void disconnect()
+    {
+        this.disconnecting = true;
+        super.disconnect();
     }
 }
