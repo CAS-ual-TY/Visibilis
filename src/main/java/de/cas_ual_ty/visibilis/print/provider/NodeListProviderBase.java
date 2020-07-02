@@ -73,6 +73,7 @@ public class NodeListProviderBase extends NodeListProvider
         list.add(VNodeTypes.MERGE);
         list.add(VNodeTypes.FOR);
         list.add(VNodeTypes.WHILE);
+        list.add(VNodeTypes.THEN);
         list.add(VNodeTypes.MULTI_EQUALS_BRANCH);
         return list;
     }

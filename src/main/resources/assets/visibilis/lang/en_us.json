@@ -398,6 +398,11 @@
     "field.visibilis:while.in2": "A",
     "node.visibilis:while.groups": "exec",
     
+    "node.visibilis:then": "Then",
+    "field.visibilis:then.out1": "(O)",
+    "field.visibilis:then.in1": "(I)",
+    "node.visibilis:then.groups": "exec",
+    
     "node.visibilis:multi_equals_branch": "Multi Equals Branch",
     "field.visibilis:multi_equals_branch.out1": "(O) A == B",
     "field.visibilis:multi_equals_branch.out2": "(O)",
