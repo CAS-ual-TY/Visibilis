@@ -30,16 +30,4 @@ public class NodeMerge extends NodeGenericX<Object>
     {
         return null;
     }
-    
-    @Override
-    public float[] getColor()
-    {
-        return VDataTypes.EXEC.getColor();
-    }
-    
-    @Override
-    public float[] getTextColor()
-    {
-        return VDataTypes.EXEC.getTextColor();
-    }
 }
