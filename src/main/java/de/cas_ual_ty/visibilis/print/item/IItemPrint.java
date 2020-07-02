@@ -1,7 +1,9 @@
 package de.cas_ual_ty.visibilis.print.item;
 
+import java.util.List;
 import java.util.function.Function;
 
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.print.GuiPrint;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.capability.CapabilityProviderPrintHolder;
@@ -60,9 +62,14 @@ public interface IItemPrint
         return new PrintProviderItem(this.getNodeList(itemStack), itemStack, slot);
     }
     
+    public default List<NodeType<?>> getNodeTypeList(ItemStack itemStack)
+    {
+        return NodeListProviderBase.ALL_NODES;
+    }
+    
     public default NodeListProvider getNodeList(ItemStack itemStack)
     {
-        return new NodeListProviderBase();
+        return new NodeListProviderBase(this.getNodeTypeList(itemStack));
     }
     
     public default Function<Print, DataProvider> createDataProvider(Entity entity, ItemStack itemStack)
@@ -77,7 +84,7 @@ public interface IItemPrint
     
     public default boolean validate(ItemStack itemStack, Print print)
     {
-        return this.getNodeList(itemStack).validate(print);
+        return VUtility.validate(print, this.getNodeTypeList(itemStack));
     }
     
     public default Print getPrint(ItemStack itemStack)

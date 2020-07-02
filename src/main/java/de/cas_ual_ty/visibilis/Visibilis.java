@@ -1,5 +1,8 @@
 package de.cas_ual_ty.visibilis;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import de.cas_ual_ty.visibilis.command.MessagePrintEquipmentSlot;
 import de.cas_ual_ty.visibilis.command.VCommand;
 import de.cas_ual_ty.visibilis.config.VConfigHelper;
@@ -14,6 +17,7 @@ import de.cas_ual_ty.visibilis.print.entity.MessageSynchEntityToClient;
 import de.cas_ual_ty.visibilis.print.entity.MessageSynchEntityToServer;
 import de.cas_ual_ty.visibilis.print.item.IItemPrint;
 import de.cas_ual_ty.visibilis.print.item.MessagePrintSynchItemToServer;
+import de.cas_ual_ty.visibilis.print.provider.NodeListProviderBase;
 import de.cas_ual_ty.visibilis.proxy.IVSidedProxy;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import de.cas_ual_ty.visibilis.util.VUtility;
@@ -83,6 +87,10 @@ public class Visibilis
         Visibilis.channel.registerMessage(4, MessageSynchEntityToClient.class, MessageSynchEntityToClient::encode, MessageSynchEntityToClient::decode, MessageSynchEntityToClient::handle);
         
         VDataTypes.addConverters();
+        
+        Collection<NodeType<?>> allTypes = Visibilis.NODE_TYPES_REGISTRY.getValues();
+        NodeListProviderBase.ALL_NODES = new ArrayList<>(allTypes.size());
+        NodeListProviderBase.ALL_NODES.addAll(allTypes);
         
         CapabilityManager.INSTANCE.register(IPrintHolder.class, new StoragePrintHolder(), PrintHolder::new);
     }

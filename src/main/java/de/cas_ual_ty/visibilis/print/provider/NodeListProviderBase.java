@@ -9,6 +9,8 @@ import de.cas_ual_ty.visibilis.registries.VNodeTypes;
 
 public class NodeListProviderBase extends NodeListProvider
 {
+    public static List<NodeType<?>> ALL_NODES; //Initialized in FMLCommonSetupEvent
+    
     protected List<NodeType<?>> typeList;
     protected List<Node> list;
     
@@ -20,7 +22,7 @@ public class NodeListProviderBase extends NodeListProvider
     
     public NodeListProviderBase()
     {
-        this(NodeListProviderBase.addAllNodesToList(new ArrayList<>()));
+        this(NodeListProviderBase.ALL_NODES);
     }
     
     @Override

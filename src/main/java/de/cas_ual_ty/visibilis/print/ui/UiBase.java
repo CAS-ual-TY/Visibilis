@@ -277,14 +277,14 @@ public class UiBase implements IGuiEventListener
     @Override
     public boolean charTyped(char typedChar, int keyCode)
     {
-        if(this.windowPrint.isolateInput())
-        {
-            this.windowPrint.charTyped(typedChar, keyCode);
-            return true;
-        }
-        else if(this.windowNodeList.isolateInput())
+        if(this.windowNodeList.isolateInput())
         {
             this.windowNodeList.charTyped(typedChar, keyCode);
+            return true;
+        }
+        else if(this.windowPrint.isolateInput())
+        {
+            this.windowPrint.charTyped(typedChar, keyCode);
             return true;
         }
         

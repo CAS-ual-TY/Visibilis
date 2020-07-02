@@ -1,8 +1,10 @@
 package de.cas_ual_ty.visibilis.print.entity;
 
+import java.util.List;
 import java.util.function.Function;
 
 import de.cas_ual_ty.visibilis.Visibilis;
+import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.capability.IPrintHolder;
 import de.cas_ual_ty.visibilis.print.provider.DataProvider;
@@ -65,9 +67,14 @@ public interface IEntityPrint extends IPrintHolder
         return new PrintProviderEntity(this.getNodeList(), (Entity)this);
     }
     
+    public default List<NodeType<?>> getNodeTypeList()
+    {
+        return NodeListProviderBase.ALL_NODES;
+    }
+    
     public default NodeListProvider getNodeList()
     {
-        return new NodeListProviderBase();
+        return new NodeListProviderBase(this.getNodeTypeList());
     }
     
     public default Function<Print, DataProvider> createDataProvider()
@@ -82,7 +89,7 @@ public interface IEntityPrint extends IPrintHolder
     
     public default boolean validate(Print print)
     {
-        return this.getNodeList().validate(print);
+        return VUtility.validate(print, this.getNodeTypeList());
     }
     
     public default void synchToTrackers()
