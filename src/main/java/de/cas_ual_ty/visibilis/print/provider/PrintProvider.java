@@ -13,7 +13,7 @@ import net.minecraft.util.text.ITextComponent;
 public abstract class PrintProvider
 {
     /*
-     * Provides control and customization for the default implementation in the visibilis.print.impl package.
+     * Provides control and customization for the default implementations.
      * If you need access to the screen from here, remember that you can also do that with: Minecraft.getInstance().currentScreen
      */
     

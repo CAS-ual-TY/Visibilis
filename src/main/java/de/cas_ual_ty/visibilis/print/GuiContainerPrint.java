@@ -2,7 +2,11 @@ package de.cas_ual_ty.visibilis.print;
 
 import de.cas_ual_ty.visibilis.print.provider.PrintProvider;
 import de.cas_ual_ty.visibilis.print.ui.UiBase;
+import de.cas_ual_ty.visibilis.print.ui.component.ComponentHeader;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.client.gui.widget.button.AbstractButton;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.util.text.ITextComponent;
@@ -11,6 +15,9 @@ public abstract class GuiContainerPrint<A extends Container> extends ContainerSc
 {
     public final PrintProvider provider;
     public UiBase uiLogic;
+    
+    protected AbstractButton buttonUndo;
+    protected AbstractButton buttonRedo;
     
     public GuiContainerPrint(A container, PlayerInventory inventory, ITextComponent title, PrintProvider provider)
     {
@@ -22,9 +29,47 @@ public abstract class GuiContainerPrint<A extends Container> extends ContainerSc
     }
     
     @Override
-    public void init()
+    public void init(Minecraft minecraft, int width, int height)
     {
-        this.uiLogic.guiInit();
+        super.init(minecraft, width, height);
+        this.addUndoRedoButtons(60, 20);
+    }
+    
+    protected void addUndoRedoButtons(int width, int height)
+    {
+        this.buttons.add(this.buttonUndo = new AbstractButton(0, 0, width, height, I18n.format(ComponentHeader.LANG_UNDO))
+        {
+            @Override
+            public void onPress()
+            {
+                GuiContainerPrint.this.getProvider().undo();
+            }
+        });
+        
+        this.buttons.add(this.buttonRedo = new AbstractButton(0 + width, 0, width, height, I18n.format(ComponentHeader.LANG_REDO))
+        {
+            @Override
+            public void onPress()
+            {
+                GuiContainerPrint.this.getProvider().redo();
+            }
+        });
+    }
+    
+    public PrintProvider getProvider()
+    {
+        return this.provider;
+    }
+    
+    public UiBase getUiLogic()
+    {
+        return this.uiLogic;
+    }
+    
+    @Override
+    protected void init()
+    {
+        this.getUiLogic().guiInit();
         super.init();
     }
     
@@ -40,13 +85,16 @@ public abstract class GuiContainerPrint<A extends Container> extends ContainerSc
     public void render(int mouseX, int mouseY, float partialTicks)
     {
         this.uiLogic.guiDrawScreen(mouseX, mouseY, partialTicks);
+        this.getUiLogic().guiDrawScreen(mouseX, mouseY, partialTicks);
         super.render(mouseX, mouseY, partialTicks);
     }
     
     @Override
     public void tick()
     {
-        this.uiLogic.guiTick();
+        this.getUiLogic().guiTick();
+        this.buttonUndo.active = this.getProvider().canUndo();
+        this.buttonRedo.active = this.getProvider().canRedo();
         super.tick();
     }
     

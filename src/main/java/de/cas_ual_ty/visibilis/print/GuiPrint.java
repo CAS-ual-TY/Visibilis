@@ -2,13 +2,20 @@ package de.cas_ual_ty.visibilis.print;
 
 import de.cas_ual_ty.visibilis.print.provider.PrintProvider;
 import de.cas_ual_ty.visibilis.print.ui.UiBase;
+import de.cas_ual_ty.visibilis.print.ui.component.ComponentHeader;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.button.AbstractButton;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.util.text.ITextComponent;
 
 public class GuiPrint extends Screen
 {
     private PrintProvider provider;
     private UiBase uiLogic;
+    
+    protected AbstractButton buttonUndo;
+    protected AbstractButton buttonRedo;
     
     public GuiPrint(ITextComponent title, PrintProvider provider)
     {
@@ -17,6 +24,34 @@ public class GuiPrint extends Screen
         this.getProvider().init();
         this.uiLogic = new UiBase(this, this.getProvider());
         this.getProvider().onGuiOpen();
+    }
+    
+    @Override
+    public void init(Minecraft minecraft, int width, int height)
+    {
+        super.init(minecraft, width, height);
+        this.addUndoRedoButtons(60, 20);
+    }
+    
+    protected void addUndoRedoButtons(int width, int height)
+    {
+        this.buttons.add(this.buttonUndo = new AbstractButton(0, 0, width, height, I18n.format(ComponentHeader.LANG_UNDO))
+        {
+            @Override
+            public void onPress()
+            {
+                GuiPrint.this.getProvider().undo();
+            }
+        });
+        
+        this.buttons.add(this.buttonRedo = new AbstractButton(0 + width, 0, width, height, I18n.format(ComponentHeader.LANG_REDO))
+        {
+            @Override
+            public void onPress()
+            {
+                GuiPrint.this.getProvider().redo();
+            }
+        });
     }
     
     public PrintProvider getProvider()
@@ -55,6 +90,8 @@ public class GuiPrint extends Screen
     public void tick()
     {
         this.getUiLogic().guiTick();
+        this.buttonUndo.active = this.getProvider().canUndo();
+        this.buttonRedo.active = this.getProvider().canRedo();
         super.tick();
     }
     
