@@ -1,6 +1,7 @@
 package de.cas_ual_ty.visibilis.print.ui;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
@@ -279,7 +280,7 @@ public class PrintRenderer
     public void drawNodeFieldConnections(NodeField<?> field, int x, int y)
     {
         // Retrieve all connections
-        ArrayList<NodeField<?>> connections = field.getConnectionsList();
+        List<NodeField<?>> connections = field.getConnectionsList();
         
         // Loop through "destinations"
         for(NodeField<?> dest : connections)

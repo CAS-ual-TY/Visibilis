@@ -1,6 +1,8 @@
 package de.cas_ual_ty.visibilis.node.field;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Function;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
@@ -19,12 +21,12 @@ public class Output<O> extends NodeField<O>
     /**
      * All inputs this is connected to.
      */
-    protected final ArrayList<Input<?>> connections;
+    protected final List<Input<?>> connections;
     
     public Output(Node node, DataType<O> dataType, Function<NodeField<O>, String> name)
     {
         super(node, dataType, name);
-        this.connections = new ArrayList<>();
+        this.connections = new LinkedList<>();
     }
     
     public Output(Node node, DataType<O> dataType, String name)
@@ -42,7 +44,7 @@ public class Output<O> extends NodeField<O>
     /**
      * @return The list of all connections.
      */
-    public ArrayList<Input<?>> getConnections()
+    public List<Input<?>> getConnections()
     {
         return this.connections;
     }

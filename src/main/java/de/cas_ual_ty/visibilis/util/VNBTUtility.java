@@ -1,6 +1,7 @@
 package de.cas_ual_ty.visibilis.util;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.node.Node;
@@ -227,7 +228,7 @@ public class VNBTUtility
      */
     public static void writePrintConnectionsToNBT(Print p, CompoundNBT nbt)
     {
-        ArrayList<Integer> array = new ArrayList<>();
+        List<Integer> array = new LinkedList<>();
         
         int i;
         int j;
@@ -235,7 +236,7 @@ public class VNBTUtility
         
         Node n;
         NodeField<?> f;
-        ArrayList<NodeField<?>> connections;
+        List<NodeField<?>> connections;
         NodeField<?> f1;
         
         for(i = 0; i < p.getNodes().size(); ++i)

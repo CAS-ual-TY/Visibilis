@@ -1,6 +1,7 @@
 package de.cas_ual_ty.visibilis.node.field;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Function;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
@@ -113,9 +114,9 @@ public class Input<I> extends NodeField<I>
     }
     
     @Override
-    public ArrayList<NodeField<?>> getConnectionsList()
+    public List<NodeField<?>> getConnectionsList()
     {
-        ArrayList<NodeField<?>> list = new ArrayList<>();
+        List<NodeField<?>> list = new ArrayList<>(1);
         
         if(this.hasConnections())
         {

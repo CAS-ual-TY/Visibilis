@@ -28,6 +28,13 @@ public class NodeWhile extends Node
     }
     
     @Override
+    public boolean preCalculate(DataProvider context)
+    {
+        // TODO Auto-generated method stub
+        return super.preCalculate(context);
+    }
+    
+    @Override
     public Output<Object> getOutExec(int index)
     {
         this.condition = this.in2Condition.getValue();
@@ -50,6 +57,7 @@ public class NodeWhile extends Node
     @Override
     public boolean doCalculate(DataProvider context)
     {
+        this.exec2 = false;
         return true;
     }
     
@@ -75,6 +83,5 @@ public class NodeWhile extends Node
     public void resetValues()
     {
         super.resetValues();
-        this.exec2 = false;
     }
 }

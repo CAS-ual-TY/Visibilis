@@ -92,7 +92,7 @@ public abstract class Node
      */
     public boolean isCalculated()
     {
-        return this.calculated;
+        return !this.isDynamic() && this.calculated;
     }
     
     /**
@@ -117,38 +117,29 @@ public abstract class Node
      */
     public boolean preCalculate(DataProvider context)
     {
+        Output<?> field1;
+        
         // If this node has no inputs it also has no parents, so it can be calculated immediately
         // (or if none of the inputs have any connections)
         if(!this.isStart())
         {
-            NodeField<?> field0, field1;
-            
-            int i, j;
-            
             // Loop through all Input<?> fields
-            for(i = 0; i < this.getInputAmt(); ++i)
+            for(Input<?> field0 : this.inputFields)
             {
-                // Get the Input<?> field of this node
-                field0 = this.getInput(i);
-                
                 // Check if it also has some connections (parent nodes)
                 // Input<?> fields might also be disconnected
                 if(field0.getDataType() != VDataTypes.EXEC && field0.hasConnections())
                 {
                     // Input<?> has connections, so loop through all of them
-                    for(j = 0; j < field0.getConnectionsList().size(); ++j)
+                    field1 = field0.getConnection();
+                    
+                    // Check if it is calculated
+                    if(!field1.getNode().isCalculated())
                     {
-                        // Get the parent node field (Output<?> of parent node)
-                        field1 = (NodeField<?>)field0.getConnectionsList().get(j);
-                        
-                        // Check if it is calculated
-                        if(!field1.getNode().isCalculated())
+                        // Calculate it, return false if it fails
+                        if(!field1.getNode().calculate(context))
                         {
-                            // Calculate it, return false if it fails
-                            if(!field1.getNode().calculate(context))
-                            {
-                                return false;
-                            }
+                            return false;
                         }
                     }
                 }
@@ -172,19 +163,10 @@ public abstract class Node
             return false;
         }
         
+        this.calculated = true;
+        
         // Now try calculate this node
-        boolean result = this.doCalculate(context);
-        
-        if(this.isDynamic())
-        {
-            this.resetValues();
-        }
-        else
-        {
-            this.calculated = true;
-        }
-        
-        return result;
+        return this.doCalculate(context);
     }
     
     /**
