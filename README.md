@@ -13,6 +13,9 @@ Current progress (28/01/2020)
 #### Curseforge Project Page
 [https://www.curseforge.com/minecraft/mc-mods/visibilis](https://www.curseforge.com/minecraft/mc-mods/visibilis)
 
+#### Wiki and Documentation (for players)
+[https://github.com/CAS-ual-TY/Visibilis/wiki](https://github.com/CAS-ual-TY/Visibilis/wiki)
+
 ## About
 Visibilis is a **modification for Minecraft** which contains basic functionality for **in-game visual coding**. It comes with a base structure of nodes, data types and an UI and allows for easy expansion.
 The mod itself does not contain any gameplay elements or additions. It is only effectively usable by extending it with gameplay elements and allowing the player to use the visual coding interface.
