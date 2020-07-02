@@ -323,6 +323,27 @@ public class ComponentPrint extends Component
     }
     
     @Override
+    public boolean mouseScrolled(double mouseX, double mouseY, double amountScrolled)
+    {
+        int i;
+        final int speed = 5;
+        
+        for(i = 0; i < amountScrolled; i += speed)
+        {
+            this.zoomIn(mouseX, mouseY);
+        }
+        
+        amountScrolled *= -1;
+        
+        for(i = 0; i < amountScrolled; i += speed)
+        {
+            this.zoomOut(mouseX, mouseY);
+        }
+        
+        return true;
+    }
+    
+    @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers)
     {
         if(this.fieldInput.getVisible())

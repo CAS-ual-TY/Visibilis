@@ -237,7 +237,7 @@ public class UiBase implements IGuiEventListener
         
         for(Component c : this.children)
         {
-            if(c.mouseScrolled(mouseX, mouseY, amountScrolled))
+            if(c.mouseOverDimensions && c.mouseScrolled(mouseX, mouseY, amountScrolled))
             {
                 return true;
             }

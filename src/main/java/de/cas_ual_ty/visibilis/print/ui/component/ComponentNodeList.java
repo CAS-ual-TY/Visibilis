@@ -209,7 +209,7 @@ public class ComponentNodeList extends Component
             this.scrollDown();
         }
         
-        return super.mouseScrolled(mouseX, mouseY, amountScrolled);
+        return true;
     }
     
     @Override
