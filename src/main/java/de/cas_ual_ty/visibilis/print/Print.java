@@ -1,7 +1,8 @@
 package de.cas_ual_ty.visibilis.print;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Function;
 
 import de.cas_ual_ty.visibilis.Visibilis;
@@ -50,19 +51,19 @@ public class Print
     /**
      * All nodes in this print (including events).
      */
-    protected final ArrayList<Node> nodes;
+    protected final List<Node> nodes;
     
     /**
      * All event nodes in this print
      */
-    protected final ArrayList<NodeEvent> events;
+    protected final List<NodeEvent> events;
     
     protected final HashMap<DataType<?>, HashMap<String, ?>> variablesMap;
     
     public Print()
     {
-        this.nodes = new ArrayList<>();
-        this.events = new ArrayList<>();
+        this.nodes = new LinkedList<>();
+        this.events = new LinkedList<>();
         this.variablesMap = new HashMap<>();
         this.reset();
     }
@@ -135,7 +136,7 @@ public class Print
     /**
      * @return The list of nodes (no clone or copy).
      */
-    public ArrayList<Node> getNodes()
+    public List<Node> getNodes()
     {
         return this.nodes;
     }
@@ -143,7 +144,7 @@ public class Print
     /**
      * @return The list of events (no clone or copy).
      */
-    public ArrayList<NodeEvent> getEvents()
+    public List<NodeEvent> getEvents()
     {
         return this.events;
     }
