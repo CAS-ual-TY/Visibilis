@@ -3,6 +3,7 @@ package de.cas_ual_ty.visibilis.print.entity;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.capability.IPrintHolder;
 import de.cas_ual_ty.visibilis.print.capability.PrintHolderCapabilityProvider;
+import de.cas_ual_ty.visibilis.util.VNBTUtility;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -45,13 +46,13 @@ public abstract class PrintLivingEntity extends LivingEntity implements IPrintEn
     public void readAdditional(CompoundNBT compound)
     {
         super.readAdditional(compound);
-        this.getPrint().readFromNBT(compound, true);
+        VNBTUtility.readPrintFromNBT(this.getPrint(), compound, true);
     }
     
     @Override
     public void writeAdditional(CompoundNBT compound)
     {
         super.readAdditional(compound);
-        this.getPrint().writeToNBT(compound, true);
+        VNBTUtility.writePrintToNBT(this.getPrint(), compound, true);
     }
 }
