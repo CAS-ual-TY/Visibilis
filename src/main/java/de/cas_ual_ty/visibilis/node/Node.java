@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.node.field.Output;
+import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.provider.DataProvider;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import de.cas_ual_ty.visibilis.util.VNBTUtility;
@@ -752,6 +753,11 @@ public abstract class Node
                 return true;
             }
         };
+    }
+    
+    public boolean validate(Print p, List<NodeType<?>> typesList)
+    {
+        return typesList.contains(this.type);
     }
     
     /**

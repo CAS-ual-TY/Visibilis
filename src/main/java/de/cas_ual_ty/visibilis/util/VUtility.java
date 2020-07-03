@@ -128,7 +128,7 @@ public class VUtility
     {
         for(Node node : p.getNodes())
         {
-            if(!typesList.contains(node.type))
+            if(!node.validate(p, typesList))
             {
                 return false;
             }
