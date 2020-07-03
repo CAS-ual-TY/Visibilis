@@ -8,6 +8,7 @@ import de.cas_ual_ty.visibilis.datatype.converter.IConverter;
 import de.cas_ual_ty.visibilis.node.field.NodeField;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
 import de.cas_ual_ty.visibilis.util.VUtility;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
@@ -71,6 +72,11 @@ public class DataType<A> extends ForgeRegistryEntry<DataType<?>>
         this.arrayFactory = arrayFactory;
         this.color = VUtility.COLOR_DEFAULT_GREY;
         this.textColor = VUtility.COLOR_DEFAULT_WHITE;
+    }
+    
+    public String getName()
+    {
+        return I18n.format(this.getRegistryName().toString());
     }
     
     public A[] createArray(int length)
