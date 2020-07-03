@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 
+import de.cas_ual_ty.visibilis.print.ExecTracker;
 import de.cas_ual_ty.visibilis.print.Print;
 import net.minecraft.command.CommandSource;
 import net.minecraft.entity.Entity;
@@ -16,6 +17,8 @@ public class DataProvider
     protected BiConsumer<ITextComponent, Boolean> feedback;
     
     protected Map<DataKey<?>, Object> map;
+    
+    protected ExecTracker tracker;
     
     public DataProvider(Print print, BiConsumer<ITextComponent, Boolean> feedback)
     {
@@ -61,5 +64,15 @@ public class DataProvider
     public <I> Optional<I> getDataOptional(DataKey<I> key)
     {
         return Optional.ofNullable(key.cast(this.map.get(key)));
+    }
+    
+    public ExecTracker getTracker()
+    {
+        return this.tracker;
+    }
+    
+    public void newTracker(ExecTracker tracker)
+    {
+        this.tracker = tracker;
     }
 }

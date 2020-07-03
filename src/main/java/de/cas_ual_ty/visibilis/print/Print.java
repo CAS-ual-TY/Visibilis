@@ -200,6 +200,9 @@ public class Print
             return false;
         }
         
+        data.newTracker(new ExecTracker());
+        data.getTracker().startNode(node);
+        
         boolean ret = this.exec(node, data);
         
         for(Node n : this.nodes)
@@ -231,7 +234,11 @@ public class Print
         int i = 0;
         
         /*
-         * Now to explain the following segment and loop... You might be asking: "Why a loop? Why not just a single connection?" And the answer is in the question: Loops! This way, you can make nodes which can actually loop. Because for every exec node it will keep looping through, until no further sub node can be found.
+         * Now to explain the following segment and loop...
+         * You might be asking: "Why a loop? Why not just a single connection?"
+         * And the answer is in the question: Loops!
+         * This way, you can make nodes which can actually loop.
+         * Because for every exec node it will keep looping through, until no further sub node can be found.
          */
         
         // Loop through all outputs of the exec type
@@ -243,6 +250,7 @@ public class Print
             }
             
             // Get the connected input of the next node
+            // get(0) because exec data type is the only type that can only be connected once from out to in
             in = out.getConnections().get(0);
             
             if(in != null)
@@ -250,14 +258,13 @@ public class Print
                 // Get the node of the input
                 next = in.getNode();
                 
-                if(next != null)
+                context.getTracker().exec(next, out, in);
+                
+                // Check if the sub node has been successfully calculated
+                if(!this.exec(next, context))
                 {
-                    // Check the the sub node has been successfully calculated
-                    if(!this.exec(next, context))
-                    {
-                        // Abort if false
-                        return false;
-                    }
+                    // Abort if false
+                    return false;
                 }
             }
         }
