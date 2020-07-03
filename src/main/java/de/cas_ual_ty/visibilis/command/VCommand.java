@@ -8,8 +8,8 @@ import de.cas_ual_ty.visibilis.event.CommandBuilderEvent;
 import de.cas_ual_ty.visibilis.event.EditCommandEvent;
 import de.cas_ual_ty.visibilis.event.ExecCommandEvent;
 import de.cas_ual_ty.visibilis.print.Print;
-import de.cas_ual_ty.visibilis.print.item.IItemPrint;
-import de.cas_ual_ty.visibilis.print.item.ItemPrint;
+import de.cas_ual_ty.visibilis.print.item.IPrintItem;
+import de.cas_ual_ty.visibilis.print.item.PrintItem;
 import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
@@ -112,9 +112,9 @@ public class VCommand
         for(Hand hand : Hand.values())
         {
             stack = player.getHeldItem(hand);
-            if(stack.getItem() instanceof IItemPrint && ((ItemPrint)stack.getItem()).isEditable(stack, sender))
+            if(stack.getItem() instanceof IPrintItem && ((PrintItem)stack.getItem()).isEditable(stack, sender))
             {
-                Visibilis.channel.send(PacketDistributor.PLAYER.with(() -> player), new MessagePrintEquipmentSlot(hand == Hand.MAIN_HAND ? player.inventory.currentItem : EquipmentSlotType.OFFHAND.getSlotIndex()));
+                Visibilis.channel.send(PacketDistributor.PLAYER.with(() -> player), new PrintEquipmentSlotMessage(hand == Hand.MAIN_HAND ? player.inventory.currentItem : EquipmentSlotType.OFFHAND.getSlotIndex()));
                 return;
             }
         }
@@ -124,9 +124,9 @@ public class VCommand
     {
         ItemStack itemStack = player.inventory.getStackInSlot(slot);
         
-        if(!itemStack.isEmpty() && itemStack.getItem() instanceof IItemPrint)
+        if(!itemStack.isEmpty() && itemStack.getItem() instanceof IPrintItem)
         {
-            IItemPrint item = (IItemPrint)itemStack.getItem();
+            IPrintItem item = (IPrintItem)itemStack.getItem();
             Print p = item.getPrint(itemStack);
             
             if(p != null)

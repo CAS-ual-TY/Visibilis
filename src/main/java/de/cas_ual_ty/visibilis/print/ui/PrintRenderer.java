@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
+import de.cas_ual_ty.visibilis.datatype.EnumDataType;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeGroupsHelper;
 import de.cas_ual_ty.visibilis.node.field.Input;
@@ -293,7 +293,7 @@ public class PrintRenderer
     {
         // Draw the enum options
         
-        DataTypeEnum<A> dt = (DataTypeEnum<A>)field.getDataType();
+        EnumDataType<A> dt = (EnumDataType<A>)field.getDataType();
         
         int w, h;
         

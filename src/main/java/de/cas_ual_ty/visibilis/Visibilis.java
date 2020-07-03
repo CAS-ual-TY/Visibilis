@@ -3,20 +3,20 @@ package de.cas_ual_ty.visibilis;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import de.cas_ual_ty.visibilis.command.MessagePrintEquipmentSlot;
+import de.cas_ual_ty.visibilis.command.PrintEquipmentSlotMessage;
 import de.cas_ual_ty.visibilis.command.VCommand;
 import de.cas_ual_ty.visibilis.config.VConfigHelper;
 import de.cas_ual_ty.visibilis.config.VConfiguration;
 import de.cas_ual_ty.visibilis.datatype.DataType;
 import de.cas_ual_ty.visibilis.node.NodeType;
-import de.cas_ual_ty.visibilis.node.player.MessagePlayerMotion;
+import de.cas_ual_ty.visibilis.node.player.PlayerMotionMessage;
 import de.cas_ual_ty.visibilis.print.capability.IPrintHolder;
 import de.cas_ual_ty.visibilis.print.capability.PrintHolder;
-import de.cas_ual_ty.visibilis.print.capability.StoragePrintHolder;
-import de.cas_ual_ty.visibilis.print.entity.MessageSynchEntityToClient;
-import de.cas_ual_ty.visibilis.print.entity.MessageSynchEntityToServer;
-import de.cas_ual_ty.visibilis.print.item.IItemPrint;
-import de.cas_ual_ty.visibilis.print.item.MessagePrintSynchItemToServer;
+import de.cas_ual_ty.visibilis.print.capability.PrintHolderStorage;
+import de.cas_ual_ty.visibilis.print.entity.SynchEntityToClientMessage;
+import de.cas_ual_ty.visibilis.print.entity.SynchEntityToServerMessage;
+import de.cas_ual_ty.visibilis.print.item.IPrintItem;
+import de.cas_ual_ty.visibilis.print.item.PrintSynchItemToServerMessage;
 import de.cas_ual_ty.visibilis.print.provider.NodeListProviderBase;
 import de.cas_ual_ty.visibilis.proxy.IVSidedProxy;
 import de.cas_ual_ty.visibilis.registries.VDataTypes;
@@ -57,7 +57,7 @@ public class Visibilis
     public Visibilis()
     {
         Visibilis.instance = this;
-        Visibilis.proxy = DistExecutor.runForDist(() -> de.cas_ual_ty.visibilis.proxy.VProxyClient::new, () -> de.cas_ual_ty.visibilis.proxy.VProxyServer::new);
+        Visibilis.proxy = DistExecutor.runForDist(() -> de.cas_ual_ty.visibilis.proxy.VClientProxy::new, () -> de.cas_ual_ty.visibilis.proxy.VServerProxy::new);
         
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(this::init);
@@ -80,11 +80,11 @@ public class Visibilis
             () -> Visibilis.PROTOCOL_VERSION,
             Visibilis.PROTOCOL_VERSION::equals,
             Visibilis.PROTOCOL_VERSION::equals);
-        Visibilis.channel.registerMessage(0, MessagePrintSynchItemToServer.class, MessagePrintSynchItemToServer::encode, MessagePrintSynchItemToServer::decode, MessagePrintSynchItemToServer::handle);
-        Visibilis.channel.registerMessage(1, MessagePlayerMotion.class, MessagePlayerMotion::encode, MessagePlayerMotion::decode, MessagePlayerMotion::handle);
-        Visibilis.channel.registerMessage(2, MessagePrintEquipmentSlot.class, MessagePrintEquipmentSlot::encode, MessagePrintEquipmentSlot::decode, MessagePrintEquipmentSlot::handle);
-        Visibilis.channel.registerMessage(3, MessageSynchEntityToServer.class, MessageSynchEntityToServer::encode, MessageSynchEntityToServer::decode, MessageSynchEntityToServer::handle);
-        Visibilis.channel.registerMessage(4, MessageSynchEntityToClient.class, MessageSynchEntityToClient::encode, MessageSynchEntityToClient::decode, MessageSynchEntityToClient::handle);
+        Visibilis.channel.registerMessage(0, PrintSynchItemToServerMessage.class, PrintSynchItemToServerMessage::encode, PrintSynchItemToServerMessage::decode, PrintSynchItemToServerMessage::handle);
+        Visibilis.channel.registerMessage(1, PlayerMotionMessage.class, PlayerMotionMessage::encode, PlayerMotionMessage::decode, PlayerMotionMessage::handle);
+        Visibilis.channel.registerMessage(2, PrintEquipmentSlotMessage.class, PrintEquipmentSlotMessage::encode, PrintEquipmentSlotMessage::decode, PrintEquipmentSlotMessage::handle);
+        Visibilis.channel.registerMessage(3, SynchEntityToServerMessage.class, SynchEntityToServerMessage::encode, SynchEntityToServerMessage::decode, SynchEntityToServerMessage::handle);
+        Visibilis.channel.registerMessage(4, SynchEntityToClientMessage.class, SynchEntityToClientMessage::encode, SynchEntityToClientMessage::decode, SynchEntityToClientMessage::handle);
         
         VDataTypes.addConverters();
         
@@ -92,7 +92,7 @@ public class Visibilis
         NodeListProviderBase.ALL_NODES = new ArrayList<>(allTypes.size());
         NodeListProviderBase.ALL_NODES.addAll(allTypes);
         
-        CapabilityManager.INSTANCE.register(IPrintHolder.class, new StoragePrintHolder(), PrintHolder::new);
+        CapabilityManager.INSTANCE.register(IPrintHolder.class, new PrintHolderStorage(), PrintHolder::new);
     }
     
     @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -104,7 +104,7 @@ public class Visibilis
     
     private void attachCapabilitiesItemStack(AttachCapabilitiesEvent<ItemStack> event)
     {
-        if(event.getObject() instanceof ItemStack && event.getObject().getItem() instanceof IItemPrint)
+        if(event.getObject() instanceof ItemStack && event.getObject().getItem() instanceof IPrintItem)
         {
             VUtility.attachCapability(event);
         }

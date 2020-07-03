@@ -6,9 +6,9 @@ import java.util.function.Consumer;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.print.provider.PrintProvider;
 import de.cas_ual_ty.visibilis.print.ui.component.Component;
-import de.cas_ual_ty.visibilis.print.ui.component.ComponentHeader;
-import de.cas_ual_ty.visibilis.print.ui.component.ComponentNodeList;
-import de.cas_ual_ty.visibilis.print.ui.component.ComponentPrint;
+import de.cas_ual_ty.visibilis.print.ui.component.HeaderComponent;
+import de.cas_ual_ty.visibilis.print.ui.component.NodeListComponent;
+import de.cas_ual_ty.visibilis.print.ui.component.PrintComponent;
 import de.cas_ual_ty.visibilis.util.VRenderUtility;
 import net.minecraft.client.MainWindow;
 import net.minecraft.client.Minecraft;
@@ -30,9 +30,9 @@ public class UiBase implements IGuiEventListener
     public double lastMousePosX;
     public double lastMousePosY;
     
-    public ComponentPrint windowPrint;
-    public ComponentNodeList windowNodeList;
-    public ComponentHeader windowHeader;
+    public PrintComponent windowPrint;
+    public NodeListComponent windowNodeList;
+    public HeaderComponent windowHeader;
     
     public UiBase(Screen gui, PrintProvider provider)
     {
@@ -60,19 +60,19 @@ public class UiBase implements IGuiEventListener
         return this.provider;
     }
     
-    public ComponentPrint createCPrint()
+    public PrintComponent createCPrint()
     {
-        return new ComponentPrint(this);
+        return new PrintComponent(this);
     }
     
-    public ComponentNodeList createCNodeList()
+    public NodeListComponent createCNodeList()
     {
-        return new ComponentNodeList(this);
+        return new NodeListComponent(this);
     }
     
-    public ComponentHeader createCHeader()
+    public HeaderComponent createCHeader()
     {
-        return new ComponentHeader(this);
+        return new HeaderComponent(this);
     }
     
     // All the following functions MUST be invoked by the GuiScreen in order to make this work

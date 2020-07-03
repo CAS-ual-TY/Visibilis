@@ -12,16 +12,16 @@ public class VConfiguration
     public static final ForgeConfigSpec CLIENT_SPEC;
     public static final ForgeConfigSpec COMMON_SPEC;
     
-    public static final VConfigClient CLIENT;
-    public static final VConfigCommon COMMON;
+    public static final VClientConfig CLIENT;
+    public static final VCommonConfig COMMON;
     
     static
     {
-        Pair<VConfigClient, ForgeConfigSpec> client = new Builder().configure(VConfigClient::new);
+        Pair<VClientConfig, ForgeConfigSpec> client = new Builder().configure(VClientConfig::new);
         CLIENT = client.getLeft();
         CLIENT_SPEC = client.getRight();
         
-        Pair<VConfigCommon, ForgeConfigSpec> common = new Builder().configure(VConfigCommon::new);
+        Pair<VCommonConfig, ForgeConfigSpec> common = new Builder().configure(VCommonConfig::new);
         COMMON = common.getLeft();
         COMMON_SPEC = common.getRight();
     }

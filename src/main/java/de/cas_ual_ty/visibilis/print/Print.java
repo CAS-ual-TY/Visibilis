@@ -7,8 +7,8 @@ import java.util.function.Function;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.datatype.DataType;
+import de.cas_ual_ty.visibilis.node.EventNode;
 import de.cas_ual_ty.visibilis.node.Node;
-import de.cas_ual_ty.visibilis.node.NodeEvent;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.print.provider.DataProvider;
@@ -56,7 +56,7 @@ public class Print
     /**
      * All event nodes in this print
      */
-    protected final List<NodeEvent> events;
+    protected final List<EventNode> events;
     
     protected final HashMap<DataType<?>, HashMap<String, ?>> variablesMap;
     
@@ -85,9 +85,9 @@ public class Print
         
         this.nodes.add(node);
         
-        if(node instanceof NodeEvent)
+        if(node instanceof EventNode)
         {
-            this.events.add((NodeEvent)node);
+            this.events.add((EventNode)node);
         }
         
         return this;
@@ -115,7 +115,7 @@ public class Print
      */
     public boolean removeNodeKeepConnections(Node node)
     {
-        if(node instanceof NodeEvent)
+        if(node instanceof EventNode)
         {
             this.events.remove(node);
         }
@@ -144,7 +144,7 @@ public class Print
     /**
      * @return The list of events (no clone or copy).
      */
-    public List<NodeEvent> getEvents()
+    public List<EventNode> getEvents()
     {
         return this.events;
     }
@@ -171,7 +171,7 @@ public class Print
     
     protected boolean executeEvent(String eventType, DataProvider data)
     {
-        NodeEvent event;
+        EventNode event;
         
         // Start from back of list (= on top of gui) to front of list (= on bottom of gui)
         for(int i = this.events.size() - 1; i >= 0; --i)

@@ -2,9 +2,9 @@ package de.cas_ual_ty.visibilis.registries;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.datatype.DataTypeDynamic;
-import de.cas_ual_ty.visibilis.datatype.DataTypeEnum;
-import de.cas_ual_ty.visibilis.datatype.converter.AnyString;
+import de.cas_ual_ty.visibilis.datatype.DynamicDataType;
+import de.cas_ual_ty.visibilis.datatype.EnumDataType;
+import de.cas_ual_ty.visibilis.datatype.converter.ObjToStringConverter;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
@@ -23,12 +23,12 @@ public class VDataTypes
 {
     public static final DataType<Object> EXEC = null;
     public static final DataType<Object> OBJECT = null;
-    public static final DataTypeDynamic<Integer> INTEGER = null;
-    public static final DataTypeDynamic<Float> FLOAT = null;
-    public static final DataTypeDynamic<Double> DOUBLE = null;
+    public static final DynamicDataType<Integer> INTEGER = null;
+    public static final DynamicDataType<Float> FLOAT = null;
+    public static final DynamicDataType<Double> DOUBLE = null;
     public static final DataType<Number> NUMBER = null;
-    public static final DataTypeEnum<Boolean> BOOLEAN = null;
-    public static final DataTypeDynamic<String> STRING = null;
+    public static final EnumDataType<Boolean> BOOLEAN = null;
+    public static final DynamicDataType<String> STRING = null;
     public static final DataType<Vec3d> VECTOR3D = null;
     public static final DataType<PlayerEntity> PLAYER = null;
     public static final DataType<BlockPos> BLOCK_POS = null;
@@ -43,7 +43,7 @@ public class VDataTypes
         
         registry.register(new DataType<>((length) -> new Object[length]).setRegistryName(Visibilis.MOD_ID, "object"));
         
-        registry.register(new DataTypeDynamic<Integer>((length) -> new Integer[length], 1)
+        registry.register(new DynamicDataType<Integer>((length) -> new Integer[length], 1)
         {
             @Override
             public boolean equals(Integer obj1, Integer obj2)
@@ -93,7 +93,7 @@ public class VDataTypes
             }
         }.setRegistryName(Visibilis.MOD_ID, "integer"));
         
-        registry.register(new DataTypeDynamic<Float>((length) -> new Float[length], 1.0F)
+        registry.register(new DynamicDataType<Float>((length) -> new Float[length], 1.0F)
         {
             @Override
             public boolean equals(Float obj1, Float obj2)
@@ -143,7 +143,7 @@ public class VDataTypes
             }
         }.setRegistryName(Visibilis.MOD_ID, "float"));
         
-        registry.register(new DataTypeDynamic<Double>((length) -> new Double[length], 1.0D)
+        registry.register(new DynamicDataType<Double>((length) -> new Double[length], 1.0D)
         {
             @Override
             public boolean equals(Double obj1, Double obj2)
@@ -195,7 +195,7 @@ public class VDataTypes
         
         registry.register(new DataType<>((length) -> new Number[length]).setDefaultValue(0).setRegistryName(Visibilis.MOD_ID, "number"));
         
-        registry.register(new DataTypeEnum<Boolean>((length) -> new Boolean[length])
+        registry.register(new EnumDataType<Boolean>((length) -> new Boolean[length])
         {
             @Override
             public boolean equals(Boolean obj1, Boolean obj2)
@@ -216,7 +216,7 @@ public class VDataTypes
             }
         }.addEnum(false).addEnum(true).setRegistryName(Visibilis.MOD_ID, "boolean"));
         
-        registry.register(new DataTypeDynamic<String>((length) -> new String[length], "text")
+        registry.register(new DynamicDataType<String>((length) -> new String[length], "text")
         {
             @Override
             public boolean canParseString(String s)
@@ -296,14 +296,14 @@ public class VDataTypes
         VDataTypes.FLOAT.registerConverter(VDataTypes.NUMBER, (n) -> n.floatValue());
         VDataTypes.DOUBLE.registerConverter(VDataTypes.NUMBER, (n) -> n.doubleValue());
         
-        VDataTypes.STRING.registerConverter(VDataTypes.INTEGER, new AnyString<>());
-        VDataTypes.STRING.registerConverter(VDataTypes.FLOAT, new AnyString<>());
-        VDataTypes.STRING.registerConverter(VDataTypes.DOUBLE, new AnyString<>());
-        VDataTypes.STRING.registerConverter(VDataTypes.NUMBER, new AnyString<>());
-        VDataTypes.STRING.registerConverter(VDataTypes.BOOLEAN, new AnyString<>());
-        VDataTypes.STRING.registerConverter(VDataTypes.VECTOR3D, new AnyString<>());
-        VDataTypes.STRING.registerConverter(VDataTypes.PLAYER, new AnyString<>());
-        VDataTypes.STRING.registerConverter(VDataTypes.BLOCK_POS, new AnyString<>());
+        VDataTypes.STRING.registerConverter(VDataTypes.INTEGER, new ObjToStringConverter<>());
+        VDataTypes.STRING.registerConverter(VDataTypes.FLOAT, new ObjToStringConverter<>());
+        VDataTypes.STRING.registerConverter(VDataTypes.DOUBLE, new ObjToStringConverter<>());
+        VDataTypes.STRING.registerConverter(VDataTypes.NUMBER, new ObjToStringConverter<>());
+        VDataTypes.STRING.registerConverter(VDataTypes.BOOLEAN, new ObjToStringConverter<>());
+        VDataTypes.STRING.registerConverter(VDataTypes.VECTOR3D, new ObjToStringConverter<>());
+        VDataTypes.STRING.registerConverter(VDataTypes.PLAYER, new ObjToStringConverter<>());
+        VDataTypes.STRING.registerConverter(VDataTypes.BLOCK_POS, new ObjToStringConverter<>());
         
         VDataTypes.BLOCK_POS.registerConverter(VDataTypes.VECTOR3D, BlockPos::new);
         VDataTypes.VECTOR3D.registerConverter(VDataTypes.BLOCK_POS, Vec3d::new);
