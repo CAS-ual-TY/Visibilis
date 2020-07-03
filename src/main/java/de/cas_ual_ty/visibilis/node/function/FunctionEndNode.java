@@ -9,6 +9,8 @@ import de.cas_ual_ty.visibilis.util.VUtility;
 
 public class FunctionEndNode extends FunctionFieldsNode
 {
+    public int execInput;
+    
     public FunctionEndNode(NodeType<?> type)
     {
         super(type);
@@ -35,12 +37,23 @@ public class FunctionEndNode extends FunctionFieldsNode
     @Override
     public boolean doCalculate(DataProvider context)
     {
-        return false;
+        if(context.getTracker().execNodes.getLast() == this)
+        {
+            this.execInput = context.getTracker().execInputs.getLast().getId();
+        }
+        
+        return true;
     }
     
     @Override
     public <O> O getOutputValue(Output<O> out)
     {
         return VUtility.cast(this.getInputValue(this.getInput(out.getId())));
+    }
+    
+    @Override
+    public Output<Object> getOutExec(int index)
+    {
+        return null;
     }
 }

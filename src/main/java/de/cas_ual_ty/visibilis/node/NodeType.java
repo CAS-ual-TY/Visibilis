@@ -7,11 +7,13 @@ public class NodeType<T extends Node> extends ForgeRegistryEntry<NodeType<?>> im
 {
     private IFactory<T> factory;
     protected String eventType;
+    protected boolean invisible;
     
     public NodeType(IFactory<T> factory)
     {
         this.factory = factory;
         this.eventType = null;
+        this.invisible = false;
     }
     
     public T instantiate()
@@ -48,6 +50,20 @@ public class NodeType<T extends Node> extends ForgeRegistryEntry<NodeType<?>> im
     public String getEventType()
     {
         return this.eventType;
+    }
+    
+    public NodeType<T> setInvisible()
+    {
+        this.invisible = true;
+        return this;
+    }
+    
+    /**
+     * @return <b>true</b> to hide these kinds of node in the Node List component of the GUI
+     */
+    public boolean isInvisible()
+    {
+        return this.invisible;
     }
     
     public static interface IFactory<U extends Node>

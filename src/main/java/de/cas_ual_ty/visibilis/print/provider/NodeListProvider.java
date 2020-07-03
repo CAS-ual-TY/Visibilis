@@ -5,6 +5,7 @@ import java.util.List;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.print.Print;
+import de.cas_ual_ty.visibilis.registries.VNodeTypes;
 import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.client.gui.screen.Screen;
 
@@ -98,7 +99,7 @@ public abstract class NodeListProvider
      */
     public boolean canDeleteNode(Node node)
     {
-        return true;
+        return node.type != VNodeTypes.FUNCTION_START && node.type != VNodeTypes.FUNCTION_END;
     }
     
     public boolean validate(Print p)

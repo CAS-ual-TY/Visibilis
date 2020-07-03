@@ -21,6 +21,9 @@ import de.cas_ual_ty.visibilis.node.exec.MergeNode;
 import de.cas_ual_ty.visibilis.node.exec.MultiEqualsBranchNode;
 import de.cas_ual_ty.visibilis.node.exec.ThenNode;
 import de.cas_ual_ty.visibilis.node.exec.WhileNode;
+import de.cas_ual_ty.visibilis.node.function.FunctionEndNode;
+import de.cas_ual_ty.visibilis.node.function.FunctionNode;
+import de.cas_ual_ty.visibilis.node.function.FunctionStartNode;
 import de.cas_ual_ty.visibilis.node.general.MultiConstantNode;
 import de.cas_ual_ty.visibilis.node.general.PrintOutNode;
 import de.cas_ual_ty.visibilis.node.player.GetPlayerOptionalNode;
@@ -155,6 +158,10 @@ public class VNodeTypes
     public static final NodeType<Node> LOAD_BLOCK_POS = null;
     public static final NodeType<Node> LOAD_BLOCK_POS_OPTIONAL = null;
     public static final NodeType<Node> SAVE_BLOCK_POS = null;
+    
+    public static final NodeType<Node> FUNCTION = null;
+    public static final NodeType<Node> FUNCTION_START = null;
+    public static final NodeType<Node> FUNCTION_END = null;
     
     @SubscribeEvent
     public static void register(RegistryEvent.Register<NodeType<? extends Node>> event)
@@ -542,5 +549,9 @@ public class VNodeTypes
         registry.register(new NodeType<>(LoadVarGenericNode.createTypeGenericLoadVar(VDataTypes.BLOCK_POS)).setRegistryName(Visibilis.MOD_ID, "load_block_pos"));
         registry.register(new NodeType<>(LoadVarOptionalGenericNode.createTypeGenericLoadVarOptional(VDataTypes.BLOCK_POS)).setRegistryName(Visibilis.MOD_ID, "load_block_pos_optional"));
         registry.register(new NodeType<>(SaveVarGenericNode.createTypeGenericSaveVar(VDataTypes.BLOCK_POS)).setRegistryName(Visibilis.MOD_ID, "save_block_pos"));
+        
+        registry.register(new NodeType<>(FunctionNode::new).setRegistryName(Visibilis.MOD_ID, "function"));
+        registry.register(new NodeType<>(FunctionStartNode::new).setRegistryName(Visibilis.MOD_ID, "function_start").setInvisible());
+        registry.register(new NodeType<>(FunctionEndNode::new).setRegistryName(Visibilis.MOD_ID, "function_end").setInvisible());
     }
 }

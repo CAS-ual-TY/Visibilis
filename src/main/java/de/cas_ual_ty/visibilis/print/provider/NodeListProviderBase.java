@@ -242,4 +242,12 @@ public class NodeListProviderBase extends NodeListProvider
         list.add(VNodeTypes.SAVE_BLOCK_POS);
         return list;
     }
+    
+    public static List<NodeType<?>> functions(List<NodeType<?>> list)
+    {
+        list.add(VNodeTypes.FUNCTION);
+        list.add(VNodeTypes.FUNCTION_END);
+        list.add(VNodeTypes.FUNCTION_START);
+        return list;
+    }
 }

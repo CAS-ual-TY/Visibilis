@@ -2,7 +2,11 @@ package de.cas_ual_ty.visibilis.node.function;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.datatype.DataType;
+import de.cas_ual_ty.visibilis.node.Node;
+import de.cas_ual_ty.visibilis.node.field.Output;
 import de.cas_ual_ty.visibilis.print.Print;
+import de.cas_ual_ty.visibilis.print.provider.DataProvider;
+import de.cas_ual_ty.visibilis.registries.VNodeTypes;
 import de.cas_ual_ty.visibilis.util.VNBTUtility;
 import de.cas_ual_ty.visibilis.util.VUtility;
 import net.minecraft.nbt.CompoundNBT;
@@ -20,14 +24,32 @@ public class FunctionPrint extends Print
     
     public FunctionNode functionNode;
     
-    public FunctionFieldsNode nodeOutputs;
-    public FunctionFieldsNode nodeInputs;
+    public FunctionEndNode nodeOutputs;
+    public FunctionStartNode nodeInputs;
     
     public FunctionPrint(FunctionNode functionNode)
     {
         this.functionNode = functionNode;
-        this.nodeOutputs = new FunctionEndNode(null).linkParentPrint(this); // functions TODO types
-        this.nodeInputs = new FunctionStartNode(null).linkParentPrint(this); // functions TODO types
+        this.nodeOutputs = (FunctionEndNode)new FunctionEndNode(VNodeTypes.FUNCTION_END).linkParentPrint(this);
+        this.nodeInputs = (FunctionStartNode)new FunctionStartNode(VNodeTypes.FUNCTION_START).linkParentPrint(this);
+    }
+    
+    public boolean exec(DataProvider context)
+    {
+        Output<?> out = this.nodeInputs.getOutput(this.functionNode.execInput);
+        
+        if(!out.hasConnections())
+        {
+            return true;
+        }
+        
+        Node n = out.getConnections().get(0).getNode();
+        return this.exec(n, context);
+    }
+    
+    public boolean calculate(DataProvider context)
+    {
+        return this.nodeOutputs.calculate(context);
     }
     
     public void addOutput(DataType<?> type)

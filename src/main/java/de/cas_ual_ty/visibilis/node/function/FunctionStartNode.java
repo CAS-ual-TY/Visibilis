@@ -41,4 +41,10 @@ public class FunctionStartNode extends FunctionFieldsNode
     {
         return this.parentPrint.getInputValue(out.getId());
     }
+    
+    @Override
+    public boolean isForcedDynamic()
+    {
+        return super.isForcedDynamic() || this.parentPrint.functionNode.isForcedDynamic();
+    }
 }
