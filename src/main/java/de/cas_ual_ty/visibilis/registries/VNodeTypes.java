@@ -161,8 +161,8 @@ public class VNodeTypes
     {
         IForgeRegistry<NodeType<? extends Node>> registry = event.getRegistry();
         
-        registry.register(new NodeType<>((type) -> new EventNode(type, Visibilis.MOD_ID, "command")).setRegistryName(Visibilis.MOD_ID, "event_command"));
-        registry.register(new NodeType<>((type) -> new EventNode(type, Visibilis.MOD_ID, "right_click")).setRegistryName(Visibilis.MOD_ID, "event_right_click"));
+        registry.register(new NodeType<>((type) -> new EventNode(type)).setIsEvent(Visibilis.MOD_ID, "command").setRegistryName(Visibilis.MOD_ID, "event_command"));
+        registry.register(new NodeType<>((type) -> new EventNode(type)).setIsEvent(Visibilis.MOD_ID, "right_click").setRegistryName(Visibilis.MOD_ID, "event_right_click"));
         registry.register(new NodeType<>(VPrintDebugNode::new).setRegistryName(Visibilis.MOD_ID, "print_debug"));
         
         registry.register(new NodeType<>(XP2GenericNode.createTypeGenericXP2(VDataTypes.NUMBER,

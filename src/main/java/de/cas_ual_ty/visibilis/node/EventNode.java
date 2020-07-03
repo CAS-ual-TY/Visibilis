@@ -8,16 +8,10 @@ public class EventNode extends Node
 {
     public final Output<Object> out1Exec;
     
-    /**
-     * The modId:type of this event.
-     */
-    public String eventType;
-    
-    public EventNode(NodeType<?> type, String modId, String eventType)
+    public EventNode(NodeType<?> type)
     {
         super(type);
         this.addOutput(this.out1Exec = new Output<>(this, VDataTypes.EXEC, "out1"));
-        this.eventType = modId + ":" + eventType;
     }
     
     @Override
@@ -30,16 +24,6 @@ public class EventNode extends Node
     public <O> O getOutputValue(Output<O> out)
     {
         return null;
-    }
-    
-    /**
-     * Get the unique event identifier of this event.
-     * 
-     * @return modId:type
-     */
-    public String getEventType()
-    {
-        return this.eventType;
     }
     
     @Override

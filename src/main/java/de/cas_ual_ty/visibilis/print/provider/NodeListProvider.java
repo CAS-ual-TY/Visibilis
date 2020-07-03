@@ -2,7 +2,6 @@ package de.cas_ual_ty.visibilis.print.provider;
 
 import java.util.List;
 
-import de.cas_ual_ty.visibilis.node.EventNode;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeType;
 import de.cas_ual_ty.visibilis.print.Print;
@@ -28,7 +27,7 @@ public abstract class NodeListProvider
      */
     public void onNodeAdded(Node node)
     {
-        if(node instanceof EventNode)
+        if(node.type.isEvent())
         {
             this.getAvailableNodes().remove(node);
         }
@@ -46,7 +45,7 @@ public abstract class NodeListProvider
      */
     public void onNodeRemoved(Node node)
     {
-        if(node instanceof EventNode)
+        if(node.type.isEvent())
         {
             int index = this.getAvailableNodeTypes().indexOf(node.type);
             
@@ -75,7 +74,7 @@ public abstract class NodeListProvider
         // Remove all already existing event nodes so they cant be added twice
         
         Node f;
-        for(EventNode n : print.getEvents())
+        for(Node n : print.getEvents())
         {
             f = null;
             for(Node n1 : this.getAvailableNodes())

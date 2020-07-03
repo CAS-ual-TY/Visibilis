@@ -7,7 +7,6 @@ import java.util.function.Function;
 
 import de.cas_ual_ty.visibilis.Visibilis;
 import de.cas_ual_ty.visibilis.datatype.DataType;
-import de.cas_ual_ty.visibilis.node.EventNode;
 import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.field.Input;
 import de.cas_ual_ty.visibilis.node.field.Output;
@@ -56,7 +55,7 @@ public class Print
     /**
      * All event nodes in this print
      */
-    protected final List<EventNode> events;
+    protected final List<Node> events;
     
     protected final HashMap<DataType<?>, HashMap<String, ?>> variablesMap;
     
@@ -85,9 +84,9 @@ public class Print
         
         this.nodes.add(node);
         
-        if(node instanceof EventNode)
+        if(node.type.isEvent())
         {
-            this.events.add((EventNode)node);
+            this.events.add(node);
         }
         
         return this;
@@ -115,7 +114,7 @@ public class Print
      */
     public boolean removeNodeKeepConnections(Node node)
     {
-        if(node instanceof EventNode)
+        if(node.type.isEvent())
         {
             this.events.remove(node);
         }
@@ -144,7 +143,7 @@ public class Print
     /**
      * @return The list of events (no clone or copy).
      */
-    public List<EventNode> getEvents()
+    public List<Node> getEvents()
     {
         return this.events;
     }
@@ -171,14 +170,14 @@ public class Print
     
     protected boolean executeEvent(String eventType, DataProvider data)
     {
-        EventNode event;
+        Node event;
         
         // Start from back of list (= on top of gui) to front of list (= on bottom of gui)
         for(int i = this.events.size() - 1; i >= 0; --i)
         {
             event = this.events.get(i);
             
-            if(event.eventType.equals(eventType))
+            if(event.type.getEventType().equals(eventType))
             {
                 return this.execute(event, data);
             }
