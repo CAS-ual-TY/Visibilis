@@ -23,6 +23,12 @@ public class FunctionEndNode extends FunctionFieldsNode
     }
     
     @Override
+    public DataType<?> getField(int index)
+    {
+        return this.getInput(index).getDataType();
+    }
+    
+    @Override
     public void removeField(int index)
     {
         this.removeInput(index);
@@ -37,6 +43,8 @@ public class FunctionEndNode extends FunctionFieldsNode
     @Override
     public boolean doCalculate(DataProvider context)
     {
+        this.execInput = -1;
+        
         if(context.getTracker().execNodes.getLast() == this)
         {
             this.execInput = context.getTracker().execInputs.getLast().getId();

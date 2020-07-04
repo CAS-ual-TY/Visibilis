@@ -26,12 +26,14 @@ public class FunctionNode extends Node
     {
         //        boolean ret;
         
+        this.execInput = -1;
+        
         if(context.getTracker().execNodes.getLast() == this)
         {
             //            ExecTracker tracker = context.getTracker();
             //            context.newTracker(new ExecTracker());
             this.execInput = context.getTracker().execInputs.getLast().getId();
-            return this.functionPrint.exec(context);
+            return this.functionPrint.exec(context, this.execInput);
             //            context.newTracker(tracker);
         }
         else
@@ -45,7 +47,7 @@ public class FunctionNode extends Node
     @Override
     public Output<Object> getOutExec(int index)
     {
-        return index == 0 ? VUtility.cast(this.getOutput(this.functionPrint.nodeOutputs.execInput)) : null;
+        return index == 0 && this.functionPrint.nodeOutputs.execInput != -1 ? VUtility.cast(this.getOutput(this.functionPrint.nodeOutputs.execInput)) : null;
     }
     
     public <O> void addOutput(DataType<O> type)

@@ -22,6 +22,8 @@ public abstract class FunctionFieldsNode extends Node
     
     public abstract void addField(DataType<?> type);
     
+    public abstract DataType<?> getField(int index);
+    
     public abstract void removeField(int index);
     
     public abstract int getSize();

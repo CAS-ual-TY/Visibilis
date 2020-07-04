@@ -19,6 +19,12 @@ public class FunctionStartNode extends FunctionFieldsNode
     }
     
     @Override
+    public DataType<?> getField(int index)
+    {
+        return this.getOutput(index).getDataType();
+    }
+    
+    @Override
     public void removeField(int index)
     {
         this.removeOutput(index);

@@ -27,16 +27,22 @@ public class FunctionPrint extends Print
     public FunctionEndNode nodeOutputs;
     public FunctionStartNode nodeInputs;
     
+    public boolean outputsChanged;
+    public boolean inputsChanged;
+    
     public FunctionPrint(FunctionNode functionNode)
     {
         this.functionNode = functionNode;
         this.nodeOutputs = (FunctionEndNode)new FunctionEndNode(VNodeTypes.FUNCTION_END).linkParentPrint(this);
         this.nodeInputs = (FunctionStartNode)new FunctionStartNode(VNodeTypes.FUNCTION_START).linkParentPrint(this);
+        
+        this.outputsChanged = false;
+        this.inputsChanged = false;
     }
     
-    public boolean exec(DataProvider context)
+    public boolean exec(DataProvider context, int execInput)
     {
-        Output<?> out = this.nodeInputs.getOutput(this.functionNode.execInput);
+        Output<?> out = this.nodeInputs.getOutput(execInput);
         
         if(!out.hasConnections())
         {
@@ -54,20 +60,61 @@ public class FunctionPrint extends Print
     
     public void addOutput(DataType<?> type)
     {
-        this.functionNode.addOutput(type);
+        if(!this.outputsChanged)
+        {
+            this.outputsChanged = true;
+        }
         this.nodeOutputs.addField(type);
     }
     
     public void addInput(DataType<?> type)
     {
-        this.functionNode.addInput(type);
+        if(!this.inputsChanged)
+        {
+            this.inputsChanged = true;
+        }
         this.nodeInputs.addField(type);
     }
     
     public void removeOutput(int index)
     {
-        this.functionNode.removeOutput(index);
+        if(!this.outputsChanged)
+        {
+            this.outputsChanged = true;
+        }
         this.nodeOutputs.removeField(index);
+    }
+    
+    public void removeInput(int index)
+    {
+        if(!this.inputsChanged)
+        {
+            this.inputsChanged = true;
+        }
+        this.nodeInputs.removeField(index);
+    }
+    
+    public void updateFunctionNodeFields()
+    {
+        if(this.outputsChanged)
+        {
+            this.functionNode.clearOutputs();
+            
+            for(int i = 0; i < this.nodeOutputs.getSize(); ++i)
+            {
+                this.functionNode.addOutput(this.nodeOutputs.getField(i));
+            }
+        }
+        
+        if(this.inputsChanged)
+        {
+            this.functionNode.clearInputs();
+            
+            for(int i = 0; i < this.nodeInputs.getSize(); ++i)
+            {
+                this.functionNode.addInput(this.nodeInputs.getField(i));
+            }
+        }
     }
     
     public <O> O getOutputValue(int index)
@@ -119,20 +166,28 @@ public class FunctionPrint extends Print
         super.writeToNBT(nbt0, writeVariables);
         
         ListNBT list = new ListNBT();
-        for(int i = 0; i < this.functionNode.getOutputAmt(); ++i)
+        for(int i = 0; i < this.nodeOutputs.getSize(); ++i)
         {
-            list.add(StringNBT.valueOf(this.functionNode.getOutput(i).getDataType().getRegistryName().toString()));
+            list.add(StringNBT.valueOf(this.nodeOutputs.getField(i).getRegistryName().toString()));
         }
         nbt0.put(FunctionPrint.KEY_OUT_DATA_TYPES, list);
         
         list = new ListNBT();
-        for(int i = 0; i < this.functionNode.getInputAmt(); ++i)
+        for(int i = 0; i < this.nodeInputs.getSize(); ++i)
         {
-            list.add(StringNBT.valueOf(this.functionNode.getInput(i).getDataType().getRegistryName().toString()));
+            list.add(StringNBT.valueOf(this.nodeInputs.getField(i).getRegistryName().toString()));
         }
         nbt0.put(FunctionPrint.KEY_IN_DATA_TYPES, list);
         
         this.addNode(this.nodeOutputs);
         this.addNode(this.nodeInputs);
+    }
+    
+    @Override
+    public Print clone()
+    {
+        FunctionPrint p = new FunctionPrint(this.functionNode);
+        VNBTUtility.readPrintFromNBT(p, VNBTUtility.savePrintToNBT(this, true), true);
+        return p;
     }
 }
