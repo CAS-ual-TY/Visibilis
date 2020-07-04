@@ -404,6 +404,26 @@ public abstract class Node
         }
     }
     
+    public void clearOutputs()
+    {
+        for(Output<?> out : this.outputFields)
+        {
+            out.cutConnections();
+        }
+        
+        this.outputFields.clear();
+    }
+    
+    public void clearInputs()
+    {
+        for(Input<?> in : this.inputFields)
+        {
+            in.cutConnections();
+        }
+        
+        this.inputFields.clear();
+    }
+    
     /**
      * @return The total amount of Output<?> node fields.
      */
