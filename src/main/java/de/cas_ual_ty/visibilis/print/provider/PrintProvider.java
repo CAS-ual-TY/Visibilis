@@ -6,6 +6,7 @@ import de.cas_ual_ty.visibilis.node.Node;
 import de.cas_ual_ty.visibilis.node.NodeAction;
 import de.cas_ual_ty.visibilis.print.Print;
 import de.cas_ual_ty.visibilis.print.UndoList;
+import de.cas_ual_ty.visibilis.registries.VNodeTypes;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.text.ITextComponent;
 
@@ -88,6 +89,11 @@ public abstract class PrintProvider
         return true;
     }
     
+    public boolean canCloneNode(Node node)
+    {
+        return node.type != VNodeTypes.FUNCTION_START && node.type != VNodeTypes.FUNCTION_END;
+    }
+    
     /**
      * Return all possible node actions for the given nodes. Adds a deletion option by default.
      * @see NodeAction
@@ -96,6 +102,21 @@ public abstract class PrintProvider
     public List<NodeAction> getActionsForNode(Node node)
     {
         List<NodeAction> list = node.getActions();
+        
+        if(this.canCloneNode(node))
+        {
+            list.add(new NodeAction(node, NodeAction.LANG_CLONE)
+            {
+                @Override
+                public boolean clicked()
+                {
+                    int x = this.node.getPosX() + 4;
+                    int y = this.node.getPosY() + 4;
+                    PrintProvider.this.getPrint().addNode(this.node.clone().setPosition(x, y));
+                    return true;
+                }
+            });
+        }
         
         if(this.canDeleteNode(node))
         {

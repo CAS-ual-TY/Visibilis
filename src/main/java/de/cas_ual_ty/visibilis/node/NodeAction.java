@@ -9,6 +9,7 @@ public abstract class NodeAction
     public static final String LANG_UNPARALLELIZE = "visibilis.action.unparallelize";
     public static final String LANG_DYNAMIC = "visibilis.action.dynamic";
     public static final String LANG_STATIC = "visibilis.action.static";
+    public static final String LANG_CLONE = "visibilis.action.clone";
     
     public final Node node;
     public final String text;
